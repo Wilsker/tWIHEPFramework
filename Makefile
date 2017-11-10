@@ -165,6 +165,7 @@ BINS_Wt= bin/Wt/Wt_generic.x
 BINS_Vertex= bin/Wt/Wt_nVertOnly.x
 BINS_Synch= bin/Wt/Wt_synch.x
 #BINS_Wt= bin/Wt/Wt.x bin/Wt/Wt_mumu.x bin/Wt/Wteu.x bin/Wt/Wt_Tree.x bin/Wt/Wt_generic.x
+BINS_ttH= bin/ttH/ttH_generic.x
 BINS_Skimming= bin/Skimming/Skimming.x 
 BINS_St= bin/St/St_subtractQCD.x
 BINS_MCStudies= bin/MCstudies/MCttbarClassifier.x
@@ -187,6 +188,7 @@ help:
 	@echo "  make  all             -->  Make all executables"
 	@echo "  make  St              -->  St executables"
 	@echo "  make  Wt              -->  Wt executables"
+	@echo "  make  ttH              -->  ttH executables"
 	@echo "  make  Skimming              -->  Skimming executables"
 	@echo "  make  Example         -->  Example executable"
 	@echo "  make  Matching        -->  Matching executables"
@@ -202,6 +204,7 @@ help:
 	@echo "  make cleanExe             -->  Removes all executables"
 	@echo "  make cleanSt              -->  Removes St executables"
 	@echo "  make cleanWt              -->  Removes Wt executables"
+	@echo "  make cleanttH              -->  Removes ttH executables"
 	@echo "  make cleanSkimming              -->  Removes Skimming executables"
 	@echo "  make cleanExample         -->  Removes Example executables"
 	@echo "  make cleanMatching        -->  Removes Matching executables"
@@ -229,11 +232,13 @@ dbg:
 # Target: Executable categories
 # Make executables belonging to a certain category
 ####################################################################################
-all: lib St Wt Skimming FER2 Matching ParticleStudies MCStudies EventComparison BTag
+all: lib St Wt ttH Skimming FER2 Matching ParticleStudies MCStudies EventComparison BTag
 
 St: lib $(BINS_St)
 
 Wt: lib $(BINS_Wt)
+
+ttH: lib $(BINS_ttH)
 
 Synch: lib $(BINS_Synch)
 
@@ -389,6 +394,8 @@ cleanBTag:
 	rm -f $(BINS_BTag)
 cleanWt:
 	rm -f $(BINS_Wt)
+cleanttH:
+	rm -f $(BINS_ttH)
 cleanSynch:
 	rm -f $(BINS_Synch)
 cleanSkimming:
@@ -396,11 +403,11 @@ cleanSkimming:
 cleanSt:
 	rm -f $(BINS_St)
 
-cleanExe: cleanSt cleanWt cleanSynch cleanSkimming cleanEventComparison cleanExample cleanParticleStudies cleanMCStudies
+cleanExe: cleanSt cleanWt cleanttH cleanSynch cleanSkimming cleanEventComparison cleanExample cleanParticleStudies cleanMCStudies
 
 cleanall: clean
 
-clean:  cleanSt cleanWt cleanSynch cleanSkimming cleanEventComparison cleanExample cleanParticleStudies cleanMCStudies
+clean:  cleanSt cleanWt cleanttH cleanSynch cleanSkimming cleanEventComparison cleanExample cleanParticleStudies cleanMCStudies
 	rm -rf ti_files
 	rm -rf $(DIR_OBJ)/*
 	rm -rf $(DIR_TMP)/*
