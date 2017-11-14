@@ -435,7 +435,7 @@ Bool_t Muon::Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation)
   if(     "Tight"      == muonType) return (passMinPt && passMaxEta  && passTightId() && passCustomID && passRelIso);
   else if("Veto"       == muonType) return (passMinPt && passMaxEta);//no isolation req. or inner det or jet overlap.
   else if("UnIsolated" == muonType) return (passMinPt && passMaxEta  && passTightId() && passCustomID && ! passRelIso); //The same as tight muons, but with an inverted isolation requirement
-    //    std::cout << muPt << " " << minPt << " " << muEta << " " << maxEta << std::end;
+  std::cout << muPt << " " << _minPtCuts[muonType] << " " << muEta << " " << _maxEtaCuts[muonType] << std::endl;
   //else if("Isolated"   == muonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == muonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());
   //else if("All"        == muonType) return( kTRUE );
