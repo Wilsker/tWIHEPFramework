@@ -68,7 +68,9 @@ ClassImp(Muon)
   _TLayers		(0.0),
   _relIsoR04		(0.0),
   _ndof			(0.0),
-  _charge		(0.0)
+  _charge		(0.0),
+  _IP3Dsig			(0.0),
+  _miniIsoRel			(0.0)
 {
 
 } //Muon
@@ -114,8 +116,10 @@ Muon::Muon(const Muon& other): Particle(other),
   _matchedStat(other.GetmatchedStat()),
   _TLayers(other.GetTLayers()),
   _relIsoR04(other.GetrelIsoR04()),
-			       _ndof(other.Getndof()),
-			       _charge(other.GetCharge())			       
+  _ndof(other.Getndof()),
+  _charge(other.GetCharge()),
+  _IP3Dsig(other.GetIP3Dsig()),
+  _miniIsoRel(other.GetminiIsoRel())
 			       
 {
 } //Muon()
@@ -149,7 +153,9 @@ Muon::Muon(const Particle& other): Particle(other),
   _TLayers		(0.0),
 				   _relIsoR04            (0.0),
 				   _ndof (0.0),
-				   _charge(0.0)
+				   _charge(0.0),
+  _IP3Dsig			(0.0),
+  _miniIsoRel			(0.0)
 {
 } //Muon
 
@@ -215,6 +221,8 @@ Muon& Muon::operator=(const Particle& other)
   SetrelIsoR04		(0.0);
   Setndof		(0.0);
   SetCharge		(0.0);
+  SetIP3Dsig		(0.0);
+  SetminiIsoRel		(0.0);
   return *this;
 } //= Particle
 
@@ -250,6 +258,8 @@ Muon& Muon::operator=(const Muon& other)
   SetrelIsoR04(other.GetrelIsoR04());
   Setndof(other.Getndof());
   SetCharge(other.GetCharge());
+  SetIP3Dsig(other.GetIP3Dsig());
+  SetminiIsoRel(other.GetminiIsoRel());
   return *this;
 } //= const muon
 
@@ -285,6 +295,8 @@ Muon& Muon::operator=(Muon& other)
   SetrelIsoR04(other.GetrelIsoR04());
   Setndof(other.Getndof());
   SetCharge(other.GetCharge());
+  SetIP3Dsig(other.GetIP3Dsig());
+  SetminiIsoRel(other.GetminiIsoRel());
   return *this;
 } //= non-const muon
 
@@ -301,6 +313,10 @@ void Muon::SetCuts(TEnv* config, TString muonType)
   _minPtCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MinPt", 100.0);
   _maxEtaCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MaxEta", 0.0);
   _maxRelIsoCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MaxRelIso", 100.0);
+  _maxDxyCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MaxDxy", 0.0);
+  _maxDzCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MaxDz", 0.0);
+  _maxIP3DsigCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MaxIP3Dsig", 0.0);
+  _maxMiniIsoRelCuts[muonType] = config -> GetValue("ObjectID.Muon."+muonType+".MaxMiniIsoRel", 0.0);
 
 }
 
@@ -353,6 +369,8 @@ Bool_t Muon::Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation)
   SetrelIsoR04		(evtr -> Muon_relIsoDeltaBetaR04-> operator[](iE));
   Setndof		(evtr -> Muon_ndof		-> operator[](iE));
   SetCharge		(evtr -> Muon_charge		-> operator[](iE));
+  SetminiIsoRel		(evtr -> Muon_miniIsoRel   		-> operator[](iE));
+  SetIP3Dsig		(evtr -> Muon_IP3Dsig_it   		-> operator[](iE));
  
   // **************************************************************
   // Isolation Cuts
@@ -397,16 +415,7 @@ Bool_t Muon::Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation)
   // **************************************************************
   // Run 2 relative isolation cuts
   // **************************************************************
-  Bool_t passRelIso = kTRUE;
 
-  //  std::cout << relIsoR04() << " " << _maxRelIsoCuts[muonType] << " " << muonType << " ";
-
-  if (relIsoR04() > _maxRelIsoCuts[muonType]) {passRelIso = kFALSE;
-    //    std::cout << "false";
-  }
-  //  else std::cout << "true";
-
-  //  std::cout << " " << passRelIso << std::endl;
   
   // **************************************************************
   // Pt and Eta Cuts
@@ -415,27 +424,24 @@ Bool_t Muon::Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation)
   Bool_t passMinPt  = kTRUE;
   Bool_t passMaxEta = kTRUE;
 
-  Bool_t passCustomID = kTRUE;
+  Bool_t passCustomVeto = kTRUE;
   
   //I don't know if the tight ID is the same as these custom ID variables, so I'm checking both.
-  if (chi2()/ndof() 	>= 10  ||
-      TLayers()		<= 5   ||
-      validHits()	<  1   ||
-      dxy()		>= 0.2 ||
-      dz()		>= 0.5 ||
-      validHitsInner()	<  1   ||
-      matchedStat()	<  2)
-    passCustomID = kFALSE;
+  if (
+      TMath::Abs(dxy())		>= _maxDxyCuts[muonType] ||
+      TMath::Abs(dz())		>= _maxDzCuts[muonType] ||
+      IP3Dsig()	>=  _maxIP3DsigCuts[muonType]   ||
+      miniIsoRel()	>=  _maxMiniIsoRelCuts[muonType])
+    passCustomVeto = kFALSE;
   
   // Test Requirements
   if(muPt <= _minPtCuts[muonType])               passMinPt  = kFALSE;
   if(TMath::Abs(muEta) >= _maxEtaCuts[muonType]) passMaxEta = kFALSE;
 
   //  if(     "Tight"      == muonType) return( passMinPt && passMaxEta  && IsTight() && Isolation() && !GetOverlapWithJet() && IsCombinedMuon());
-  if(     "Tight"      == muonType) return (passMinPt && passMaxEta  && passTightId() && passCustomID && passRelIso);
-  else if("Veto"       == muonType) return (passMinPt && passMaxEta);//no isolation req. or inner det or jet overlap.
-  else if("UnIsolated" == muonType) return (passMinPt && passMaxEta  && passTightId() && passCustomID && ! passRelIso); //The same as tight muons, but with an inverted isolation requirement
-  std::cout << muPt << " " << _minPtCuts[muonType] << " " << muEta << " " << _maxEtaCuts[muonType] << std::endl;
+  if(     "Tight"      == muonType) return (passMinPt && passMaxEta  && passTightId());
+  else if("Veto"       == muonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
+  else if("UnIsolated" == muonType) return (passMinPt && passMaxEta  && passTightId()); //The same as tight muons, but with an inverted isolation requirement
   //else if("Isolated"   == muonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == muonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());
   //else if("All"        == muonType) return( kTRUE );

@@ -52,7 +52,7 @@ public:
   ~Muon();
 
   // Set all contents to their defaults
-  inline void Clear() { Particle::Clear(); _passTightId = kFALSE; _passLooseId = kFALSE;_isSoft = kFALSE; _isHighPt = kFALSE; _isoCharged = 0.0; _isoSum = 0.0; _isoCharParPt = 0.0; _isoNeutralHadron = 0.0;  _isoPhoton = 0.0;  _isoPU = 0.0; _chi2=0.0; _dxy=0.0; _validHits = 0.0; _validHitsInner = 0.0; _matchedStat=0.0; _TLayers=0.0; _relIsoR04=0.0;};
+  inline void Clear() { Particle::Clear(); _passTightId = kFALSE; _passLooseId = kFALSE;_isSoft = kFALSE; _isHighPt = kFALSE; _isoCharged = 0.0; _isoSum = 0.0; _isoCharParPt = 0.0; _isoNeutralHadron = 0.0;  _isoPhoton = 0.0;  _isoPU = 0.0; _chi2=0.0; _dxy=0.0; _validHits = 0.0; _validHitsInner = 0.0; _matchedStat=0.0; _TLayers=0.0; _relIsoR04=0.0; _miniIsoRel =0.0; _IP3Dsig=0.0;};
 
   // Fill the muon from an EventTree
   Bool_t Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation);
@@ -157,6 +157,14 @@ public:
   inline Double_t GetCharge() const {return _charge;};
   inline Double_t charge() const {return _charge;};
 
+  inline void SetminiIsoRel(Double_t miniIsoRel){_miniIsoRel = miniIsoRel;};
+  inline Double_t GetminiIsoRel() const {return _miniIsoRel;};
+  inline Double_t miniIsoRel() const {return _miniIsoRel;};
+
+  inline void SetIP3Dsig(Double_t IP3Dsig){_IP3Dsig = IP3Dsig;};
+  inline Double_t GetIP3Dsig() const {return _IP3Dsig;};
+  inline Double_t IP3Dsig() const {return _IP3Dsig;};
+
 private:
 
   Bool_t _passTightId;
@@ -180,12 +188,18 @@ private:
   Double_t _relIsoR04;
   Double_t _ndof;
   Double_t _charge;
+  Double_t _miniIsoRel;
+  Double_t _IP3Dsig;
 
   //////////////////////////////////
   // Definitions of the objects go here. This way we don't need to access the configuration file for every particle
   map<TString,Double_t> _minPtCuts;
   map<TString,Double_t> _maxEtaCuts;
   map<TString,Double_t> _maxRelIsoCuts;
+  map<TString,Double_t> _maxDxyCuts;
+  map<TString,Double_t> _maxDzCuts;
+  map<TString,Double_t> _maxIP3DsigCuts;
+  map<TString,Double_t> _maxMiniIsoRelCuts;
 
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system

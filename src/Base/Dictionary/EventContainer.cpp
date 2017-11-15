@@ -603,6 +603,7 @@ Int_t EventContainer::ReadEvent()
     ///////////////////////////////////////////  
     //NOTE: although the missingEt is sent into all the muon loops, it is ONLY shifted in the all muons loop
     // All muon
+    Bool_t amu = kFALSE;
     for(Int_t io = 0;io < _eventTree -> Muon_pt->size(); io++) {
       newMuon.Clear();
       useObj = newMuon.Fill(_eventTree, io,"All", isSimulation);
@@ -620,12 +621,16 @@ Int_t EventContainer::ReadEvent()
       useObj = newMuon.Fill(_eventTree, io,"Veto", isSimulation);
       if(useObj) {
         vetoMuons.push_back(newMuon);
+        if(!amu){
+          std::cout << eventNumber << " " << newMuon.Pt() << " " << newMuon.Eta() << " " << newMuon.Phi() << " "<< newMuon.E() << " "<< newMuon.dxy() << " " << newMuon.dz() << " "<< newMuon.IP3Dsig()<< " " << newMuon.miniIsoRel() << " " << newMuon.passLooseId() << std::endl;
+        }
+        amu = kTRUE;
       } // if useObj
 
       newMuon.Clear();
       useObj = newMuon.Fill(_eventTree, io,"UnIsolated", isSimulation);
       if(useObj) {
-	unIsolatedMuons.push_back(newMuon);
+	    unIsolatedMuons.push_back(newMuon);
       } // if useObj
 
     } //for muon loop
