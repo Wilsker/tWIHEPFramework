@@ -426,7 +426,7 @@ Bool_t Muon::Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation)
 
   Bool_t passCustomVeto = kTRUE;
   
-  //I don't know if the tight ID is the same as these custom ID variables, so I'm checking both.
+  //parts of definition of ttH loose muon
   if (
       TMath::Abs(dxy())		>= _maxDxyCuts[muonType] ||
       TMath::Abs(dz())		>= _maxDzCuts[muonType] ||

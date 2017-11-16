@@ -335,6 +335,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   // Check for any systematic uncertainties we may be calculating
   _metShift = _config.GetValue("Systs.metShift",0);
   _channelName = _config.GetValue("ChannelName","");
+  _sync = _config.GetValue("SyncType",0);
 
   return;
 } //Initialize()
@@ -384,6 +385,9 @@ void EventContainer::SetUseUnisolatedLeptons(const Bool_t& useUnisolatedLeptons,
   else if (_trigID == 1 && useUnisolatedLeptons){
     muonsToUsePtr = &unIsolatedMuons;
   }
+  
+  electronsVetoPtr = &vetoElectrons;
+  muonsVetoPtr = &vetoMuons;
 
   //For the synch excercise we want it to always be tight leptons, so I'm gonna add here the ability to just make it all tight.
   //  if (GetChannelName() == "ee" || GetChannelName() == "emu" || GetChannelName() == "mumu"){
@@ -558,47 +562,6 @@ Int_t EventContainer::ReadEvent()
 
 
     ///////////////////////////////////////////
-    // Electrons-->refilled and sorted later in method!!
-    ///////////////////////////////////////////
-
-    // All electrons
-    for(Int_t io = 0; io < _eventTree->patElectron_pt->size(); io++) {
-      newElectron.Clear();
-      useObj=newElectron.Fill(_eventTree, io,"All",isSimulation);
-      if(useObj) { 
-	electrons.push_back(newElectron);
-      }  
-      //if(_eventTree->Electron_tight->at(io) == 1 && _eventTree->Electron_pt->at(io)>10000){
-      //  TLorentzVector a(0,0,0,0);
-      //  a.SetPtEtaPhiE(_eventTree->Electron_pt->at(io), _eventTree->Electron_eta->at(io), _eventTree->Electron_phi->at(io), 0);
-      //  Electrons_tlv.push_back(a);
-      //  a.SetPtEtaPhiE(_eventTree->Electron_pt->at(io)*newElectron.E()*1000/_eventTree->Electron_cluster_E->at(io),newElectron.Eta(), newElectron.Phi(),newElectron.E()*1000); 
-      //  Electrons_tlv_scaled.push_back(a);
-      //} else{
-      //  TLorentzVector a(0,0,0,0);
-      //  Electrons_tlv.push_back(a);
-      //  Electrons_tlv_scaled.push_back(a);
-      //}
-
-      newElectron.Clear();
-      useObj=newElectron.Fill(_eventTree,  io,"Tight",isSimulation);
-      if(useObj) {
-        tightElectrons.push_back(newElectron);
-      }
-
-      newElectron.Clear();
-      useObj=newElectron.Fill(_eventTree,  io,"Veto",isSimulation);
-      if(useObj) {
-        vetoElectrons.push_back(newElectron);
-      }
-
-      newElectron.Clear();
-      useObj=newElectron.Fill(_eventTree,  io,"UnIsolated",isSimulation);
-      if(useObj) {
-        unIsolatedElectrons.push_back(newElectron);
-      }
-    } //for
-    ///////////////////////////////////////////
     // Muons
     ///////////////////////////////////////////  
     //NOTE: although the missingEt is sent into all the muon loops, it is ONLY shifted in the all muons loop
@@ -621,7 +584,7 @@ Int_t EventContainer::ReadEvent()
       useObj = newMuon.Fill(_eventTree, io,"Veto", isSimulation);
       if(useObj) {
         vetoMuons.push_back(newMuon);
-        if(!amu){
+        if(!amu && _sync == 1){
           std::cout << eventNumber << " " << newMuon.Pt() << " " << newMuon.Eta() << " " << newMuon.Phi() << " "<< newMuon.E() << " "<< newMuon.dxy() << " " << newMuon.dz() << " "<< newMuon.IP3Dsig()<< " " << newMuon.miniIsoRel() << " " << newMuon.passLooseId() << std::endl;
         }
         amu = kTRUE;
@@ -634,6 +597,55 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
 
     } //for muon loop
+    
+    
+    ///////////////////////////////////////////
+    // Electrons-->refilled and sorted later in method!!
+    ///////////////////////////////////////////
+
+    Bool_t aele = kFALSE;
+    // All electrons
+    for(Int_t io = 0; io < _eventTree->patElectron_pt->size(); io++) {
+      newElectron.Clear();
+      useObj=newElectron.Fill(*muonsVetoPtr, _eventTree, io,"All",isSimulation);
+      if(useObj) { 
+	electrons.push_back(newElectron);
+      }  
+      //if(_eventTree->Electron_tight->at(io) == 1 && _eventTree->Electron_pt->at(io)>10000){
+      //  TLorentzVector a(0,0,0,0);
+      //  a.SetPtEtaPhiE(_eventTree->Electron_pt->at(io), _eventTree->Electron_eta->at(io), _eventTree->Electron_phi->at(io), 0);
+      //  Electrons_tlv.push_back(a);
+      //  a.SetPtEtaPhiE(_eventTree->Electron_pt->at(io)*newElectron.E()*1000/_eventTree->Electron_cluster_E->at(io),newElectron.Eta(), newElectron.Phi(),newElectron.E()*1000); 
+      //  Electrons_tlv_scaled.push_back(a);
+      //} else{
+      //  TLorentzVector a(0,0,0,0);
+      //  Electrons_tlv.push_back(a);
+      //  Electrons_tlv_scaled.push_back(a);
+      //}
+
+      newElectron.Clear();
+      useObj=newElectron.Fill(*muonsVetoPtr, _eventTree,  io,"Tight",isSimulation);
+      if(useObj) {
+        tightElectrons.push_back(newElectron);
+      }
+
+      newElectron.Clear();
+      useObj=newElectron.Fill(*muonsVetoPtr, _eventTree,  io,"Veto",isSimulation);
+      if(useObj) {
+        vetoElectrons.push_back(newElectron);
+        if(!aele && _sync ==2){
+          std::cout << eventNumber << " " << newElectron.Pt() << " " << newElectron.Eta() << " " << newElectron.Phi() << " "<< newElectron.E() << " "<< newElectron.patElectron_dxy() << " " << newElectron.patElectron_dz() << " "<< newElectron.IP3Dsig()<< " " << newElectron.miniIsoRel() << " " << newElectron.missingHits() << std::endl;
+        }
+        aele = kTRUE;
+      }
+
+      newElectron.Clear();
+      useObj=newElectron.Fill(*muonsVetoPtr, _eventTree,  io,"UnIsolated",isSimulation);
+      if(useObj) {
+        unIsolatedElectrons.push_back(newElectron);
+      }
+    } //for
+
 
     ///////////////////////////////////////////
     // Jets

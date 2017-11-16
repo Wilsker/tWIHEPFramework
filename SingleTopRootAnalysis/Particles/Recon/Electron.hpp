@@ -30,9 +30,12 @@
 
 #include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Particle.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Muon.hpp"
 #include "SingleTopRootAnalysis/Trees/EventTree.hpp"
 #include "SingleTopRootAnalysis/Trees/FastSimTree.hpp"
 #include "SingleTopRootAnalysis/Base/Dictionary/Top_MET.hpp"
+
+class Muon;
 
 class Electron: public Particle
 {
@@ -64,15 +67,16 @@ class Electron: public Particle
 
   // Set all contents to their defaults
   inline void Clear() { Particle::Clear(); _passVetoId = 0.0; _passLooseId = 0.0; _passMediumId = 0.0; _passTightId = 0.0; _passHEEPId = 0.0; _passConversionVeto = 0.0;
-  _patElectron_d0 = 0.0; _patElectron_dz = 0.0; _expectedMissingInnerHits = 0.0;
+  _patElectron_d0 = 0.0; _patElectron_dz = 0.0; _patElectron_dxy=0.0; _expectedMissingInnerHits = 0.0;
   _isoChargedHadrons = 0.0; _isoNeutralHadrons = 0.0; _isoPhotons = 0.0; _isoPU = 0.0;
+  _miniIsoRel =0.0; _IP3Dsig=0.0;
   }
 
   //Set up the cuts
   void SetCuts(TEnv* config, TString electronType);
 
   // Fill the electron from an EventTree
-  Bool_t Fill(EventTree *evtr, Int_t iE, TString electronType, Bool_t isSimulation=false);
+  Bool_t Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t iE, TString electronType, Bool_t isSimulation=false);
 
   // also fill from a fastsim tree
   Bool_t FillFastSim(FastSimTree *tr, Int_t iE,TEnv* config,TString electronType);
@@ -116,6 +120,10 @@ class Electron: public Particle
   inline void SetpatElectron_dz(Double_t patElectron_dz){_patElectron_dz = patElectron_dz;};
   inline Double_t GetpatElectron_dz() const {return _patElectron_dz;};
   inline Double_t patElectron_dz() const {return _patElectron_dz;};
+
+  inline void SetpatElectron_dxy(Double_t patElectron_dxy){_patElectron_dxy = patElectron_dxy;};
+  inline Double_t GetpatElectron_dxy() const {return _patElectron_dxy;};
+  inline Double_t patElectron_dxy() const {return _patElectron_dxy;};
 
   inline void SetisoChargedHadrons(Double_t isoChargedHadrons){_isoChargedHadrons = isoChargedHadrons;};
   inline Double_t GetisoChargedHadrons() const {return _isoChargedHadrons;};
@@ -173,6 +181,15 @@ class Electron: public Particle
   inline Int_t GetMissingHits() const {return _missingHits;};
   inline Int_t missingHits() const {return _missingHits;};
 
+  inline void SetminiIsoRel(Double_t miniIsoRel){_miniIsoRel = miniIsoRel;};
+  inline Double_t GetminiIsoRel() const {return _miniIsoRel;};
+  inline Double_t miniIsoRel() const {return _miniIsoRel;};
+
+  inline void SetIP3Dsig(Double_t IP3Dsig){_IP3Dsig = IP3Dsig;};
+  inline Double_t GetIP3Dsig() const {return _IP3Dsig;};
+  inline Double_t IP3Dsig() const {return _IP3Dsig;};
+
+private:
  private:
 
   Int_t _passVetoId;
@@ -183,9 +200,12 @@ class Electron: public Particle
   Int_t _passConversionVeto;
 
   Int_t _expectedMissingInnerHits;
+  Double_t _miniIsoRel;
+  Double_t _IP3Dsig;
 
   Double_t _patElectron_d0;
   Double_t _patElectron_dz;
+  Double_t _patElectron_dxy;
   Double_t _isoChargedHadrons;
   Double_t _isoNeutralHadrons;
   Double_t _isoPhotons;
@@ -205,6 +225,10 @@ class Electron: public Particle
   //Isolation
   Double_t _relIsoPFRhoEA;
 
+  /// cuts reading from config
+  Double_t _closestMuonCut;
+
+
   ///////////////////////////////////////////
   // Maps containing the cut values to be placed on the different type of selected leptons
   std::map<TString,Double_t> _maxEtaCuts;
@@ -215,6 +239,10 @@ class Electron: public Particle
   std::map<TString,Double_t> _dZCutBarrel;
   std::map<TString,Double_t> _d0CutEndcap;
   std::map<TString,Double_t> _d0CutBarrel;
+  std::map<TString,Double_t> _maxDxyCuts;
+  std::map<TString,Double_t> _maxDzCuts;
+  std::map<TString,Double_t> _maxIP3DsigCuts;
+  std::map<TString,Double_t> _maxMiniIsoRelCuts;
   
   
 

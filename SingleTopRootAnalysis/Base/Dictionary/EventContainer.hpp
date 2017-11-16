@@ -497,6 +497,9 @@ class EventContainer
   //Pointers to collections
   std::vector<Electron> * electronsToUsePtr;
   std::vector<Muon>     * muonsToUsePtr;
+  
+  std::vector<Electron> * electronsVetoPtr; // used in object cleaning
+  std::vector<Muon>     * muonsVetoPtr;  // used in object cleaning
 
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
   
@@ -623,6 +626,9 @@ private:
 
   //The name of the channel being used. this is currently used for synch, but might be used for trigger or something.
   TString _channelName;
+  
+  // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
+  Int_t _sync;
   
   // Target top mass used in the best jet algorithm
   Double_t _targetTopMass;
