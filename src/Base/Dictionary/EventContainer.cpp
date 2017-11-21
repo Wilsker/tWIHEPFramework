@@ -592,6 +592,10 @@ Int_t EventContainer::ReadEvent()
       useObj = newMuon.Fill(_eventTree, io,"Veto", isSimulation);
       if(useObj) {
         vetoMuons.push_back(newMuon);
+        if(!amu && _sync == 11){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.IP3Dsig()<< " " << newLepton.miniIsoRel() << " " << newLepton.passLooseId() << std::endl;
+          amu = kTRUE;
+        }
       } // if useObj
 
       newMuon.Clear();
@@ -601,13 +605,19 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
 
       newLepton.Clear();
-      useObj = newLepton.Fill(_eventTree, io,"MuLoose", isSimulation);
+      useObj = newLepton.Fill(_eventTree, io,"MuLoose", isSimulation, 13);// 13 means Muon
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
-        if(!amu && _sync == 1){
+      } // if useObj
+      
+      newLepton.Clear();
+      useObj = newLepton.Fill(_eventTree, io,"MuFake", isSimulation, 13);// 13 means Muon
+      if(useObj) {
+	    looseLeptons.push_back(newLepton);
+        if(!amu && _sync == 12){
           std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.IP3Dsig()<< " " << newLepton.miniIsoRel() << " " << newLepton.passLooseId() << std::endl;
+          amu = kTRUE;
         }
-        amu = kTRUE;
       } // if useObj
        
     } //for muon loop
@@ -647,10 +657,10 @@ Int_t EventContainer::ReadEvent()
       useObj=newElectron.Fill(*muonsVetoPtr, _eventTree,  io,"Veto",isSimulation);
       if(useObj) {
         vetoElectrons.push_back(newElectron);
-        if(!aele && _sync ==2){
+        if(!aele && _sync ==21){
           std::cout << eventNumber << " " << newElectron.Pt() << " " << newElectron.Eta() << " " << newElectron.Phi() << " "<< newElectron.E() << " "<< newElectron.patElectron_dxy() << " " << newElectron.patElectron_dz() << " "<< newElectron.IP3Dsig()<< " " << newElectron.miniIsoRel() << " " << newElectron.missingHits() << std::endl;
+          aele = kTRUE;
         }
-        aele = kTRUE;
       }
 
       newElectron.Clear();

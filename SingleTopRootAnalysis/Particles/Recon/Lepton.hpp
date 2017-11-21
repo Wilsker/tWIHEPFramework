@@ -51,12 +51,28 @@ public:
   ~Lepton();
 
   // Set all contents to their defaults
-  inline void Clear() { Particle::Clear(); _passTightId = kFALSE; _passLooseId = kFALSE;_isSoft = kFALSE; _isHighPt = kFALSE; _isoCharged = 0.0; _isoSum = 0.0; _isoCharParPt = 0.0; _isoNeutralHadron = 0.0;  _isoPhoton = 0.0;  _isoPU = 0.0; _chi2=0.0; _dxy=0.0; _validHits = 0.0; _validHitsInner = 0.0; _matchedStat=0.0; _TLayers=0.0; _relIsoR04=0.0; _miniIsoRel =0.0; _IP3Dsig=0.0;};
+  inline void Clear() { Particle::Clear(); _passTightId = kFALSE; _passLooseId = kFALSE;_isSoft = kFALSE; _isHighPt = kFALSE; _isoCharged = 0.0; _isoSum = 0.0; _isoCharParPt = 0.0; _isoNeutralHadron = 0.0;  _isoPhoton = 0.0;  _isoPU = 0.0; _chi2=0.0; _dxy=0.0; _validHits = 0.0; _validHitsInner = 0.0; _matchedStat=0.0; _TLayers=0.0; _relIsoR04=0.0; _miniIsoRel =0.0; _IP3Dsig=0.0;
+ _jetptratio =0.0;
+ _jetcsv =0.0;
+ _lepjetchtrks =0.0;
+ _miniIsoCh =0.0;
+ _miniIsoPUsub =0.0;
+ _ptrel =0.0;
+ _jetdr =0.0;
+ _pdgId =0.0;
+ _jetpt =0.0;
+ _isGlobal =0.0;
+ _chi2LocalPosition =0.0;
+ _trkKink =0.0;
+ _validFraction =0.0;
+ _segmentCompatibility =0.0;
+ _pTErrOVpT_it =0.0;
+  };
 
-  // Fill the muon from an EventTree
-  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation);
+  // Fill the lepton from an EventTree
+  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgId);
   // also fill from a fastsim tree
-  Bool_t FillFastSim(TEnv *config, FastSimTree *tr, Int_t iE,TString muonType);
+  Bool_t FillFastSim(TEnv *config, FastSimTree *tr, Int_t iE,TString leptonType);
 
  // Overloaded operators:
   // +=
@@ -70,7 +86,7 @@ public:
   // = Lepton non-const
   Lepton& operator=(Lepton& other);
 
-  void SetCuts(TEnv *config, TString muonType);
+  void SetCuts(TEnv *config, TString leptonType);
     
   inline void SetpassTightId(Bool_t passTightId){_passTightId = passTightId;};
   inline Bool_t GetpassTightId() const {return _passTightId;};
@@ -164,6 +180,66 @@ public:
   inline Double_t GetIP3Dsig() const {return _IP3Dsig;};
   inline Double_t IP3Dsig() const {return _IP3Dsig;};
 
+  inline void Setjetptratio(Double_t jetptratio){_jetptratio = jetptratio;};
+  inline Double_t Getjetptratio() const {return _jetptratio;};
+  inline Double_t jetptratio() const {return _jetptratio;};
+
+  inline void Setjetcsv(Double_t jetcsv){_jetcsv = jetcsv;};
+  inline Double_t Getjetcsv() const {return _jetcsv;};
+  inline Double_t jetcsv() const {return _jetcsv;};
+
+  inline void Setlepjetchtrks(Double_t lepjetchtrks){_lepjetchtrks = lepjetchtrks;};
+  inline Double_t Getlepjetchtrks() const {return _lepjetchtrks;};
+  inline Double_t lepjetchtrks() const {return _lepjetchtrks;};
+
+  inline void SetminiIsoCh(Double_t miniIsoCh){_miniIsoCh = miniIsoCh;};
+  inline Double_t GetminiIsoCh() const {return _miniIsoCh;};
+  inline Double_t miniIsoCh() const {return _miniIsoCh;};
+
+  inline void SetminiIsoPUsub(Double_t miniIsoPUsub){_miniIsoPUsub = miniIsoPUsub;};
+  inline Double_t GetminiIsoPUsub() const {return _miniIsoPUsub;};
+  inline Double_t miniIsoPUsub() const {return _miniIsoPUsub;};
+
+  inline void Setptrel(Double_t ptrel){_ptrel = ptrel;};
+  inline Double_t Getptrel() const {return _ptrel;};
+  inline Double_t ptrel() const {return _ptrel;};
+
+  inline void Setjetdr(Double_t jetdr){_jetdr = jetdr;};
+  inline Double_t Getjetdr() const {return _jetdr;};
+  inline Double_t jetdr() const {return _jetdr;};
+
+  inline void SetpdgId(Double_t pdgId){_pdgId = pdgId;};
+  inline Double_t GetpdgId() const {return _pdgId;};
+  inline Double_t pdgId() const {return _pdgId;};
+
+  inline void Setjetpt(Double_t jetpt){_jetpt = jetpt;};
+  inline Double_t Getjetpt() const {return _jetpt;};
+  inline Double_t jetpt() const {return _jetpt;};
+
+  inline void SetisGlobal(Double_t isGlobal){_isGlobal = isGlobal;};
+  inline Double_t GetisGlobal() const {return _isGlobal;};
+  inline Double_t isGlobal() const {return _isGlobal;};
+
+  inline void Setchi2LocalPosition(Double_t chi2LocalPosition){_chi2LocalPosition = chi2LocalPosition;};
+  inline Double_t Getchi2LocalPosition() const {return _chi2LocalPosition;};
+  inline Double_t chi2LocalPosition() const {return _chi2LocalPosition;};
+
+  inline void SettrkKink(Double_t trkKink){_trkKink = trkKink;};
+  inline Double_t GettrkKink() const {return _trkKink;};
+  inline Double_t trkKink() const {return _trkKink;};
+
+  inline void SetvalidFraction(Double_t validFraction){_validFraction = validFraction;};
+  inline Double_t GetvalidFraction() const {return _validFraction;};
+  inline Double_t validFraction() const {return _validFraction;};
+
+  inline void SetsegmentCompatibility(Double_t segmentCompatibility){_segmentCompatibility = segmentCompatibility;};
+  inline Double_t GetsegmentCompatibility() const {return _segmentCompatibility;};
+  inline Double_t segmentCompatibility() const {return _segmentCompatibility;};
+
+  inline void SetpTErrOVpT_it(Double_t pTErrOVpT_it){_pTErrOVpT_it = pTErrOVpT_it;};
+  inline Double_t GetpTErrOVpT_it() const {return _pTErrOVpT_it;};
+  inline Double_t pTErrOVpT_it() const {return _pTErrOVpT_it;};
+
 private:
 
   Bool_t _passTightId;
@@ -189,6 +265,21 @@ private:
   Double_t _charge;
   Double_t _miniIsoRel;
   Double_t _IP3Dsig;
+  Double_t _jetptratio;
+  Double_t _jetcsv;
+  Double_t _lepjetchtrks;
+  Double_t _miniIsoCh;
+  Double_t _miniIsoPUsub;
+  Double_t _ptrel;
+  Double_t _jetdr;
+  Double_t _pdgId;
+  Double_t _jetpt;
+  Double_t _isGlobal;
+  Double_t _chi2LocalPosition;
+  Double_t _trkKink;
+  Double_t _validFraction;
+  Double_t _segmentCompatibility;
+  Double_t _pTErrOVpT_it;
 
   //////////////////////////////////
   // Definitions of the objects go here. This way we don't need to access the configuration file for every particle
@@ -199,6 +290,12 @@ private:
   map<TString,Double_t> _maxDzCuts;
   map<TString,Double_t> _maxIP3DsigCuts;
   map<TString,Double_t> _maxMiniIsoRelCuts;
+  map<TString,Double_t> _ConePtCuts;
+  map<TString,Double_t> _BDTCuts;
+  map<TString,Double_t> _jetptratioCuts;
+  map<TString,Double_t> _SegmentCompCuts;
+  map<TString,Double_t> _jetcsvLCuts;
+  map<TString,Double_t> _jetcsvHCuts;
 
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system

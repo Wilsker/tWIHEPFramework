@@ -70,7 +70,22 @@ ClassImp(Lepton)
   _ndof			(0.0),
   _charge		(0.0),
   _IP3Dsig			(0.0),
-  _miniIsoRel			(0.0)
+  _miniIsoRel			(0.0),
+  _jetptratio       (0.0),
+  _jetcsv       (0.0),
+  _lepjetchtrks       (0.0),
+  _miniIsoCh       (0.0),
+  _miniIsoPUsub       (0.0),
+  _ptrel       (0.0),
+  _jetdr       (0.0),
+  _pdgId       (0.0),
+  _jetpt       (0.0),
+  _isGlobal       (0.0),
+  _chi2LocalPosition       (0.0),
+  _trkKink       (0.0),
+  _validFraction       (0.0),
+  _segmentCompatibility       (0.0),
+  _pTErrOVpT_it       (0.0)
 {
 
 } //Lepton
@@ -119,7 +134,22 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _ndof(other.Getndof()),
   _charge(other.GetCharge()),
   _IP3Dsig(other.GetIP3Dsig()),
-  _miniIsoRel(other.GetminiIsoRel())
+  _miniIsoRel(other.GetminiIsoRel()),
+  _jetptratio(other.Getjetptratio()),
+  _jetcsv(other.Getjetcsv()),
+  _lepjetchtrks(other.Getlepjetchtrks()),
+  _miniIsoCh(other.GetminiIsoCh()),
+  _miniIsoPUsub(other.GetminiIsoPUsub()),
+  _ptrel(other.Getptrel()),
+  _jetdr(other.Getjetdr()),
+  _pdgId(other.GetpdgId()),
+  _jetpt(other.Getjetpt()),
+  _isGlobal(other.GetisGlobal()),
+  _chi2LocalPosition(other.Getchi2LocalPosition()),
+  _trkKink(other.GettrkKink()),
+  _validFraction(other.GetvalidFraction()),
+  _segmentCompatibility(other.GetsegmentCompatibility()),
+  _pTErrOVpT_it(other.GetpTErrOVpT_it())
 			       
 {
 } //Lepton()
@@ -155,7 +185,22 @@ Lepton::Lepton(const Particle& other): Particle(other),
 				   _ndof (0.0),
 				   _charge(0.0),
   _IP3Dsig			(0.0),
-  _miniIsoRel			(0.0)
+  _miniIsoRel			(0.0),
+  _jetptratio       (0.0),
+  _jetcsv       (0.0),
+  _lepjetchtrks       (0.0),
+  _miniIsoCh       (0.0),
+  _miniIsoPUsub       (0.0),
+  _ptrel       (0.0),
+  _jetdr       (0.0),
+  _pdgId       (0.0),
+  _jetpt       (0.0),
+  _isGlobal       (0.0),
+  _chi2LocalPosition       (0.0),
+  _trkKink       (0.0),
+  _validFraction       (0.0),
+  _segmentCompatibility       (0.0),
+  _pTErrOVpT_it       (0.0)
 {
 } //Lepton
 
@@ -223,6 +268,21 @@ Lepton& Lepton::operator=(const Particle& other)
   SetCharge		(0.0);
   SetIP3Dsig		(0.0);
   SetminiIsoRel		(0.0);
+  Setjetptratio       (0.0);
+  Setjetcsv       (0.0);
+  Setlepjetchtrks       (0.0);
+  SetminiIsoCh       (0.0);
+  SetminiIsoPUsub       (0.0);
+  Setptrel       (0.0);
+  Setjetdr       (0.0);
+  SetpdgId       (0.0);
+  Setjetpt       (0.0);
+  SetisGlobal       (0.0);
+  Setchi2LocalPosition       (0.0);
+  SettrkKink       (0.0);
+  SetvalidFraction       (0.0);
+  SetsegmentCompatibility       (0.0);
+  SetpTErrOVpT_it       (0.0);
   return *this;
 } //= Particle
 
@@ -260,6 +320,21 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetCharge(other.GetCharge());
   SetIP3Dsig(other.GetIP3Dsig());
   SetminiIsoRel(other.GetminiIsoRel());
+  Setjetptratio(other.Getjetptratio());
+  Setjetcsv(other.Getjetcsv());
+  Setlepjetchtrks(other.Getlepjetchtrks());
+  SetminiIsoCh(other.GetminiIsoCh());
+  SetminiIsoPUsub(other.GetminiIsoPUsub());
+  Setptrel(other.Getptrel());
+  Setjetdr(other.Getjetdr());
+  SetpdgId(other.GetpdgId());
+  Setjetpt(other.Getjetpt());
+  SetisGlobal(other.GetisGlobal());
+  Setchi2LocalPosition(other.Getchi2LocalPosition());
+  SettrkKink(other.GettrkKink());
+  SetvalidFraction(other.GetvalidFraction());
+  SetsegmentCompatibility(other.GetsegmentCompatibility());
+  SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   return *this;
 } //= const muon
 
@@ -297,8 +372,23 @@ Lepton& Lepton::operator=(Lepton& other)
   SetCharge(other.GetCharge());
   SetIP3Dsig(other.GetIP3Dsig());
   SetminiIsoRel(other.GetminiIsoRel());
+  Setjetptratio(other.Getjetptratio());
+  Setjetcsv(other.Getjetcsv());
+  Setlepjetchtrks(other.Getlepjetchtrks());
+  SetminiIsoCh(other.GetminiIsoCh());
+  SetminiIsoPUsub(other.GetminiIsoPUsub());
+  Setptrel(other.Getptrel());
+  Setjetdr(other.Getjetdr());
+  SetpdgId(other.GetpdgId());
+  Setjetpt(other.Getjetpt());
+  SetisGlobal(other.GetisGlobal());
+  Setchi2LocalPosition(other.Getchi2LocalPosition());
+  SettrkKink(other.GettrkKink());
+  SetvalidFraction(other.GetvalidFraction());
+  SetsegmentCompatibility(other.GetsegmentCompatibility());
+  SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   return *this;
-} //= non-const muon
+} //= non-const lepton
 
 /******************************************************************************         
  * void Lepton::SetCuts(TEnv* config, TString leptonType)                         * 
@@ -317,6 +407,12 @@ void Lepton::SetCuts(TEnv* config, TString leptonType)
   _maxDzCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxDz", 0.0);
   _maxIP3DsigCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxIP3Dsig", 0.0);
   _maxMiniIsoRelCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxMiniIsoRel", 0.0);
+  _ConePtCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".ConePtCut", 100.0);
+  _BDTCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".BDTCut", 100.0);
+  _jetptratioCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".jetptratioCut", 100.0);
+  _SegmentCompCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".SegmentCompCut", 100.0);
+  _jetcsvLCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".jetcsvLCut", 0.0);
+  _jetcsvHCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".jetcsvHCut", 0.0);
 
 }
 
@@ -328,50 +424,71 @@ void Lepton::SetCuts(TEnv* config, TString leptonType)
  * Input:  Event Tree                                                         *         
  * Output: kTRUE if the muon passes object ID cuts                            *         
  ******************************************************************************/
-Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation)
+Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgId)
 {
   // **************************************************************
   // Check muon type
   // **************************************************************
-  if( (leptonType != "EleLoose") && (leptonType != "EleFake") && (leptonType != "EleTight") && (leptonType != "MuLoose") && (leptonType != "MuFake") && (leptonType != "MuTight") && (leptonType!= "All") ){
+  if( (leptonType != "EleLoose") && (leptonType != "EleFake") && (leptonType != "EleTight") && (leptonType != "MuLoose") && (leptonType != "MuFake") && (leptonType != "MuTight") ){
     std::cout << "ERROR: <Lepton::Fill()> " << "Passed variable leptonType of value " << leptonType << " is not valid.  "
-	      << "Must be All, MuLoose, MuFake, MuTight, EleLoose, EleFake, EleTight " << std::endl;
+	      << "Must be MuLoose, MuFake, MuTight, EleLoose, EleFake, EleTight " << std::endl;
   } //if
+  
+  Double_t lepPt;
+  Double_t lepEta;  
+  Double_t lepPhi;
+  Double_t lepE;
   
   // **************************************************************
   // Fill muon
   // **************************************************************
-  Double_t muPt     = evtr -> Muon_pt       -> operator[](iE);
-  Double_t muEta    = evtr -> Muon_eta      -> operator[](iE);
-  Double_t muPhi    = evtr -> Muon_phi      -> operator[](iE);
-  Double_t muE      = evtr -> Muon_energy   -> operator[](iE);
-  Double_t muCharge = evtr -> Muon_charge   -> operator[](iE);
-  SetPtEtaPhiE(muPt, muEta, muPhi, muE);
+  if(pdgId == 13){
+    lepPt     = evtr -> Muon_pt       -> operator[](iE);
+    lepEta    = evtr -> Muon_eta      -> operator[](iE);
+    lepPhi    = evtr -> Muon_phi      -> operator[](iE);
+    lepE      = evtr -> Muon_energy   -> operator[](iE);
 
-  SetpassTightId	(evtr -> Muon_tight   		-> operator[](iE));
-  SetpassLooseId	(evtr -> Muon_loose   		-> operator[](iE));
-  SetisSoft     	(evtr -> Muon_soft    		-> operator[](iE));
-  SetisHighPt   	(evtr -> Muon_isHighPt		-> operator[](iE));
-  SetisPf       	(evtr -> Muon_pf      		-> operator[](iE));
-  SetisoCharged 	(evtr -> Muon_isoR04Charged 	-> operator[](iE));
-  SetisoSum     	(evtr -> Muon_isoSum  		-> operator[](iE));
-  SetisoCharParPt	(evtr -> Muon_isoR04CharParPt  	-> operator[](iE));
-  SetisoNeutralHadron	(evtr -> Muon_isoR04NeutralHadron  -> operator[](iE));
-  SetisoPhoton		(evtr -> Muon_isoR04Photon   	-> operator[](iE));
-  SetisoPU		(evtr -> Muon_isoR04PU   		-> operator[](iE));
-  Setchi2		(evtr -> Muon_chi2   		-> operator[](iE));
-  Setdxy		(evtr -> Muon_dxy_pv   		-> operator[](iE));
-  Setdz			(evtr -> Muon_dz_pv   		-> operator[](iE));
-  SetvalidHits		(evtr -> Muon_validHits   	-> operator[](iE));
-  SetvalidHitsInner	(evtr -> Muon_validHitsInner   	-> operator[](iE));
-  SetmatchedStat	(evtr -> Muon_matchedStat   	-> operator[](iE));
-  SetTLayers		(evtr -> Muon_TLayers   	-> operator[](iE));
-  SetrelIsoR04		(evtr -> Muon_relIsoDeltaBetaR04-> operator[](iE));
-  Setndof		(evtr -> Muon_ndof		-> operator[](iE));
-  SetCharge		(evtr -> Muon_charge		-> operator[](iE));
-  SetminiIsoRel		(evtr -> Muon_miniIsoRel   		-> operator[](iE));
-  SetIP3Dsig		(evtr -> Muon_IP3Dsig_it   		-> operator[](iE));
- 
+    SetpassTightId	(evtr -> Muon_tight   		-> operator[](iE));
+    SetpassLooseId	(evtr -> Muon_loose   		-> operator[](iE));
+    SetisSoft     	(evtr -> Muon_soft    		-> operator[](iE));
+    SetisHighPt   	(evtr -> Muon_isHighPt		-> operator[](iE));
+    SetisPf       	(evtr -> Muon_pf      		-> operator[](iE));
+    SetisoCharged 	(evtr -> Muon_isoR04Charged 	-> operator[](iE));
+    SetisoSum     	(evtr -> Muon_isoSum  		-> operator[](iE));
+    SetisoCharParPt	(evtr -> Muon_isoR04CharParPt  	-> operator[](iE));
+    SetisoNeutralHadron	(evtr -> Muon_isoR04NeutralHadron  -> operator[](iE));
+    SetisoPhoton		(evtr -> Muon_isoR04Photon   	-> operator[](iE));
+    SetisoPU		(evtr -> Muon_isoR04PU   		-> operator[](iE));
+    Setchi2		(evtr -> Muon_chi2   		-> operator[](iE));
+    Setdxy		(evtr -> Muon_dxy_pv   		-> operator[](iE));
+    Setdz			(evtr -> Muon_dz_pv   		-> operator[](iE));
+    SetvalidHits		(evtr -> Muon_validHits   	-> operator[](iE));
+    SetvalidHitsInner	(evtr -> Muon_validHitsInner   	-> operator[](iE));
+    SetmatchedStat	(evtr -> Muon_matchedStat   	-> operator[](iE));
+    SetTLayers		(evtr -> Muon_TLayers   	-> operator[](iE));
+    SetrelIsoR04		(evtr -> Muon_relIsoDeltaBetaR04-> operator[](iE));
+    Setndof		(evtr -> Muon_ndof		-> operator[](iE));
+    SetCharge		(evtr -> Muon_charge		-> operator[](iE));
+    SetminiIsoRel		(evtr -> Muon_miniIsoRel   		-> operator[](iE));
+    SetIP3Dsig		(evtr -> Muon_IP3Dsig_it   		-> operator[](iE));
+    Setjetptratio       (evtr -> Muon_jetptratio      -> operator[](iE));
+    Setjetcsv       (evtr -> Muon_jetcsv      -> operator[](iE));
+    Setlepjetchtrks       (evtr -> Muon_lepjetchtrks      -> operator[](iE));
+    SetminiIsoCh       (evtr -> Muon_miniIsoCh      -> operator[](iE));
+    SetminiIsoPUsub       (evtr -> Muon_miniIsoPUsub      -> operator[](iE));
+    Setptrel       (evtr -> Muon_ptrel      -> operator[](iE));
+    Setjetdr       (evtr -> Muon_jetdr      -> operator[](iE));
+    SetpdgId       (evtr -> Muon_pdgId      -> operator[](iE));
+    Setjetpt       (evtr -> Muon_jetpt      -> operator[](iE));
+    SetisGlobal       (evtr -> Muon_isGlobal      -> operator[](iE));
+    Setchi2LocalPosition       (evtr -> Muon_chi2LocalPosition      -> operator[](iE));
+    SettrkKink       (evtr -> Muon_trkKink      -> operator[](iE));
+    SetvalidFraction       (evtr -> Muon_validFraction      -> operator[](iE));
+    SetsegmentCompatibility       (evtr -> Muon_segmentCompatibility      -> operator[](iE));
+    SetpTErrOVpT_it       (evtr -> Muon_pTErrOVpT_it      -> operator[](iE));
+    
+    SetPtEtaPhiE(lepPt, lepEta, lepPhi, lepE);
+  }
   // **************************************************************
   // Isolation Cuts
   // **************************************************************
@@ -426,6 +543,8 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
 
   Bool_t passCustomVeto = kTRUE;
   
+  Bool_t passFake = kFALSE;
+  
   //parts of definition of ttH loose muon
   if (
       TMath::Abs(dxy())		>= _maxDxyCuts[leptonType] ||
@@ -433,15 +552,28 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
       IP3Dsig()	>=  _maxIP3DsigCuts[leptonType]   ||
       miniIsoRel()	>=  _maxMiniIsoRelCuts[leptonType])
     passCustomVeto = kFALSE;
+
+  // definition of ttH fake muon
+  // this is just a test
+  // ConePt and BDT needs to be calculated
+  if(
+     lepPt > _ConePtCuts[leptonType]
+     && (
+      (TMath::Abs(lepEta) > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType]) ||
+      (TMath::Abs(lepEta) < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
+       && jetptratio() > _jetptratioCuts[leptonType] && segmentCompatibility() > _SegmentCompCuts[leptonType] )
+      )
+     )
+     passFake = kTRUE;
   
   // Test Requirements
-  if(muPt <= _minPtCuts[leptonType])               passMinPt  = kFALSE;
-  if(TMath::Abs(muEta) >= _maxEtaCuts[leptonType]) passMaxEta = kFALSE;
+  if(lepPt <= _minPtCuts[leptonType])               passMinPt  = kFALSE;
+  if(TMath::Abs(lepEta) >= _maxEtaCuts[leptonType]) passMaxEta = kFALSE;
 
   //  if(     "Tight"      == leptonType) return( passMinPt && passMaxEta  && IsTight() && Isolation() && !GetOverlapWithJet() && IsCombinedMuon());
   if(     "Tight"      == leptonType) return (passMinPt && passMaxEta  && passTightId());
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
-  else if("UnIsolated" == leptonType) return (passMinPt && passMaxEta  && passTightId()); //The same as tight muons, but with an inverted isolation requirement
+  else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
   //else if("Isolated"   == leptonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == leptonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());
   //else if("All"        == leptonType) return( kTRUE );
