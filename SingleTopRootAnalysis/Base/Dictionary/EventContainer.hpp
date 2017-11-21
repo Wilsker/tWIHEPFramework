@@ -96,7 +96,8 @@
  *    Int_t _nJetsMax;                   -- Maximum number of jets allowed    *
  *                                                                            *
  * History                                                                    *
- *      17 June 2015   -   Huaqiao ZHANG Port from STAR                       *
+ *      17 June 2015   -   Huaqiao ZHANG Port from STAR
+ *      21 Nov 2017    -   Binghuan Li add Lepton Container                   *
  *****************************************************************************/
 
 #ifndef particles_h
@@ -117,6 +118,7 @@
 #include "SingleTopRootAnalysis/Particles/Recon/Tau.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Neutrino.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Lepton.hpp"
 
 // MC particles
 #include "SingleTopRootAnalysis/Particles/Truth/MCParticle.hpp"
@@ -480,6 +482,10 @@ class EventContainer
   std::vector<Muon>       ptetaMuons;
   std::vector<Muon>       isolatedMuons;
   std::vector<Muon>       unIsolatedMuons;
+  std::vector<Lepton>       leptons;
+  std::vector<Lepton>       tightLeptons;
+  std::vector<Lepton>       fakeLeptons;
+  std::vector<Lepton>       looseLeptons;
   std::vector<Tau>        taus;
   std::vector<Jet>        jets;
   std::vector<Jet>        alljets;//no jet checks
@@ -500,6 +506,7 @@ class EventContainer
   
   std::vector<Electron> * electronsVetoPtr; // used in object cleaning
   std::vector<Muon>     * muonsVetoPtr;  // used in object cleaning
+  std::vector<Lepton>     * leptonsToUsePtr; // used in object cleaning
 
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
   
@@ -686,6 +693,7 @@ private:
   // once for each event and accessing the config for each particle.
   Muon newMuon;
   Electron newElectron;
+  Lepton newLepton;
   Jet newJet;
 
   ////////////////////////////////////////////////////////////////////////////////

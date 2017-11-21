@@ -359,6 +359,13 @@ void EventContainer::SetupObjectDefinitions(){
   newElectron.SetCuts(GetConfig(),"Veto");
   newElectron.SetCuts(GetConfig(),"UnIsolated");
 
+  newLepton.SetCuts(GetConfig(),"MuTight");
+  newLepton.SetCuts(GetConfig(),"MuFake");
+  newLepton.SetCuts(GetConfig(),"MuLoose");
+  newLepton.SetCuts(GetConfig(),"EleTight");
+  newLepton.SetCuts(GetConfig(),"EleFake");
+  newLepton.SetCuts(GetConfig(),"EleLoose");
+  
   newJet.SetCuts(GetConfig());
 
 }
@@ -379,6 +386,7 @@ void EventContainer::SetUseUnisolatedLeptons(const Bool_t& useUnisolatedLeptons,
   _trigID = whichtrig;
   electronsToUsePtr = &tightElectrons;
   muonsToUsePtr = &tightMuons;
+  leptonsToUsePtr = &fakeLeptons;
   if (_trigID == 0 && _useUnisolatedLeptons){
     electronsToUsePtr = &unIsolatedElectrons;
   }
@@ -584,10 +592,6 @@ Int_t EventContainer::ReadEvent()
       useObj = newMuon.Fill(_eventTree, io,"Veto", isSimulation);
       if(useObj) {
         vetoMuons.push_back(newMuon);
-        if(!amu && _sync == 1){
-          std::cout << eventNumber << " " << newMuon.Pt() << " " << newMuon.Eta() << " " << newMuon.Phi() << " "<< newMuon.E() << " "<< newMuon.dxy() << " " << newMuon.dz() << " "<< newMuon.IP3Dsig()<< " " << newMuon.miniIsoRel() << " " << newMuon.passLooseId() << std::endl;
-        }
-        amu = kTRUE;
       } // if useObj
 
       newMuon.Clear();
@@ -596,6 +600,16 @@ Int_t EventContainer::ReadEvent()
 	    unIsolatedMuons.push_back(newMuon);
       } // if useObj
 
+      newLepton.Clear();
+      useObj = newLepton.Fill(_eventTree, io,"MuLoose", isSimulation);
+      if(useObj) {
+	    looseLeptons.push_back(newLepton);
+        if(!amu && _sync == 1){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.IP3Dsig()<< " " << newLepton.miniIsoRel() << " " << newLepton.passLooseId() << std::endl;
+        }
+        amu = kTRUE;
+      } // if useObj
+       
     } //for muon loop
     
     
