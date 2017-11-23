@@ -368,6 +368,7 @@ void EventContainer::SetupObjectDefinitions(){
   
   newJet.SetCuts(GetConfig());
 
+  newLepton.set_lepMVAreader(GetConfig());
 }
 
 /******************************************************************************
@@ -592,10 +593,6 @@ Int_t EventContainer::ReadEvent()
       useObj = newMuon.Fill(_eventTree, io,"Veto", isSimulation);
       if(useObj) {
         vetoMuons.push_back(newMuon);
-        if(!amu && _sync == 11){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.IP3Dsig()<< " " << newLepton.miniIsoRel() << " " << newLepton.passLooseId() << std::endl;
-          amu = kTRUE;
-        }
       } // if useObj
 
       newMuon.Clear();
@@ -608,6 +605,10 @@ Int_t EventContainer::ReadEvent()
       useObj = newLepton.Fill(_eventTree, io,"MuLoose", isSimulation, 13);// 13 means Muon
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
+        if(!amu && _sync == 11){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() << std::endl;
+          amu = kTRUE;
+        }
       } // if useObj
       
       newLepton.Clear();

@@ -85,6 +85,8 @@ ClassImp(Lepton)
   _trkKink       (0.0),
   _validFraction       (0.0),
   _segmentCompatibility       (0.0),
+  _BDT       (0.0),
+  _conept       (0.0),
   _pTErrOVpT_it       (0.0)
 {
 
@@ -149,6 +151,8 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _trkKink(other.GettrkKink()),
   _validFraction(other.GetvalidFraction()),
   _segmentCompatibility(other.GetsegmentCompatibility()),
+  _BDT(other.GetBDT()),
+  _conept(other.Getconept()),
   _pTErrOVpT_it(other.GetpTErrOVpT_it())
 			       
 {
@@ -200,6 +204,8 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _trkKink       (0.0),
   _validFraction       (0.0),
   _segmentCompatibility       (0.0),
+  _BDT       (0.0),
+  _conept       (0.0),
   _pTErrOVpT_it       (0.0)
 {
 } //Lepton
@@ -282,6 +288,8 @@ Lepton& Lepton::operator=(const Particle& other)
   SettrkKink       (0.0);
   SetvalidFraction       (0.0);
   SetsegmentCompatibility       (0.0);
+  SetBDT       (0.0);
+  Setconept       (0.0);
   SetpTErrOVpT_it       (0.0);
   return *this;
 } //= Particle
@@ -334,6 +342,8 @@ Lepton& Lepton::operator=(const Lepton& other)
   SettrkKink(other.GettrkKink());
   SetvalidFraction(other.GetvalidFraction());
   SetsegmentCompatibility(other.GetsegmentCompatibility());
+  SetBDT(other.GetBDT());
+  Setconept(other.Getconept());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   return *this;
 } //= const muon
@@ -386,6 +396,8 @@ Lepton& Lepton::operator=(Lepton& other)
   SettrkKink(other.GettrkKink());
   SetvalidFraction(other.GetvalidFraction());
   SetsegmentCompatibility(other.GetsegmentCompatibility());
+  SetBDT(other.GetBDT());
+  Setconept(other.Getconept());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   return *this;
 } //= non-const lepton
@@ -416,6 +428,73 @@ void Lepton::SetCuts(TEnv* config, TString leptonType)
 
 }
 
+/***************************************************************
+ * void Lepton Lepton::set_lepMVAreader()                       *
+ *                                                              * 
+ * Set up the MVA xml file                                      *
+ *                                                              *
+ * Input: TEnv* config                                          *
+ * Output: None                                                 *
+ * **************************************************************/
+ 
+void Lepton::set_lepMVAreader(TEnv* config)
+{
+    mu_reader_ = new TMVA::Reader("!Color:!Silent");
+    ele_reader_ = new TMVA::Reader("!Color:!Silent");
+    std::vector<TMVA::Reader *> mvas = { ele_reader_, mu_reader_ };
+    for (auto &m : mvas) {
+        m->AddVariable("LepGood_pt", &varpt);
+        m->AddVariable("LepGood_eta", &vareta);
+        m->AddVariable("LepGood_jetNDauChargedMVASel", &varjetNDauCharged_in);
+        m->AddVariable("LepGood_miniRelIsoCharged", &varchRelIso);
+        m->AddVariable("LepGood_miniRelIsoNeutral", &varneuRelIso);
+        m->AddVariable("LepGood_jetPtRelv2", &varjetPtRel_in);
+        m->AddVariable("LepGood_jetPtRatio := min(LepGood_jetPtRatiov2,1.5)", &varjetPtRatio_in);
+        m->AddVariable("LepGood_jetBTagCSV := max(LepGood_jetBTagCSV,0)", &varjetBTagCSV_in);
+        m->AddVariable("LepGood_sip3d", &varsip3d);
+        m->AddVariable("LepGood_dxy := log(abs(LepGood_dxy))", &vardxy);
+        m->AddVariable("LepGood_dz := log(abs(LepGood_dz))", &vardz);
+    }
+    ele_reader_->AddVariable("LepGood_mvaIdSpring16HZZ", &varmvaId);
+    mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
+    ele_reader_->BookMVA("BDTG method",config -> GetValue("Include.ElectronMVAFile","null")); 
+    mu_reader_->BookMVA("BDTG method",config -> GetValue("Include.MuonMVAFile","null")); 
+}
+
+/***************************************************************
+ * double Lepton Lepton::get_LeptonMVA()                *
+ *                                                              * 
+ * Read the lepton MVA value                                      *
+ *                                                              *
+ * Input: None                                          *
+ * Output: lepton MVA value                                     *
+ * **************************************************************/
+ 
+double Lepton::get_LeptonMVA()
+{
+    varpt = Pt();
+    vareta = Eta();
+    varchRelIso = miniIsoCh()/Pt();
+    varneuRelIso = miniIsoPUsub()/Pt();
+    varjetPtRel_in = ptrel();
+    varjetPtRatio_in = min(jetptratio(),1.5);
+    varjetBTagCSV_in = max(jetcsv(),0.); 
+    varjetNDauCharged_in =lepjetchtrks(); 
+    varsip3d = IP3Dsig();
+    vardxy = log(TMath::Abs(dxy())); 
+    vardz =  log(TMath::Abs(dz())); 
+    varSegCompat = segmentCompatibility(); 
+    varmvaId = jetdr();// varmvaId = mvaValue_HZZ(); fix me when implement electron MVA;
+    if( TMath::Abs(pdgId()) == 13) return mu_reader_->EvaluateMVA("BDTG method");
+    else if( TMath::Abs(pdgId()) == 11) return ele_reader_->EvaluateMVA("BDTG method");
+    else{
+        std::cout<< "ERROR: Lepton::get_LeptonMVA "<<"Passed lepton pdgId is not valid "<<std::endl;
+        return -1.;
+    }
+}
+
+
+
 /******************************************************************************         
  * void Lepton::Fill(EventTree *evtr, Int_t iE)                                 *         
  *                                                                            *         
@@ -424,7 +503,7 @@ void Lepton::SetCuts(TEnv* config, TString leptonType)
  * Input:  Event Tree                                                         *         
  * Output: kTRUE if the muon passes object ID cuts                            *         
  ******************************************************************************/
-Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgId)
+Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgid)
 {
   // **************************************************************
   // Check muon type
@@ -442,7 +521,7 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
   // **************************************************************
   // Fill muon
   // **************************************************************
-  if(pdgId == 13){
+  if(pdgid == 13){
     lepPt     = evtr -> Muon_pt       -> operator[](iE);
     lepEta    = evtr -> Muon_eta      -> operator[](iE);
     lepPhi    = evtr -> Muon_phi      -> operator[](iE);
@@ -556,11 +635,13 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
   // definition of ttH fake muon
   // this is just a test
   // ConePt and BDT needs to be calculated
+  SetBDT(get_LeptonMVA());
+  Setconept(lepPt);
   if(
-     lepPt > _ConePtCuts[leptonType]
+     conept() > _ConePtCuts[leptonType]
      && (
-      (TMath::Abs(lepEta) > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType]) ||
-      (TMath::Abs(lepEta) < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
+      (BDT() > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType]) ||
+      (BDT() < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
        && jetptratio() > _jetptratioCuts[leptonType] && segmentCompatibility() > _SegmentCompCuts[leptonType] )
       )
      )

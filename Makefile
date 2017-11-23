@@ -37,7 +37,7 @@ endif
 ####################################################################################
 
 ROOTCFLAGS=$(shell root-config --cflags)
-ROOTLIBS=$(shell root-config --libs) -lTreePlayer -lMLP
+ROOTLIBS=$(shell root-config --libs) -lTreePlayer -lMLP -lTMVA
 #LIBS = externaltools/bunchcrossing/TrigBunchCrossingTool/standalone/libTrigBunchCrossingTool.so -lrt
 # For gcc version 4 and greater use -iquote instead of -I.
 CC-VERSION = $(shell gcc -v 2>/dev/stdout | grep "^gcc" | awk '{print $$3}' | sed -e "s/\.//g") 

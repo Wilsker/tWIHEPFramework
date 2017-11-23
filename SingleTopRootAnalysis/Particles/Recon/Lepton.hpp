@@ -33,6 +33,8 @@
 #include "SingleTopRootAnalysis/Trees/FastSimTree.hpp"
 #include <TEnv.h>
 
+#include "TMVA/Reader.h"
+
 using namespace std;
 class Lepton: public Particle
 {
@@ -67,10 +69,12 @@ public:
  _validFraction =0.0;
  _segmentCompatibility =0.0;
  _pTErrOVpT_it =0.0;
+ _BDT =0.0;
+ _conept =0.0;
   };
 
   // Fill the lepton from an EventTree
-  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgId);
+  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgid);
   // also fill from a fastsim tree
   Bool_t FillFastSim(TEnv *config, FastSimTree *tr, Int_t iE,TString leptonType);
 
@@ -240,6 +244,17 @@ public:
   inline Double_t GetpTErrOVpT_it() const {return _pTErrOVpT_it;};
   inline Double_t pTErrOVpT_it() const {return _pTErrOVpT_it;};
 
+  inline void SetBDT(Double_t BDT){_BDT = BDT;};
+  inline Double_t GetBDT() const {return _BDT;};
+  inline Double_t BDT() const {return _BDT;};
+
+  inline void Setconept(Double_t conept){_conept = conept;};
+  inline Double_t Getconept() const {return _conept;};
+  inline Double_t conept() const {return _conept;};
+  
+    // ttH functions
+    void set_lepMVAreader(TEnv* config);
+
 private:
 
   Bool_t _passTightId;
@@ -280,6 +295,8 @@ private:
   Double_t _validFraction;
   Double_t _segmentCompatibility;
   Double_t _pTErrOVpT_it;
+  Double_t _BDT;
+  Double_t _conept;
 
   //////////////////////////////////
   // Definitions of the objects go here. This way we don't need to access the configuration file for every particle
@@ -296,6 +313,25 @@ private:
   map<TString,Double_t> _SegmentCompCuts;
   map<TString,Double_t> _jetcsvLCuts;
   map<TString,Double_t> _jetcsvHCuts;
+
+    // ttH functions
+    // lepton mva
+    TMVA::Reader *mu_reader_;
+    TMVA::Reader *ele_reader_;
+    Float_t varpt;
+    Float_t vareta;
+    Float_t varneuRelIso;
+    Float_t varchRelIso;
+    Float_t varjetPtRel_in;
+    Float_t varjetPtRatio_in;
+    Float_t varjetBTagCSV_in;
+    Float_t varjetNDauCharged_in;
+    Float_t varsip3d;
+    Float_t varmvaId;
+    Float_t vardxy;
+    Float_t vardz;
+    Float_t varSegCompat;
+    double get_LeptonMVA(); 
 
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system
