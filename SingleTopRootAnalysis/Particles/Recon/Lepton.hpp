@@ -74,7 +74,7 @@ public:
   };
 
   // Fill the lepton from an EventTree
-  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgid);
+  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber, int pdgid);
   // also fill from a fastsim tree
   Bool_t FillFastSim(TEnv *config, FastSimTree *tr, Int_t iE,TString leptonType);
 

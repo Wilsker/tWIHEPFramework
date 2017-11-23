@@ -503,7 +503,7 @@ double Lepton::get_LeptonMVA()
  * Input:  Event Tree                                                         *         
  * Output: kTRUE if the muon passes object ID cuts                            *         
  ******************************************************************************/
-Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int pdgid)
+Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
 {
   // **************************************************************
   // Check muon type
@@ -512,7 +512,7 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
     std::cout << "ERROR: <Lepton::Fill()> " << "Passed variable leptonType of value " << leptonType << " is not valid.  "
 	      << "Must be MuLoose, MuFake, MuTight, EleLoose, EleFake, EleTight " << std::endl;
   } //if
-  
+  int eventNumber = evtr -> EVENT_event; 
   Double_t lepPt;
   Double_t lepEta;  
   Double_t lepPhi;
@@ -623,6 +623,7 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
   Bool_t passCustomVeto = kTRUE;
   
   Bool_t passFake = kFALSE;
+  Bool_t passTight = kFALSE;
   
   //parts of definition of ttH loose muon
   if (
@@ -633,10 +634,12 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
     passCustomVeto = kFALSE;
 
   // definition of ttH fake muon
-  // this is just a test
-  // ConePt and BDT needs to be calculated
+  // isMedium_ST
+  Bool_t ishipsave = sNumber < 210000; // data period GH (sNumber>21000) is not hipsave 
+  Bool_t GoodGlobal = (isGlobal()==1 && chi2() <3 && chi2LocalPosition() < 12 && trkKink() < 20);
+  Bool_t isMedium = TMath::Abs(pdgId())==11 || (passLooseId() ==1 && validFraction() > (ishipsave? 0.49 : 0.80) && segmentCompatibility() > ( GoodGlobal? 0.303 : 0.451));
   SetBDT(get_LeptonMVA());
-  Setconept(lepPt);
+  Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * jetpt());
   if(
      conept() > _ConePtCuts[leptonType]
      && (
@@ -647,12 +650,25 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
      )
      passFake = kTRUE;
   
+  // definition of ttH Tgiht muon
+    if( conept() > _ConePtCuts[leptonType] 
+      && jetcsv() < _jetcsvHCuts[leptonType]
+      && BDT() > _BDTCuts[leptonType]
+      && isMedium
+      )passTight = kTRUE;
+  /*
+  if(eventNumber == 2139411){
+     std::cout << eventNumber << " " << lepPt << " "<< lepEta <<" " <<passMinPt << " " << passMaxEta << " " << passCustomVeto<< " "<< passLooseId() << " "<< passTight << std::endl;
+     //std::cout << eventNumber << " conept " << conept() << " >? "<< _ConePtCuts[leptonType] <<" BDT " << BDT() << " >? " << _BDTCuts[leptonType] << " jetscsv " << jetcsv() << " <? "<< _jetcsvHCuts[leptonType] << " isMedium? "<< isMedium << std::endl;
+     //std::cout << eventNumber << " sNumber " << sNumber << " <21000? ishipsave? "<< ishipsave <<" pasLooseId()? " << passLooseId() << " validFraction " << validFraction() << " segmentCompat " << segmentCompatibility() << " GoodGlobal? " << GoodGlobal << std::endl;
+  }
+  */
   // Test Requirements
   if(lepPt <= _minPtCuts[leptonType])               passMinPt  = kFALSE;
   if(TMath::Abs(lepEta) >= _maxEtaCuts[leptonType]) passMaxEta = kFALSE;
 
   //  if(     "Tight"      == leptonType) return( passMinPt && passMaxEta  && IsTight() && Isolation() && !GetOverlapWithJet() && IsCombinedMuon());
-  if(     "Tight"      == leptonType) return (passMinPt && passMaxEta  && passTightId());
+  if(     "MuTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passTight);
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
   else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
   //else if("Isolated"   == leptonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
