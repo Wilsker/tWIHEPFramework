@@ -29,6 +29,7 @@
 #define lepton_h
 
 #include "SingleTopRootAnalysis/Particles/Recon/Particle.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Muon.hpp"
 #include "SingleTopRootAnalysis/Trees/EventTree.hpp"
 #include "SingleTopRootAnalysis/Trees/FastSimTree.hpp"
 #include <TEnv.h>
@@ -36,6 +37,8 @@
 #include "TMVA/Reader.h"
 
 using namespace std;
+
+
 class Lepton: public Particle
 {
 public:
@@ -71,10 +74,18 @@ public:
  _pTErrOVpT_it =0.0;
  _BDT =0.0;
  _conept =0.0;
+ _SCeta =0.0;
+ _expectedMissingInnerHits =0.0;
+ _full5x5_sigmaIetaIeta =0.0;
+ _hOverE =0.0;
+ _dEtaIn =0.0;
+ _dPhiIn =0.0;
+ _ooEmooP =0.0;
+ _mvaValue_HZZ =0.0;
   };
 
   // Fill the lepton from an EventTree
-  Bool_t Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber, int pdgid);
+  Bool_t Fill(std::vector<Muon>& selectedMuons ,EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber, int pdgid);
   // also fill from a fastsim tree
   Bool_t FillFastSim(TEnv *config, FastSimTree *tr, Int_t iE,TString leptonType);
 
@@ -244,6 +255,38 @@ public:
   inline Double_t GetpTErrOVpT_it() const {return _pTErrOVpT_it;};
   inline Double_t pTErrOVpT_it() const {return _pTErrOVpT_it;};
 
+  inline void SetSCeta(Double_t SCeta){_SCeta = SCeta;};
+  inline Double_t GetSCeta() const {return _SCeta;};
+  inline Double_t SCeta() const {return _SCeta;};
+
+  inline void SetexpectedMissingInnerHits(Double_t expectedMissingInnerHits){_expectedMissingInnerHits = expectedMissingInnerHits;};
+  inline Double_t GetexpectedMissingInnerHits() const {return _expectedMissingInnerHits;};
+  inline Double_t expectedMissingInnerHits() const {return _expectedMissingInnerHits;};
+
+  inline void Setfull5x5_sigmaIetaIeta(Double_t full5x5_sigmaIetaIeta){_full5x5_sigmaIetaIeta = full5x5_sigmaIetaIeta;};
+  inline Double_t Getfull5x5_sigmaIetaIeta() const {return _full5x5_sigmaIetaIeta;};
+  inline Double_t full5x5_sigmaIetaIeta() const {return _full5x5_sigmaIetaIeta;};
+
+  inline void SethOverE(Double_t hOverE){_hOverE = hOverE;};
+  inline Double_t GethOverE() const {return _hOverE;};
+  inline Double_t hOverE() const {return _hOverE;};
+
+  inline void SetdEtaIn(Double_t dEtaIn){_dEtaIn = dEtaIn;};
+  inline Double_t GetdEtaIn() const {return _dEtaIn;};
+  inline Double_t dEtaIn() const {return _dEtaIn;};
+
+  inline void SetdPhiIn(Double_t dPhiIn){_dPhiIn = dPhiIn;};
+  inline Double_t GetdPhiIn() const {return _dPhiIn;};
+  inline Double_t dPhiIn() const {return _dPhiIn;};
+
+  inline void SetooEmooP(Double_t ooEmooP){_ooEmooP = ooEmooP;};
+  inline Double_t GetooEmooP() const {return _ooEmooP;};
+  inline Double_t ooEmooP() const {return _ooEmooP;};
+
+  inline void SetmvaValue_HZZ(Double_t mvaValue_HZZ){_mvaValue_HZZ = mvaValue_HZZ;};
+  inline Double_t GetmvaValue_HZZ() const {return _mvaValue_HZZ;};
+  inline Double_t mvaValue_HZZ() const {return _mvaValue_HZZ;};
+
   inline void SetBDT(Double_t BDT){_BDT = BDT;};
   inline Double_t GetBDT() const {return _BDT;};
   inline Double_t BDT() const {return _BDT;};
@@ -297,7 +340,18 @@ private:
   Double_t _pTErrOVpT_it;
   Double_t _BDT;
   Double_t _conept;
+  Double_t _SCeta;
+  Double_t _expectedMissingInnerHits;
+  Double_t _full5x5_sigmaIetaIeta;
+  Double_t _hOverE;
+  Double_t _dEtaIn;
+  Double_t _dPhiIn;
+  Double_t _ooEmooP;
+  Double_t _mvaValue_HZZ;
 
+  /// cuts reading from config
+  Double_t _closestMuonCut;
+  
   //////////////////////////////////
   // Definitions of the objects go here. This way we don't need to access the configuration file for every particle
   map<TString,Double_t> _minPtCuts;

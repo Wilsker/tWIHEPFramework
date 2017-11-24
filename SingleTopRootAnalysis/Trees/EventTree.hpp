@@ -296,6 +296,7 @@ public :
    std::vector<int>     *patElectron_isPassMvanontrigwp90;
    std::vector<int>     *patElectron_pdgId;
    std::vector<int>     *patElectron_isEcalDriven;
+   std::vector<float>   *patElectron_mvaValue_HZZ;
    std::vector<float>   *patElectron_mvaValue_nonTrig;
    std::vector<float>   *patElectron_mvaCategory_nonTrig;
    std::vector<float>   *patElectron_mvaValue_Trig;
@@ -1010,6 +1011,7 @@ public :
    TBranch        *b_patElectron_isPassMvanontrigwp90;   //!
    TBranch        *b_patElectron_pdgId;   //!
    TBranch        *b_patElectron_isEcalDriven;   //!
+   TBranch        *b_patElectron_mvaValue_HZZ;   //!
    TBranch        *b_patElectron_mvaValue_nonTrig;   //!
    TBranch        *b_patElectron_mvaCategory_nonTrig;   //!
    TBranch        *b_patElectron_mvaValue_Trig;   //!
@@ -1701,6 +1703,7 @@ void EventTree::Init(TTree *tree)
    patElectron_isPassMvanontrigwp90 = 0;
    patElectron_pdgId = 0;
    patElectron_isEcalDriven = 0;
+   patElectron_mvaValue_HZZ = 0;
    patElectron_mvaValue_nonTrig = 0;
    patElectron_mvaCategory_nonTrig = 0;
    patElectron_mvaValue_Trig = 0;
@@ -2385,6 +2388,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_isPassMvanontrigwp90", &patElectron_isPassMvanontrigwp90, &b_patElectron_isPassMvanontrigwp90);
    fChain->SetBranchAddress("patElectron_pdgId", &patElectron_pdgId, &b_patElectron_pdgId);
    fChain->SetBranchAddress("patElectron_isEcalDriven", &patElectron_isEcalDriven, &b_patElectron_isEcalDriven);
+   fChain->SetBranchAddress("patElectron_mvaValue_HZZ", &patElectron_mvaValue_HZZ, &b_patElectron_mvaValue_HZZ);
    fChain->SetBranchAddress("patElectron_mvaValue_nonTrig", &patElectron_mvaValue_nonTrig, &b_patElectron_mvaValue_nonTrig);
    fChain->SetBranchAddress("patElectron_mvaCategory_nonTrig", &patElectron_mvaCategory_nonTrig, &b_patElectron_mvaCategory_nonTrig);
    fChain->SetBranchAddress("patElectron_mvaValue_Trig", &patElectron_mvaValue_Trig, &b_patElectron_mvaValue_Trig);

@@ -87,7 +87,15 @@ ClassImp(Lepton)
   _segmentCompatibility       (0.0),
   _BDT       (0.0),
   _conept       (0.0),
-  _pTErrOVpT_it       (0.0)
+  _pTErrOVpT_it       (0.0),
+  _SCeta       (0.0),
+  _expectedMissingInnerHits       (0.0),
+  _full5x5_sigmaIetaIeta       (0.0),
+  _hOverE       (0.0),
+  _dEtaIn       (0.0),
+  _dPhiIn       (0.0),
+  _ooEmooP       (0.0),
+  _mvaValue_HZZ       (0.0)
 {
 
 } //Lepton
@@ -153,6 +161,14 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _segmentCompatibility(other.GetsegmentCompatibility()),
   _BDT(other.GetBDT()),
   _conept(other.Getconept()),
+  _SCeta(other.GetSCeta()),
+  _expectedMissingInnerHits(other.GetexpectedMissingInnerHits()),
+  _full5x5_sigmaIetaIeta(other.Getfull5x5_sigmaIetaIeta()),
+  _hOverE(other.GethOverE()),
+  _dEtaIn(other.GetdEtaIn()),
+  _dPhiIn(other.GetdPhiIn()),
+  _ooEmooP(other.GetooEmooP()),
+  _mvaValue_HZZ(other.GetmvaValue_HZZ()),
   _pTErrOVpT_it(other.GetpTErrOVpT_it())
 			       
 {
@@ -206,6 +222,14 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _segmentCompatibility       (0.0),
   _BDT       (0.0),
   _conept       (0.0),
+  _SCeta       (0.0),
+  _expectedMissingInnerHits       (0.0),
+  _full5x5_sigmaIetaIeta       (0.0),
+  _hOverE       (0.0),
+  _dEtaIn       (0.0),
+  _dPhiIn       (0.0),
+  _ooEmooP       (0.0),
+  _mvaValue_HZZ       (0.0),
   _pTErrOVpT_it       (0.0)
 {
 } //Lepton
@@ -291,6 +315,14 @@ Lepton& Lepton::operator=(const Particle& other)
   SetBDT       (0.0);
   Setconept       (0.0);
   SetpTErrOVpT_it       (0.0);
+  SetSCeta       (0.0);
+  SetexpectedMissingInnerHits       (0.0);
+  Setfull5x5_sigmaIetaIeta       (0.0);
+  SethOverE       (0.0);
+  SetdEtaIn       (0.0);
+  SetdPhiIn       (0.0);
+  SetooEmooP       (0.0);
+  SetmvaValue_HZZ       (0.0);
   return *this;
 } //= Particle
 
@@ -345,6 +377,14 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetBDT(other.GetBDT());
   Setconept(other.Getconept());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
+  SetSCeta(other.GetSCeta());
+  SetexpectedMissingInnerHits(other.GetexpectedMissingInnerHits());
+  Setfull5x5_sigmaIetaIeta(other.Getfull5x5_sigmaIetaIeta());
+  SethOverE(other.GethOverE());
+  SetdEtaIn(other.GetdEtaIn());
+  SetdPhiIn(other.GetdPhiIn());
+  SetooEmooP(other.GetooEmooP());
+  SetmvaValue_HZZ(other.GetmvaValue_HZZ());
   return *this;
 } //= const muon
 
@@ -399,6 +439,14 @@ Lepton& Lepton::operator=(Lepton& other)
   SetBDT(other.GetBDT());
   Setconept(other.Getconept());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
+  SetSCeta(other.GetSCeta());
+  SetexpectedMissingInnerHits(other.GetexpectedMissingInnerHits());
+  Setfull5x5_sigmaIetaIeta(other.Getfull5x5_sigmaIetaIeta());
+  SethOverE(other.GethOverE());
+  SetdEtaIn(other.GetdEtaIn());
+  SetdPhiIn(other.GetdPhiIn());
+  SetooEmooP(other.GetooEmooP());
+  SetmvaValue_HZZ(other.GetmvaValue_HZZ());
   return *this;
 } //= non-const lepton
 
@@ -412,6 +460,7 @@ Lepton& Lepton::operator=(Lepton& other)
  ******************************************************************************/
 void Lepton::SetCuts(TEnv* config, TString leptonType)
 {
+  _closestMuonCut = config -> GetValue("ObjectID.Electron.MuonCleanR",0.);
   _minPtCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MinPt", 100.0);
   _maxEtaCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxEta", 0.0);
   _maxRelIsoCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxRelIso", 100.0);
@@ -484,7 +533,7 @@ double Lepton::get_LeptonMVA()
     vardxy = log(TMath::Abs(dxy())); 
     vardz =  log(TMath::Abs(dz())); 
     varSegCompat = segmentCompatibility(); 
-    varmvaId = jetdr();// varmvaId = mvaValue_HZZ(); fix me when implement electron MVA;
+    varmvaId = mvaValue_HZZ();
     if( TMath::Abs(pdgId()) == 13) return mu_reader_->EvaluateMVA("BDTG method");
     else if( TMath::Abs(pdgId()) == 11) return ele_reader_->EvaluateMVA("BDTG method");
     else{
@@ -503,7 +552,7 @@ double Lepton::get_LeptonMVA()
  * Input:  Event Tree                                                         *         
  * Output: kTRUE if the muon passes object ID cuts                            *         
  ******************************************************************************/
-Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
+Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
 {
   // **************************************************************
   // Check muon type
@@ -566,8 +615,44 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
     SetsegmentCompatibility       (evtr -> Muon_segmentCompatibility      -> operator[](iE));
     SetpTErrOVpT_it       (evtr -> Muon_pTErrOVpT_it      -> operator[](iE));
     
-    SetPtEtaPhiE(lepPt, lepEta, lepPhi, lepE);
   }
+
+  // **************************************************************
+  // Fill electron
+  // **************************************************************
+  if(pdgid == 11){
+    lepPt     = evtr -> patElectron_pt       -> operator[](iE);
+    lepEta    = evtr -> patElectron_eta      -> operator[](iE);
+    lepPhi    = evtr -> patElectron_phi      -> operator[](iE);
+    lepE      = evtr -> patElectron_energy   -> operator[](iE);
+    
+
+    SetCharge       (evtr -> patElectron_charge      -> operator[](iE));
+    SetIP3Dsig       (evtr -> patElectron_IP3Dsig      -> operator[](iE));
+    SetminiIsoRel       (evtr -> patElectron_miniIsoRel      -> operator[](iE));
+    SetpdgId       (evtr -> patElectron_pdgId      -> operator[](iE));
+    Setdxy       (evtr -> patElectron_gsfTrack_dxy_pv      -> operator[](iE));
+    Setdz       (evtr -> patElectron_gsfTrack_dz_pv      -> operator[](iE));
+    Setjetptratio       (evtr -> patElectron_jetptratio      -> operator[](iE));
+    Setjetcsv       (evtr -> patElectron_jetcsv      -> operator[](iE));
+    Setlepjetchtrks       (evtr -> patElectron_lepjetchtrks      -> operator[](iE));
+    SetminiIsoCh       (evtr -> patElectron_miniIsoCh      -> operator[](iE));
+    SetminiIsoPUsub       (evtr -> patElectron_miniIsoPUsub      -> operator[](iE));
+    Setptrel       (evtr -> patElectron_ptrel      -> operator[](iE));
+    Setjetdr       (evtr -> patElectron_jetdr      -> operator[](iE));
+    Setjetpt       (evtr -> patElectron_jetpt      -> operator[](iE));
+    SetSCeta       (evtr -> patElectron_SCeta      -> operator[](iE));
+    SetexpectedMissingInnerHits       (evtr -> patElectron_expectedMissingInnerHits      -> operator[](iE));
+    Setfull5x5_sigmaIetaIeta       (evtr -> patElectron_full5x5_sigmaIetaIeta      -> operator[](iE));
+    SethOverE       (evtr -> patElectron_hOverE      -> operator[](iE));
+    SetdEtaIn       (evtr -> patElectron_dEtaIn      -> operator[](iE));
+    SetdPhiIn       (evtr -> patElectron_dPhiIn      -> operator[](iE));
+    SetooEmooP       (evtr -> patElectron_ooEmooP      -> operator[](iE));
+    SetmvaValue_HZZ       (evtr -> patElectron_mvaValue_HZZ      -> operator[](iE));
+    
+  }
+  SetPtEtaPhiE(lepPt, lepEta, lepPhi, lepE);
+
   // **************************************************************
   // Isolation Cuts
   // **************************************************************
@@ -625,12 +710,27 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
   Bool_t passFake = kFALSE;
   Bool_t passTight = kFALSE;
   
-  //parts of definition of ttH loose muon
+  ////////////////////////////////
+  /// Electron Cleaning
+  ////////////////////////////////
+  
+  Bool_t passesCleaning = kTRUE;
+ 
+  Double_t closestMuon = 999.;
+
+  for (auto const & mu : selectedMuons){
+    if (mu.DeltaR(*this) < closestMuon && pdgid == 11) closestMuon = mu.DeltaR(*this);
+  }
+  if (closestMuon < _closestMuonCut) passesCleaning = kFALSE;
+  
+  //parts of definition of ttH loose leptons
   if (
+      !passesCleaning || TMath::Abs(expectedMissingInnerHits()) > 1 ||
       TMath::Abs(dxy())		>= _maxDxyCuts[leptonType] ||
       TMath::Abs(dz())		>= _maxDzCuts[leptonType] ||
       IP3Dsig()	>=  _maxIP3DsigCuts[leptonType]   ||
-      miniIsoRel()	>=  _maxMiniIsoRelCuts[leptonType])
+      miniIsoRel()	>=  _maxMiniIsoRelCuts[leptonType]
+      ) 
     passCustomVeto = kFALSE;
 
   // definition of ttH fake muon
@@ -671,6 +771,7 @@ Bool_t Lepton::Fill(EventTree *evtr,int iE,TString leptonType, Bool_t isSimulati
   if(     "MuTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passTight);
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
   else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
+  else if("EleLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto);
   //else if("Isolated"   == leptonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == leptonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());
   //else if("All"        == leptonType) return( kTRUE );

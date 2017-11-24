@@ -284,6 +284,9 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   ptetaMuons.clear();
   isolatedMuons.clear();
   unIsolatedMuons.clear();
+  looseLeptons.clear();
+  fakeLeptons.clear();
+  tightLeptons.clear();
   taus.clear();
   jets.clear();
   alljets.clear();
@@ -604,19 +607,19 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
 
       newLepton.Clear();
-      useObj = newLepton.Fill(_eventTree, io,"MuLoose", isSimulation, SourceNumber ,13);// 13 means Muon
+      useObj = newLepton.Fill(*muonsVetoPtr, _eventTree, io,"MuLoose", isSimulation, SourceNumber ,13);// 13 means Muon
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
         if(!amu && _sync == 11){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() << std::endl;
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_HZZ() << " " << newLepton.BDT() << std::endl;
           amu = kTRUE;
         }
       } // if useObj
       
       newLepton.Clear();
-      useObj = newLepton.Fill(_eventTree, io,"MuFake", isSimulation, SourceNumber ,13);// 13 means Muon
+      useObj = newLepton.Fill(*muonsVetoPtr, _eventTree, io,"MuFake", isSimulation, SourceNumber ,13);// 13 means Muon
       if(useObj) {
-	    looseLeptons.push_back(newLepton);
+	    fakeLeptons.push_back(newLepton);
         if(!amu && _sync == 12){
           std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() << std::endl;
           amu = kTRUE;
@@ -624,9 +627,9 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
        
       newLepton.Clear();
-      useObj = newLepton.Fill(_eventTree, io,"MuTight", isSimulation, SourceNumber ,13);// 13 means Muon
+      useObj = newLepton.Fill(*muonsVetoPtr, _eventTree, io,"MuTight", isSimulation, SourceNumber ,13);// 13 means Muon
       if(useObj) {
-	    looseLeptons.push_back(newLepton);
+	    tightLeptons.push_back(newLepton);
         if(!amu && _sync == 13){
           std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() << std::endl;
           amu = kTRUE;
@@ -670,16 +673,22 @@ Int_t EventContainer::ReadEvent()
       useObj=newElectron.Fill(*muonsVetoPtr, _eventTree,  io,"Veto",isSimulation);
       if(useObj) {
         vetoElectrons.push_back(newElectron);
-        if(!aele && _sync ==21){
-          std::cout << eventNumber << " " << newElectron.Pt() << " " << newElectron.Eta() << " " << newElectron.Phi() << " "<< newElectron.E() << " "<< newElectron.patElectron_dxy() << " " << newElectron.patElectron_dz() << " "<< newElectron.IP3Dsig()<< " " << newElectron.miniIsoRel() << " " << newElectron.missingHits() << std::endl;
-          aele = kTRUE;
-        }
       }
 
       newElectron.Clear();
       useObj=newElectron.Fill(*muonsVetoPtr, _eventTree,  io,"UnIsolated",isSimulation);
       if(useObj) {
         unIsolatedElectrons.push_back(newElectron);
+      }
+      
+      newLepton.Clear();
+      useObj = newLepton.Fill(*muonsVetoPtr, _eventTree, io,"EleLoose", isSimulation, SourceNumber ,11);// 11 means Electron
+      if(useObj) {
+	    looseLeptons.push_back(newLepton);
+        if(!aele && _sync == 21){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_HZZ() << " " << newLepton.BDT() << std::endl;
+          aele = kTRUE;
+        }
       }
     } //for
 
