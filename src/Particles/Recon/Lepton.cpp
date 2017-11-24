@@ -733,24 +733,66 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
       ) 
     passCustomVeto = kFALSE;
 
-  // definition of ttH fake muon
+  // definition of ttH fake lepton
   // isMedium_ST
   Bool_t ishipsave = sNumber < 210000; // data period GH (sNumber>21000) is not hipsave 
   Bool_t GoodGlobal = (isGlobal()==1 && chi2() <3 && chi2LocalPosition() < 12 && trkKink() < 20);
   Bool_t isMedium = TMath::Abs(pdgId())==11 || (passLooseId() ==1 && validFraction() > (ishipsave? 0.49 : 0.80) && segmentCompatibility() > ( GoodGlobal? 0.303 : 0.451));
   SetBDT(get_LeptonMVA());
   Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * jetpt());
+  
+  Bool_t eleMVAId = kFALSE;
+  if((TMath::Abs(SCeta()) <0.8 && mvaValue_HZZ() > 0.0)||
+      (0.8 <= TMath::Abs(SCeta()) && TMath::Abs(SCeta()) <1.479 && mvaValue_HZZ() >0.0)||
+      (1.479 <=TMath::Abs(SCeta()) && TMath::Abs(SCeta())<500 && mvaValue_HZZ()>0.7)
+   ) eleMVAId = kTRUE;
+
+    Bool_t passCuts = kFALSE;
+    if (TMath::Abs(SCeta()) < 0.8){
+        passCuts = full5x5_sigmaIetaIeta() < 0.011 &&
+        hOverE() < 0.10 &&
+        TMath::Abs(dEtaIn()) < 0.01 &&
+        TMath::Abs(dPhiIn()) < 0.04 &&
+        ooEmooP() > -0.05 &&
+        ooEmooP() < 0.010;
+    }
+    else if (TMath::Abs(SCeta()) < 1.479) {
+        passCuts = full5x5_sigmaIetaIeta() < 0.011 &&
+        hOverE() < 0.10 &&
+        TMath::Abs(dEtaIn()) < 0.01 &&
+        TMath::Abs(dPhiIn()) < 0.04 &&
+        ooEmooP() > -0.05 &&
+        ooEmooP() < 0.010;
+    }
+    else if (TMath::Abs(SCeta()) < 2.5) {
+        passCuts = full5x5_sigmaIetaIeta() < 0.030 &&
+        hOverE() < 0.07 &&
+        TMath::Abs(dEtaIn()) < 0.008 &&
+        TMath::Abs(dPhiIn()) < 0.07 &&
+        ooEmooP() > -0.05 &&
+        ooEmooP() < 0.005;
+    }
+    else passCuts = kTRUE;
+
   if(
-     conept() > _ConePtCuts[leptonType]
+     pdgid==13 && conept() > _ConePtCuts[leptonType]
      && (
       (BDT() > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType]) ||
       (BDT() < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
        && jetptratio() > _jetptratioCuts[leptonType] && segmentCompatibility() > _SegmentCompCuts[leptonType] )
       )
-     )
-     passFake = kTRUE;
+     )passFake = kTRUE;
+   
+  if(
+     pdgid==11 && conept() > _ConePtCuts[leptonType]
+     && (
+      (BDT() > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType] && passCuts) ||
+      (BDT() < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
+       && jetptratio() > _jetptratioCuts[leptonType] && eleMVAId && passCuts )
+      )
+     )passFake = kTRUE;
   
-  // definition of ttH Tgiht muon
+  // definition of ttH Tgiht lepton
     if( conept() > _ConePtCuts[leptonType] 
       && jetcsv() < _jetcsvHCuts[leptonType]
       && BDT() > _BDTCuts[leptonType]
@@ -772,6 +814,8 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
   else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
   else if("EleLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto);
+  else if("EleTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passTight && passFake);
+  else if("EleFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passFake); 
   //else if("Isolated"   == leptonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == leptonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());
   //else if("All"        == leptonType) return( kTRUE );

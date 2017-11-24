@@ -690,6 +690,27 @@ Int_t EventContainer::ReadEvent()
           aele = kTRUE;
         }
       }
+      
+      newLepton.Clear();
+      useObj = newLepton.Fill(*muonsVetoPtr, _eventTree, io,"EleFake", isSimulation, SourceNumber ,11);// 11 means Electron
+      if(useObj) {
+	    fakeLeptons.push_back(newLepton);
+        if(!aele && _sync == 22){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_HZZ() << " " << newLepton.BDT() << std::endl;
+          aele = kTRUE;
+        }
+      }
+
+      newLepton.Clear();
+      useObj = newLepton.Fill(*muonsVetoPtr, _eventTree, io,"EleTight", isSimulation, SourceNumber ,11);// 11 means Electron
+      if(useObj) {
+	    tightLeptons.push_back(newLepton);
+        if(!aele && _sync == 23){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratio() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_HZZ() << " " << newLepton.BDT() << std::endl;
+          aele = kTRUE;
+        }
+      }
+
     } //for
 
 
