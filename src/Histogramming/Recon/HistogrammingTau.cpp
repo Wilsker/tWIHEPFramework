@@ -149,7 +149,7 @@ Bool_t HistogrammingTau::Apply()
     _hPt  -> Fill(evc->taus[io].Pt());
     _hEta -> Fill(evc->taus[io].Eta());
     _hPhi -> Fill(evc->taus[io].Phi());
-    _hCharge->Fill(evc->taus[io].GetCharge());
+    _hCharge->Fill(evc->taus[io].Getcharge());
     _hNumTracks->Fill(evc->taus[io].GetNumTracks());
   }    
 

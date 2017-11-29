@@ -47,6 +47,7 @@
  *    vector<Muon>     muons            -- Muon Vector                        *
  *    vector<Muon>     isolatedmuons    -- Isolated Muon Vector               *
  *    vector<Muon>     unisolatedmuons  -- UnIsolated Muon Vector             *
+ *    vector<Tau>      looseTaus             -- Tau Vector                         *
  *    vector<Tau>      taus             -- Tau Vector                         *
  *    vector<Jet>      jets             -- Jet Vector                         *
  *    vector<Jet>      taggedJets       -- taggedJet Vector                   *
@@ -287,6 +288,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   looseLeptons.clear();
   fakeLeptons.clear();
   tightLeptons.clear();
+  looseTaus.clear();
   taus.clear();
   jets.clear();
   alljets.clear();
@@ -369,6 +371,7 @@ void EventContainer::SetupObjectDefinitions(){
   newLepton.SetCuts(GetConfig(),"EleFake");
   newLepton.SetCuts(GetConfig(),"EleLoose");
   
+  newTau.SetCuts(GetConfig());
   newJet.SetCuts(GetConfig());
 
   newLepton.set_lepMVAreader(GetConfig());
@@ -390,7 +393,6 @@ void EventContainer::SetUseUnisolatedLeptons(const Bool_t& useUnisolatedLeptons,
   _trigID = whichtrig;
   electronsToUsePtr = &tightElectrons;
   muonsToUsePtr = &tightMuons;
-  leptonsToUsePtr = &fakeLeptons;
   if (_trigID == 0 && _useUnisolatedLeptons){
     electronsToUsePtr = &unIsolatedElectrons;
   }
@@ -400,6 +402,9 @@ void EventContainer::SetUseUnisolatedLeptons(const Bool_t& useUnisolatedLeptons,
   
   electronsVetoPtr = &vetoElectrons;
   muonsVetoPtr = &vetoMuons;
+  looseleptonsVetoPtr = &looseLeptons;
+  fakeleptonsVetoPtr = &fakeLeptons;
+  tausVetoPtr = &looseTaus;
 
   //For the synch excercise we want it to always be tight leptons, so I'm gonna add here the ability to just make it all tight.
   //  if (GetChannelName() == "ee" || GetChannelName() == "emu" || GetChannelName() == "mumu"){
@@ -476,6 +481,10 @@ Int_t EventContainer::ReadEvent()
   isolatedMuons.clear();
   unIsolatedMuons.clear();
 
+  looseLeptons.clear();
+  fakeLeptons.clear();
+  tightLeptons.clear();
+  looseTaus.clear();
   taus.clear();
 
   jets.clear();
@@ -712,6 +721,37 @@ Int_t EventContainer::ReadEvent()
       }
 
     } //for
+
+    ///////////////////////////////////////////
+    // Taus
+    //////////////////////////////////////////
+    Bool_t atau = kFALSE;
+    for(Int_t io = 0;io < _eventTree -> Tau_pt->size(); io++) {
+      
+      newTau.Clear();
+      useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"Loose");
+      if(useObj) {
+	    looseTaus.push_back(newTau);
+        if(!atau && _sync == 31){
+            std::cout << eventNumber << " "<<newTau.Pt() << " "<<newTau.Eta()<< " "<< newTau.Phi()<< " "<< newTau.E()<< " "<< newTau.charge() << " " << newTau.dxy() << " " << newTau.dz() << " " << newTau.decayModeFinding() << " " <<newTau.isMedium() << " "<<std::endl;
+            atau = kTRUE;
+        }
+      }//use Obj
+
+      newTau.Clear();
+      useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"Medium");
+      if(useObj) {
+	    taus.push_back(newTau);
+        if(!atau && _sync == 32){
+            std::cout << eventNumber << " "<<newTau.Pt() << " "<<newTau.Eta()<< " "<< newTau.Phi()<< " "<< newTau.E()<< " "<< newTau.charge() << " " << newTau.dxy() << " " << newTau.dz() << " " << newTau.decayModeFinding() << " " <<newTau.isMedium() << " "<<std::endl;
+            atau = kTRUE;
+        }
+      }//use Obj
+
+    }
+
+
+
 
 
     ///////////////////////////////////////////

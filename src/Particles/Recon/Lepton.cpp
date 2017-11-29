@@ -555,7 +555,7 @@ double Lepton::get_LeptonMVA()
 Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
 {
   // **************************************************************
-  // Check muon type
+  // Check lepton type
   // **************************************************************
   if( (leptonType != "EleLoose") && (leptonType != "EleFake") && (leptonType != "EleTight") && (leptonType != "MuLoose") && (leptonType != "MuFake") && (leptonType != "MuTight") ){
     std::cout << "ERROR: <Lepton::Fill()> " << "Passed variable leptonType of value " << leptonType << " is not valid.  "

@@ -486,6 +486,7 @@ class EventContainer
   std::vector<Lepton>       tightLeptons;
   std::vector<Lepton>       fakeLeptons;
   std::vector<Lepton>       looseLeptons;
+  std::vector<Tau>        looseTaus;
   std::vector<Tau>        taus;
   std::vector<Jet>        jets;
   std::vector<Jet>        alljets;//no jet checks
@@ -506,7 +507,9 @@ class EventContainer
   
   std::vector<Electron> * electronsVetoPtr; // used in object cleaning
   std::vector<Muon>     * muonsVetoPtr;  // used in object cleaning
-  std::vector<Lepton>     * leptonsToUsePtr; // used in object cleaning
+  std::vector<Lepton>     * looseleptonsVetoPtr; // used in object cleaning
+  std::vector<Lepton>     * fakeleptonsVetoPtr; // used in object cleaning
+  std::vector<Tau>     * tausVetoPtr; // used in object cleaning
 
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
   
@@ -694,6 +697,7 @@ private:
   Muon newMuon;
   Electron newElectron;
   Lepton newLepton;
+  Tau newTau;
   Jet newJet;
 
   ////////////////////////////////////////////////////////////////////////////////

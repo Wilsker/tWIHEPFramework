@@ -494,6 +494,8 @@ public :
    std::vector<double>  *Tau_default_PCAx_pv;
    std::vector<double>  *Tau_default_PCAy_pv;
    std::vector<double>  *Tau_default_PCAz_pv;
+   std::vector<double>  *Tau_packedLeadTauCand_dxy;
+   std::vector<double>  *Tau_packedLeadTauCand_dz;
    std::vector<double>  *Tau_leadChargedCandDz_pv;
    std::vector<double>  *Tau_leadChargedCandDxy_pv;
    std::vector<double>  *Tau_leadChargedCandDz_bs;
@@ -1209,6 +1211,8 @@ public :
    TBranch        *b_Tau_default_PCAx_pv;   //!
    TBranch        *b_Tau_default_PCAy_pv;   //!
    TBranch        *b_Tau_default_PCAz_pv;   //!
+   TBranch        *b_Tau_packedLeadTauCand_dxy;   //!
+   TBranch        *b_Tau_packedLeadTauCand_dz;   //!
    TBranch        *b_Tau_leadChargedCandDz_pv;   //!
    TBranch        *b_Tau_leadChargedCandDxy_pv;   //!
    TBranch        *b_Tau_leadChargedCandDz_bs;   //!
@@ -1901,6 +1905,8 @@ void EventTree::Init(TTree *tree)
    Tau_default_PCAx_pv = 0;
    Tau_default_PCAy_pv = 0;
    Tau_default_PCAz_pv = 0;
+   Tau_packedLeadTauCand_dxy = 0;
+   Tau_packedLeadTauCand_dz = 0;
    Tau_leadChargedCandDz_pv = 0;
    Tau_leadChargedCandDxy_pv = 0;
    Tau_leadChargedCandDz_bs = 0;
@@ -2586,6 +2592,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Tau_default_PCAx_pv", &Tau_default_PCAx_pv, &b_Tau_default_PCAx_pv);
    fChain->SetBranchAddress("Tau_default_PCAy_pv", &Tau_default_PCAy_pv, &b_Tau_default_PCAy_pv);
    fChain->SetBranchAddress("Tau_default_PCAz_pv", &Tau_default_PCAz_pv, &b_Tau_default_PCAz_pv);
+   fChain->SetBranchAddress("Tau_packedLeadTauCand_dxy", &Tau_packedLeadTauCand_dxy, &b_Tau_packedLeadTauCand_dxy);
+   fChain->SetBranchAddress("Tau_packedLeadTauCand_dz", &Tau_packedLeadTauCand_dz, &b_Tau_packedLeadTauCand_dz);
    fChain->SetBranchAddress("Tau_leadChargedCandDz_pv", &Tau_leadChargedCandDz_pv, &b_Tau_leadChargedCandDz_pv);
    fChain->SetBranchAddress("Tau_leadChargedCandDxy_pv", &Tau_leadChargedCandDxy_pv, &b_Tau_leadChargedCandDxy_pv);
    fChain->SetBranchAddress("Tau_leadChargedCandDz_bs", &Tau_leadChargedCandDz_bs, &b_Tau_leadChargedCandDz_bs);
