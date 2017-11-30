@@ -115,10 +115,10 @@
 // Our own particles
 #include "SingleTopRootAnalysis/Particles/Recon/Electron.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Muon.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Lepton.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Tau.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Neutrino.hpp"
-#include "SingleTopRootAnalysis/Particles/Recon/Lepton.hpp"
 
 // MC particles
 #include "SingleTopRootAnalysis/Particles/Truth/MCParticle.hpp"
@@ -715,6 +715,11 @@ inline Bool_t operator <(const Particle& left, const Particle& right)
   else return kTRUE;
 } //<
 
+inline Bool_t operator <(const Lepton& left, const Lepton& right)
+{
+  if (left.conept() <= right.conept()) return kFALSE;
+  else return kTRUE;
+} //<
 
 inline Bool_t RemoveDuplicate(const MCParticle& one, const MCParticle& two)
 {

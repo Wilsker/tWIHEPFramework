@@ -35,6 +35,8 @@
 #include "SingleTopRootAnalysis/Trees/EventTree.hpp"
 #include "SingleTopRootAnalysis/Trees/FastSimTree.hpp"
 
+class Lepton;
+
 class Tau: public Particle
 {
 public:

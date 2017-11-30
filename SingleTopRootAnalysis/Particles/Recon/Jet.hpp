@@ -36,6 +36,8 @@
 #include "SingleTopRootAnalysis/Particles/Recon/Particle.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Electron.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Muon.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Lepton.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Tau.hpp"
 #include "SingleTopRootAnalysis/Trees/EventTree.hpp"
 #include "SingleTopRootAnalysis/Trees/FastSimTree.hpp"
 //#include "SingleTopRootAnalysis/Base/Dictionary/MultijetJESUncertaintyProvider.hpp"
@@ -44,10 +46,14 @@
 //
 #include <TString.h>
 
+#include "TMVA/Reader.h"
+
 //using namespace Analysis;
 
 class Electron;
 class Muon;
+class Lepton;
+class Tau;
 
 class Jet: public Particle
 {
@@ -66,12 +72,19 @@ class Jet: public Particle
 
   // Set all contents to their defaults
   inline void Clear() { Particle::Clear(); _numberOfConstituents=0; _chargedMultiplicity=0;  _bDiscriminator = -999.0; _pileupId = 0.0; _mass = 0.0; _uncorrPt = 0.0; _neutralHadEnergyFraction=0.0; _neutralEmEmEnergyFraction = 0.0; _chargedHadronEnergyFraction =0.0; _chargedEmEnergyFraction=0.0; _muonEnergyFraction=0.0; _electronEnergy=0.0; _photonEnergy=0.0; _tagged = kFALSE;
+ _isLooseBdisc =0.0;
+ _isMediumBdisc =0.0;
+ _isTightBdisc =0.0;
+ _qg =0.0;
+ _lepdrmax =0.0;
+ _lepdrmin =0.0;
+ _HjDisc =0.0;
 }
 
   void SetCuts(TEnv* config);
 
   // Fill the jet from an EventTree 
-  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Muon>& selectedMuons, std::vector<Electron>& selectedElectrons, EventTree *evtr, Int_t iE, TLorentzVector * met);
+  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met);
   //  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Electron>& selectedElectrons, EventTree *evtr, Int_t iE);
   // Also fill from FastSim tree:
   Bool_t FillFastSim( std::vector<MCJet>& MCBJets, std::vector<MCJet>& MCCJets, std::vector<MCTau>& MCTaus,  std::vector<Electron>& electrons, FastSimTree *tr,Int_t iE,TEnv *config,const TString& tagName="default", Double_t btagCut = 999, Double_t mistagCut = 999, Double_t eshift = 0 );
@@ -136,6 +149,38 @@ class Jet: public Particle
   inline Double_t GetClosestLep() const {return _closestLep;};
   inline Double_t closestLep() const {return _closestLep;};
 
+  inline void SetisLooseBdisc(Double_t isLooseBdisc){_isLooseBdisc = isLooseBdisc;};
+  inline Double_t GetisLooseBdisc() const {return _isLooseBdisc;};
+  inline Double_t isLooseBdisc() const {return _isLooseBdisc;};
+
+  inline void SetisMediumBdisc(Double_t isMediumBdisc){_isMediumBdisc = isMediumBdisc;};
+  inline Double_t GetisMediumBdisc() const {return _isMediumBdisc;};
+  inline Double_t isMediumBdisc() const {return _isMediumBdisc;};
+
+  inline void SetisTightBdisc(Double_t isTightBdisc){_isTightBdisc = isTightBdisc;};
+  inline Double_t GetisTightBdisc() const {return _isTightBdisc;};
+  inline Double_t isTightBdisc() const {return _isTightBdisc;};
+
+  inline void SetHjDisc(Double_t HjDisc){_HjDisc = HjDisc;};
+  inline Double_t GetHjDisc() const {return _HjDisc;};
+  inline Double_t HjDisc() const {return _HjDisc;};
+
+  inline void Setqg(Double_t qg){_qg = qg;};
+  inline Double_t Getqg() const {return _qg;};
+  inline Double_t qg() const {return _qg;};
+
+  inline void Setlepdrmax(Double_t lepdrmax){_lepdrmax = lepdrmax;};
+  inline Double_t Getlepdrmax() const {return _lepdrmax;};
+  inline Double_t lepdrmax() const {return _lepdrmax;};
+
+  inline void Setlepdrmin(Double_t lepdrmin){_lepdrmin = lepdrmin;};
+  inline Double_t Getlepdrmin() const {return _lepdrmin;};
+  inline Double_t lepdrmin() const {return _lepdrmin;};
+
+  // ttH functions
+  void set_HjMVAreader(TEnv* config);
+  
+  
   // Overloaded Operators
   // +=
   Jet& operator+=(const Jet& other);
@@ -165,14 +210,33 @@ class Jet: public Particle
   Double_t _uncorrPt; 
   Bool_t _tagged;
   Double_t _closestLep;
+  Double_t _isLooseBdisc;
+  Double_t _isMediumBdisc;
+  Double_t _isTightBdisc;
+  Double_t _HjDisc;
+  Double_t _qg;
+  Double_t _lepdrmax;
+  Double_t _lepdrmin;
 
   // Cuts applied to the jet objects
   Double_t _maxEtaCut;
   Double_t _minPtCut;
   Double_t _bMaxEtaCut;
   Double_t _bMinPtCut;
-  Double_t _bTagCut;
+  Double_t _LWPbTagCut;
+  Double_t _MWPbTagCut;
+  Double_t _TWPbTagCut;
   Double_t _closestLeptonCut;
+  
+  // ttH functions
+  // Hj tagger mva
+    TMVA::Reader *readerjet;
+    Float_t jetvarqg;
+    Float_t jetvarlepdrmax;
+    Float_t jetvarlepdrmin;
+    Float_t jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags;
+    Float_t jetvarpt;
+    double get_JetMVA();
 
   // Are we running systematic variations?
   Int_t _jesUp;

@@ -375,6 +375,7 @@ void EventContainer::SetupObjectDefinitions(){
   newJet.SetCuts(GetConfig());
 
   newLepton.set_lepMVAreader(GetConfig());
+  newJet.set_HjMVAreader(GetConfig());
 }
 
 /******************************************************************************
@@ -752,7 +753,7 @@ Int_t EventContainer::ReadEvent()
 
 
 
-
+    sort(fakeLeptons.begin(), fakeLeptons.end());
 
     ///////////////////////////////////////////
     // Jets
@@ -764,6 +765,7 @@ Int_t EventContainer::ReadEvent()
     //cout <<"EVENT"<<endl;
 
     Double_t ejoverlap = GetConfig() -> GetValue("ObjectID.Jet.ElectronDeltaRMin", 0.0);
+    Bool_t ajet = kFALSE;
     for(Int_t io = 0;io < _eventTree -> Jet_pt->size(); io++) {
       newJet.Clear();
       jeteoverlap = kFALSE;
@@ -771,7 +773,7 @@ Int_t EventContainer::ReadEvent()
       ejordr = 999;
       bestjetdr = 999;
       //      missingEt = -888; 
-      useObj = newJet.Fill(1.0,1.0, *muonsToUsePtr, *electronsToUsePtr, _eventTree, io, &missingEtVec);
+      useObj = newJet.Fill(1.0,1.0, *fakeleptonsVetoPtr, *tausVetoPtr , _eventTree, io, &missingEtVec);
       //      useObj = newJet.Fill(1.0,1.0, _eventTree, io);
       
       missingEt = TMath::Sqrt(pow(missingEx,2) + pow(missingEy,2));//so MET gets JES adjustment toogEx=top_met.MET_ExMiss();
@@ -779,10 +781,14 @@ Int_t EventContainer::ReadEvent()
       
       alljets.push_back(newJet);
       if(useObj) {
-	jets.push_back(newJet);
- 
-	if(newJet.IsTagged()) taggedJets.push_back(newJet);
-	else unTaggedJets.push_back(newJet);
+	        jets.push_back(newJet);
+            if(!ajet && _sync == 41){
+            std::cout << eventNumber << " " << newJet.Pt() << " " << newJet.Eta() << " " << newJet.Phi() << " "<< newJet.E() << " " << newJet.bDiscriminator() << " "<< newJet.qg()<<" "<< newJet.lepdrmin() << " " << newJet.lepdrmax() <<" "<< newJet.HjDisc() << " "<< missingEt <<" "<< missingPhi << std::endl;
+            ajet = kTRUE;
+            }
+            
+	        if(newJet.IsTagged()) taggedJets.push_back(newJet);
+	        else unTaggedJets.push_back(newJet);
    
         //NOTE: PdgId of +/-1 is used for light quark jets when charge information is available and 
 	//uncharged particles that are not labeled as b, c, or tau are given an ID of 0

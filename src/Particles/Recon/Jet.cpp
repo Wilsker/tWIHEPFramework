@@ -66,7 +66,14 @@ ClassImp(Jet)
  * Output: None                                                               *
  ******************************************************************************/
   Jet::Jet() : Particle::Particle(),
-  _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _pileupId ( 0.0), _mass ( 0.0), _uncorrPt ( 0.0), _neutralHadEnergyFraction(0.0), _neutralEmEmEnergyFraction ( 0.0), _chargedHadronEnergyFraction (0.0), _chargedEmEnergyFraction(0.0), _muonEnergyFraction(0.0), _electronEnergy(0.0), _photonEnergy(0.0), _jesUp(false), _jesDown(false), _jerUp(false), _jerDown(false)
+  _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _pileupId ( 0.0), _mass ( 0.0), _uncorrPt ( 0.0), _neutralHadEnergyFraction(0.0), _neutralEmEmEnergyFraction ( 0.0), _chargedHadronEnergyFraction (0.0), _chargedEmEnergyFraction(0.0), _muonEnergyFraction(0.0), _electronEnergy(0.0), _photonEnergy(0.0), _jesUp(false), _jesDown(false), _jerUp(false), _jerDown(false),
+  _isLooseBdisc       (0.0),
+  _isMediumBdisc       (0.0),
+  _isTightBdisc       (0.0),
+  _qg       (0.0),
+  _lepdrmax       (0.0),
+  _lepdrmin       (0.0),
+  _HjDisc       (0.0)
 {
 } //Jet()
 
@@ -103,6 +110,13 @@ _neutralEmEmEnergyFraction 	(other.GetneutralEmEmEnergyFraction()),
 _chargedEmEnergyFraction	(other.GetchargedEmEnergyFraction()), 
 _muonEnergyFraction		(other.GetmuonEnergyFraction()), 
 _electronEnergy			(other.GetelectronEnergy()), 
+  _isLooseBdisc(other.GetisLooseBdisc()),
+  _isMediumBdisc(other.GetisMediumBdisc()),
+  _isTightBdisc(other.GetisTightBdisc()),
+  _qg(other.Getqg()),
+  _lepdrmax(other.Getlepdrmax()),
+  _lepdrmin(other.Getlepdrmin()),
+  _HjDisc(other.GetHjDisc()),
 _photonEnergy			(other.GetphotonEnergy())
 {
 } //Jet()
@@ -116,7 +130,15 @@ _photonEnergy			(other.GetphotonEnergy())
  * Output: None                                                               *
  ******************************************************************************/
 Jet::Jet(const Particle& other): Particle(other),
-_numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _pileupId ( 0.0), _mass ( 0.0), _uncorrPt ( 0.0), _neutralHadEnergyFraction(0.0), _neutralEmEmEnergyFraction ( 0.0), _chargedHadronEnergyFraction (0.0), _chargedEmEnergyFraction(0.0), _muonEnergyFraction(0.0), _electronEnergy(0.0), _photonEnergy(0.0)
+_numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _pileupId ( 0.0), _mass ( 0.0), _uncorrPt ( 0.0), _neutralHadEnergyFraction(0.0), _neutralEmEmEnergyFraction ( 0.0), _chargedHadronEnergyFraction (0.0), _chargedEmEnergyFraction(0.0), _muonEnergyFraction(0.0), _electronEnergy(0.0), 
+  _isLooseBdisc       (0.0),
+  _isMediumBdisc       (0.0),
+  _isTightBdisc       (0.0),
+  _qg       (0.0),
+  _lepdrmax       (0.0),
+  _lepdrmin       (0.0),
+  _HjDisc       (0.0),
+_photonEnergy(0.0)
 {
  
 } //Jet()
@@ -165,18 +187,25 @@ Jet& Jet::operator=(const Particle& other)
 {
   
   Particle::operator=(other);
-  SetnumberOfConstituents(0), 
-  SetchargedMultiplicity(0),  
-  SetbDiscriminator ( -999.0), 
-  SetpileupId ( 0.0), 
-  Setmass ( 0.0), 
-  SetuncorrPt ( 0.0), 
-  SetneutralHadEnergyFraction(0.0), 
-  SetneutralEmEmEnergyFraction ( 0.0), 
-  SetchargedHadronEnergyFraction (0.0), 
-  SetchargedEmEnergyFraction(0.0), 
-  SetmuonEnergyFraction(0.0), 
-  SetelectronEnergy(0.0), 
+  SetnumberOfConstituents(0); 
+  SetchargedMultiplicity(0); 
+  SetbDiscriminator ( -999.0); 
+  SetpileupId ( 0.0); 
+  Setmass ( 0.0); 
+  SetuncorrPt ( 0.0); 
+  SetneutralHadEnergyFraction(0.0); 
+  SetneutralEmEmEnergyFraction ( 0.0); 
+  SetchargedHadronEnergyFraction (0.0); 
+  SetchargedEmEnergyFraction(0.0); 
+  SetmuonEnergyFraction(0.0); 
+  SetelectronEnergy(0.0); 
+  SetisLooseBdisc       (0.0);
+  SetisMediumBdisc       (0.0);
+  SetisTightBdisc       (0.0);
+  Setqg       (0.0);
+  Setlepdrmax       (0.0);
+  Setlepdrmin       (0.0);
+  SetHjDisc       (0.0);
   SetphotonEnergy(0.0);
 
   return *this;
@@ -206,6 +235,13 @@ Jet& Jet::operator=(const Jet& other)
   SetchargedEmEnergyFraction		(other.GetchargedEmEnergyFraction());
   SetmuonEnergyFraction			(other.GetmuonEnergyFraction());
   SetelectronEnergy			(other.GetelectronEnergy());
+  SetisLooseBdisc(other.GetisLooseBdisc());
+  SetisMediumBdisc(other.GetisMediumBdisc());
+  SetisTightBdisc(other.GetisTightBdisc());
+  Setqg(other.Getqg());
+  Setlepdrmax(other.Getlepdrmax());
+  Setlepdrmin(other.Getlepdrmin());
+  SetHjDisc(other.GetHjDisc());
   SetphotonEnergy			(other.GetphotonEnergy());
   return *this;
 } //= const
@@ -233,6 +269,13 @@ Jet& Jet::operator=(Jet& other)
   SetchargedEmEnergyFraction		(other.GetchargedEmEnergyFraction());
   SetmuonEnergyFraction			(other.GetmuonEnergyFraction());
   SetelectronEnergy			(other.GetelectronEnergy());
+  SetisLooseBdisc(other.GetisLooseBdisc());
+  SetisMediumBdisc(other.GetisMediumBdisc());
+  SetisTightBdisc(other.GetisTightBdisc());
+  Setqg(other.Getqg());
+  Setlepdrmax(other.Getlepdrmax());
+  Setlepdrmin(other.Getlepdrmin());
+  SetHjDisc(other.GetHjDisc());
   SetphotonEnergy			(other.GetphotonEnergy());
   return *this;
 } //= non-const
@@ -253,12 +296,53 @@ void Jet::SetCuts(TEnv * config)
   _minPtCut = 		config -> GetValue("ObjectID.Jet.MinPt",0.);
   _bMaxEtaCut = 	config -> GetValue("ObjectID.BJet.MaxEta",100.);
   _bMinPtCut = 		config -> GetValue("ObjectID.BJet.MinPt",0.);
-  _bTagCut = 		config -> GetValue("ObjectID.BJet.BTagCut",0.0);
+  _LWPbTagCut = 		config -> GetValue("ObjectID.BJet.LWPBTagCut",0.0);
+  _MWPbTagCut = 		config -> GetValue("ObjectID.BJet.MWPBTagCut",0.0);
+  _TWPbTagCut = 		config -> GetValue("ObjectID.BJet.TWPBTagCut",0.0);
   _closestLeptonCut = 	config -> GetValue("ObjectID.Jet.LepCleanR",0.0);
   _jesUp = 		config -> GetValue("Systs.doJESUp",0);
   _jesDown = 		config -> GetValue("Systs.doJESDown",0);
   _jerUp = 		config -> GetValue("Systs.doJERUp",0);
   _jerDown = 		config -> GetValue("Systs.doJERDown",0);
+}
+
+/***************************************************************
+ * void Jet Jet::set_HjMVAreader()                       *
+ *                                                              * 
+ * Set up the MVA xml file                                      *
+ *                                                              *
+ * Input: TEnv* config                                          *
+ * Output: None                                                 *
+ * **************************************************************/
+ 
+void Jet::set_HjMVAreader(TEnv* config)
+{
+    readerjet = new TMVA::Reader("!Color:!Silent");
+    readerjet->AddVariable("Jet_lepdrmin",&jetvarlepdrmin);
+    readerjet->AddVariable("Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags := max(Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags,0.)",&jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags);
+    readerjet->AddVariable("Jet_qg := max(Jet_qg,0.)",&jetvarqg);
+    readerjet->AddVariable("Jet_lepdrmax",&jetvarlepdrmax);
+    readerjet->AddVariable("Jet_pt",&jetvarpt);
+    readerjet->BookMVA("BDTG method", config -> GetValue("Include.HjTaggerMVAFile","null")); 
+}
+
+/***************************************************************
+ * double Jet Jet::get_JetMVA()                *
+ *                                                              * 
+ * Read the Hj Tagger MVA value                                      *
+ *                                                              *
+ * Input: None                                          *
+ * Output: Hj Tagger MVA value                                     *
+ * **************************************************************/
+ 
+double Jet::get_JetMVA()
+{
+    jetvarqg = qg();
+    jetvarlepdrmax = lepdrmax();
+    jetvarpt = Pt();
+    jetvarlepdrmin = lepdrmin();
+    jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = bDiscriminator();
+    return readerjet->EvaluateMVA("BDTG method");
 }
 
 /******************************************************************************         
@@ -271,7 +355,7 @@ void Jet::SetCuts(TEnv * config)
  * Output: True if this jet passes jet ID cuts                                *         
  ******************************************************************************/
 
-Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Muon>& selectedMuons, std::vector<Electron>& selectedElectrons, EventTree *evtr, Int_t iE, TLorentzVector * met)
+Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met)
 {
 
   Double_t jetPt, jetEta,jetPhi,jetE, jetCharge, jetM;
@@ -299,7 +383,12 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Muon>& selecte
   SetmuonEnergyFraction			(evtr -> Jet_muonEnergyFraction     	-> operator[](iE));
   SetelectronEnergy			(evtr -> Jet_electronEnergy     	-> operator[](iE));
   SetphotonEnergy			(evtr -> Jet_photonEnergy     		-> operator[](iE));
+  Setqg       (evtr -> Jet_qg      -> operator[](iE));
 
+  SetisLooseBdisc      ( bDiscriminator() > _LWPbTagCut ); 
+  SetisMediumBdisc       ( bDiscriminator() > _MWPbTagCut );
+  SetisTightBdisc       ( bDiscriminator() > _TWPbTagCut );
+  
   // Now we want to do the JER and JES systematic adjustments to the jet. This also requires correcting the MET.
   if (_jesUp || _jesDown || _jerUp || _jerDown) SystematicPtShift(evtr, iE, met);  
 /*
@@ -357,7 +446,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Muon>& selecte
   // Jet ID
   /////////////////////////////////////////////////////////////////////////
   
-  
+
   Bool_t neutralID = (TMath::Abs(Eta()) > 3. || (neutralHadEnergyFraction() < 0.99 &&  neutralEmEmEnergyFraction() < 0.99 && numberOfConstituents() > 1));
   Bool_t chargedID = (TMath::Abs(Eta()) > 2.4 || (chargedHadronEnergyFraction() > 0. && chargedMultiplicity() > 0. && chargedEmEnergyFraction() < 0.99));
   Bool_t neutralHighEtaID = (TMath::Abs(Eta()) < 3. || (neutralEmEmEnergyFraction() < 0.9 && (numberOfConstituents() - chargedMultiplicity()) > 10));
@@ -371,16 +460,35 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Muon>& selecte
   Bool_t passesCleaning = kTRUE;
  
   Double_t closestLepton = 999.;
-
-  for (auto const & ele : selectedElectrons){
-    if (ele.DeltaR(*this) < closestLepton) closestLepton = ele.DeltaR(*this);
+  Double_t minlepdr = -1.;
+  Double_t maxlepdr = -1.;
+  
+  int lep_num =selectedLeptons.size();
+  
+  if (lep_num == 1){
+    minlepdr = selectedLeptons.at(0).DeltaR(*this);
+    maxlepdr = minlepdr;
   }
-  for (auto const & mu : selectedMuons){
-    if (mu.DeltaR(*this) < closestLepton) closestLepton = mu.DeltaR(*this);
+ 
+  if (lep_num >= 2){
+    minlepdr = TMath::Min(selectedLeptons.at(0).DeltaR(*this),selectedLeptons.at(1).DeltaR(*this));
+    maxlepdr = TMath::Max(selectedLeptons.at(0).DeltaR(*this),selectedLeptons.at(1).DeltaR(*this));
+  }
+
+  for (auto const & lep : selectedLeptons){
+    if (lep.DeltaR(*this) < closestLepton){
+        closestLepton = lep.DeltaR(*this);
+    }
+  }
+  for (auto const & tau : selectedTaus){
+    if (tau.DeltaR(*this) < closestLepton) closestLepton = tau.DeltaR(*this);
   }
   if (closestLepton < _closestLeptonCut) passesCleaning = kFALSE;
 
   SetClosestLep(closestLepton);
+  Setlepdrmax       (maxlepdr);
+  Setlepdrmin       (minlepdr);
+  SetHjDisc       (get_JetMVA());
 
   /////////////////////////////////////////////////////////////////////////
   // B-tag related cuts
@@ -388,7 +496,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Muon>& selecte
 
   Bool_t passbPt = Pt() > _bMinPtCut;
   Bool_t passbEta = TMath::Abs(Eta()) < _bMaxEtaCut;
-  Bool_t passTagCut = bDiscriminator() > _bTagCut;
+  Bool_t passTagCut = bDiscriminator() > _LWPbTagCut;
 
   if (passbPt && passbEta && passTagCut) SetTagged(kTRUE);
   else SetTagged(kFALSE);
