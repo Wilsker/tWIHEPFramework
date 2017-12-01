@@ -82,6 +82,11 @@ public:
  _dPhiIn =0.0;
  _ooEmooP =0.0;
  _mvaValue_HZZ =0.0;
+ _isGsfCtfScPixChargeConsistent =0.0;
+ _isGsfScPixChargeConsistent =0.0;
+ _passConversionVeto =0.0;
+ _passTightCharge =0.0;
+ _passMissHit =0.0;
   };
 
   // Fill the lepton from an EventTree
@@ -287,6 +292,27 @@ public:
   inline Double_t GetmvaValue_HZZ() const {return _mvaValue_HZZ;};
   inline Double_t mvaValue_HZZ() const {return _mvaValue_HZZ;};
 
+  inline void SetisGsfCtfScPixChargeConsistent(Double_t isGsfCtfScPixChargeConsistent){_isGsfCtfScPixChargeConsistent = isGsfCtfScPixChargeConsistent;};
+  inline Double_t GetisGsfCtfScPixChargeConsistent() const {return _isGsfCtfScPixChargeConsistent;};
+  inline Double_t isGsfCtfScPixChargeConsistent() const {return _isGsfCtfScPixChargeConsistent;};
+
+  inline void SetisGsfScPixChargeConsistent(Double_t isGsfScPixChargeConsistent){_isGsfScPixChargeConsistent = isGsfScPixChargeConsistent;};
+  inline Double_t GetisGsfScPixChargeConsistent() const {return _isGsfScPixChargeConsistent;};
+  inline Double_t isGsfScPixChargeConsistent() const {return _isGsfScPixChargeConsistent;};
+
+  inline void SetpassConversionVeto(Double_t passConversionVeto){_passConversionVeto = passConversionVeto;};
+  inline Double_t GetpassConversionVeto() const {return _passConversionVeto;};
+  inline Double_t passConversionVeto() const {return _passConversionVeto;};
+
+  // ttH new variables
+  inline void SetpassTightCharge(Double_t passTightCharge){_passTightCharge = passTightCharge;};
+  inline Double_t GetpassTightCharge() const {return _passTightCharge;};
+  inline Double_t passTightCharge() const {return _passTightCharge;};
+
+  inline void SetpassMissHit(Double_t passMissHit){_passMissHit = passMissHit;};
+  inline Double_t GetpassMissHit() const {return _passMissHit;};
+  inline Double_t passMissHit() const {return _passMissHit;};
+
   inline void SetBDT(Double_t BDT){_BDT = BDT;};
   inline Double_t GetBDT() const {return _BDT;};
   inline Double_t BDT() const {return _BDT;};
@@ -348,6 +374,11 @@ private:
   Double_t _dPhiIn;
   Double_t _ooEmooP;
   Double_t _mvaValue_HZZ;
+  Double_t _isGsfCtfScPixChargeConsistent;
+  Double_t _isGsfScPixChargeConsistent;
+  Double_t _passConversionVeto;
+  Double_t _passTightCharge;
+  Double_t _passMissHit;
 
   /// cuts reading from config
   Double_t _closestMuonCut;

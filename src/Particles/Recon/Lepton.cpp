@@ -87,6 +87,11 @@ ClassImp(Lepton)
   _segmentCompatibility       (0.0),
   _BDT       (0.0),
   _conept       (0.0),
+  _isGsfCtfScPixChargeConsistent       (0.0),
+  _isGsfScPixChargeConsistent       (0.0),
+  _passConversionVeto       (0.0),
+  _passTightCharge       (0.0),
+  _passMissHit       (0.0),
   _pTErrOVpT_it       (0.0),
   _SCeta       (0.0),
   _expectedMissingInnerHits       (0.0),
@@ -161,6 +166,11 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _segmentCompatibility(other.GetsegmentCompatibility()),
   _BDT(other.GetBDT()),
   _conept(other.Getconept()),
+  _isGsfCtfScPixChargeConsistent(other.GetisGsfCtfScPixChargeConsistent()),
+  _isGsfScPixChargeConsistent(other.GetisGsfScPixChargeConsistent()),
+  _passConversionVeto(other.GetpassConversionVeto()),
+  _passTightCharge(other.GetpassTightCharge()),
+  _passMissHit(other.GetpassMissHit()),
   _SCeta(other.GetSCeta()),
   _expectedMissingInnerHits(other.GetexpectedMissingInnerHits()),
   _full5x5_sigmaIetaIeta(other.Getfull5x5_sigmaIetaIeta()),
@@ -222,6 +232,11 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _segmentCompatibility       (0.0),
   _BDT       (0.0),
   _conept       (0.0),
+  _isGsfCtfScPixChargeConsistent       (0.0),
+  _isGsfScPixChargeConsistent       (0.0),
+  _passConversionVeto       (0.0),
+  _passTightCharge       (0.0),
+  _passMissHit       (0.0),
   _SCeta       (0.0),
   _expectedMissingInnerHits       (0.0),
   _full5x5_sigmaIetaIeta       (0.0),
@@ -314,6 +329,11 @@ Lepton& Lepton::operator=(const Particle& other)
   SetsegmentCompatibility       (0.0);
   SetBDT       (0.0);
   Setconept       (0.0);
+  SetisGsfCtfScPixChargeConsistent       (0.0);
+  SetisGsfScPixChargeConsistent       (0.0);
+  SetpassConversionVeto       (0.0);
+  SetpassTightCharge       (0.0);
+  SetpassMissHit       (0.0);
   SetpTErrOVpT_it       (0.0);
   SetSCeta       (0.0);
   SetexpectedMissingInnerHits       (0.0);
@@ -376,6 +396,11 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetsegmentCompatibility(other.GetsegmentCompatibility());
   SetBDT(other.GetBDT());
   Setconept(other.Getconept());
+  SetisGsfCtfScPixChargeConsistent(other.GetisGsfCtfScPixChargeConsistent());
+  SetisGsfScPixChargeConsistent(other.GetisGsfScPixChargeConsistent());
+  SetpassConversionVeto(other.GetpassConversionVeto());
+  SetpassTightCharge(other.GetpassTightCharge());
+  SetpassMissHit(other.GetpassMissHit());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   SetSCeta(other.GetSCeta());
   SetexpectedMissingInnerHits(other.GetexpectedMissingInnerHits());
@@ -438,6 +463,11 @@ Lepton& Lepton::operator=(Lepton& other)
   SetsegmentCompatibility(other.GetsegmentCompatibility());
   SetBDT(other.GetBDT());
   Setconept(other.Getconept());
+  SetisGsfCtfScPixChargeConsistent(other.GetisGsfCtfScPixChargeConsistent());
+  SetisGsfScPixChargeConsistent(other.GetisGsfScPixChargeConsistent());
+  SetpassConversionVeto(other.GetpassConversionVeto());
+  SetpassTightCharge(other.GetpassTightCharge());
+  SetpassMissHit(other.GetpassMissHit());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   SetSCeta(other.GetSCeta());
   SetexpectedMissingInnerHits(other.GetexpectedMissingInnerHits());
@@ -614,6 +644,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetvalidFraction       (evtr -> Muon_validFraction      -> operator[](iE));
     SetsegmentCompatibility       (evtr -> Muon_segmentCompatibility      -> operator[](iE));
     SetpTErrOVpT_it       (evtr -> Muon_pTErrOVpT_it      -> operator[](iE));
+    SetpassConversionVeto       (1.);
     
   }
 
@@ -649,6 +680,9 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetdPhiIn       (evtr -> patElectron_dPhiIn      -> operator[](iE));
     SetooEmooP       (evtr -> patElectron_ooEmooP      -> operator[](iE));
     SetmvaValue_HZZ       (evtr -> patElectron_mvaValue_HZZ      -> operator[](iE));
+    SetisGsfCtfScPixChargeConsistent       (evtr -> patElectron_isGsfCtfScPixChargeConsistent      -> operator[](iE));
+    SetisGsfScPixChargeConsistent       (evtr -> patElectron_isGsfScPixChargeConsistent      -> operator[](iE));
+    SetpassConversionVeto       (evtr -> patElectron_passConversionVeto      -> operator[](iE));
     
   }
   SetPtEtaPhiE(lepPt, lepEta, lepPhi, lepE);
@@ -738,8 +772,13 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
   Bool_t ishipsave = sNumber < 210000; // data period GH (sNumber>21000) is not hipsave 
   Bool_t GoodGlobal = (isGlobal()==1 && chi2() <3 && chi2LocalPosition() < 12 && trkKink() < 20);
   Bool_t isMedium = TMath::Abs(pdgId())==11 || (passLooseId() ==1 && validFraction() > (ishipsave? 0.49 : 0.80) && segmentCompatibility() > ( GoodGlobal? 0.303 : 0.451));
+  // calculate lepton BDT
   SetBDT(get_LeptonMVA());
+  // calculate conept
   Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * jetpt());
+  // calculate lepton tight selections
+  SetpassTightCharge   ((pdgid==13 && TMath::Abs(pTErrOVpT_it())<0.2)||(pdgid==11 && (isGsfCtfScPixChargeConsistent() + isGsfScPixChargeConsistent()) >1));
+  SetpassMissHit       ((pdgid==13)||(expectedMissingInnerHits()==0 && pdgid ==11));
   
   Bool_t eleMVAId = kFALSE;
   if((TMath::Abs(SCeta()) <0.8 && mvaValue_HZZ() > 0.0)||

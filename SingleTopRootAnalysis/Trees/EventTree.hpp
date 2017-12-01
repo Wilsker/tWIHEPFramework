@@ -321,6 +321,8 @@ public :
    std::vector<double>  *patElectron_hOverE;
    std::vector<double>  *patElectron_ooEmooP;
    std::vector<double>  *patElectron_passConversionVeto;
+   std::vector<double>  *patElectron_isGsfScPixChargeConsistent;
+   std::vector<double>  *patElectron_isGsfCtfScPixChargeConsistent;
    std::vector<double>  *patElectron_expectedMissingInnerHits;
    std::vector<double>  *patElectron_gsfTrack_ndof;
    std::vector<double>  *patElectron_gsfTrack_normChi2;
@@ -1039,6 +1041,8 @@ public :
    TBranch        *b_patElectron_hOverE;   //!
    TBranch        *b_patElectron_ooEmooP;   //!
    TBranch        *b_patElectron_passConversionVeto;   //!
+   TBranch        *b_patElectron_isGsfScPixChargeConsistent;   //!
+   TBranch        *b_patElectron_isGsfCtfScPixChargeConsistent;   //!
    TBranch        *b_patElectron_expectedMissingInnerHits;   //!
    TBranch        *b_patElectron_gsfTrack_ndof;   //!
    TBranch        *b_patElectron_gsfTrack_normChi2;   //!
@@ -1734,6 +1738,8 @@ void EventTree::Init(TTree *tree)
    patElectron_hOverE = 0;
    patElectron_ooEmooP = 0;
    patElectron_passConversionVeto = 0;
+   patElectron_isGsfScPixChargeConsistent = 0;
+   patElectron_isGsfCtfScPixChargeConsistent = 0;
    patElectron_expectedMissingInnerHits = 0;
    patElectron_gsfTrack_ndof = 0;
    patElectron_gsfTrack_normChi2 = 0;
@@ -2422,6 +2428,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_hOverE", &patElectron_hOverE, &b_patElectron_hOverE);
    fChain->SetBranchAddress("patElectron_ooEmooP", &patElectron_ooEmooP, &b_patElectron_ooEmooP);
    fChain->SetBranchAddress("patElectron_passConversionVeto", &patElectron_passConversionVeto, &b_patElectron_passConversionVeto);
+   fChain->SetBranchAddress("patElectron_isGsfScPixChargeConsistent", &patElectron_isGsfScPixChargeConsistent, &b_patElectron_isGsfScPixChargeConsistent);
+   fChain->SetBranchAddress("patElectron_isGsfCtfScPixChargeConsistent", &patElectron_isGsfCtfScPixChargeConsistent, &b_patElectron_isGsfCtfScPixChargeConsistent);
    fChain->SetBranchAddress("patElectron_expectedMissingInnerHits", &patElectron_expectedMissingInnerHits, &b_patElectron_expectedMissingInnerHits);
    fChain->SetBranchAddress("patElectron_gsfTrack_ndof", &patElectron_gsfTrack_ndof, &b_patElectron_gsfTrack_ndof);
    fChain->SetBranchAddress("patElectron_gsfTrack_normChi2", &patElectron_gsfTrack_normChi2, &b_patElectron_gsfTrack_normChi2);
