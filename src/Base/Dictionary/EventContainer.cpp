@@ -341,6 +341,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   _metShift = _config.GetValue("Systs.metShift",0);
   _channelName = _config.GetValue("ChannelName","");
   _sync = _config.GetValue("SyncType",0);
+  set_hadTopMVA();
 
   return;
 } //Initialize()
@@ -804,8 +805,8 @@ Int_t EventContainer::ReadEvent()
 	//if((newJet.GetAbsPdgId() == 1) || (newJet.GetAbsPdgId() == 0) )  lightQuarkLabeledJets.push_back(newJet);
       } // if useObj
     } //jets
-    
-/*
+
+    /*
     missingEx = _eventTree -> MissingEt_etx / 1000.0;
     missingEy = _eventTree -> MissingEt_ety / 1000.0;
     missingEt = TMath::Sqrt(pow(missingEx,2) + pow(missingEy,2));//so MET gets adjustment by the muon smearing
@@ -1188,4 +1189,42 @@ void EventContainer::MakeTopQuarks()
 
   return;
 } //MakeTopQuark
+/////hadTOp
+/***************************************************************
+ * void EventContainer::set_hadTopMVA()                       *
+ *                                                              * 
+ * Set up the MVA xml file && bMeidum Cuts                      *
+ *                                                              *
+ * Input: TEnv* config                                          *
+ * Output: None                                                 *
+ * **************************************************************/
+ 
+void EventContainer::set_hadTopMVA()
+{
+    hadTop_reader_loose = new TMVA::Reader( "!Color:!Silent" );
+
+    hadTop_reader_loose->AddVariable( "b_from_leptop_bdt.csv", &varbjet_lepTop_csv );
+    hadTop_reader_loose->AddVariable( "b_from_hadtop_bdt.csv", &varbjet_hadTop_csv );
+    hadTop_reader_loose->AddVariable( "hadTop_tlv_bdt.Pt()", &varreco_hadTop_pt );
+    hadTop_reader_loose->AddVariable( "w_from_hadtop_tlv_bdt.M()", &varreco_WhadTop_mass );
+    hadTop_reader_loose->AddVariable( "hadTop_tlv_bdt.M()", &varreco_hadTop_mass );
+    hadTop_reader_loose->AddVariable( "lep_from_leptop_bdt.obj.pt()/lep_from_higgs_bdt.obj.pt()", &varPtRatio_leptOverleph );
+    hadTop_reader_loose->AddVariable( "dr_lepFromTop_bFromLepTop", &varDr_lept_bfromlTop );
+    hadTop_reader_loose->AddVariable( "dr_lepFromTop_bFromHadTop", &varDr_lept_bfromhTop );
+    hadTop_reader_loose->AddVariable( "dr_lepFromHiggs_bFromLepTop", &varDr_leph_bfromlTop );
+    hadTop_reader_loose->BookMVA("BDTG method", _config.GetValue("Include.HadTopMVA.bLooseFile","null"));
+
+    hadTop_reader_tight = new TMVA::Reader( "!Color:!Silent" );
+
+    hadTop_reader_tight->AddVariable( "b_from_leptop_bdt.csv", &varbjet_lepTop_csv );
+    hadTop_reader_tight->AddVariable( "b_from_hadtop_bdt.csv", &varbjet_hadTop_csv );
+    hadTop_reader_tight->AddVariable( "hadTop_tlv_bdt.Pt()", &varreco_hadTop_pt );
+    hadTop_reader_tight->AddVariable( "w_from_hadtop_tlv_bdt.M()", &varreco_WhadTop_mass );
+    hadTop_reader_tight->AddVariable( "hadTop_tlv_bdt.M()", &varreco_hadTop_mass );
+    hadTop_reader_tight->AddVariable( "lep_from_leptop_bdt.obj.pt()/lep_from_higgs_bdt.obj.pt()", &varPtRatio_leptOverleph );
+    hadTop_reader_tight->AddVariable( "dr_lepFromTop_bFromLepTop", &varDr_lept_bfromlTop );
+    hadTop_reader_tight->AddVariable( "dr_lepFromTop_bFromHadTop", &varDr_lept_bfromhTop );
+    hadTop_reader_tight->AddVariable( "dr_lepFromHiggs_bFromLepTop", &varDr_leph_bfromlTop );
+    hadTop_reader_tight->BookMVA("BDTG method", _config.GetValue("Include.HadTopMVA.bTightFile","null"));
+};
 

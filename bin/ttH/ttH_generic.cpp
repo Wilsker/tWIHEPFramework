@@ -54,6 +54,7 @@
 //Include the additional variables that we would want in the skim tree
 #include "SingleTopRootAnalysis/Vars/TestVar.hpp"
 #include "SingleTopRootAnalysis/Vars/BDTVars.hpp"
+#include "SingleTopRootAnalysis/Vars/HadTopVars.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
 
 using std::cout;
@@ -271,6 +272,7 @@ int main(int argc, char **argv)
   //  mystudy.AddVars(new TestVar());
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   mystudy.AddVars(new BDTVars(true));
+  mystudy.AddVars(new HadTopVars(true));
   mystudy.AddVars(new WeightVars());
 
   TFile *_skimBDTFile;

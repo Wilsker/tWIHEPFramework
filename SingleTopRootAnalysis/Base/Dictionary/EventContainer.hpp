@@ -40,6 +40,8 @@
  *                                                                            *
  *    Int_t ReadEvent()                 -- Create TLorentz Vectors            *
  *    Bool_t CreateFinalState()         -- Create final state particles       *
+ *    void set_hadTopMVA();             -- Set Hadronic Top MVA               *
+ *      
  *    Int_t runNumber                   -- Run number from the root tree      *
  *    Int_t eventNumber                 -- Event number from the root tree    *
  *    vector<Electron> electrons        -- Electron Vector                    *
@@ -47,7 +49,7 @@
  *    vector<Muon>     isolatedmuons    -- Isolated Muon Vector               *
  *    vector<Muon>     unisolatedmuons  -- UnIsolated Muon Vector             *
  *    vector<Tau>      taus             -- Tau Vector                         *
- *    vector<JetOR>      jetors         -- JetOR Vector (special overlap) vec *
+ *    vector<JetOR>         jetors         -- JetOR Vector (special overlap) vec *
  *    vector<Jet>      jets             -- Jet Vector                         *
  *    vector<Jet>      taggedJets       -- taggedJet Vector                   *
  *    vector<Jet>      untaggedJets     -- untaggedJet Vector                 *
@@ -145,6 +147,7 @@
 #include <TMath.h>
 #include <TString.h>
 
+#include "TMVA/Reader.h"
 //using namespace Analysis;
 
 class EventContainer
@@ -512,6 +515,7 @@ class EventContainer
   std::vector<Tau>     * tausVetoPtr; // used in object cleaning
 
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
+ 
   
   // also store MET
   Double_t missingEt;
@@ -623,6 +627,26 @@ class EventContainer
   bool useMCWithConstantTerm;
   //bool isMCFlag;
 
+
+    ////// Hadronic Top Tagger
+    void set_hadTopMVA();
+    //MVA
+    TMVA::Reader *hadTop_reader_loose;
+    TMVA::Reader *hadTop_reader_tight;
+
+    Float_t varbjet_lepTop_csv;
+    Float_t varbjet_hadTop_csv;
+    Float_t varreco_hadTop_pt;
+    Float_t varreco_hadTop_mass;
+    Float_t varreco_WhadTop_mass;
+    Float_t varPtRatio_leptOverleph;
+    Float_t varDr_lept_bfromlTop;
+    Float_t varDr_lept_bfromhTop;
+    Float_t varDr_leph_bfromlTop;
+  
+    // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
+    Int_t _sync;
+
 protected:
   
   // Debugging level
@@ -637,8 +661,6 @@ private:
   //The name of the channel being used. this is currently used for synch, but might be used for trigger or something.
   TString _channelName;
   
-  // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
-  Int_t _sync;
   
   // Target top mass used in the best jet algorithm
   Double_t _targetTopMass;
