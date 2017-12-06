@@ -13,6 +13,7 @@
  *
  * History
  *      10 Nov 2016 - Created by D Leggat
+ *      6 Dec 2017 - Modified by B Li      save the vector type variables
  *****************************************************************************/
 
 #include "SingleTopRootAnalysis/Base/Dictionary/VarBase.hpp"
@@ -81,6 +82,17 @@ void VarBase::BookBranches(TTree * skimTree){
     }
   }
 
+  for (auto doubleVec : _doubleVecs){
+    string tempString = doubleVec.first;
+    _branchVec[tempString.c_str()] = skimTree->Branch(tempString.c_str(),&(_doubleVecs[tempString.c_str()]));
+    if (DoHists()) {
+      if(doubleVec.second.size()<2){
+       std::cout << "=========== ERROR in Class VarBase ========================= : " << std::cout<< endl;
+       std::cout << " new doubleVec variables must be initialized by two elements so that we can use them to create histograms " << std::cout<< endl;
+      }
+      _histograms[tempString] = BookTH1FHistogram(tempString,tempString,100,doubleVec.second.at(0),doubleVec.second.at(1));
+    }
+  }
 
 }
 
@@ -98,6 +110,9 @@ void VarBase::ResetBranches(){
   }
   for (auto floatVar : _floatVars){
     floatVar.second = -999.;
+  }
+  for (auto doubleVec : _doubleVecs){
+    doubleVec.second.clear();
   }
 }
 
@@ -117,6 +132,10 @@ void VarBase::OutputBranches(){
   for (auto intVar : _intVars){
     std::cout << intVar.first << " " << intVar.second << std::endl;
   }
+  
+  for (auto doubleVec : _doubleVecs){
+    std::cout << doubleVec.first << " " << doubleVec.second.at(1) <<" " <<doubleVec.second.at(2) <<std::endl;
+  }
 }
 
 /****************************************************************************** 
@@ -133,6 +152,9 @@ void VarBase::TouchBranches(){
   }
   for (auto intVar : _intVars){
     int temp = intVar.second;
+  }
+  for (auto doubleVec : _doubleVecs){
+    std::vector<double> temp = doubleVec.second;
   }
 }
 
@@ -155,5 +177,11 @@ void VarBase::FillHistograms(double weight){
   for (auto floatVar : _floatVars){
     //std::cout << floatVar.first << " " << floatVar.second << std::endl;
     _histograms[floatVar.first]->Fill(floatVar.second,weight);
+  }
+  for (auto doubleVec : _doubleVecs){
+    //    std::cout << doubleVec.first << " " << doubleVec.second << std::endl;
+    for(uint vec_en=0; vec_en < doubleVec.second.size(); vec_en++){ 
+      _histograms[doubleVec.first]->Fill(doubleVec.second.at(vec_en),weight);
+    }
   }
 }

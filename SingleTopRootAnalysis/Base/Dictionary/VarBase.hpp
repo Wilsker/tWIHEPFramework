@@ -62,6 +62,7 @@ private:
 protected:
   std::map<string,int> _intVars;
   std::map<string,float> _floatVars;
+  std::map<string,std::vector<double>> _doubleVecs;
   std::map<string,TBranch*> _branchVec;
 
   //Fill the histograms if we're doinng that

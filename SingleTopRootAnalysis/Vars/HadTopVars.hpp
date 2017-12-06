@@ -37,6 +37,7 @@ private:
     // evaluate mva
     Float_t get_hadTopMVA(int numbJet, EventContainer* EvtObj);
 
+    std::vector<double> Jet_isToptag;
     std::vector<Float_t> Jet_null_pt; 
     std::vector<Float_t> Jet_null_eta; 
     std::vector<Float_t> Jet_null_phi;
