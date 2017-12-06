@@ -73,6 +73,7 @@ ClassImp(Jet)
   _qg       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
+  _isToptag       (0.0),
   _HjDisc       (0.0)
 {
 } //Jet()
@@ -116,6 +117,7 @@ _electronEnergy			(other.GetelectronEnergy()),
   _qg(other.Getqg()),
   _lepdrmax(other.Getlepdrmax()),
   _lepdrmin(other.Getlepdrmin()),
+  _isToptag(other.GetisToptag()),
   _HjDisc(other.GetHjDisc()),
 _photonEnergy			(other.GetphotonEnergy())
 {
@@ -137,6 +139,7 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _qg       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
+  _isToptag       (0.0),
   _HjDisc       (0.0),
 _photonEnergy(0.0)
 {
@@ -205,6 +208,7 @@ Jet& Jet::operator=(const Particle& other)
   Setqg       (0.0);
   Setlepdrmax       (0.0);
   Setlepdrmin       (0.0);
+  SetisToptag       (0.0);
   SetHjDisc       (0.0);
   SetphotonEnergy(0.0);
 
@@ -241,6 +245,7 @@ Jet& Jet::operator=(const Jet& other)
   Setqg(other.Getqg());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
+  SetisToptag(other.GetisToptag());
   SetHjDisc(other.GetHjDisc());
   SetphotonEnergy			(other.GetphotonEnergy());
   return *this;
@@ -275,6 +280,7 @@ Jet& Jet::operator=(Jet& other)
   Setqg(other.Getqg());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
+  SetisToptag(other.GetisToptag());
   SetHjDisc(other.GetHjDisc());
   SetphotonEnergy			(other.GetphotonEnergy());
   return *this;
