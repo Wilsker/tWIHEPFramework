@@ -88,7 +88,7 @@ Bool_t HistogrammingMtW::Apply()
     if (evc->tightMuons.size() > 0){
       lepton = evc->tightMuons[0];
     }
-    else {
+    else if(evc->tightElectrons.size() > 0){
       lepton = evc->tightElectrons[0];
     }
   }
@@ -96,7 +96,7 @@ Bool_t HistogrammingMtW::Apply()
     if (evc->unIsolatedMuons.size() > 0){
       lepton = evc->unIsolatedMuons[0];
     }
-    else {
+    else if(evc->unIsolatedElectrons.size() > 0){
       lepton = evc->unIsolatedElectrons[0];
     }
   }

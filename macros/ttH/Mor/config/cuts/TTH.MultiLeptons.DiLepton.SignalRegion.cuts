@@ -1,0 +1,61 @@
+###############################################################################
+#
+#  TTH.MultiLeptons.DiLepton.SignalRegion.cuts
+#
+###############################################################################
+
+# ############ Trigger Cuts ###############
+# Trigger cuts implemented within the trigger cut classes (for now)
+
+################# Lepton Cuts #########################
+# Number of Leptons
+Cut.Lepton.TTHTight.Number.Min:  0
+Cut.Lepton.TTHTight.Number.Max:  2
+#Cut.Lepton.Tight.EleLeadingPt:  25
+#Cut.Lepton.Tight.EleSubLeadingPt:  15
+#Cut.Lepton.Tight.MuLeadingPt:  25
+#Cut.Lepton.Tight.MuSubLeadingPt:  15
+################# Muon Cuts #########################
+# Number of  Muons
+#Cut.Muon.Tight.Number.Min:  1
+#Cut.Muon.Tight.Number.Max:  1
+
+################# Tau Cuts #########################
+# Number of Taus
+Cut.Tau.Number.Min:  0
+Cut.Tau.Number.Max:  0
+
+# ############## Jet Cuts ##############################
+# Jet multiplicity cuts
+Cut.Jet.Number.Min:  4
+Cut.Jet.Number.Max:  999 
+Cut.Jet.Pt.1.Min:  25
+Cut.Jet.Pt.1.Max: 999
+# ############## Tagged Jet Cuts #################
+
+#Cut.bLoose.Jet.Number.Min: 2
+#Cut.bLoose.Jet.Number.Max: 999
+#Cut.bMedium.Jet.Number.Min: 1
+#Cut.bMedium.Jet.Number.Max: 999
+
+
+
+################ Global Event Cuts #####################
+# Missing ET
+Cut.Event.MissingEt.Min:  50.0
+Cut.Event.MissingEt.Max: 999.0
+
+# ############## SumDeltaPhiLepMET #################
+# SumDeltaPhiLepMET cuts
+Triangular.SumDeltaPhiLepMET.Min:  2.5
+Triangular.SumDeltaPhiLepMET.Max: 999
+
+################ Global Event Cuts #####################
+# HTJet1
+Cut.Event.HTJET1.Min:  999.0
+Cut.Event.HTJET1.Max: 999.0
+
+################ Z veto Cuts #####################
+# Zveto Cut
+Cut.Event.Zveto.Min:   81
+Cut.Event.Zveto.Max:   101

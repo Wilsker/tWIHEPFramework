@@ -194,11 +194,14 @@ Bool_t HistogrammingJetAngular::Apply()
   //cout<<"Begin of HistogrammingJetAngular::Apply()"<<endl;
   
   EventContainer *evc = GetEventContainer();
-  
-  bJet = evc->taggedJets[0];
+ 
+  //if(evc->taggedJets.size()>0) 
+      bJet = evc->taggedJets[0];
   int jetCount = 0;
-  leadingJet = evc->unTaggedJets[0];
-  subleadingJet = evc->unTaggedJets[1];
+  //if(evc->unTaggedJets.size()>0) 
+      leadingJet = evc->unTaggedJets[0];
+  //if(evc->unTaggedJets.size()>1) 
+      subleadingJet = evc->unTaggedJets[1];
   /*  for (auto const jet : evc->jets){
     std::cout << jet.Pt();
     if (jet.IsTagged()) continue;
@@ -210,12 +213,11 @@ Bool_t HistogrammingJetAngular::Apply()
     else subleadingJet = jet;
     std::cout << leadingJet.Pt() << " " << subleadingJet.Pt() << std::endl;
     }*/
-
   if (!_unisolated){
     if (evc->tightMuons.size() > 0){
       lepton = evc->tightMuons[0];
     }
-    else {
+    else if(evc->tightElectrons.size() > 0){
       lepton = evc->tightElectrons[0];
     }
   }
@@ -223,7 +225,7 @@ Bool_t HistogrammingJetAngular::Apply()
     if (evc->unIsolatedMuons.size() > 0){
       lepton = evc->unIsolatedMuons[0];
     }
-    else {
+    else if(evc->unIsolatedElectrons.size() > 0){
       lepton = evc->unIsolatedElectrons[0];
     }
   }

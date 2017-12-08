@@ -22,7 +22,7 @@
 // Include histogramming classes
 #include "SingleTopRootAnalysis/Cuts/Weights/EventWeight.hpp"
 //#include "SingleTopRootAnalysis/Histogramming/Topological/HistogrammingWtDiLepTopology.hpp"
-#include "SingleTopRootAnalysis/Histogramming/Recon/HistogrammingMuon.hpp"
+//#include "SingleTopRootAnalysis/Histogramming/Recon/HistogrammingMuon.hpp"
 #include "SingleTopRootAnalysis/Histogramming/Recon/HistogrammingElectron.hpp"
 #include "SingleTopRootAnalysis/Histogramming/Recon/HistogrammingMET.hpp"
 #include "SingleTopRootAnalysis/Histogramming/Recon/HistogrammingMtW.hpp"
@@ -33,13 +33,14 @@
 //#include "SingleTopRootAnalysis/Cuts/Other/CutTriangularSumDeltaPhiLepMET.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Other/CutEMuOverlap.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
-#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
+//#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Jet/CutJetPt1.hpp"
 
 //#include "SingleTopRootAnalysis/Cuts/Other/CutMissingEt.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonN.hpp"
 #include "SingleTopRootAnalysis/Cuts/Muon/CutMuonN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Muon/CutMuonTighterPt.hpp"
-#include "SingleTopRootAnalysis/Cuts/Electron/CutElectronN.hpp"
+//#include "SingleTopRootAnalysis/Cuts/Electron/CutElectronN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Electron/CutElectronTighterPt.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Other/CutHTJET1.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonOppositeCharge.hpp"
@@ -212,7 +213,7 @@ int main(int argc, char **argv)
   /////////////////////////////////////////////////////////////////////////////////
   // ******** Cuts and Histograms applied to all studies ********
 
-  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
+  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
 
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"All"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
@@ -221,24 +222,27 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutPrimaryVertex(particlesObj));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
 
-  mystudy.AddCut(new HistogrammingMET(particlesObj));
+  //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
-  mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
+  mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
+  //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
+  
+  //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
 
-  mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
+  //mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
  
 
 
-  mystudy.AddCut(new CutElectronN(particlesObj, leptonTypeToSelect)); //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutElectronN(particlesObj, "Veto")); //require that lepton to be isolated, central, high pt
+  //mystudy.AddCut(new CutElectronN(particlesObj, leptonTypeToSelect)); //require that lepton to be isolated, central, high pt
+  //mystudy.AddCut(new CutElectronN(particlesObj, "Veto")); //require that lepton to be isolated, central, high pt
 
-  mystudy.AddCut(new HistogrammingElectron(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
-  mystudy.AddCut(new HistogrammingElectron(particlesObj,"Veto"));  // make the muon plots, hopefully.
+  //mystudy.AddCut(new HistogrammingElectron(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
+  //mystudy.AddCut(new HistogrammingElectron(particlesObj,"Veto"));  // make the muon plots, hopefully.
 
-  mystudy.AddCut(new HistogrammingMET(particlesObj));
-  mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
+  //mystudy.AddCut(new HistogrammingMET(particlesObj));
+  //mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
 
-  mystudy.AddCut(new HistogrammingMuon(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
+  //mystudy.AddCut(new HistogrammingMuon(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
 
   //mystudy.AddCut(new CutMuonTighterPt(particlesObj, "Tight")); //require that new Pt cut for leading and subleading muon  
   //if (isemu){
@@ -247,17 +251,18 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutJetPt1(particlesObj));
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   
-  mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
+  //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
 
-  mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
+  //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
 
   mystudy.AddCut(new HistogrammingMET(particlesObj));
   mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
   mystudy.AddCut(new HistogrammingJetAngular(particlesObj,useInvertedIsolation));
   mystudy.AddCut(new HistogrammingJet(particlesObj));
   mystudy.AddCut(new HistogrammingNPvtx(particlesObj));
+  
   //mystudy.AddCut(new CutTriangularSumDeltaPhiLepMET(particlesObj));  
   //if (isemu){
   //  mystudy.AddCut(new CutHTJET1(particlesObj));
@@ -271,7 +276,8 @@ int main(int argc, char **argv)
   //Add in any variables to the skim tree that you want here
   //  mystudy.AddVars(new TestVar());
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
-  mystudy.AddVars(new BDTVars(true));
+  //mystudy.AddVars(new BDTVars(true));
+  
   mystudy.AddVars(new HadTopVars(true));
   mystudy.AddVars(new WeightVars());
 

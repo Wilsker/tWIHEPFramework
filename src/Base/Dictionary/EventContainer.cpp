@@ -755,6 +755,7 @@ Int_t EventContainer::ReadEvent()
 
 
     sort(fakeLeptons.begin(), fakeLeptons.end());
+    sort(tightLeptons.begin(), tightLeptons.end());
 
     ///////////////////////////////////////////
     // Jets
