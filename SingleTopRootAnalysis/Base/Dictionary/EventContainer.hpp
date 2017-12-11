@@ -627,6 +627,12 @@ class EventContainer
   bool useMCWithConstantTerm;
   //bool isMCFlag;
 
+    ////// ttH Flags
+    Int_t TTHLep_2Mu;
+    Int_t TTHLep_2Ele;
+    Int_t TTHLep_MuEle;
+    Int_t TTHLep_2L;
+    void set_TTHFlags();
 
     ////// Hadronic Top Tagger
     void set_hadTopMVA();

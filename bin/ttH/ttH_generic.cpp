@@ -34,11 +34,13 @@
 //#include "SingleTopRootAnalysis/Cuts/Other/CutEMuOverlap.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
+#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutBTaggedJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Jet/CutJetPt1.hpp"
 
 //#include "SingleTopRootAnalysis/Cuts/Other/CutMissingEt.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonN.hpp"
 #include "SingleTopRootAnalysis/Cuts/Muon/CutMuonN.hpp"
+#include "SingleTopRootAnalysis/Cuts/Tau/CutTauN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Muon/CutMuonTighterPt.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Electron/CutElectronN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Electron/CutElectronTighterPt.hpp"
@@ -108,6 +110,7 @@ int main(int argc, char **argv)
   // -1 means use the value from the config file
   Int_t nJets = -1;
   Int_t nbJets = -1;
+  Int_t nbMediumJets = -1;
 
   //  cout << "<Driver> Reading arguments" << end;
   for (int i = 1; i < argc; ++i) {
@@ -166,8 +169,12 @@ int main(int argc, char **argv)
  
       if(!strcmp(argv[i+1],"Electron")) whichtrig = 0;
       if(!strcmp(argv[i+1],"Muon")) whichtrig = 1;
+      if(!strcmp(argv[i+1],"TTHLep_2Mu")) whichtrig = 2;
+      if(!strcmp(argv[i+1],"TTHLep_2Ele")) whichtrig = 3;
+      if(!strcmp(argv[i+1],"TTHLep_MuEle")) whichtrig = 4;
+      if(!strcmp(argv[i+1],"TTHLep_2L")) whichtrig = 5;
       if( whichtrig == -1){
-	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose either Electron or Muon" << endl;
+	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose Electron, Muon, TTHLep_2Mu, TTHLep_2Ele, TTHLep_MuEle, TTHLep_2L" << endl;
 	return 1;
       }
     }
@@ -186,6 +193,9 @@ int main(int argc, char **argv)
     if (!strcmp(argv[i],"-nbJets")){
       nbJets = atoi(argv[i+1]);
     }// if nbJets
+    if (!strcmp(argv[i],"-nbMediumJets")){
+      nbMediumJets = atoi(argv[i+1]);
+    }// if nbMediumJets
   } // for
 
   TChain *chainBkgd = new TChain(mystudy.GetBkgdTreeName());//if nothing specified on commandline, this is just a "" string, which is ok if you don't want to use this chain (don't want a tree of multivariate variables).
@@ -219,7 +229,8 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  mystudy.AddCut(new CutPrimaryVertex(particlesObj));
+  
+  //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
 
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
@@ -251,7 +262,10 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutJetPt1(particlesObj));
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   
+  mystudy.AddCut(new CutTauN(particlesObj));
+  
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
+  mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
 

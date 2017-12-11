@@ -194,6 +194,8 @@ Int_t EventContainer::GetNextEvent(){
   //cout << "<EventContainer::GetNextEvent::MakeTopQuarks Start> " << endl;
   MakeTopQuarks();
   //cout << "<EventContainer::GetNextEvent::MakeTopQuarks End> " << endl;
+  // set ttH flags
+  set_TTHFlags();
   // and finally increment the internal event counter
   _eventCount++;
   if(GetIsFirstEvent() == true) SetIsFirstEvent(false); // not the first event
@@ -341,6 +343,10 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   _metShift = _config.GetValue("Systs.metShift",0);
   _channelName = _config.GetValue("ChannelName","");
   _sync = _config.GetValue("SyncType",0);
+  TTHLep_2Mu =0;
+  TTHLep_2Ele =0;
+  TTHLep_MuEle =0;
+  TTHLep_2L =0;
   set_hadTopMVA();
 
   return;
@@ -1190,6 +1196,24 @@ void EventContainer::MakeTopQuarks()
 
   return;
 } //MakeTopQuark
+
+/////TTH Flags
+void EventContainer::set_TTHFlags(){
+    //set TTH Triggers
+    if( _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1 ||_eventTree -> HLT_IsoMu22==1 || _eventTree -> HLT_IsoTkMu22==1 || _eventTree -> HLT_IsoMu22_eta2p1==1 || _eventTree -> HLT_IsoTkMu22_eta2p1 ==1||_eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoTkMu24==1)TTHLep_2Mu=1;
+    else TTHLep_2Mu=0;
+    if( _eventTree -> HLT_Ele27_WPTight_Gsf==1 || _eventTree -> HLT_Ele25_eta2p1_WPTight_Gsf==1 || _eventTree -> HLT_Ele27_eta2p1_WPLoose_Gsf==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 )TTHLep_2Ele=1;
+    else TTHLep_2Ele=0;
+    if( _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 
+    || _eventTree -> HLT_IsoMu22==1 || _eventTree -> HLT_IsoTkMu22==1 || _eventTree -> HLT_IsoMu22_eta2p1==1 || _eventTree -> HLT_IsoTkMu22_eta2p1 ==1||_eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoTkMu24==1 
+    || _eventTree -> HLT_Ele27_WPTight_Gsf==1 || _eventTree -> HLT_Ele25_eta2p1_WPTight_Gsf==1 || _eventTree -> HLT_Ele27_eta2p1_WPLoose_Gsf==1
+    ) TTHLep_MuEle=1;
+    else TTHLep_MuEle=0;
+    if(TTHLep_MuEle ==1 || TTHLep_2Mu ==1 || TTHLep_2Ele ==1) TTHLep_2L =1;
+    else TTHLep_2L =0;
+};
+
+
 /////hadTOp
 /***************************************************************
  * void EventContainer::set_hadTopMVA()                       *

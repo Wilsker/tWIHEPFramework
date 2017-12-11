@@ -103,12 +103,22 @@ public :
    Int_t           HLT_TripleMu_12_10_5;
    Int_t           HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;
    Int_t           HLT_DoubleEle33_CaloIdL_GsfTrkIdVL;
+   Int_t           HLT_IsoMu22_eta2p1;
+   Int_t           HLT_IsoTkMu22_eta2p1;
+   Int_t           HLT_Ele25_eta2p1_WPTight_Gsf;
+   Int_t           HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+   Int_t           HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL;
+   Int_t           HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ;
+   Int_t           HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
+   Int_t           HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
    Int_t           TTHbb_SL;
    Int_t           TTHbb_DL;
+   /*
    Int_t           TTHLep_2Mu;
    Int_t           TTHLep_2Ele;
    Int_t           TTHLep_MuEle;
    Int_t           TTHLep_3L4L;
+   */
    Int_t           pvertex_notempty;
    Int_t           nBestVtx;
    Int_t           npuVertices;
@@ -823,12 +833,22 @@ public :
    TBranch        *b_HLT_TripleMu_12_10_5;   //!
    TBranch        *b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;   //!
    TBranch        *b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL;   //!
+   TBranch        *b_HLT_IsoMu22_eta2p1;   //!
+   TBranch        *b_HLT_IsoTkMu22_eta2p1;   //!
+   TBranch        *b_HLT_Ele25_eta2p1_WPTight_Gsf;
+   TBranch        *b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ;
+   TBranch        *b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL;
+   TBranch        *b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ;
+   TBranch        *b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL;
+   TBranch        *b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
    TBranch        *b_TTHbb_SL;   //!
    TBranch        *b_TTHbb_DL;   //!
+   /*
    TBranch        *b_TTHLep_2Mu;   //!
    TBranch        *b_TTHLep_2Ele;   //!
    TBranch        *b_TTHLep_MuEle;   //!
    TBranch        *b_TTHLep_3L4L;   //!
+   */
    TBranch        *b_pvertex_notempty;   //!
    TBranch        *b_nBestVtx;   //!
    TBranch        *b_npuVertices;   //!
@@ -2209,12 +2229,22 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_TripleMu_12_10_5", &HLT_TripleMu_12_10_5, &b_HLT_TripleMu_12_10_5);
    fChain->SetBranchAddress("HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL", &HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL, &b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL);
    fChain->SetBranchAddress("HLT_DoubleEle33_CaloIdL_GsfTrkIdVL", &HLT_DoubleEle33_CaloIdL_GsfTrkIdVL, &b_HLT_DoubleEle33_CaloIdL_GsfTrkIdVL);
+   fChain->SetBranchAddress("HLT_IsoMu22_eta2p1", &HLT_IsoMu22_eta2p1, &b_HLT_IsoMu22_eta2p1);
+   fChain->SetBranchAddress("HLT_IsoTkMu22_eta2p1", &HLT_IsoTkMu22_eta2p1, &b_HLT_IsoTkMu22_eta2p1);
+   fChain->SetBranchAddress("HLT_Ele25_eta2p1_WPTight_Gsf", &HLT_Ele25_eta2p1_WPTight_Gsf, &b_HLT_Ele25_eta2p1_WPTight_Gsf);
+   fChain->SetBranchAddress("HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ, &b_HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ);
+   fChain->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL", &HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL, &b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL);
+   fChain->SetBranchAddress("HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ, &b_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ);
+   fChain->SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL);
+   fChain->SetBranchAddress("HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, &b_HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
    fChain->SetBranchAddress("TTHbb_SL", &TTHbb_SL, &b_TTHbb_SL);
    fChain->SetBranchAddress("TTHbb_DL", &TTHbb_DL, &b_TTHbb_DL);
+   /*
    fChain->SetBranchAddress("TTHLep_2Mu", &TTHLep_2Mu, &b_TTHLep_2Mu);
    fChain->SetBranchAddress("TTHLep_2Ele", &TTHLep_2Ele, &b_TTHLep_2Ele);
    fChain->SetBranchAddress("TTHLep_MuEle", &TTHLep_MuEle, &b_TTHLep_MuEle);
    fChain->SetBranchAddress("TTHLep_3L4L", &TTHLep_3L4L, &b_TTHLep_3L4L);
+   */
    fChain->SetBranchAddress("pvertex_notempty", &pvertex_notempty, &b_pvertex_notempty);
    fChain->SetBranchAddress("nBestVtx", &nBestVtx, &b_nBestVtx);
    fChain->SetBranchAddress("npuVertices", &npuVertices, &b_npuVertices);

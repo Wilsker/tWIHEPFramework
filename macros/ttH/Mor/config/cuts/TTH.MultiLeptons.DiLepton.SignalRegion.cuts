@@ -9,7 +9,7 @@
 
 ################# Lepton Cuts #########################
 # Number of Leptons
-Cut.Lepton.TTHTight.Number.Min:  0
+Cut.Lepton.TTHTight.Number.Min:  2
 Cut.Lepton.TTHTight.Number.Max:  2
 #Cut.Lepton.Tight.EleLeadingPt:  25
 #Cut.Lepton.Tight.EleSubLeadingPt:  15
@@ -31,12 +31,11 @@ Cut.Jet.Number.Min:  4
 Cut.Jet.Number.Max:  999 
 Cut.Jet.Pt.1.Min:  25
 Cut.Jet.Pt.1.Max: 999
-# ############## Tagged Jet Cuts #################
-
-#Cut.bLoose.Jet.Number.Min: 2
-#Cut.bLoose.Jet.Number.Max: 999
-#Cut.bMedium.Jet.Number.Min: 1
-#Cut.bMedium.Jet.Number.Max: 999
+# ############## B-Tagged Jet Cuts #################
+Cut.bLoose.Jet.Number.Min: 2
+Cut.bLoose.Jet.Number.Max: 999
+Cut.bMedium.Jet.Number.Min: 1
+Cut.bMedium.Jet.Number.Max: 999
 
 
 

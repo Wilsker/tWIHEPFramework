@@ -16,25 +16,27 @@ workpath = "/publicfs/cms/user/libh/Test/Rootplizer/analyzer"
 #  CaseC   No       Yes     Jet_LooseID: you can not read it from ntuplas if there is not, but you want to save in rootplas 
 
 # Variable Case
-Case = "CaseA"
-#Case = "CaseB"
+#Case = "CaseA"
+Case = "CaseB"
 #Case = "CaseC"
 # Variable Definition
 
-rObject = "Muon"
-wObject = "Jet"
+rObject = "Jet"
+wObject = "Lepton"
 
-VariableType  = "Double_t"
+VariableType  = "Int_t"
 VariableNames = [
 # CaseA Variables
-#"pt","eta","phi",
+#"pt","eta","phi","energy",
 #"charge",
-#"IP3Dsig","miniIsoRel","pdgId","gsfTrack_dxy_pv","gsfTrack_dz_pv",
+#"IP3Dsig","miniIsoRel","pdgId",
+#"gsfTrack_dxy_pv","gsfTrack_dz_pv",
 
 
-"jetptratio","jetcsv","lepjetchtrks","miniIsoCh","miniIsoPUsub","ptrel",
+#"jetptratio","jetcsv","lepjetchtrks","miniIsoCh","miniIsoPUsub","ptrel",
+#"jetdr","jetpt",
+
 #"px","py","pz",
-"jetdr","pdgId","jetpt",
 #"gen_pt","gen_eta","gen_phi","gen_en","gen_pdgId",
 #"genMother_pt","genMother_eta","genMother_phi","genMother_en","genMother_pdgId",
 #"genGrandMother_pt","genGrandMother_eta","genGrandMother_phi","genGrandMother_en","genGrandMother_pdgId",
@@ -42,12 +44,17 @@ VariableNames = [
 #"mcPromptFS","mcMatchId","mcPromptGamma"
 
 # Electron only
-#"SCeta","expectedMissingInnerHits","full5x5_sigmaIetaIeta","hOverE","dEtaIn","dPhiIn","ooEmooP", 
+#"SCeta","expectedMissingInnerHits","full5x5_sigmaIetaIeta","hOverE","dEtaIn","dPhiIn","ooEmooP","mvaValue_HZZ", 
 #"isGsfCtfScPixChargeConsistent","isGsfScPixChargeConsistent",
 
-"isGlobal","chi2LocalPosition","trkKink","validFraction","segmentCompatibility","pTErrOVpT_it", # Muon only
+#"isGlobal","chi2LocalPosition","trkKink","validFraction","segmentCompatibility","pTErrOVpT_it", # Muon only
+
+#"BDT","conept",
+#"isLooseBdisc","isMediumBdisc","isTightBdisc",
+#"qg","lepdrmax","lepdrmin"
 
 #Taus
+#"dz","dxy","isLoose","isMedium","decayModeFinding"
 #"packedLeadTauCand_dz","packedLeadTauCand_dxy","byLooseIsolationMVArun2v1DBdR03oldDMwLT","decayModeFinding"
 #"byMediumIsolationMVArun2v1DBdR03oldDMwLT",
 
@@ -57,7 +64,8 @@ VariableNames = [
 #"px","py","pz","mass",
 #"qg","axis2","ptD","mult",
 #"partonFlavour","hadronFlavour","genpt","geneta","genphi","genenergy",
-#"BDT","lepdrmin","lepdrmax","isToptag"
+#"BDT","lepdrmin","lepdrmax",
+#"isToptag"
 
 #"JesSF","JesSFup","JesSFdown","JerSF","JerSFup","JerSFdown",
 #"neutralHadEnergyFraction","neutralEmEnergyFraction","chargedMultiplicity","numberOfConstituents","chargedHadronEnergyFraction", "chargedEmEnergyFraction",
@@ -86,8 +94,12 @@ VariableNames = [
 #"cut",
 
 #"BDT","isMedium_ST","corrpt","FR","CF",
-#"passConversion","passMuTightCharge","passEleTightCharge","passMissHit","isMatchRightCharge",
+#"passConversionVeto","passTightCharge","passMissHit",
+#"isMatchRightCharge",
 
+######Triggers############
+"HLT_Ele25_eta2p1_WPTight_Gsf","HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ","HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL",
+"HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ","HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL","HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
 
 ]
 
@@ -171,24 +183,17 @@ elif Case == "CaseB":
  print >> vector, "//Head file declaration"
  print >> vector, "//variables to be read"
  for Variable in VariableNames:
-     print >> vector, "vector<"+VariableType+">* r"+rObject+"_"+Variable+"; TBranch* b_r"+rObject+"_"+Variable+" =0;"
+     print >> vector,"   "+ VariableType+"           "+Variable+";"
  
  print >> vector, "//source file definition"
  print >> vector, "//read setbranchaddress"
  for Variable in VariableNames:
-     print >> vector, "    "+RTreeptr+'->SetBranchAddress("'+rObject+"_"+Variable+'",&r'+rObject+"_"+Variable+",&b_r"+rObject+"_"+Variable+");"
- 
- print >> vector, "   //GetEntry"
- for Variable in VariableNames:
-     print >> vector, "    b_r"+rObject+"_"+Variable+"->GetEntry("+ParEntry+");"
+     print >> vector,"   TBranch           *b_"+Variable+";"
  
  print >> vector, "   //class member"
  for Variable in VariableNames:
-     print >> vector, "        "+VariableType+" "+Variable+" = -999;"
+     print >> vector,'   fChain->SetBranchAddress("'+Variable+'", &'+Variable+", &b_"+Variable+");"
  
- print >> vector, "   //Intialize variables"
- for Variable in VariableNames:
-     print >> vector, "        "+rObject+"."+Variable+"= r"+rObject+"_"+Variable+"->at("+ParSel+");"
 
 elif Case == "CaseC":
  print >> vector, "//This is CaseC"

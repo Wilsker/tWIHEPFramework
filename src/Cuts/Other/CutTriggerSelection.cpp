@@ -74,6 +74,10 @@ void CutTriggerSelection::BookHistogram(){
 
   if (_whichtrigger == 0) _triggerChannel = "Electron";
   if (_whichtrigger == 1) _triggerChannel = "Muon";
+  if (_whichtrigger == 2) _triggerChannel = "TTHLep_2Mu";
+  if (_whichtrigger == 3) _triggerChannel = "TTHLep_2Ele";
+  if (_whichtrigger == 4) _triggerChannel = "TTHLep_MuEle";
+  if (_whichtrigger == 5) _triggerChannel = "TTHLep_2L";
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
@@ -143,7 +147,7 @@ Bool_t CutTriggerSelection::Apply()
 
   Bool_t passesTrigger = kFALSE;  //Event passes the trigger selection
 
-  Int_t triggerBit = 0.;
+  Int_t triggerBit = 0;
 
   Int_t electronTrigger = 0; //I seem to have messed up the electron trigger?
   electronTrigger = EventContainerObj->HLT_Ele32_eta2p1_WPTight_Gsf;
@@ -154,9 +158,14 @@ Bool_t CutTriggerSelection::Apply()
     //triggerBit = EventContainerObj->HLT_IsoMu18;
     triggerBit = EventContainerObj->HLT_IsoMu24 || EventContainerObj->HLT_IsoTkMu24;
   }
+  if (_whichtrigger == 2) triggerBit = GetEventContainer()->TTHLep_2Mu;
+  if (_whichtrigger == 3) triggerBit = GetEventContainer()->TTHLep_2Ele;
+  if (_whichtrigger == 4) triggerBit = GetEventContainer()->TTHLep_MuEle;
+  if (_whichtrigger == 5) triggerBit = GetEventContainer()->TTHLep_2L;
   
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;
   if (_whichtrigger == 1) passesTrigger = electronTrigger == 0. and muonTrigger != 0;
+  if ( _whichtrigger == 2 || _whichtrigger == 3 || _whichtrigger == 4 || _whichtrigger == 5 ) passesTrigger = triggerBit == 1 ;
   
   //if (triggerBit != 0.) passesTrigger = kTRUE;
 
