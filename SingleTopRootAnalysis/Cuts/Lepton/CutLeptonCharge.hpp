@@ -65,7 +65,7 @@ private:
   myTH1F* _hLeptonChargeAfter;    // Histogram Lepton Number of jets after the cut
 
   //Do we want same or opposite sign?
-  bool _LeptonSameSign;	  // true to accept only within the region, false to reject region
+  Int_t _LeptonSameSign;	  // 1: samesign; -1: opp sign; 0: any sign 
 
   // Lepton Type (veto, tight, unIsolated)
   TString leptonType;

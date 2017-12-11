@@ -42,7 +42,9 @@ CutLeptonCharge::CutLeptonCharge(EventContainer *EventContainerObj, TString lept
 {
   // Check leptonType parameter
   if( leptonTypePassed.CompareTo("All") && leptonTypePassed.CompareTo("UnIsolated") && leptonTypePassed.CompareTo("Isolated") && 
-      leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto") ){
+      leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto")
+      && leptonTypePassed.CompareTo("TTHFake")
+       ){
     std::cout << "ERROR " << "<CutLeptonCharge::CutLeptonCharge()> " 
 	      << "Must pass All, Tight, Veto, Isolated, or UnIsolated to constructor" << std::endl;
     exit(8);
@@ -126,7 +128,8 @@ void CutLeptonCharge::BookHistogram(){
   TString configSameSign = configSameSignStream.str().c_str();
 
   //
-  _LeptonSameSign = config -> GetValue(configSameSign.Data(), false);
+  //_LeptonSameSign = config -> GetValue(configSameSign.Data(), false);
+  _LeptonSameSign = config -> GetValue(configSameSign.Data(), 0);
   
   // ***********************************************
   // Add these cuts to the cut flow table
@@ -138,7 +141,11 @@ void CutLeptonCharge::BookHistogram(){
 
   // Min + Max cut
   cutFlowTitleStream.str("");
-  cutFlowTitleStream << leptonType.Data() << " Dilepton : " << _LeptonSameSign ? "Same sign " : "Opposite sign ";
+  if(_LeptonSameSign !=0 ){
+   cutFlowTitleStream << leptonType.Data() << " Dilepton : " << (_LeptonSameSign > 0 ? "Same sign " : "Opposite sign ");
+  }else{
+   cutFlowTitleStream << leptonType.Data() << " Dilepton : " << "Any sign ";
+  }
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
@@ -179,6 +186,8 @@ Bool_t CutLeptonCharge::Apply()
 
   std::vector<Muon> muonVector;
   std::vector<Electron> electronVector;
+  std::vector<Lepton> leptonVector;
+
 
   //Assign collections to the above defined vectors
   if(     "All"        == leptonType) {
@@ -205,14 +214,18 @@ Bool_t CutLeptonCharge::Apply()
     muonVector.assign(EventContainerObj -> unIsolatedMuons.begin(), EventContainerObj -> unIsolatedMuons.end());
     electronVector.assign(EventContainerObj -> unIsolatedElectrons.begin(), EventContainerObj -> unIsolatedElectrons.end());
   }
+  else if("TTHFake" == leptonType) {
+    leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
+  }
   else{
-    std::cout << "ERROR " << "<HistogramminMuon::Apply()> "
-	      << "muonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut" << std::endl;
+    std::cout << "ERROR " << "<CutLeptonCharge::Apply()> "
+	      << "leptonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHFake" << std::endl;
     exit(8);
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if (EventContainerObj->GetChannelName() == "mumu") LeptonPairCharge = muonVector[0].charge()*muonVector[1].charge();
+  if("TTHFake" == leptonType ) LeptonPairCharge = leptonVector[0].charge()*leptonVector[1].charge();
+  else if (EventContainerObj->GetChannelName() == "mumu") LeptonPairCharge = muonVector[0].charge()*muonVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "ee") LeptonPairCharge = electronVector[0].charge() * electronVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "emu") LeptonPairCharge = muonVector[0].charge() * electronVector[0].charge();
 
@@ -231,7 +244,7 @@ Bool_t CutLeptonCharge::Apply()
   cutFlowNameAllStream << leptonType.Data() << "Dilepton.Charge.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( _LeptonSameSign == (LeptonPairCharge < 0.)){
+  if ( _LeptonSameSign * LeptonPairCharge < 0){
     LeptonChargePass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
