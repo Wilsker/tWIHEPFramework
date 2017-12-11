@@ -1,5 +1,5 @@
 /******************************************************************************
- * CutLeptonPt1.hpp                                                               *
+ * CutLeptonPt2.hpp                                                               *
  *                                                                            *
  * Cuts on muon Number (can cut on All, UnIsolated, Tight, or Veto Muons)     *
  * Must pass All, UnIsolated, Tight, or Veto to constructor                   *
@@ -7,14 +7,14 @@
  * Derived from HistoCut which is in turn derived from BaseCut                *
  *                                                                            *
  *                                                                            *
- * Public Member Functions of CutLeptonPt1 class                                  *
- *    CutLeptonPt1()                     -- Parameterized Constructor             *
- *    ~CutLeptonPt1()                    -- Destructor                            *
+ * Public Member Functions of CutLeptonPt2 class                                  *
+ *    CutLeptonPt2()                     -- Parameterized Constructor             *
+ *    ~CutLeptonPt2()                    -- Destructor                            *
  *    BookHistogram()                -- Book histograms                       *
  *    Apply()                        -- Apply cuts and fill histograms        *
- *    GetCutName()                   -- Returns "CutLeptonPt1"                    *
+ *    GetCutName()                   -- Returns "CutLeptonPt2"                    *
  *                                                                            *
- * Private Data Members of CutLeptonPt1 class                                     *
+ * Private Data Members of CutLeptonPt2 class                                     *
  *    myTH1F* _hMuonNumberBefore;    -- Hist mu Number before cut             *
  *    myTH1F* _hMuonNumberAfter;     -- Hist mu Number of jets after cut      *
  *                                                                            *
@@ -22,30 +22,30 @@
  *    Int_t _MuonNumberMax;          -- Maximum Muon Number                   *
  *                                                                            *
  * History                                                                    *
- *      15 Jan 2007 - Created by P. Ryan                                      *
+ *      11 Dec 2017 - Created by B. Li based on CutLeptonPt1 by P. Ryan       *
  *****************************************************************************/
 
-#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt1.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt2.hpp"
 #include<iostream>
 
 using namespace std;
 
 /******************************************************************************
- * CutLeptonPt1::CutLeptonPt1(EventContainer *EventContainerObj, TString muonType)    *
+ * CutLeptonPt2::CutLeptonPt2(EventContainer *EventContainerObj, TString muonType)    *
  *                                                                            *
  * Parameterized Constructor                                                  *
  *                                                                            *
  * Input:  Event Object class                                                 *
  * Output: None                                                               *
  ******************************************************************************/
-CutLeptonPt1::CutLeptonPt1(EventContainer *EventContainerObj, TString leptonType)
+CutLeptonPt2::CutLeptonPt2(EventContainer *EventContainerObj, TString leptonType)
 {
   // Check muonType parameter
   if( leptonType.CompareTo("All") && leptonType.CompareTo("UnIsolated") && leptonType.CompareTo("Isolated") && 
       leptonType.CompareTo("Tight") && leptonType.CompareTo("PtEtaCut") && leptonType.CompareTo("Veto")
       && leptonType.CompareTo("TTHFake")
        ){
-    std::cout << "ERROR " << "<CutLeptonPt1::CutLeptonPt1()> " 
+    std::cout << "ERROR " << "<CutLeptonPt2::CutLeptonPt2()> " 
 	      << "Must pass All, Tight, PtEtaCut, Veto, Isolated, or UnIsolated, TTHFake to constructor" << std::endl;
     exit(8);
   } //if
@@ -53,31 +53,31 @@ CutLeptonPt1::CutLeptonPt1(EventContainer *EventContainerObj, TString leptonType
 
   // Set Event Container
   SetEventContainer(EventContainerObj);
-} // CutLeptonPt1
+} // CutLeptonPt2
 
 
 /******************************************************************************
- * CutLeptonPt1::~CutLeptonPt1()                                                *
+ * CutLeptonPt2::~CutLeptonPt2()                                                *
  *                                                                            *
  * Destructor                                                                 *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-CutLeptonPt1::~CutLeptonPt1()
+CutLeptonPt2::~CutLeptonPt2()
 {
   
-}//~CutLeptonPt1
+}//~CutLeptonPt2
 
 /******************************************************************************
- * void CutLeptonPt1::BookHistogram()                                          *
+ * void CutLeptonPt2::BookHistogram()                                          *
  *                                                                            *
  * Book Histograms                                                            *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-void CutLeptonPt1::BookHistogram(){
+void CutLeptonPt2::BookHistogram(){
   
   // ***********************************************
   // Make Strings for histogram titles and labels
@@ -85,20 +85,20 @@ void CutLeptonPt1::BookHistogram(){
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
-  histNameBeforeStream << _leptonType << "LeadingLeptonPtBefore";
+  histNameBeforeStream << _leptonType << "SubLeadingLeptonPtBefore";
   TString histNameBefore = histNameBeforeStream.str().c_str();
 
   std::ostringstream histTitleBeforeStream;
-  histTitleBeforeStream << _leptonType << "Leading Lepton Pt Before Cut";
+  histTitleBeforeStream << _leptonType << "SubLeading Lepton Pt Before Cut";
   TString histTitleBefore = histTitleBeforeStream.str().c_str();
 
   // Histogram After Cut
   std::ostringstream histNameAfterStream;
-  histNameAfterStream << _leptonType << "LeadingLeptonPtAfter";
+  histNameAfterStream << _leptonType << "SubLeadingLeptonPtAfter";
   TString histNameAfter = histNameAfterStream.str().c_str();
 
   std::ostringstream histTitleAfterStream;
-  histTitleAfterStream << _leptonType << "Leading Lepton Pt After Cut";
+  histTitleAfterStream << _leptonType << "SubLeading Lepton Pt After Cut";
   TString histTitleAfter = histTitleAfterStream.str().c_str();
 
   // ***********************************************
@@ -106,14 +106,14 @@ void CutLeptonPt1::BookHistogram(){
   // ***********************************************  
 
   // Histogram before cut
-  _hLeadingLeptonPtBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 100, 0.0, 200.);
-  _hLeadingLeptonPtBefore -> SetXAxisTitle("p_{T,leading}");
-  _hLeadingLeptonPtBefore -> SetYAxisTitle("Events");
+  _hSubLeadingLeptonPtBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 100, 0.0, 200.);
+  _hSubLeadingLeptonPtBefore -> SetXAxisTitle("p_{T,subleading}");
+  _hSubLeadingLeptonPtBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
-  _hLeadingLeptonPtAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 100, 0.0, 200.);
-  _hLeadingLeptonPtAfter -> SetXAxisTitle("p_{T,leading}");
-  _hLeadingLeptonPtAfter -> SetYAxisTitle("Events");
+  _hSubLeadingLeptonPtAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 100, 0.0, 200.);
+  _hSubLeadingLeptonPtAfter -> SetXAxisTitle("p_{T,subleading}");
+  _hSubLeadingLeptonPtAfter -> SetYAxisTitle("Events");
 
   // ***********************************************
   // Get cuts from configuration file
@@ -125,16 +125,16 @@ void CutLeptonPt1::BookHistogram(){
 
   // Make name in configuration file depending upon muon type (all, veto, tight, unIsolated)
   std::ostringstream configMinStream;
-  configMinStream << "Cut.Muon." << _leptonType.Data() << ".LeadingPt";
+  configMinStream << "Cut.Muon." << _leptonType.Data() << ".SubLeadingPt";
   TString configMin = configMinStream.str().c_str();
 
   std::ostringstream configMaxStream;
-  configMaxStream << "Cut.Electron." << _leptonType.Data() << ".LeadingPt";
+  configMaxStream << "Cut.Electron." << _leptonType.Data() << ".SubLeadingPt";
   TString configMax = configMaxStream.str().c_str();
 
   // Use configuration to set min and max number of jets to cut on
-  _LeadingMuonPtCut  = config -> GetValue(configMin.Data(), 999);
-  _LeadingElectronPtCut  = config -> GetValue(configMax.Data(), 999);
+  _SubLeadingMuonPtCut  = config -> GetValue(configMin.Data(), 999);
+  _SubLeadingElectronPtCut  = config -> GetValue(configMax.Data(), 999);
   
   // ***********************************************
   // Add these cuts to the cut flow table
@@ -144,10 +144,10 @@ void CutLeptonPt1::BookHistogram(){
   TString cutFlowTitle;
   TString cutFlowName;
 
-  cutFlowTitleStream << _leptonType.Data() << " Leading lepton : P_{T,#mu} > " << _LeadingMuonPtCut << " p_{T,e} > " << _LeadingElectronPtCut;
+  cutFlowTitleStream << _leptonType.Data() << " SubLeading lepton : P_{T,#mu} > " << _SubLeadingMuonPtCut << " p_{T,e} > " << _SubLeadingElectronPtCut;
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
-  cutFlowNameStream << _leptonType.Data() << "Lepton.LeadingPt";
+  cutFlowNameStream << _leptonType.Data() << "Lepton.SubLeadingPt";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName.Data(), cutFlowTitle.Data());
@@ -165,18 +165,18 @@ void CutLeptonPt1::BookHistogram(){
  * Input:  None                                                               *
  * Output: kTrue if successful                                                *
  ******************************************************************************/
-Bool_t CutLeptonPt1::Apply()
+Bool_t CutLeptonPt2::Apply()
 {
 
   // ********************************
   // Get the leading Pt of the leptons
   // ********************************
 
-  // Leading lepton pt
-  Float_t LeadingLeptonPt = 0.;
+  // SubLeading lepton pt
+  Float_t SubLeadingLeptonPt = 0.;
   
   //Flag
-  Bool_t PassesLeadingLetonPt = kFALSE;
+  Bool_t PassesSubLeadingLetonPt = kFALSE;
   
   //Get Event Container
   EventContainer *EventContainerObj = GetEventContainer();
@@ -220,47 +220,50 @@ Bool_t CutLeptonPt1::Apply()
   } //else                     
 
   // Now go through and see if there's a lepton passing this cut
-  for (auto const muon : muonVector){
-    if (muon.Pt() > LeadingLeptonPt) LeadingLeptonPt = muon.Pt();  
-    if (muon.Pt() > _LeadingMuonPtCut){
-      PassesLeadingLetonPt = kTRUE;
+  for (uint mu_en =1; mu_en < muonVector.size(); mu_en++){
+    Muon muon = muonVector.at(mu_en);
+    if (muon.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = muon.Pt();  
+    if (muon.Pt() > _SubLeadingMuonPtCut){
+      PassesSubLeadingLetonPt = kTRUE;
     }
   }
 
-  for (auto const electron : electronVector){
-    if (electron.Pt() > LeadingLeptonPt) LeadingLeptonPt = electron.Pt();  
-    if (electron.Pt() > _LeadingElectronPtCut){
-      PassesLeadingLetonPt = kTRUE;
+  for (uint el_en =1; el_en < electronVector.size(); el_en++){
+    Electron electron = electronVector.at(el_en);
+    if (electron.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = electron.Pt();  
+    if (electron.Pt() > _SubLeadingElectronPtCut){
+      PassesSubLeadingLetonPt = kTRUE;
     }
   }
   
-  for (auto const lepton : leptonVector){
-    if (lepton.conept() > LeadingLeptonPt) LeadingLeptonPt = lepton.conept();  
-    if (fabs(lepton.pdgId())==11 && lepton.conept() > _LeadingElectronPtCut){
-      PassesLeadingLetonPt = kTRUE;
+  for (uint lep_en =1; lep_en < leptonVector.size(); lep_en++){
+    Lepton lepton = leptonVector.at(lep_en);
+    if (lepton.conept() > SubLeadingLeptonPt) SubLeadingLeptonPt = lepton.conept();  
+    if (fabs(lepton.pdgId())==11 && lepton.conept() > _SubLeadingElectronPtCut){
+      PassesSubLeadingLetonPt = kTRUE;
     }
-    if (fabs(lepton.pdgId())==13 && lepton.conept() > _LeadingMuonPtCut){
-      PassesLeadingLetonPt = kTRUE;
+    if (fabs(lepton.pdgId())==13 && lepton.conept() > _SubLeadingMuonPtCut){
+      PassesSubLeadingLetonPt = kTRUE;
     }
   }
 
-  _hLeadingLeptonPtBefore->Fill(LeadingLeptonPt);
+  _hSubLeadingLeptonPtBefore->Fill(SubLeadingLeptonPt);
 
   ostringstream cutFlowNameStream;
   TString cutFlowName;
 
-  cutFlowNameStream << _leptonType.Data() << "Lepton.LeadingPt";
+  cutFlowNameStream << _leptonType.Data() << "Lepton.SubLeadingPt";
   cutFlowName = cutFlowNameStream.str().c_str();
   
-  if (PassesLeadingLetonPt) {
-    _hLeadingLeptonPtAfter->Fill(LeadingLeptonPt);
+  if (PassesSubLeadingLetonPt) {
+    _hSubLeadingLeptonPtAfter->Fill(SubLeadingLeptonPt);
     GetCutFlowTable()->PassCut(cutFlowName.Data());
   }
   else {
     GetCutFlowTable()->FailCut(cutFlowName.Data());
   }
 
-  return PassesLeadingLetonPt;
+  return PassesSubLeadingLetonPt;
 
  
 } //Apply

@@ -92,6 +92,7 @@ ClassImp(Lepton)
   _passConversionVeto       (0.0),
   _passTightCharge       (0.0),
   _passMissHit       (0.0),
+  _isTight       (0.0),
   _pTErrOVpT_it       (0.0),
   _SCeta       (0.0),
   _expectedMissingInnerHits       (0.0),
@@ -171,6 +172,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _passConversionVeto(other.GetpassConversionVeto()),
   _passTightCharge(other.GetpassTightCharge()),
   _passMissHit(other.GetpassMissHit()),
+  _isTight(other.GetisTight()),
   _SCeta(other.GetSCeta()),
   _expectedMissingInnerHits(other.GetexpectedMissingInnerHits()),
   _full5x5_sigmaIetaIeta(other.Getfull5x5_sigmaIetaIeta()),
@@ -237,6 +239,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _passConversionVeto       (0.0),
   _passTightCharge       (0.0),
   _passMissHit       (0.0),
+  _isTight       (0.0),
   _SCeta       (0.0),
   _expectedMissingInnerHits       (0.0),
   _full5x5_sigmaIetaIeta       (0.0),
@@ -334,6 +337,7 @@ Lepton& Lepton::operator=(const Particle& other)
   SetpassConversionVeto       (0.0);
   SetpassTightCharge       (0.0);
   SetpassMissHit       (0.0);
+  SetisTight       (0.0);
   SetpTErrOVpT_it       (0.0);
   SetSCeta       (0.0);
   SetexpectedMissingInnerHits       (0.0);
@@ -401,6 +405,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetpassConversionVeto(other.GetpassConversionVeto());
   SetpassTightCharge(other.GetpassTightCharge());
   SetpassMissHit(other.GetpassMissHit());
+  SetisTight(other.GetisTight());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   SetSCeta(other.GetSCeta());
   SetexpectedMissingInnerHits(other.GetexpectedMissingInnerHits());
@@ -468,6 +473,7 @@ Lepton& Lepton::operator=(Lepton& other)
   SetpassConversionVeto(other.GetpassConversionVeto());
   SetpassTightCharge(other.GetpassTightCharge());
   SetpassMissHit(other.GetpassMissHit());
+  SetisTight(other.GetisTight());
   SetpTErrOVpT_it(other.GetpTErrOVpT_it());
   SetSCeta(other.GetSCeta());
   SetexpectedMissingInnerHits(other.GetexpectedMissingInnerHits());
@@ -847,7 +853,10 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
   // Test Requirements
   if(lepPt <= _minPtCuts[leptonType])               passMinPt  = kFALSE;
   if(TMath::Abs(lepEta) >= _maxEtaCuts[leptonType]) passMaxEta = kFALSE;
-
+  
+  Int_t ispassTight = passTight;
+  SetisTight(ispassTight);
+  
   //  if(     "Tight"      == leptonType) return( passMinPt && passMaxEta  && IsTight() && Isolation() && !GetOverlapWithJet() && IsCombinedMuon());
   if(     "MuTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passTight);
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());

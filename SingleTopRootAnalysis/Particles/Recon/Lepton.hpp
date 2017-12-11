@@ -87,6 +87,7 @@ public:
  _passConversionVeto =0.0;
  _passTightCharge =0.0;
  _passMissHit =0.0;
+ _isTight =0.0;
   };
 
   // Fill the lepton from an EventTree
@@ -321,6 +322,10 @@ public:
   inline Double_t Getconept() const {return _conept;};
   inline Double_t conept() const {return _conept;};
   
+  inline void SetisTight(Double_t isTight){_isTight = isTight;};
+  inline Double_t GetisTight() const {return _isTight;};
+  inline Double_t isTight() const {return _isTight;};
+  
     // ttH functions
     void set_lepMVAreader(TEnv* config);
 
@@ -379,6 +384,7 @@ private:
   Double_t _passConversionVeto;
   Double_t _passTightCharge;
   Double_t _passMissHit;
+  Double_t _isTight;
 
   /// cuts reading from config
   Double_t _closestMuonCut;

@@ -11,10 +11,10 @@
 # Number of Leptons
 Cut.Lepton.TTHTight.Number.Min:  2
 Cut.Lepton.TTHTight.Number.Max:  2
-#Cut.Lepton.Tight.EleLeadingPt:  25
-#Cut.Lepton.Tight.EleSubLeadingPt:  15
-#Cut.Lepton.Tight.MuLeadingPt:  25
-#Cut.Lepton.Tight.MuSubLeadingPt:  15
+Cut.Electron.TTHFake.LeadingPt:  25
+Cut.Electron.TTHFake.SubLeadingPt:  15
+Cut.Muon.TTHFake.LeadingPt:  25
+Cut.Muon.TTHFake.SubLeadingPt:  15
 ################# Muon Cuts #########################
 # Number of  Muons
 #Cut.Muon.Tight.Number.Min:  1

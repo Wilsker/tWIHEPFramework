@@ -39,6 +39,8 @@
 
 //#include "SingleTopRootAnalysis/Cuts/Other/CutMissingEt.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonN.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt1.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt2.hpp"
 #include "SingleTopRootAnalysis/Cuts/Muon/CutMuonN.hpp"
 #include "SingleTopRootAnalysis/Cuts/Tau/CutTauN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Muon/CutMuonTighterPt.hpp"
@@ -237,6 +239,8 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
+  mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
+  mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   
   //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
 
