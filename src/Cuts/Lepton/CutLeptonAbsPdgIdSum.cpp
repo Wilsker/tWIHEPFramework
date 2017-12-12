@@ -247,7 +247,7 @@ Bool_t CutLeptonAbsPdgIdSum::Apply()
   cutFlowNameAllStream << leptonType.Data() << "Dilepton.AbsPdgIdSum.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( _LeptonAbsPdgIdSum != LeptonPairAbsPdgIdSum){
+  if ( _LeptonAbsPdgIdSum != LeptonPairAbsPdgIdSum && _LeptonAbsPdgIdSum != 999 ){
     LeptonAbsPdgIdSumPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }

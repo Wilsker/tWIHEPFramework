@@ -759,7 +759,8 @@ Int_t EventContainer::ReadEvent()
     }
 
 
-
+    // lepton are sorted by conept, unless specified by Pt
+    sort(looseLeptons.begin(), looseLeptons.end(), byPt);
     sort(fakeLeptons.begin(), fakeLeptons.end());
     sort(tightLeptons.begin(), tightLeptons.end());
 

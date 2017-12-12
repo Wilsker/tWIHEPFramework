@@ -749,6 +749,10 @@ inline Bool_t operator <(const Lepton& left, const Lepton& right)
   else return kTRUE;
 } //<
 
+inline Bool_t byPt(const Lepton& LeptonA, const Lepton& LeptonB){
+    return LeptonA.Pt() > LeptonB.Pt();
+};
+
 inline Bool_t RemoveDuplicate(const MCParticle& one, const MCParticle& two)
 {
   return (TMath::Abs(one.Pt() - two.Pt()) <= 0.001);
