@@ -33,6 +33,8 @@
 //#include "SingleTopRootAnalysis/Cuts/Other/CutTriangularSumDeltaPhiLepMET.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Other/CutEMuOverlap.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutZveto.hpp"
+#include "SingleTopRootAnalysis/Cuts/Other/CutMassL.hpp"
+#include "SingleTopRootAnalysis/Cuts/Other/CutMetLD.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
 #include "SingleTopRootAnalysis/Cuts/TaggedJet/CutBTaggedJetN.hpp"
@@ -286,6 +288,9 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   
+  mystudy.AddCut(new CutZveto(particlesObj));
+  mystudy.AddCut(new CutMassL(particlesObj));
+  mystudy.AddCut(new CutMetLD(particlesObj));
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
 
@@ -314,7 +319,6 @@ int main(int argc, char **argv)
   
   mystudy.AddVars(new HadTopVars(true));
   mystudy.AddVars(new ttHVars(true));
-  mystudy.AddCut(new CutZveto(particlesObj));
   
   mystudy.AddVars(new WeightVars());
 
