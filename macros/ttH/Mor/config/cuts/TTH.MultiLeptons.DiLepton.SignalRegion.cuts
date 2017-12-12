@@ -11,6 +11,8 @@
 # Number of Leptons
 Cut.Lepton.TTHTight.Number.Min:  2
 Cut.Lepton.TTHTight.Number.Max:  2
+Cut.Lepton.TTHFake.Number.Min:  2
+Cut.Lepton.TTHFake.Number.Max:  999
 Cut.Electron.TTHFake.LeadingPt:  25
 Cut.Electron.TTHFake.SubLeadingPt:  15
 Cut.Muon.TTHFake.LeadingPt:  25
@@ -20,7 +22,10 @@ Cut.Muon.TTHFake.SubLeadingPt:  15
 #Cut.Muon.Tight.Number.Min:  1
 #Cut.Muon.Tight.Number.Max:  1
 ############## DiLep Cuts ############################
-Cut.Dilepton.TTHFake.SameSign: 0  # 1:same sign; -1: opposite sign; 0: Any
+Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
+Cut.Dilepton.TTHFake.NumTightMin: 2 
+Cut.Dilepton.TTHFake.NumTightMax: 2 
+Cut.Dilepton.TTHFake.AbsPdgIdSum: 26  # 999 any
 
 ################# Tau Cuts #########################
 # Number of Taus

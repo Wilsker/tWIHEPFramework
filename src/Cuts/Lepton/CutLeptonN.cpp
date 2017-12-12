@@ -246,9 +246,7 @@ Bool_t CutLeptonN::Apply()
     LeptonNumber = MuonNumber + ElectronNumber;
 
   // Fill the histograms before the cuts
-  //std::cout<<" Fill Before hLeptonNumber Before: EVENT "<< EventContainerObj->eventNumber<<"H->Integral() is  "<< _hLeptonNumberBefore->GetEntries() << std::endl;
   _hLeptonNumberBefore    -> Fill(LeptonNumber);
-  //std::cout<<" Fill Before hLeptonNumber After: EVENT "<< EventContainerObj->eventNumber<<"H->Integral() is  "<< _hLeptonNumberBefore->GetEntries() << std::endl;
   
   // ***********************************************
   // Fill cut flow table
