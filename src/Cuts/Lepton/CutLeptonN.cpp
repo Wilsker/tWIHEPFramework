@@ -44,9 +44,10 @@ CutLeptonN::CutLeptonN(EventContainer *EventContainerObj, TString leptonTypePass
   if( leptonTypePassed.CompareTo("All") && leptonTypePassed.CompareTo("UnIsolated") && leptonTypePassed.CompareTo("Isolated") && 
       leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto") 
        && leptonTypePassed.CompareTo("TTHTight")
+       && leptonTypePassed.CompareTo("TTHFake")
       ){
     std::cout << "ERROR " << "<CutLeptonN::CutLeptonN()> " 
-	      << "Must pass All, TTHTight, Tight, Veto, Isolated, or UnIsolated to constructor" << std::endl;
+	      << "Must pass All, TTHTight, TTHFake, Tight, Veto, Isolated, or UnIsolated to constructor" << std::endl;
     exit(8);
   } //if
   leptonType = leptonTypePassed;
@@ -232,17 +233,22 @@ Bool_t CutLeptonN::Apply()
   else if( ! leptonType.CompareTo("TTHTight") ){
     LeptonNumber     = EventContainerObj -> tightLeptons.size();
   } //if
+  else if( ! leptonType.CompareTo("TTHFake") ){
+    LeptonNumber     = EventContainerObj -> fakeLeptons.size();
+  } //if
   else{
     std::cout << "ERROR " << "<CutLeptonN::Apply()> " << "leptonType has an incorrect value of: " << leptonType.Data() << std::endl;
     exit(8);
   } //else
 
   // Add muons and electrons to get lepton number
-  if( leptonType.CompareTo("TTHTight") ) 
+  if( leptonType.CompareTo("TTHTight") && leptonType.CompareTo("TTHFake") ) 
     LeptonNumber = MuonNumber + ElectronNumber;
 
   // Fill the histograms before the cuts
+  //std::cout<<" Fill Before hLeptonNumber Before: EVENT "<< EventContainerObj->eventNumber<<"H->Integral() is  "<< _hLeptonNumberBefore->GetEntries() << std::endl;
   _hLeptonNumberBefore    -> Fill(LeptonNumber);
+  //std::cout<<" Fill Before hLeptonNumber After: EVENT "<< EventContainerObj->eventNumber<<"H->Integral() is  "<< _hLeptonNumberBefore->GetEntries() << std::endl;
   
   // ***********************************************
   // Fill cut flow table

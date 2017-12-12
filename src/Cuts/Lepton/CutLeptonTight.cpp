@@ -1,5 +1,5 @@
 /******************************************************************************
- * CutLeptonCharge.hpp                                                             *
+ * CutLeptonTight.hpp                                                             *
  *                                                                            *
  * Cuts on lepton Number (can cut on All, UnIsolated, Tight, or Veto Leptons) *
  * Must pass All, UnIsolated, Tight, or Veto to constructor                   *
@@ -7,14 +7,14 @@
  * Derived from HistoCut which is in turn derived from BaseCut                *
  *                                                                            *
  *                                                                            *
- * Public Member Functions of CutLeptonCharge class                                *
- *    CutLeptonCharge()                     -- Parameterized Constructor           *
- *    ~CutLeptonCharge()                    -- Destructor                          *
+ * Public Member Functions of CutLeptonTight class                                *
+ *    CutLeptonTight()                     -- Parameterized Constructor           *
+ *    ~CutLeptonTight()                    -- Destructor                          *
  *    BookHistogram()                -- Book histograms                       *
  *    Apply()                        -- Apply cuts and fill histograms        *
- *    GetCutName()                   -- Returns "CutLeptonCharge"                  *
+ *    GetCutName()                   -- Returns "CutLeptonTight"                  *
  *                                                                            *
- * Private Data Members of CutLeptonCharge class                                   *
+ * Private Data Members of CutLeptonTight class                                   *
  *    myTH1F* _hLeptonNumberBefore;    -- Hist lepton Number before cut       *
  *    myTH1F* _hLeptonNumberAfter;     -- Hist lepton Number of jets after cut*
  *                                                                            *
@@ -22,62 +22,62 @@
  *    Int_t _LeptonNumberMax;          -- Maximum Lepton Number               *
  *                                                                            *
  * History                                                                    *
- *      24 Mar 2009 - Created by P. Ryan                                      *
+ *      11 Dec 2017 - Created by B.Li Based on CutLeptonCharge by P.Ryan      *
  *****************************************************************************/
 
-#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonTight.hpp"
 #include<iostream>
 
 using namespace std;
 
 /*********************************************************************************
- * CutLeptonCharge::CutLeptonCharge(EventContainer *EventContainerObj, TString leptonType) *
+ * CutLeptonTight::CutLeptonTight(EventContainer *EventContainerObj, TString leptonType) *
  *                                                                               *
  * Parameterized Constructor                                                     *
  *                                                                               *
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonCharge::CutLeptonCharge(EventContainer *EventContainerObj, TString leptonTypePassed)
+CutLeptonTight::CutLeptonTight(EventContainer *EventContainerObj, TString leptonTypePassed)
 {
   // Check leptonType parameter
-  if( leptonTypePassed.CompareTo("All") && leptonTypePassed.CompareTo("UnIsolated") && leptonTypePassed.CompareTo("Isolated") && 
-      leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto")
+  if( 
+      leptonTypePassed.CompareTo("TTHTight") 
       && leptonTypePassed.CompareTo("TTHFake")
        ){
-    std::cout << "ERROR " << "<CutLeptonCharge::CutLeptonCharge()> " 
-	      << "Must pass All, Tight, Veto, Isolated, or UnIsolated to constructor" << std::endl;
+    std::cout << "ERROR " << "<CutLeptonTight::CutLeptonTight()> " 
+	      << "Must pass TTHFake, TTHTight to constructor" << std::endl;
     exit(8);
   } //if
   leptonType = leptonTypePassed;
 
   // Set Event Container
   SetEventContainer(EventContainerObj);
-} // CutLeptonCharge
+} // CutLeptonTight
 
 
 /******************************************************************************
- * CutLeptonCharge::~CutLeptonCharge()                                                  *
+ * CutLeptonTight::~CutLeptonTight()                                                  *
  *                                                                            *
  * Destructor                                                                 *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-CutLeptonCharge::~CutLeptonCharge()
+CutLeptonTight::~CutLeptonTight()
 {
   
-}//~CutLeptonCharge
+}//~CutLeptonTight
 
 /******************************************************************************
- * void CutLeptonCharge::BookHistogram()                                           *
+ * void CutLeptonTight::BookHistogram()                                           *
  *                                                                            *
  * Book Histograms                                                            *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-void CutLeptonCharge::BookHistogram(){
+void CutLeptonTight::BookHistogram(){
   
   // ***********************************************
   // Make Strings for histogram titles and labels
@@ -85,20 +85,20 @@ void CutLeptonCharge::BookHistogram(){
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
-  histNameBeforeStream << leptonType << "DileptonChargeBefore";
+  histNameBeforeStream << leptonType << "DileptonTightBefore";
   TString histNameBefore = histNameBeforeStream.str().c_str();
 
   std::ostringstream histTitleBeforeStream;
-  histTitleBeforeStream << leptonType << "Dilepton Charge Before Cut";
+  histTitleBeforeStream << leptonType << "Dilepton Tight Before Cut";
   TString histTitleBefore = histTitleBeforeStream.str().c_str();
 
   // Histogram After Cut
   std::ostringstream histNameAfterStream;
-  histNameAfterStream << leptonType << "DileptonChargeAfter";
+  histNameAfterStream << leptonType << "DileptonTightAfter";
   TString histNameAfter = histNameAfterStream.str().c_str();
 
   std::ostringstream histTitleAfterStream;
-  histTitleAfterStream << leptonType << "Dilepton Charge After Cut";
+  histTitleAfterStream << leptonType << "Dilepton Tight After Cut";
   TString histTitleAfter = histTitleAfterStream.str().c_str();
 
   // ***********************************************
@@ -106,14 +106,14 @@ void CutLeptonCharge::BookHistogram(){
   // ***********************************************  
 
   // Histogram before cut
-  _hLeptonChargeBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -1.5, 1.5);
-  _hLeptonChargeBefore -> SetXAxisTitle("Dilepton charge");
-  _hLeptonChargeBefore -> SetYAxisTitle("Events");
+  _hLeptonTightBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -0.5, 2.5);
+  _hLeptonTightBefore -> SetXAxisTitle("#Dilepton tight");
+  _hLeptonTightBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
-  _hLeptonChargeAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -1.5, 1.5);
-  _hLeptonChargeAfter -> SetXAxisTitle("Dilepton charge");
-  _hLeptonChargeAfter -> SetYAxisTitle("Events");
+  _hLeptonTightAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, 0.5, 2.5);
+  _hLeptonTightAfter -> SetXAxisTitle("#Dilepton tight");
+  _hLeptonTightAfter -> SetYAxisTitle("Events");
 
   // ***********************************************
   // Get cuts from configuration file
@@ -123,13 +123,21 @@ void CutLeptonCharge::BookHistogram(){
   EventContainer *EventContainerObj = GetEventContainer();
   TEnv *config = EventContainerObj -> GetConfig();
 
-  std::ostringstream configSameSignStream;
-  configSameSignStream << "Cut.Dilepton." << leptonType.Data() << ".SameSign";
-  TString configSameSign = configSameSignStream.str().c_str();
+  std::ostringstream configNumTightMaxStream;
+  configNumTightMaxStream << "Cut.Dilepton." << leptonType.Data() << ".NumTightMax";
+  TString configNumTightMax = configNumTightMaxStream.str().c_str();
+
+  std::ostringstream configNumTightMinStream;
+  configNumTightMinStream << "Cut.Dilepton." << leptonType.Data() << ".NumTightMin";
+  TString configNumTightMin = configNumTightMinStream.str().c_str();
+
+  std::ostringstream configNumTightAllStream;
+  configNumTightAllStream << "Cut.Dilepton." << leptonType.Data() << ".NumTightAll";
+  TString configNumTightAll = configNumTightAllStream.str().c_str();
 
   //
-  //_LeptonSameSign = config -> GetValue(configSameSign.Data(), false);
-  _LeptonSameSign = config -> GetValue(configSameSign.Data(), 0);
+  _LeptonNumTightMin = config -> GetValue(configNumTightMin.Data(), 0);
+  _LeptonNumTightMax = config -> GetValue(configNumTightMax.Data(), 999);
   
   // ***********************************************
   // Add these cuts to the cut flow table
@@ -139,17 +147,35 @@ void CutLeptonCharge::BookHistogram(){
   TString cutFlowTitle;
   TString cutFlowName;
 
-  // Min + Max cut
+  // Min cut
   cutFlowTitleStream.str("");
-  if(_LeptonSameSign !=0 ){
-   cutFlowTitleStream << leptonType.Data() << " Dilepton : " << (_LeptonSameSign > 0 ? "Same sign " : "Opposite sign ");
-  }else{
-   cutFlowTitleStream << leptonType.Data() << " Dilepton : " << "Any sign ";
-  }
+  cutFlowTitleStream << leptonType.Data() << " Dilepton : " << "N_tight>= " << _LeptonNumTightMin; 
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << leptonType.Data() << "Dilepton.Charge.All";
+  cutFlowNameStream << leptonType.Data() << "Dilepton.NumberTight.Min";
+  cutFlowName = cutFlowNameStream.str().c_str();
+
+  GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
+
+  // Max cut
+  cutFlowTitleStream.str("");
+  cutFlowTitleStream << leptonType.Data() << " Dilepton : " << "N_tight<= " << _LeptonNumTightMax; 
+  cutFlowTitle = cutFlowTitleStream.str().c_str();
+
+  cutFlowNameStream.str("");
+  cutFlowNameStream << leptonType.Data() << "Dilepton.NumberTight.Max";
+  cutFlowName = cutFlowNameStream.str().c_str();
+
+  GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
+
+  // Min + Max cut
+  cutFlowTitleStream.str("");
+  cutFlowTitleStream << leptonType.Data() << " Dilepton : "  << _LeptonNumTightMin << " <= N_tight <= "<< _LeptonNumTightMax; 
+  cutFlowTitle = cutFlowTitleStream.str().c_str();
+
+  cutFlowNameStream.str("");
+  cutFlowNameStream << leptonType.Data() << "Dilepton.NumberTight.All";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
@@ -158,7 +184,7 @@ void CutLeptonCharge::BookHistogram(){
 }//BookHistograms()
 
 /******************************************************************************
- * Bool_t CutLeptonCharge::Apply()                                                 *
+ * Bool_t CutLeptonTight::Apply()                                                 *
  *                                                                            *
  * Apply cuts and fill histograms                                             *
  *                                                                            *
@@ -168,7 +194,7 @@ void CutLeptonCharge::BookHistogram(){
  * Input:  None                                                               *
  * Output: kTrue if successful                                                *
  ******************************************************************************/
-Bool_t CutLeptonCharge::Apply()
+Bool_t CutLeptonTight::Apply()
 {
 
   // ***********************************************
@@ -176,61 +202,35 @@ Bool_t CutLeptonCharge::Apply()
   // ***********************************************
   
   // Initialize number of leptons
-  Float_t LeptonPairCharge    = 0;       
+  Int_t LeptonPairNumTight    = 0;       
 
   // Flags 
-  Bool_t LeptonChargePass = kTRUE; // Event passes sign selection
+  Bool_t LeptonTightPass = kTRUE; // Event passes sign selection
 
   // Get Event Container
   EventContainer *EventContainerObj = GetEventContainer();
 
-  std::vector<Muon> muonVector;
-  std::vector<Electron> electronVector;
   std::vector<Lepton> leptonVector;
 
 
   //Assign collections to the above defined vectors
-  if(     "All"        == leptonType) {
-    muonVector.assign(EventContainerObj -> muons.begin(),           EventContainerObj -> muons.end());
-    electronVector.assign(EventContainerObj -> electrons.begin(),           EventContainerObj -> electrons.end());
-  }
-  else if("Veto"       == leptonType) {
-    muonVector.assign(EventContainerObj -> vetoMuons.begin(),       EventContainerObj -> vetoMuons.end());
-    electronVector.assign(EventContainerObj -> vetoElectrons.begin(),       EventContainerObj -> vetoElectrons.end());
-  }
-  else if("PtEtaCut"   == leptonType) {
-    muonVector.assign(EventContainerObj -> ptetaMuons.begin(),      EventContainerObj -> ptetaMuons.end());
-    electronVector.assign(EventContainerObj -> ptetaElectrons.begin(),      EventContainerObj -> ptetaElectrons.end());
-  }
-  else if("Tight"      == leptonType) {
-    muonVector.assign(EventContainerObj -> tightMuons.begin(),      EventContainerObj -> tightMuons.end());
-    electronVector.assign(EventContainerObj -> tightElectrons.begin(),      EventContainerObj -> tightElectrons.end());
-  }
-  else if("Isolated"   == leptonType) {
-    muonVector.assign(EventContainerObj -> isolatedMuons.begin(),   EventContainerObj -> isolatedMuons.end());
-    electronVector.assign(EventContainerObj -> isolatedElectrons.begin(),   EventContainerObj -> isolatedElectrons.end());
-  }
-  else if("UnIsolated" == leptonType) {
-    muonVector.assign(EventContainerObj -> unIsolatedMuons.begin(), EventContainerObj -> unIsolatedMuons.end());
-    electronVector.assign(EventContainerObj -> unIsolatedElectrons.begin(), EventContainerObj -> unIsolatedElectrons.end());
-  }
-  else if("TTHFake" == leptonType) {
+  if("TTHFake" == leptonType) {
     leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
   }
+  else if("TTHTight" == leptonType) {
+    leptonVector.assign(EventContainerObj -> tightLeptons.begin(), EventContainerObj -> tightLeptons.end());
+  }
   else{
-    std::cout << "ERROR " << "<CutLeptonCharge::Apply()> "
-	      << "leptonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHFake" << std::endl;
+    std::cout << "ERROR " << "<CutLeptonTight::Apply()> "
+	      << "leptonType must be TTHTight, TTHFake" << std::endl;
     exit(8);
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if("TTHFake" == leptonType ) LeptonPairCharge = leptonVector[0].charge()*leptonVector[1].charge();
-  else if (EventContainerObj->GetChannelName() == "mumu") LeptonPairCharge = muonVector[0].charge()*muonVector[1].charge();
-  else if (EventContainerObj->GetChannelName() == "ee") LeptonPairCharge = electronVector[0].charge() * electronVector[1].charge();
-  else if (EventContainerObj->GetChannelName() == "emu") LeptonPairCharge = muonVector[0].charge() * electronVector[0].charge();
+  LeptonPairNumTight = leptonVector[0].isTight()+leptonVector[1].isTight();
 
   // Fill the histograms before the cuts
-  _hLeptonChargeBefore    -> Fill(LeptonPairCharge);
+  _hLeptonTightBefore    -> Fill(LeptonPairNumTight);
   
   // ***********************************************
   // Fill cut flow table
@@ -238,26 +238,57 @@ Bool_t CutLeptonCharge::Apply()
   
   // Names for Cut Flow Table
   ostringstream cutFlowNameAllStream;
+  ostringstream cutFlowNameMinStream;
+  ostringstream cutFlowNameMaxStream;
   
   TString cutFlowNameAll;
+  TString cutFlowNameMax;
+  TString cutFlowNameMin;
   
-  cutFlowNameAllStream << leptonType.Data() << "Dilepton.Charge.All";
+  cutFlowNameAllStream << leptonType.Data() << "Dilepton.NumberTight.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( _LeptonSameSign * LeptonPairCharge < 0){
-    LeptonChargePass = kFALSE;
+  cutFlowNameMinStream << leptonType.Data() << "Dilepton.NumberTight.Min";
+  cutFlowNameMin = cutFlowNameMinStream.str().c_str();
+  
+  cutFlowNameMaxStream << leptonType.Data() << "Dilepton.NumberTight.Max";
+  cutFlowNameMax = cutFlowNameMaxStream.str().c_str();
+  
+  //Cut on Min 
+  if ( _LeptonNumTightMax < LeptonPairNumTight){
+    LeptonTightPass = kFALSE;
+    GetCutFlowTable()->FailCut(cutFlowNameMax.Data());
+  }
+  else{
+    GetCutFlowTable()->PassCut(cutFlowNameMax.Data());
+    _hLeptonTightAfter -> Fill(LeptonPairNumTight);
+  }
+
+  //Cut on Min 
+  if ( _LeptonNumTightMin > LeptonPairNumTight){
+    LeptonTightPass = kFALSE;
+    GetCutFlowTable()->FailCut(cutFlowNameMin.Data());
+  }
+  else{
+    GetCutFlowTable()->PassCut(cutFlowNameMin.Data());
+    _hLeptonTightAfter -> Fill(LeptonPairNumTight);
+  }
+
+  //Cut on Min and Max 
+  if ( _LeptonNumTightMin > LeptonPairNumTight || _LeptonNumTightMax < LeptonPairNumTight){
+    LeptonTightPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
-    _hLeptonChargeAfter -> Fill(LeptonPairCharge);
+    _hLeptonTightAfter -> Fill(LeptonPairNumTight);
   }
 
   // ***********************************************
   // Return if it passes
   // ***********************************************
   
-  return(LeptonChargePass);
+  return(LeptonTightPass);
  
 } //Apply
 
