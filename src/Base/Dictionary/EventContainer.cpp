@@ -347,6 +347,14 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   TTHLep_2Ele =0;
   TTHLep_MuEle =0;
   TTHLep_2L =0;
+  metLD = -999.;
+  mht = -999.;
+  mhtT = -999.;
+  mht_met = -999.;
+  mhtT_met = -999.;
+  massL = -999.;
+  massL_SFOS = -999.;
+  mass_diele = -999.;
   set_hadTopMVA();
 
   return;
@@ -505,6 +513,14 @@ Int_t EventContainer::ReadEvent()
   lightQuarkLabeledJets.clear();
   neutrinos.clear();
 
+  metLD = -999.;
+  mht = -999.;
+  mhtT = -999.;
+  mht_met = -999.;
+  mhtT_met = -999.;
+  massL = -999.;
+  massL_SFOS = -999.;
+  mass_diele = -999.;
   ////////////////////////////////////////////////////
   // Fill objects
   ////////////////////////////////////////////////////
@@ -814,6 +830,10 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
     } //jets
 
+    
+    
+    
+    
     /*
     missingEx = _eventTree -> MissingEt_etx / 1000.0;
     missingEy = _eventTree -> MissingEt_ety / 1000.0;
@@ -909,7 +929,45 @@ Int_t EventContainer::ReadEvent()
   Neutrino newNeutrino;
   newNeutrino.Fill(tightMuons, tightElectrons,missingEx,missingEy);
   neutrinos.push_back(newNeutrino);
-  
+
+  //////////////////////
+  // Following are variables used for ttH cuts
+  // I should probably write a new class and fill them in that class
+  // but I'm not doing that now
+  ////////////////////////////  
+  // ht and St
+  TLorentzVector mht_lv(0,0,0,0);
+  TLorentzVector mhtT_lv(0,0,0,0);
+  for(auto lepton : looseLeptons){
+      TLorentzVector lv(0.,0.,0.,0.);
+      lv.SetPtEtaPhiE(lepton.Pt(),lepton.Eta(),lepton.Phi(),lepton.E());
+      mht_lv = mht_lv + lv;
+      if(lepton.isTight()==1){
+          mhtT_lv = mhtT_lv + lv;
+      }
+  }
+  for(auto tau : looseTaus){
+      TLorentzVector lv(0.,0.,0.,0.);
+      lv.SetPtEtaPhiE(tau.Pt(),tau.Eta(),tau.Phi(),tau.E());
+      mht_lv = mht_lv + lv;
+      if(tau.isMedium()==1){
+          mhtT_lv = mhtT_lv + lv;
+      }
+  }
+  for(auto jet : jets){
+      TLorentzVector lv(0.,0.,0.,0.);
+      lv.SetPtEtaPhiE(jet.Pt(),jet.Eta(),jet.Phi(),jet.E());
+      mht_lv = mht_lv + lv;
+      mhtT_lv = mhtT_lv + lv;
+  }
+  mht = mht_lv.Pt();
+  mhtT = mhtT_lv.Pt();
+  mht_met = mht + missingEt;
+  mhtT_met = mhtT + missingEt;
+  metLD =  0.00397*missingEt+0.00265*mht;  
+
+  Cal_dilep_mass();
+ 
   return 0;
   
 } //ReadEvent
@@ -1254,3 +1312,44 @@ void EventContainer::set_hadTopMVA()
     hadTop_reader_tight->BookMVA("BDTG method", _config.GetValue("Include.HadTopMVA.bTightFile","null"));
 };
 
+/***************************************************************
+ * void EventContainer::Cal_dilep_mass()              *
+ *                                                              * 
+ * Calculate different dilep mass                               *
+ *                                                              *
+ * Input: None                                                  *
+ * Output: None                                                *
+ * **************************************************************/
+void EventContainer::Cal_dilep_mass(){
+    double diloosemass = 999;
+    double lSFOSmass = 999;
+    double dielemass = 999;
+    if (looseLeptons.size()<2)return;
+    TLorentzVector Lep0(0,0,0,0); 
+    TLorentzVector Lep1(0,0,0,0);
+    TLorentzVector FakeLep0(0,0,0,0); 
+    TLorentzVector FakeLep1(0,0,0,0);
+    // dilep mass
+    for(uint lep_en =0; lep_en < looseLeptons.size(); lep_en++){
+        Lep0.SetPtEtaPhiE(looseLeptons.at(lep_en).Pt(), looseLeptons.at(lep_en).Eta(), looseLeptons.at(lep_en).Phi(), looseLeptons.at(lep_en).E());
+        for(uint l_en =lep_en+1; l_en < looseLeptons.size(); l_en++){
+            Lep1.SetPtEtaPhiE(looseLeptons.at(l_en).Pt(), looseLeptons.at(l_en).Eta(), looseLeptons.at(l_en).Phi(), looseLeptons.at(l_en).E());
+            if(diloosemass > (Lep0+Lep1).M()) 
+                diloosemass = (Lep0+Lep1).M();
+            if(fabs(lSFOSmass-91.2)>fabs((Lep0+Lep1).M()-91.2)
+                && (looseLeptons.at(lep_en).pdgId()+looseLeptons.at(l_en).pdgId())==0)
+                lSFOSmass = (Lep0+Lep1).M(); 
+        }
+    }
+    massL = diloosemass;
+    massL_SFOS = lSFOSmass;
+    if (fakeLeptons.size()>=2){
+        Lepton fakelep0 = fakeLeptons.at(0);
+        Lepton fakelep1 = fakeLeptons.at(1);
+        FakeLep0.SetPtEtaPhiE(fakelep0.conept(),fakelep0.Eta(),fakelep0.Phi(),fakelep0.E());
+        FakeLep1.SetPtEtaPhiE(fakelep1.conept(),fakelep1.Eta(),fakelep1.Phi(),fakelep1.E());
+        if(fabs(fakelep0.pdgId())==11 && fabs(fakelep1.pdgId())==11)
+            dielemass = (FakeLep0+FakeLep1).M();
+        mass_diele = dielemass;
+    }
+};

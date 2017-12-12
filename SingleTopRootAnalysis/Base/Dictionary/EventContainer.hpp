@@ -627,12 +627,21 @@ class EventContainer
   bool useMCWithConstantTerm;
   //bool isMCFlag;
 
-    ////// ttH Flags
+    ////// ttH Variables
+    Double_t metLD;
+    Double_t mass_diele;
+    Double_t massL;
+    Double_t mht;
+    Double_t mhtT;
+    Double_t mht_met;
+    Double_t mhtT_met;
+    Double_t massL_SFOS;
     Int_t TTHLep_2Mu;
     Int_t TTHLep_2Ele;
     Int_t TTHLep_MuEle;
     Int_t TTHLep_2L;
     void set_TTHFlags();
+    void Cal_dilep_mass();
 
     ////// Hadronic Top Tagger
     void set_hadTopMVA();

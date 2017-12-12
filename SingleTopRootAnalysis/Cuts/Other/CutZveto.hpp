@@ -1,7 +1,7 @@
 /******************************************************************************
  * CutZveto.hpp                                                               *
  *                                                                            *
- * Cuts on Sum Et                                                             *
+ * Cuts on Zveto                                                             *
  *                                                                            *
  * Derived from HistoCut which is in turn derived from BaseCut                *
  *                                                                            *
@@ -35,7 +35,7 @@ class CutZveto : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutZveto(EventContainer *EventContainerObj,TString leptonTypePassed);
+  CutZveto(EventContainer *EventContainerObj);
   
   // Destructor
   ~CutZveto();
@@ -53,14 +53,13 @@ public:
 private:
 
   // Histograms
-  myTH1F* _hZvetoBefore;    // Histogram Sum Et
-  myTH1F* _hZvetoAfter;     // Histogram Sum Et
+  myTH1F* _hZvetoBefore;    // Histogram Zveto
+  myTH1F* _hZvetoAfter;     // Histogram Zveto
 
   // Cut parameters
-  Double_t _ZvetoMin;           // Minimum Sum Et
-  Double_t _ZvetoMax;           // Maximum Sum Et
+  Double_t _ZvetoMin;           // Minimum Zveto
+  Double_t _ZvetoMax;           // Maximum Zveto
 
-  TString leptonType; // Type of electron being plotted
 };
 
 

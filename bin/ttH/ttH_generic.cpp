@@ -32,6 +32,7 @@
 // Include cuts classes
 //#include "SingleTopRootAnalysis/Cuts/Other/CutTriangularSumDeltaPhiLepMET.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Other/CutEMuOverlap.hpp"
+#include "SingleTopRootAnalysis/Cuts/Other/CutZveto.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
 #include "SingleTopRootAnalysis/Cuts/TaggedJet/CutBTaggedJetN.hpp"
@@ -66,6 +67,7 @@
 #include "SingleTopRootAnalysis/Vars/TestVar.hpp"
 #include "SingleTopRootAnalysis/Vars/BDTVars.hpp"
 #include "SingleTopRootAnalysis/Vars/HadTopVars.hpp"
+#include "SingleTopRootAnalysis/Vars/ttHVars.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
 
 using std::cout;
@@ -311,6 +313,9 @@ int main(int argc, char **argv)
   //mystudy.AddVars(new BDTVars(true));
   
   mystudy.AddVars(new HadTopVars(true));
+  mystudy.AddVars(new ttHVars(true));
+  mystudy.AddCut(new CutZveto(particlesObj));
+  
   mystudy.AddVars(new WeightVars());
 
   TFile *_skimBDTFile;
