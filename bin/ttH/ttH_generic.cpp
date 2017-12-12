@@ -44,6 +44,9 @@
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonAbsPdgIdSum.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonTight.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonConversion.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMissHit.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonTightCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Muon/CutMuonN.hpp"
 #include "SingleTopRootAnalysis/Cuts/Tau/CutTauN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Muon/CutMuonTighterPt.hpp"
@@ -248,6 +251,9 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
+  mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
+  mystudy.AddCut(new CutLeptonMissHit(particlesObj,"TTHFake"));
+  mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   
   //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
 
