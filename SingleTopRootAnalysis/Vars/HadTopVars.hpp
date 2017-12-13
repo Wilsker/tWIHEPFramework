@@ -87,7 +87,6 @@ private:
     Float_t Dr_lept_bfromhTop;
     Float_t Dr_leph_bfromlTop;
 
-    Double_t _MWPbTagCut;
 };
 
 #endif

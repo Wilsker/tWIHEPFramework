@@ -146,7 +146,8 @@
 #include <TEnv.h>
 #include <TMath.h>
 #include <TString.h>
-
+#include <TFile.h>
+#include "TH2F.h"
 #include "TMVA/Reader.h"
 //using namespace Analysis;
 
@@ -643,6 +644,29 @@ class EventContainer
     void set_TTHFlags();
     void Cal_dilep_mass();
 
+    ///// ttH event BDT
+    void set_ttHDiLepMVA();
+    // event mva
+    TMVA::Reader *Dilepttbar_reader_;
+    TMVA::Reader *Dilepttv_reader_;
+
+    Float_t Dilepttbar_maxlepeta;
+    Float_t Dilepttbar_numJets;
+    Float_t Dilepttbar_mindrlep1jet;
+    Float_t Dilepttbar_mindrlep2jet;
+    Float_t Dilepttbar_Mtmetlep1;
+    Float_t Dilepttbar_HadTopBDT;
+
+    Float_t Dilepttv_maxlepeta;
+    Float_t Dilepttv_Mtmetlep1;
+    Float_t Dilepttv_numJets;
+    Float_t Dilepttv_mindrlep1jet;
+    Float_t Dilepttv_mindrlep2jet;
+    Float_t Dilepttv_ptlep1;
+    Float_t Dilepttv_ptlep2;
+    Float_t Dilepttv_Hj1BDT;
+    
+    TH2F*  hBinning2l;
     ////// Hadronic Top Tagger
     void set_hadTopMVA();
     //MVA
@@ -658,7 +682,8 @@ class EventContainer
     Float_t varDr_lept_bfromlTop;
     Float_t varDr_lept_bfromhTop;
     Float_t varDr_leph_bfromlTop;
-  
+ 
+    Double_t HadTop_BDT; 
     // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
     Int_t _sync;
 

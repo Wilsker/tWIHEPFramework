@@ -83,8 +83,6 @@ void HadTopVars::FillBranches(EventContainer * evtObj){
   //Initialise vectors;
   Clear();
   
-  _MWPbTagCut = evtObj-> GetConfig() -> GetValue("ObjectID.BJet.MWPBTagCut",0.0);
-  
   Jet_numbMedium = Add_nullJet(evtObj->jets);
   Reco_hadTop(evtObj);
   
@@ -93,6 +91,7 @@ void HadTopVars::FillBranches(EventContainer * evtObj){
   
   _floatVars["hadTop_BDT"] = hadTop_BDT;
 
+  evtObj->HadTop_BDT = hadTop_BDT;
   if(evtObj -> _sync == 51){                                                                      
         std::cout<< evtObj->eventNumber<<" "<< bjet_hadTop_pt << " "<< wjet1_hadTop_pt<<" "<< wjet2_hadTop_pt<<" "<<bjet_hadTop_csv <<" "<< bjet_lepTop_csv << " "<< reco_hadTop_mass<< " "<< reco_hadTop_pt << " " << reco_WhadTop_mass << " " << PtRatio_leptOverleph << " " << Dr_lept_bfromlTop << " "<< Dr_lept_bfromhTop<< " "<<Dr_leph_bfromlTop <<" "<< hadTop_BDT<< endl;
   }                          
@@ -271,7 +270,7 @@ int HadTopVars::Add_nullJet(std::vector<Jet>& selectedJets){
         Jet_null_phi.push_back(selectedJets.at(jet_en).Phi());
         Jet_null_energy.push_back(selectedJets.at(jet_en).E());
         Jet_null_csv.push_back(selectedJets.at(jet_en).bDiscriminator());
-        if(selectedJets.at(jet_en).bDiscriminator() > _MWPbTagCut )num_bjet++;
+        if(selectedJets.at(jet_en).isMediumBdisc() )num_bjet++;
     }
     if(Jet_numLoose<=7){
         Jet_null_pt.push_back(0);

@@ -355,7 +355,9 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   massL = -999.;
   massL_SFOS = -999.;
   mass_diele = -999.;
+  HadTop_BDT = -999.;
   set_hadTopMVA();
+  set_ttHDiLepMVA();
 
   return;
 } //Initialize()
@@ -521,6 +523,7 @@ Int_t EventContainer::ReadEvent()
   massL = -999.;
   massL_SFOS = -999.;
   mass_diele = -999.;
+  HadTop_BDT = -999.;
   ////////////////////////////////////////////////////
   // Fill objects
   ////////////////////////////////////////////////////
@@ -1312,6 +1315,51 @@ void EventContainer::set_hadTopMVA()
     hadTop_reader_tight->BookMVA("BDTG method", _config.GetValue("Include.HadTopMVA.bTightFile","null"));
 };
 
+/***************************************************************
+ * void EventContainer::set_ttHDiLepMVA()                       *
+ *                                                              * 
+ * Set up the MVA xml file for event BDT                      *
+ *                                                              *
+ * Input: None                                                 *
+ * Output: None                                                 *
+ * **************************************************************/
+void EventContainer::set_ttHDiLepMVA()
+{
+    // 2l ttbar BDT
+    Dilepttbar_reader_ = new TMVA::Reader("!Color:!Silent");
+    Dilepttbar_reader_->AddVariable("max(abs(LepGood_eta[iLepFO_Recl[0]]),abs(LepGood_eta[iLepFO_Recl[1]]))",&Dilepttbar_maxlepeta);
+    Dilepttbar_reader_->AddVariable("nJet25_Recl",&Dilepttbar_numJets);
+    Dilepttbar_reader_->AddVariable("mindr_lep1_jet",&Dilepttbar_mindrlep1jet);
+    Dilepttbar_reader_->AddVariable("mindr_lep2_jet",&Dilepttbar_mindrlep2jet);
+    Dilepttbar_reader_->AddVariable("MT_met_lep1",&Dilepttbar_Mtmetlep1);
+    Dilepttbar_reader_->AddVariable("max(-1.1,BDTv8_eventReco_mvaValue)",&Dilepttbar_HadTopBDT);
+    Dilepttbar_reader_->AddSpectator("iLepFO_Recl[0]",&Dilepttbar_mindrlep1jet);
+    Dilepttbar_reader_->AddSpectator("iLepFO_Recl[1]",&Dilepttbar_mindrlep2jet);
+    Dilepttbar_reader_->AddSpectator("iLepFO_Recl[2]",&Dilepttbar_maxlepeta);
+    Dilepttbar_reader_->BookMVA("BDTG method",  _config.GetValue("Include.DiLepBDT.ttbarFile","null"));
+ 
+    // 2l ttv BDT
+    Dilepttv_reader_ = new TMVA::Reader("!Color:!Silent");
+    Dilepttv_reader_->AddVariable("max(abs(LepGood_eta[iLepFO_Recl[0]]),abs(LepGood_eta[iLepFO_Recl[1]]))",&Dilepttv_maxlepeta);
+    Dilepttv_reader_->AddVariable("nJet25_Recl",&Dilepttv_numJets);
+    Dilepttv_reader_->AddVariable("mindr_lep1_jet",&Dilepttv_mindrlep1jet);
+    Dilepttv_reader_->AddVariable("mindr_lep2_jet",&Dilepttv_mindrlep2jet);
+    Dilepttv_reader_->AddVariable("MT_met_lep1",&Dilepttv_Mtmetlep1);
+    Dilepttv_reader_->AddVariable("LepGood_conePt[iLepFO_Recl[1]]",&Dilepttv_ptlep2);
+    Dilepttv_reader_->AddVariable("LepGood_conePt[iLepFO_Recl[0]]",&Dilepttv_ptlep1);
+    Dilepttv_reader_->AddVariable("max(-1.1,BDTv8_eventReco_Hj_score)",&Dilepttv_Hj1BDT);
+    Dilepttv_reader_->AddSpectator("iLepFO_Recl[0]",&Dilepttv_mindrlep1jet);
+    Dilepttv_reader_->AddSpectator("iLepFO_Recl[1]",&Dilepttv_mindrlep2jet);
+    Dilepttv_reader_->AddSpectator("iLepFO_Recl[2]",&Dilepttv_ptlep1);
+    Dilepttv_reader_->BookMVA("BDTG method", _config.GetValue("Include.DiLepBDT.ttvFile","null")); 
+
+    // 2D Map
+    TFile* MapFile = TFile::Open( GetConfig() -> GetValue("Include.2DBDT.MapFile","null"),"READ");
+    if (!MapFile) std::cout << "TTH 2D BDT Mapping file not found!" << std::endl;
+    hBinning2l = (TH2F*)MapFile->Get( GetConfig() -> GetValue("Event.2DBDTHistName","null"))->Clone();
+    hBinning2l->SetDirectory(0);
+    MapFile->Close();
+}
 /***************************************************************
  * void EventContainer::Cal_dilep_mass()              *
  *                                                              * 
