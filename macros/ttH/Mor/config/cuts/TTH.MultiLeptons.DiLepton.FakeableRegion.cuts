@@ -9,7 +9,7 @@ Cut.Trigger.Channel:TTHLep_2L
 
 ################# Lepton Cuts #########################
 # Number of Leptons
-Cut.Lepton.TTHTight.Number.Min:  2
+Cut.Lepton.TTHTight.Number.Min:  0
 Cut.Lepton.TTHTight.Number.Max:  2
 Cut.Lepton.TTHFake.Number.Min:  2
 Cut.Lepton.TTHFake.Number.Max:  999
@@ -23,8 +23,8 @@ Cut.Muon.TTHFake.SubLeadingPt:  15
 #Cut.Muon.Tight.Number.Max:  1
 ############## DiLep Cuts ############################
 Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
-Cut.Dilepton.TTHFake.NumTightMin: 2 
-Cut.Dilepton.TTHFake.NumTightMax: 2 
+Cut.Dilepton.TTHFake.NumTightMin: 0 
+Cut.Dilepton.TTHFake.NumTightMax: 1 
 Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 
 ################# Tau Cuts #########################

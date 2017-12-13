@@ -71,13 +71,23 @@ void CutTriggerSelection::BookHistogram(){
   // ***********************************************
   // Make Strings for histogram titles and labels
   // ***********************************************  
+  //First, get the config file
+  EventContainer *EventContainerObj = GetEventContainer();
+  TEnv * config = EventContainerObj->GetConfig();
+  
+  TString triggerConfig = config -> GetValue("Cut.Trigger.Channel","none");
 
   if (_whichtrigger == 0) _triggerChannel = "Electron";
-  if (_whichtrigger == 1) _triggerChannel = "Muon";
-  if (_whichtrigger == 2) _triggerChannel = "TTHLep_2Mu";
-  if (_whichtrigger == 3) _triggerChannel = "TTHLep_2Ele";
-  if (_whichtrigger == 4) _triggerChannel = "TTHLep_MuEle";
-  if (_whichtrigger == 5) _triggerChannel = "TTHLep_2L";
+  else if (_whichtrigger == 1) _triggerChannel = "Muon";
+  // overwrite _whichtrigger
+  else if (triggerConfig == "TTHLep_2Mu")_whichtrigger =2;
+  else if (triggerConfig == "TTHLep_2Ele")_whichtrigger =3;
+  else if (triggerConfig == "TTHLep_MuEle")_whichtrigger =4;
+  else if (triggerConfig == "TTHLep_2L")_whichtrigger =5;
+  else if (_whichtrigger == 2) _triggerChannel = "TTHLep_2Mu";
+  else if (_whichtrigger == 3) _triggerChannel = "TTHLep_2Ele";
+  else if (_whichtrigger == 4) _triggerChannel = "TTHLep_MuEle";
+  else if (_whichtrigger == 5) _triggerChannel = "TTHLep_2L";
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
