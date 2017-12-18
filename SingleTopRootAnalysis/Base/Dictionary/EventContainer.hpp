@@ -130,6 +130,9 @@
 #include "SingleTopRootAnalysis/Particles/Truth/MCJet.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCTop.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCW.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCH.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCZ.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCPhoton.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCNeutrino.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCBQuark.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCCQuark.hpp"
@@ -560,6 +563,9 @@ class EventContainer
   std::vector<MCJet> MCLightQuarkJets;    // U, D, S Jets
   std::vector<MCTop> MCTops;              // MC Tops
   std::vector<MCW> MCWs;                  // MC Ws
+  std::vector<MCH> MCHs;                  // MC Hs
+  std::vector<MCZ> MCZs;                  // MC Zs
+  std::vector<MCPhoton> MCPhotons;                  // MC Photons
   std::vector<MCNeutrino> MCNeutrinos;    // MC Neutrinos
   std::vector<MCBQuark>  MCBQuarks;       // MC B Quarks
   std::vector<MCCQuark>  MCCQuarks;       // MC C Quarks
@@ -584,6 +590,12 @@ class EventContainer
   std::vector<MCTop>::iterator MCTopNewEnd;
   std::vector<MCW>::iterator MCWIterator;
   std::vector<MCW>::iterator MCWNewEnd;
+  std::vector<MCPhoton>::iterator MCPhotonIterator;
+  std::vector<MCPhoton>::iterator MCPhotonNewEnd;
+  std::vector<MCH>::iterator MCHIterator;
+  std::vector<MCH>::iterator MCHNewEnd;
+  std::vector<MCZ>::iterator MCZIterator;
+  std::vector<MCZ>::iterator MCZNewEnd;
   std::vector<MCNeutrino>::iterator MCNeutrinoIterator;
   std::vector<MCNeutrino>::iterator MCNeutrinoNewEnd;
   std::vector<MCBQuark>::iterator MCBQuarkIterator;
@@ -761,6 +773,7 @@ private:
   Lepton newLepton;
   Tau newTau;
   Jet newJet;
+  MCParticle newMCParticle;
 
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system

@@ -101,6 +101,13 @@ ClassImp(Lepton)
   _dEtaIn       (0.0),
   _dPhiIn       (0.0),
   _ooEmooP       (0.0),
+  _gen_pt       (0.0),
+  _gen_eta       (0.0),
+  _gen_phi       (0.0),
+  _gen_en       (0.0),
+  _gen_pdgId       (0.0),
+  _gen_isPrompt       (0.0),
+  _gen_isPromptTau       (0.0),
   _mvaValue_HZZ       (0.0)
 {
 
@@ -181,6 +188,13 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _dPhiIn(other.GetdPhiIn()),
   _ooEmooP(other.GetooEmooP()),
   _mvaValue_HZZ(other.GetmvaValue_HZZ()),
+  _gen_pt(other.Getgen_pt()),
+  _gen_eta(other.Getgen_eta()),
+  _gen_phi(other.Getgen_phi()),
+  _gen_en(other.Getgen_en()),
+  _gen_pdgId(other.Getgen_pdgId()),
+  _gen_isPrompt(other.Getgen_isPrompt()),
+  _gen_isPromptTau(other.Getgen_isPromptTau()),
   _pTErrOVpT_it(other.GetpTErrOVpT_it())
 			       
 {
@@ -248,6 +262,13 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _dPhiIn       (0.0),
   _ooEmooP       (0.0),
   _mvaValue_HZZ       (0.0),
+  _gen_pt       (0.0),
+  _gen_eta       (0.0),
+  _gen_phi       (0.0),
+  _gen_en       (0.0),
+  _gen_pdgId       (0.0),
+  _gen_isPrompt       (0.0),
+  _gen_isPromptTau       (0.0),
   _pTErrOVpT_it       (0.0)
 {
 } //Lepton
@@ -346,6 +367,13 @@ Lepton& Lepton::operator=(const Particle& other)
   SetdEtaIn       (0.0);
   SetdPhiIn       (0.0);
   SetooEmooP       (0.0);
+  Setgen_pt       (0.0);
+  Setgen_eta       (0.0);
+  Setgen_phi       (0.0);
+  Setgen_en       (0.0);
+  Setgen_pdgId       (0.0);
+  Setgen_isPrompt       (0.0);
+  Setgen_isPromptTau       (0.0);
   SetmvaValue_HZZ       (0.0);
   return *this;
 } //= Particle
@@ -414,6 +442,13 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetdEtaIn(other.GetdEtaIn());
   SetdPhiIn(other.GetdPhiIn());
   SetooEmooP(other.GetooEmooP());
+  Setgen_pt(other.Getgen_pt());
+  Setgen_eta(other.Getgen_eta());
+  Setgen_phi(other.Getgen_phi());
+  Setgen_en(other.Getgen_en());
+  Setgen_pdgId(other.Getgen_pdgId());
+  Setgen_isPrompt(other.Getgen_isPrompt());
+  Setgen_isPromptTau(other.Getgen_isPromptTau());
   SetmvaValue_HZZ(other.GetmvaValue_HZZ());
   return *this;
 } //= const muon
@@ -482,6 +517,13 @@ Lepton& Lepton::operator=(Lepton& other)
   SetdEtaIn(other.GetdEtaIn());
   SetdPhiIn(other.GetdPhiIn());
   SetooEmooP(other.GetooEmooP());
+  Setgen_pt(other.Getgen_pt());
+  Setgen_eta(other.Getgen_eta());
+  Setgen_phi(other.Getgen_phi());
+  Setgen_en(other.Getgen_en());
+  Setgen_pdgId(other.Getgen_pdgId());
+  Setgen_isPrompt(other.Getgen_isPrompt());
+  Setgen_isPromptTau(other.Getgen_isPromptTau());
   SetmvaValue_HZZ(other.GetmvaValue_HZZ());
   return *this;
 } //= non-const lepton
@@ -650,6 +692,13 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetvalidFraction       (evtr -> Muon_validFraction      -> operator[](iE));
     SetsegmentCompatibility       (evtr -> Muon_segmentCompatibility      -> operator[](iE));
     SetpTErrOVpT_it       (evtr -> Muon_pTErrOVpT_it      -> operator[](iE));
+    Setgen_pt       (evtr -> Muon_gen_pt      -> operator[](iE));
+    Setgen_eta       (evtr -> Muon_gen_eta      -> operator[](iE));
+    Setgen_phi       (evtr -> Muon_gen_phi      -> operator[](iE));
+    Setgen_en       (evtr -> Muon_gen_en      -> operator[](iE));
+    Setgen_pdgId       (evtr -> Muon_gen_pdgId      -> operator[](iE));
+    Setgen_isPrompt       (evtr -> Muon_gen_isPromptFinalState      -> operator[](iE));
+    Setgen_isPromptTau       (evtr -> Muon_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
     SetpassConversionVeto       (1.);
     
   }
@@ -688,6 +737,13 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetmvaValue_HZZ       (evtr -> patElectron_mvaValue_HZZ      -> operator[](iE));
     SetisGsfCtfScPixChargeConsistent       (evtr -> patElectron_isGsfCtfScPixChargeConsistent      -> operator[](iE));
     SetisGsfScPixChargeConsistent       (evtr -> patElectron_isGsfScPixChargeConsistent      -> operator[](iE));
+    Setgen_pt       (evtr -> patElectron_gen_pt      -> operator[](iE));
+    Setgen_eta       (evtr -> patElectron_gen_eta      -> operator[](iE));
+    Setgen_phi       (evtr -> patElectron_gen_phi      -> operator[](iE));
+    Setgen_en       (evtr -> patElectron_gen_en      -> operator[](iE));
+    Setgen_pdgId       (evtr -> patElectron_gen_pdgId      -> operator[](iE));
+    Setgen_isPrompt       (evtr -> patElectron_gen_isPromptFinalState      -> operator[](iE));
+    Setgen_isPromptTau       (evtr -> patElectron_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
     SetpassConversionVeto       (evtr -> patElectron_passConversionVeto      -> operator[](iE));
     
   }

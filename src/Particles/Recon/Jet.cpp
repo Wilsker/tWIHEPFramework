@@ -74,6 +74,8 @@ ClassImp(Jet)
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _isToptag       (0.0),
+  _partonFlavour       (0.0),
+  _hadronFlavour       (0.0),
   _HjDisc       (0.0)
 {
 } //Jet()
@@ -117,6 +119,8 @@ _electronEnergy			(other.GetelectronEnergy()),
   _qg(other.Getqg()),
   _lepdrmax(other.Getlepdrmax()),
   _lepdrmin(other.Getlepdrmin()),
+  _partonFlavour(other.GetpartonFlavour()),
+  _hadronFlavour(other.GethadronFlavour()),
   _isToptag(other.GetisToptag()),
   _HjDisc(other.GetHjDisc()),
 _photonEnergy			(other.GetphotonEnergy())
@@ -139,6 +143,8 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _qg       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
+  _partonFlavour       (0.0),
+  _hadronFlavour       (0.0),
   _isToptag       (0.0),
   _HjDisc       (0.0),
 _photonEnergy(0.0)
@@ -208,6 +214,8 @@ Jet& Jet::operator=(const Particle& other)
   Setqg       (0.0);
   Setlepdrmax       (0.0);
   Setlepdrmin       (0.0);
+  SetpartonFlavour       (0.0);
+  SethadronFlavour       (0.0);
   SetisToptag       (0.0);
   SetHjDisc       (0.0);
   SetphotonEnergy(0.0);
@@ -245,6 +253,8 @@ Jet& Jet::operator=(const Jet& other)
   Setqg(other.Getqg());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
+  SetpartonFlavour(other.GetpartonFlavour());
+  SethadronFlavour(other.GethadronFlavour());
   SetisToptag(other.GetisToptag());
   SetHjDisc(other.GetHjDisc());
   SetphotonEnergy			(other.GetphotonEnergy());
@@ -280,6 +290,8 @@ Jet& Jet::operator=(Jet& other)
   Setqg(other.Getqg());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
+  SetpartonFlavour(other.GetpartonFlavour());
+  SethadronFlavour(other.GethadronFlavour());
   SetisToptag(other.GetisToptag());
   SetHjDisc(other.GetHjDisc());
   SetphotonEnergy			(other.GetphotonEnergy());
@@ -390,6 +402,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetelectronEnergy			(evtr -> Jet_electronEnergy     	-> operator[](iE));
   SetphotonEnergy			(evtr -> Jet_photonEnergy     		-> operator[](iE));
   Setqg       (evtr -> Jet_qg      -> operator[](iE));
+  SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
+  SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
 
   SetisLooseBdisc      ( bDiscriminator() > _LWPbTagCut ); 
   SetisMediumBdisc       ( bDiscriminator() > _MWPbTagCut );

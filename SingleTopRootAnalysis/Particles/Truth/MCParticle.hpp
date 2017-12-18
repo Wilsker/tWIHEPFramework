@@ -48,6 +48,7 @@
 
 #include "SingleTopRootAnalysis/Particles/Recon/Particle.hpp"
 #include "SingleTopRootAnalysis/Trees/TruthTree.hpp"
+#include "SingleTopRootAnalysis/Trees/EventTree.hpp"
 //
 
 class MCParticle: public Particle
@@ -66,16 +67,24 @@ public:
   ~MCParticle();
 
   // Set all contents to their defaults
-  inline void Clear() { Particle::Clear(); _PdgId = 0; _Status = 0; _BarCode = 0;  _nDecay = 0;};
+  inline void Clear() { Particle::Clear(); _PdgId = 0; _Status = 0; _BarCode = 0;  _numMother = 0;
+ _numDaught =0;
+ _BmotherIndex =0;
+ _Index =0;
+ _motherpdg_id =0;
+ _BmotherIndices.clear();
+ _BdaughtIndices.clear();
+  };
 
   // Fill the MCParticle from a TruthTree
   void Fill(TruthTree *trtr, Int_t iE);
+  void Fill(EventTree *evtr, Int_t iE, Int_t& motherIndex, Int_t& daughtIndex);
 
  
   // Setters PDG ID
   inline void SetPdgId(Double_t pdgId)  { _PdgId   = pdgId;   };
   inline void SetStatus(Int_t status)   { _Status  = status;  };
-  inline void SetnDecay(Int_t nparents)   { _nDecay  = nparents;  };
+  inline void SetnumMother(Int_t nparents)   { _numMother  = nparents;  };
   inline void SetBarCode(Int_t barCode) { _BarCode = barCode; };
 
 
@@ -92,7 +101,10 @@ public:
   inline bool isElectron() const {return(AbsPdgId()==11); };
   inline bool isTau() const {return(AbsPdgId()==15); };
   inline bool isTop() const {return(AbsPdgId()==6); };
+  inline bool isPhoton() const {return(AbsPdgId()==22); };
   inline bool isW() const {return(AbsPdgId()==24); };
+  inline bool isH() const {return(AbsPdgId()==25); };
+  inline bool isZ() const {return(AbsPdgId()==23); };
   inline bool isChargedPion() const {return(AbsPdgId()==211); };
   inline bool isChargedK() const {return(AbsPdgId()==321); };
   inline bool isBJet() const {return(AbsPdgId()==5); };
@@ -106,14 +118,38 @@ public:
   inline Int_t GetStatus() const { return _Status; };
   inline Int_t Status() const { return GetStatus(); };
  
-  // nDecay flag
-  inline Int_t GetnDecay() const { return _nDecay; };
-  inline Int_t nDecay() const { return GetnDecay(); };
+  // numMother flag
+  inline Int_t GetnumMother() const { return _numMother; };
+  inline Int_t numMother() const { return GetnumMother(); };
 
   // Stable flag
   inline Int_t GetBarCode() const { return _BarCode; };
   inline Int_t BarCode() const { return GetBarCode(); };
 
+
+  inline void SetnumDaught(Int_t numDaught){_numDaught = numDaught;};
+  inline Int_t GetnumDaught() const {return _numDaught;};
+  inline Int_t numDaught() const {return _numDaught;};
+
+  inline void SetBmotherIndex(Int_t BmotherIndex){_BmotherIndex = BmotherIndex;};
+  inline Int_t GetBmotherIndex() const {return _BmotherIndex;};
+  inline Int_t BmotherIndex() const {return _BmotherIndex;};
+
+  inline void SetIndex(Int_t Index){_Index = Index;};
+  inline Int_t GetIndex() const {return _Index;};
+  inline Int_t Index() const {return _Index;};
+
+  inline void Setmotherpdg_id(Int_t motherpdg_id){_motherpdg_id = motherpdg_id;};
+  inline Int_t Getmotherpdg_id() const {return _motherpdg_id;};
+  inline Int_t motherpdg_id() const {return _motherpdg_id;};
+
+  inline void SetBmotherIndices(std::vector<Int_t> BmotherIndices){_BmotherIndices = BmotherIndices;};
+  inline std::vector<Int_t> GetBmotherIndices() const {return _BmotherIndices;};
+  inline std::vector<Int_t> BmotherIndices() const {return _BmotherIndices;};
+
+  inline void SetBdaughtIndices(std::vector<Int_t> BdaughtIndices){_BdaughtIndices = BdaughtIndices;};
+  inline std::vector<Int_t> GetBdaughtIndices() const {return _BdaughtIndices;};
+  inline std::vector<Int_t> BdaughtIndices() const {return _BdaughtIndices;};
 
   // Overloaded operators:
   // +=
@@ -130,8 +166,14 @@ public:
 protected:
   Double_t _PdgId;   // PDG ID for this particle
   Int_t _Status;     // Status flag for this particle
-  Int_t _nDecay;     // Status flag for this particle
+  Int_t _numMother;     // Status flag for this particle
   Int_t _BarCode;    // BarCode flag for this particle
+  Int_t _numDaught;
+  Int_t _BmotherIndex;
+  Int_t _Index;
+  Int_t _motherpdg_id;
+  std::vector<Int_t> _BmotherIndices;
+  std::vector<Int_t> _BdaughtIndices;
  
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system

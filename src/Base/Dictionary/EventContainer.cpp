@@ -301,17 +301,20 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   tauLabeledJets.clear();
   lightQuarkLabeledJets.clear();
   neutrinos.clear();
-//  MCParticles.clear();
-//  MCMuons.clear();
-//  MCElectrons.clear();
-//  MCTaus.clear();
-//  MCJets.clear();
-//  MCBJets.clear();
-//  MCCJets.clear();
-//  MCLightQuarkJets.clear();
-//  MCTops.clear();
-//  MCWs.clear();
-//  MCNeutrinos.clear();
+  MCParticles.clear();
+  MCMuons.clear();
+  MCElectrons.clear();
+  MCTaus.clear();
+  MCJets.clear();
+  MCBJets.clear();
+  MCCJets.clear();
+  MCLightQuarkJets.clear();
+  MCTops.clear();
+  MCWs.clear();
+  MCHs.clear();
+  MCZs.clear();
+  MCPhotons.clear();
+  MCNeutrinos.clear();
 //  MCBQuarks.clear();
 //  MCCQuarks.clear();
 //
@@ -514,6 +517,20 @@ Int_t EventContainer::ReadEvent()
   tauLabeledJets.clear();
   lightQuarkLabeledJets.clear();
   neutrinos.clear();
+  MCParticles.clear();
+  MCMuons.clear();
+  MCElectrons.clear();
+  MCTaus.clear();
+  MCJets.clear();
+  MCBJets.clear();
+  MCCJets.clear();
+  MCLightQuarkJets.clear();
+  MCTops.clear();
+  MCWs.clear();
+  MCHs.clear();
+  MCZs.clear();
+  MCPhotons.clear();
+  MCNeutrinos.clear();
 
   metLD = -999.;
   mht = -999.;
@@ -833,8 +850,202 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
     } //jets
 
-    
-    
+    int motherIndex =0;
+    int daughtIndex =0;
+    // Gen particles 
+    for(Int_t io = 0;io < _eventTree -> Gen_pt->size(); io++) {
+      newMCParticle.Clear();
+      newMCParticle.Fill(_eventTree, io, motherIndex, daughtIndex);
+      MCParticles.push_back(newMCParticle);
+      if(newMCParticle.isMuon()){
+          MCMuons.push_back(newMCParticle);
+          if(_sync == 61){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isElectron()){
+          MCElectrons.push_back(newMCParticle);
+          if(_sync == 62){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isTau()){
+          MCTaus.push_back(newMCParticle);
+          if(_sync == 63){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isBJet()){
+          MCBJets.push_back(newMCParticle);
+          if(_sync == 64){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isCJet()){
+          MCCJets.push_back(newMCParticle);
+          if(_sync == 65){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isLightQuarkJet()){
+          MCLightQuarkJets.push_back(newMCParticle);
+          if(_sync == 66){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isTop()){
+          MCTops.push_back(newMCParticle);
+          if(_sync == 67){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isW()){
+          MCWs.push_back(newMCParticle);
+          if(_sync == 68){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isH()){
+          MCHs.push_back(newMCParticle);
+          if(_sync == 69){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isZ()){
+          MCZs.push_back(newMCParticle);
+          if(_sync == 70){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isPhoton()){
+          MCPhotons.push_back(newMCParticle);
+          if(_sync == 71){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+    }
+    if(_sync == 61){
+        for(auto const MCP: MCMuons){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 62){
+        for(auto const MCP: MCElectrons){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 63){
+        for(auto const MCP: MCTaus){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 64){
+        for(auto const MCP: MCBJets){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 65){
+        for(auto const MCP: MCCJets){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 66){
+        for(auto const MCP: MCLightQuarkJets){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 67){
+        for(auto const MCP: MCTops){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 68){
+        for(auto const MCP: MCWs){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 69){
+        for(auto const MCP: MCHs){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 70){
+        for(auto const MCP: MCZs){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+    if(_sync == 71){
+        for(auto const MCP: MCPhotons){
+            std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            for(auto const MCMother: MCP.BmotherIndices()){
+                std::cout << " mother " << MCMother << std::endl;
+            }
+            for(auto const MCDaught: MCP.BdaughtIndices()){
+                std::cout << " daught " << MCDaught << std::endl;
+            }
+        }
+    }
+
     
     
     /*

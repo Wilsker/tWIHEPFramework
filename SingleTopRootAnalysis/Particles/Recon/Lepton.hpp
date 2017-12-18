@@ -88,6 +88,13 @@ public:
  _passTightCharge =0.0;
  _passMissHit =0.0;
  _isTight =0.0;
+ _gen_pt =0.0;
+ _gen_eta =0.0;
+ _gen_phi =0.0;
+ _gen_en =0.0;
+ _gen_pdgId =0.0;
+ _gen_isPrompt =0.0;
+ _gen_isPromptTau =0.0;
   };
 
   // Fill the lepton from an EventTree
@@ -305,6 +312,34 @@ public:
   inline Double_t GetpassConversionVeto() const {return _passConversionVeto;};
   inline Double_t passConversionVeto() const {return _passConversionVeto;};
 
+  inline void Setgen_pt(Double_t gen_pt){_gen_pt = gen_pt;};
+  inline Double_t Getgen_pt() const {return _gen_pt;};
+  inline Double_t gen_pt() const {return _gen_pt;};
+
+  inline void Setgen_eta(Double_t gen_eta){_gen_eta = gen_eta;};
+  inline Double_t Getgen_eta() const {return _gen_eta;};
+  inline Double_t gen_eta() const {return _gen_eta;};
+
+  inline void Setgen_phi(Double_t gen_phi){_gen_phi = gen_phi;};
+  inline Double_t Getgen_phi() const {return _gen_phi;};
+  inline Double_t gen_phi() const {return _gen_phi;};
+
+  inline void Setgen_en(Double_t gen_en){_gen_en = gen_en;};
+  inline Double_t Getgen_en() const {return _gen_en;};
+  inline Double_t gen_en() const {return _gen_en;};
+
+  inline void Setgen_pdgId(Double_t gen_pdgId){_gen_pdgId = gen_pdgId;};
+  inline Double_t Getgen_pdgId() const {return _gen_pdgId;};
+  inline Double_t gen_pdgId() const {return _gen_pdgId;};
+
+  inline void Setgen_isPrompt(Double_t gen_isPrompt){_gen_isPrompt = gen_isPrompt;};
+  inline Double_t Getgen_isPrompt() const {return _gen_isPrompt;};
+  inline Double_t gen_isPrompt() const {return _gen_isPrompt;};
+
+  inline void Setgen_isPromptTau(Double_t gen_isPromptTau){_gen_isPromptTau = gen_isPromptTau;};
+  inline Double_t Getgen_isPromptTau() const {return _gen_isPromptTau;};
+  inline Double_t gen_isPromptTau() const {return _gen_isPromptTau;};
+
   // ttH new variables
   inline void SetpassTightCharge(Double_t passTightCharge){_passTightCharge = passTightCharge;};
   inline Double_t GetpassTightCharge() const {return _passTightCharge;};
@@ -385,6 +420,13 @@ private:
   Double_t _passTightCharge;
   Double_t _passMissHit;
   Double_t _isTight;
+  Double_t _gen_pt;
+  Double_t _gen_eta;
+  Double_t _gen_phi;
+  Double_t _gen_en;
+  Double_t _gen_pdgId;
+  Double_t _gen_isPrompt;
+  Double_t _gen_isPromptTau;
 
   /// cuts reading from config
   Double_t _closestMuonCut;

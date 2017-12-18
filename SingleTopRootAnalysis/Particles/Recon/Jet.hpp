@@ -79,6 +79,8 @@ class Jet: public Particle
  _lepdrmax =0.0;
  _lepdrmin =0.0;
  _HjDisc =0.0;
+ _partonFlavour =0.0;
+ _hadronFlavour =0.0;
  _isToptag =0.0;
 }
 
@@ -178,6 +180,14 @@ class Jet: public Particle
   inline Double_t Getlepdrmin() const {return _lepdrmin;};
   inline Double_t lepdrmin() const {return _lepdrmin;};
 
+  inline void SetpartonFlavour(Double_t partonFlavour){_partonFlavour = partonFlavour;};
+  inline Double_t GetpartonFlavour() const {return _partonFlavour;};
+  inline Double_t partonFlavour() const {return _partonFlavour;};
+
+  inline void SethadronFlavour(Double_t hadronFlavour){_hadronFlavour = hadronFlavour;};
+  inline Double_t GethadronFlavour() const {return _hadronFlavour;};
+  inline Double_t hadronFlavour() const {return _hadronFlavour;};
+
   inline void SetisToptag(Double_t isToptag){_isToptag = isToptag;};
   inline Double_t GetisToptag() const {return _isToptag;};
   inline Double_t isToptag() const {return _isToptag;};
@@ -222,6 +232,8 @@ class Jet: public Particle
   Double_t _qg;
   Double_t _lepdrmax;
   Double_t _lepdrmin;
+  Double_t _partonFlavour;
+  Double_t _hadronFlavour;
   Double_t _isToptag;
 
   // Cuts applied to the jet objects

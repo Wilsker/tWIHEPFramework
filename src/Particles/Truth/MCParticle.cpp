@@ -27,7 +27,15 @@ ClassImp(MCParticle)
 // default constructor 
 // 
   MCParticle::MCParticle() : Particle::Particle(),_PdgId(0),
-					       _Status(0),_BarCode(0)
+					       _Status(0),
+  _numMother       (0),
+  _numDaught       (0),
+  _BmotherIndex       (0),
+  _Index       (0),
+  _motherpdg_id       (0),
+  _BmotherIndices       (0,0),
+  _BdaughtIndices       (0,0),
+                           _BarCode(0)
 {
 }
 
@@ -43,7 +51,15 @@ MCParticle::~MCParticle()
 // constructor from other MCParticle 
 // 
 MCParticle::MCParticle(const MCParticle& other): Particle(other),
-						 _PdgId(other.PdgId()),_BarCode(other.BarCode()),
+						 _PdgId(other.PdgId()),
+  _numMother(other.numMother()),
+  _numDaught(other.numDaught()),
+  _BmotherIndex(other.BmotherIndex()),
+  _Index(other.Index()),
+  _motherpdg_id(other.motherpdg_id()),
+                         _BarCode(other.BarCode()),
+  _BmotherIndices(other.BmotherIndices()),
+  _BdaughtIndices(other.BdaughtIndices()),
 						 _Status(other.Status())
 {
 }
@@ -52,7 +68,15 @@ MCParticle::MCParticle(const MCParticle& other): Particle(other),
 // constructor from other particle
 // 
 MCParticle::MCParticle(const Particle& other): Particle(other),_PdgId(0),
-					       _Status(0),_BarCode(0)
+					       _Status(0),
+  _numMother       (0),
+  _numDaught       (0),
+  _BmotherIndex       (0),
+  _Index       (0),
+  _motherpdg_id       (0),
+  _BmotherIndices       (0,0),
+  _BdaughtIndices       (0,0),
+                           _BarCode(0)
 {
 }
 
@@ -83,6 +107,12 @@ MCParticle MCParticle::operator+(const MCParticle& other)
   ptemp.SetPdgId( _PdgId );
   ptemp.SetStatus( _Status );
   ptemp.SetBarCode( _BarCode );
+  ptemp.SetnumMother(_numMother);
+  ptemp.SetnumDaught(_numDaught);
+  ptemp.SetBmotherIndex(_BmotherIndex);
+  ptemp.Setmotherpdg_id(_motherpdg_id);
+  ptemp.SetBmotherIndices(other.BmotherIndices());
+  ptemp.SetBdaughtIndices(other.BdaughtIndices());
 
 
   // done! return the temp particle
@@ -99,7 +129,13 @@ MCParticle& MCParticle::operator=(const Particle& other)
   Particle::operator=(other);
   SetPdgId(0);
   SetStatus(0);
+  SetnumMother       (0);
+  SetnumDaught       (0);
+  SetBmotherIndex       (0);
+  Setmotherpdg_id       (0);
   SetBarCode(0);
+  SetBmotherIndices       (std::vector<Int_t>(0));
+  SetBdaughtIndices       (std::vector<Int_t>(0));
   return *this;
 }
 
@@ -113,6 +149,12 @@ MCParticle& MCParticle::operator=(const MCParticle& other)
   SetPdgId(other.PdgId());
   SetStatus(other.Status());
   SetBarCode(other.BarCode());
+  SetnumMother(other.numMother());
+  SetnumDaught(other.numDaught());
+  SetBmotherIndex(other.BmotherIndex());
+  Setmotherpdg_id(other.motherpdg_id());
+  SetBmotherIndices(other.BmotherIndices());
+  SetBdaughtIndices(other.BdaughtIndices());
   return *this;
 }
 
@@ -126,13 +168,36 @@ MCParticle& MCParticle::operator=(MCParticle& other)
   SetPdgId(other.PdgId());
   SetStatus(other.Status());
   SetBarCode(other.BarCode());
+  SetnumMother(other.numMother());
+  SetnumDaught(other.numDaught());
+  SetBmotherIndex(other.BmotherIndex());
+  Setmotherpdg_id(other.motherpdg_id());
+  SetBmotherIndices(other.BmotherIndices());
+  SetBdaughtIndices(other.BdaughtIndices());
   return *this;
 }
 
 //-------------------------------------------------------------------------
 // initialize this MCParticle from the truth tree
 // 
-void MCParticle::Fill(TruthTree *trtr,int iE)
+void MCParticle::Fill(TruthTree*trtr,int iE){
+  // Not in current version
+  /*
+  Double_t pPt  = trtr->Tru_p_T->operator[](iE)/1000.;
+  Double_t pEta = trtr->Tru_eta->operator[](iE);
+  Double_t pPhi = trtr->Tru_phi->operator[](iE);
+  Double_t pM   = trtr->Tru_m->operator[](iE)/1000.;
+  Double_t pCharge= trtr->Tru_charge->operator[](iE);
+  
+  _PdgId = static_cast<Int_t>(trtr->Tru_pdgId->operator[](iE));
+  _Status= static_cast<Int_t>(trtr->Tru_status->operator[](iE));
+  _BarCode= trtr->Tru_barcode->operator[](iE);
+  SetPtEtaPhiE(pPt,pEta,pPhi,pE);
+  SetCharge(pCharge);
+  */
+}
+
+void MCParticle::Fill(EventTree*evtr,int iE, int& motherIndex, int& daughtIndex)
 {
 
   // Not in current version
@@ -149,19 +214,35 @@ void MCParticle::Fill(TruthTree *trtr,int iE)
   */
 
   
-  Double_t pPt     = 0.0;
-  Double_t pEta    = 0.0;
-  Double_t pPhi    = 0.0;
-  Double_t pM      = 0.0;
-  Double_t pCharge = 0.0;
+  Double_t pPt     = evtr-> Gen_pt->operator[](iE);
+  Double_t pEta    = evtr-> Gen_eta->operator[](iE);
+  Double_t pPhi    = evtr-> Gen_phi->operator[](iE);
+  Double_t pE = evtr-> Gen_energy->operator[](iE);
 
-  _PdgId = 0;
-  _Status= 0;
+  SetnumMother       (evtr -> Gen_numMother      -> operator[](iE));
+  SetnumDaught       (evtr -> Gen_numDaught      -> operator[](iE));
+  SetBmotherIndex       (evtr -> Gen_BmotherIndex      -> operator[](iE));
+  Setmotherpdg_id       (evtr -> Gen_motherpdg_id      -> operator[](iE));
+  SetCharge         (evtr->Gen_charge -> operator[](iE));
+  
+  SetPdgId          (evtr -> Gen_pdg_id      -> operator[](iE));
+  SetStatus         (evtr -> Gen_status      -> operator[](iE));
+  
+  SetIndex       (iE);
+ 
   _BarCode= 0;
+  
+  SetPtEtaPhiE(pPt,pEta,pPhi,pE);
 
+  for(int m_index=0; m_index< _numMother; m_index++){
+    _BmotherIndices.push_back(evtr -> Gen_BmotherIndices -> operator[](motherIndex+m_index));
+  }
+  for(int d_index=0; d_index< _numDaught; d_index++){
+    _BdaughtIndices.push_back(evtr -> Gen_BdaughtIndices -> operator[](daughtIndex+d_index));
+  }
 
-    SetPtEtaPhiM(pPt,pEta,pPhi,pM);
-    SetCharge(pCharge);
+  motherIndex += _numMother;
+  daughtIndex += _numDaught;
 
 }
 
