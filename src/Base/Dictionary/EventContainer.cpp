@@ -309,6 +309,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   MCBJets.clear();
   MCCJets.clear();
   MCLightQuarkJets.clear();
+  MCLightJets.clear();
   MCTops.clear();
   MCWs.clear();
   MCHs.clear();
@@ -525,6 +526,7 @@ Int_t EventContainer::ReadEvent()
   MCBJets.clear();
   MCCJets.clear();
   MCLightQuarkJets.clear();
+  MCLightJets.clear();
   MCTops.clear();
   MCWs.clear();
   MCHs.clear();
@@ -888,7 +890,7 @@ Int_t EventContainer::ReadEvent()
           }
       }
       if(newMCParticle.isLightQuarkJet()){
-          MCLightQuarkJets.push_back(newMCParticle);
+          MCLightJets.push_back(newMCParticle);
           if(_sync == 66){
              std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
           }
@@ -980,7 +982,7 @@ Int_t EventContainer::ReadEvent()
         }
     }
     if(_sync == 66){
-        for(auto const MCP: MCLightQuarkJets){
+        for(auto const MCP: MCLightJets){
             std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
             for(auto const MCMother: MCP.BmotherIndices()){
                 std::cout << " mother " << MCMother << std::endl;

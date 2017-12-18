@@ -109,7 +109,8 @@ public:
   inline bool isChargedK() const {return(AbsPdgId()==321); };
   inline bool isBJet() const {return(AbsPdgId()==5); };
   inline bool isCJet() const {return(AbsPdgId()==4); };
-  inline bool isLightQuarkJet() const {return(AbsPdgId()>=1 && AbsPdgId()<=3); };
+  inline bool isLightQuarkJet() const {return((AbsPdgId()>=1 && AbsPdgId()<=3)); };
+  inline bool isLightJet() const {return(AbsPdgId()==21 || (AbsPdgId()>=1 && AbsPdgId()<=3)); };
   inline bool isJet() const {return(AbsPdgId()>=1 && AbsPdgId()<=5); };
   inline bool isQuark() const {return(AbsPdgId()>=1 && AbsPdgId()<=6); };
   inline bool isNeutrino() const {return(AbsPdgId()==12 || AbsPdgId()==14|| AbsPdgId()==16); };

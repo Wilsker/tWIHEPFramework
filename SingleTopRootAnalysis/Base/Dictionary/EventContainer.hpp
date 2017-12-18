@@ -561,6 +561,7 @@ class EventContainer
   std::vector<MCJet> MCBJets;             // MC B Jets
   std::vector<MCJet> MCCJets;             // MC C Jets
   std::vector<MCJet> MCLightQuarkJets;    // U, D, S Jets
+  std::vector<MCJet> MCLightJets;           // U, D, S, G Jets
   std::vector<MCTop> MCTops;              // MC Tops
   std::vector<MCW> MCWs;                  // MC Ws
   std::vector<MCH> MCHs;                  // MC Hs
@@ -586,6 +587,8 @@ class EventContainer
   std::vector<MCJet>::iterator MCCJetNewEnd;
   std::vector<MCJet>::iterator MCLightQuarkJetIterator;
   std::vector<MCJet>::iterator MCLightQuarkJetNewEnd;
+  std::vector<MCJet>::iterator MCLightJetIterator;
+  std::vector<MCJet>::iterator MCLightJetNewEnd;
   std::vector<MCTop>::iterator MCTopIterator;
   std::vector<MCTop>::iterator MCTopNewEnd;
   std::vector<MCW>::iterator MCWIterator;
