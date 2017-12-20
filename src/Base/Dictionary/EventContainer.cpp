@@ -427,6 +427,8 @@ void EventContainer::SetUseUnisolatedLeptons(const Bool_t& useUnisolatedLeptons,
   looseleptonsVetoPtr = &looseLeptons;
   fakeleptonsVetoPtr = &fakeLeptons;
   tausVetoPtr = &looseTaus;
+  
+  mcParticlesPtr = &MCParticles;
 
   //For the synch excercise we want it to always be tight leptons, so I'm gonna add here the ability to just make it all tight.
   //  if (GetChannelName() == "ee" || GetChannelName() == "emu" || GetChannelName() == "mumu"){
@@ -926,6 +928,15 @@ Int_t EventContainer::ReadEvent()
           }
       }
     }
+    /*
+    if(_sync == 62){
+        for(auto const MCP: MCParticles){
+              if(!(MCP.isElectron()))continue;
+              //std::cout << " GenMotherFsr " << MCP.GetGenMotherNoFsr(MCP, *mcParticlesPtr).Index()<< std::endl;
+              std::cout << " IsFromB " << MCP.isFromB(MCP, *mcParticlesPtr)<< std::endl;
+        }
+    }
+    */
     if(_sync == 61){
         for(auto const MCP: MCMuons){
             std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
@@ -940,6 +951,8 @@ Int_t EventContainer::ReadEvent()
     if(_sync == 62){
         for(auto const MCP: MCElectrons){
             std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            std::cout << " GenMotherFsr " << MCP.GetGenMotherNoFsr(MCP, *mcParticlesPtr).Index()<< std::endl;
+            std::cout << " IsFromB " << MCP.isFromB(MCP, *mcParticlesPtr)<< std::endl;
             for(auto const MCMother: MCP.BmotherIndices()){
                 std::cout << " mother " << MCMother << std::endl;
             }
@@ -962,6 +975,9 @@ Int_t EventContainer::ReadEvent()
     if(_sync == 64){
         for(auto const MCP: MCBJets){
             std::cout << eventNumber << " " << MCP.Index() << " "<<  std::endl;
+            MCJet Mother = MCP.GetGenMotherNoFsr(MCP, *mcParticlesPtr);
+            MCJet GrandMother = Mother.GetGenMotherNoFsr(Mother, *mcParticlesPtr);
+            std::cout << " GenMotherFsr " << Mother.Index() << " "<< Mother.PdgId()<< " GrandMother "<<GrandMother.Index()<<" " <<GrandMother.PdgId() << std::endl;
             for(auto const MCMother: MCP.BmotherIndices()){
                 std::cout << " mother " << MCMother << std::endl;
             }

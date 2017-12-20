@@ -175,3 +175,18 @@ void MCZ::FillW(TruthTree *trtr, int iE)
   MCParticle::Fill(trtr, iE);
 
 } //Fill()
+
+const MCZ MCZ::GetGenMotherNoFsr(const MCZ Ptemp, std::vector<MCParticle>& MCParticles) const
+{
+  if (Ptemp.numMother() > 0)
+    {
+      const MCZ mother = MCParticles.at(Ptemp.BmotherIndex());
+      if ( Ptemp.motherpdg_id() != Ptemp.PdgId() ) return mother;
+      else return GetGenMotherNoFsr(mother, MCParticles);
+    }
+  else 
+    {
+      return Ptemp;
+    }
+}
+

@@ -123,6 +123,10 @@ public:
   inline Int_t GetnumMother() const { return _numMother; };
   inline Int_t numMother() const { return GetnumMother(); };
 
+  // GenMother
+  const MCParticle GetGenMotherNoFsr(const MCParticle Ptemp, std::vector<MCParticle>& MCParticles) const;
+  Bool_t isFromB(const MCParticle Ptemp, std::vector<MCParticle>& MCParticles, int bid =5)const;
+
   // Stable flag
   inline Int_t GetBarCode() const { return _BarCode; };
   inline Int_t BarCode() const { return GetBarCode(); };

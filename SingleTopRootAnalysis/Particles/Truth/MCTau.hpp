@@ -68,6 +68,10 @@ public:
   inline Bool_t GetMatched() const { return _Matched; };
   inline Bool_t Matched() const { return GetMatched(); };
 
+  // GenMother
+  const MCTau GetGenMotherNoFsr(const MCTau Ptemp, std::vector<MCParticle>& MCParticles) const;
+  Bool_t isFromB(const MCTau Ptemp, std::vector<MCParticle>& MCParticles, int bid =5)const;
+  
   // Overloaded operators:
   // +=
   MCTau& operator+=(const MCTau& other);

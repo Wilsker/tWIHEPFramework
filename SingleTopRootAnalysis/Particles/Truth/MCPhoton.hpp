@@ -51,6 +51,8 @@ public:
   void FillW(TruthTree *trtr, Int_t iE);
 
   // Getters and Setters
+  // GenMother
+  const MCPhoton GetGenMotherNoFsr(const MCPhoton Ptemp, std::vector<MCParticle>& MCParticles) const;
 
 
   // Overloaded operators:

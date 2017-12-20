@@ -81,6 +81,13 @@ class Jet: public Particle
  _HjDisc =0.0;
  _partonFlavour =0.0;
  _hadronFlavour =0.0;
+ _genMother_pdgId =0.0;
+ _genGrandMother_pdgId =0.0;
+ _matchId =0.0;
+ _isFromTop =0.0;
+ _isFromH =0.0;
+ _matchMother_Id =0.0;
+ _matchGrandMother_Id =0.0;
  _isToptag =0.0;
 }
 
@@ -192,6 +199,34 @@ class Jet: public Particle
   inline Double_t GetisToptag() const {return _isToptag;};
   inline Double_t isToptag() const {return _isToptag;};
   
+  inline void SetgenMother_pdgId(Double_t genMother_pdgId){_genMother_pdgId = genMother_pdgId;};
+  inline Double_t GetgenMother_pdgId() const {return _genMother_pdgId;};
+  inline Double_t genMother_pdgId() const {return _genMother_pdgId;};
+
+  inline void SetgenGrandMother_pdgId(Double_t genGrandMother_pdgId){_genGrandMother_pdgId = genGrandMother_pdgId;};
+  inline Double_t GetgenGrandMother_pdgId() const {return _genGrandMother_pdgId;};
+  inline Double_t genGrandMother_pdgId() const {return _genGrandMother_pdgId;};
+
+  inline void SetmatchId(Double_t matchId){_matchId = matchId;};
+  inline Double_t GetmatchId() const {return _matchId;};
+  inline Double_t matchId() const {return _matchId;};
+
+  inline void SetisFromTop(Double_t isFromTop){_isFromTop = isFromTop;};
+  inline Double_t GetisFromTop() const {return _isFromTop;};
+  inline Double_t isFromTop() const {return _isFromTop;};
+
+  inline void SetisFromH(Double_t isFromH){_isFromH = isFromH;};
+  inline Double_t GetisFromH() const {return _isFromH;};
+  inline Double_t isFromH() const {return _isFromH;};
+
+  inline void SetmatchMother_Id(Double_t matchMother_Id){_matchMother_Id = matchMother_Id;};
+  inline Double_t GetmatchMother_Id() const {return _matchMother_Id;};
+  inline Double_t matchMother_Id() const {return _matchMother_Id;};
+
+  inline void SetmatchGrandMother_Id(Double_t matchGrandMother_Id){_matchGrandMother_Id = matchGrandMother_Id;};
+  inline Double_t GetmatchGrandMother_Id() const {return _matchGrandMother_Id;};
+  inline Double_t matchGrandMother_Id() const {return _matchGrandMother_Id;};
+
   // ttH functions
   void set_HjMVAreader(TEnv* config);
   
@@ -235,6 +270,13 @@ class Jet: public Particle
   Double_t _partonFlavour;
   Double_t _hadronFlavour;
   Double_t _isToptag;
+  Double_t _genMother_pdgId;
+  Double_t _genGrandMother_pdgId;
+  Double_t _matchId;
+  Double_t _isFromTop;
+  Double_t _isFromH;
+  Double_t _matchMother_Id; // only ->mother(0) 
+  Double_t _matchGrandMother_Id; // only ->mother(0)->mother(0)
 
   // Cuts applied to the jet objects
   Double_t _maxEtaCut;

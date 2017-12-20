@@ -51,6 +51,9 @@ public:
   void FillNeutrino(TruthTree *trtr, Int_t iE);
 
   // Getters and Setters
+  // GenMother
+  const MCNeutrino GetGenMotherNoFsr(const MCNeutrino Ptemp, std::vector<MCParticle>& MCParticles) const;
+  Bool_t isFromB(const MCNeutrino Ptemp, std::vector<MCParticle>& MCParticles, int bid =5)const;
 
 
   // Overloaded operators:

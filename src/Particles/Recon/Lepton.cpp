@@ -108,6 +108,16 @@ ClassImp(Lepton)
   _gen_pdgId       (0.0),
   _gen_isPrompt       (0.0),
   _gen_isPromptTau       (0.0),
+  _genMother_pdgId       (0.0),
+  _genGrandMother_pdgId       (0.0),
+  _matchId       (0.0),
+  _isFromTop       (0.0),
+  _isFromH       (0.0),
+  _matchMother_Id       (0.0),
+  _matchGrandMother_Id       (0.0),
+  _isFromB       (0.0),
+  _isFromC       (0.0),
+  _mcPromptGamma       (0.0),
   _mvaValue_HZZ       (0.0)
 {
 
@@ -195,6 +205,16 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _gen_pdgId(other.Getgen_pdgId()),
   _gen_isPrompt(other.Getgen_isPrompt()),
   _gen_isPromptTau(other.Getgen_isPromptTau()),
+  _genMother_pdgId(other.GetgenMother_pdgId()),
+  _genGrandMother_pdgId(other.GetgenGrandMother_pdgId()),
+  _matchId(other.GetmatchId()),
+  _isFromTop(other.GetisFromTop()),
+  _isFromH(other.GetisFromH()),
+  _matchMother_Id(other.GetmatchMother_Id()),
+  _matchGrandMother_Id(other.GetmatchGrandMother_Id()),
+  _isFromB(other.GetisFromB()),
+  _isFromC(other.GetisFromC()),
+  _mcPromptGamma(other.GetmcPromptGamma()),
   _pTErrOVpT_it(other.GetpTErrOVpT_it())
 			       
 {
@@ -269,6 +289,16 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _gen_pdgId       (0.0),
   _gen_isPrompt       (0.0),
   _gen_isPromptTau       (0.0),
+  _genMother_pdgId       (0.0),
+  _genGrandMother_pdgId       (0.0),
+  _matchId       (0.0),
+  _isFromTop       (0.0),
+  _isFromH       (0.0),
+  _matchMother_Id       (0.0),
+  _matchGrandMother_Id       (0.0),
+  _isFromB       (0.0),
+  _isFromC       (0.0),
+  _mcPromptGamma       (0.0),
   _pTErrOVpT_it       (0.0)
 {
 } //Lepton
@@ -374,6 +404,16 @@ Lepton& Lepton::operator=(const Particle& other)
   Setgen_pdgId       (0.0);
   Setgen_isPrompt       (0.0);
   Setgen_isPromptTau       (0.0);
+  SetgenMother_pdgId       (0.0);
+  SetgenGrandMother_pdgId       (0.0);
+  SetmatchId       (0.0);
+  SetisFromTop       (0.0);
+  SetisFromH       (0.0);
+  SetmatchMother_Id       (0.0);
+  SetmatchGrandMother_Id       (0.0);
+  SetisFromB       (0.0);
+  SetisFromC       (0.0);
+  SetmcPromptGamma       (0.0);
   SetmvaValue_HZZ       (0.0);
   return *this;
 } //= Particle
@@ -449,6 +489,16 @@ Lepton& Lepton::operator=(const Lepton& other)
   Setgen_pdgId(other.Getgen_pdgId());
   Setgen_isPrompt(other.Getgen_isPrompt());
   Setgen_isPromptTau(other.Getgen_isPromptTau());
+  SetgenMother_pdgId(other.GetgenMother_pdgId());
+  SetgenGrandMother_pdgId(other.GetgenGrandMother_pdgId());
+  SetmatchId(other.GetmatchId());
+  SetisFromTop(other.GetisFromTop());
+  SetisFromH(other.GetisFromH());
+  SetmatchMother_Id(other.GetmatchMother_Id());
+  SetmatchGrandMother_Id(other.GetmatchGrandMother_Id());
+  SetisFromB(other.GetisFromB());
+  SetisFromC(other.GetisFromC());
+  SetmcPromptGamma(other.GetmcPromptGamma());
   SetmvaValue_HZZ(other.GetmvaValue_HZZ());
   return *this;
 } //= const muon
@@ -524,6 +574,16 @@ Lepton& Lepton::operator=(Lepton& other)
   Setgen_pdgId(other.Getgen_pdgId());
   Setgen_isPrompt(other.Getgen_isPrompt());
   Setgen_isPromptTau(other.Getgen_isPromptTau());
+  SetgenMother_pdgId(other.GetgenMother_pdgId());
+  SetgenGrandMother_pdgId(other.GetgenGrandMother_pdgId());
+  SetmatchId(other.GetmatchId());
+  SetisFromTop(other.GetisFromTop());
+  SetisFromH(other.GetisFromH());
+  SetmatchMother_Id(other.GetmatchMother_Id());
+  SetmatchGrandMother_Id(other.GetmatchGrandMother_Id());
+  SetisFromB(other.GetisFromB());
+  SetisFromC(other.GetisFromC());
+  SetmcPromptGamma(other.GetmcPromptGamma());
   SetmvaValue_HZZ(other.GetmvaValue_HZZ());
   return *this;
 } //= non-const lepton
@@ -699,6 +759,16 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setgen_pdgId       (evtr -> Muon_gen_pdgId      -> operator[](iE));
     Setgen_isPrompt       (evtr -> Muon_gen_isPromptFinalState      -> operator[](iE));
     Setgen_isPromptTau       (evtr -> Muon_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
+    SetgenMother_pdgId       (evtr -> Muon_genMother_pdgId      -> operator[](iE));
+    SetgenGrandMother_pdgId       (evtr -> Muon_genGrandMother_pdgId      -> operator[](iE));
+    SetmatchId       (-999.);
+    SetisFromTop       (-999.);
+    SetisFromH       (-999.);
+    SetmatchMother_Id       (-999.);
+    SetmatchGrandMother_Id       (-999.);
+    SetisFromB       (-999);
+    SetisFromC       (-999);
+    SetmcPromptGamma       (0.);
     SetpassConversionVeto       (1.);
     
   }
@@ -744,6 +814,16 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setgen_pdgId       (evtr -> patElectron_gen_pdgId      -> operator[](iE));
     Setgen_isPrompt       (evtr -> patElectron_gen_isPromptFinalState      -> operator[](iE));
     Setgen_isPromptTau       (evtr -> patElectron_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
+    SetgenMother_pdgId       (evtr -> patElectron_genMother_pdgId      -> operator[](iE));
+    SetgenGrandMother_pdgId       (evtr -> patElectron_genGrandMother_pdgId      -> operator[](iE));
+    SetmatchId       (-999.);
+    SetisFromTop       (-999.);
+    SetisFromH       (-999.);
+    SetmatchMother_Id       (-999.);
+    SetmatchGrandMother_Id       (-999.);
+    SetisFromB       (-999);
+    SetisFromC       (-999);
+    SetmcPromptGamma       (-999);
     SetpassConversionVeto       (evtr -> patElectron_passConversionVeto      -> operator[](iE));
     
   }

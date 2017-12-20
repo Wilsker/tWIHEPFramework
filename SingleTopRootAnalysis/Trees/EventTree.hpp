@@ -283,6 +283,8 @@ public :
    std::vector<int>     *Muon_gen_pdgId;
    std::vector<int>     *Muon_gen_isPromptFinalState;
    std::vector<int>     *Muon_gen_isDirectPromptTauDecayProductFinalState;
+   std::vector<double>  *Muon_genMother_pdgId;
+   std::vector<double>  *Muon_genGrandMother_pdgId;
    std::vector<double>  *patElectron_pt;
    std::vector<double>  *patElectron_eta;
    std::vector<double>  *patElectron_phi;
@@ -422,6 +424,8 @@ public :
    std::vector<int>     *patElectron_gen_pdgId;
    std::vector<int>     *patElectron_gen_isPromptFinalState;
    std::vector<int>     *patElectron_gen_isDirectPromptTauDecayProductFinalState;
+   std::vector<double>  *patElectron_genMother_pdgId;
+   std::vector<double>  *patElectron_genGrandMother_pdgId;
    std::vector<double>  *Tau_pt;
    std::vector<double>  *Tau_eta;
    std::vector<double>  *Tau_phi;
@@ -569,6 +573,8 @@ public :
    std::vector<double>  *Jet_JerSFdown;
    std::vector<double>  *Jet_partonFlavour;
    std::vector<double>  *Jet_hadronFlavour;
+   std::vector<double>  *Jet_genMother_pdgId;
+   std::vector<double>  *Jet_genGrandMother_pdgId;
    std::vector<double>  *BoostedJet_pt;
    std::vector<double>  *BoostedJet_eta;
    std::vector<double>  *BoostedJet_phi;
@@ -1013,6 +1019,8 @@ public :
    TBranch        *b_Muon_gen_pdgId;   //!
    TBranch        *b_Muon_gen_isPromptFinalState;   //!
    TBranch        *b_Muon_gen_isDirectPromptTauDecayProductFinalState;   //!
+   TBranch        *b_Muon_genMother_pdgId;
+   TBranch        *b_Muon_genGrandMother_pdgId;
    TBranch        *b_patElectron_pt;   //!
    TBranch        *b_patElectron_eta;   //!
    TBranch        *b_patElectron_phi;   //!
@@ -1152,6 +1160,8 @@ public :
    TBranch        *b_patElectron_gen_pdgId;   //!
    TBranch        *b_patElectron_gen_isPromptFinalState;   //!
    TBranch        *b_patElectron_gen_isDirectPromptTauDecayProductFinalState;   //!
+   TBranch        *b_patElectron_genMother_pdgId;
+   TBranch        *b_patElectron_genGrandMother_pdgId;
    TBranch        *b_Tau_pt;   //!
    TBranch        *b_Tau_eta;   //!
    TBranch        *b_Tau_phi;   //!
@@ -1299,6 +1309,8 @@ public :
    TBranch        *b_Jet_JerSFdown;   //!
    TBranch        *b_Jet_partonFlavour;   //!
    TBranch        *b_Jet_hadronFlavour;   //!
+   TBranch        *b_Jet_genMother_pdgId;
+   TBranch        *b_Jet_genGrandMother_pdgId;
    TBranch        *b_BoostedJet_pt;   //!
    TBranch        *b_BoostedJet_eta;   //!
    TBranch        *b_BoostedJet_phi;   //!
@@ -1710,6 +1722,8 @@ void EventTree::Init(TTree *tree)
    Muon_gen_pdgId = 0;
    Muon_gen_isPromptFinalState = 0;
    Muon_gen_isDirectPromptTauDecayProductFinalState = 0;
+   Muon_genMother_pdgId = 0;
+   Muon_genGrandMother_pdgId = 0;
    patElectron_pt = 0;
    patElectron_eta = 0;
    patElectron_phi = 0;
@@ -1849,6 +1863,8 @@ void EventTree::Init(TTree *tree)
    patElectron_gen_pdgId = 0;
    patElectron_gen_isPromptFinalState = 0;
    patElectron_gen_isDirectPromptTauDecayProductFinalState = 0;
+   patElectron_genMother_pdgId = 0;
+   patElectron_genGrandMother_pdgId = 0;
    Tau_pt = 0;
    Tau_eta = 0;
    Tau_phi = 0;
@@ -1996,6 +2012,8 @@ void EventTree::Init(TTree *tree)
    Jet_JerSFdown = 0;
    Jet_partonFlavour = 0;
    Jet_hadronFlavour = 0;
+   Jet_genMother_pdgId = 0;
+   Jet_genGrandMother_pdgId = 0;
    BoostedJet_pt = 0;
    BoostedJet_eta = 0;
    BoostedJet_phi = 0;
@@ -2410,6 +2428,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Muon_gen_pdgId", &Muon_gen_pdgId, &b_Muon_gen_pdgId);
    fChain->SetBranchAddress("Muon_gen_isPromptFinalState", &Muon_gen_isPromptFinalState, &b_Muon_gen_isPromptFinalState);
    fChain->SetBranchAddress("Muon_gen_isDirectPromptTauDecayProductFinalState", &Muon_gen_isDirectPromptTauDecayProductFinalState, &b_Muon_gen_isDirectPromptTauDecayProductFinalState);
+   fChain->SetBranchAddress("Muon_genMother_pdgId", &Muon_genMother_pdgId, &b_Muon_genMother_pdgId);
+   fChain->SetBranchAddress("Muon_genGrandMother_pdgId", &Muon_genGrandMother_pdgId, &b_Muon_genGrandMother_pdgId);
    fChain->SetBranchAddress("patElectron_pt", &patElectron_pt, &b_patElectron_pt);
    fChain->SetBranchAddress("patElectron_eta", &patElectron_eta, &b_patElectron_eta);
    fChain->SetBranchAddress("patElectron_phi", &patElectron_phi, &b_patElectron_phi);
@@ -2549,6 +2569,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_gen_pdgId", &patElectron_gen_pdgId, &b_patElectron_gen_pdgId);
    fChain->SetBranchAddress("patElectron_gen_isPromptFinalState", &patElectron_gen_isPromptFinalState, &b_patElectron_gen_isPromptFinalState);
    fChain->SetBranchAddress("patElectron_gen_isDirectPromptTauDecayProductFinalState", &patElectron_gen_isDirectPromptTauDecayProductFinalState, &b_patElectron_gen_isDirectPromptTauDecayProductFinalState);
+   fChain->SetBranchAddress("patElectron_genMother_pdgId", &patElectron_genMother_pdgId, &b_patElectron_genMother_pdgId);
+   fChain->SetBranchAddress("patElectron_genGrandMother_pdgId", &patElectron_genGrandMother_pdgId, &b_patElectron_genGrandMother_pdgId);
    fChain->SetBranchAddress("Tau_pt", &Tau_pt, &b_Tau_pt);
    fChain->SetBranchAddress("Tau_eta", &Tau_eta, &b_Tau_eta);
    fChain->SetBranchAddress("Tau_phi", &Tau_phi, &b_Tau_phi);
@@ -2696,6 +2718,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Jet_JerSFdown", &Jet_JerSFdown, &b_Jet_JerSFdown);
    fChain->SetBranchAddress("Jet_partonFlavour", &Jet_partonFlavour, &b_Jet_partonFlavour);
    fChain->SetBranchAddress("Jet_hadronFlavour", &Jet_hadronFlavour, &b_Jet_hadronFlavour);
+   fChain->SetBranchAddress("Jet_genMother_pdgId", &Jet_genMother_pdgId, &b_Jet_genMother_pdgId);
+   fChain->SetBranchAddress("Jet_genGrandMother_pdgId", &Jet_genGrandMother_pdgId, &b_Jet_genGrandMother_pdgId);
    fChain->SetBranchAddress("BoostedJet_pt", &BoostedJet_pt, &b_BoostedJet_pt);
    fChain->SetBranchAddress("BoostedJet_eta", &BoostedJet_eta, &b_BoostedJet_eta);
    fChain->SetBranchAddress("BoostedJet_phi", &BoostedJet_phi, &b_BoostedJet_phi);

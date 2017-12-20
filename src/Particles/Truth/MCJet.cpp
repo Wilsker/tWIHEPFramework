@@ -222,3 +222,16 @@ void MCJet::FillJet(TruthTree *trtr, int iE)
     SetCharge(pCharge);
   */
 } //Fill()
+const MCJet MCJet::GetGenMotherNoFsr(const MCJet Ptemp, std::vector<MCParticle>& MCParticles) const
+{
+  if (Ptemp.numMother() > 0)
+    {
+      const MCJet mother = MCParticles.at(Ptemp.BmotherIndex());
+      if ( Ptemp.motherpdg_id() != Ptemp.PdgId() ) return mother;
+      else return GetGenMotherNoFsr(mother, MCParticles);
+    }
+  else 
+    {
+      return Ptemp;
+    }
+}

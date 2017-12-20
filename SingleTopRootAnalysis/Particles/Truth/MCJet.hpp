@@ -68,6 +68,9 @@ public:
   inline Bool_t GetMatched() const { return _Matched; };
   inline Bool_t Matched() const { return GetMatched(); };
 
+  // GenMother
+  const MCJet GetGenMotherNoFsr(const MCJet Ptemp, std::vector<MCParticle>& MCParticles) const;
+  
   // Overloaded operators:
   // +=
   MCJet& operator+=(const MCJet& other);

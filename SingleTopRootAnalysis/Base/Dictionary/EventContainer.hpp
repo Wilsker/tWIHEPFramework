@@ -518,6 +518,7 @@ class EventContainer
   std::vector<Lepton>     * fakeleptonsVetoPtr; // used in object cleaning
   std::vector<Tau>     * tausVetoPtr; // used in object cleaning
 
+  std::vector<MCParticle> * mcParticlesPtr;
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
  
   

@@ -76,6 +76,13 @@ ClassImp(Jet)
   _isToptag       (0.0),
   _partonFlavour       (0.0),
   _hadronFlavour       (0.0),
+  _genMother_pdgId       (0.0),
+  _genGrandMother_pdgId       (0.0),
+  _matchId       (0.0),
+  _isFromTop       (0.0),
+  _isFromH       (0.0),
+  _matchMother_Id       (0.0),
+  _matchGrandMother_Id       (0.0),
   _HjDisc       (0.0)
 {
 } //Jet()
@@ -123,6 +130,13 @@ _electronEnergy			(other.GetelectronEnergy()),
   _hadronFlavour(other.GethadronFlavour()),
   _isToptag(other.GetisToptag()),
   _HjDisc(other.GetHjDisc()),
+  _genMother_pdgId(other.GetgenMother_pdgId()),
+  _genGrandMother_pdgId(other.GetgenGrandMother_pdgId()),
+  _matchId(other.GetmatchId()),
+  _isFromTop(other.GetisFromTop()),
+  _isFromH(other.GetisFromH()),
+  _matchMother_Id(other.GetmatchMother_Id()),
+  _matchGrandMother_Id(other.GetmatchGrandMother_Id()),
 _photonEnergy			(other.GetphotonEnergy())
 {
 } //Jet()
@@ -147,6 +161,13 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _hadronFlavour       (0.0),
   _isToptag       (0.0),
   _HjDisc       (0.0),
+  _genMother_pdgId       (0.0),
+  _genGrandMother_pdgId       (0.0),
+  _matchId       (0.0),
+  _isFromTop       (0.0),
+  _isFromH       (0.0),
+  _matchMother_Id       (0.0),
+  _matchGrandMother_Id       (0.0),
 _photonEnergy(0.0)
 {
  
@@ -218,6 +239,13 @@ Jet& Jet::operator=(const Particle& other)
   SethadronFlavour       (0.0);
   SetisToptag       (0.0);
   SetHjDisc       (0.0);
+  SetgenMother_pdgId       (0.0);
+  SetgenGrandMother_pdgId       (0.0);
+  SetmatchId       (0.0);
+  SetisFromTop       (0.0);
+  SetisFromH       (0.0);
+  SetmatchMother_Id       (0.0);
+  SetmatchGrandMother_Id       (0.0);
   SetphotonEnergy(0.0);
 
   return *this;
@@ -257,6 +285,13 @@ Jet& Jet::operator=(const Jet& other)
   SethadronFlavour(other.GethadronFlavour());
   SetisToptag(other.GetisToptag());
   SetHjDisc(other.GetHjDisc());
+  SetgenMother_pdgId(other.GetgenMother_pdgId());
+  SetgenGrandMother_pdgId(other.GetgenGrandMother_pdgId());
+  SetmatchId(other.GetmatchId());
+  SetisFromTop(other.GetisFromTop());
+  SetisFromH(other.GetisFromH());
+  SetmatchMother_Id(other.GetmatchMother_Id());
+  SetmatchGrandMother_Id(other.GetmatchGrandMother_Id());
   SetphotonEnergy			(other.GetphotonEnergy());
   return *this;
 } //= const
@@ -294,6 +329,13 @@ Jet& Jet::operator=(Jet& other)
   SethadronFlavour(other.GethadronFlavour());
   SetisToptag(other.GetisToptag());
   SetHjDisc(other.GetHjDisc());
+  SetgenMother_pdgId(other.GetgenMother_pdgId());
+  SetgenGrandMother_pdgId(other.GetgenGrandMother_pdgId());
+  SetmatchId(other.GetmatchId());
+  SetisFromTop(other.GetisFromTop());
+  SetisFromH(other.GetisFromH());
+  SetmatchMother_Id(other.GetmatchMother_Id());
+  SetmatchGrandMother_Id(other.GetmatchGrandMother_Id());
   SetphotonEnergy			(other.GetphotonEnergy());
   return *this;
 } //= non-const
@@ -404,6 +446,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Setqg       (evtr -> Jet_qg      -> operator[](iE));
   SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
   SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
+  SetgenMother_pdgId       (evtr -> Jet_genMother_pdgId      -> operator[](iE));
+  SetgenGrandMother_pdgId       (evtr -> Jet_genGrandMother_pdgId      -> operator[](iE));
 
   SetisLooseBdisc      ( bDiscriminator() > _LWPbTagCut ); 
   SetisMediumBdisc       ( bDiscriminator() > _MWPbTagCut );
@@ -509,6 +553,11 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Setlepdrmax       (maxlepdr);
   Setlepdrmin       (minlepdr);
   SetHjDisc       (get_JetMVA());
+  SetmatchId       (-999);
+  SetisFromTop       (-999);
+  SetisFromH       (-999);
+  SetmatchMother_Id       (-999);
+  SetmatchGrandMother_Id       (-999);
 
   /////////////////////////////////////////////////////////////////////////
   // B-tag related cuts

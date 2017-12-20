@@ -220,3 +220,28 @@ void MCElectron::FillElectron(TruthTree *trtr, int iE)
   SetCharge(pCharge);
   */
 } //Fill()
+
+const MCElectron MCElectron::GetGenMotherNoFsr(const MCElectron Ptemp, std::vector<MCParticle>& MCParticles) const
+{
+  if (Ptemp.numMother() > 0)
+    {
+      const MCElectron mother = MCParticles.at(Ptemp.BmotherIndex());
+      if ( Ptemp.motherpdg_id() != Ptemp.PdgId() ) return mother;
+      else return GetGenMotherNoFsr(mother, MCParticles);
+    }
+  else 
+    {
+      return Ptemp;
+    }
+}
+
+Bool_t MCElectron::isFromB(const MCElectron Ptemp, std::vector<MCParticle>& MCParticles, int bid) const{
+  for(int m_index=0; m_index< Ptemp.BmotherIndices().size(); m_index++){
+    const MCElectron mother = MCParticles.at(Ptemp.BmotherIndices().at(m_index));
+    int momid = mother.AbsPdgId();
+    if (momid / 1000 == bid ||  momid/100 == bid || momid == bid)return true;
+    else if (mother.Status()==2 && isFromB(mother, MCParticles, bid))return true;
+  }
+  return false;
+};
+
