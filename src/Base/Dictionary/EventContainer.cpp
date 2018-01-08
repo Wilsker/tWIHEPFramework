@@ -891,7 +891,7 @@ Int_t EventContainer::ReadEvent()
              std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
           }
       }
-      if(newMCParticle.isLightQuarkJet()){
+      if(newMCParticle.isLightJet()){
           MCLightJets.push_back(newMCParticle);
           if(_sync == 66){
              std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;

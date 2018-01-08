@@ -16,6 +16,14 @@ ttHVars::ttHVars(bool makeHistos){
 
   SetName("ttHVars");
 
+  _doubleVecs["Jet25_isFromH"] = {-0.1, 1.9 }; 
+  _doubleVecs["Jet25_isFromTop"] = {-0.1, 1.9 }; 
+  _doubleVecs["Jet25_matchId"] = {-25., 25. }; 
+  _doubleVecs["Jet25_matchIndex"] = {-0.1, 9999. }; 
+  _doubleVecs["Jet25_pt"] = {-0.1, 999. }; 
+  _doubleVecs["Jet25_eta"] = {0, 9.9 }; 
+  _doubleVecs["Jet25_phi"] = {-5., 5. }; 
+  _doubleVecs["Jet25_energy"] = {-0.1, 999. }; 
 
   _intVars["Jet_numbLoose"] = -999;
     
@@ -63,6 +71,26 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["minMllAFOS"] = -999;
   _floatVars["minMllSFOS"] = -999;
   _floatVars["Hj1_BDT"] = -999;
+  _floatVars["leadLep_isMatchRightCharge"] = -999;
+  _floatVars["leadLep_mcMatchId"] = -999;
+  _floatVars["leadLep_MatchMother_Id"] = -999;
+  _floatVars["leadLep_MatchGrandMother_Id"] = -999;
+  _floatVars["leadLep_isFromTop"] = -999;
+  _floatVars["leadLep_isFromH"] = -999;
+  _floatVars["leadLep_isFromB"] = -999;
+  _floatVars["leadLep_isFromC"] = -999;
+  _floatVars["leadLep_mcPromptGamma"] = -999;
+  _floatVars["leadLep_mcPromptFS"] = -999;
+  _floatVars["secondLep_isMatchRightCharge"] = -999;
+  _floatVars["secondLep_mcMatchId"] = -999;
+  _floatVars["secondLep_MatchMother_Id"] = -999;
+  _floatVars["secondLep_MatchGrandMother_Id"] = -999;
+  _floatVars["secondLep_isFromTop"] = -999;
+  _floatVars["secondLep_isFromH"] = -999;
+  _floatVars["secondLep_isFromB"] = -999;
+  _floatVars["secondLep_isFromC"] = -999;
+  _floatVars["secondLep_mcPromptGamma"] = -999;
+  _floatVars["secondLep_mcPromptFS"] = -999;
 
   SetDoHists(makeHistos);
 
@@ -73,6 +101,17 @@ void ttHVars::Clear(){
     fakeLeptons.clear();
     tightLeptons.clear();
     Jets.clear();
+    MCBJets.clear();
+    MCCJets.clear();
+    MCLightJets.clear();
+    Jet25_isFromH.clear();
+    Jet25_isFromTop.clear();
+    Jet25_matchId.clear();
+    Jet25_matchIndex.clear();
+    Jet25_pt.clear();
+    Jet25_eta.clear();
+    Jet25_phi.clear();
+    Jet25_energy.clear();
     Jet_numbLoose = -999;
     ttbarBDT_2lss = -999;
     ttvBDT_2lss = -999;
@@ -108,6 +147,26 @@ void ttHVars::Clear(){
     minMllAFOS = -999;
     minMllSFOS = -999;
     Hj1_BDT = -999;
+    leadLep_isMatchRightCharge = -999;
+    leadLep_mcMatchId = -999;
+    leadLep_MatchMother_Id = -999;
+    leadLep_MatchGrandMother_Id = -999;
+    leadLep_isFromTop = -999;
+    leadLep_isFromH = -999;
+    leadLep_isFromB = -999;
+    leadLep_isFromC = -999;
+    leadLep_mcPromptGamma = -999;
+    leadLep_mcPromptFS = -999;
+    secondLep_isMatchRightCharge = -999;
+    secondLep_mcMatchId = -999;
+    secondLep_MatchMother_Id = -999;
+    secondLep_MatchGrandMother_Id = -999;
+    secondLep_isFromTop = -999;
+    secondLep_isFromH = -999;
+    secondLep_isFromB = -999;
+    secondLep_isFromC = -999;
+    secondLep_mcPromptGamma = -999;
+    secondLep_mcPromptFS = -999;
 
 }
 
@@ -122,12 +181,31 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     
     Jets.assign(evtObj -> jets.begin(), evtObj -> jets.end());
     
+    MCBJets.assign(evtObj -> MCBJets.begin(), evtObj -> MCBJets.end());
+    MCCJets.assign(evtObj -> MCCJets.begin(), evtObj -> MCCJets.end());
+    MCLightJets.assign(evtObj -> MCLightJets.begin(), evtObj -> MCLightJets.end());
+   
+    mcParticlesPtr = &(evtObj->MCParticles);
+    //Jet matching 
+    for(auto jet: Jets){
+        Do_Jet_Match(jet, MCBJets, MCCJets, MCLightJets);
+    }
     Cal_event_variables(evtObj);
    
    
     // Fill the variables in event container
 
     // Fill the branches
+    
+    _doubleVecs["Jet25_isFromH"] = Jet25_isFromH; 
+    _doubleVecs["Jet25_isFromTop"] = Jet25_isFromTop; 
+    _doubleVecs["Jet25_matchId"] = Jet25_matchId; 
+    _doubleVecs["Jet25_matchIndex"] = Jet25_matchIndex; 
+    _doubleVecs["Jet25_pt"] = Jet25_pt; 
+    _doubleVecs["Jet25_eta"] = Jet25_eta; 
+    _doubleVecs["Jet25_phi"] = Jet25_phi; 
+    _doubleVecs["Jet25_energy"] = Jet25_energy; 
+    
     _floatVars["massL"] = evtObj->massL;
     _floatVars["massL_SFOS"] = evtObj->massL_SFOS;
     _floatVars["mass_diele"] = evtObj->mass_diele;
@@ -173,6 +251,27 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["minMllAFOS"] = minMllAFOS;
     _floatVars["minMllSFOS"] = minMllSFOS;
     _floatVars["Hj1_BDT"] = Hj1_BDT;
+  
+    _floatVars["leadLep_isMatchRightCharge"] = leadLep_isMatchRightCharge;
+    _floatVars["leadLep_mcMatchId"] = leadLep_mcMatchId;
+    _floatVars["leadLep_MatchMother_Id"] = leadLep_MatchMother_Id;
+    _floatVars["leadLep_MatchGrandMother_Id"] = leadLep_MatchGrandMother_Id;
+    _floatVars["leadLep_isFromTop"] = leadLep_isFromTop;
+    _floatVars["leadLep_isFromH"] = leadLep_isFromH;
+    _floatVars["leadLep_isFromB"] = leadLep_isFromB;
+    _floatVars["leadLep_isFromC"] = leadLep_isFromC;
+    _floatVars["leadLep_mcPromptGamma"] = leadLep_mcPromptGamma;
+    _floatVars["leadLep_mcPromptFS"] = leadLep_mcPromptFS;
+    _floatVars["secondLep_isMatchRightCharge"] = secondLep_isMatchRightCharge;
+    _floatVars["secondLep_mcMatchId"] = secondLep_mcMatchId;
+    _floatVars["secondLep_MatchMother_Id"] = secondLep_MatchMother_Id;
+    _floatVars["secondLep_MatchGrandMother_Id"] = secondLep_MatchGrandMother_Id;
+    _floatVars["secondLep_isFromTop"] = secondLep_isFromTop;
+    _floatVars["secondLep_isFromH"] = secondLep_isFromH;
+    _floatVars["secondLep_isFromB"] = secondLep_isFromB;
+    _floatVars["secondLep_isFromC"] = secondLep_isFromC;
+    _floatVars["secondLep_mcPromptGamma"] = secondLep_mcPromptGamma;
+    _floatVars["secondLep_mcPromptFS"] = secondLep_mcPromptFS;
   
     if(evtObj -> _sync == 52){     
         std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj1_BDT <<" " << evtObj->HadTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
@@ -348,3 +447,73 @@ double ttHVars::deltaPhi(double phi1, double phi2){
     while (result <= -M_PI) result += 2*M_PI;
     return result;
 }
+// Jet matching
+void ttHVars::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets){
+    double isFromH = -999.;
+    double isFromTop = -999.;
+    double matchId = -999.;
+    double matchIndex = -999.;
+    MCJet gen;
+    Bool_t ismatch = false;
+    double min_dpho_bc = 999.;
+    double min_dpho_light = 999.;
+    for(auto bjet: BJets){
+        if(bjet.numDaught()>1)continue;
+        double dr = reco.DeltaR(bjet);
+        if(dr < 0.3){
+            double dpho = dr + 0.2*fabs((reco.Pt()-bjet.Pt())/bjet.Pt());
+            if(dpho < min_dpho_bc){
+                gen = bjet;
+                min_dpho_bc = dpho;
+                ismatch = true;
+            }
+        }
+    }
+    for(auto cjet: CJets){
+        if(cjet.numDaught()>1)continue;
+        double dr = reco.DeltaR(cjet);
+        if(dr < 0.3){
+            double dpho = dr + 0.2*fabs((reco.Pt()-cjet.Pt())/cjet.Pt());
+            if(dpho < min_dpho_bc){
+                gen = cjet;
+                min_dpho_bc = dpho;
+                ismatch = true;
+            }
+        }
+    }
+    // if we fail to find a b or c
+    if(min_dpho_bc == 999.){
+        for(auto lightjet: LightJets){
+            if(lightjet.numDaught()>1)continue;
+            double dr = reco.DeltaR(lightjet);
+            if(dr < 0.3){
+                double dpho = dr + 0.2*fabs((reco.Pt()-lightjet.Pt())/lightjet.Pt());
+                if(dpho < min_dpho_light ){
+                    gen = lightjet;
+                    min_dpho_light = dpho;
+                    ismatch = true;
+                }
+            }
+        }
+    }
+    // if we do find a gen matched particle
+    if(ismatch){
+        matchId = gen.PdgId();
+        matchIndex = gen.Index();
+        MCJet genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
+        MCJet genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
+        MCJet genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
+        if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
+        else isFromH = 0;
+        if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
+        else isFromTop = 0;
+    }
+    Jet25_isFromH.push_back(isFromH); 
+    Jet25_isFromTop.push_back(isFromTop); 
+    Jet25_matchId.push_back(matchId); 
+    Jet25_matchIndex.push_back(matchIndex); 
+    Jet25_pt.push_back(reco.Pt()); 
+    Jet25_eta.push_back(reco.Eta()); 
+    Jet25_phi.push_back(reco.Phi()); 
+    Jet25_energy.push_back(reco.E()); 
+};

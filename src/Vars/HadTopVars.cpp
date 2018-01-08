@@ -21,14 +21,14 @@ HadTopVars::HadTopVars(bool makeHistos){
   
   _floatVars["hadTop_BDT"] = -1.;
  
-  _doubleVecs["Jet_isToptag"] = {-0.1, 1.9 }; 
+  _doubleVecs["Jet25_isToptag"] = {-0.1, 1.9 }; 
 
   SetDoHists(makeHistos);
 
 }
 
 void HadTopVars::Clear(){
-  Jet_isToptag.clear();
+  Jet25_isToptag.clear();
   Jet_null_pt.clear();
   Jet_null_eta.clear();
   Jet_null_phi.clear();
@@ -102,10 +102,10 @@ void HadTopVars::FillBranches(EventContainer * evtObj){
     Double_t isTagged = 0.;
     if(jet_index == bjet_hadTop_index || jet_index == wjet1_hadTop_index || jet_index == wjet2_hadTop_index)isTagged=1.;
     evtObj->jets.at(jet_en).SetisToptag(isTagged);
-    Jet_isToptag.push_back(isTagged);
+    Jet25_isToptag.push_back(isTagged);
   }
 
-  _doubleVecs["Jet_isToptag"] = Jet_isToptag; 
+  _doubleVecs["Jet25_isToptag"] = Jet25_isToptag; 
   if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
 }

@@ -105,6 +105,7 @@ MCParticle MCParticle::operator+(const MCParticle& other)
   // I don't know how to add PDG IDs or flags, so for now simply don't modify
   // anything from the first one.
   ptemp.SetPdgId( _PdgId );
+  ptemp.SetIndex( _Index );
   ptemp.SetStatus( _Status );
   ptemp.SetBarCode( _BarCode );
   ptemp.SetnumMother(_numMother);
@@ -128,6 +129,7 @@ MCParticle& MCParticle::operator=(const Particle& other)
   
   Particle::operator=(other);
   SetPdgId(0);
+  SetIndex(0);
   SetStatus(0);
   SetnumMother       (0);
   SetnumDaught       (0);
@@ -147,6 +149,7 @@ MCParticle& MCParticle::operator=(const MCParticle& other)
   
   Particle::operator=(other);
   SetPdgId(other.PdgId());
+  SetIndex(other.Index());
   SetStatus(other.Status());
   SetBarCode(other.BarCode());
   SetnumMother(other.numMother());
@@ -166,6 +169,7 @@ MCParticle& MCParticle::operator=(MCParticle& other)
   
   Particle::operator=(other);
   SetPdgId(other.PdgId());
+  SetIndex(other.Index());
   SetStatus(other.Status());
   SetBarCode(other.BarCode());
   SetnumMother(other.numMother());

@@ -15,6 +15,8 @@
 #include "SingleTopRootAnalysis/Particles/Recon/Lepton.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Tau.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCParticle.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCJet.hpp"
 #include "TLorentzVector.h"
 #include <TEnv.h>
 
@@ -43,11 +45,27 @@ private:
     //2D BDT binning 
     Int_t get_2DBDTBin(double BDT_ttbar, double BDT_ttV, EventContainer* EvtObj);
 
+    //Jet matching
+    void Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets);
+
     std::vector<Lepton> looseLeptons;
     std::vector<Lepton> fakeLeptons;
     std::vector<Lepton> tightLeptons;
     std::vector<Jet> Jets;
+    std::vector<MCJet> MCBJets;
+    std::vector<MCJet> MCCJets;
+    std::vector<MCJet> MCLightJets;
+    std::vector<MCParticle> * mcParticlesPtr;
     
+    std::vector<double> Jet25_isFromH;
+    std::vector<double> Jet25_isFromTop;
+    std::vector<double> Jet25_matchId;
+    std::vector<double> Jet25_matchIndex;
+    std::vector<double> Jet25_pt;
+    std::vector<double> Jet25_eta;
+    std::vector<double> Jet25_phi;
+    std::vector<double> Jet25_energy;
+
     Int_t Jet_numbLoose;
     Int_t Jet_numLoose;
     Double_t ttbarBDT_2lss;
@@ -84,6 +102,26 @@ private:
     Double_t minMllAFOS;
     Double_t minMllSFOS;
     Double_t Hj1_BDT;
+    Double_t leadLep_isMatchRightCharge;
+    Double_t leadLep_mcMatchId;
+    Double_t leadLep_MatchMother_Id;
+    Double_t leadLep_MatchGrandMother_Id;
+    Double_t leadLep_isFromTop;
+    Double_t leadLep_isFromH;
+    Double_t leadLep_isFromB;
+    Double_t leadLep_isFromC;
+    Double_t leadLep_mcPromptGamma;
+    Double_t leadLep_mcPromptFS;
+    Double_t secondLep_isMatchRightCharge;
+    Double_t secondLep_mcMatchId;
+    Double_t secondLep_MatchMother_Id;
+    Double_t secondLep_MatchGrandMother_Id;
+    Double_t secondLep_isFromTop;
+    Double_t secondLep_isFromH;
+    Double_t secondLep_isFromB;
+    Double_t secondLep_isFromC;
+    Double_t secondLep_mcPromptGamma;
+    Double_t secondLep_mcPromptFS;
 
 };
 
