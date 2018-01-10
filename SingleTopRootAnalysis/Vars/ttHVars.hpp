@@ -17,6 +17,9 @@
 #include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCParticle.hpp"
 #include "SingleTopRootAnalysis/Particles/Truth/MCJet.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCMuon.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCElectron.hpp"
+#include "SingleTopRootAnalysis/Particles/Truth/MCPhoton.hpp"
 #include "TLorentzVector.h"
 #include <TEnv.h>
 
@@ -47,6 +50,8 @@ private:
 
     //Jet matching
     void Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets);
+    //Lepton matching
+    void Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons);
 
     std::vector<Lepton> looseLeptons;
     std::vector<Lepton> fakeLeptons;
@@ -55,8 +60,23 @@ private:
     std::vector<MCJet> MCBJets;
     std::vector<MCJet> MCCJets;
     std::vector<MCJet> MCLightJets;
+    std::vector<MCPhoton> MCPhotons;
+    std::vector<MCMuon> MCMuons;
+    std::vector<MCElectron> MCElectrons;
     std::vector<MCParticle> * mcParticlesPtr;
     
+    std::vector<double> FakeLep_isFromB;
+    std::vector<double> FakeLep_isFromC;
+    std::vector<double> FakeLep_isFromH;
+    std::vector<double> FakeLep_isFromTop;
+    std::vector<double> FakeLep_matchId;
+    std::vector<double> FakeLep_PdgId;
+    std::vector<double> FakeLep_matchIndex;
+    std::vector<double> FakeLep_pt;
+    std::vector<double> FakeLep_eta;
+    std::vector<double> FakeLep_phi;
+    std::vector<double> FakeLep_energy;
+
     std::vector<double> Jet25_isFromH;
     std::vector<double> Jet25_isFromTop;
     std::vector<double> Jet25_matchId;
@@ -104,8 +124,6 @@ private:
     Double_t Hj1_BDT;
     Double_t leadLep_isMatchRightCharge;
     Double_t leadLep_mcMatchId;
-    Double_t leadLep_MatchMother_Id;
-    Double_t leadLep_MatchGrandMother_Id;
     Double_t leadLep_isFromTop;
     Double_t leadLep_isFromH;
     Double_t leadLep_isFromB;
@@ -114,8 +132,6 @@ private:
     Double_t leadLep_mcPromptFS;
     Double_t secondLep_isMatchRightCharge;
     Double_t secondLep_mcMatchId;
-    Double_t secondLep_MatchMother_Id;
-    Double_t secondLep_MatchGrandMother_Id;
     Double_t secondLep_isFromTop;
     Double_t secondLep_isFromH;
     Double_t secondLep_isFromB;

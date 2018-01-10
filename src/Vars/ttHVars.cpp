@@ -25,6 +25,18 @@ ttHVars::ttHVars(bool makeHistos){
   _doubleVecs["Jet25_phi"] = {-5., 5. }; 
   _doubleVecs["Jet25_energy"] = {-0.1, 999. }; 
 
+  _doubleVecs["FakeLep_isFromB"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_isFromC"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_isFromH"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_isFromTop"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_matchId"] = {-25., 25. }; 
+  _doubleVecs["FakeLep_PdgId"] = {-25., 25. }; 
+  _doubleVecs["FakeLep_matchIndex"] = {-0.1, 9999. }; 
+  _doubleVecs["FakeLep_pt"] = {-0.1, 999. }; 
+  _doubleVecs["FakeLep_eta"] = {0, 9.9 }; 
+  _doubleVecs["FakeLep_phi"] = {-5., 5. }; 
+  _doubleVecs["FakeLep_energy"] = {-0.1, 999. }; 
+
   _intVars["Jet_numbLoose"] = -999;
     
   _floatVars["massL"] = -999.;
@@ -73,8 +85,6 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["Hj1_BDT"] = -999;
   _floatVars["leadLep_isMatchRightCharge"] = -999;
   _floatVars["leadLep_mcMatchId"] = -999;
-  _floatVars["leadLep_MatchMother_Id"] = -999;
-  _floatVars["leadLep_MatchGrandMother_Id"] = -999;
   _floatVars["leadLep_isFromTop"] = -999;
   _floatVars["leadLep_isFromH"] = -999;
   _floatVars["leadLep_isFromB"] = -999;
@@ -83,8 +93,6 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["leadLep_mcPromptFS"] = -999;
   _floatVars["secondLep_isMatchRightCharge"] = -999;
   _floatVars["secondLep_mcMatchId"] = -999;
-  _floatVars["secondLep_MatchMother_Id"] = -999;
-  _floatVars["secondLep_MatchGrandMother_Id"] = -999;
   _floatVars["secondLep_isFromTop"] = -999;
   _floatVars["secondLep_isFromH"] = -999;
   _floatVars["secondLep_isFromB"] = -999;
@@ -104,6 +112,17 @@ void ttHVars::Clear(){
     MCBJets.clear();
     MCCJets.clear();
     MCLightJets.clear();
+    FakeLep_isFromB.clear();
+    FakeLep_isFromC.clear();
+    FakeLep_isFromH.clear();
+    FakeLep_isFromTop.clear();
+    FakeLep_PdgId.clear();
+    FakeLep_matchId.clear();
+    FakeLep_matchIndex.clear();
+    FakeLep_pt.clear();
+    FakeLep_eta.clear();
+    FakeLep_phi.clear();
+    FakeLep_energy.clear();
     Jet25_isFromH.clear();
     Jet25_isFromTop.clear();
     Jet25_matchId.clear();
@@ -149,8 +168,6 @@ void ttHVars::Clear(){
     Hj1_BDT = -999;
     leadLep_isMatchRightCharge = -999;
     leadLep_mcMatchId = -999;
-    leadLep_MatchMother_Id = -999;
-    leadLep_MatchGrandMother_Id = -999;
     leadLep_isFromTop = -999;
     leadLep_isFromH = -999;
     leadLep_isFromB = -999;
@@ -159,8 +176,6 @@ void ttHVars::Clear(){
     leadLep_mcPromptFS = -999;
     secondLep_isMatchRightCharge = -999;
     secondLep_mcMatchId = -999;
-    secondLep_MatchMother_Id = -999;
-    secondLep_MatchGrandMother_Id = -999;
     secondLep_isFromTop = -999;
     secondLep_isFromH = -999;
     secondLep_isFromB = -999;
@@ -185,17 +200,38 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     MCCJets.assign(evtObj -> MCCJets.begin(), evtObj -> MCCJets.end());
     MCLightJets.assign(evtObj -> MCLightJets.begin(), evtObj -> MCLightJets.end());
    
+    MCPhotons.assign(evtObj -> MCPhotons.begin(), evtObj -> MCPhotons.end());
+    MCElectrons.assign(evtObj -> MCElectrons.begin(), evtObj -> MCElectrons.end());
+    MCMuons.assign(evtObj -> MCMuons.begin(), evtObj -> MCMuons.end());
     mcParticlesPtr = &(evtObj->MCParticles);
     //Jet matching 
     for(auto jet: Jets){
         Do_Jet_Match(jet, MCBJets, MCCJets, MCLightJets);
     }
+    
+    //Lep matching 
+    for(auto lep: fakeLeptons){
+        Do_Lepton_Match(lep, MCElectrons, MCMuons,MCPhotons);
+    }
+    
     Cal_event_variables(evtObj);
    
    
     // Fill the variables in event container
 
     // Fill the branches
+    
+    _doubleVecs["FakeLep_isFromB"] = FakeLep_isFromB; 
+    _doubleVecs["FakeLep_isFromC"] = FakeLep_isFromC; 
+    _doubleVecs["FakeLep_isFromH"] = FakeLep_isFromH; 
+    _doubleVecs["FakeLep_isFromTop"] = FakeLep_isFromTop; 
+    _doubleVecs["FakeLep_PdgId"] = FakeLep_PdgId; 
+    _doubleVecs["FakeLep_matchId"] = FakeLep_matchId; 
+    _doubleVecs["FakeLep_matchIndex"] = FakeLep_matchIndex; 
+    _doubleVecs["FakeLep_pt"] = FakeLep_pt; 
+    _doubleVecs["FakeLep_eta"] = FakeLep_eta; 
+    _doubleVecs["FakeLep_phi"] = FakeLep_phi; 
+    _doubleVecs["FakeLep_energy"] = FakeLep_energy; 
     
     _doubleVecs["Jet25_isFromH"] = Jet25_isFromH; 
     _doubleVecs["Jet25_isFromTop"] = Jet25_isFromTop; 
@@ -254,8 +290,6 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   
     _floatVars["leadLep_isMatchRightCharge"] = leadLep_isMatchRightCharge;
     _floatVars["leadLep_mcMatchId"] = leadLep_mcMatchId;
-    _floatVars["leadLep_MatchMother_Id"] = leadLep_MatchMother_Id;
-    _floatVars["leadLep_MatchGrandMother_Id"] = leadLep_MatchGrandMother_Id;
     _floatVars["leadLep_isFromTop"] = leadLep_isFromTop;
     _floatVars["leadLep_isFromH"] = leadLep_isFromH;
     _floatVars["leadLep_isFromB"] = leadLep_isFromB;
@@ -264,8 +298,6 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["leadLep_mcPromptFS"] = leadLep_mcPromptFS;
     _floatVars["secondLep_isMatchRightCharge"] = secondLep_isMatchRightCharge;
     _floatVars["secondLep_mcMatchId"] = secondLep_mcMatchId;
-    _floatVars["secondLep_MatchMother_Id"] = secondLep_MatchMother_Id;
-    _floatVars["secondLep_MatchGrandMother_Id"] = secondLep_MatchGrandMother_Id;
     _floatVars["secondLep_isFromTop"] = secondLep_isFromTop;
     _floatVars["secondLep_isFromH"] = secondLep_isFromH;
     _floatVars["secondLep_isFromB"] = secondLep_isFromB;
@@ -348,6 +380,22 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
                 secondLep_jetcsv = csv; 
             }
         }
+        leadLep_isMatchRightCharge = FakeLep_matchId.at(0) == FakeLep_PdgId.at(0)? 1 : 0;
+        leadLep_mcMatchId = FakeLep_matchId.at(0);
+        leadLep_isFromTop = FakeLep_isFromTop.at(0);
+        leadLep_isFromH = FakeLep_isFromH.at(0);
+        leadLep_isFromB = FakeLep_isFromB.at(0);
+        leadLep_isFromC = FakeLep_isFromC.at(0);
+        leadLep_mcPromptGamma = FakeLep_matchId.at(0) == 22 ? 1 : 0;
+        leadLep_mcPromptFS = (firstLepton.gen_isPrompt() ==1 || firstLepton.gen_isPromptTau()==1)? 1 : 0;
+        secondLep_isMatchRightCharge = FakeLep_matchId.at(1) == FakeLep_PdgId.at(1)? 1 : 0;
+        secondLep_mcMatchId = FakeLep_matchId.at(1);
+        secondLep_isFromTop = FakeLep_isFromTop.at(1);
+        secondLep_isFromH = FakeLep_isFromH.at(1);
+        secondLep_isFromB = FakeLep_isFromB.at(1);
+        secondLep_isFromC = FakeLep_isFromC.at(1);
+        secondLep_mcPromptGamma = FakeLep_matchId.at(1) == 22 ? 1 : 0;
+        secondLep_mcPromptFS = (secondLepton.gen_isPrompt() ==1 || secondLepton.gen_isPromptTau()==1)? 1 : 0;
         leadLep_jetdr= leadLep_closedr; 
         secondLep_jetdr= secondLep_closedr;
         FakeLep1.SetPtEtaPhiE(firstLepton.conept(),firstLepton.Eta(),firstLepton.Phi(),firstLepton.E());
@@ -453,7 +501,7 @@ void ttHVars::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJe
     double isFromTop = -999.;
     double matchId = -999.;
     double matchIndex = -999.;
-    MCJet gen;
+    MCParticle gen;
     Bool_t ismatch = false;
     double min_dpho_bc = 999.;
     double min_dpho_light = 999.;
@@ -500,9 +548,9 @@ void ttHVars::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJe
     if(ismatch){
         matchId = gen.PdgId();
         matchIndex = gen.Index();
-        MCJet genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
-        MCJet genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
-        MCJet genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
+        MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
+        MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
+        MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
         if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
         else isFromH = 0;
         if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
@@ -516,4 +564,90 @@ void ttHVars::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJe
     Jet25_eta.push_back(reco.Eta()); 
     Jet25_phi.push_back(reco.Phi()); 
     Jet25_energy.push_back(reco.E()); 
+};
+    
+//Lepton matching
+void ttHVars::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons){
+    MCParticle gen;
+    double min_dpho =999.;
+    double isFromH = -999.;
+    double isFromB = -999.;
+    double isFromC = -999.;
+    double isFromTop = -999.;
+    double matchId = -999.;
+    double matchIndex = -999.;
+    Bool_t ismatch = false;
+    for(auto MCEle: MCElectrons){
+        if(MCEle.Status()!=1 || fabs(MCEle.PdgId())!= fabs(reco.pdgId()) || MCEle.Pt()<1.0)continue;
+        double dr = reco.DeltaR(MCEle);
+        if(dr < 0.3){
+            double dpho = dr + 0.2*fabs((reco.Pt()-MCEle.Pt())/MCEle.Pt());
+            if(dpho < min_dpho){
+                gen = MCEle;
+                min_dpho = dpho;
+                ismatch = true;
+            }
+        }
+    }
+    for(auto MCMu: MCMuons){
+        if(MCMu.Status()!=1 || fabs(MCMu.PdgId())!= fabs(reco.pdgId()) || MCMu.Pt()<1.0)continue;
+        double dr = reco.DeltaR(MCMu);
+        if(dr < 0.3){
+            double dpho = dr + 0.2*fabs((reco.Pt()-MCMu.Pt())/MCMu.Pt());
+            if(dpho < min_dpho){
+                gen = MCMu;
+                min_dpho = dpho;
+                ismatch = true;
+            }
+        }
+    }
+    // do photon matching for electron
+    if(fabs(reco.pdgId())==11){
+        for(auto MCPhoton: MCPhotons){
+            if(MCPhoton.Status()!=1 || MCPhoton.Pt()<1.0)continue;
+            double dr = reco.DeltaR(MCPhoton);
+            if(dr < 0.3 && reco.Pt() > 0.3 * MCPhoton.Pt() && reco.Pt()< 1.5 * MCPhoton.Pt()){
+                double dpho = dr + 0.2*fabs((reco.Pt()-MCPhoton.Pt())/MCPhoton.Pt());
+                if(dpho < min_dpho){
+                    gen = MCPhoton;
+                    min_dpho = dpho;
+                    ismatch = true;
+                }
+            }
+        }
+    }
+    
+    if(ismatch){
+        matchId = gen.PdgId();
+        matchIndex = gen.Index();
+        MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
+        MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
+        MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
+        if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
+        else isFromH = 0;
+        if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
+        else isFromTop = 0;
+        if(gen.isFromB(gen, *mcParticlesPtr)){
+            isFromB =1;
+            isFromC =0;
+        }
+        else if (gen.isFromB(gen, *mcParticlesPtr, 4)){
+            isFromC =1;
+            isFromB =0;
+        }else{
+            isFromC =0;
+            isFromB =0;
+        }
+    }
+    FakeLep_isFromB.push_back(isFromB); 
+    FakeLep_isFromC.push_back(isFromC); 
+    FakeLep_isFromH.push_back(isFromH); 
+    FakeLep_isFromTop.push_back(isFromTop); 
+    FakeLep_matchId.push_back(matchId); 
+    FakeLep_matchIndex.push_back(matchIndex); 
+    FakeLep_PdgId.push_back(reco.pdgId()); 
+    FakeLep_pt.push_back(reco.Pt()); 
+    FakeLep_eta.push_back(reco.Eta()); 
+    FakeLep_phi.push_back(reco.Phi()); 
+    FakeLep_energy.push_back(reco.E()); 
 };
