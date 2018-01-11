@@ -16,8 +16,8 @@ HadTopVars::HadTopVars(bool makeHistos){
 
   SetName("HadTopVars");
   
-  _intVars["Jet_numLoose"] = 0;
-  _intVars["Jet_numbMedium"] = 0;
+  _intVars["Jet_numLoose"] = 10;
+  _intVars["Jet_numbMedium"] = 10;
   
   _floatVars["hadTop_BDT"] = -1.;
  

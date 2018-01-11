@@ -17,14 +17,14 @@ workpath = "/publicfs/cms/user/libh/Test/Rootplizer/analyzer"
 
 # Variable Case
 #Case = "CaseA"
-Case = "CaseB"
-#Case = "CaseC"
+#Case = "CaseB"
+Case = "CaseC"
 # Variable Definition
 
-rObject = "Jet"
+rObject = "float"
 wObject = "Lepton"
 
-VariableType  = "Int_t"
+VariableType  = "Double_t"
 VariableNames = [
 # CaseA Variables
 #"pt","eta","phi","energy",
@@ -38,8 +38,10 @@ VariableNames = [
 
 #"px","py","pz",
 #"gen_pt","gen_eta","gen_phi","gen_en","gen_pdgId",
-#"genMother_pt","genMother_eta","genMother_phi","genMother_en","genMother_pdgId",
-#"genGrandMother_pt","genGrandMother_eta","genGrandMother_phi","genGrandMother_en","genGrandMother_pdgId",
+#"genMother_pt","genMother_eta","genMother_phi","genMother_en",
+#"genMother_pdgId",
+#"genGrandMother_pt","genGrandMother_eta","genGrandMother_phi","genGrandMother_en",
+#"genGrandMother_pdgId",
 #"gen_isPromptFinalState","gen_isDirectPromptTauDecayProductFinalState",
 #"mcPromptFS","mcMatchId","mcPromptGamma"
 
@@ -63,7 +65,8 @@ VariableNames = [
 #"pfCombinedInclusiveSecondaryVertexV2BJetTags","pfCombinedMVAV2BJetTags",
 #"px","py","pz","mass",
 #"qg","axis2","ptD","mult",
-#"partonFlavour","hadronFlavour","genpt","geneta","genphi","genenergy",
+#"partonFlavour","hadronFlavour",
+#"genpt","geneta","genphi","genenergy",
 #"BDT","lepdrmin","lepdrmax",
 #"isToptag"
 
@@ -96,10 +99,34 @@ VariableNames = [
 #"BDT","isMedium_ST","corrpt","FR","CF",
 #"passConversionVeto","passTightCharge","passMissHit",
 #"isMatchRightCharge",
+#"isTight",
 
 ######Triggers############
-"HLT_Ele25_eta2p1_WPTight_Gsf","HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ","HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL",
-"HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ","HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL","HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+#"HLT_Ele25_eta2p1_WPTight_Gsf","HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ","HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL",
+#"HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ","HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL","HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
+
+#"ttbarBDT_2lss","ttvBDT_2lss","Bin2l",
+#"leadLep_jetdr","leadLep_corrpt","leadLep_jetcsv","leadLep_BDT",
+#"secondLep_jetdr","secondLep_corrpt","secondLep_jetcsv","secondLep_BDT",
+#"maxeta","Mt_metleadlep","SubCat2l","massll","Sum2lCharge","Dilep_bestMVA",
+#"Dilep_worseMVA","Dilep_pdgId","Dilep_htllv","Dilep_mtWmin","Dilep_nTight",
+#"leadJetCSV","secondJetCSV","thirdJetCSV","fourthJetCSV","HighestJetCSV",
+#"HtJet","nLepFO","nLepTight","minMllAFAS","minMllAFOS","minMllSFOS",
+#"Hj1_BDT",
+
+###########Gen Info##################
+#"gen_pt","gen_eta","gen_phi","gen_en",
+#"gen_pdgId",
+
+#"numMother","numDaught","BmotherIndex","motherpdg_id",
+#"BmotherIndices","BdaughtIndices",
+
+"leadLep_isMatchRightCharge","leadLep_mcMatchId","leadLep_MatchMother_Id","leadLep_MatchGrandMother_Id",
+"leadLep_isFromTop","leadLep_isFromH","leadLep_isFromB","leadLep_isFromC",
+"leadLep_mcPromptGamma","leadLep_mcPromptFS",
+"subleadLep_isMatchRightCharge","subleadLep_mcMatchId","subleadLep_MatchMother_Id","subleadLep_MatchGrandMother_Id",
+"subleadLep_isFromTop","subleadLep_isFromH","subleadLep_isFromB","subleadLep_isFromC",
+"subleadLep_mcPromptGamma","subleadLep_mcPromptFS",
 
 ]
 
@@ -200,26 +227,19 @@ elif Case == "CaseC":
  print >> vector, "//Head file declaration"
  print >> vector, "//variables to be written"
  for Variable in VariableNames:
-     print >> vector, "vector<"+VariableType+">* "+wObject+"_"+Variable+" = new std::vector<" + VariableType+">;"
+     print >> vector, "    "+VariableType+" "+Variable+";"
  
  print >> vector, "//source file definition"
  
  print >> vector, "   //Write setbranchaddress"
  for Variable in VariableNames:
-     print >> vector, "    "+WTreeptr+'->Branch("'+wObject+"_"+Variable+'",&'+wObject+"_"+Variable+");"
+     print >> vector, "  _"+rObject+'Vars["'+Variable+'"] = -999;'
  
  print >> vector, "   //Clear vector"
  for Variable in VariableNames:
-     print >> vector, "    "+wObject+"_"+Variable+"->clear();"
+     print >> vector, "  _"+rObject+'Vars["'+Variable+'"] = '+Variable+";"
  
  print >> vector, "   //class member"
  for Variable in VariableNames:
-     print >> vector, "        "+VariableType+" "+Variable+" = -999;"
+     print >> vector, "  "+Variable+" = -999;"
  
- print >> vector, "   //Intialize variables"
- for Variable in VariableNames:
-     print >> vector, "        "+rObject+"."+Variable+"= r"+rObject+"_"+Variable+"->at("+ParSel+");"
-
- print >> vector, "   //Write variables"
- for Variable in VariableNames:
-     print >> vector, "        "+wObject+"_"+Variable+"->push_back(jets->at("+ParWrite+")."+Variable+");"

@@ -90,7 +90,7 @@ private:
     Int_t Jet_numLoose;
     Double_t ttbarBDT_2lss;
     Double_t ttvBDT_2lss;
-    Double_t Bin2l;
+    Int_t Bin2l;
     Double_t leadLep_jetdr;
     Double_t leadLep_corrpt;
     Double_t leadLep_jetcsv;
