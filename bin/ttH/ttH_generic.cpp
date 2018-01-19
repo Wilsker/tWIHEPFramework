@@ -115,6 +115,9 @@ int main(int argc, char **argv)
   Bool_t useInvertedIsolation = kFALSE;
   Bool_t useLeptonSFs = kFALSE;
   Bool_t usebTagReweight = kFALSE;
+  Bool_t useChargeMis = kFALSE;
+  Bool_t useFakeRate = kFALSE;
+  Bool_t useTriggerSFs = kFALSE;
   TString leptonTypeToSelect = "Tight"; //This variable is altered to unisolated when running QCD estimation.
   string evtListFileName="";
   int whichtrig = -1;
@@ -136,6 +139,18 @@ int main(int argc, char **argv)
     if (!strcmp(argv[i], "-lepSFs")){
       useLeptonSFs = kTRUE;
       cout << "Driver: Using lepton ID/iso SFs" << endl;
+    }
+    if (!strcmp(argv[i], "-chargeMis")){
+      useChargeMis = kTRUE;
+      cout << "Driver: Using chargeMis" << endl;
+    }
+    if (!strcmp(argv[i], "-TriggerSFs")){
+      useTriggerSFs = kTRUE;
+      cout << "Driver: Using TriggerSFs" << endl;
+    }
+    if (!strcmp(argv[i], "-FakeRate")){
+      useFakeRate = kTRUE;
+      cout << "Driver: Using FakeRate" << endl;
     }
     if (!strcmp(argv[i], "-bTagReshape")){
       usebTagReweight = kTRUE;
@@ -292,7 +307,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutMassL(particlesObj));
   mystudy.AddCut(new CutMetLD(particlesObj));
 
-  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
+  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs));
 
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
 

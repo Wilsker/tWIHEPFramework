@@ -44,7 +44,7 @@ class EventWeight : public HistoCut
 public:
 
   // Parameterized Constructor
-  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t verbose = kFALSE);
+  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useLeptonFakeRate = false, Bool_t useTriggerSFs = false ,Bool_t verbose = kFALSE);
   
   // Default Destructor
   ~EventWeight();
@@ -62,10 +62,16 @@ public:
   void setPileUpWgt(Bool_t val=true) { _usePileUpWgt=val; };
   void setPileUpSyst(Bool_t val=false) { _doPileupSysts=val; };
   void setbWeight(Bool_t val=true) { _usebWeight=val; };
+  void setChargeMis(Bool_t val=true) { _useChargeMis=val; };
+  void setLeptonFakeRate(Bool_t val=true) { _useLeptonFakeRate=val; };
+  void setTriggerSFs(Bool_t val=true) { _useTriggerSFs=val; };
   Bool_t isMCatNLO() const { return _useMCatNLO; };
   Bool_t isPileUpWgt() const { return _usePileUpWgt; };
   Bool_t isPileupSysts() const { return _doPileupSysts; };
   Bool_t isbWeight() const { return _usebWeight; };
+  Bool_t isTriggerSFs() const { return _useTriggerSFs; };
+  Bool_t isChargeMis() const { return _useChargeMis; };
+  Bool_t isLeptonFakeRate() const { return _useLeptonFakeRate; };
 
     // methods for weighting for MC generatd with NoWeight
   void setNoWeight(Bool_t val=true) { _useNoWeight=val; };
@@ -84,12 +90,18 @@ private:
   Bool_t _useNoWeight;  //No weight except MCatNLO weight
   Bool_t _useLeptonSFs; // Use lepton SFs. Needs to be configured in the overall config file
   Bool_t _usebTagReshape; // Do CSV discriminant reshaping
+  Bool_t _useChargeMis; // set to true if we Use ChargeMis Weighting.
+  Bool_t _useLeptonFakeRate; // set to true if we Use LeptonFakeRate Weighting.
+  Bool_t _useTriggerSFs; // set to true if we Use TriggerSFs Weighting.
   // Histograms
   myTH1F* _hTreeWeight;   // Histogram of input tree weights
   myTH1F* _hGlobalWeight; // Histogram of global weights
   myTH1F* _hMCatNLOWeight; // Histogram of MCatNLO weight
   myTH1F* _hPileUpWeight; // Histogram of PileUpWgt weight
   myTH1F* _hbWeight; // Histogram of b weight
+  myTH1F* _hChargeMis; // Histogram of charge misMeasurement
+  myTH1F* _hLeptonFakeRate; // Histogram of Lepton Fake Rate
+  myTH1F* _hTriggerSFs; // Histogram of Trigger Sfs
   myTH1F* _hLeptonSFWeight; //Histogram of the lepton SF claculated for the event
   std::map<std::string,myTH1F*> _hbTagReshape; //Map of histograms containing the information for b tag reshaping and its associated systematics
   myTH1F* _hGenWeight; //Histogram of the gen weight for the event
@@ -98,6 +110,10 @@ private:
   BTagCalibration _bTagCalib;
   BTagCalibrationReader _bTagCalibReader;
 
+  //Histograms that are used for applying charge mismeasurement weight
+  TH2F* _chargeMis;
+
+  
   //Histograms that are used for applying scale factors to leptons
   //For now we are only using muons as we veto on electroons anyway
   TH2F* _muonIsoSF;
@@ -120,8 +136,13 @@ private:
   std::vector<std::string> _bTagSystNames;
   std::map<std::string,float> _bTagSystValues;
 
+  // LeptonSFs
   std::tuple<Double_t,Double_t,Double_t> getLeptonWeight(EventContainer * EventContainerObj);
   void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleIDHistName);
+  // ChargeMis
+  std::tuple<Double_t,Double_t,Double_t> getChargeMisWeight(EventContainer * EventContainerObj);
+  void setChargeMisHistograms(TString ChargeMisFileName,TString ChargeMisHistName);
+  // BTagReshape
   Double_t getBTagReshape(EventContainer * EventContainerObj, std::string systName = "central");
 
  //Root::TPileupReweighting* PileupReweighting;

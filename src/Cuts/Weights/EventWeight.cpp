@@ -44,9 +44,13 @@ using namespace std;
  * Input:  Particle class                                                     *
  * Output: None                                                               *
  ******************************************************************************/
-EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t verbose):
+EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useLeptonFakeRate, Bool_t useTriggerSFs, Bool_t verbose):
   _useLeptonSFs(useLeptonSFs),
+  _useChargeMis(useChargeMis),
+  _useLeptonFakeRate(useLeptonFakeRate),
+  _useTriggerSFs(useTriggerSFs),
   _usebTagReshape(usebTagReshape),
+
   _verbose(verbose)
 {
   //pileup is NOT applied by default.  Instead it is applied by the user, and stored in the tree for later application
@@ -221,6 +225,11 @@ void EventWeight::BookHistogram()
   _hLeptonSFWeight -> SetXAxisTitle("Lep SF");
   _hLeptonSFWeight -> SetYAxisTitle("Events");
 
+  // Histogram of chargeMis weight
+  _hChargeMis =  DeclareTH1F("ChargeMisWeight","Event Weight for chargeMis",100,0.,0.001);
+  _hChargeMis -> SetXAxisTitle("Charge Mis");
+  _hChargeMis -> SetYAxisTitle("Events");
+
   //Create one histogtam per b-tag systematic (and central value)
   for (auto const bTagSystName: _bTagSystNames){
     // Histogram of bTag shape weight
@@ -288,6 +297,10 @@ void EventWeight::BookHistogram()
   //Set up the lepton efficiency SF histograms
   if (_useLeptonSFs) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSHHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleIDHistName","null"));
 
+  //Set up the lepton charge mismeasurement histograms
+  if (_useChargeMis) setChargeMisHistograms(conf->GetValue("Include.ChargeMisFile","null"),conf->GetValue("ChargeMis.HistName","null"));
+  
+  //Set up bTagReShape
   if (_usebTagReshape){
     _bTagCalib = BTagCalibration(conf->GetValue("BTaggerAlgo","CSVv2"),conf->GetValue("Include.BTagCSVFile","null"));
     _bTagCalibReader = BTagCalibrationReader(BTagEntry::OP_RESHAPING, "central",_bTagSystNames);
@@ -403,6 +416,15 @@ Bool_t EventWeight::Apply()
    wgt *= lepSFWeight;
  }
   
+ float ChargeMisWeight(1.0), ChargeMisWeightUp(1.0), ChargeMisWeightDown(1.0);
+
+ if(_useChargeMis){
+   std::tie(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown) = getChargeMisWeight(EventContainerObj);
+   //std::cout << ChargeMisWeight <<"  " << ChargeMisWeightUp << "  " <<ChargeMisWeightDown << std::endl;
+   wgt *= ChargeMisWeight;
+ }
+  
+
 
  std::map<std::string,float> bTagReshape;
 
@@ -440,6 +462,9 @@ Bool_t EventWeight::Apply()
   EventContainerObj -> SetEventLepSFWeightUp(lepSFWeightUp);
   EventContainerObj -> SetEventLepSFWeightDown(lepSFWeightDown);
 
+  EventContainerObj -> SetEventChargeMisWeight(ChargeMisWeight);
+  EventContainerObj -> SetEventChargeMisWeightUp(ChargeMisWeightUp);
+  EventContainerObj -> SetEventChargeMisWeightDown(ChargeMisWeightDown);
   //Also save the systematic variations in these SFs
   //  EventContainerObj -> SetEventLepSFWeightUp(lepSFWeightUp);
   //EventContainerObj -> SetEventLepSFWeightDown(lepSFWeightDown);
@@ -453,6 +478,7 @@ Bool_t EventWeight::Apply()
   _hbWeight	   -> FillWithoutWeight(EventContainerObj -> GetEventbWeight());
   _hLeptonSFWeight -> FillWithoutWeight(EventContainerObj -> GetEventLepSFWeight());
   _hGenWeight	   -> FillWithoutWeight(EventContainerObj -> GetGenWeight());
+  _hChargeMis -> FillWithoutWeight(EventContainerObj -> GetEventChargeMisWeight());
   for (auto const bSystName: _bTagSystNames) _hbTagReshape[bSystName] -> FillWithoutWeight(EventContainerObj -> GetEventbTagReshape(bSystName));
 
   return kTRUE;
@@ -578,6 +604,58 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getLeptonWeight(EventContain
   }
 
   return std::make_tuple(leptonWeight,leptonWeightUp,leptonWeightDown);
+}
+
+//Used to set up the efficiency histograms for the first time
+/****************************************************************************** 
+ * void EventWeight::setChargeMisHistograms()                                  * 
+ *                                                                            * 
+ * Sets up the histograms that will be used for charge mis measurement weighting         * 
+ *                                                                            * 
+ * Input:  Names of files and histograms that are relevant to the calculation * 
+ * Output: none                                                               * 
+ ******************************************************************************/
+void EventWeight::setChargeMisHistograms(TString ChargeMisFileName,TString ChargeMisHistName){
+  if (ChargeMisFileName == "null" || ChargeMisHistName == "null"){
+    std::cout << "You want charge mismeasurement included in the weight but you haven't specified files for this! Fix your config!" << std::endl;
+  }
+  TFile* ChargeMisFile = TFile::Open(ChargeMisFileName,"READ");
+  if (!ChargeMisFile) std::cout << "ChargeMis file not found!" << std::endl;
+  _chargeMis = (TH2F*)ChargeMisFile->Get(ChargeMisHistName);
+  _chargeMis->SetDirectory(0);
+  ChargeMisFile->Close();
+}
+
+/****************************************************************************** 
+ * Bool_t EventWeight::getChargeMisWeight()                                      * 
+ *                                                                            * 
+ * Get the relevant pt and eta dependent chargeMis for the leptons in the event     *
+ * and put them into one weight that is returned                              * 
+ *                                                                            * 
+ * Input:  None                                                               * 
+ * Output: Double_t weight to be applied to the event weight                  * 
+ ******************************************************************************/
+std::tuple<Double_t,Double_t,Double_t> EventWeight::getChargeMisWeight(EventContainer* EventContainerObj){
+
+  Double_t ChargeMisWeight = 1.0, ChargeMisWeightUp = 1.0, ChargeMisWeightDown = 1.0;
+  if(EventContainerObj->fakeleptonsVetoPtr->size()<2) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
+  Lepton lep1 =  EventContainerObj->fakeleptonsVetoPtr->at(0);
+  Lepton lep2 =  EventContainerObj->fakeleptonsVetoPtr->at(1);
+  if(lep1.charge()==lep2.charge() || fabs(lep1.pdgId())==13 || fabs(lep2.pdgId())==13) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
+  //Get the bin 
+  int xAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep1.conept())));
+  int yAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(lep1.Eta())));
+  int xAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep2.conept())));
+  int yAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(lep2.Eta())));
+  //And now get the iso and id SFs/uncs
+  Double_t ChargeMisWeight1 = _chargeMis->GetBinContent(xAxisBin1,yAxisBin1);
+  Double_t ChargeMisUnc1 = _chargeMis->GetBinError(xAxisBin1,yAxisBin1); 
+  Double_t ChargeMisWeight2 = _chargeMis->GetBinContent(xAxisBin2,yAxisBin2);
+  Double_t ChargeMisUnc2 = _chargeMis->GetBinError(xAxisBin2,yAxisBin2); 
+  ChargeMisWeight = ChargeMisWeight1 + ChargeMisWeight2;
+  ChargeMisWeightUp = ChargeMisWeight1 + ChargeMisUnc1 + ChargeMisWeight2 + ChargeMisUnc2;
+  ChargeMisWeightDown = ChargeMisWeight1 - ChargeMisUnc1 + ChargeMisWeight2 - ChargeMisUnc2;
+  return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
 }
 
 /******************************************************************************  

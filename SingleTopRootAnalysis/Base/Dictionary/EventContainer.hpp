@@ -354,6 +354,21 @@ class EventContainer
   inline Double_t GetEventLepSFWeightDown() const {return _EventLepSFWeightDown;};
   inline Double_t EventLepSFWeightDown() const {return GetEventLepSFWeightDown();};
 
+  //chargeMis weight per event
+  inline void SetEventChargeMisWeight(const Double_t& ChargeMisweight) {_EventChargeMisWeight = ChargeMisweight;};
+  inline Double_t GetEventChargeMisWeight() const {return _EventChargeMisWeight;};
+  inline Double_t EventChargeMisWeight() const {return GetEventChargeMisWeight();};
+
+  //chargeMis weightUp per event
+  inline void SetEventChargeMisWeightUp(const Double_t& ChargeMisweightUp) {_EventChargeMisWeightUp = ChargeMisweightUp;};
+  inline Double_t GetEventChargeMisWeightUp() const {return _EventChargeMisWeightUp;};
+  inline Double_t EventChargeMisWeightUp() const {return GetEventChargeMisWeightUp();};
+
+  //chargeMis weightDown per event
+  inline void SetEventChargeMisWeightDown(const Double_t& ChargeMisweightDown) {_EventChargeMisWeightDown = ChargeMisweightDown;};
+  inline Double_t GetEventChargeMisWeightDown() const {return _EventChargeMisWeightDown;};
+  inline Double_t EventChargeMisWeightDown() const {return GetEventChargeMisWeightDown();};
+
   //set and get btag weights for central and systematics
   inline void SetEventbTagReshape(const Double_t& lepSFweight, std::string systName = "central" ) {_EventbTagReshape[systName] = lepSFweight;};
   inline Double_t GetEventbTagReshape(std::string systName = "central") {return _EventbTagReshape[systName];};
@@ -428,12 +443,17 @@ class EventContainer
   Float_t _EventPileupMinBiasDownWeight;
   Float_t _EventbWeight; // this may be the same as the tagging weight, but I'm making it different anyway
   Float_t _EventLepSFWeight;
+  Float_t _EventChargeMisWeight;
   Float_t _EventGenWeight;
   std::map<std::string,Float_t> _EventbTagReshape;
 
   //Add in the systematic variations to the SFs
   Float_t _EventLepSFWeightUp;
   Float_t _EventLepSFWeightDown;
+
+  //Add in the systematic variations to the ChargeMis
+  Float_t _EventChargeMisWeightUp;
+  Float_t _EventChargeMisWeightDown;
 
   //MultijetJESUncertaintyProvider myJES;
   // CalibrationDataVariables CalibVar;

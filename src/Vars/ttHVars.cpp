@@ -39,6 +39,10 @@ ttHVars::ttHVars(bool makeHistos){
 
   _intVars["Jet_numbLoose"] = 10;
   _intVars["Bin2l"] = 10;
+  _intVars["TTHLep_2L"] = 10;
+  _intVars["TTHLep_2Ele"] = 10;
+  _intVars["TTHLep_2Mu"] = 10;
+  _intVars["TTHLep_MuEle"] = 10;
   _floatVars["SubCat2l"] = 20.;
     
   _floatVars["massL"] = 800.;
@@ -83,22 +87,22 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["minMllAFOS"] = 400.;
   _floatVars["minMllSFOS"] = 400.;
   _floatVars["Hj1_BDT"] = -1.;
-  _floatVars["leadLep_isMatchRightCharge"] = 1.;
+  _floatVars["leadLep_isMatchRightCharge"] = 2.;
   _floatVars["leadLep_mcMatchId"] = 100.;
-  _floatVars["leadLep_isFromTop"] = 1.;
-  _floatVars["leadLep_isFromH"] = 1.;
-  _floatVars["leadLep_isFromB"] = 1.;
-  _floatVars["leadLep_isFromC"] = 1.;
-  _floatVars["leadLep_mcPromptGamma"] = 1.;
-  _floatVars["leadLep_mcPromptFS"] = 1.;
-  _floatVars["secondLep_isMatchRightCharge"] = 1.;
+  _floatVars["leadLep_isFromTop"] = 2.;
+  _floatVars["leadLep_isFromH"] = 2.;
+  _floatVars["leadLep_isFromB"] = 2.;
+  _floatVars["leadLep_isFromC"] = 2.;
+  _floatVars["leadLep_mcPromptGamma"] = 2.;
+  _floatVars["leadLep_mcPromptFS"] = 2.;
+  _floatVars["secondLep_isMatchRightCharge"] = 2.;
   _floatVars["secondLep_mcMatchId"] = 100.;
-  _floatVars["secondLep_isFromTop"] = 1.;
-  _floatVars["secondLep_isFromH"] = 1.;
-  _floatVars["secondLep_isFromB"] = 1.;
-  _floatVars["secondLep_isFromC"] = 1.;
-  _floatVars["secondLep_mcPromptGamma"] = 1.;
-  _floatVars["secondLep_mcPromptFS"] = 1.;
+  _floatVars["secondLep_isFromTop"] = 2.;
+  _floatVars["secondLep_isFromH"] = 2.;
+  _floatVars["secondLep_isFromB"] = 2.;
+  _floatVars["secondLep_isFromC"] = 2.;
+  _floatVars["secondLep_mcPromptGamma"] = 2.;
+  _floatVars["secondLep_mcPromptFS"] = 2.;
 
   SetDoHists(makeHistos);
 
@@ -254,6 +258,10 @@ void ttHVars::FillBranches(EventContainer * evtObj){
      
     _intVars["Jet_numbLoose"] = Jet_numbLoose;
     _intVars["Bin2l"] = Bin2l;
+    _intVars["TTHLep_2L"] = evtObj->TTHLep_2L;
+    _intVars["TTHLep_2Ele"] = evtObj->TTHLep_2Ele;
+    _intVars["TTHLep_2Mu"] = evtObj->TTHLep_2Mu;
+    _intVars["TTHLep_MuEle"] = evtObj->TTHLep_MuEle;
     
     _floatVars["ttbarBDT_2lss"] = ttbarBDT_2lss;
     _floatVars["ttvBDT_2lss"] = ttvBDT_2lss;
