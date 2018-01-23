@@ -44,7 +44,7 @@ class EventWeight : public HistoCut
 public:
 
   // Parameterized Constructor
-  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useLeptonFakeRate = false, Bool_t useTriggerSFs = false ,Bool_t verbose = kFALSE);
+  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useFakeRate = false, Bool_t useTriggerSFs = false ,Bool_t verbose = kFALSE);
   
   // Default Destructor
   ~EventWeight();
@@ -63,7 +63,7 @@ public:
   void setPileUpSyst(Bool_t val=false) { _doPileupSysts=val; };
   void setbWeight(Bool_t val=true) { _usebWeight=val; };
   void setChargeMis(Bool_t val=true) { _useChargeMis=val; };
-  void setLeptonFakeRate(Bool_t val=true) { _useLeptonFakeRate=val; };
+  void setFakeRate(Bool_t val=true) { _useFakeRate=val; };
   void setTriggerSFs(Bool_t val=true) { _useTriggerSFs=val; };
   Bool_t isMCatNLO() const { return _useMCatNLO; };
   Bool_t isPileUpWgt() const { return _usePileUpWgt; };
@@ -71,7 +71,7 @@ public:
   Bool_t isbWeight() const { return _usebWeight; };
   Bool_t isTriggerSFs() const { return _useTriggerSFs; };
   Bool_t isChargeMis() const { return _useChargeMis; };
-  Bool_t isLeptonFakeRate() const { return _useLeptonFakeRate; };
+  Bool_t isFakeRate() const { return _useFakeRate; };
 
     // methods for weighting for MC generatd with NoWeight
   void setNoWeight(Bool_t val=true) { _useNoWeight=val; };
@@ -91,7 +91,7 @@ private:
   Bool_t _useLeptonSFs; // Use lepton SFs. Needs to be configured in the overall config file
   Bool_t _usebTagReshape; // Do CSV discriminant reshaping
   Bool_t _useChargeMis; // set to true if we Use ChargeMis Weighting.
-  Bool_t _useLeptonFakeRate; // set to true if we Use LeptonFakeRate Weighting.
+  Bool_t _useFakeRate; // set to true if we Use FakeRate Weighting.
   Bool_t _useTriggerSFs; // set to true if we Use TriggerSFs Weighting.
   // Histograms
   myTH1F* _hTreeWeight;   // Histogram of input tree weights
@@ -100,7 +100,7 @@ private:
   myTH1F* _hPileUpWeight; // Histogram of PileUpWgt weight
   myTH1F* _hbWeight; // Histogram of b weight
   myTH1F* _hChargeMis; // Histogram of charge misMeasurement
-  myTH1F* _hLeptonFakeRate; // Histogram of Lepton Fake Rate
+  myTH1F* _hFakeRate; // Histogram of Lepton Fake Rate
   myTH1F* _hTriggerSFs; // Histogram of Trigger Sfs
   myTH1F* _hLeptonSFWeight; //Histogram of the lepton SF claculated for the event
   std::map<std::string,myTH1F*> _hbTagReshape; //Map of histograms containing the information for b tag reshaping and its associated systematics
@@ -112,6 +112,9 @@ private:
 
   //Histograms that are used for applying charge mismeasurement weight
   TH2F* _chargeMis;
+  //Histograms that are used for applying lepton fake rate weight
+  TH2F* _MuonFakeRate;
+  TH2F* _ElectronFakeRate;
 
   
   //Histograms that are used for applying scale factors to leptons
@@ -142,6 +145,9 @@ private:
   // ChargeMis
   std::tuple<Double_t,Double_t,Double_t> getChargeMisWeight(EventContainer * EventContainerObj);
   void setChargeMisHistograms(TString ChargeMisFileName,TString ChargeMisHistName);
+  // FakeRate
+  std::tuple<Double_t,Double_t,Double_t> getFakeRateWeight(EventContainer * EventContainerObj);
+  void setFakeRateHistograms(TString FakeRateFileName,TString FakeRateMuonHistName, TString FakeRateElectronHistName);
   // BTagReshape
   Double_t getBTagReshape(EventContainer * EventContainerObj, std::string systName = "central");
 

@@ -369,6 +369,21 @@ class EventContainer
   inline Double_t GetEventChargeMisWeightDown() const {return _EventChargeMisWeightDown;};
   inline Double_t EventChargeMisWeightDown() const {return GetEventChargeMisWeightDown();};
 
+  //FakeRate weight per event
+  inline void SetEventFakeRateWeight(const Double_t& FakeRateweight) {_EventFakeRateWeight = FakeRateweight;};
+  inline Double_t GetEventFakeRateWeight() const {return _EventFakeRateWeight;};
+  inline Double_t EventFakeRateWeight() const {return GetEventFakeRateWeight();};
+
+  //FakeRate weightUp per event
+  inline void SetEventFakeRateWeightUp(const Double_t& FakeRateweightUp) {_EventFakeRateWeightUp = FakeRateweightUp;};
+  inline Double_t GetEventFakeRateWeightUp() const {return _EventFakeRateWeightUp;};
+  inline Double_t EventFakeRateWeightUp() const {return GetEventFakeRateWeightUp();};
+
+  //FakeRate weightDown per event
+  inline void SetEventFakeRateWeightDown(const Double_t& FakeRateweightDown) {_EventFakeRateWeightDown = FakeRateweightDown;};
+  inline Double_t GetEventFakeRateWeightDown() const {return _EventFakeRateWeightDown;};
+  inline Double_t EventFakeRateWeightDown() const {return GetEventFakeRateWeightDown();};
+
   //set and get btag weights for central and systematics
   inline void SetEventbTagReshape(const Double_t& lepSFweight, std::string systName = "central" ) {_EventbTagReshape[systName] = lepSFweight;};
   inline Double_t GetEventbTagReshape(std::string systName = "central") {return _EventbTagReshape[systName];};
@@ -444,6 +459,7 @@ class EventContainer
   Float_t _EventbWeight; // this may be the same as the tagging weight, but I'm making it different anyway
   Float_t _EventLepSFWeight;
   Float_t _EventChargeMisWeight;
+  Float_t _EventFakeRateWeight;
   Float_t _EventGenWeight;
   std::map<std::string,Float_t> _EventbTagReshape;
 
@@ -454,6 +470,10 @@ class EventContainer
   //Add in the systematic variations to the ChargeMis
   Float_t _EventChargeMisWeightUp;
   Float_t _EventChargeMisWeightDown;
+
+  //Add in the systematic variations to the FakeRate
+  Float_t _EventFakeRateWeightUp;
+  Float_t _EventFakeRateWeightDown;
 
   //MultijetJESUncertaintyProvider myJES;
   // CalibrationDataVariables CalibVar;

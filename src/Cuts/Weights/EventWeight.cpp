@@ -44,10 +44,10 @@ using namespace std;
  * Input:  Particle class                                                     *
  * Output: None                                                               *
  ******************************************************************************/
-EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useLeptonFakeRate, Bool_t useTriggerSFs, Bool_t verbose):
+EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Bool_t verbose):
   _useLeptonSFs(useLeptonSFs),
   _useChargeMis(useChargeMis),
-  _useLeptonFakeRate(useLeptonFakeRate),
+  _useFakeRate(useFakeRate),
   _useTriggerSFs(useTriggerSFs),
   _usebTagReshape(usebTagReshape),
 
@@ -230,6 +230,11 @@ void EventWeight::BookHistogram()
   _hChargeMis -> SetXAxisTitle("Charge Mis");
   _hChargeMis -> SetYAxisTitle("Events");
 
+  // Histogram of FakeRate weight
+  _hFakeRate =  DeclareTH1F("FakeRateWeight","Event Weight for FakeRate",100,0.,0.1);
+  _hFakeRate -> SetXAxisTitle("Fake Rate");
+  _hFakeRate -> SetYAxisTitle("Events");
+
   //Create one histogtam per b-tag systematic (and central value)
   for (auto const bTagSystName: _bTagSystNames){
     // Histogram of bTag shape weight
@@ -299,6 +304,9 @@ void EventWeight::BookHistogram()
 
   //Set up the lepton charge mismeasurement histograms
   if (_useChargeMis) setChargeMisHistograms(conf->GetValue("Include.ChargeMisFile","null"),conf->GetValue("ChargeMis.HistName","null"));
+  
+  //Set up the lepton fake rate histograms
+  if (_useFakeRate) setFakeRateHistograms(conf->GetValue("Include.LeptonFakeRateFile","null"),conf->GetValue("FakeRate.Muon.HistName","null"),conf->GetValue("FakeRate.Electron.HistName","null"));
   
   //Set up bTagReShape
   if (_usebTagReshape){
@@ -420,8 +428,16 @@ Bool_t EventWeight::Apply()
 
  if(_useChargeMis){
    std::tie(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown) = getChargeMisWeight(EventContainerObj);
-   //std::cout << ChargeMisWeight <<"  " << ChargeMisWeightUp << "  " <<ChargeMisWeightDown << std::endl;
+   //std::cout << EventContainerObj->eventNumber <<" "<<ChargeMisWeight <<"  " << ChargeMisWeightUp << "  " <<ChargeMisWeightDown << std::endl;
    wgt *= ChargeMisWeight;
+ }
+  
+ float FakeRateWeight(1.0), FakeRateWeightUp(1.0), FakeRateWeightDown(1.0);
+
+ if(_useFakeRate){
+   std::tie(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown) = getFakeRateWeight(EventContainerObj);
+   //std::cout << EventContainerObj->eventNumber <<" " <<FakeRateWeight <<"  " << FakeRateWeightUp << "  " <<FakeRateWeightDown << std::endl;
+   wgt *= FakeRateWeight;
  }
   
 
@@ -465,6 +481,10 @@ Bool_t EventWeight::Apply()
   EventContainerObj -> SetEventChargeMisWeight(ChargeMisWeight);
   EventContainerObj -> SetEventChargeMisWeightUp(ChargeMisWeightUp);
   EventContainerObj -> SetEventChargeMisWeightDown(ChargeMisWeightDown);
+  
+  EventContainerObj -> SetEventFakeRateWeight(FakeRateWeight);
+  EventContainerObj -> SetEventFakeRateWeightUp(FakeRateWeightUp);
+  EventContainerObj -> SetEventFakeRateWeightDown(FakeRateWeightDown);
   //Also save the systematic variations in these SFs
   //  EventContainerObj -> SetEventLepSFWeightUp(lepSFWeightUp);
   //EventContainerObj -> SetEventLepSFWeightDown(lepSFWeightDown);
@@ -479,6 +499,7 @@ Bool_t EventWeight::Apply()
   _hLeptonSFWeight -> FillWithoutWeight(EventContainerObj -> GetEventLepSFWeight());
   _hGenWeight	   -> FillWithoutWeight(EventContainerObj -> GetGenWeight());
   _hChargeMis -> FillWithoutWeight(EventContainerObj -> GetEventChargeMisWeight());
+  _hFakeRate -> FillWithoutWeight(EventContainerObj -> GetEventFakeRateWeight());
   for (auto const bSystName: _bTagSystNames) _hbTagReshape[bSystName] -> FillWithoutWeight(EventContainerObj -> GetEventbTagReshape(bSystName));
 
   return kTRUE;
@@ -644,9 +665,9 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getChargeMisWeight(EventCont
   if(lep1.charge()==lep2.charge() || fabs(lep1.pdgId())==13 || fabs(lep2.pdgId())==13) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
   //Get the bin 
   int xAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep1.conept())));
-  int yAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(lep1.Eta())));
+  int yAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
   int xAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep2.conept())));
-  int yAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(lep2.Eta())));
+  int yAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
   //And now get the iso and id SFs/uncs
   Double_t ChargeMisWeight1 = _chargeMis->GetBinContent(xAxisBin1,yAxisBin1);
   Double_t ChargeMisUnc1 = _chargeMis->GetBinError(xAxisBin1,yAxisBin1); 
@@ -655,10 +676,96 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getChargeMisWeight(EventCont
   ChargeMisWeight = ChargeMisWeight1 + ChargeMisWeight2;
   ChargeMisWeightUp = ChargeMisWeight1 + ChargeMisUnc1 + ChargeMisWeight2 + ChargeMisUnc2;
   ChargeMisWeightDown = ChargeMisWeight1 - ChargeMisUnc1 + ChargeMisWeight2 - ChargeMisUnc2;
+  //std::cout << EventContainerObj->eventNumber <<" "<< lep1.conept()<< " " << lep1.Eta()<< " " << lep1.pdgId() << " "<< ChargeMisWeight1<<" "<< lep2.conept()<< " " << lep2.Eta()<< " " << lep2.pdgId() <<" " << ChargeMisWeight2 <<ChargeMisWeight <<"  " << ChargeMisWeightUp << "  " <<ChargeMisWeightDown << std::endl;
   return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
 }
 
+//Used to set up the efficiency histograms for the first time
+/****************************************************************************** 
+ * void EventWeight::setFakeRateHistograms()                                  * 
+ *                                                                            * 
+ * Sets up the histograms that will be used for charge mis measurement weighting         * 
+ *                                                                            * 
+ * Input:  Names of files and histograms that are relevant to the calculation * 
+ * Output: none                                                               * 
+ ******************************************************************************/
+void EventWeight::setFakeRateHistograms(TString FakeRateFileName,TString FakeRateMuonHistName, TString FakeRateElectronHistName){
+  if (FakeRateFileName == "null" || FakeRateMuonHistName == "null" || FakeRateElectronHistName == "null"){
+    std::cout << "You want lepton fake rate included in the weight but you haven't specified files for this! Fix your config!" << std::endl;
+  }
+  TFile* FakeRateFile = TFile::Open(FakeRateFileName,"READ");
+  if (!FakeRateFile) std::cout << "FakeRate file not found!" << std::endl;
+  _MuonFakeRate = (TH2F*)FakeRateFile->Get(FakeRateMuonHistName);
+  _MuonFakeRate->SetDirectory(0);
+  _ElectronFakeRate = (TH2F*)FakeRateFile->Get(FakeRateElectronHistName);
+  _ElectronFakeRate->SetDirectory(0);
+  FakeRateFile->Close();
+}
+
+/****************************************************************************** 
+ * Bool_t EventWeight::getFakeRateWeight()                                      * 
+ *                                                                            * 
+ * Get the relevant pt and eta dependent FakeRate for the leptons in the event     *
+ * and put them into one weight that is returned                              * 
+ *                                                                            * 
+ * Input:  None                                                               * 
+ * Output: Double_t weight to be applied to the event weight                  * 
+ ******************************************************************************/
+std::tuple<Double_t,Double_t,Double_t> EventWeight::getFakeRateWeight(EventContainer* EventContainerObj){
+
+  Double_t FakeRateWeight = 1.0, FakeRateWeightUp = 1.0, FakeRateWeightDown = 1.0;
+  if(EventContainerObj->fakeleptonsVetoPtr->size()<2) return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
+  Lepton lep1 =  EventContainerObj->fakeleptonsVetoPtr->at(0);
+  Lepton lep2 =  EventContainerObj->fakeleptonsVetoPtr->at(1);
+  if(lep1.isTight()==1 && lep2.isTight()==1) return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
+  int xAxisBin1 = 0, yAxisBin1 = 0, xAxisBin2 = 0, yAxisBin2 = 0;
+  Double_t FakeRateWeight1 = 0., FakeRateUnc1 = 0., FakeRateWeight2 = 0., FakeRateUnc2 = 0.;
+  //Get the bin and fake rate for each lepton
+  if(lep1.isTight()==1){
+    // choose fr so that fr/(1-fr)==1
+    FakeRateWeight1 = 0.5;
+    FakeRateUnc1 = 0.;
+  }else if(fabs(lep1.pdgId())==13){
+    xAxisBin1  = std::max(1, std::min(_MuonFakeRate->GetNbinsX(), _MuonFakeRate->GetXaxis()->FindBin(lep1.conept())));
+    yAxisBin1  = std::max(1, std::min(_MuonFakeRate->GetNbinsY(), _MuonFakeRate->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
+    FakeRateWeight1 = _MuonFakeRate->GetBinContent(xAxisBin1,yAxisBin1);
+    FakeRateUnc1 = _MuonFakeRate->GetBinError(xAxisBin1,yAxisBin1); 
+  }else{
+    xAxisBin1  = std::max(1, std::min(_ElectronFakeRate->GetNbinsX(), _ElectronFakeRate->GetXaxis()->FindBin(lep1.conept())));
+    yAxisBin1  = std::max(1, std::min(_ElectronFakeRate->GetNbinsY(), _ElectronFakeRate->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
+    FakeRateWeight1 = _ElectronFakeRate->GetBinContent(xAxisBin1,yAxisBin1);
+    FakeRateUnc1 = _ElectronFakeRate->GetBinError(xAxisBin1,yAxisBin1); 
+  }
+  if(lep2.isTight()==1){
+    // choose fr so that fr/(1-fr)==1
+    FakeRateWeight2 = 0.5;
+    FakeRateUnc2 = 0.;
+  }else if(fabs(lep2.pdgId())==13){
+    xAxisBin2  = std::max(1, std::min(_MuonFakeRate->GetNbinsX(), _MuonFakeRate->GetXaxis()->FindBin(lep2.conept())));
+    yAxisBin2  = std::max(1, std::min(_MuonFakeRate->GetNbinsY(), _MuonFakeRate->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
+    FakeRateWeight2 = _MuonFakeRate->GetBinContent(xAxisBin2,yAxisBin2);
+    FakeRateUnc2 = _MuonFakeRate->GetBinError(xAxisBin2,yAxisBin2); 
+  }else{
+    xAxisBin2  = std::max(1, std::min(_ElectronFakeRate->GetNbinsX(), _ElectronFakeRate->GetXaxis()->FindBin(lep2.conept())));
+    yAxisBin2  = std::max(1, std::min(_ElectronFakeRate->GetNbinsY(), _ElectronFakeRate->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
+    FakeRateWeight2 = _ElectronFakeRate->GetBinContent(xAxisBin2,yAxisBin2);
+    FakeRateUnc2 = _ElectronFakeRate->GetBinError(xAxisBin2,yAxisBin2); 
+  }
+  //And now get the Event Weights/uncs
+  FakeRateWeight = (FakeRateWeight1/(1-FakeRateWeight1))*(FakeRateWeight2/(1-FakeRateWeight2));
+  FakeRateWeightUp = ((FakeRateWeight1+FakeRateUnc1)/(1-(FakeRateWeight1+FakeRateUnc1)))*((FakeRateWeight2+FakeRateUnc2)/(1-(FakeRateWeight2+FakeRateUnc2)));
+  FakeRateWeightDown = ((FakeRateWeight1-FakeRateUnc1)/(1-(FakeRateWeight1-FakeRateUnc1)))*((FakeRateWeight2-FakeRateUnc2)/(1-(FakeRateWeight2-FakeRateUnc2)));
+  if(lep1.isTight()==0 && lep2.isTight()==0){
+      FakeRateWeight *= -1;
+      FakeRateWeightUp *= -1;
+      FakeRateWeightDown *= -1;
+  }
+  //std::cout << EventContainerObj->eventNumber <<" "<< lep1.conept()<< " " << lep1.Eta()<< " " << lep1.pdgId() << " "<< FakeRateWeight1<<" "<< lep2.conept()<< " " << lep2.Eta()<< " " << lep2.pdgId() <<" " << FakeRateWeight2 <<FakeRateWeight <<"  " << FakeRateWeightUp << "  " <<FakeRateWeightDown << std::endl;
+  return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
+}
+
 /******************************************************************************  
+******************************************************************************  
  * Double_t EventWeight::getBTagReshape()                                     *  
  *                                                                            *  
  * Get the reshaped CSV discriminant from the reshaping class                 *
