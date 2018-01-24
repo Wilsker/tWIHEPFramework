@@ -45,7 +45,8 @@ public :
    std::vector<int>     *Gen_BdaughtIndices;
    Int_t           HiggsDecay;
    Int_t           ttHFCategory;
-   Int_t           EVENT_event;
+   uint64_t        EVENT_event;
+   //Int_t        EVENT_event;
    Int_t           EVENT_run;
    Int_t           EVENT_lumiBlock;
    Double_t        EVENT_genWeight;
