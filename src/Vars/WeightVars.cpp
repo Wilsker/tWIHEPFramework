@@ -19,6 +19,7 @@ WeightVars::WeightVars(){
   _floatVars["lepSF"] = 0.;
   _floatVars["ChargeMis"] = 0.;
   _floatVars["FakeRate"] = 0.;
+  _floatVars["TriggerSF"] = 0.;
 
   _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2"};
 
@@ -32,6 +33,8 @@ WeightVars::WeightVars(){
   _floatVars["ChargeMis_SysDown"] = 0.;
   _floatVars["FakeRate_SysUp"] = 0.;
   _floatVars["FakeRate_SysDown"] = 0.;
+  _floatVars["TriggerSF_SysUp"] = 0.;
+  _floatVars["TriggerSF_SysDown"] = 0.;
   
 }
 
@@ -44,6 +47,7 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["lepSF"] = evtObj->GetEventLepSFWeight();
   _floatVars["ChargeMis"] = evtObj->GetEventChargeMisWeight();
   _floatVars["FakeRate"] = evtObj->GetEventFakeRateWeight();
+  _floatVars["TriggerSF"] = evtObj->GetEventTriggerWeight();
 
   //Get the systematic variations
   _floatVars["lepSF_SysUp"] = evtObj->GetEventLepSFWeightUp();
@@ -52,6 +56,8 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["ChargeMis_SysDown"] = evtObj->GetEventChargeMisWeightDown();
   _floatVars["FakeRate_SysUp"] = evtObj->GetEventFakeRateWeightUp();
   _floatVars["FakeRate_SysDown"] = evtObj->GetEventFakeRateWeightDown();
+  _floatVars["TriggerSF_SysUp"] = evtObj->GetEventTriggerWeightUp();
+  _floatVars["TriggerSF_SysDown"] = evtObj->GetEventTriggerWeightDown();
   
   //Pileup variations
   _floatVars["puWeight_SysUp"] = evtObj->GetEventPileupMinBiasUpWeight();

@@ -44,7 +44,7 @@ class EventWeight : public HistoCut
 public:
 
   // Parameterized Constructor
-  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useFakeRate = false, Bool_t useTriggerSFs = false ,Bool_t verbose = kFALSE);
+  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useFakeRate = false, Bool_t useTriggerSFs = false , Int_t whichTrig = 5, Bool_t verbose = kFALSE);
   
   // Default Destructor
   ~EventWeight();
@@ -93,6 +93,7 @@ private:
   Bool_t _useChargeMis; // set to true if we Use ChargeMis Weighting.
   Bool_t _useFakeRate; // set to true if we Use FakeRate Weighting.
   Bool_t _useTriggerSFs; // set to true if we Use TriggerSFs Weighting.
+  Int_t _whichTrigger;//2:mm;3:ee;4:em;5:2l
   // Histograms
   myTH1F* _hTreeWeight;   // Histogram of input tree weights
   myTH1F* _hGlobalWeight; // Histogram of global weights
@@ -148,6 +149,9 @@ private:
   // FakeRate
   std::tuple<Double_t,Double_t,Double_t> getFakeRateWeight(EventContainer * EventContainerObj);
   void setFakeRateHistograms(TString FakeRateFileName,TString FakeRateMuonHistName, TString FakeRateElectronHistName);
+  // Trigger Sfs
+  std::tuple<Double_t,Double_t,Double_t> getTriggerWeight();
+
   // BTagReshape
   Double_t getBTagReshape(EventContainer * EventContainerObj, std::string systName = "central");
 

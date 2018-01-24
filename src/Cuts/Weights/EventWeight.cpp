@@ -44,13 +44,13 @@ using namespace std;
  * Input:  Particle class                                                     *
  * Output: None                                                               *
  ******************************************************************************/
-EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Bool_t verbose):
+EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Int_t whichTrig, Bool_t verbose):
   _useLeptonSFs(useLeptonSFs),
   _useChargeMis(useChargeMis),
   _useFakeRate(useFakeRate),
   _useTriggerSFs(useTriggerSFs),
   _usebTagReshape(usebTagReshape),
-
+  _whichTrigger(whichTrig),
   _verbose(verbose)
 {
   //pileup is NOT applied by default.  Instead it is applied by the user, and stored in the tree for later application
@@ -234,6 +234,11 @@ void EventWeight::BookHistogram()
   _hFakeRate =  DeclareTH1F("FakeRateWeight","Event Weight for FakeRate",100,0.,0.1);
   _hFakeRate -> SetXAxisTitle("Fake Rate");
   _hFakeRate -> SetYAxisTitle("Events");
+
+  // Histogram of Trigger weight
+  _hTriggerSFs =  DeclareTH1F("TriggerWeight","Event Weight for Trigger",100,0.5,1.5);
+  _hTriggerSFs -> SetXAxisTitle("TriggerSFs");
+  _hTriggerSFs -> SetYAxisTitle("Events");
 
   //Create one histogtam per b-tag systematic (and central value)
   for (auto const bTagSystName: _bTagSystNames){
@@ -440,6 +445,13 @@ Bool_t EventWeight::Apply()
    wgt *= FakeRateWeight;
  }
   
+ float TriggerWeight(1.0), TriggerWeightUp(1.0), TriggerWeightDown(1.0);
+
+ if(_useTriggerSFs){
+   std::tie(TriggerWeight,TriggerWeightUp,TriggerWeightDown) = getTriggerWeight();
+   std::cout << EventContainerObj->eventNumber <<" " <<TriggerWeight <<"  " << TriggerWeightUp << "  " <<TriggerWeightDown << std::endl;
+   wgt *= TriggerWeight;
+ }
 
 
  std::map<std::string,float> bTagReshape;
@@ -485,6 +497,10 @@ Bool_t EventWeight::Apply()
   EventContainerObj -> SetEventFakeRateWeight(FakeRateWeight);
   EventContainerObj -> SetEventFakeRateWeightUp(FakeRateWeightUp);
   EventContainerObj -> SetEventFakeRateWeightDown(FakeRateWeightDown);
+  
+  EventContainerObj -> SetEventTriggerWeight(TriggerWeight);
+  EventContainerObj -> SetEventTriggerWeightUp(TriggerWeightUp);
+  EventContainerObj -> SetEventTriggerWeightDown(TriggerWeightDown);
   //Also save the systematic variations in these SFs
   //  EventContainerObj -> SetEventLepSFWeightUp(lepSFWeightUp);
   //EventContainerObj -> SetEventLepSFWeightDown(lepSFWeightDown);
@@ -500,6 +516,7 @@ Bool_t EventWeight::Apply()
   _hGenWeight	   -> FillWithoutWeight(EventContainerObj -> GetGenWeight());
   _hChargeMis -> FillWithoutWeight(EventContainerObj -> GetEventChargeMisWeight());
   _hFakeRate -> FillWithoutWeight(EventContainerObj -> GetEventFakeRateWeight());
+  _hTriggerSFs -> FillWithoutWeight(EventContainerObj -> GetEventTriggerWeight());
   for (auto const bSystName: _bTagSystNames) _hbTagReshape[bSystName] -> FillWithoutWeight(EventContainerObj -> GetEventbTagReshape(bSystName));
 
   return kTRUE;
@@ -764,6 +781,40 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getFakeRateWeight(EventConta
   return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
 }
 
+/****************************************************************************** 
+ * Bool_t EventWeight::getTriggerWeight()                                      * 
+ *                                                                            * 
+ * Get the relevant pt and eta dependent Trigger for the leptons in the event     *
+ * and put them into one weight that is returned                              * 
+ *                                                                            * 
+ * Input:  None                                                               * 
+ * Output: Double_t weight to be applied to the event weight                  * 
+ ******************************************************************************/
+std::tuple<Double_t,Double_t,Double_t> EventWeight::getTriggerWeight(){
+  Double_t TriggerWeight = 1.0, TriggerWeightUp = 1.0, TriggerWeightDown = 1.0;
+  if(_whichTrigger==2){//mm
+      TriggerWeight = 1.0; 
+      TriggerWeightUp = 1.01;
+      TriggerWeightDown = 0.99;
+  }else if(_whichTrigger==3){//ee
+      TriggerWeight = 1.01; 
+      TriggerWeightUp = 1.03;
+      TriggerWeightDown = 0.99;
+  }else if(_whichTrigger==4){//em
+      TriggerWeight = 1.01; 
+      TriggerWeightUp = 1.02;
+      TriggerWeightDown = 1.00;
+  }else if(_whichTrigger==5){//2l
+      TriggerWeight = 1.01; 
+      TriggerWeightUp = 1.02;
+      TriggerWeightDown = 1.00;
+  }else{
+      TriggerWeight = 1.00; 
+      TriggerWeightUp = 1.03;
+      TriggerWeightDown = 0.97;
+  }
+  return std::make_tuple(TriggerWeight,TriggerWeightUp,TriggerWeightDown);
+}
 /******************************************************************************  
 ******************************************************************************  
  * Double_t EventWeight::getBTagReshape()                                     *  

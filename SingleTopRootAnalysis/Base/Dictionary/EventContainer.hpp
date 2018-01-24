@@ -384,6 +384,21 @@ class EventContainer
   inline Double_t GetEventFakeRateWeightDown() const {return _EventFakeRateWeightDown;};
   inline Double_t EventFakeRateWeightDown() const {return GetEventFakeRateWeightDown();};
 
+  //Trigger weight per event
+  inline void SetEventTriggerWeight(const Double_t& Triggerweight) {_EventTriggerWeight = Triggerweight;};
+  inline Double_t GetEventTriggerWeight() const {return _EventTriggerWeight;};
+  inline Double_t EventTriggerWeight() const {return GetEventTriggerWeight();};
+
+  //Trigger weightUp per event
+  inline void SetEventTriggerWeightUp(const Double_t& TriggerweightUp) {_EventTriggerWeightUp = TriggerweightUp;};
+  inline Double_t GetEventTriggerWeightUp() const {return _EventTriggerWeightUp;};
+  inline Double_t EventTriggerWeightUp() const {return GetEventTriggerWeightUp();};
+
+  //Trigger weightDown per event
+  inline void SetEventTriggerWeightDown(const Double_t& TriggerweightDown) {_EventTriggerWeightDown = TriggerweightDown;};
+  inline Double_t GetEventTriggerWeightDown() const {return _EventTriggerWeightDown;};
+  inline Double_t EventTriggerWeightDown() const {return GetEventTriggerWeightDown();};
+
   //set and get btag weights for central and systematics
   inline void SetEventbTagReshape(const Double_t& lepSFweight, std::string systName = "central" ) {_EventbTagReshape[systName] = lepSFweight;};
   inline Double_t GetEventbTagReshape(std::string systName = "central") {return _EventbTagReshape[systName];};
@@ -460,6 +475,7 @@ class EventContainer
   Float_t _EventLepSFWeight;
   Float_t _EventChargeMisWeight;
   Float_t _EventFakeRateWeight;
+  Float_t _EventTriggerWeight;
   Float_t _EventGenWeight;
   std::map<std::string,Float_t> _EventbTagReshape;
 
@@ -474,6 +490,10 @@ class EventContainer
   //Add in the systematic variations to the FakeRate
   Float_t _EventFakeRateWeightUp;
   Float_t _EventFakeRateWeightDown;
+
+  //Add in the systematic variations to the Trigger
+  Float_t _EventTriggerWeightUp;
+  Float_t _EventTriggerWeightDown;
 
   //MultijetJESUncertaintyProvider myJES;
   // CalibrationDataVariables CalibVar;
