@@ -415,6 +415,7 @@ void EventContainer::SetUseUnisolatedLeptons(const Bool_t& useUnisolatedLeptons,
   _trigID = whichtrig;
   electronsToUsePtr = &tightElectrons;
   muonsToUsePtr = &tightMuons;
+  leptonsToUsePtr = &tightLeptons;
   if (_trigID == 0 && _useUnisolatedLeptons){
     electronsToUsePtr = &unIsolatedElectrons;
   }

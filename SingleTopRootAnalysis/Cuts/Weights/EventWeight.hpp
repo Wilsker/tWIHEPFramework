@@ -124,8 +124,12 @@ private:
   TH2F* _muonIDSF;
   TH2F* _muonTrigSF;
   TGraphAsymmErrors* _muonTkSF;
+  TH2F* _muonLooseToTightSF;
   TH2F* _eleRecoSF;
-  TH2F* _eleIDSF;
+  TH2F* _eleID1SF;
+  TH2F* _eleID2SF;
+  TH2F* _eleID3SF;
+  TH2F* _eleLooseToTightSF;
 
   //Pileup reweighting hisotgrams
   TH1F* _dataPV;
@@ -142,7 +146,8 @@ private:
 
   // LeptonSFs
   std::tuple<Double_t,Double_t,Double_t> getLeptonWeight(EventContainer * EventContainerObj);
-  void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleIDHistName);
+  //void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString muonTKGraphName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleID_1_HistName, TString eleID_2_HistName, TString eleID_3_HistName, TString muonLooseToTightFileName, TString muonLooseToTightHistName, TString eleLooseToTightFileName, TString eleLooseToTightHistName);
+  void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleID_1_HistName, TString eleID_2_HistName, TString eleID_3_HistName, TString muonLooseToTightFileName, TString muonLooseToTightHistName, TString eleLooseToTightFileName, TString eleLooseToTightHistName);
   // ChargeMis
   std::tuple<Double_t,Double_t,Double_t> getChargeMisWeight(EventContainer * EventContainerObj);
   void setChargeMisHistograms(TString ChargeMisFileName,TString ChargeMisHistName);

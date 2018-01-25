@@ -305,7 +305,7 @@ void EventWeight::BookHistogram()
   } //if
 
   //Set up the lepton efficiency SF histograms
-  if (_useLeptonSFs) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSHHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleIDHistName","null"));
+  if (_useLeptonSFs) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFsFile","null"),conf->GetValue("LeptonID.MuonLooseToTightHistName","null"),conf->GetValue("Include.EleLooseToTightSFsFile","null"),conf->GetValue("LeptonID.EleLooseToTightHistName","null"));
 
   //Set up the lepton charge mismeasurement histograms
   if (_useChargeMis) setChargeMisHistograms(conf->GetValue("Include.ChargeMisFile","null"),conf->GetValue("ChargeMis.HistName","null"));
@@ -449,7 +449,7 @@ Bool_t EventWeight::Apply()
 
  if(_useTriggerSFs){
    std::tie(TriggerWeight,TriggerWeightUp,TriggerWeightDown) = getTriggerWeight();
-   std::cout << EventContainerObj->eventNumber <<" " <<TriggerWeight <<"  " << TriggerWeightUp << "  " <<TriggerWeightDown << std::endl;
+   //std::cout << EventContainerObj->eventNumber <<" " <<TriggerWeight <<"  " << TriggerWeightUp << "  " <<TriggerWeightDown << std::endl;
    wgt *= TriggerWeight;
  }
 
@@ -532,48 +532,78 @@ Bool_t EventWeight::Apply()
  * Input:  Names of files and histograms that are relevant to the calculation * 
  * Output: none                                                               * 
  ******************************************************************************/
-void EventWeight::setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleIDHistName){
-
+void EventWeight::setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleID_1_HistName, TString eleID_2_HistName, TString eleID_3_HistName, TString muonLooseToTightFileName, TString muonLooseToTightHistName, TString eleLooseToTightFileName, TString eleLooseToTightHistName){
   if (muonIsoFileName == "null" || muonIDFileName == "null"){
     std::cout << "You want lepton SFs included in the weight but you haven't specified files for this! Fix your config!" << std::endl;
   }
-  
+
+  //std::cout << " before muonID " << std::endl;  
   TFile* muonIDFile = TFile::Open(muonIDFileName,"READ");
   if (!muonIDFile) std::cout << "Muon ID file not found!" << std::endl;
-  _muonIDSF = (TH2F*)muonIDFile->Get(muonIDHistName+"/pt_abseta_ratio");
+  _muonIDSF = (TH2F*)muonIDFile->Get(muonIDHistName)->Clone();
   _muonIDSF->SetDirectory(0);
   muonIDFile->Close();
 
+  //std::cout << " before muonIso " << std::endl;  
   TFile* muonIsoFile = TFile::Open(muonIsoFileName,"READ");
   if (!muonIsoFile) std::cout << "Muon iso file not found!" << std::endl;
-  _muonIsoSF = (TH2F*)muonIsoFile->Get(muonIsoHistName+"/pt_abseta_ratio")->Clone();
+  _muonIsoSF = (TH2F*)muonIsoFile->Get(muonIsoHistName)->Clone();
   _muonIsoSF->SetDirectory(0);
   muonIsoFile->Close();
 
+  //std::cout << " before muonTrig " << std::endl;  
   TFile* muonTrigFile = TFile::Open(muonTrigFileName,"READ");
   if (!muonTrigFile) std::cout << "Muon trig file not found!" << std::endl;
-  _muonTrigSF = (TH2F*)muonTrigFile->Get(muonTrigHistName+"/pt_abseta_ratio")->Clone();
+  _muonTrigSF = (TH2F*)muonTrigFile->Get(muonTrigHistName)->Clone();
   _muonTrigSF->SetDirectory(0);
   muonTrigFile->Close();
 
+  //std::cout << " before muonTk " << std::endl;  
   TFile* muonTkFile = TFile::Open(muonTkFileName,"READ");
   if (!muonTkFile) std::cout << "Muon tracker file not found!" << std::endl;
-  _muonTkSF = (TGraphAsymmErrors*)muonTkFile->Get("ratio_eff_aeta_dr030e030_corr")->Clone();
+  _muonTkSF = (TGraphAsymmErrors*)muonTkFile->Get("ratio_eff_eta3_dr030e030_corr")->Clone();
   //  _muonTkSF->SetDirectory(0);
   muonTkFile->Close();
 
+  //std::cout << " before eleReco " << std::endl;  
   TFile* eleRecoFile = TFile::Open(eleRecoFileName,"READ");
   if (!eleRecoFile) std::cout << "Electron reco SF file not found!" << std::endl;
   _eleRecoSF = (TH2F*)eleRecoFile->Get(eleRecoHistName)->Clone();
   _eleRecoSF->SetDirectory(0);
   eleRecoFile->Close();
 
+  //std::cout << " before eleID " << std::endl;  
   TFile* eleIDFile = TFile::Open(eleIDFileName,"READ");
   if (!eleIDFile) std::cout << "Electron ID SF file not found!" << std::endl;
-  _eleIDSF = (TH2F*)eleIDFile->Get(eleIDHistName)->Clone();
-  _eleIDSF->SetDirectory(0);
+  _eleID1SF = (TH2F*)eleIDFile->Get(eleID_1_HistName)->Clone();
+  _eleID1SF->SetDirectory(0);
+  _eleID2SF = (TH2F*)eleIDFile->Get(eleID_2_HistName)->Clone();
+  _eleID2SF->SetDirectory(0);
+  _eleID3SF = (TH2F*)eleIDFile->Get(eleID_3_HistName)->Clone();
+  _eleID3SF->SetDirectory(0);
   eleIDFile->Close();
-  delete muonIsoFile,muonIDFile,muonTrigFile,muonTkFile,eleRecoFile,eleIDFile;
+  
+  //std::cout << " before muonLooseToTightFile " << std::endl;  
+  TFile* muonLooseToTightFile = TFile::Open(muonLooseToTightFileName,"READ");
+  if (!muonLooseToTightFile) std::cout << "Muon looseToTight file not found!" << std::endl;
+  //std::cout << " before muonLooseToTightHist " << std::endl;  
+  _muonLooseToTightSF = (TH2F*)muonLooseToTightFile->Get(muonLooseToTightHistName)->Clone();
+  //_muonLooseToTightSF = (TH2F*)muonLooseToTightFile->Get("sf")->Clone();
+  //std::cout << " before muonLooseToTightDirectory " << std::endl;  
+  _muonLooseToTightSF->SetDirectory(0);
+  //std::cout << " before muonLooseToTightClose " << std::endl;  
+  muonLooseToTightFile->Close();
+
+  //std::cout << " before eleLooseToTight " << std::endl;  
+  TFile* eleLooseToTightFile = TFile::Open(eleLooseToTightFileName,"READ");
+  if (!eleLooseToTightFile) std::cout << "Ele looseToTight file not found!" << std::endl;
+  //std::cout<< "ele hist name " << eleLooseToTightHistName << std::endl;
+  _eleLooseToTightSF = (TH2F*)eleLooseToTightFile->Get(eleLooseToTightHistName)->Clone();
+  //_eleLooseToTightSF = (TH2F*)eleLooseToTightFile->Get("sf")->Clone();
+  _eleLooseToTightSF->SetDirectory(0);
+  eleLooseToTightFile->Close();
+
+  delete muonIsoFile,muonIDFile,muonTrigFile,muonTkFile,eleRecoFile,eleIDFile, muonLooseToTightFile, eleLooseToTightFile;
 
 }
 
@@ -589,56 +619,120 @@ void EventWeight::setLeptonHistograms(TString muonIDFileName, TString muonIDHist
 std::tuple<Double_t,Double_t,Double_t> EventWeight::getLeptonWeight(EventContainer* EventContainerObj){
 
   Double_t leptonWeight = 1.0, leptonWeightUp = 1.0, leptonWeightDown = 1.0;
-
-  for (auto const & muon : *EventContainerObj->muonsToUsePtr){
-    //Get the bin shared by iso and id SFs
-    Int_t xAxisBin = _muonIsoSF->GetXaxis()->FindBin(muon.Pt());
-    if (muon.Pt() > 120.) xAxisBin = _muonIsoSF->GetXaxis()->FindBin(119.);
-    Int_t yAxisBin = _muonIsoSF->GetYaxis()->FindBin(std::fabs(muon.Eta()));
-    if (std::fabs(muon.Eta()) > 2.4) yAxisBin = _muonIsoSF->GetYaxis()->FindBin(2.39);
-    //And now get the iso and id SFs/uncs
-    Float_t isoSF = _muonIsoSF->GetBinContent(xAxisBin,yAxisBin);
-    Float_t isoUnc = _muonIsoSF->GetBinError(xAxisBin,yAxisBin);
-    Float_t idSF = _muonIDSF->GetBinContent(xAxisBin,yAxisBin);
-    Float_t idUnc = _muonIDSF->GetBinError(xAxisBin,yAxisBin);
-    
-    //Get the bin for trigger SF
-    Int_t xAxisBinTrig = _muonTrigSF->GetXaxis()->FindBin(muon.Pt());
-    if (muon.Pt() > 500.) xAxisBinTrig = _muonTrigSF->GetXaxis()->FindBin(499.);
-    Int_t yAxisBinTrig = _muonTrigSF->GetYaxis()->FindBin(std::fabs(muon.Eta()));
-    if (std::fabs(muon.Eta()) > 2.4) yAxisBinTrig = _muonTrigSF->GetYaxis()->FindBin(2.39);
-    //Get the trigSF
-    Float_t trigSF = _muonTrigSF->GetBinContent(xAxisBinTrig,yAxisBinTrig);
-    Float_t trigUnc = _muonTrigSF->GetBinError(xAxisBinTrig,yAxisBinTrig);
-
-    //Evaluate muon tk
-    Float_t tkSF = _muonTkSF->Eval(std::fabs(muon.Eta()));
-
-    leptonWeight *= isoSF * idSF * trigSF * tkSF;
-    leptonWeightUp *= (isoSF + isoUnc) * (idSF + idUnc) * (trigSF + trigUnc) * tkSF;
-    leptonWeightDown *= (isoSF - isoUnc) * (idSF - idUnc) * (trigSF - trigUnc) * tkSF;
+  if(_whichTrigger <=5 && _whichTrigger >=2 ){//if it is ttH 2l category
+    for(auto const & lep: *EventContainerObj->leptonsToUsePtr){
+        Float_t _L1_SF = 1.0, _L1_SFUnc =0.;//iso; id1
+        Float_t _L2_SF = 1.0, _L2_SFUnc =0.;//id; id2
+        Float_t _L3_SF = 1.0, _L3_SFUnc =0.;//trig; id3
+        Float_t _L4_SF = 1.0, _L4_SFUnc =0.;//tk; gsf
+        Float_t _ttH_SF = 1.0, _ttH_SFUnc =0.;
+        if(fabs(lep.pdgId()==13)){
+            // get iso
+            int ptbin  = std::max(1, std::min(_muonIsoSF->GetNbinsX(), _muonIsoSF->GetXaxis()->FindBin(lep.Pt()))); 
+            int etabin = std::max(1, std::min(_muonIsoSF->GetNbinsY(), _muonIsoSF->GetYaxis()->FindBin(fabs(lep.Eta()))));
+            _L1_SF = _muonIsoSF->GetBinContent(ptbin, etabin);
+            _L1_SFUnc = _muonIsoSF->GetBinError(ptbin, etabin);
+            // id
+            ptbin  = std::max(1, std::min(_muonIDSF->GetNbinsX(), _muonIDSF->GetXaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_muonIDSF->GetNbinsY(), _muonIDSF->GetYaxis()->FindBin(fabs(lep.Eta()))));
+            _L2_SF = _muonIDSF->GetBinContent(ptbin, etabin);
+            _L2_SFUnc = _muonIDSF->GetBinError(ptbin, etabin);
+            // get trig
+            ptbin  = std::max(1, std::min(_muonTrigSF->GetNbinsX(), _muonTrigSF->GetXaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_muonTrigSF->GetNbinsY(), _muonTrigSF->GetYaxis()->FindBin(fabs(lep.Eta()))));
+            _L3_SF = _muonTrigSF->GetBinContent(ptbin, etabin);
+            _L3_SFUnc = _muonTrigSF->GetBinError(ptbin, etabin);
+            // get Tk SF
+            double eta1 = std::max(float(_muonTkSF->GetXaxis()->GetXmin()+1e-5), std::min(float(_muonTkSF->GetXaxis()->GetXmax()-1e-5), float(lep.Eta())));
+            _L4_SF = _muonTkSF->Eval(eta1);
+            //get ttH SF
+            ptbin  = std::max(1, std::min(_muonLooseToTightSF->GetNbinsX(), _muonLooseToTightSF->GetXaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_muonLooseToTightSF->GetNbinsY(), _muonLooseToTightSF->GetYaxis()->FindBin(fabs(lep.Eta()))));
+            _ttH_SF = _muonLooseToTightSF->GetBinContent(ptbin, etabin);
+            _ttH_SFUnc = _muonLooseToTightSF->GetBinError(ptbin, etabin);
+        }else{
+            //get id1
+            int ptbin  = std::max(1, std::min(_eleID1SF->GetNbinsX(), _eleID1SF->GetXaxis()->FindBin(lep.Pt()))); 
+            int etabin = std::max(1, std::min(_eleID1SF->GetNbinsY(), _eleID1SF->GetYaxis()->FindBin(lep.SCeta())));
+            _L1_SF = _eleID1SF->GetBinContent(ptbin, etabin);
+            _L1_SFUnc = _eleID1SF->GetBinError(ptbin, etabin);
+            //get id2
+            ptbin  = std::max(1, std::min(_eleID2SF->GetNbinsX(), _eleID2SF->GetXaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_eleID2SF->GetNbinsY(), _eleID2SF->GetYaxis()->FindBin(lep.SCeta())));
+            _L2_SF = _eleID2SF->GetBinContent(ptbin, etabin);
+            _L2_SFUnc = _eleID2SF->GetBinError(ptbin, etabin);
+            //get id3
+            ptbin  = std::max(1, std::min(_eleID3SF->GetNbinsX(), _eleID3SF->GetXaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_eleID3SF->GetNbinsY(), _eleID3SF->GetYaxis()->FindBin(lep.SCeta())));
+            _L3_SF = _eleID3SF->GetBinContent(ptbin, etabin);
+            _L3_SFUnc = _eleID3SF->GetBinError(ptbin, etabin);
+            //get reco be careful of swapped pt eta bin
+            ptbin  = std::max(1, std::min(_eleID3SF->GetNbinsY(), _eleID3SF->GetYaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_eleID3SF->GetNbinsX(), _eleID3SF->GetXaxis()->FindBin(lep.SCeta())));
+            _L4_SF = _eleID3SF->GetBinContent(etabin, ptbin);
+            _L4_SFUnc = _eleID3SF->GetBinError(etabin, ptbin);
+            //get ttH SF
+            ptbin  = std::max(1, std::min(_eleLooseToTightSF->GetNbinsX(), _eleLooseToTightSF->GetXaxis()->FindBin(lep.Pt()))); 
+            etabin = std::max(1, std::min(_eleLooseToTightSF->GetNbinsY(), _eleLooseToTightSF->GetYaxis()->FindBin(fabs(lep.SCeta()))));
+            _ttH_SF = _eleLooseToTightSF->GetBinContent(ptbin, etabin);
+            _ttH_SFUnc = _eleLooseToTightSF->GetBinError(ptbin, etabin);
+        }
+        leptonWeight *= _L1_SF * _L2_SF * _L3_SF * _L4_SF * _ttH_SF ;
+        leptonWeightUp *= (_L1_SF + _L1_SFUnc) * (_L2_SF + _L2_SFUnc) * (_L3_SF + _L3_SFUnc) * (_L4_SF+_L4_SFUnc) * ( _ttH_SF + _ttH_SFUnc);
+        leptonWeightDown *= (_L1_SF - _L1_SFUnc) * (_L2_SF - _L2_SFUnc) * (_L3_SF - _L3_SFUnc) * ( _L4_SF - _L4_SFUnc) * ( _ttH_SF - _ttH_SFUnc);
+    }
   }
-
-  for (auto const & ele : *EventContainerObj->electronsToUsePtr){
-    //Get which bins we're in need of for the reco SF
-    Int_t xAxisBin = _eleRecoSF->GetXaxis()->FindBin(ele.scEta());
-    if (ele.scEta() > 2.5) xAxisBin = _eleRecoSF->GetXaxis()->FindBin(2.49);
-    Int_t yAxisBin = _eleRecoSF->GetYaxis()->FindBin(ele.Pt());
-    if (ele.Pt() > 500) xAxisBin = _eleRecoSF->GetYaxis()->FindBin(499.);
-    //Now get the reco and id SFs
-    Float_t recoSF = _eleRecoSF->GetBinContent(xAxisBin,yAxisBin);
-    Float_t recoUnc = _eleRecoSF->GetBinError(xAxisBin,yAxisBin);
-    //Now do ID
-    xAxisBin = _eleIDSF->GetXaxis()->FindBin(ele.scEta());
-    if (ele.scEta() > 2.5) xAxisBin = _eleIDSF->GetXaxis()->FindBin(2.49);
-    yAxisBin = _eleIDSF->GetYaxis()->FindBin(ele.Pt());
-    if (ele.Pt() > 500) xAxisBin = _eleIDSF->GetYaxis()->FindBin(499.);
-    Float_t idSF = _eleIDSF->GetBinContent(xAxisBin,yAxisBin);
-    Float_t idUnc = _eleIDSF->GetBinError(xAxisBin,yAxisBin);
-    if (_verbose) std::cout << "Reco: " << recoSF << " ID: " << idSF << " x: " << xAxisBin << " y: " << yAxisBin <<std::endl;
-    leptonWeight *= recoSF * idSF;
-    leptonWeightUp *= (recoSF + recoUnc) * (idSF + idUnc);
-    leptonWeightDown *= (recoSF - recoUnc) * (idSF - idUnc);
+  else {
+    for (auto const & muon : *EventContainerObj->muonsToUsePtr){
+      //Get the bin shared by iso and id SFs
+      Int_t xAxisBin = _muonIsoSF->GetXaxis()->FindBin(muon.Pt());
+      if (muon.Pt() > 120.) xAxisBin = _muonIsoSF->GetXaxis()->FindBin(119.);
+      Int_t yAxisBin = _muonIsoSF->GetYaxis()->FindBin(std::fabs(muon.Eta()));
+      if (std::fabs(muon.Eta()) > 2.4) yAxisBin = _muonIsoSF->GetYaxis()->FindBin(2.39);
+      //And now get the iso and id SFs/uncs
+      Float_t isoSF = _muonIsoSF->GetBinContent(xAxisBin,yAxisBin);
+      Float_t isoUnc = _muonIsoSF->GetBinError(xAxisBin,yAxisBin);
+      Float_t idSF = _muonIDSF->GetBinContent(xAxisBin,yAxisBin);
+      Float_t idUnc = _muonIDSF->GetBinError(xAxisBin,yAxisBin);
+      
+      //Get the bin for trigger SF
+      Int_t xAxisBinTrig = _muonTrigSF->GetXaxis()->FindBin(muon.Pt());
+      if (muon.Pt() > 500.) xAxisBinTrig = _muonTrigSF->GetXaxis()->FindBin(499.);
+      Int_t yAxisBinTrig = _muonTrigSF->GetYaxis()->FindBin(std::fabs(muon.Eta()));
+      if (std::fabs(muon.Eta()) > 2.4) yAxisBinTrig = _muonTrigSF->GetYaxis()->FindBin(2.39);
+      //Get the trigSF
+      Float_t trigSF = _muonTrigSF->GetBinContent(xAxisBinTrig,yAxisBinTrig);
+      Float_t trigUnc = _muonTrigSF->GetBinError(xAxisBinTrig,yAxisBinTrig);
+  
+      //Evaluate muon tk
+      Float_t tkSF = _muonTkSF->Eval(std::fabs(muon.Eta()));
+  
+      leptonWeight *= isoSF * idSF * trigSF * tkSF;
+      leptonWeightUp *= (isoSF + isoUnc) * (idSF + idUnc) * (trigSF + trigUnc) * tkSF;
+      leptonWeightDown *= (isoSF - isoUnc) * (idSF - idUnc) * (trigSF - trigUnc) * tkSF;
+    }
+  
+    for (auto const & ele : *EventContainerObj->electronsToUsePtr){
+      //Get which bins we're in need of for the reco SF
+      Int_t xAxisBin = _eleRecoSF->GetXaxis()->FindBin(ele.scEta());
+      if (ele.scEta() > 2.5) xAxisBin = _eleRecoSF->GetXaxis()->FindBin(2.49);
+      Int_t yAxisBin = _eleRecoSF->GetYaxis()->FindBin(ele.Pt());
+      if (ele.Pt() > 500) xAxisBin = _eleRecoSF->GetYaxis()->FindBin(499.);
+      //Now get the reco and id SFs
+      Float_t recoSF = _eleRecoSF->GetBinContent(xAxisBin,yAxisBin);
+      Float_t recoUnc = _eleRecoSF->GetBinError(xAxisBin,yAxisBin);
+      //Now do ID
+      xAxisBin = _eleID1SF->GetXaxis()->FindBin(ele.scEta());
+      if (ele.scEta() > 2.5) xAxisBin = _eleID1SF->GetXaxis()->FindBin(2.49);
+      yAxisBin = _eleID1SF->GetYaxis()->FindBin(ele.Pt());
+      if (ele.Pt() > 500) xAxisBin = _eleID1SF->GetYaxis()->FindBin(499.);
+      Float_t idSF = _eleID1SF->GetBinContent(xAxisBin,yAxisBin);
+      Float_t idUnc = _eleID1SF->GetBinError(xAxisBin,yAxisBin);
+      if (_verbose) std::cout << "Reco: " << recoSF << " ID: " << idSF << " x: " << xAxisBin << " y: " << yAxisBin <<std::endl;
+      leptonWeight *= recoSF * idSF;
+      leptonWeightUp *= (recoSF + recoUnc) * (idSF + idUnc);
+      leptonWeightDown *= (recoSF - recoUnc) * (idSF - idUnc);
+    }
   }
 
   return std::make_tuple(leptonWeight,leptonWeightUp,leptonWeightDown);
@@ -659,9 +753,11 @@ void EventWeight::setChargeMisHistograms(TString ChargeMisFileName,TString Charg
   }
   TFile* ChargeMisFile = TFile::Open(ChargeMisFileName,"READ");
   if (!ChargeMisFile) std::cout << "ChargeMis file not found!" << std::endl;
-  _chargeMis = (TH2F*)ChargeMisFile->Get(ChargeMisHistName);
+  _chargeMis = (TH2F*)ChargeMisFile->Get(ChargeMisHistName)->Clone();
   _chargeMis->SetDirectory(0);
   ChargeMisFile->Close();
+  
+  delete ChargeMisFile;
 }
 
 /****************************************************************************** 
@@ -712,11 +808,12 @@ void EventWeight::setFakeRateHistograms(TString FakeRateFileName,TString FakeRat
   }
   TFile* FakeRateFile = TFile::Open(FakeRateFileName,"READ");
   if (!FakeRateFile) std::cout << "FakeRate file not found!" << std::endl;
-  _MuonFakeRate = (TH2F*)FakeRateFile->Get(FakeRateMuonHistName);
+  _MuonFakeRate = (TH2F*)FakeRateFile->Get(FakeRateMuonHistName)->Clone();
   _MuonFakeRate->SetDirectory(0);
-  _ElectronFakeRate = (TH2F*)FakeRateFile->Get(FakeRateElectronHistName);
+  _ElectronFakeRate = (TH2F*)FakeRateFile->Get(FakeRateElectronHistName)->Clone();
   _ElectronFakeRate->SetDirectory(0);
   FakeRateFile->Close();
+  delete FakeRateFile;
 }
 
 /****************************************************************************** 

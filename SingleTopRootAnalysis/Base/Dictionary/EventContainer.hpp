@@ -571,6 +571,7 @@ class EventContainer
   //Pointers to collections
   std::vector<Electron> * electronsToUsePtr;
   std::vector<Muon>     * muonsToUsePtr;
+  std::vector<Lepton>     * leptonsToUsePtr;
   
   std::vector<Electron> * electronsVetoPtr; // used in object cleaning
   std::vector<Muon>     * muonsVetoPtr;  // used in object cleaning
