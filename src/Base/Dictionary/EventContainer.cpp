@@ -855,6 +855,7 @@ Int_t EventContainer::ReadEvent()
       } // if useObj
     } //jets
 
+  if(isSimulation){
     int motherIndex =0;
     int daughtIndex =0;
     // Gen particles 
@@ -1063,9 +1064,9 @@ Int_t EventContainer::ReadEvent()
                 std::cout << " daught " << MCDaught << std::endl;
             }
         }
-    }
+     }
 
-    
+   } 
     
     /*
     missingEx = _eventTree -> MissingEt_etx / 1000.0;
