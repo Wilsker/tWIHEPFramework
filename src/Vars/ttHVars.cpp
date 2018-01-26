@@ -208,16 +208,17 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     MCElectrons.assign(evtObj -> MCElectrons.begin(), evtObj -> MCElectrons.end());
     MCMuons.assign(evtObj -> MCMuons.begin(), evtObj -> MCMuons.end());
     mcParticlesPtr = &(evtObj->MCParticles);
-    //Jet matching 
-    for(auto jet: Jets){
-        Do_Jet_Match(jet, MCBJets, MCCJets, MCLightJets);
-    }
+    if(evtObj->isSimulation){
+        //Jet matching 
+        for(auto jet: Jets){
+            Do_Jet_Match(jet, MCBJets, MCCJets, MCLightJets);
+        }
     
-    //Lep matching 
-    for(auto lep: fakeLeptons){
-        Do_Lepton_Match(lep, MCElectrons, MCMuons,MCPhotons);
+        //Lep matching 
+        for(auto lep: fakeLeptons){
+            Do_Lepton_Match(lep, MCElectrons, MCMuons,MCPhotons);
+        }
     }
-    
     Cal_event_variables(evtObj);
    
    
@@ -389,22 +390,24 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
                 secondLep_jetcsv = csv; 
             }
         }
-        leadLep_isMatchRightCharge = FakeLep_matchId.at(0) == FakeLep_PdgId.at(0)? 1 : 0;
-        leadLep_mcMatchId = FakeLep_matchId.at(0);
-        leadLep_isFromTop = FakeLep_isFromTop.at(0);
-        leadLep_isFromH = FakeLep_isFromH.at(0);
-        leadLep_isFromB = FakeLep_isFromB.at(0);
-        leadLep_isFromC = FakeLep_isFromC.at(0);
-        leadLep_mcPromptGamma = FakeLep_matchId.at(0) == 22 ? 1 : 0;
-        leadLep_mcPromptFS = (firstLepton.gen_isPrompt() ==1 || firstLepton.gen_isPromptTau()==1)? 1 : 0;
-        secondLep_isMatchRightCharge = FakeLep_matchId.at(1) == FakeLep_PdgId.at(1)? 1 : 0;
-        secondLep_mcMatchId = FakeLep_matchId.at(1);
-        secondLep_isFromTop = FakeLep_isFromTop.at(1);
-        secondLep_isFromH = FakeLep_isFromH.at(1);
-        secondLep_isFromB = FakeLep_isFromB.at(1);
-        secondLep_isFromC = FakeLep_isFromC.at(1);
-        secondLep_mcPromptGamma = FakeLep_matchId.at(1) == 22 ? 1 : 0;
-        secondLep_mcPromptFS = (secondLepton.gen_isPrompt() ==1 || secondLepton.gen_isPromptTau()==1)? 1 : 0;
+        if(EvtObj->isSimulation){
+            leadLep_isMatchRightCharge = FakeLep_matchId.at(0) == FakeLep_PdgId.at(0)? 1 : 0;
+            leadLep_mcMatchId = FakeLep_matchId.at(0);
+            leadLep_isFromTop = FakeLep_isFromTop.at(0);
+            leadLep_isFromH = FakeLep_isFromH.at(0);
+            leadLep_isFromB = FakeLep_isFromB.at(0);
+            leadLep_isFromC = FakeLep_isFromC.at(0);
+            leadLep_mcPromptGamma = FakeLep_matchId.at(0) == 22 ? 1 : 0;
+            leadLep_mcPromptFS = (firstLepton.gen_isPrompt() ==1 || firstLepton.gen_isPromptTau()==1)? 1 : 0;
+            secondLep_isMatchRightCharge = FakeLep_matchId.at(1) == FakeLep_PdgId.at(1)? 1 : 0;
+            secondLep_mcMatchId = FakeLep_matchId.at(1);
+            secondLep_isFromTop = FakeLep_isFromTop.at(1);
+            secondLep_isFromH = FakeLep_isFromH.at(1);
+            secondLep_isFromB = FakeLep_isFromB.at(1);
+            secondLep_isFromC = FakeLep_isFromC.at(1);
+            secondLep_mcPromptGamma = FakeLep_matchId.at(1) == 22 ? 1 : 0;
+            secondLep_mcPromptFS = (secondLepton.gen_isPrompt() ==1 || secondLepton.gen_isPromptTau()==1)? 1 : 0;
+        }
         leadLep_jetdr= leadLep_closedr; 
         secondLep_jetdr= secondLep_closedr;
         FakeLep1.SetPtEtaPhiE(firstLepton.conept(),firstLepton.Eta(),firstLepton.Phi(),firstLepton.E());
