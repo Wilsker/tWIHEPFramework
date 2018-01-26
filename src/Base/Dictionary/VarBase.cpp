@@ -87,8 +87,8 @@ void VarBase::BookBranches(TTree * skimTree){
     _branchVec[tempString.c_str()] = skimTree->Branch(tempString.c_str(),&(_doubleVecs[tempString.c_str()]));
     if (DoHists()) {
       if(doubleVec.second.size()<2){
-       std::cout << "=========== ERROR in Class VarBase ========================= : " << std::cout<< endl;
-       std::cout << " new doubleVec variables must be initialized by two elements so that we can use them to create histograms " << std::cout<< endl;
+       std::cout << "=========== ERROR in Class VarBase ========================= : " << std::endl;
+       std::cout << " new doubleVec variables must be initialized by two elements so that we can use them to create histograms " << std::endl;
       }
       _histograms[tempString] = BookTH1FHistogram(tempString,tempString,100,doubleVec.second.at(0),doubleVec.second.at(1));
     }
