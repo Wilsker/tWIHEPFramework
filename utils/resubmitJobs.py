@@ -1,4 +1,5 @@
 import sys, os, subprocess
+from threading import Thread
 
 samples=[
 "qcd1000_1500",
@@ -102,14 +103,16 @@ nJobs = {
 "SingMuH":147
 }
 
-missedFile = open("missingFiles.sh","w")
+allMissedFile = open("allMissingFiles.sh","w")
 
-missedFile.write("#!/bin/bash\n")
+allMissedFile.write("#!/bin/bash\n")
 
 
 dirsToCheck = ["tW/","tWInv/","tWData/","tWInvData/","tW2j1t/","tWInv2j1t/","tW2j1tData/","tWInv2j1tData/","tW3j2t/","tWInv3j2t/","tW3j2tData/","tWInv3j2tData/","tW3j0t/","tWInv3j0t/","tW3j0tData/","tWInv3j0tData/","tWJESUp/","tWJESDown/","tWJERUp/","tWJERDown/","tWSysts/"]
 
 dirsToCheck = [f for f in os.listdir(".") if os.path.isdir(f)]
+
+#dirsToCheck = ["tWSysts/","tW2j1tSysts/","tW3j2tSysts/","tW4j1tSysts/","tW4j2tSysts/"]
 
 print dirsToCheck
 
@@ -117,11 +120,13 @@ skippedDirs = []
 nErrorFiles = {}
 totalResubmits = 0
 
-for dirToCheck in dirsToCheck:
+def runDirCheck(dirToCheck):
+    missedFile = open("missingFiles{0}.sh".format(dirToCheck),"w")
+    missedFile.write("#!/bin/bash\n")
     if not os.path.isdir(dirToCheck):
         print "!!!!!!!!!!!!!!!!!!!! Skipping {0} directory which doesn't exist !!!!!!!!!!!!!!!!!!!!!!!!!!!!".format(dirToCheck)
         skippedDirs.append(dirToCheck)
-        continue
+        return
     print ">>>>>>>>>>>>>>>>> Executing over {0} directory <<<<<<<<<<<<<<<<".format(dirToCheck)
 #    samplesToCheck = samples if not "Data" in dirToCheck else dataSamples
     if "Syst" in dirToCheck: samplesToCheck = samplesSyst
@@ -138,20 +143,34 @@ for dirToCheck in dirsToCheck:
         files = [f for f in os.listdir(prefix + "/logs/") if "error" in f]
         for scFile in scriptFiles:
             errorFile = prefix + "/logs/" + scFile.split(".")[0] + ".error"
+            skimFile = prefix + "/skims/" + scFile.split(".")[0] + "Skim.root"
+            if not os.path.isfile(skimFile):
+                print skimFile, " doesn't exists!"
+                nErrorFiles[dirToCheck] += 1
+                missedFile.write("hep_sub "+prefix+"/scripts/"+scFile+" -e "+errorFile.split(".sh")[0]+" -o "+errorFile.split(".error")[0]+".log\n")
+                continue
             if not os.path.isfile(errorFile):
                 print errorFile, "doesn't have a log file"
                 nErrorFiles[dirToCheck] += 1
-                totalResubmits += 1
                 missedFile.write("hep_sub "+prefix+"/scripts/"+scFile+" -e "+errorFile.split(".sh")[0]+" -o "+errorFile.split(".error")[0]+".log\n")
                 continue
             if "Aborted" in open(errorFile).read() or "*** Break ***" in open(errorFile).read() or "invalid ELF header" in open(errorFile).read():
                 print errorFile
                 nErrorFiles[dirToCheck] += 1
-                totalResubmits += 1
                 missedFile.write("hep_sub "+prefix+"/scripts/"+scFile+" -e "+errorFile.split(".sh")[0]+" -o "+errorFile.split(".error")[0]+".log\n")
 #                missedFile.write("hep_sub "+prefix+"/scripts/"+errorFile.split(".error")[0]+".sh  -e "+prefix+"/logs/"+errorFile.split(".error")[0]+".error -o "+prefix+"/logs/"+errorFile.split(".error")[0]+".log\n")
 #                missedFile.write("condor_submit "+prefix + "/scripts/"+errorFile.split(".error")[0]+".submit -group cms -name job@schedd01.ac.cn\n")
 
+if __name__ == "__main__":
+    threads = {}
+    for dirToCheck in dirsToCheck:
+        print dirToCheck
+        threads[dirToCheck] = Thread(target = runDirCheck, args = (dirToCheck,) )
+        allMissedFile.write("bash missingFiles{0}.sh\n".format(dirToCheck))
+        threads[dirToCheck].start()
+    for key in threads.keys():
+        threads[key].join()
+        
 print "Skipping the following directories: ", skippedDirs
 for dirChecked in dirsToCheck:
     if dirChecked in nErrorFiles.keys(): print "There were {0} jobs to resubmit in {1} directory".format(nErrorFiles[dirChecked],dirChecked)

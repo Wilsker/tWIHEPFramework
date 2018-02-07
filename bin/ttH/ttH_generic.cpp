@@ -331,7 +331,7 @@ int main(int argc, char **argv)
   //  mystudy.AddVars(new TestVar());
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
-  
+ 
   mystudy.AddVars(new HadTopVars(true));
   mystudy.AddVars(new ttHVars(true));
   

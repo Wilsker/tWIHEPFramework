@@ -563,7 +563,7 @@ Int_t EventContainer::ReadEvent()
   // Reconstructed
   else {
     Int_t SourceNumber = GetSourceNumber();
-    if(SourceNumber<20000)isSimulation = kTRUE;//_eventTree->isSimulation;
+    if(SourceNumber<200000)isSimulation = kTRUE;//_eventTree->isSimulation;
     else isSimulation = kFALSE;
     _badJetEvent = kFALSE;
     //must be done for each event

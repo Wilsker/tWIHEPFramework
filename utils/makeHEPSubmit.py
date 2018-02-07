@@ -7,17 +7,19 @@ import subprocess
 ##   Parameters to be specified by the user
 #####
 #analysis and task
-analysis = "tW"
+analysis = "ttH"
 taskname = "EvtSel"
-executable = "Wt_generic.x"
+frameworkDir = "/publicfs/cms/data/TopQuark/cms13TeV/Binghuan/tWIHEPFramework/"
+executable = "bin/ttH/ttH_generic.x"
 #executable = "Wt_nVertOnly.x"
-configFile = "config/overall/SingleTop.Wt.LP.mm1+j.muonMSSmeardown.config"
+configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
 invPostfix = ""
-mcPostfix = " -MCatNLO -mc -bTagReshape -lepSFs -PileUpWgt"
-triggerName = "Muon "
+mcPostfix = " -MCatNLO -mc -bTagReshape -lepSFs -PileUpWgt -chargeMis -FakeRate -TriggerSFs"
+triggerName = "TTHLep_2L "
 nJets = 3
 nbJets = 1
-makeSkims = False
+fileListDirectory = "config/files/condor_test/"
+makeSkims = True
 samplesMC76=[
 "qcd1000_1500",
 "qcd100_200",
@@ -40,31 +42,10 @@ samplesMC76=[
 "zPlusJetsHighMass",
 "wPlusJetsMCatNLO"
 ]
-samplesMC=[
-"qcd1000_1500",
-"qcd100_200",
-#"qcd1500_2000",
-#"qcd2000_inf",
-#"qcd200_300",
-#"qcd300_500",
-#"qcd500_700",
-#"qcd700_1000",
-#"sChan",
-#"tChan_top",
-#"tChan_antitop",
-#"ttbar",
-#"ttbarBU",
-#"tW_top",
-#"tW_antitop",
-#"ww",
-#"wz",
-#"zz",
-#"zPlusJetsLowMass",
-#"zPlusJetsHighMass",
-#"wPlusJetsMCatNLO",
-#"tW_top_nfh",
-#"tW_antitop_nfh"
-]
+#samplesMC=[
+#"TTHnobb","TTWToLNuext2","TTWToLNuext1","TTZToLLNuNu","TTZToLL_M1to10","TTJets_sinLepTbar_v1","TTJets_sinLepTbar_ext1","TTJets_sinLepT_v1","TTJets_sinLepT_ext1","TTJets_diLep_v1","TTJets_diLep_ext1","TTGJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG","ZGTo2LG","TGJets_ext1","WpWpJJ","WWTo2L2Nu_DS","WWW_4F","WWZ","WZZ","ZZZ","tZq","TTTT","tWll","amcWJets","WZTo3LNu","WWTo2L2Nu","ZZTo4L"
+#]
+samplesMC = ["TTHnobb","TTWToLNuext2"]
 samplesData2015=[
 "singleMuon"
 ]
@@ -119,8 +100,10 @@ samplesSyst = [
 "ttbar_hdampup",
 "ttbar_hdampdown"
 ]
-
-fileListDirectory = "moriond17/"
+jesTestSamples = ["JESTest"]
+#systSamples = ["ttbar_hdampdown"]
+#mcSamples = []
+#samplesData = []
 sample = samplesMC
 if "inv" in sys.argv:
 	invPostfix = " -InvertIsolation"
@@ -169,7 +152,7 @@ if "data" in sys.argv:
 if "systs" in sys.argv:
 	analysis += "Systs"
 	sample = samplesSyst
-	fileListDirectory = "systSamples/"
+	fileListDirectory = "config/files/systSamples/"
 if "skims" in sys.argv:
 	makeSkims = True 
 if "electron" in sys.argv:
@@ -177,10 +160,12 @@ if "electron" in sys.argv:
 	triggerName = "Electron "
 #	if not "data" in sys.argv:
 	analysis += "Ele"
+if "jesTest" in sys.argv:
+	sample = jesTestSamples
+	analysis += "JESTest"
 #executable = "Wt_generic.x"
 #for the queue
 workpath    = os.getcwd()+"/"+analysis +"/"
-frameworkDir = "/publicfs/cms/user/duncanleg/tW13TeV/framework/"
 jobDir      = workpath+"/"+"Jobs"
 smallerJobs = True
 AnalyzerDir = workpath+"/"+"Analyzer"
@@ -189,74 +174,36 @@ rootplizer  = "Rootplizer_"+task+".cc"
 headplizer  = "Rootplizer_"+task+".h"
 #Directory of input files
 nJobs = {
-"qcd1000_1500":9,
-"qcd100_200":74,
-"qcd1500_2000":8,
-"qcd2000_inf":4,
-"qcd200_300":18,
-"qcd300_500":20,
-"qcd500_700":21,
-"qcd700_1000":19,
-"sChan":3,
-"tChan_top":73,
-"tChan_antitop":41,
-#"ttbar":14,
-"ttbar":99,
-"ttbarBU":120,
-"tW_top":2,
-"tW_antitop":2,
-"ww":2,
-"wz":3,
-"zz":2,
-"tW_top_nfh":20,
-"tW_antitop_nfh":19,
-"zPlusJetsLowMass":24,
-"zPlusJetsHighMass":48,
-"wPlusJetsMCatNLO":30,
-"SingMuB":176,
-"SingMuC":58,
-"SingMuD":98,
-"SingMuE":83,
-"SingMuF":61,
-"SingMuG":143,
-"SingMuH":147,
-"SingEleB":114,
-"SingEleC":38,
-"SingEleD":38,
-"SingEleE":83,
-"SingEleF":60,
-"SingEleG":143,
-"SingEleH":150,
-"tW_antitop_DS":9,
-"tW_antitop_isrup":10,
-"tW_antitop_isrdown":8,
-"tW_antitop_fsrup":7,
-"tW_antitop_fsrdown":11,
-"tW_antitop_herwig":8,
-"tW_antitop_MEup":5,
-"tW_antitop_MEdown":6,
-"tW_antitop_PSup":5,
-"tW_antitop_PSdown":4,
-"tW_top_DS":9,
-"tW_top_isrup":8,
-"tW_top_isrdown":11,
-"tW_top_fsrup":9,
-"tW_top_fsrdown":7,
-"tW_top_herwig":10,
-"tW_top_MEup":9,
-"tW_top_MEdown":9,
-"tW_top_PSup":8,
-"tW_top_PSdown":10,
-"ttbar_isrup":76,
-"ttbar_isrdown":35,
-"ttbar_fsrup":39,
-"ttbar_fsrdown":42,
-"ttbar_tuneup":38,
-"ttbar_tunedown":40,
-"ttbar_herwig":46,
-"ttbar_amcatnlo":88,
-"ttbar_hdampup":59,
-"ttbar_hdampdown":5
+"TTHnobb":11,
+"TTWToLNuext2":4,
+"TTWToLNuext1":3,
+"TTZToLLNuNu":3,
+"TTZToLL_M1to10":2,
+"TTJets_sinLepTbar_v1":19,
+"TTJets_sinLepTbar_ext1":45,
+"TTJets_sinLepT_v1":14,
+"TTJets_sinLepT_ext1":48,
+"TTJets_diLep_v1":6,
+"TTJets_diLep_ext1":26,
+"TTGJets_ext1":24,
+"WGToLNuG_ext2":13,
+"TGJets_v1":2,
+"WGToLNuG":15,
+"ZGTo2LG":21,
+"TGJets_ext1":4,
+"WpWpJJ":1,
+"WWTo2L2Nu_DS":2,
+"WWW_4F":1,
+"WWZ":1,
+"WZZ":1,
+"ZZZ":1,
+"tZq":31,
+"TTTT":2,
+"tWll":1,
+"amcWJets":30,
+"WZTo3LNu":4,
+"WWTo2L2Nu":3,
+"ZZTo4L":10
 }
 
 nJobsSum16 = {
@@ -280,6 +227,7 @@ nJobsSum16 = {
 "zPlusJetsLowMass":74,
 "zPlusJetsHighMass":72,
 "wPlusJetsMCatNLO":24,
+"wPlusJetsMadgraph":43,
 "SingMuB":174,
 "SingMuC":58,
 "SingMuD":98,
@@ -372,7 +320,8 @@ def prepareCshJob(sample,shFile,frameworkDir,workpath,samplePost=""):
 #	print >> subFile, frameworkDir+"bin/Wt/Wt_generic.x -config "+frameworkDir+"SingleTop.Wt.LP.mm1+j.muonMSSmeardown.config -inlist "+frameworkDir+"config/files/"+fileListDirectory+sample+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -skimfile "+workpath+"/"+sample+"/skims/"+sample+samplePost+"Skim.root -mc -BkgdTreeName DiElectronPreTagTree  -UseTotalEvtFromFile -MCatNLO -mc -SelectTrigger Muon -PileUpWgt -BWgt"
 	skimString = ""
 	if makeSkims: skimString = " -skimfile "+workpath+"/"+sample+"/skims/"+sample+samplePost+"Skim.root "
-	print >> subFile, frameworkDir+"bin/Wt/"+executable+" -config "+frameworkDir+configFile+" -inlist "+frameworkDir+"config/files/"+fileListDirectory+sample+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -BkgdTreeName DiElectronPreTagTree  -UseTotalEvtFromFile -SelectTrigger " + triggerName + invPostfix + mcPostfix + skimString + " -nJets {0} -nbJets {1}".format(nJets,nbJets)
+	#print >> subFile, frameworkDir+executable+" -config "+frameworkDir+configFile+" -inlist "+frameworkDir+fileListDirectory+sample+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -BkgdTreeName DiElectronPreTagTree  -UseTotalEvtFromFile -SelectTrigger " + triggerName + invPostfix + mcPostfix + skimString + " -nJets {0} -nbJets {1}".format(nJets,nbJets)
+	print >> subFile, frameworkDir+executable+" -config "+frameworkDir+configFile+" -inlist "+frameworkDir+fileListDirectory+sample+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -BkgdTreeName DiElectronPreTagTree  -UseTotalEvtFromFile -SelectTrigger " + triggerName + invPostfix + mcPostfix + skimString
         #print >> subFile, "root -b -q -l "+rootplizer+"'(\""+input+"\",\""+output+"\")'"
 	subprocess.call("chmod 777 "+shFile, shell=True)
 
@@ -405,7 +354,8 @@ for k in sample:
 		print >> allJobFile, "hep_sub "+ shFileName + " -o "+logFileName+ " -e "+errorFileName
 
 	else:
-		for j in range(nJobs[sampleName]):
+		inputFiles  = [f for f in os.listdir(frameworkDir+fileListDirectory) if sampleName in f]
+		for j in range(len(inputFiles)):
 #			submitFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".submit"
 			shFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".sh"
 			logFileName = workpath + sampleName + "/logs/" + sampleName + str(j) + ".log"
