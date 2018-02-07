@@ -48,22 +48,10 @@ private:
     //2D BDT binning 
     Int_t get_2DBDTBin(double BDT_ttbar, double BDT_ttV, EventContainer* EvtObj);
 
-    //Jet matching
-    void Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets);
-    //Lepton matching
-    void Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons);
-
     std::vector<Lepton> looseLeptons;
     std::vector<Lepton> fakeLeptons;
     std::vector<Lepton> tightLeptons;
     std::vector<Jet> Jets;
-    std::vector<MCJet> MCBJets;
-    std::vector<MCJet> MCCJets;
-    std::vector<MCJet> MCLightJets;
-    std::vector<MCPhoton> MCPhotons;
-    std::vector<MCMuon> MCMuons;
-    std::vector<MCElectron> MCElectrons;
-    std::vector<MCParticle> * mcParticlesPtr;
     
     std::vector<double> FakeLep_isFromB;
     std::vector<double> FakeLep_isFromC;

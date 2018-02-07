@@ -113,9 +113,6 @@ void ttHVars::Clear(){
     fakeLeptons.clear();
     tightLeptons.clear();
     Jets.clear();
-    MCBJets.clear();
-    MCCJets.clear();
-    MCLightJets.clear();
     FakeLep_isFromB.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
@@ -200,25 +197,26 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     
     Jets.assign(evtObj -> jets.begin(), evtObj -> jets.end());
     
-    MCBJets.assign(evtObj -> MCBJets.begin(), evtObj -> MCBJets.end());
-    MCCJets.assign(evtObj -> MCCJets.begin(), evtObj -> MCCJets.end());
-    MCLightJets.assign(evtObj -> MCLightJets.begin(), evtObj -> MCLightJets.end());
-   
-    MCPhotons.assign(evtObj -> MCPhotons.begin(), evtObj -> MCPhotons.end());
-    MCElectrons.assign(evtObj -> MCElectrons.begin(), evtObj -> MCElectrons.end());
-    MCMuons.assign(evtObj -> MCMuons.begin(), evtObj -> MCMuons.end());
-    mcParticlesPtr = &(evtObj->MCParticles);
-    if(evtObj->isSimulation){
-        //Jet matching 
-        for(auto jet: Jets){
-            Do_Jet_Match(jet, MCBJets, MCCJets, MCLightJets);
-        }
+    FakeLep_isFromB.assign(evtObj -> FakeLep_isFromB.begin(), evtObj -> FakeLep_isFromB.end());
+    FakeLep_isFromC.assign(evtObj -> FakeLep_isFromC.begin(), evtObj -> FakeLep_isFromC.end());
+    FakeLep_isFromH.assign(evtObj -> FakeLep_isFromH.begin(), evtObj -> FakeLep_isFromH.end());
+    FakeLep_isFromTop.assign(evtObj -> FakeLep_isFromTop.begin(), evtObj -> FakeLep_isFromTop.end());
+    FakeLep_matchId.assign(evtObj -> FakeLep_matchId.begin(), evtObj -> FakeLep_matchId.end());
+    FakeLep_matchIndex.assign(evtObj -> FakeLep_matchIndex.begin(), evtObj -> FakeLep_matchIndex.end());
+    FakeLep_pt.assign(evtObj -> FakeLep_pt.begin(), evtObj -> FakeLep_pt.end());
+    FakeLep_eta.assign(evtObj -> FakeLep_eta.begin(), evtObj -> FakeLep_eta.end());
+    FakeLep_phi.assign(evtObj -> FakeLep_phi.begin(), evtObj -> FakeLep_phi.end());
+    FakeLep_energy.assign(evtObj -> FakeLep_energy.begin(), evtObj -> FakeLep_energy.end());
+    FakeLep_PdgId.assign(evtObj -> FakeLep_PdgId.begin(), evtObj -> FakeLep_PdgId.end());
     
-        //Lep matching 
-        for(auto lep: fakeLeptons){
-            Do_Lepton_Match(lep, MCElectrons, MCMuons,MCPhotons);
-        }
-    }
+    Jet25_isFromH.assign(evtObj -> Jet25_isFromH.begin(), evtObj -> Jet25_isFromH.end());
+    Jet25_isFromTop.assign(evtObj -> Jet25_isFromTop.begin(), evtObj -> Jet25_isFromTop.end());
+    Jet25_matchId.assign(evtObj -> Jet25_matchId.begin(), evtObj -> Jet25_matchId.end());
+    Jet25_matchIndex.assign(evtObj -> Jet25_matchIndex.begin(), evtObj -> Jet25_matchIndex.end());
+    Jet25_pt.assign(evtObj -> Jet25_pt.begin(), evtObj -> Jet25_pt.end());
+    Jet25_eta.assign(evtObj -> Jet25_eta.begin(), evtObj -> Jet25_eta.end());
+    Jet25_phi.assign(evtObj -> Jet25_phi.begin(), evtObj -> Jet25_phi.end());
+    Jet25_energy.assign(evtObj -> Jet25_energy.begin(), evtObj -> Jet25_energy.end());
     Cal_event_variables(evtObj);
    
    
@@ -507,159 +505,3 @@ double ttHVars::deltaPhi(double phi1, double phi2){
     while (result <= -M_PI) result += 2*M_PI;
     return result;
 }
-// Jet matching
-void ttHVars::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets){
-    double isFromH = -999.;
-    double isFromTop = -999.;
-    double matchId = -999.;
-    double matchIndex = -999.;
-    MCParticle gen;
-    Bool_t ismatch = false;
-    double min_dpho_bc = 999.;
-    double min_dpho_light = 999.;
-    for(auto bjet: BJets){
-        if(bjet.numDaught()>1)continue;
-        double dr = reco.DeltaR(bjet);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-bjet.Pt())/bjet.Pt());
-            if(dpho < min_dpho_bc){
-                gen = bjet;
-                min_dpho_bc = dpho;
-                ismatch = true;
-            }
-        }
-    }
-    for(auto cjet: CJets){
-        if(cjet.numDaught()>1)continue;
-        double dr = reco.DeltaR(cjet);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-cjet.Pt())/cjet.Pt());
-            if(dpho < min_dpho_bc){
-                gen = cjet;
-                min_dpho_bc = dpho;
-                ismatch = true;
-            }
-        }
-    }
-    // if we fail to find a b or c
-    if(min_dpho_bc == 999.){
-        for(auto lightjet: LightJets){
-            if(lightjet.numDaught()>1)continue;
-            double dr = reco.DeltaR(lightjet);
-            if(dr < 0.3){
-                double dpho = dr + 0.2*fabs((reco.Pt()-lightjet.Pt())/lightjet.Pt());
-                if(dpho < min_dpho_light ){
-                    gen = lightjet;
-                    min_dpho_light = dpho;
-                    ismatch = true;
-                }
-            }
-        }
-    }
-    // if we do find a gen matched particle
-    if(ismatch){
-        matchId = gen.PdgId();
-        matchIndex = gen.Index();
-        MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
-        MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
-        MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
-        if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
-        else isFromH = 0;
-        if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
-        else isFromTop = 0;
-    }
-    Jet25_isFromH.push_back(isFromH); 
-    Jet25_isFromTop.push_back(isFromTop); 
-    Jet25_matchId.push_back(matchId); 
-    Jet25_matchIndex.push_back(matchIndex); 
-    Jet25_pt.push_back(reco.Pt()); 
-    Jet25_eta.push_back(reco.Eta()); 
-    Jet25_phi.push_back(reco.Phi()); 
-    Jet25_energy.push_back(reco.E()); 
-};
-    
-//Lepton matching
-void ttHVars::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons){
-    MCParticle gen;
-    double min_dpho =999.;
-    double isFromH = -999.;
-    double isFromB = -999.;
-    double isFromC = -999.;
-    double isFromTop = -999.;
-    double matchId = -999.;
-    double matchIndex = -999.;
-    Bool_t ismatch = false;
-    for(auto MCEle: MCElectrons){
-        if(MCEle.Status()!=1 || fabs(MCEle.PdgId())!= fabs(reco.pdgId()) || MCEle.Pt()<1.0)continue;
-        double dr = reco.DeltaR(MCEle);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-MCEle.Pt())/MCEle.Pt());
-            if(dpho < min_dpho){
-                gen = MCEle;
-                min_dpho = dpho;
-                ismatch = true;
-            }
-        }
-    }
-    for(auto MCMu: MCMuons){
-        if(MCMu.Status()!=1 || fabs(MCMu.PdgId())!= fabs(reco.pdgId()) || MCMu.Pt()<1.0)continue;
-        double dr = reco.DeltaR(MCMu);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-MCMu.Pt())/MCMu.Pt());
-            if(dpho < min_dpho){
-                gen = MCMu;
-                min_dpho = dpho;
-                ismatch = true;
-            }
-        }
-    }
-    // do photon matching for electron
-    if(fabs(reco.pdgId())==11){
-        for(auto MCPhoton: MCPhotons){
-            if(MCPhoton.Status()!=1 || MCPhoton.Pt()<1.0)continue;
-            double dr = reco.DeltaR(MCPhoton);
-            if(dr < 0.3 && reco.Pt() > 0.3 * MCPhoton.Pt() && reco.Pt()< 1.5 * MCPhoton.Pt()){
-                double dpho = dr + 0.2*fabs((reco.Pt()-MCPhoton.Pt())/MCPhoton.Pt());
-                if(dpho < min_dpho){
-                    gen = MCPhoton;
-                    min_dpho = dpho;
-                    ismatch = true;
-                }
-            }
-        }
-    }
-    
-    if(ismatch){
-        matchId = gen.PdgId();
-        matchIndex = gen.Index();
-        MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
-        MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
-        MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
-        if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
-        else isFromH = 0;
-        if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
-        else isFromTop = 0;
-        if(gen.isFromB(gen, *mcParticlesPtr)){
-            isFromB =1;
-            isFromC =0;
-        }
-        else if (gen.isFromB(gen, *mcParticlesPtr, 4)){
-            isFromC =1;
-            isFromB =0;
-        }else{
-            isFromC =0;
-            isFromB =0;
-        }
-    }
-    FakeLep_isFromB.push_back(isFromB); 
-    FakeLep_isFromC.push_back(isFromC); 
-    FakeLep_isFromH.push_back(isFromH); 
-    FakeLep_isFromTop.push_back(isFromTop); 
-    FakeLep_matchId.push_back(matchId); 
-    FakeLep_matchIndex.push_back(matchIndex); 
-    FakeLep_PdgId.push_back(reco.pdgId()); 
-    FakeLep_pt.push_back(reco.Pt()); 
-    FakeLep_eta.push_back(reco.Eta()); 
-    FakeLep_phi.push_back(reco.Phi()); 
-    FakeLep_energy.push_back(reco.E()); 
-};

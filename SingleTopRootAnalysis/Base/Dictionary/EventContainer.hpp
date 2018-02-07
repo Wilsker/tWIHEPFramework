@@ -722,6 +722,32 @@ class EventContainer
     void set_TTHFlags();
     void Cal_dilep_mass();
 
+    //Jet matching
+    void Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets);
+    //Lepton matching
+    void Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons);
+    
+    std::vector<double> FakeLep_isFromB;
+    std::vector<double> FakeLep_isFromC;
+    std::vector<double> FakeLep_isFromH;
+    std::vector<double> FakeLep_isFromTop;
+    std::vector<double> FakeLep_matchId;
+    std::vector<double> FakeLep_PdgId;
+    std::vector<double> FakeLep_matchIndex;
+    std::vector<double> FakeLep_pt;
+    std::vector<double> FakeLep_eta;
+    std::vector<double> FakeLep_phi;
+    std::vector<double> FakeLep_energy;
+
+    std::vector<double> Jet25_isFromH;
+    std::vector<double> Jet25_isFromTop;
+    std::vector<double> Jet25_matchId;
+    std::vector<double> Jet25_matchIndex;
+    std::vector<double> Jet25_pt;
+    std::vector<double> Jet25_eta;
+    std::vector<double> Jet25_phi;
+    std::vector<double> Jet25_energy;
+    
     ///// ttH event BDT
     void set_ttHDiLepMVA();
     // event mva
