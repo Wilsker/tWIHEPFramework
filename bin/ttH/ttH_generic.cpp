@@ -52,6 +52,9 @@
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMissHit.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonTightCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCRightCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCMatchId.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCPromptFS.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCPromptGamma.hpp"
 #include "SingleTopRootAnalysis/Cuts/Muon/CutMuonN.hpp"
 #include "SingleTopRootAnalysis/Cuts/Tau/CutTauN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Muon/CutMuonTighterPt.hpp"
@@ -310,6 +313,9 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutMetLD(particlesObj));
   mystudy.AddCut(new CutHiggsDecay(particlesObj));
   mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));
+  //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
+  //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj));
+  mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj));
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
 

@@ -1,5 +1,5 @@
 /******************************************************************************
- * CutLeptonMCRightCharge.hpp                                                             *
+ * CutLeptonMCMatchId.hpp                                                             *
  *                                                                            *
  * Cuts on lepton Number (can cut on All, UnIsolated, Tight, or Veto Leptons) *
  * Must pass All, UnIsolated, Tight, or Veto to constructor                   *
@@ -7,14 +7,14 @@
  * Derived from HistoCut which is in turn derived from BaseCut                *
  *                                                                            *
  *                                                                            *
- * Public Member Functions of CutLeptonMCRightCharge class                                *
- *    CutLeptonMCRightCharge()                     -- Parameterized Constructor           *
- *    ~CutLeptonMCRightCharge()                    -- Destructor                          *
+ * Public Member Functions of CutLeptonMCMatchId class                                *
+ *    CutLeptonMCMatchId()                     -- Parameterized Constructor           *
+ *    ~CutLeptonMCMatchId()                    -- Destructor                          *
  *    BookHistogram()                -- Book histograms                       *
  *    Apply()                        -- Apply cuts and fill histograms        *
- *    GetCutName()                   -- Returns "CutLeptonMCRightCharge"                  *
+ *    GetCutName()                   -- Returns "CutLeptonMCMatchId"                  *
  *                                                                            *
- * Private Data Members of CutLeptonMCRightCharge class                                   *
+ * Private Data Members of CutLeptonMCMatchId class                                   *
  *    myTH1F* _hLeptonNumberBefore;    -- Hist lepton Number before cut       *
  *    myTH1F* _hLeptonNumberAfter;     -- Hist lepton Number of jets after cut*
  *                                                                            *
@@ -25,48 +25,48 @@
  *      24 Mar 2009 - Created by P. Ryan                                      *
  *****************************************************************************/
 
-#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCRightCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCMatchId.hpp"
 #include<iostream>
 
 using namespace std;
 
 /*********************************************************************************
- * CutLeptonMCRightCharge::CutLeptonMCRightCharge(EventContainer *EventContainerObj, TString leptonType) *
+ * CutLeptonMCMatchId::CutLeptonMCMatchId(EventContainer *EventContainerObj, TString leptonType) *
  *                                                                               *
  * Parameterized Constructor                                                     *
  *                                                                               *
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonMCRightCharge::CutLeptonMCRightCharge(EventContainer *EventContainerObj)
+CutLeptonMCMatchId::CutLeptonMCMatchId(EventContainer *EventContainerObj)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
-} // CutLeptonMCRightCharge
+} // CutLeptonMCMatchId
 
 
 /******************************************************************************
- * CutLeptonMCRightCharge::~CutLeptonMCRightCharge()                                                  *
+ * CutLeptonMCMatchId::~CutLeptonMCMatchId()                                                  *
  *                                                                            *
  * Destructor                                                                 *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-CutLeptonMCRightCharge::~CutLeptonMCRightCharge()
+CutLeptonMCMatchId::~CutLeptonMCMatchId()
 {
   
-}//~CutLeptonMCRightCharge
+}//~CutLeptonMCMatchId
 
 /******************************************************************************
- * void CutLeptonMCRightCharge::BookHistogram()                                           *
+ * void CutLeptonMCMatchId::BookHistogram()                                           *
  *                                                                            *
  * Book Histograms                                                            *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-void CutLeptonMCRightCharge::BookHistogram(){
+void CutLeptonMCMatchId::BookHistogram(){
   
   // ***********************************************
   // Make Strings for histogram titles and labels
@@ -74,20 +74,20 @@ void CutLeptonMCRightCharge::BookHistogram(){
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
-  histNameBeforeStream <<  "DileptonMCRightChargeBefore";
+  histNameBeforeStream <<  "DileptonMCMatchIdBefore";
   TString histNameBefore = histNameBeforeStream.str().c_str();
 
   std::ostringstream histTitleBeforeStream;
-  histTitleBeforeStream <<  "Dilepton MCRightCharge Before Cut";
+  histTitleBeforeStream <<  "Dilepton MCMatchId Before Cut";
   TString histTitleBefore = histTitleBeforeStream.str().c_str();
 
   // Histogram After Cut
   std::ostringstream histNameAfterStream;
-  histNameAfterStream <<  "DileptonMCRightChargeAfter";
+  histNameAfterStream <<  "DileptonMCMatchIdAfter";
   TString histNameAfter = histNameAfterStream.str().c_str();
 
   std::ostringstream histTitleAfterStream;
-  histTitleAfterStream <<  "Dilepton MCRightCharge After Cut";
+  histTitleAfterStream <<  "Dilepton MCMatchId After Cut";
   TString histTitleAfter = histTitleAfterStream.str().c_str();
 
   // ***********************************************
@@ -95,14 +95,14 @@ void CutLeptonMCRightCharge::BookHistogram(){
   // ***********************************************  
 
   // Histogram before cut
-  _hLeptonMCRightChargeBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -0.5, 2.5);
-  _hLeptonMCRightChargeBefore -> SetXAxisTitle("Sum of MCRightCharge");
-  _hLeptonMCRightChargeBefore -> SetYAxisTitle("Events");
+  _hLeptonMCMatchIdBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -0.5, 2.5);
+  _hLeptonMCMatchIdBefore -> SetXAxisTitle("Sum of MCMatchId");
+  _hLeptonMCMatchIdBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
-  _hLeptonMCRightChargeAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -0.5, 2.5);
-  _hLeptonMCRightChargeAfter -> SetXAxisTitle("Sum of MCRightCharge");
-  _hLeptonMCRightChargeAfter -> SetYAxisTitle("Events");
+  _hLeptonMCMatchIdAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -0.5, 2.5);
+  _hLeptonMCMatchIdAfter -> SetXAxisTitle("Sum of MCMatchId");
+  _hLeptonMCMatchIdAfter -> SetYAxisTitle("Events");
 
   // ***********************************************
   // Get cuts from configuration file
@@ -112,12 +112,12 @@ void CutLeptonMCRightCharge::BookHistogram(){
   EventContainer *EventContainerObj = GetEventContainer();
   TEnv *config = EventContainerObj -> GetConfig();
 
-  std::ostringstream configMCRightChargeStream;
-  configMCRightChargeStream << "Cut.Gen.MCRightCharge";
-  TString configMCRightCharge = configMCRightChargeStream.str().c_str();
+  std::ostringstream configMCMatchIdStream;
+  configMCMatchIdStream << "Cut.Gen.MCMatchId";
+  TString configMCMatchId = configMCMatchIdStream.str().c_str();
 
   //
-  _LeptonMCRightCharge = config -> GetValue(configMCRightCharge.Data(), 0);
+  _LeptonMCMatchId = config -> GetValue(configMCMatchId.Data(), 0);
   
   // ***********************************************
   // Add these cuts to the cut flow table
@@ -129,12 +129,12 @@ void CutLeptonMCRightCharge::BookHistogram(){
 
   // Min + Max cut
   cutFlowTitleStream.str("");
-  cutFlowTitleStream << " MCRightCharge ";
+  cutFlowTitleStream << " MCMatchId ";
  
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << " MCRightCharge ";
+  cutFlowNameStream << " MCMatchId ";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
@@ -143,7 +143,7 @@ void CutLeptonMCRightCharge::BookHistogram(){
 }//BookHistograms()
 
 /******************************************************************************
- * Bool_t CutLeptonMCRightCharge::Apply()                                                 *
+ * Bool_t CutLeptonMCMatchId::Apply()                                                 *
  *                                                                            *
  * Apply cuts and fill histograms                                             *
  *                                                                            *
@@ -153,34 +153,33 @@ void CutLeptonMCRightCharge::BookHistogram(){
  * Input:  None                                                               *
  * Output: kTrue if successful                                                *
  ******************************************************************************/
-Bool_t CutLeptonMCRightCharge::Apply()
+Bool_t CutLeptonMCMatchId::Apply()
 {
   // ***********************************************
   // Get Number of Leptons and fill histograms
   // ***********************************************
   
   // Initialize number of leptons
-  Float_t LeptonPairMCRightCharge    = 0;       
+  Float_t LeptonPairMCMatchId    = 0;       
 
   // Flags 
-  Bool_t LeptonMCRightChargePass = kTRUE; // Event passes sign selection
+  Bool_t LeptonMCMatchIdPass = kTRUE; // Event passes sign selection
 
   // Get Event Container
   EventContainer *EventContainerObj = GetEventContainer();
   
+  if(!EventContainerObj->isSimulation)return true;
 
   std::vector<double> leptonMatchId;
-  std::vector<double> leptonPdgId;
 
 
   leptonMatchId.assign(EventContainerObj -> FakeLep_matchId.begin(), EventContainerObj -> FakeLep_matchId.end());
-  leptonPdgId.assign(EventContainerObj -> FakeLep_PdgId.begin(), EventContainerObj -> FakeLep_PdgId.end());
 
   //Now work out the dilepton mass
-  LeptonPairMCRightCharge = (leptonMatchId[0]==leptonPdgId[0]? 1:0) + (leptonMatchId[1]==leptonPdgId[1]? 1:0);
+  LeptonPairMCMatchId = (leptonMatchId[0]==-999? 0:1) + (leptonMatchId[1]==-999? 0:1);
 
   // Fill the histograms before the cuts
-  _hLeptonMCRightChargeBefore    -> Fill(LeptonPairMCRightCharge);
+  _hLeptonMCMatchIdBefore    -> Fill(LeptonPairMCMatchId);
   
   // ***********************************************
   // Fill cut flow table
@@ -191,23 +190,23 @@ Bool_t CutLeptonMCRightCharge::Apply()
   
   TString cutFlowNameAll;
   
-  cutFlowNameAllStream << " MCRightCharge ";
+  cutFlowNameAllStream << " MCMatchId ";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if (EventContainerObj->isSimulation && _LeptonMCRightCharge == 1 && LeptonPairMCRightCharge < 2){
-    LeptonMCRightChargePass = kFALSE;
+  if (_LeptonMCMatchId == 1 && LeptonPairMCMatchId < 2){
+    LeptonMCMatchIdPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
-    _hLeptonMCRightChargeAfter -> Fill(LeptonPairMCRightCharge);
+    _hLeptonMCMatchIdAfter -> Fill(LeptonPairMCMatchId);
   }
 
   // ***********************************************
   // Return if it passes
   // ***********************************************
   
-  return(LeptonMCRightChargePass);
+  return(LeptonMCMatchIdPass);
  
 } //Apply
 

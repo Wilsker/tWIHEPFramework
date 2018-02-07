@@ -1,5 +1,5 @@
 /******************************************************************************
- * CutLeptonMCRightCharge.hpp                                                             *
+ * CutLeptonMCPromptGamma.hpp                                                             *
  *                                                                            *
  * Cuts on lepton Number (can cut on All, UnIsolated, Tight, or Veto Leptons) *
  * Must pass All, UnIsolated, Tight, or Veto to constructor                   *
@@ -7,14 +7,14 @@
  * Derived from HistoCut which is in turn derived from BaseCut                *
  *                                                                            *
  *                                                                            *
- * Public Member Functions of CutLeptonMCRightCharge class                                *
- *    CutLeptonMCRightCharge()                     -- Parameterized Constructor           *
- *    ~CutLeptonMCRightCharge()                    -- Destructor                          *
+ * Public Member Functions of CutLeptonMCPromptGamma class                                *
+ *    CutLeptonMCPromptGamma()                     -- Parameterized Constructor           *
+ *    ~CutLeptonMCPromptGamma()                    -- Destructor                          *
  *    BookHistogram()                -- Book histograms                       *
  *    Apply()                        -- Apply cuts and fill histograms        *
- *    GetCutName()                   -- Returns "CutLeptonMCRightCharge"                  *
+ *    GetCutName()                   -- Returns "CutLeptonMCPromptGamma"                  *
  *                                                                            *
- * Private Data Members of CutLeptonMCRightCharge class                                   *
+ * Private Data Members of CutLeptonMCPromptGamma class                                   *
  *    myTH1F* _hLeptonNumberBefore;    -- Hist lepton Number before cut       *
  *    myTH1F* _hLeptonNumberAfter;     -- Hist lepton Number of jets after cut*
  *                                                                            *
@@ -25,48 +25,48 @@
  *      24 Mar 2009 - Created by P. Ryan                                      *
  *****************************************************************************/
 
-#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCRightCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCPromptGamma.hpp"
 #include<iostream>
 
 using namespace std;
 
 /*********************************************************************************
- * CutLeptonMCRightCharge::CutLeptonMCRightCharge(EventContainer *EventContainerObj, TString leptonType) *
+ * CutLeptonMCPromptGamma::CutLeptonMCPromptGamma(EventContainer *EventContainerObj, TString leptonType) *
  *                                                                               *
  * Parameterized Constructor                                                     *
  *                                                                               *
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonMCRightCharge::CutLeptonMCRightCharge(EventContainer *EventContainerObj)
+CutLeptonMCPromptGamma::CutLeptonMCPromptGamma(EventContainer *EventContainerObj)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
-} // CutLeptonMCRightCharge
+} // CutLeptonMCPromptGamma
 
 
 /******************************************************************************
- * CutLeptonMCRightCharge::~CutLeptonMCRightCharge()                                                  *
+ * CutLeptonMCPromptGamma::~CutLeptonMCPromptGamma()                                                  *
  *                                                                            *
  * Destructor                                                                 *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-CutLeptonMCRightCharge::~CutLeptonMCRightCharge()
+CutLeptonMCPromptGamma::~CutLeptonMCPromptGamma()
 {
   
-}//~CutLeptonMCRightCharge
+}//~CutLeptonMCPromptGamma
 
 /******************************************************************************
- * void CutLeptonMCRightCharge::BookHistogram()                                           *
+ * void CutLeptonMCPromptGamma::BookHistogram()                                           *
  *                                                                            *
  * Book Histograms                                                            *
  *                                                                            *
  * Input:  None                                                               *
  * Output: None                                                               *
  ******************************************************************************/
-void CutLeptonMCRightCharge::BookHistogram(){
+void CutLeptonMCPromptGamma::BookHistogram(){
   
   // ***********************************************
   // Make Strings for histogram titles and labels
@@ -74,20 +74,20 @@ void CutLeptonMCRightCharge::BookHistogram(){
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
-  histNameBeforeStream <<  "DileptonMCRightChargeBefore";
+  histNameBeforeStream <<  "DileptonMCPromptGammaBefore";
   TString histNameBefore = histNameBeforeStream.str().c_str();
 
   std::ostringstream histTitleBeforeStream;
-  histTitleBeforeStream <<  "Dilepton MCRightCharge Before Cut";
+  histTitleBeforeStream <<  "Dilepton MCPromptGamma Before Cut";
   TString histTitleBefore = histTitleBeforeStream.str().c_str();
 
   // Histogram After Cut
   std::ostringstream histNameAfterStream;
-  histNameAfterStream <<  "DileptonMCRightChargeAfter";
+  histNameAfterStream <<  "DileptonMCPromptGammaAfter";
   TString histNameAfter = histNameAfterStream.str().c_str();
 
   std::ostringstream histTitleAfterStream;
-  histTitleAfterStream <<  "Dilepton MCRightCharge After Cut";
+  histTitleAfterStream <<  "Dilepton MCPromptGamma After Cut";
   TString histTitleAfter = histTitleAfterStream.str().c_str();
 
   // ***********************************************
@@ -95,14 +95,14 @@ void CutLeptonMCRightCharge::BookHistogram(){
   // ***********************************************  
 
   // Histogram before cut
-  _hLeptonMCRightChargeBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -0.5, 2.5);
-  _hLeptonMCRightChargeBefore -> SetXAxisTitle("Sum of MCRightCharge");
-  _hLeptonMCRightChargeBefore -> SetYAxisTitle("Events");
+  _hLeptonMCPromptGammaBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -0.5, 2.5);
+  _hLeptonMCPromptGammaBefore -> SetXAxisTitle("Sum of MCPromptGamma");
+  _hLeptonMCPromptGammaBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
-  _hLeptonMCRightChargeAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -0.5, 2.5);
-  _hLeptonMCRightChargeAfter -> SetXAxisTitle("Sum of MCRightCharge");
-  _hLeptonMCRightChargeAfter -> SetYAxisTitle("Events");
+  _hLeptonMCPromptGammaAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -0.5, 2.5);
+  _hLeptonMCPromptGammaAfter -> SetXAxisTitle("Sum of MCPromptGamma");
+  _hLeptonMCPromptGammaAfter -> SetYAxisTitle("Events");
 
   // ***********************************************
   // Get cuts from configuration file
@@ -112,12 +112,12 @@ void CutLeptonMCRightCharge::BookHistogram(){
   EventContainer *EventContainerObj = GetEventContainer();
   TEnv *config = EventContainerObj -> GetConfig();
 
-  std::ostringstream configMCRightChargeStream;
-  configMCRightChargeStream << "Cut.Gen.MCRightCharge";
-  TString configMCRightCharge = configMCRightChargeStream.str().c_str();
+  std::ostringstream configMCPromptGammaStream;
+  configMCPromptGammaStream << "Cut.Gen.MCPromptGamma";
+  TString configMCPromptGamma = configMCPromptGammaStream.str().c_str();
 
   //
-  _LeptonMCRightCharge = config -> GetValue(configMCRightCharge.Data(), 0);
+  _LeptonMCPromptGamma = config -> GetValue(configMCPromptGamma.Data(), 0);
   
   // ***********************************************
   // Add these cuts to the cut flow table
@@ -129,12 +129,12 @@ void CutLeptonMCRightCharge::BookHistogram(){
 
   // Min + Max cut
   cutFlowTitleStream.str("");
-  cutFlowTitleStream << " MCRightCharge ";
+  cutFlowTitleStream << " MCPromptGamma ";
  
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << " MCRightCharge ";
+  cutFlowNameStream << " MCPromptGamma ";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
@@ -143,7 +143,7 @@ void CutLeptonMCRightCharge::BookHistogram(){
 }//BookHistograms()
 
 /******************************************************************************
- * Bool_t CutLeptonMCRightCharge::Apply()                                                 *
+ * Bool_t CutLeptonMCPromptGamma::Apply()                                                 *
  *                                                                            *
  * Apply cuts and fill histograms                                             *
  *                                                                            *
@@ -153,34 +153,38 @@ void CutLeptonMCRightCharge::BookHistogram(){
  * Input:  None                                                               *
  * Output: kTrue if successful                                                *
  ******************************************************************************/
-Bool_t CutLeptonMCRightCharge::Apply()
+Bool_t CutLeptonMCPromptGamma::Apply()
 {
   // ***********************************************
   // Get Number of Leptons and fill histograms
   // ***********************************************
   
   // Initialize number of leptons
-  Float_t LeptonPairMCRightCharge    = 0;       
+  Float_t LeptonPairMCPromptGamma    = 0;       
 
   // Flags 
-  Bool_t LeptonMCRightChargePass = kTRUE; // Event passes sign selection
+  Bool_t LeptonMCPromptGammaPass = kTRUE; // Event passes sign selection
 
   // Get Event Container
   EventContainer *EventContainerObj = GetEventContainer();
-  
+ 
+  Bool_t isCorrectSample = true; 
+  if(!EventContainerObj->isSimulation || !(EventContainerObj->GetSourceName().Contains("WGToLNuG")
+      || EventContainerObj->GetSourceName().Contains("ZGTo2LG")
+      || EventContainerObj->GetSourceName().Contains("TGJets_")
+      || EventContainerObj->GetSourceName().Contains("TTGJets_ext1")
+      )) isCorrectSample = false; // prompt Gamma only apply for Conversion samples
 
-  std::vector<double> leptonMatchId;
-  std::vector<double> leptonPdgId;
+  std::vector<double> leptonPromptGamma;
 
 
-  leptonMatchId.assign(EventContainerObj -> FakeLep_matchId.begin(), EventContainerObj -> FakeLep_matchId.end());
-  leptonPdgId.assign(EventContainerObj -> FakeLep_PdgId.begin(), EventContainerObj -> FakeLep_PdgId.end());
+  leptonPromptGamma.assign(EventContainerObj -> FakeLep_matchId.begin(), EventContainerObj -> FakeLep_matchId.end());
 
   //Now work out the dilepton mass
-  LeptonPairMCRightCharge = (leptonMatchId[0]==leptonPdgId[0]? 1:0) + (leptonMatchId[1]==leptonPdgId[1]? 1:0);
+  LeptonPairMCPromptGamma = (leptonPromptGamma[0]==22? 1:0) + (leptonPromptGamma[1]==22? 1:0);
 
   // Fill the histograms before the cuts
-  _hLeptonMCRightChargeBefore    -> Fill(LeptonPairMCRightCharge);
+  _hLeptonMCPromptGammaBefore    -> Fill(LeptonPairMCPromptGamma);
   
   // ***********************************************
   // Fill cut flow table
@@ -191,23 +195,23 @@ Bool_t CutLeptonMCRightCharge::Apply()
   
   TString cutFlowNameAll;
   
-  cutFlowNameAllStream << " MCRightCharge ";
+  cutFlowNameAllStream << " MCPromptGamma ";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if (EventContainerObj->isSimulation && _LeptonMCRightCharge == 1 && LeptonPairMCRightCharge < 2){
-    LeptonMCRightChargePass = kFALSE;
+  if ( isCorrectSample && _LeptonMCPromptGamma == 1 && LeptonPairMCPromptGamma < 2){
+    LeptonMCPromptGammaPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
-    _hLeptonMCRightChargeAfter -> Fill(LeptonPairMCRightCharge);
+    _hLeptonMCPromptGammaAfter -> Fill(LeptonPairMCPromptGamma);
   }
 
   // ***********************************************
   // Return if it passes
   // ***********************************************
   
-  return(LeptonMCRightChargePass);
+  return(LeptonMCPromptGammaPass);
  
 } //Apply
 

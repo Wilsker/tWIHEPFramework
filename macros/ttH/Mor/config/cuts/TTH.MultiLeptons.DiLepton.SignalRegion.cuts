@@ -52,6 +52,15 @@ Cut.Event.HiggsDecayType: 1 #  0: H->WW/ZZ/TauTau; 1: H->WW ; 2: H->TauTau; 3: H
 # Leptons is MatchRightCharge
 Cut.Gen.MCRightCharge: 1
 
+# Leptons is MatchId
+Cut.Gen.MCMatchId: 1
+
+# Leptons is MCPromptGamma
+Cut.Gen.MCPromptGamma: 1
+
+# Leptons is MCPromptFS
+Cut.Gen.MCPromptFS: 1
+
 ################ Global Event Cuts #####################
 # Missing ET
 Cut.Event.MissingEt.Min:  50.0

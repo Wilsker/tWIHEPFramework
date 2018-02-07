@@ -56,6 +56,22 @@ Cut.Event.MissingEt.Max: 999.0
 Triangular.SumDeltaPhiLepMET.Min:  2.5
 Triangular.SumDeltaPhiLepMET.Max: 999
 
+############ Gen Cuts #####################3
+# HiggsDecay
+Cut.Event.HiggsDecayType: 1 #  0: H->WW/ZZ/TauTau; 1: H->WW ; 2: H->TauTau; 3: H->ZZ; 4: H->WW or ZZ; 5: H->WW/TauTau; 6: H->TauTau/ZZ
+
+# Leptons is MatchRightCharge
+Cut.Gen.MCRightCharge: 1
+
+# Leptons is MatchId
+Cut.Gen.MCMatchId: 1
+
+# Leptons is MCPromptGamma
+Cut.Gen.MCPromptGamma: 1
+
+# Leptons is MCPromptFS
+Cut.Gen.MCPromptFS: 1
+
 ################ Global Event Cuts #####################
 # HTJet1
 Cut.Event.HTJET1.Min:  999.0
