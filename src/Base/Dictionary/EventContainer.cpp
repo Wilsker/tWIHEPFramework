@@ -357,6 +357,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   mht_met = -999.;
   mhtT_met = -999.;
   massL = -999.;
+  HiggsDecay = -999.;
   massL_SFOS = -999.;
   mass_diele = -999.;
   HadTop_BDT = -999.;
@@ -543,6 +544,7 @@ Int_t EventContainer::ReadEvent()
   mht_met = -999.;
   mhtT_met = -999.;
   massL = -999.;
+  HiggsDecay = -999.;
   massL_SFOS = -999.;
   mass_diele = -999.;
   HadTop_BDT = -999.;
@@ -563,8 +565,12 @@ Int_t EventContainer::ReadEvent()
   // Reconstructed
   else {
     Int_t SourceNumber = GetSourceNumber();
-    if(SourceNumber<200000)isSimulation = kTRUE;//_eventTree->isSimulation;
-    else isSimulation = kFALSE;
+    if(SourceNumber<200000){
+        isSimulation = kTRUE;//_eventTree->isSimulation;
+        HiggsDecay = _eventTree -> HiggsDecay;
+    }else{
+        isSimulation = kFALSE;
+    }
     _badJetEvent = kFALSE;
     //must be done for each event
     // Electrons, Jets, Muons, missingEt
