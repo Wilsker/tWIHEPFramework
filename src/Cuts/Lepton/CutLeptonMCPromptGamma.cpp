@@ -183,7 +183,7 @@ Bool_t CutLeptonMCPromptGamma::Apply()
   leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
 
   //Now work out the dilepton mass
-  LeptonPairMCPromptGamma = (leptonPromptGamma[0]==22 && fabs(leptonVector[0].PdgId())==11 ? 1:0) + (leptonPromptGamma[1]==22 && (leptonVector[0].PdgId())==11 ? 1:0);
+  LeptonPairMCPromptGamma = (leptonPromptGamma[0]==22 && fabs(leptonVector[0].pdgId())==11 ? 1:0) + (leptonPromptGamma[1]==22 && fabs(leptonVector[1].pdgId())==11 ? 1:0);
 
   // Fill the histograms before the cuts
   _hLeptonMCPromptGammaBefore    -> Fill(LeptonPairMCPromptGamma);

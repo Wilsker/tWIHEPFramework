@@ -409,8 +409,8 @@ Bool_t EventWeight::Apply()
    }
    else {
      pileupEventWeight = tree->PUWeight;
-     pileupMinBiasUpWeight = 1.;
-     pileupMinBiasDownWeight = 1.;
+     pileupMinBiasUpWeight = tree->PUWeight;
+     pileupMinBiasDownWeight = tree->PUWeight;
    }
    wgt *= pileupEventWeight;
  }
