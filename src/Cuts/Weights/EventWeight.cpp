@@ -44,7 +44,8 @@ using namespace std;
  * Input:  Particle class                                                     *
  * Output: None                                                               *
  ******************************************************************************/
-EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Int_t whichTrig, Bool_t verbose):
+EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t reCalPU, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Int_t whichTrig, Bool_t verbose):
+  _reCalPU(reCalPU),
   _useLeptonSFs(useLeptonSFs),
   _useChargeMis(useChargeMis),
   _useFakeRate(useFakeRate),
@@ -399,7 +400,7 @@ Bool_t EventWeight::Apply()
 
  //only apply pileup weight if specified
  if(isPileUpWgt()) {
-   if (_mcPV->GetBinContent(tree->trueInteractions) > 0){
+   if (_reCalPU && _mcPV->GetBinContent(tree->trueInteractions) > 0){
      pileupEventWeight = _dataPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
      if (isPileupSysts()){
        pileupMinBiasUpWeight = _minBiasUpPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
@@ -407,7 +408,7 @@ Bool_t EventWeight::Apply()
      }
    }
    else {
-     pileupEventWeight = 1.;
+     pileupEventWeight = tree->PUWeight;
      pileupMinBiasUpWeight = 1.;
      pileupMinBiasDownWeight = 1.;
    }
@@ -924,16 +925,20 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getTriggerWeight(){
 Double_t EventWeight::getBTagReshape(EventContainer * EventContainerObj, std::string syst){
 
   Double_t bTagWeight = 1.0;
-  for (auto const & jet : EventContainerObj->taggedJets){
-    float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
-    if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
-    bTagWeight *= jetSF;
-  }
-
-  for (auto const & jet : EventContainerObj->unTaggedJets){
-    float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
-    if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
-    bTagWeight *= jetSF;
+  for (auto const & jet : EventContainerObj->jets){
+    if (jet.GethadronFlavour() == 5){
+        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        bTagWeight *= jetSF;
+    }else if(jet.GethadronFlavour() == 4){
+        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_C, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_C, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        bTagWeight *= jetSF;
+    }else{
+        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        bTagWeight *= jetSF;
+    }
   }
   return bTagWeight;
 }

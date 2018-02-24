@@ -176,12 +176,14 @@ Bool_t CutLeptonMCPromptGamma::Apply()
       )) isCorrectSample = false; // prompt Gamma only apply for Conversion samples
 
   std::vector<double> leptonPromptGamma;
+  std::vector<Lepton> leptonVector;
 
 
   leptonPromptGamma.assign(EventContainerObj -> FakeLep_matchId.begin(), EventContainerObj -> FakeLep_matchId.end());
+  leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
 
   //Now work out the dilepton mass
-  LeptonPairMCPromptGamma = (leptonPromptGamma[0]==22? 1:0) + (leptonPromptGamma[1]==22? 1:0);
+  LeptonPairMCPromptGamma = (leptonPromptGamma[0]==22 && fabs(leptonVector[0].PdgId())==11 ? 1:0) + (leptonPromptGamma[1]==22 && (leptonVector[0].PdgId())==11 ? 1:0);
 
   // Fill the histograms before the cuts
   _hLeptonMCPromptGammaBefore    -> Fill(LeptonPairMCPromptGamma);

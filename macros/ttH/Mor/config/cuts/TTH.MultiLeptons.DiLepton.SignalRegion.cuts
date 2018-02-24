@@ -47,7 +47,7 @@ Cut.bMedium.Jet.Number.Max: 999
 
 ############ Gen Cuts #####################3
 # HiggsDecay
-Cut.Event.HiggsDecayType: 1 #  0: H->WW/ZZ/TauTau; 1: H->WW ; 2: H->TauTau; 3: H->ZZ; 4: H->WW or ZZ; 5: H->WW/TauTau; 6: H->TauTau/ZZ
+Cut.Event.HiggsDecayType: 0 #  0: H->WW/ZZ/TauTau; 1: H->WW ; 2: H->TauTau; 3: H->ZZ; 4: H->WW or ZZ; 5: H->WW/TauTau; 6: H->TauTau/ZZ
 
 # Leptons is MatchRightCharge
 Cut.Gen.MCRightCharge: 1

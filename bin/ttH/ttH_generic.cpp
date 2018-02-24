@@ -116,6 +116,7 @@ int main(int argc, char **argv)
   string mcStr="";
   Bool_t doMC = kFALSE;
   Bool_t doPileup = kFALSE;
+  Bool_t reCalPileup = kFALSE;
   Bool_t dobWeight = kFALSE;
   Bool_t useInvertedIsolation = kFALSE;
   Bool_t useLeptonSFs = kFALSE;
@@ -179,6 +180,11 @@ int main(int argc, char **argv)
       doPileup = kTRUE;
       cout << "Driver: Use PileUpWgt " << endl;
     }//if PileUpWgt
+    if (!strcmp(argv[i], "-ReCalPU")) {
+      mcStr=mcStr+"ReCalPU";
+      reCalPileup = kTRUE;
+      cout << "Driver: Use ReCalPU " << endl;
+    }//if ReCalPU
     if (!strcmp(argv[i], "-BWgt")) {
       mcStr=mcStr+"BWgt";
       dobWeight = kTRUE;
@@ -317,7 +323,7 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj));
   mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj));
 
-  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
 
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
 

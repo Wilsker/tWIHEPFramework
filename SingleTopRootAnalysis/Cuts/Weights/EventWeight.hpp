@@ -44,7 +44,7 @@ class EventWeight : public HistoCut
 public:
 
   // Parameterized Constructor
-  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useFakeRate = false, Bool_t useTriggerSFs = false , Int_t whichTrig = 5, Bool_t verbose = kFALSE);
+  EventWeight(EventContainer *obj, Double_t TotalMCatNLOEvents = 0,const std::string& MCtype="none", Bool_t pileup = false, Bool_t reCalPU = false, Bool_t bWeight = false, Bool_t useLeptonSFs = kFALSE, Bool_t usebTagReshape = kFALSE, Bool_t useChargeMis = false, Bool_t useFakeRate = false, Bool_t useTriggerSFs = false , Int_t whichTrig = 5, Bool_t verbose = kFALSE);
   
   // Default Destructor
   ~EventWeight();
@@ -85,6 +85,7 @@ private:
   //  vector<double> vecPileUpWgt;  // vector to store vertex Pile up reweighting weights
   Bool_t _useMCatNLO;  // set to true if this MC is MC@NLO and we need to use the corresponding weight
   Bool_t _usePileUpWgt;  // set to true if this MC is MC@NLO and we need to use the corresponding weight
+  Bool_t _reCalPU;  // set to true if this MC is MC@NLO and we need to use the corresponding weight
   Bool_t _doPileupSysts; // set to true if including the systematic uncertainties associated with pileup reweighting in the output file 
   Bool_t _usebWeight;  // set to true if using b-tag weights
   Bool_t _useNoWeight;  //No weight except MCatNLO weight
