@@ -183,7 +183,7 @@ Bool_t CutLeptonMCPromptGamma::Apply()
   leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
 
   //Now work out the dilepton mass
-  LeptonPairMCPromptGamma = (leptonPromptGamma[0]==22 && fabs(leptonVector[0].pdgId())==11 ? 1:0) + (leptonPromptGamma[1]==22 && fabs(leptonVector[1].pdgId())==11 ? 1:0);
+  LeptonPairMCPromptGamma = ( (leptonPromptGamma[0]==22 && fabs(leptonVector[0].pdgId())==11) ? 1:0) + ( (leptonPromptGamma[1]==22 && fabs(leptonVector[1].pdgId())==11) ? 1:0);
 
   // Fill the histograms before the cuts
   _hLeptonMCPromptGammaBefore    -> Fill(LeptonPairMCPromptGamma);
@@ -200,7 +200,7 @@ Bool_t CutLeptonMCPromptGamma::Apply()
   cutFlowNameAllStream << " MCPromptGamma ";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( isCorrectSample && _LeptonMCPromptGamma == 1 && LeptonPairMCPromptGamma < 2){
+  if ( isCorrectSample && _LeptonMCPromptGamma == 1 && LeptonPairMCPromptGamma == 0){
     LeptonMCPromptGammaPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }

@@ -318,9 +318,9 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutMassL(particlesObj));
   mystudy.AddCut(new CutMetLD(particlesObj));
   mystudy.AddCut(new CutHiggsDecay(particlesObj));
-  mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));
+  //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
-  //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj));
+  //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj)); 
   mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj));
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
