@@ -53,7 +53,7 @@ Events.Source.100009: 22737078
 Weight.Source.100010: 87.3
 Events.Source.100010: 22737078
 
-#100011 - TTGJets_ext1
+#100011 - TTGToJets_ext1
 Weight.Source.100011: 3.697
 Events.Source.100011: 3199101
 
@@ -65,7 +65,7 @@ Events.Source.100012: 9798114
 Weight.Source.100013: 2.967
 Events.Source.100013: 366970
 
-#100014 - WGToLNuG
+#100014 - WGToLNuG_ext1
 Weight.Source.100014: 585.8
 Events.Source.100014: 9798114
 
@@ -81,7 +81,7 @@ Events.Source.100016: 366970
 Weight.Source.100017: 0.03711
 Events.Source.100017: 149677
 
-#100018 -WWTo2L2Nu_DS
+#100018 -WW_DS_To2L2Nu
 Weight.Source.100018: 0.1729
 Events.Source.100018: 999349
 

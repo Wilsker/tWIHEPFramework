@@ -8,13 +8,13 @@ import sys,os
 
 treeName = "OutTree_"
 
-datasets = ["TTHnobb","TTWToLNuext2","TTWToLNuext1","TTZToLLNuNu","TTZToLL_M1to10","TTJets_sinLepTbar_v1","TTJets_sinLepTbar_ext1","TTJets_sinLepT_v1","TTJets_sinLepT_ext1","TTJets_diLep_v1","TTJets_diLep_ext1","TTGJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG","ZGTo2LG","TGJets_ext1","WpWpJJ","WWTo2L2Nu_DS","WWW_4F","WWZ","WZZ","ZZZ","tZq","TTTT","tWll","amcWJets","WZTo3LNu","WWTo2L2Nu","ZZTo4L"]
-#datasets = ["TTHnobb","TTWToLNuext2"]
+#datasets = ["TTHnobb","TTWToLNuext2","TTWToLNuext1","TTZToLLNuNu","TTZToLL_M1to10","TTJets_sinLepTbar_v1","TTJets_sinLepTbar_ext1","TTJets_sinLepT_v1","TTJets_sinLepT_ext1","TTJets_diLep_v1","TTJets_diLep_ext1","TTGToJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG_ext1","ZGTo2LG","TGJets_ext1","WpWpJJ","WW_DS_To2L2Nu","WWW_4F","WWZ","WZZ","ZZZ","tZq","TTTT","tWll","amcWJets","WZTo3LNu","WWTo2L2Nu","ZZTo4L"]
+datasets = ["TTGToJets_ext1","WW_DS_To2L2Nu","WGToLNuG_ext1"]
 #datasets = ["tW_top_nfh","tW_antitop_nfh","SingMuH"]
 #datasets = ["SingEleB","SingEleC","SingEleD","SingEleF","SingEleG","SingEleH"]
-datasetID = {"TTHnobb":100000,"TTWToLNuext2":100001,"TTWToLNuext1":100002,"TTZToLLNuNu":100003,"TTZToLL_M1to10":100004,"TTJets_sinLepTbar_v1":100005,"TTJets_sinLepTbar_ext1":100006,"TTJets_sinLepT_v1":100007,"TTJets_sinLepT_ext1":100008,"TTJets_diLep_v1":100009,"TTJets_diLep_ext1":100010,"TTGJets_ext1":100011,"WGToLNuG_ext2":100012,"TGJets_v1":100013,"WGToLNuG":100014,"ZGTo2LG":100015,"TGJets_ext1":100016,"WpWpJJ":100017,"WWTo2L2Nu_DS":100018,"WWW_4F":100019,"WWZ":100020,"WZZ":100021,"ZZZ":100022,"tZq":100023,"TTTT":100024,"tWll":100025,"amcWJets":100026,"WZTo3LNu":100027,"WWTo2L2Nu":100028,"ZZTo4L":100029}
+datasetID = {"TTHnobb":100000,"TTWToLNuext2":100001,"TTWToLNuext1":100002,"TTZToLLNuNu":100003,"TTZToLL_M1to10":100004,"TTJets_sinLepTbar_v1":100005,"TTJets_sinLepTbar_ext1":100006,"TTJets_sinLepT_v1":100007,"TTJets_sinLepT_ext1":100008,"TTJets_diLep_v1":100009,"TTJets_diLep_ext1":100010,"TTGToJets_ext1":100011,"WGToLNuG_ext2":100012,"TGJets_v1":100013,"WGToLNuG_ext1":100014,"ZGTo2LG":100015,"TGJets_ext1":100016,"WpWpJJ":100017,"WW_DS_To2L2Nu":100018,"WWW_4F":100019,"WWZ":100020,"WZZ":100021,"ZZZ":100022,"tZq":100023,"TTTT":100024,"tWll":100025,"amcWJets":100026,"WZTo3LNu":100027,"WWTo2L2Nu":100028,"ZZTo4L":100029}
 #datasetID = {"TTHnobb":100000,"TTWToLNuext2":100001}
-nFilesDataset = {"TTHnobb":107,"TTWToLNuext2":39,"TTWToLNuext1":28,"TTZToLLNuNu":30,"TTZToLL_M1to10":14,"TTJets_sinLepTbar_v1":186,"TTJets_sinLepTbar_ext1":450,"TTJets_sinLepT_v1":133,"TTJets_sinLepT_ext1":478,"TTJets_diLep_v1":60,"TTJets_diLep_ext1":252,"TTGJets_ext1":239,"WGToLNuG_ext2":124,"TGJets_v1":17,"WGToLNuG":144,"ZGTo2LG":210,"TGJets_ext1":37,"WpWpJJ":4,"WWTo2L2Nu_DS":13,"WWW_4F":4,"WWZ":4,"WZZ":5,"ZZZ":4,"tZq":303,"TTTT":18,"tWll":1,"amcWJets":298,"WZTo3LNu":39,"WWTo2L2Nu":24,"ZZTo4L":96}
+nFilesDataset = {"TTHnobb":107,"TTWToLNuext2":39,"TTWToLNuext1":28,"TTZToLLNuNu":30,"TTZToLL_M1to10":14,"TTJets_sinLepTbar_v1":186,"TTJets_sinLepTbar_ext1":450,"TTJets_sinLepT_v1":133,"TTJets_sinLepT_ext1":478,"TTJets_diLep_v1":60,"TTJets_diLep_ext1":252,"TTGToJets_ext1":239,"WGToLNuG_ext2":124,"TGJets_v1":17,"WGToLNuG_ext1":144,"ZGTo2LG":210,"TGJets_ext1":37,"WpWpJJ":4,"WW_DS_To2L2Nu":13,"WWW_4F":4,"WWZ":4,"WZZ":5,"ZZZ":4,"tZq":303,"TTTT":18,"tWll":1,"amcWJets":298,"WZTo3LNu":39,"WWTo2L2Nu":24,"ZZTo4L":96}
 #nFilesDataset = {"TTHnobb":107,"TTWToLNuext2":39}
 datasetDirs = {"TTHnobb":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/ttHToNonbb_M125_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8/FullMorV2_ttHnobb/170530_161519/0000/"],
 "TTWToLNuext2":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/FullMorV2_amcTTWJetsToLNuext2/170531_182459/0000/"],
@@ -27,14 +27,14 @@ datasetDirs = {"TTHnobb":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/ttH
 "TTJets_sinLepT_ext1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TTJets_SingleLeptFromT_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/FullMorV2_TTJets_sinLepT_ext1/170531_191648/0000/"],
 "TTJets_diLep_v1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/FullMorV2_TTJets_diLep/170531_191854/0000/"],
 "TTJets_diLep_ext1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TTJets_DiLept_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/FullMorV2_TTJets_diLep_ext1/170531_192103/0000/"],
-"TTGJets_ext1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/FullMorV2_TTGJets_ext1/170621_150600/0000/"],
+"TTGToJets_ext1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TTGJets_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8/FullMorV2_TTGJets_ext1/170621_150600/0000/"],
 "WGToLNuG_ext2":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/FullMorV2_WGToLNuG_ext2/170621_150118/0000/"],
 "TGJets_v1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8/FullMorV2_TGJets/170531_184103/0000/"],
-"WGToLNuG":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/FullMorV2_WGToLNuG_ext1/170614_105550/0000/"],
+"WGToLNuG_ext1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WGToLNuG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/FullMorV2_WGToLNuG_ext1/170614_105550/0000/"],
 "ZGTo2LG":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/ZGTo2LG_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/FullMorV2_ZGTo2LG_ext1/170614_105812/0000/"],
 "TGJets_ext1":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/TGJets_TuneCUETP8M1_13TeV_amcatnlo_madspin_pythia8/FullMorV2_TGJets_ext1/170614_110340/0000/"],
 "WpWpJJ":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WpWpJJ_EWK-QCD_TuneCUETP8M1_13TeV-madgraph-pythia8/FullMorV2_WpWpJJ_EWK-QCD/170614_110838/0000/"],
-"WWTo2L2Nu_DS":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WWTo2L2Nu_DoubleScattering_13TeV-pythia8/FullMorV2_WWTo2L2Nu_DS/170614_111109/0000/"],
+"WW_DS_To2L2Nu":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WWTo2L2Nu_DoubleScattering_13TeV-pythia8/FullMorV2_WWTo2L2Nu_DS/170614_111109/0000/"],
 "WWW_4F":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8/FullMorV2_WWW_4F/170614_111337/0000/"],
 "WWZ":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WWZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/FullMorV2_WWZ/170614_111630/0000/"],
 "WZZ":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/WZZ_TuneCUETP8M1_13TeV-amcatnlo-pythia8/FullMorV2_WZZ/170614_111852/0000/"],

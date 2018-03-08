@@ -172,7 +172,7 @@ Bool_t CutLeptonMCPromptGamma::Apply()
   if(!EventContainerObj->isSimulation || !(EventContainerObj->GetSourceName().Contains("WGToLNuG")
       || EventContainerObj->GetSourceName().Contains("ZGTo2LG")
       || EventContainerObj->GetSourceName().Contains("TGJets_")
-      || EventContainerObj->GetSourceName().Contains("TTGJets_ext1")
+      || EventContainerObj->GetSourceName().Contains("TTGToJets_ext1")
       )) isCorrectSample = false; // prompt Gamma only apply for Conversion samples
 
   std::vector<double> leptonPromptGamma;

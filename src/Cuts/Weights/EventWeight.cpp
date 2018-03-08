@@ -772,21 +772,28 @@ void EventWeight::setChargeMisHistograms(TString ChargeMisFileName,TString Charg
  ******************************************************************************/
 std::tuple<Double_t,Double_t,Double_t> EventWeight::getChargeMisWeight(EventContainer* EventContainerObj){
 
-  Double_t ChargeMisWeight = 1.0, ChargeMisWeightUp = 1.0, ChargeMisWeightDown = 1.0;
+  Double_t ChargeMisWeight = 0., ChargeMisWeightUp = 0., ChargeMisWeightDown = 0.;
   if(EventContainerObj->fakeleptonsVetoPtr->size()<2) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
   Lepton lep1 =  EventContainerObj->fakeleptonsVetoPtr->at(0);
   Lepton lep2 =  EventContainerObj->fakeleptonsVetoPtr->at(1);
-  if(lep1.charge()==lep2.charge() || fabs(lep1.pdgId())==13 || fabs(lep2.pdgId())==13) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
-  //Get the bin 
-  int xAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep1.conept())));
-  int yAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
-  int xAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep2.conept())));
-  int yAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
-  //And now get the iso and id SFs/uncs
-  Double_t ChargeMisWeight1 = _chargeMis->GetBinContent(xAxisBin1,yAxisBin1);
-  Double_t ChargeMisUnc1 = _chargeMis->GetBinError(xAxisBin1,yAxisBin1); 
-  Double_t ChargeMisWeight2 = _chargeMis->GetBinContent(xAxisBin2,yAxisBin2);
-  Double_t ChargeMisUnc2 = _chargeMis->GetBinError(xAxisBin2,yAxisBin2); 
+  if(lep1.charge()==lep2.charge()) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
+  Double_t ChargeMisWeight1 = 0.;
+  Double_t ChargeMisUnc1 = 0.; 
+  Double_t ChargeMisWeight2 = 0.;
+  Double_t ChargeMisUnc2 = 0.; 
+  if(fabs(lep1.pdgId())==11){
+    //Get the bin 
+    int xAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep1.conept())));
+    int yAxisBin1  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
+    ChargeMisWeight1 = _chargeMis->GetBinContent(xAxisBin1,yAxisBin1);
+    ChargeMisUnc1 = _chargeMis->GetBinError(xAxisBin1,yAxisBin1); 
+  }
+  if(fabs(lep2.pdgId())==11){
+    int xAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsX(), _chargeMis->GetXaxis()->FindBin(lep2.conept())));
+    int yAxisBin2  = std::max(1, std::min(_chargeMis->GetNbinsY(), _chargeMis->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
+    ChargeMisWeight2 = _chargeMis->GetBinContent(xAxisBin2,yAxisBin2);
+    ChargeMisUnc2 = _chargeMis->GetBinError(xAxisBin2,yAxisBin2); 
+  }
   ChargeMisWeight = ChargeMisWeight1 + ChargeMisWeight2;
   ChargeMisWeightUp = ChargeMisWeight1 + ChargeMisUnc1 + ChargeMisWeight2 + ChargeMisUnc2;
   ChargeMisWeightDown = ChargeMisWeight1 - ChargeMisUnc1 + ChargeMisWeight2 - ChargeMisUnc2;

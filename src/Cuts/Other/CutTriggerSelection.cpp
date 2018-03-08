@@ -155,6 +155,9 @@ Bool_t CutTriggerSelection::Apply()
 
   EventTree *EventContainerObj = GetEventContainer()->GetEventTree();
 
+  Int_t SourceNumber = GetEventContainer()->GetSourceNumber();
+  Int_t SampleType = SourceNumber < 200000? 0:(SourceNumber % 10000); //1000/1001 SEle, 2000/2001 SMu, 3000/3001 2Mu, 4000/4001 2EleR, 5000/5001 MuEleR
+  
   Bool_t passesTrigger = kFALSE;  //Event passes the trigger selection
 
   Int_t triggerBit = 0;
@@ -163,14 +166,45 @@ Bool_t CutTriggerSelection::Apply()
   electronTrigger = EventContainerObj->HLT_Ele32_eta2p1_WPTight_Gsf;
   Int_t muonTrigger = EventContainerObj->HLT_IsoMu24 || EventContainerObj->HLT_IsoTkMu24;
   
+
   if (_whichtrigger == 0) triggerBit = EventContainerObj->HLT_Ele32_eta2p1_WPTight_Gsf;
   if (_whichtrigger == 1) {//I should really make these customisable, but I'm not gonna do that now.
     //triggerBit = EventContainerObj->HLT_IsoMu18;
     triggerBit = EventContainerObj->HLT_IsoMu24 || EventContainerObj->HLT_IsoTkMu24;
   }
-  if (_whichtrigger == 2) triggerBit = GetEventContainer()->TTHLep_2Mu;
-  if (_whichtrigger == 3) triggerBit = GetEventContainer()->TTHLep_2Ele;
-  if (_whichtrigger == 4) triggerBit = GetEventContainer()->TTHLep_MuEle;
+  if (_whichtrigger == 2){
+    if(SampleType == 3000 || SampleType == 3001){
+        if( EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1)triggerBit =1; 
+    }
+    else if(SampleType == 2000 || SampleType == 2001){
+        if( !(EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1) && (EventContainerObj -> HLT_IsoMu22==1 || EventContainerObj -> HLT_IsoTkMu22==1 || EventContainerObj -> HLT_IsoMu22_eta2p1==1 || EventContainerObj -> HLT_IsoTkMu22_eta2p1 ==1||EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoTkMu24==1))triggerBit=1;
+    }
+    else{
+        triggerBit = GetEventContainer()->TTHLep_2Mu;
+    }
+  }
+  if (_whichtrigger == 3){
+    if(SampleType == 4000 || SampleType == 4001){
+        if(EventContainerObj -> HLT_Ele27_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele25_eta2p1_WPTight_Gsf==1)triggerBit =1;
+    }else if(SampleType == 1000 || SampleType == 1001){
+        if( !(EventContainerObj -> HLT_Ele27_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele25_eta2p1_WPTight_Gsf==1) && (EventContainerObj -> HLT_Ele27_eta2p1_WPLoose_Gsf==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1) )triggerBit=1;
+    }else{
+        triggerBit = GetEventContainer()->TTHLep_2Ele;
+    }
+  }
+  if (_whichtrigger == 4){
+    if(SampleType == 5000 || SampleType == 5001){
+        if(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1)triggerBit=1;
+    }else if(SampleType == 2000 || SampleType == 2001){
+        if( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1) && (EventContainerObj -> HLT_IsoMu22==1 || EventContainerObj -> HLT_IsoTkMu22==1 || EventContainerObj -> HLT_IsoMu22_eta2p1==1 || EventContainerObj -> HLT_IsoTkMu22_eta2p1 ==1||EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoTkMu24==1)) triggerBit =1;
+    }else if(SampleType == 1000 || SampleType == 1001){
+        if(!(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 
+        || EventContainerObj -> HLT_IsoMu22==1 || EventContainerObj -> HLT_IsoTkMu22==1 || EventContainerObj -> HLT_IsoMu22_eta2p1==1 || EventContainerObj -> HLT_IsoTkMu22_eta2p1 ==1||EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoTkMu24==1 ) &&
+       ( EventContainerObj -> HLT_Ele27_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele25_eta2p1_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele27_eta2p1_WPLoose_Gsf==1)) triggerBit =1;
+    }else{
+        triggerBit = GetEventContainer()->TTHLep_MuEle;
+    }
+  }
   if (_whichtrigger == 5) triggerBit = GetEventContainer()->TTHLep_2L;
   
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;
