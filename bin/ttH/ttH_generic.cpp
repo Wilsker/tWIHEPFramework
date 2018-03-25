@@ -124,6 +124,8 @@ int main(int argc, char **argv)
   Bool_t useChargeMis = kFALSE;
   Bool_t useFakeRate = kFALSE;
   Bool_t useTriggerSFs = kFALSE;
+  Bool_t useMCPromptFS = kFALSE;
+  Bool_t useMCPromptGamma = kFALSE;
   TString leptonTypeToSelect = "Tight"; //This variable is altered to unisolated when running QCD estimation.
   string evtListFileName="";
   int whichtrig = -1;
@@ -149,6 +151,14 @@ int main(int argc, char **argv)
     if (!strcmp(argv[i], "-chargeMis")){
       useChargeMis = kTRUE;
       cout << "Driver: Using chargeMis" << endl;
+    }
+    if (!strcmp(argv[i], "-mcPromptFS")){
+      useMCPromptFS = kTRUE;
+      cout << "Driver: Using mcPromptFS" << endl;
+    }
+    if (!strcmp(argv[i], "-mcPromptGamma")){
+      useMCPromptGamma = kTRUE;
+      cout << "Driver: Using mcPromptGamma" << endl;
     }
     if (!strcmp(argv[i], "-TriggerSFs")){
       useTriggerSFs = kTRUE;
@@ -319,10 +329,10 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutMetLD(particlesObj));
   
   mystudy.AddCut(new CutHiggsDecay(particlesObj));
-  mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
+  //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
-  mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj)); // only for ttbar 
-  mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj)); // only for Gamma Conversions
+  //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
+  //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
 

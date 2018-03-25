@@ -38,10 +38,11 @@ using namespace std;
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonMCPromptFS::CutLeptonMCPromptFS(EventContainer *EventContainerObj)
+CutLeptonMCPromptFS::CutLeptonMCPromptFS(EventContainer *EventContainerObj, Bool_t useMCPromptFS)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
+  _useMCPromptFS = useMCPromptFS;
 } // CutLeptonMCPromptFS
 
 
@@ -158,7 +159,8 @@ Bool_t CutLeptonMCPromptFS::Apply()
   // ***********************************************
   // Get Number of Leptons and fill histograms
   // ***********************************************
-  
+ 
+  if(!_useMCPromptFS)return kTRUE; 
   // Initialize number of leptons
   Float_t LeptonPairMCPromptFS    = 0;       
 

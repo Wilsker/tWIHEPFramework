@@ -43,7 +43,7 @@ class CutLeptonMCPromptFS : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutLeptonMCPromptFS(EventContainer *EventContainerObj);
+  CutLeptonMCPromptFS(EventContainer *EventContainerObj, Bool_t useMCPromptFS);
   
   // Destructor
   ~CutLeptonMCPromptFS();
@@ -65,6 +65,7 @@ private:
   myTH1F* _hLeptonMCPromptFSAfter;    // Histogram Lepton Number of jets after the cut
 
   Int_t _LeptonMCPromptFS;
+  Bool_t _useMCPromptFS;
 };
 
 

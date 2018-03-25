@@ -185,9 +185,9 @@ Bool_t CutTriggerSelection::Apply()
   }
   if (_whichtrigger == 3){
     if(SampleType == 4000 || SampleType == 4001){
-        if(EventContainerObj -> HLT_Ele27_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele25_eta2p1_WPTight_Gsf==1)triggerBit =1;
+        if(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1)triggerBit =1;
     }else if(SampleType == 1000 || SampleType == 1001){
-        if( !(EventContainerObj -> HLT_Ele27_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele25_eta2p1_WPTight_Gsf==1) && (EventContainerObj -> HLT_Ele27_eta2p1_WPLoose_Gsf==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1) )triggerBit=1;
+        if( (EventContainerObj -> HLT_Ele27_eta2p1_WPLoose_Gsf==1 || EventContainerObj -> HLT_Ele27_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele25_eta2p1_WPTight_Gsf==1) && !(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1) )triggerBit=1;
     }else{
         triggerBit = GetEventContainer()->TTHLep_2Ele;
     }

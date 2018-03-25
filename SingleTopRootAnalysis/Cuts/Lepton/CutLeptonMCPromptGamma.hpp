@@ -43,7 +43,7 @@ class CutLeptonMCPromptGamma : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutLeptonMCPromptGamma(EventContainer *EventContainerObj);
+  CutLeptonMCPromptGamma(EventContainer *EventContainerObj, Bool_t useMCPromptGamma);
   
   // Destructor
   ~CutLeptonMCPromptGamma();
@@ -65,6 +65,7 @@ private:
   myTH1F* _hLeptonMCPromptGammaAfter;    // Histogram Lepton Number of jets after the cut
 
   Int_t _LeptonMCPromptGamma;
+  Bool_t _useMCPromptGamma;
 };
 
 

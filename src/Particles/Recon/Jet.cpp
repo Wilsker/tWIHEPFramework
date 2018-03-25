@@ -511,11 +511,18 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   /////////////////////////////////////////////////////////////////////////
   
 
-  Bool_t neutralID = (TMath::Abs(Eta()) > 3. || (neutralHadEnergyFraction() < 0.99 &&  neutralEmEmEnergyFraction() < 0.99 && numberOfConstituents() > 1));
-  Bool_t chargedID = (TMath::Abs(Eta()) > 2.4 || (chargedHadronEnergyFraction() > 0. && chargedMultiplicity() > 0. && chargedEmEnergyFraction() < 0.99));
-  Bool_t neutralHighEtaID = (TMath::Abs(Eta()) < 3. || (neutralEmEmEnergyFraction() < 0.9 && (numberOfConstituents() - chargedMultiplicity()) > 10));
+  //Bool_t neutralID = (TMath::Abs(Eta()) > 3. || (neutralHadEnergyFraction() < 0.99 &&  neutralEmEmEnergyFraction() < 0.99 && numberOfConstituents() > 1));
+  //Bool_t chargedID = (TMath::Abs(Eta()) > 2.4 || (chargedHadronEnergyFraction() > 0. && chargedMultiplicity() > 0. && chargedEmEnergyFraction() < 0.99));
+  //Bool_t neutralHighEtaID = (TMath::Abs(Eta()) < 3. || (neutralEmEmEnergyFraction() < 0.9 && (numberOfConstituents() - chargedMultiplicity()) > 10));
 
-  Bool_t passesJetID = neutralID && chargedID && neutralHighEtaID;
+  Bool_t LowEtaID = (neutralHadEnergyFraction()<0.90 && neutralEmEmEnergyFraction()<0.90 && numberOfConstituents()>1) && ((TMath::Abs(Eta())<=2.4 && chargedHadronEnergyFraction()>0 && chargedMultiplicity()>0 && chargedEmEnergyFraction()<0.99) || TMath::Abs(Eta())>2.4) && TMath::Abs(Eta())<=2.7;
+  Bool_t MediumEtaID = (neutralHadEnergyFraction()<0.98 && neutralEmEmEnergyFraction()>0.01 && (numberOfConstituents() - chargedMultiplicity())>2 && TMath::Abs(Eta())>2.7 && TMath::Abs(Eta())<=3.0 ); 
+  Bool_t HighEtaID = (neutralEmEmEnergyFraction()<0.90 && (numberOfConstituents() - chargedMultiplicity())>10 && TMath::Abs(Eta())>3.0 ); 
+
+  //Bool_t passesJetID = neutralID && chargedID && neutralHighEtaID;
+  Bool_t passesJetID = LowEtaID || MediumEtaID || HighEtaID;
+
+  
 
   /////////////////////////////////////////////////////////////////////////
   // Jet Cleaning

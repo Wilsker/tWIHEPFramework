@@ -38,10 +38,11 @@ using namespace std;
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonMCPromptGamma::CutLeptonMCPromptGamma(EventContainer *EventContainerObj)
+CutLeptonMCPromptGamma::CutLeptonMCPromptGamma(EventContainer *EventContainerObj, Bool_t useMCPromptGamma)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
+  _useMCPromptGamma = useMCPromptGamma;
 } // CutLeptonMCPromptGamma
 
 
@@ -158,6 +159,7 @@ Bool_t CutLeptonMCPromptGamma::Apply()
   // ***********************************************
   // Get Number of Leptons and fill histograms
   // ***********************************************
+  if(!_useMCPromptGamma)return kTRUE; 
   
   // Initialize number of leptons
   Float_t LeptonPairMCPromptGamma    = 0;       
