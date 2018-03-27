@@ -446,8 +446,10 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Setqg       (evtr -> Jet_qg      -> operator[](iE));
   SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
   SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
-  SetgenMother_pdgId       (evtr -> Jet_genMother_pdgId      -> operator[](iE));
-  SetgenGrandMother_pdgId       (evtr -> Jet_genGrandMother_pdgId      -> operator[](iE));
+  //SetgenMother_pdgId       (evtr -> Jet_genMother_pdgId      -> operator[](iE));
+  //SetgenGrandMother_pdgId       (evtr -> Jet_genGrandMother_pdgId      -> operator[](iE));
+  SetgenMother_pdgId       (-999.);
+  SetgenGrandMother_pdgId       (-999.);
 
   SetisLooseBdisc      ( bDiscriminator() > _LWPbTagCut ); 
   SetisMediumBdisc       ( bDiscriminator() > _MWPbTagCut );

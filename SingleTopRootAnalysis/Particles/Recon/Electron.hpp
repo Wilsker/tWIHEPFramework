@@ -69,6 +69,7 @@ class Electron: public Particle
   inline void Clear() { Particle::Clear(); _passVetoId = 0.0; _passLooseId = 0.0; _passMediumId = 0.0; _passTightId = 0.0; _passHEEPId = 0.0; _passConversionVeto = 0.0;
   _patElectron_d0 = 0.0; _patElectron_dz = 0.0; _patElectron_dxy=0.0; _expectedMissingInnerHits = 0.0;
   _isoChargedHadrons = 0.0; _isoNeutralHadrons = 0.0; _isoPhotons = 0.0; _isoPU = 0.0;
+  _mvaValue_nonTrig =0.0;
   _miniIsoRel =0.0; _IP3Dsig=0.0;
   }
 
@@ -173,6 +174,10 @@ class Electron: public Particle
   inline Double_t GetOoEmooP() const {return _ooEmooP;};
   inline Double_t ooEmooP() const {return _ooEmooP;};
 
+  inline void SetmvaValue_nonTrig(Double_t mvaValue_nonTrig){_mvaValue_nonTrig = mvaValue_nonTrig;};
+  inline Double_t GetmvaValue_nonTrig() const {return _mvaValue_nonTrig;};
+  inline Double_t mvaValue_nonTrig() const {return _mvaValue_nonTrig;};
+
   inline void SetRelIsoPFRhoEA(Double_t relIsoPFRhoEA){_relIsoPFRhoEA = relIsoPFRhoEA;};
   inline Double_t GetRelIsoPFRhoEA() const {return _relIsoPFRhoEA;};
   inline Double_t relIsoPFRhoEA() const {return _relIsoPFRhoEA;};
@@ -221,6 +226,7 @@ private:
   Double_t _hOverE;
   Double_t _ooEmooP;
   Int_t _missingHits;
+  Double_t _mvaValue_nonTrig;
   
   //Isolation
   Double_t _relIsoPFRhoEA;

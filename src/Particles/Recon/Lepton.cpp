@@ -692,6 +692,7 @@ double Lepton::get_LeptonMVA()
  ******************************************************************************/
 Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
 {
+   //std::cout << "Debug: <Lepton::Fill()>  Read Leptons from Tree : Just Enter Lepton::Fill " << std::endl;
   // **************************************************************
   // Check lepton type
   // **************************************************************
@@ -709,10 +710,13 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
   // Fill muon
   // **************************************************************
   if(pdgid == 13){
+   // std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just Before 4Momentum Fill " << std::endl;
     lepPt     = evtr -> Muon_pt       -> operator[](iE);
     lepEta    = evtr -> Muon_eta      -> operator[](iE);
     lepPhi    = evtr -> Muon_phi      -> operator[](iE);
     lepE      = evtr -> Muon_energy   -> operator[](iE);
+    
+    //std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just after 4Momentum Fill " << std::endl;
 
     SetpassTightId	(evtr -> Muon_tight   		-> operator[](iE));
     SetpassLooseId	(evtr -> Muon_loose   		-> operator[](iE));
@@ -728,6 +732,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setchi2		(evtr -> Muon_chi2   		-> operator[](iE));
     Setdxy		(evtr -> Muon_dxy_pv   		-> operator[](iE));
     Setdz			(evtr -> Muon_dz_pv   		-> operator[](iE));
+    //std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just after Muon_dz Fill " << std::endl;
     SetvalidHits		(evtr -> Muon_validHits   	-> operator[](iE));
     SetvalidHitsInner	(evtr -> Muon_validHitsInner   	-> operator[](iE));
     SetmatchedStat	(evtr -> Muon_matchedStat   	-> operator[](iE));
@@ -739,6 +744,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetIP3Dsig		(evtr -> Muon_IP3Dsig_it   		-> operator[](iE));
     Setjetptratio       (evtr -> Muon_jetptratio      -> operator[](iE));
     Setjetcsv       (evtr -> Muon_jetcsv      -> operator[](iE));
+    //std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just after Muon_jetcsv Fill " << std::endl;
     Setlepjetchtrks       (evtr -> Muon_lepjetchtrks      -> operator[](iE));
     SetminiIsoCh       (evtr -> Muon_miniIsoCh      -> operator[](iE));
     SetminiIsoPUsub       (evtr -> Muon_miniIsoPUsub      -> operator[](iE));
@@ -752,6 +758,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetvalidFraction       (evtr -> Muon_validFraction      -> operator[](iE));
     SetsegmentCompatibility       (evtr -> Muon_segmentCompatibility      -> operator[](iE));
     SetpTErrOVpT_it       (evtr -> Muon_pTErrOVpT_it      -> operator[](iE));
+//    std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just Before Muon_gen_pt Fill " << std::endl;
     Setgen_pt       (evtr -> Muon_gen_pt      -> operator[](iE));
     Setgen_eta       (evtr -> Muon_gen_eta      -> operator[](iE));
     Setgen_phi       (evtr -> Muon_gen_phi      -> operator[](iE));
@@ -759,8 +766,10 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setgen_pdgId       (evtr -> Muon_gen_pdgId      -> operator[](iE));
     Setgen_isPrompt       (evtr -> Muon_gen_isPromptFinalState      -> operator[](iE));
     Setgen_isPromptTau       (evtr -> Muon_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
-    SetgenMother_pdgId       (evtr -> Muon_genMother_pdgId      -> operator[](iE));
-    SetgenGrandMother_pdgId       (evtr -> Muon_genGrandMother_pdgId      -> operator[](iE));
+    //SetgenMother_pdgId       (evtr -> Muon_genMother_pdgId      -> operator[](iE));
+    //SetgenGrandMother_pdgId       (evtr -> Muon_genGrandMother_pdgId      -> operator[](iE));
+    SetgenMother_pdgId       (-999.);
+    SetgenGrandMother_pdgId       (-999.);
     SetmatchId       (-999.);
     SetisFromTop       (-999.);
     SetisFromH       (-999.);
@@ -770,27 +779,29 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetisFromC       (-999);
     SetmcPromptGamma       (0.);
     SetpassConversionVeto       (1.);
-    
   }
 
   // **************************************************************
   // Fill electron
   // **************************************************************
   if(pdgid == 11){
+//    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before 4Momentum Fill " << std::endl;
     lepPt     = evtr -> patElectron_pt       -> operator[](iE);
     lepEta    = evtr -> patElectron_eta      -> operator[](iE);
     lepPhi    = evtr -> patElectron_phi      -> operator[](iE);
     lepE      = evtr -> patElectron_energy   -> operator[](iE);
     
-
+//    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before 4Momentum Fill " << std::endl;
     SetCharge       (evtr -> patElectron_charge      -> operator[](iE));
     SetIP3Dsig       (evtr -> patElectron_IP3Dsig      -> operator[](iE));
     SetminiIsoRel       (evtr -> patElectron_miniIsoRel      -> operator[](iE));
     SetpdgId       (evtr -> patElectron_pdgId      -> operator[](iE));
     Setdxy       (evtr -> patElectron_gsfTrack_dxy_pv      -> operator[](iE));
     Setdz       (evtr -> patElectron_gsfTrack_dz_pv      -> operator[](iE));
+//    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_dz Fill " << std::endl;
     Setjetptratio       (evtr -> patElectron_jetptratio      -> operator[](iE));
     Setjetcsv       (evtr -> patElectron_jetcsv      -> operator[](iE));
+//    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_jetcsv Fill " << std::endl;
     Setlepjetchtrks       (evtr -> patElectron_lepjetchtrks      -> operator[](iE));
     SetminiIsoCh       (evtr -> patElectron_miniIsoCh      -> operator[](iE));
     SetminiIsoPUsub       (evtr -> patElectron_miniIsoPUsub      -> operator[](iE));
@@ -807,6 +818,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetmvaValue_HZZ       (evtr -> patElectron_mvaValue_HZZ      -> operator[](iE));
     SetisGsfCtfScPixChargeConsistent       (evtr -> patElectron_isGsfCtfScPixChargeConsistent      -> operator[](iE));
     SetisGsfScPixChargeConsistent       (evtr -> patElectron_isGsfScPixChargeConsistent      -> operator[](iE));
+//    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before Electron_gen_pt Fill " << std::endl;
     Setgen_pt       (evtr -> patElectron_gen_pt      -> operator[](iE));
     Setgen_eta       (evtr -> patElectron_gen_eta      -> operator[](iE));
     Setgen_phi       (evtr -> patElectron_gen_phi      -> operator[](iE));
@@ -814,8 +826,10 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setgen_pdgId       (evtr -> patElectron_gen_pdgId      -> operator[](iE));
     Setgen_isPrompt       (evtr -> patElectron_gen_isPromptFinalState      -> operator[](iE));
     Setgen_isPromptTau       (evtr -> patElectron_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
-    SetgenMother_pdgId       (evtr -> patElectron_genMother_pdgId      -> operator[](iE));
-    SetgenGrandMother_pdgId       (evtr -> patElectron_genGrandMother_pdgId      -> operator[](iE));
+    //SetgenMother_pdgId       (evtr -> patElectron_genMother_pdgId      -> operator[](iE));
+    //SetgenGrandMother_pdgId       (evtr -> patElectron_genGrandMother_pdgId      -> operator[](iE));
+    SetgenMother_pdgId       (-999.);
+    SetgenGrandMother_pdgId       (-999.);
     SetmatchId       (-999.);
     SetisFromTop       (-999.);
     SetisFromH       (-999.);
@@ -825,7 +839,6 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetisFromC       (-999);
     SetmcPromptGamma       (-999);
     SetpassConversionVeto       (evtr -> patElectron_passConversionVeto      -> operator[](iE));
-    
   }
   SetPtEtaPhiE(lepPt, lepEta, lepPhi, lepE);
 

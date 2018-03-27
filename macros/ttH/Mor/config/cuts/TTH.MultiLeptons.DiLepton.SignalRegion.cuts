@@ -19,8 +19,12 @@ Cut.Muon.TTHFake.LeadingPt:  25
 Cut.Muon.TTHFake.SubLeadingPt:  15
 ################# Muon Cuts #########################
 # Number of  Muons
-#Cut.Muon.Tight.Number.Min:  1
-#Cut.Muon.Tight.Number.Max:  1
+Cut.Muon.Veto.Number.Min:  1
+Cut.Muon.Veto.Number.Max:  999
+################# Electron Cuts #########################
+# Number of  Electrons
+Cut.Electron.Veto.Number.Min:  1
+Cut.Electron.Veto.Number.Max:  999
 ############## DiLep Cuts ############################
 Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
 Cut.Dilepton.TTHFake.NumTightMin: 2 
