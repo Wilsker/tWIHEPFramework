@@ -302,7 +302,7 @@ int main(int argc, char **argv)
 
 
   //mystudy.AddCut(new CutElectronN(particlesObj, leptonTypeToSelect)); //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutElectronN(particlesObj, "Veto")); //require that lepton to be isolated, central, high pt
+  //mystudy.AddCut(new CutElectronN(particlesObj, "Veto")); //require that lepton to be isolated, central, high pt
 
   //mystudy.AddCut(new HistogrammingElectron(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingElectron(particlesObj,"Veto"));  // make the muon plots, hopefully.
@@ -317,9 +317,9 @@ int main(int argc, char **argv)
   //  mystudy.AddCut(new CutEMuOverlap(particlesObj));
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
-  //mystudy.AddCut(new CutJetN(particlesObj,nJets));
+  mystudy.AddCut(new CutJetN(particlesObj,nJets));
   
-  //mystudy.AddCut(new CutTauN(particlesObj));
+  //mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   //mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));

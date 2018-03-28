@@ -215,6 +215,7 @@ public :
    std::vector<double>  *Muon_jetdr;
    std::vector<double>  *Muon_jetpt;
    std::vector<double>  *Muon_jetptratio;
+   std::vector<double>  *Muon_jetptratioV2;
    std::vector<double>  *Muon_jetcsv;
    std::vector<double>  *Muon_ptrel;
    std::vector<double>  *Muon_IP3Dsig_it;
@@ -354,6 +355,7 @@ public :
    std::vector<double>  *patElectron_jetdr;
    std::vector<double>  *patElectron_jetpt;
    std::vector<double>  *patElectron_jetptratio;
+   std::vector<double>  *patElectron_jetptratioV2;
    std::vector<double>  *patElectron_jetcsv;
    std::vector<double>  *patElectron_ptrel;
    std::vector<double>  *patElectron_IP3Dsig;
@@ -549,6 +551,7 @@ public :
    std::vector<double>  *Jet_pfJetProbabilityBJetTags;
    std::vector<double>  *Jet_pfCombinedCvsLJetTags;
    std::vector<double>  *Jet_pfCombinedCvsBJetTags;
+   std::vector<double>  *Jet_pfDeepCSVBJetTags;
    std::vector<double>  *Jet_pileupId;
    std::vector<double>  *Jet_isPFJet;
    std::vector<double>  *Jet_isCaloJet;
@@ -951,6 +954,7 @@ public :
    TBranch        *b_Muon_jetdr;   //!
    TBranch        *b_Muon_jetpt;   //!
    TBranch        *b_Muon_jetptratio;   //!
+   TBranch        *b_Muon_jetptratioV2;   //!
    TBranch        *b_Muon_jetcsv;   //!
    TBranch        *b_Muon_ptrel;   //!
    TBranch        *b_Muon_IP3Dsig_it;   //!
@@ -1090,6 +1094,7 @@ public :
    TBranch        *b_patElectron_jetdr;   //!
    TBranch        *b_patElectron_jetpt;   //!
    TBranch        *b_patElectron_jetptratio;   //!
+   TBranch        *b_patElectron_jetptratioV2;   //!
    TBranch        *b_patElectron_jetcsv;   //!
    TBranch        *b_patElectron_ptrel;   //!
    TBranch        *b_patElectron_IP3Dsig;   //!
@@ -1285,6 +1290,7 @@ public :
    TBranch        *b_Jet_pfJetProbabilityBJetTags;   //!
    TBranch        *b_Jet_pfCombinedCvsLJetTags;   //!
    TBranch        *b_Jet_pfCombinedCvsBJetTags;   //!
+   TBranch        *b_Jet_pfDeepCSVBJetTags;   //!
    TBranch        *b_Jet_pileupId;   //!
    TBranch        *b_Jet_isPFJet;   //!
    TBranch        *b_Jet_isCaloJet;   //!
@@ -1654,6 +1660,7 @@ void EventTree::Init(TTree *tree)
    Muon_jetdr = 0;
    Muon_jetpt = 0;
    Muon_jetptratio = 0;
+   Muon_jetptratioV2 = 0;
    Muon_jetcsv = 0;
    Muon_ptrel = 0;
    Muon_IP3Dsig_it = 0;
@@ -1793,6 +1800,7 @@ void EventTree::Init(TTree *tree)
    patElectron_jetdr = 0;
    patElectron_jetpt = 0;
    patElectron_jetptratio = 0;
+   patElectron_jetptratioV2 = 0;
    patElectron_jetcsv = 0;
    patElectron_ptrel = 0;
    patElectron_IP3Dsig = 0;
@@ -1988,6 +1996,7 @@ void EventTree::Init(TTree *tree)
    Jet_pfJetProbabilityBJetTags = 0;
    Jet_pfCombinedCvsLJetTags = 0;
    Jet_pfCombinedCvsBJetTags = 0;
+   Jet_pfDeepCSVBJetTags = 0;
    Jet_pileupId = 0;
    Jet_isPFJet = 0;
    Jet_isCaloJet = 0;
@@ -2360,6 +2369,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Muon_jetdr", &Muon_jetdr, &b_Muon_jetdr);
    fChain->SetBranchAddress("Muon_jetpt", &Muon_jetpt, &b_Muon_jetpt);
    fChain->SetBranchAddress("Muon_jetptratio", &Muon_jetptratio, &b_Muon_jetptratio);
+   fChain->SetBranchAddress("Muon_jetptratioV2", &Muon_jetptratioV2, &b_Muon_jetptratioV2);
    fChain->SetBranchAddress("Muon_jetcsv", &Muon_jetcsv, &b_Muon_jetcsv);
    fChain->SetBranchAddress("Muon_ptrel", &Muon_ptrel, &b_Muon_ptrel);
    fChain->SetBranchAddress("Muon_IP3Dsig_it", &Muon_IP3Dsig_it, &b_Muon_IP3Dsig_it);
@@ -2499,6 +2509,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_jetdr", &patElectron_jetdr, &b_patElectron_jetdr);
    fChain->SetBranchAddress("patElectron_jetpt", &patElectron_jetpt, &b_patElectron_jetpt);
    fChain->SetBranchAddress("patElectron_jetptratio", &patElectron_jetptratio, &b_patElectron_jetptratio);
+   fChain->SetBranchAddress("patElectron_jetptratioV2", &patElectron_jetptratioV2, &b_patElectron_jetptratioV2);
    fChain->SetBranchAddress("patElectron_jetcsv", &patElectron_jetcsv, &b_patElectron_jetcsv);
    fChain->SetBranchAddress("patElectron_ptrel", &patElectron_ptrel, &b_patElectron_ptrel);
    fChain->SetBranchAddress("patElectron_IP3Dsig", &patElectron_IP3Dsig, &b_patElectron_IP3Dsig);
@@ -2694,6 +2705,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Jet_pfJetProbabilityBJetTags", &Jet_pfJetProbabilityBJetTags, &b_Jet_pfJetProbabilityBJetTags);
    fChain->SetBranchAddress("Jet_pfCombinedCvsLJetTags", &Jet_pfCombinedCvsLJetTags, &b_Jet_pfCombinedCvsLJetTags);
    fChain->SetBranchAddress("Jet_pfCombinedCvsBJetTags", &Jet_pfCombinedCvsBJetTags, &b_Jet_pfCombinedCvsBJetTags);
+   fChain->SetBranchAddress("Jet_pfDeepCSVBJetTags", &Jet_pfDeepCSVBJetTags, &b_Jet_pfDeepCSVBJetTags);
    fChain->SetBranchAddress("Jet_pileupId", &Jet_pileupId, &b_Jet_pileupId);
    fChain->SetBranchAddress("Jet_isPFJet", &Jet_isPFJet, &b_Jet_isPFJet);
    fChain->SetBranchAddress("Jet_isCaloJet", &Jet_isCaloJet, &b_Jet_isCaloJet);

@@ -50,6 +50,7 @@ ClassImp(Lepton)
   Lepton::Lepton() : Particle::Particle(), 
   _passTightId(kFALSE), 
   _passLooseId(kFALSE),
+  _passMediumId(kFALSE),
   _isSoft     (kFALSE),
   _isHighPt   (kFALSE),
   _isPf       (kFALSE),
@@ -72,6 +73,7 @@ ClassImp(Lepton)
   _IP3Dsig			(0.0),
   _miniIsoRel			(0.0),
   _jetptratio       (0.0),
+  _jetptratioV2       (0.0),
   _jetcsv       (0.0),
   _lepjetchtrks       (0.0),
   _miniIsoCh       (0.0),
@@ -118,6 +120,7 @@ ClassImp(Lepton)
   _isFromB       (0.0),
   _isFromC       (0.0),
   _mcPromptGamma       (0.0),
+  _mvaValue_nonTrig       (0.0),
   _mvaValue_HZZ       (0.0)
 {
 
@@ -147,6 +150,7 @@ Lepton::~Lepton()
 Lepton::Lepton(const Lepton& other): Particle(other),
   _passTightId(other.GetpassTightId()),
   _passLooseId(other.GetpassLooseId()),
+  _passMediumId(other.GetpassMediumId()),
   _isSoft(other.GetisSoft()),
   _isHighPt(other.GetisHighPt()),
   _isPf(other.GetisPf()),
@@ -169,6 +173,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _IP3Dsig(other.GetIP3Dsig()),
   _miniIsoRel(other.GetminiIsoRel()),
   _jetptratio(other.Getjetptratio()),
+  _jetptratioV2(other.GetjetptratioV2()),
   _jetcsv(other.Getjetcsv()),
   _lepjetchtrks(other.Getlepjetchtrks()),
   _miniIsoCh(other.GetminiIsoCh()),
@@ -198,6 +203,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _dPhiIn(other.GetdPhiIn()),
   _ooEmooP(other.GetooEmooP()),
   _mvaValue_HZZ(other.GetmvaValue_HZZ()),
+  _mvaValue_nonTrig(other.GetmvaValue_nonTrig()),
   _gen_pt(other.Getgen_pt()),
   _gen_eta(other.Getgen_eta()),
   _gen_phi(other.Getgen_phi()),
@@ -231,6 +237,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
 Lepton::Lepton(const Particle& other): Particle(other),
   _passTightId(kFALSE), 
   _passLooseId(kFALSE),
+  _passMediumId(kFALSE),
   _isSoft     (kFALSE),
   _isHighPt   (kFALSE),
   _isPf       (kFALSE),
@@ -253,6 +260,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _IP3Dsig			(0.0),
   _miniIsoRel			(0.0),
   _jetptratio       (0.0),
+  _jetptratioV2       (0.0),
   _jetcsv       (0.0),
   _lepjetchtrks       (0.0),
   _miniIsoCh       (0.0),
@@ -282,6 +290,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _dPhiIn       (0.0),
   _ooEmooP       (0.0),
   _mvaValue_HZZ       (0.0),
+  _mvaValue_nonTrig       (0.0),
   _gen_pt       (0.0),
   _gen_eta       (0.0),
   _gen_phi       (0.0),
@@ -346,6 +355,7 @@ Lepton& Lepton::operator=(const Particle& other)
   Particle::operator=(other);
   SetpassTightId(kFALSE);
   SetpassLooseId(kFALSE);
+  SetpassMediumId(kFALSE);
   SetisSoft     (kFALSE);
   SetisHighPt   (kFALSE);
   SetisPf       (kFALSE);
@@ -368,6 +378,7 @@ Lepton& Lepton::operator=(const Particle& other)
   SetIP3Dsig		(0.0);
   SetminiIsoRel		(0.0);
   Setjetptratio       (0.0);
+  SetjetptratioV2       (0.0);
   Setjetcsv       (0.0);
   Setlepjetchtrks       (0.0);
   SetminiIsoCh       (0.0);
@@ -415,6 +426,7 @@ Lepton& Lepton::operator=(const Particle& other)
   SetisFromC       (0.0);
   SetmcPromptGamma       (0.0);
   SetmvaValue_HZZ       (0.0);
+  SetmvaValue_nonTrig       (0.0);
   return *this;
 } //= Particle
 
@@ -431,6 +443,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   Particle::operator=(other);
   SetpassTightId(other.GetpassTightId());
   SetpassLooseId(other.GetpassLooseId());
+  SetpassMediumId(other.GetpassMediumId());
   SetisSoft(other.GetisSoft());
   SetisHighPt(other.GetisHighPt());
   SetisPf(other.GetisPf());
@@ -453,6 +466,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetIP3Dsig(other.GetIP3Dsig());
   SetminiIsoRel(other.GetminiIsoRel());
   Setjetptratio(other.Getjetptratio());
+  SetjetptratioV2(other.GetjetptratioV2());
   Setjetcsv(other.Getjetcsv());
   Setlepjetchtrks(other.Getlepjetchtrks());
   SetminiIsoCh(other.GetminiIsoCh());
@@ -500,6 +514,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetisFromC(other.GetisFromC());
   SetmcPromptGamma(other.GetmcPromptGamma());
   SetmvaValue_HZZ(other.GetmvaValue_HZZ());
+  SetmvaValue_nonTrig(other.GetmvaValue_nonTrig());
   return *this;
 } //= const muon
 
@@ -516,6 +531,7 @@ Lepton& Lepton::operator=(Lepton& other)
   Particle::operator=(other);
   SetpassTightId(other.GetpassTightId());
   SetpassLooseId(other.GetpassLooseId());
+  SetpassMediumId(other.GetpassMediumId());
   SetisSoft(other.GetisSoft());
   SetisHighPt(other.GetisHighPt());
   SetisPf(other.GetisPf());
@@ -538,6 +554,7 @@ Lepton& Lepton::operator=(Lepton& other)
   SetIP3Dsig(other.GetIP3Dsig());
   SetminiIsoRel(other.GetminiIsoRel());
   Setjetptratio(other.Getjetptratio());
+  SetjetptratioV2(other.GetjetptratioV2());
   Setjetcsv(other.Getjetcsv());
   Setlepjetchtrks(other.Getlepjetchtrks());
   SetminiIsoCh(other.GetminiIsoCh());
@@ -585,6 +602,7 @@ Lepton& Lepton::operator=(Lepton& other)
   SetisFromC(other.GetisFromC());
   SetmcPromptGamma(other.GetmcPromptGamma());
   SetmvaValue_HZZ(other.GetmvaValue_HZZ());
+  SetmvaValue_nonTrig(other.GetmvaValue_nonTrig());
   return *this;
 } //= non-const lepton
 
@@ -636,13 +654,13 @@ void Lepton::set_lepMVAreader(TEnv* config)
         m->AddVariable("LepGood_miniRelIsoCharged", &varchRelIso);
         m->AddVariable("LepGood_miniRelIsoNeutral", &varneuRelIso);
         m->AddVariable("LepGood_jetPtRelv2", &varjetPtRel_in);
-        m->AddVariable("LepGood_jetPtRatio := min(LepGood_jetPtRatiov2,1.5)", &varjetPtRatio_in);
         m->AddVariable("LepGood_jetBTagCSV := max(LepGood_jetBTagCSV,0)", &varjetBTagCSV_in);
+        m->AddVariable("LepGood_jetPtRatiov2 := (LepGood_jetBTagCSV>-5)*min(LepGood_jetPtRatiov2,1.5)+(LepGood_jetBTagCSV<-5)/(1+LepGood_relIso04)", &varjetPtRatio_in);
         m->AddVariable("LepGood_sip3d", &varsip3d);
         m->AddVariable("LepGood_dxy := log(abs(LepGood_dxy))", &vardxy);
         m->AddVariable("LepGood_dz := log(abs(LepGood_dz))", &vardz);
     }
-    ele_reader_->AddVariable("LepGood_mvaIdSpring16HZZ", &varmvaId);
+    ele_reader_->AddVariable("LepGood_mvaIdFall17noIso", &varmvaId);
     mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
     ele_reader_->BookMVA("BDTG method",config -> GetValue("Include.ElectronMVAFile","null")); 
     mu_reader_->BookMVA("BDTG method",config -> GetValue("Include.MuonMVAFile","null")); 
@@ -664,14 +682,14 @@ double Lepton::get_LeptonMVA()
     varchRelIso = miniIsoCh()/Pt();
     varneuRelIso = miniIsoPUsub()/Pt();
     varjetPtRel_in = ptrel();
-    varjetPtRatio_in = min(jetptratio(),1.5);
+    varjetPtRatio_in = min(jetptratioV2(),1.5);
     varjetBTagCSV_in = max(jetcsv(),0.); 
     varjetNDauCharged_in =lepjetchtrks(); 
     varsip3d = IP3Dsig();
     vardxy = log(TMath::Abs(dxy())); 
     vardz =  log(TMath::Abs(dz())); 
     varSegCompat = segmentCompatibility(); 
-    varmvaId = mvaValue_HZZ();
+    varmvaId = mvaValue_nonTrig();
     if( TMath::Abs(pdgId()) == 13) return mu_reader_->EvaluateMVA("BDTG method");
     else if( TMath::Abs(pdgId()) == 11) return ele_reader_->EvaluateMVA("BDTG method");
     else{
@@ -720,6 +738,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
 
     SetpassTightId	(evtr -> Muon_tight   		-> operator[](iE));
     SetpassLooseId	(evtr -> Muon_loose   		-> operator[](iE));
+    SetpassMediumId	(evtr -> Muon_medium   		-> operator[](iE));
     SetisSoft     	(evtr -> Muon_soft    		-> operator[](iE));
     SetisHighPt   	(evtr -> Muon_isHighPt		-> operator[](iE));
     SetisPf       	(evtr -> Muon_pf      		-> operator[](iE));
@@ -743,6 +762,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetminiIsoRel		(evtr -> Muon_miniIsoRel   		-> operator[](iE));
     SetIP3Dsig		(evtr -> Muon_IP3Dsig_it   		-> operator[](iE));
     Setjetptratio       (evtr -> Muon_jetptratio      -> operator[](iE));
+    SetjetptratioV2       (evtr -> Muon_jetptratioV2      -> operator[](iE));
     Setjetcsv       (evtr -> Muon_jetcsv      -> operator[](iE));
     //std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just after Muon_jetcsv Fill " << std::endl;
     Setlepjetchtrks       (evtr -> Muon_lepjetchtrks      -> operator[](iE));
@@ -800,6 +820,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setdz       (evtr -> patElectron_gsfTrack_dz_pv      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_dz Fill " << std::endl;
     Setjetptratio       (evtr -> patElectron_jetptratio      -> operator[](iE));
+    SetjetptratioV2       (evtr -> patElectron_jetptratioV2      -> operator[](iE));
     Setjetcsv       (evtr -> patElectron_jetcsv      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_jetcsv Fill " << std::endl;
     Setlepjetchtrks       (evtr -> patElectron_lepjetchtrks      -> operator[](iE));
@@ -816,6 +837,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetdPhiIn       (evtr -> patElectron_dPhiIn      -> operator[](iE));
     SetooEmooP       (evtr -> patElectron_ooEmooP      -> operator[](iE));
     SetmvaValue_HZZ       (evtr -> patElectron_mvaValue_HZZ      -> operator[](iE));
+    SetmvaValue_nonTrig       (evtr -> patElectron_mvaValue_nonTrig      -> operator[](iE));
     SetisGsfCtfScPixChargeConsistent       (evtr -> patElectron_isGsfCtfScPixChargeConsistent      -> operator[](iE));
     SetisGsfScPixChargeConsistent       (evtr -> patElectron_isGsfScPixChargeConsistent      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before Electron_gen_pt Fill " << std::endl;
@@ -924,22 +946,32 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
 
   // definition of ttH fake lepton
   // isMedium_ST
+  /*
   Bool_t ishipsave = sNumber < 210000; // data period GH (sNumber>21000) is not hipsave 
   Bool_t GoodGlobal = (isGlobal()==1 && chi2() <3 && chi2LocalPosition() < 12 && trkKink() < 20);
   Bool_t isMedium = TMath::Abs(pdgId())==11 || (passLooseId() ==1 && validFraction() > (ishipsave? 0.49 : 0.80) && segmentCompatibility() > ( GoodGlobal? 0.303 : 0.451));
+  */
+  Bool_t isMedium = TMath::Abs(pdgId())==11 || passMediumId();
   // calculate lepton BDT
   SetBDT(get_LeptonMVA());
   // calculate conept
-  Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * jetpt());
+  Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * lepPt / jetptratioV2());
   // calculate lepton tight selections
   SetpassTightCharge   ((pdgid==13 && TMath::Abs(pTErrOVpT_it())<0.2)||(pdgid==11 && (isGsfCtfScPixChargeConsistent() + isGsfScPixChargeConsistent()) >1));
   SetpassMissHit       ((pdgid==13)||(expectedMissingInnerHits()==0 && pdgid ==11));
   
   Bool_t eleMVAId = kFALSE;
-  if((TMath::Abs(SCeta()) <0.8 && mvaValue_HZZ() > 0.0)||
-      (0.8 <= TMath::Abs(SCeta()) && TMath::Abs(SCeta()) <1.479 && mvaValue_HZZ() >0.0)||
-      (1.479 <=TMath::Abs(SCeta()) && TMath::Abs(SCeta())<500 && mvaValue_HZZ()>0.7)
-   ) eleMVAId = kTRUE;
+  if(lepPt <=10){
+    if((TMath::Abs(SCeta()) <0.8 && mvaValue_nonTrig() > -0.13285867293779202)||
+          (0.8 <= TMath::Abs(SCeta()) && TMath::Abs(SCeta()) <1.479 && mvaValue_nonTrig() > -0.31765300958836074)||
+        (1.479 <=TMath::Abs(SCeta()) && TMath::Abs(SCeta())<500 && mvaValue_nonTrig()>-0.0799205914718861)
+    ) eleMVAId = kTRUE;
+  }else{
+    if((TMath::Abs(SCeta()) <0.8 && mvaValue_nonTrig() > -0.856871961305474 )||
+          (0.8 <= TMath::Abs(SCeta()) && TMath::Abs(SCeta()) <1.479 && mvaValue_nonTrig() > -0.8107642141584835)||
+        (1.479 <=TMath::Abs(SCeta()) && TMath::Abs(SCeta())<500 && mvaValue_nonTrig()> -0.7179265933023059)
+    ) eleMVAId = kTRUE;
+  }
 
     Bool_t passCuts = kFALSE;
     if (TMath::Abs(SCeta()) < 0.8){
@@ -973,16 +1005,17 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
      && (
       (BDT() > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType]) ||
       (BDT() < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
-       && jetptratio() > _jetptratioCuts[leptonType] && segmentCompatibility() > _SegmentCompCuts[leptonType] )
+       && jetptratioV2() > _jetptratioCuts[leptonType] && segmentCompatibility() > _SegmentCompCuts[leptonType] )
       )
      )passFake = kTRUE;
    
   if(
      pdgid==11 && conept() > _ConePtCuts[leptonType]
-     && (
-      (BDT() > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType] && passCuts) ||
+     && passCuts && (
+      (BDT() > _BDTCuts[leptonType] && jetcsv() < _jetcsvHCuts[leptonType] ) ||
       (BDT() < _BDTCuts[leptonType] && jetcsv() < _jetcsvLCuts[leptonType] 
-       && jetptratio() > _jetptratioCuts[leptonType] && eleMVAId && passCuts )
+       && jetptratioV2() > _jetptratioCuts[leptonType]  )
+       && expectedMissingInnerHits() == 0
       )
      )passFake = kTRUE;
   
@@ -1010,9 +1043,9 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
   if(     "MuTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passTight);
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
   else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
-  else if("EleLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto);
-  else if("EleTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passTight && passFake);
-  else if("EleFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passFake); 
+  else if("EleLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && eleMVAId );
+  else if("EleTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passTight && passFake && eleMVAId);
+  else if("EleFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId); 
   //else if("Isolated"   == leptonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == leptonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());
   //else if("All"        == leptonType) return( kTRUE );

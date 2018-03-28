@@ -41,7 +41,7 @@ class CutTauN : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutTauN(EventContainer *EventContainerObj);
+  CutTauN(EventContainer *EventContainerObj, TString tauType);
   
   // Destructor
   ~CutTauN();
@@ -66,6 +66,8 @@ private:
   Int_t _TauNumberMin;         // Minimum Tau Number
   Int_t _TauNumberMax;         // Maximum Tau Number
 
+  // Tau Type (veto, tight)
+  TString tauType;
 };
 
 

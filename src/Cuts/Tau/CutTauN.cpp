@@ -38,8 +38,16 @@ using namespace std;
  * Input:  Event Object class                                                 *
  * Output: None                                                               *
  ******************************************************************************/
-CutTauN::CutTauN(EventContainer *EventContainerObj)
+CutTauN::CutTauN(EventContainer *EventContainerObj, TString tauTypePassed)
 {
+  if( tauTypePassed.CompareTo("Loose") && tauTypePassed.CompareTo("Medium") && tauTypePassed.CompareTo("loose") && 
+      tauTypePassed.CompareTo("medium") ){
+    std::cout << "ERROR " << "<CutTauN::CutTauN()> " 
+	      << "Must pass L/loose, M/medium to constructor" << std::endl;
+    exit(8);
+  } //if
+  tauType = tauTypePassed;
+
   SetEventContainer(EventContainerObj);
 } // CutTauN
 
@@ -131,7 +139,8 @@ Bool_t CutTauN::Apply()
   EventContainer *EventContainerObj = GetEventContainer();
 
   // Get Variables from electron vector in Particles Object
-  TauNumber = EventContainerObj -> taus.size();
+  if(tauType=="Medium" || tauType=="medium")TauNumber = EventContainerObj -> taus.size();
+  if(tauType=="Loose" || tauType=="loose")TauNumber = EventContainerObj -> looseTaus.size();
 
   // Fill the histograms before the cuts
   _hTauNumberBefore    -> Fill(TauNumber);

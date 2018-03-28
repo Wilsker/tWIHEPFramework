@@ -57,7 +57,9 @@ public:
 
   // Set all contents to their defaults
   inline void Clear() { Particle::Clear(); _passTightId = kFALSE; _passLooseId = kFALSE;_isSoft = kFALSE; _isHighPt = kFALSE; _isoCharged = 0.0; _isoSum = 0.0; _isoCharParPt = 0.0; _isoNeutralHadron = 0.0;  _isoPhoton = 0.0;  _isoPU = 0.0; _chi2=0.0; _dxy=0.0; _validHits = 0.0; _validHitsInner = 0.0; _matchedStat=0.0; _TLayers=0.0; _relIsoR04=0.0; _miniIsoRel =0.0; _IP3Dsig=0.0;
+ _passMediumId = kFALSE;
  _jetptratio =0.0;
+ _jetptratioV2 =0.0;
  _jetcsv =0.0;
  _lepjetchtrks =0.0;
  _miniIsoCh =0.0;
@@ -82,6 +84,7 @@ public:
  _dPhiIn =0.0;
  _ooEmooP =0.0;
  _mvaValue_HZZ =0.0;
+ _mvaValue_nonTrig =0.0;
  _isGsfCtfScPixChargeConsistent =0.0;
  _isGsfScPixChargeConsistent =0.0;
  _passConversionVeto =0.0;
@@ -133,6 +136,10 @@ public:
   inline void SetpassLooseId(Bool_t passLooseId){_passLooseId = passLooseId;};
   inline Bool_t GetpassLooseId() const {return _passLooseId;};
   inline Bool_t passLooseId() const {return _passLooseId;};
+
+  inline void SetpassMediumId(Bool_t passMediumId){_passMediumId = passMediumId;};
+  inline Bool_t GetpassMediumId() const {return _passMediumId;};
+  inline Bool_t passMediumId() const {return _passMediumId;};
 
   inline void SetisSoft(Bool_t isSoft){_isSoft = isSoft;};
   inline Bool_t GetisSoft() const {return _isSoft;};
@@ -222,6 +229,10 @@ public:
   inline Double_t Getjetptratio() const {return _jetptratio;};
   inline Double_t jetptratio() const {return _jetptratio;};
 
+  inline void SetjetptratioV2(Double_t jetptratioV2){_jetptratioV2 = jetptratioV2;};
+  inline Double_t GetjetptratioV2() const {return _jetptratioV2;};
+  inline Double_t jetptratioV2() const {return _jetptratioV2;};
+
   inline void Setjetcsv(Double_t jetcsv){_jetcsv = jetcsv;};
   inline Double_t Getjetcsv() const {return _jetcsv;};
   inline Double_t jetcsv() const {return _jetcsv;};
@@ -309,6 +320,10 @@ public:
   inline void SetmvaValue_HZZ(Double_t mvaValue_HZZ){_mvaValue_HZZ = mvaValue_HZZ;};
   inline Double_t GetmvaValue_HZZ() const {return _mvaValue_HZZ;};
   inline Double_t mvaValue_HZZ() const {return _mvaValue_HZZ;};
+
+  inline void SetmvaValue_nonTrig(Double_t mvaValue_nonTrig){_mvaValue_nonTrig = mvaValue_nonTrig;};
+  inline Double_t GetmvaValue_nonTrig() const {return _mvaValue_nonTrig;};
+  inline Double_t mvaValue_nonTrig() const {return _mvaValue_nonTrig;};
 
   inline void SetisGsfCtfScPixChargeConsistent(Double_t isGsfCtfScPixChargeConsistent){_isGsfCtfScPixChargeConsistent = isGsfCtfScPixChargeConsistent;};
   inline Double_t GetisGsfCtfScPixChargeConsistent() const {return _isGsfCtfScPixChargeConsistent;};
@@ -418,6 +433,7 @@ private:
 
   Bool_t _passTightId;
   Bool_t _passLooseId;
+  Bool_t _passMediumId;
   Bool_t _isSoft;
   Bool_t _isHighPt;
   Bool_t _isPf;
@@ -440,6 +456,7 @@ private:
   Double_t _miniIsoRel;
   Double_t _IP3Dsig;
   Double_t _jetptratio;
+  Double_t _jetptratioV2;
   Double_t _jetcsv;
   Double_t _lepjetchtrks;
   Double_t _miniIsoCh;
@@ -464,6 +481,7 @@ private:
   Double_t _dPhiIn;
   Double_t _ooEmooP;
   Double_t _mvaValue_HZZ;
+  Double_t _mvaValue_nonTrig;
   Double_t _isGsfCtfScPixChargeConsistent;
   Double_t _isGsfScPixChargeConsistent;
   Double_t _passConversionVeto;

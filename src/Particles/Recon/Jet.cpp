@@ -432,7 +432,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
 
   SetnumberOfConstituents		(evtr -> Jet_numberOfConstituents     	-> operator[](iE));
   SetchargedMultiplicity		(evtr -> Jet_chargedMultiplicity     	-> operator[](iE)); 
-  SetbDiscriminator 			(evtr -> Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags     	-> operator[](iE));
+  //SetbDiscriminator 			(evtr -> Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags     	-> operator[](iE));
+  SetbDiscriminator 			(evtr -> Jet_pfDeepCSVBJetTags     	-> operator[](iE));
   SetpileupId 				(evtr -> Jet_pileupId     		-> operator[](iE));
   Setmass 				(evtr -> Jet_mass     			-> operator[](iE));
   SetuncorrPt 				(evtr -> Jet_Uncorr_pt     		-> operator[](iE));
@@ -517,9 +518,9 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   //Bool_t chargedID = (TMath::Abs(Eta()) > 2.4 || (chargedHadronEnergyFraction() > 0. && chargedMultiplicity() > 0. && chargedEmEnergyFraction() < 0.99));
   //Bool_t neutralHighEtaID = (TMath::Abs(Eta()) < 3. || (neutralEmEmEnergyFraction() < 0.9 && (numberOfConstituents() - chargedMultiplicity()) > 10));
 
-  Bool_t LowEtaID = (neutralHadEnergyFraction()<0.90 && neutralEmEmEnergyFraction()<0.90 && numberOfConstituents()>1) && ((TMath::Abs(Eta())<=2.4 && chargedHadronEnergyFraction()>0 && chargedMultiplicity()>0 && chargedEmEnergyFraction()<0.99) || TMath::Abs(Eta())>2.4) && TMath::Abs(Eta())<=2.7;
-  Bool_t MediumEtaID = (neutralHadEnergyFraction()<0.98 && neutralEmEmEnergyFraction()>0.01 && (numberOfConstituents() - chargedMultiplicity())>2 && TMath::Abs(Eta())>2.7 && TMath::Abs(Eta())<=3.0 ); 
-  Bool_t HighEtaID = (neutralEmEmEnergyFraction()<0.90 && (numberOfConstituents() - chargedMultiplicity())>10 && TMath::Abs(Eta())>3.0 ); 
+  Bool_t LowEtaID = (neutralHadEnergyFraction()<0.90 && neutralEmEmEnergyFraction()<0.90 && numberOfConstituents()>1) && ((TMath::Abs(Eta())<=2.4 && chargedHadronEnergyFraction()>0 && chargedMultiplicity()>0) || TMath::Abs(Eta())>2.4) && TMath::Abs(Eta())<=2.7;
+  Bool_t MediumEtaID = (neutralEmEmEnergyFraction()<0.99 && neutralEmEmEnergyFraction()>0.02 && (numberOfConstituents() - chargedMultiplicity())>2 && TMath::Abs(Eta())>2.7 && TMath::Abs(Eta())<=3.0 ); 
+  Bool_t HighEtaID = (neutralEmEmEnergyFraction()<0.90 && neutralHadEnergyFraction()>0.02 &&(numberOfConstituents() - chargedMultiplicity())>10 && TMath::Abs(Eta())>3.0 ); 
 
   //Bool_t passesJetID = neutralID && chargedID && neutralHighEtaID;
   Bool_t passesJetID = LowEtaID || MediumEtaID || HighEtaID;
