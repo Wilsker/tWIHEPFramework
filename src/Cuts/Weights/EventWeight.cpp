@@ -772,7 +772,7 @@ void EventWeight::setChargeMisHistograms(TString ChargeMisFileName,TString Charg
  ******************************************************************************/
 std::tuple<Double_t,Double_t,Double_t> EventWeight::getChargeMisWeight(EventContainer* EventContainerObj){
 
-  Double_t ChargeMisWeight = 0., ChargeMisWeightUp = 0., ChargeMisWeightDown = 0.;
+  Double_t ChargeMisWeight = 1., ChargeMisWeightUp = 1., ChargeMisWeightDown = 1.;
   if(EventContainerObj->fakeleptonsVetoPtr->size()<2) return std::make_tuple(ChargeMisWeight,ChargeMisWeightUp,ChargeMisWeightDown);
   Lepton lep1 =  EventContainerObj->fakeleptonsVetoPtr->at(0);
   Lepton lep2 =  EventContainerObj->fakeleptonsVetoPtr->at(1);

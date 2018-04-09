@@ -419,10 +419,16 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
 {
 
   Double_t jetPt, jetEta,jetPhi,jetE, jetCharge, jetM;
-  jetPt     = evtr -> Jet_pt     -> operator[](iE);
+  Double_t jetUncorrPt, jesSF, jerSF;
+  jetUncorrPt = evtr->Jet_Uncorr_pt -> operator[](iE);
+  jesSF = evtr->Jet_JesSF -> operator[](iE);
+  //jerSF = evtr->Jet_JerSF -> operator[](iE);
+  jerSF = 1.0; 
+ 
+  jetPt     = jetUncorrPt * jesSF * jerSF;
   jetEta    = evtr -> Jet_eta    -> operator[](iE);
   jetPhi    = evtr -> Jet_phi    -> operator[](iE);
-  jetE      = evtr -> Jet_energy -> operator[](iE);
+  jetE      = (evtr -> Jet_energy -> operator[](iE))/(evtr -> Jet_pt -> operator[](iE))*jetUncorrPt * jesSF * jerSF;
 
   if(jetE > 0){
     SetPtEtaPhiE(jetPt,jetEta,jetPhi,jetE);
