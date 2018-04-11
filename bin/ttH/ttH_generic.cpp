@@ -317,7 +317,7 @@ int main(int argc, char **argv)
   //  mystudy.AddCut(new CutEMuOverlap(particlesObj));
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
-  mystudy.AddCut(new CutJetN(particlesObj,nJets));
+  //mystudy.AddCut(new CutJetN(particlesObj,nJets));
   
   //mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   
@@ -359,8 +359,8 @@ int main(int argc, char **argv)
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
  
-  //mystudy.AddVars(new HadTopVars(true));
-  //mystudy.AddVars(new ttHVars(true));
+  mystudy.AddVars(new HadTopVars());
+  mystudy.AddVars(new ttHVars());
   
   //mystudy.AddVars(new WeightVars());
   TFile *_skimBDTFile;

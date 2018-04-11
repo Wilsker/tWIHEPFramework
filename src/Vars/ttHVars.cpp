@@ -99,10 +99,10 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["secondLep_mcMatchId"] = 100.;
   _floatVars["secondLep_isFromTop"] = 2.;
   _floatVars["secondLep_isFromH"] = 2.;
-  _floatVars["secondLep_isFromB"] = 2.;
-  _floatVars["secondLep_isFromC"] = 2.;
-  _floatVars["secondLep_mcPromptGamma"] = 2.;
-  _floatVars["secondLep_mcPromptFS"] = 2.;
+  _LongVars["secondLep_isFromB"] = 2.;
+  _LongVars["secondLep_isFromC"] = 2.;
+  _boolVars["secondLep_mcPromptGamma"] = 2.;
+  _boolVars["secondLep_mcPromptFS"] = 2.;
 
   SetDoHists(makeHistos);
 

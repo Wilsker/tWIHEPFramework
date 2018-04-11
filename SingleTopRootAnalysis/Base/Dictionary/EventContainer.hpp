@@ -557,6 +557,7 @@ class EventContainer
   std::vector<Tau>        looseTaus;
   std::vector<Tau>        taus;
   std::vector<Jet>        jets;
+  std::vector<Jet>        lepjets;
   std::vector<Jet>        alljets;//no jet checks
   std::vector<Jet>        jetors;//overlap removal vector for electron/jets
   std::vector<Jet>        jetjetors;//overlap removal vector for jet/jets
@@ -579,6 +580,7 @@ class EventContainer
   std::vector<Lepton>     * looseleptonsVetoPtr; // used in object cleaning
   std::vector<Lepton>     * fakeleptonsVetoPtr; // used in object cleaning
   std::vector<Tau>     * tausVetoPtr; // used in object cleaning
+  std::vector<Jet>     * lepJetsPtr; // used in lepAware calculation
 
   std::vector<MCParticle> * mcParticlesPtr;
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
@@ -790,6 +792,7 @@ class EventContainer
     Double_t HadTop_BDT; 
     // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
     Int_t _sync;
+    Int_t _debugEvt;
 
 protected:
   

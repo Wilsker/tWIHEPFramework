@@ -124,8 +124,8 @@ private:
     Double_t secondLep_isFromH;
     Double_t secondLep_isFromB;
     Double_t secondLep_isFromC;
-    Double_t secondLep_mcPromptGamma;
-    Double_t secondLep_mcPromptFS;
+    Bool_t secondLep_mcPromptGamma;
+    Bool_t secondLep_mcPromptFS;
 
 };
 

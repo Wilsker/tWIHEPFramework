@@ -546,6 +546,7 @@ public :
    std::vector<double>  *Jet_pz;
    std::vector<double>  *Jet_qg;
    std::vector<double>  *Jet_Uncorr_pt;
+   std::vector<double>  *Jet_L1corr_pt;
    std::vector<double>  *Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags;
    std::vector<double>  *Jet_pfCombinedMVAV2BJetTags;
    std::vector<double>  *Jet_pfJetProbabilityBJetTags;
@@ -1285,6 +1286,7 @@ public :
    TBranch        *b_Jet_pz;   //!
    TBranch        *b_Jet_qg;   //!
    TBranch        *b_Jet_Uncorr_pt;   //!
+   TBranch        *b_Jet_L1corr_pt;   //!
    TBranch        *b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags;   //!
    TBranch        *b_Jet_pfCombinedMVAV2BJetTags;   //!
    TBranch        *b_Jet_pfJetProbabilityBJetTags;   //!
@@ -1991,6 +1993,7 @@ void EventTree::Init(TTree *tree)
    Jet_pz = 0;
    Jet_qg = 0;
    Jet_Uncorr_pt = 0;
+   Jet_L1corr_pt = 0;
    Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags = 0;
    Jet_pfCombinedMVAV2BJetTags = 0;
    Jet_pfJetProbabilityBJetTags = 0;
@@ -2700,6 +2703,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Jet_pz", &Jet_pz, &b_Jet_pz);
    fChain->SetBranchAddress("Jet_qg", &Jet_qg, &b_Jet_qg);
    fChain->SetBranchAddress("Jet_Uncorr_pt", &Jet_Uncorr_pt, &b_Jet_Uncorr_pt);
+   fChain->SetBranchAddress("Jet_L1corr_pt", &Jet_L1corr_pt, &b_Jet_L1corr_pt);
    fChain->SetBranchAddress("Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags", &Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags, &b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags);
    fChain->SetBranchAddress("Jet_pfCombinedMVAV2BJetTags", &Jet_pfCombinedMVAV2BJetTags, &b_Jet_pfCombinedMVAV2BJetTags);
    fChain->SetBranchAddress("Jet_pfJetProbabilityBJetTags", &Jet_pfJetProbabilityBJetTags, &b_Jet_pfJetProbabilityBJetTags);

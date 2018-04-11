@@ -74,6 +74,8 @@ ClassImp(Jet)
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _isToptag       (0.0),
+  _L1corrPt       (0.0),
+  _uncorrE       (0.0),
   _partonFlavour       (0.0),
   _hadronFlavour       (0.0),
   _genMother_pdgId       (0.0),
@@ -114,6 +116,8 @@ _bDiscriminator 		(other.GetbDiscriminator()),
 _pileupId 			(other.GetpileupId()), 
 _mass 				(other.Getmass()), 
 _uncorrPt 			(other.GetuncorrPt()), 
+_L1corrPt 			(other.GetL1corrPt()), 
+_uncorrE 			(other.GetuncorrE()), 
 _neutralHadEnergyFraction	(other.GetneutralHadEnergyFraction()), 
 _neutralEmEmEnergyFraction 	(other.GetneutralEmEmEnergyFraction()),
  _chargedHadronEnergyFraction 	(other.GetchargedHadronEnergyFraction()), 
@@ -155,6 +159,8 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _isMediumBdisc       (0.0),
   _isTightBdisc       (0.0),
   _qg       (0.0),
+  _L1corrPt  (0.0),
+  _uncorrE  (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _partonFlavour       (0.0),
@@ -223,6 +229,8 @@ Jet& Jet::operator=(const Particle& other)
   SetpileupId ( 0.0); 
   Setmass ( 0.0); 
   SetuncorrPt ( 0.0); 
+  SetL1corrPt ( 0.0); 
+  SetuncorrE ( 0.0); 
   SetneutralHadEnergyFraction(0.0); 
   SetneutralEmEmEnergyFraction ( 0.0); 
   SetchargedHadronEnergyFraction (0.0); 
@@ -269,6 +277,8 @@ Jet& Jet::operator=(const Jet& other)
   SetpileupId 				(other.GetpileupId());
   Setmass 				(other.Getmass());
   SetuncorrPt 				(other.GetuncorrPt());
+  SetL1corrPt 				(other.GetL1corrPt());
+  SetuncorrE 				(other.GetuncorrE());
   SetneutralHadEnergyFraction		(other.GetneutralHadEnergyFraction());
   SetneutralEmEmEnergyFraction 		(other.GetneutralEmEmEnergyFraction());
   SetchargedHadronEnergyFraction 	(other.GetchargedHadronEnergyFraction());
@@ -313,6 +323,8 @@ Jet& Jet::operator=(Jet& other)
   SetpileupId 				(other.GetpileupId());
   Setmass 				(other.Getmass());
   SetuncorrPt 				(other.GetuncorrPt());
+  SetL1corrPt 				(other.GetL1corrPt());
+  SetuncorrE 				(other.GetuncorrE());
   SetneutralHadEnergyFraction		(other.GetneutralHadEnergyFraction());
   SetneutralEmEmEnergyFraction 		(other.GetneutralEmEmEnergyFraction());
   SetchargedHadronEnergyFraction 	(other.GetchargedHadronEnergyFraction());
@@ -415,20 +427,27 @@ double Jet::get_JetMVA()
  * Output: True if this jet passes jet ID cuts                                *         
  ******************************************************************************/
 
-Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met)
+Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets)
 {
 
   Double_t jetPt, jetEta,jetPhi,jetE, jetCharge, jetM;
-  Double_t jetUncorrPt, jesSF, jerSF;
+  Double_t jetUncorrPt, jetUncorrE, jesSF, jerSF;
   jetUncorrPt = evtr->Jet_Uncorr_pt -> operator[](iE);
+  jetUncorrE = (evtr -> Jet_energy -> operator[](iE))/(evtr -> Jet_pt -> operator[](iE))*jetUncorrPt;
   jesSF = evtr->Jet_JesSF -> operator[](iE);
   //jerSF = evtr->Jet_JerSF -> operator[](iE);
   jerSF = 1.0; 
  
-  jetPt     = jetUncorrPt * jesSF * jerSF;
+  if (useLepAwareJets){ 
+    jetPt     = jetUncorrPt * jesSF;
+    jetE      = (evtr -> Jet_energy -> operator[](iE))/(evtr -> Jet_pt -> operator[](iE))*jetUncorrPt * jesSF;
+    //std::cout<<jetPt<<" "<<jetE<<" "<<std::endl;
+  }else{
+    jetPt     = jetUncorrPt * jesSF * jerSF;
+    jetE      = (evtr -> Jet_energy -> operator[](iE))/(evtr -> Jet_pt -> operator[](iE))*jetUncorrPt * jesSF * jerSF;
+  }
   jetEta    = evtr -> Jet_eta    -> operator[](iE);
   jetPhi    = evtr -> Jet_phi    -> operator[](iE);
-  jetE      = (evtr -> Jet_energy -> operator[](iE))/(evtr -> Jet_pt -> operator[](iE))*jetUncorrPt * jesSF * jerSF;
 
   if(jetE > 0){
     SetPtEtaPhiE(jetPt,jetEta,jetPhi,jetE);
@@ -443,6 +462,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetpileupId 				(evtr -> Jet_pileupId     		-> operator[](iE));
   Setmass 				(evtr -> Jet_mass     			-> operator[](iE));
   SetuncorrPt 				(evtr -> Jet_Uncorr_pt     		-> operator[](iE));
+  SetL1corrPt 				(evtr -> Jet_L1corr_pt     		-> operator[](iE));
+  SetuncorrE 				(jetUncorrE);
   SetneutralHadEnergyFraction		(evtr -> Jet_neutralHadEnergyFraction	-> operator[](iE));
   SetneutralEmEmEnergyFraction 		(evtr -> Jet_neutralEmEnergyFraction  -> operator[](iE));
   SetchargedHadronEnergyFraction 	(evtr -> Jet_chargedHadronEnergyFraction-> operator[](iE));
@@ -461,9 +482,12 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetisLooseBdisc      ( bDiscriminator() > _LWPbTagCut ); 
   SetisMediumBdisc       ( bDiscriminator() > _MWPbTagCut );
   SetisTightBdisc       ( bDiscriminator() > _TWPbTagCut );
-  
+ 
   // Now we want to do the JER and JES systematic adjustments to the jet. This also requires correcting the MET.
-  if (_jesUp || _jesDown || _jerUp || _jerDown) SystematicPtShift(evtr, iE, met);  
+  if (_jesUp || _jesDown || _jerUp || _jerDown) SystematicPtShift(evtr, iE, met, useLepAwareJets);  
+
+  if (useLepAwareJets) return kTRUE;
+
 /*
   SetPdgId      ( evtr -> Jet_flavor_truth_trueflav -> operator[](iE));
   SetIsBadLoose ( evtr -> Jet_isBadLoose            -> operator[](iE));
@@ -715,7 +739,7 @@ Bool_t Jet::FillFastSim( std::vector<MCJet>& MCBJets, std::vector<MCJet>& MCCJet
  * Input:  - the event tree (to access systematic SFs and MET info)      *
  * Output: -                                                                  *
  ******************************************************************************/
-void Jet::SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met){
+void Jet::SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAware){
 
 
   //  std::cout << "syst correct" << std::endl;
@@ -726,10 +750,10 @@ void Jet::SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met){
   if (_jesDown){
     ptSF = evtr->Jet_JesSFdown->operator[](iE)/evtr->Jet_JesSF->operator[](iE);
   }
-  if (_jerUp){
+  if (_jerUp && !useLepAware){
     ptSF = evtr->Jet_JerSFup->operator[](iE)/evtr->Jet_JerSF->operator[](iE);
   }
-  if (_jerDown){
+  if (_jerDown && !useLepAware){
     ptSF = evtr->Jet_JerSFdown->operator[](iE)/evtr->Jet_JerSF->operator[](iE);
   }
   //  float ptBefore = Pt();

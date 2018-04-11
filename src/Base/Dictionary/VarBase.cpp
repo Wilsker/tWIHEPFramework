@@ -72,6 +72,22 @@ void VarBase::BookBranches(TTree * skimTree){
     }
   }
 
+  for (auto LongVar : _LongVars){
+    string tempString = LongVar.first;
+    _branchVec[tempString.c_str()] = skimTree->Branch(tempString.c_str(),&(_LongVars[tempString.c_str()]),(tempString+"/L").c_str());
+    if (DoHists()) {
+      _histograms[tempString] = BookTH1FHistogram(tempString,tempString,100,0.,LongVar.second);
+    }
+  }
+
+  for (auto boolVar : _boolVars){
+    string tempString = boolVar.first;
+    _branchVec[tempString.c_str()] = skimTree->Branch(tempString.c_str(),&(_boolVars[tempString.c_str()]),(tempString+"/O").c_str());
+    if (DoHists()) {
+      _histograms[tempString] = BookTH1FHistogram(tempString,tempString,2,-0.5,1.5);
+    }
+  }
+
   for (auto floatVar: _floatVars){
     string tempString = floatVar.first;
     _branchVec[tempString.c_str()] = skimTree->Branch(tempString.c_str(),&(_floatVars[tempString.c_str()]),(tempString+"/F").c_str());
@@ -108,6 +124,12 @@ void VarBase::ResetBranches(){
   for (auto intVar : _intVars){
     intVar.second = -999;
   }
+  for (auto boolVar : _boolVars){
+    boolVar.second = 0;
+  }
+  for (auto LongVar : _LongVars){
+    LongVar.second = 0;
+  }
   for (auto floatVar : _floatVars){
     floatVar.second = -999.;
   }
@@ -133,6 +155,14 @@ void VarBase::OutputBranches(){
     std::cout << intVar.first << " " << intVar.second << std::endl;
   }
   
+  for (auto boolVar : _boolVars){
+    std::cout << boolVar.first << " " << boolVar.second << std::endl;
+  }
+  
+  for (auto LongVar : _LongVars){
+    std::cout << LongVar.first << " " << LongVar.second << std::endl;
+  }
+  
   for (auto doubleVec : _doubleVecs){
     std::cout << doubleVec.first << " " << doubleVec.second.at(1) <<" " <<doubleVec.second.at(2) <<std::endl;
   }
@@ -152,6 +182,12 @@ void VarBase::TouchBranches(){
   }
   for (auto intVar : _intVars){
     int temp = intVar.second;
+  }
+  for (auto LongVar : _LongVars){
+    Long_t temp = LongVar.second;
+  }
+  for (auto boolVar : _boolVars){
+    bool temp = boolVar.second;
   }
   for (auto doubleVec : _doubleVecs){
     std::vector<double> temp = doubleVec.second;
@@ -174,6 +210,16 @@ void VarBase::FillHistograms(double weight){
     _histograms[intVar.first]->Fill(intVar.second,weight);
   }
   
+  for (auto LongVar : _LongVars){
+    //    std::cout << LongVar.first << " " << LongVar.second << std::endl;
+    _histograms[LongVar.first]->Fill(LongVar.second,weight);
+  }
+
+  for (auto boolVar : _boolVars){
+    //    std::cout << boolVar.first << " " << boolVar.second << std::endl;
+    _histograms[boolVar.first]->Fill(boolVar.second,weight);
+  }
+
   for (auto floatVar : _floatVars){
     //std::cout << floatVar.first << " " << floatVar.second << std::endl;
     _histograms[floatVar.first]->Fill(floatVar.second,weight);

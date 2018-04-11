@@ -30,6 +30,7 @@
 
 #include "SingleTopRootAnalysis/Particles/Recon/Particle.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Muon.hpp"
+#include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
 #include "SingleTopRootAnalysis/Trees/EventTree.hpp"
 #include "SingleTopRootAnalysis/Trees/FastSimTree.hpp"
 #include <TEnv.h>
@@ -38,6 +39,7 @@
 
 using namespace std;
 
+class Jet;
 
 class Lepton: public Particle
 {
@@ -65,6 +67,7 @@ public:
  _miniIsoCh =0.0;
  _miniIsoPUsub =0.0;
  _ptrel =0.0;
+ _relIsoRhoEA =0.0;
  _jetdr =0.0;
  _pdgId =0.0;
  _jetpt =0.0;
@@ -111,7 +114,7 @@ public:
   };
 
   // Fill the lepton from an EventTree
-  Bool_t Fill(std::vector<Muon>& selectedMuons ,EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber, int pdgid);
+  Bool_t Fill(std::vector<Muon>& selectedMuons , std::vector<Jet>& lepAwareJets ,EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber, int pdgid);
   // also fill from a fastsim tree
   Bool_t FillFastSim(TEnv *config, FastSimTree *tr, Int_t iE,TString leptonType);
 
@@ -252,6 +255,10 @@ public:
   inline void Setptrel(Double_t ptrel){_ptrel = ptrel;};
   inline Double_t Getptrel() const {return _ptrel;};
   inline Double_t ptrel() const {return _ptrel;};
+
+  inline void SetrelIsoRhoEA(Double_t relIsoRhoEA){_relIsoRhoEA = relIsoRhoEA;};
+  inline Double_t GetrelIsoRhoEA() const {return _relIsoRhoEA;};
+  inline Double_t relIsoRhoEA() const {return _relIsoRhoEA;};
 
   inline void Setjetdr(Double_t jetdr){_jetdr = jetdr;};
   inline Double_t Getjetdr() const {return _jetdr;};
@@ -462,6 +469,7 @@ private:
   Double_t _miniIsoCh;
   Double_t _miniIsoPUsub;
   Double_t _ptrel;
+  Double_t _relIsoRhoEA;
   Double_t _jetdr;
   Double_t _pdgId;
   Double_t _jetpt;

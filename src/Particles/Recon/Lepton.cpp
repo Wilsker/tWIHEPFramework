@@ -79,6 +79,7 @@ ClassImp(Lepton)
   _miniIsoCh       (0.0),
   _miniIsoPUsub       (0.0),
   _ptrel       (0.0),
+  _relIsoRhoEA       (0.0),
   _jetdr       (0.0),
   _pdgId       (0.0),
   _jetpt       (0.0),
@@ -179,6 +180,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _miniIsoCh(other.GetminiIsoCh()),
   _miniIsoPUsub(other.GetminiIsoPUsub()),
   _ptrel(other.Getptrel()),
+  _relIsoRhoEA(other.GetrelIsoRhoEA()),
   _jetdr(other.Getjetdr()),
   _pdgId(other.GetpdgId()),
   _jetpt(other.Getjetpt()),
@@ -266,6 +268,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _miniIsoCh       (0.0),
   _miniIsoPUsub       (0.0),
   _ptrel       (0.0),
+  _relIsoRhoEA       (0.0),
   _jetdr       (0.0),
   _pdgId       (0.0),
   _jetpt       (0.0),
@@ -384,6 +387,7 @@ Lepton& Lepton::operator=(const Particle& other)
   SetminiIsoCh       (0.0);
   SetminiIsoPUsub       (0.0);
   Setptrel       (0.0);
+  SetrelIsoRhoEA       (0.0);
   Setjetdr       (0.0);
   SetpdgId       (0.0);
   Setjetpt       (0.0);
@@ -472,6 +476,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetminiIsoCh(other.GetminiIsoCh());
   SetminiIsoPUsub(other.GetminiIsoPUsub());
   Setptrel(other.Getptrel());
+  SetrelIsoRhoEA(other.GetrelIsoRhoEA());
   Setjetdr(other.Getjetdr());
   SetpdgId(other.GetpdgId());
   Setjetpt(other.Getjetpt());
@@ -560,6 +565,7 @@ Lepton& Lepton::operator=(Lepton& other)
   SetminiIsoCh(other.GetminiIsoCh());
   SetminiIsoPUsub(other.GetminiIsoPUsub());
   Setptrel(other.Getptrel());
+  SetrelIsoRhoEA(other.GetrelIsoRhoEA());
   Setjetdr(other.Getjetdr());
   SetpdgId(other.GetpdgId());
   Setjetpt(other.Getjetpt());
@@ -708,7 +714,7 @@ double Lepton::get_LeptonMVA()
  * Input:  Event Tree                                                         *         
  * Output: kTRUE if the muon passes object ID cuts                            *         
  ******************************************************************************/
-Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
+Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwareJets, EventTree *evtr,int iE,TString leptonType, Bool_t isSimulation, int sNumber ,int pdgid)
 {
    //std::cout << "Debug: <Lepton::Fill()>  Read Leptons from Tree : Just Enter Lepton::Fill " << std::endl;
   // **************************************************************
@@ -762,13 +768,13 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     SetminiIsoRel		(evtr -> Muon_miniIsoRel   		-> operator[](iE));
     SetIP3Dsig		(evtr -> Muon_IP3Dsig_it   		-> operator[](iE));
     Setjetptratio       (evtr -> Muon_jetptratio      -> operator[](iE));
-    SetjetptratioV2       (evtr -> Muon_jetptratioV2      -> operator[](iE));
     Setjetcsv       (evtr -> Muon_jetcsv      -> operator[](iE));
     //std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just after Muon_jetcsv Fill " << std::endl;
     Setlepjetchtrks       (evtr -> Muon_lepjetchtrks      -> operator[](iE));
     SetminiIsoCh       (evtr -> Muon_miniIsoCh      -> operator[](iE));
     SetminiIsoPUsub       (evtr -> Muon_miniIsoPUsub      -> operator[](iE));
     Setptrel       (evtr -> Muon_ptrel      -> operator[](iE));
+    SetjetptratioV2       (evtr -> Muon_jetptratioV2      -> operator[](iE));
     Setjetdr       (evtr -> Muon_jetdr      -> operator[](iE));
     SetpdgId       (evtr -> Muon_pdgId      -> operator[](iE));
     Setjetpt       (evtr -> Muon_jetpt      -> operator[](iE));
@@ -820,13 +826,15 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
     Setdz       (evtr -> patElectron_gsfTrack_dz_pv      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_dz Fill " << std::endl;
     Setjetptratio       (evtr -> patElectron_jetptratio      -> operator[](iE));
-    SetjetptratioV2       (evtr -> patElectron_jetptratioV2      -> operator[](iE));
+    SetrelIsoR04		(evtr -> patElectron_relIsoDeltaBeta-> operator[](iE));
+    SetrelIsoRhoEA       (evtr -> patElectron_relIsoRhoEA      -> operator[](iE));
     Setjetcsv       (evtr -> patElectron_jetcsv      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_jetcsv Fill " << std::endl;
     Setlepjetchtrks       (evtr -> patElectron_lepjetchtrks      -> operator[](iE));
     SetminiIsoCh       (evtr -> patElectron_miniIsoCh      -> operator[](iE));
     SetminiIsoPUsub       (evtr -> patElectron_miniIsoPUsub      -> operator[](iE));
     Setptrel       (evtr -> patElectron_ptrel      -> operator[](iE));
+    SetjetptratioV2       (evtr -> patElectron_jetptratioV2      -> operator[](iE));
     Setjetdr       (evtr -> patElectron_jetdr      -> operator[](iE));
     Setjetpt       (evtr -> patElectron_jetpt      -> operator[](iE));
     SetSCeta       (evtr -> patElectron_SCeta      -> operator[](iE));
@@ -905,10 +913,43 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr,int iE,TSt
   //} //else
 
   // **************************************************************
-  // Run 2 relative isolation cuts
+  // Run 2 lep-jet related variables 
   // **************************************************************
-
+  Jet lepJet;
+  Double_t closestJet = 999.;
+  for (auto const & jet : lepAwareJets){
+    if (jet.DeltaR(*this) < closestJet) {
+        closestJet = jet.DeltaR(*this);
+        lepJet = jet;
+    }
+  }
   
+  Double_t lepptratio = 1.; 
+  Double_t lepptrel = 0.; 
+  if(lepJet.Pt()==0.){
+    if(TMath::Abs(pdgId())==11)lepptratio = min(Pt()/(1+relIsoRhoEA()),1.5);
+    if(TMath::Abs(pdgId())==13)lepptratio = min(Pt()/(1+relIsoR04()),1.5);
+  }else{
+    Double_t L1Factor = lepJet.L1corrPt()/lepJet.uncorrPt();
+    TLorentzVector UncorrJet={0,0,0,0};
+    UncorrJet.SetPtEtaPhiE(lepJet.uncorrPt(),lepJet.Eta(),lepJet.Phi(),lepJet.uncorrE());
+    TLorentzVector thelepton={0,0,0,0};
+    thelepton.SetPtEtaPhiE(Pt(),Eta(),Phi(),E());
+    TLorentzVector lep_jet={0,0,0,0};
+    lep_jet = (UncorrJet - thelepton*(1.0/L1Factor))*(lepJet.Pt()/lepJet.uncorrPt())+thelepton;
+    TLorentzVector lep_lv    = TLorentzVector(Px(),Py(),Pz(),E());
+    TLorentzVector lepjet_lv = TLorentzVector(lep_jet.Px(),lep_jet.Py(),lep_jet.Pz(),lep_jet.E());
+    //lepptrel = lep_lv.Perp((lepjet_lv-lep_lv).Vect());
+    lepptrel = lep_jet.Perp((lep_jet-thelepton).Vect());
+    //lepptrel = lep_lv.Perp((lepjet_lv).Vect());
+    lepptratio = min(Pt()/lep_jet.Pt(), 1.5);
+    //if(iE ==0){
+    //std::cout<<Pt()<<" "<<Eta()<<" "<< lepJet.Pt() <<" "<< lepJet.uncorrPt() << " "<<lepJet.E()<<" "<<lepJet.uncorrE()<<" " << lepptratio<<" "<< lepptrel<< " L1 Factor "<< L1Factor<< " L1L2L3 "<< lepJet.Pt()/lepJet.uncorrPt()<<" " <<lep_jet.Pt()<<" "<< lep_jet.Px()<<" "<<lep_jet.Py()<<" "<<lepJet.Pz()<<" "<<lep_jet.E() <<std::endl;
+    //}
+  }
+  SetjetptratioV2(lepptratio);
+  Setptrel(lepptrel);
+
   // **************************************************************
   // Pt and Eta Cuts
   // **************************************************************

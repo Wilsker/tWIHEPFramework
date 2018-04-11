@@ -79,6 +79,8 @@ class Jet: public Particle
  _lepdrmax =0.0;
  _lepdrmin =0.0;
  _HjDisc =0.0;
+ _L1corrPt = 0.0;
+ _uncorrE = 0.0;
  _partonFlavour =0.0;
  _hadronFlavour =0.0;
  _genMother_pdgId =0.0;
@@ -94,7 +96,7 @@ class Jet: public Particle
   void SetCuts(TEnv* config);
 
   // Fill the jet from an EventTree 
-  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met);
+  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets=false);
   //  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Electron>& selectedElectrons, EventTree *evtr, Int_t iE);
   // Also fill from FastSim tree:
   Bool_t FillFastSim( std::vector<MCJet>& MCBJets, std::vector<MCJet>& MCCJets, std::vector<MCTau>& MCTaus,  std::vector<Electron>& electrons, FastSimTree *tr,Int_t iE,TEnv *config,const TString& tagName="default", Double_t btagCut = 999, Double_t mistagCut = 999, Double_t eshift = 0 );
@@ -150,6 +152,14 @@ class Jet: public Particle
   inline void SetuncorrPt(Double_t uncorrPt){_uncorrPt = uncorrPt;};
   inline Double_t GetuncorrPt() const {return _uncorrPt;};
   inline Double_t uncorrPt() const {return _uncorrPt;};
+
+  inline void SetL1corrPt(Double_t L1corrPt){_L1corrPt = L1corrPt;};
+  inline Double_t GetL1corrPt() const {return _L1corrPt;};
+  inline Double_t L1corrPt() const {return _L1corrPt;};
+
+  inline void SetuncorrE(Double_t uncorrE){_uncorrE = uncorrE;};
+  inline Double_t GetuncorrE() const {return _uncorrE;};
+  inline Double_t uncorrE() const {return _uncorrE;};
 
   inline void SetTagged(Bool_t isTagged){_tagged = isTagged;};
   inline Bool_t IsTagged() const {return _tagged;};
@@ -258,6 +268,8 @@ class Jet: public Particle
   Double_t _electronEnergy;   
   Double_t _photonEnergy;   
   Double_t _uncorrPt; 
+  Double_t _L1corrPt; 
+  Double_t _uncorrE; 
   Bool_t _tagged;
   Double_t _closestLep;
   Double_t _isLooseBdisc;
@@ -305,7 +317,7 @@ class Jet: public Particle
   Int_t _jerDown;
 
   // Apply the jet correction systematics
-  void SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met);
+  void SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAware);
  
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system
