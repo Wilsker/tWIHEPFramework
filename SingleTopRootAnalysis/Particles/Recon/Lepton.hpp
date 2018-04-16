@@ -69,6 +69,7 @@ public:
  _ptrel =0.0;
  _relIsoRhoEA =0.0;
  _jetdr =0.0;
+ _jetl1corr =0.0;
  _pdgId =0.0;
  _jetpt =0.0;
  _isGlobal =0.0;
@@ -94,6 +95,9 @@ public:
  _passTightCharge =0.0;
  _passMissHit =0.0;
  _isTight =0.0;
+ _isMVASel =0.0;
+ _ntMVAeleID =0.0;
+ _isFake =0.0;
  _gen_pt =0.0;
  _gen_eta =0.0;
  _gen_phi =0.0;
@@ -264,6 +268,10 @@ public:
   inline Double_t Getjetdr() const {return _jetdr;};
   inline Double_t jetdr() const {return _jetdr;};
 
+  inline void Setjetl1corr(Double_t jetl1corr){_jetl1corr = jetl1corr;};
+  inline Double_t Getjetl1corr() const {return _jetl1corr;};
+  inline Double_t jetl1corr() const {return _jetl1corr;};
+
   inline void SetpdgId(Double_t pdgId){_pdgId = pdgId;};
   inline Double_t GetpdgId() const {return _pdgId;};
   inline Double_t pdgId() const {return _pdgId;};
@@ -433,6 +441,18 @@ public:
   inline Double_t GetisTight() const {return _isTight;};
   inline Double_t isTight() const {return _isTight;};
   
+  inline void SetisMVASel(Double_t isMVASel){_isMVASel = isMVASel;};
+  inline Double_t GetisMVASel() const {return _isMVASel;};
+  inline Double_t isMVASel() const {return _isMVASel;};
+  
+  inline void SetntMVAeleID(Double_t ntMVAeleID){_ntMVAeleID = ntMVAeleID;};
+  inline Double_t GetntMVAeleID() const {return _ntMVAeleID;};
+  inline Double_t ntMVAeleID() const {return _ntMVAeleID;};
+  
+  inline void SetisFake(Double_t isFake){_isFake = isFake;};
+  inline Double_t GetisFake() const {return _isFake;};
+  inline Double_t isFake() const {return _isFake;};
+  
     // ttH functions
     void set_lepMVAreader(TEnv* config);
 
@@ -471,6 +491,7 @@ private:
   Double_t _ptrel;
   Double_t _relIsoRhoEA;
   Double_t _jetdr;
+  Double_t _jetl1corr;
   Double_t _pdgId;
   Double_t _jetpt;
   Double_t _isGlobal;
@@ -496,6 +517,9 @@ private:
   Double_t _passTightCharge;
   Double_t _passMissHit;
   Double_t _isTight;
+  Double_t _isMVASel;
+  Double_t _ntMVAeleID;
+  Double_t _isFake;
   Double_t _gen_pt;
   Double_t _gen_eta;
   Double_t _gen_phi;

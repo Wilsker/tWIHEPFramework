@@ -725,7 +725,7 @@ Int_t EventContainer::ReadEvent()
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
         if(!amu && _sync == 11){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<std::endl;
+          //std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<std::endl;
           amu = kTRUE;
         }
       } // if useObj
@@ -797,6 +797,9 @@ Int_t EventContainer::ReadEvent()
       
       newLepton.Clear();
       useObj = newLepton.Fill(*muonsVetoPtr,*lepJetsPtr ,_eventTree, io,"EleLoose", isSimulation, SourceNumber ,11);// 11 means Electron
+      if(_debugEvt == eventNumber && _sync == 21){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.ntMVAeleID() << " " << newLepton.BDT() << std::endl;
+      }
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
         if(!aele && _sync == 21){
@@ -1239,7 +1242,7 @@ Int_t EventContainer::ReadEvent()
   // ht and St
   TLorentzVector mht_lv(0,0,0,0);
   TLorentzVector mhtT_lv(0,0,0,0);
-  for(auto lepton : looseLeptons){
+  for(auto lepton : fakeLeptons){
       TLorentzVector lv(0.,0.,0.,0.);
       lv.SetPtEtaPhiE(lepton.Pt(),lepton.Eta(),lepton.Phi(),lepton.E());
       mht_lv = mht_lv + lv;

@@ -213,6 +213,7 @@ public :
    std::vector<double>  *Muon_miniIsoNeu;
    std::vector<double>  *Muon_miniIsoPUsub;
    std::vector<double>  *Muon_jetdr;
+   std::vector<double>  *Muon_jetl1corr;
    std::vector<double>  *Muon_jetpt;
    std::vector<double>  *Muon_jetptratio;
    std::vector<double>  *Muon_jetptratioV2;
@@ -312,6 +313,7 @@ public :
    std::vector<int>     *patElectron_isEcalDriven;
    std::vector<float>   *patElectron_mvaValue_HZZ;
    std::vector<float>   *patElectron_mvaValue_nonTrig;
+   std::vector<int>   *patElectron_isPassMvanontrigwpLoose;
    std::vector<float>   *patElectron_mvaCategory_nonTrig;
    std::vector<float>   *patElectron_mvaValue_Trig;
    std::vector<float>   *patElectron_mvaCategory_Trig;
@@ -353,6 +355,7 @@ public :
    std::vector<double>  *patElectron_miniIsoNeu;
    std::vector<double>  *patElectron_miniIsoPUsub;
    std::vector<double>  *patElectron_jetdr;
+   std::vector<double>  *patElectron_jetl1corr;
    std::vector<double>  *patElectron_jetpt;
    std::vector<double>  *patElectron_jetptratio;
    std::vector<double>  *patElectron_jetptratioV2;
@@ -476,6 +479,14 @@ public :
    std::vector<int>     *Tau_byVTightIsolationMVA3oldDMwLT;
    std::vector<int>     *Tau_byVVTightIsolationMVA3newDMwLT;
    std::vector<int>     *Tau_byVVTightIsolationMVA3oldDMwLT;
+   std::vector<int>     *Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017;
+   std::vector<int>     *Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
+   std::vector<int>     *Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
+   std::vector<int>     *Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
+   std::vector<int>     *Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
+   std::vector<int>     *Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
+   std::vector<int>     *Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
+   std::vector<int>     *Tau_byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017;
    std::vector<double>  *Tau_byCombinedIsolationDeltaBetaCorrRaw3Hits;
    std::vector<double>  *Tau_byIsolationMVA3newDMwLTraw;
    std::vector<double>  *Tau_byIsolationMVA3oldDMwLTraw;
@@ -953,6 +964,7 @@ public :
    TBranch        *b_Muon_miniIsoNeu;   //!
    TBranch        *b_Muon_miniIsoPUsub;   //!
    TBranch        *b_Muon_jetdr;   //!
+   TBranch        *b_Muon_jetl1corr;   //!
    TBranch        *b_Muon_jetpt;   //!
    TBranch        *b_Muon_jetptratio;   //!
    TBranch        *b_Muon_jetptratioV2;   //!
@@ -1052,6 +1064,7 @@ public :
    TBranch        *b_patElectron_isEcalDriven;   //!
    TBranch        *b_patElectron_mvaValue_HZZ;   //!
    TBranch        *b_patElectron_mvaValue_nonTrig;   //!
+   TBranch        *b_patElectron_isPassMvanontrigwpLoose;   //!
    TBranch        *b_patElectron_mvaCategory_nonTrig;   //!
    TBranch        *b_patElectron_mvaValue_Trig;   //!
    TBranch        *b_patElectron_mvaCategory_Trig;   //!
@@ -1093,6 +1106,7 @@ public :
    TBranch        *b_patElectron_miniIsoNeu;   //!
    TBranch        *b_patElectron_miniIsoPUsub;   //!
    TBranch        *b_patElectron_jetdr;   //!
+   TBranch        *b_patElectron_jetl1corr;   //!
    TBranch        *b_patElectron_jetpt;   //!
    TBranch        *b_patElectron_jetptratio;   //!
    TBranch        *b_patElectron_jetptratioV2;   //!
@@ -1239,6 +1253,14 @@ public :
    TBranch        *b_Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT;   //!
    TBranch        *b_Tau_byTightIsolationMVArun2v1DBdR03oldDMwLT;   //!
    TBranch        *b_Tau_byVTightIsolationMVArun2v1DBdR03oldDMwLT;   //!
+   TBranch        *b_Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017;   //!
+   TBranch        *b_Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
+   TBranch        *b_Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
+   TBranch        *b_Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
+   TBranch        *b_Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
+   TBranch        *b_Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
+   TBranch        *b_Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
+   TBranch        *b_Tau_byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017;   //!
    TBranch        *b_Tau_nProngs;   //!
    TBranch        *b_Tau_leadChargedCandNdof;   //!
    TBranch        *b_Tau_leadChargedCandChi2;   //!
@@ -1660,6 +1682,7 @@ void EventTree::Init(TTree *tree)
    Muon_miniIsoNeu = 0;
    Muon_miniIsoPUsub = 0;
    Muon_jetdr = 0;
+   Muon_jetl1corr = 0;
    Muon_jetpt = 0;
    Muon_jetptratio = 0;
    Muon_jetptratioV2 = 0;
@@ -1759,6 +1782,7 @@ void EventTree::Init(TTree *tree)
    patElectron_isEcalDriven = 0;
    patElectron_mvaValue_HZZ = 0;
    patElectron_mvaValue_nonTrig = 0;
+   patElectron_isPassMvanontrigwpLoose = 0;
    patElectron_mvaCategory_nonTrig = 0;
    patElectron_mvaValue_Trig = 0;
    patElectron_mvaCategory_Trig = 0;
@@ -1800,6 +1824,7 @@ void EventTree::Init(TTree *tree)
    patElectron_miniIsoNeu = 0;
    patElectron_miniIsoPUsub = 0;
    patElectron_jetdr = 0;
+   patElectron_jetl1corr = 0;
    patElectron_jetpt = 0;
    patElectron_jetptratio = 0;
    patElectron_jetptratioV2 = 0;
@@ -1946,6 +1971,14 @@ void EventTree::Init(TTree *tree)
    Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT = 0;
    Tau_byTightIsolationMVArun2v1DBdR03oldDMwLT = 0;
    Tau_byVTightIsolationMVArun2v1DBdR03oldDMwLT = 0;
+   Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017 = 0;
+   Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
+   Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
+   Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
+   Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
+   Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
+   Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
+   Tau_byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017 = 0;
    Tau_nProngs = 0;
    Tau_leadChargedCandNdof = 0;
    Tau_leadChargedCandChi2 = 0;
@@ -2370,6 +2403,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Muon_miniIsoNeu", &Muon_miniIsoNeu, &b_Muon_miniIsoNeu);
    fChain->SetBranchAddress("Muon_miniIsoPUsub", &Muon_miniIsoPUsub, &b_Muon_miniIsoPUsub);
    fChain->SetBranchAddress("Muon_jetdr", &Muon_jetdr, &b_Muon_jetdr);
+   fChain->SetBranchAddress("Muon_jetl1corr", &Muon_jetl1corr, &b_Muon_jetl1corr);
    fChain->SetBranchAddress("Muon_jetpt", &Muon_jetpt, &b_Muon_jetpt);
    fChain->SetBranchAddress("Muon_jetptratio", &Muon_jetptratio, &b_Muon_jetptratio);
    fChain->SetBranchAddress("Muon_jetptratioV2", &Muon_jetptratioV2, &b_Muon_jetptratioV2);
@@ -2469,6 +2503,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_isEcalDriven", &patElectron_isEcalDriven, &b_patElectron_isEcalDriven);
    fChain->SetBranchAddress("patElectron_mvaValue_HZZ", &patElectron_mvaValue_HZZ, &b_patElectron_mvaValue_HZZ);
    fChain->SetBranchAddress("patElectron_mvaValue_nonTrig", &patElectron_mvaValue_nonTrig, &b_patElectron_mvaValue_nonTrig);
+   fChain->SetBranchAddress("patElectron_isPassMvanontrigwpLoose", &patElectron_isPassMvanontrigwpLoose, &b_patElectron_isPassMvanontrigwpLoose);
    fChain->SetBranchAddress("patElectron_mvaCategory_nonTrig", &patElectron_mvaCategory_nonTrig, &b_patElectron_mvaCategory_nonTrig);
    fChain->SetBranchAddress("patElectron_mvaValue_Trig", &patElectron_mvaValue_Trig, &b_patElectron_mvaValue_Trig);
    fChain->SetBranchAddress("patElectron_mvaCategory_Trig", &patElectron_mvaCategory_Trig, &b_patElectron_mvaCategory_Trig);
@@ -2510,6 +2545,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_miniIsoNeu", &patElectron_miniIsoNeu, &b_patElectron_miniIsoNeu);
    fChain->SetBranchAddress("patElectron_miniIsoPUsub", &patElectron_miniIsoPUsub, &b_patElectron_miniIsoPUsub);
    fChain->SetBranchAddress("patElectron_jetdr", &patElectron_jetdr, &b_patElectron_jetdr);
+   fChain->SetBranchAddress("patElectron_jetl1corr", &patElectron_jetl1corr, &b_patElectron_jetl1corr);
    fChain->SetBranchAddress("patElectron_jetpt", &patElectron_jetpt, &b_patElectron_jetpt);
    fChain->SetBranchAddress("patElectron_jetptratio", &patElectron_jetptratio, &b_patElectron_jetptratio);
    fChain->SetBranchAddress("patElectron_jetptratioV2", &patElectron_jetptratioV2, &b_patElectron_jetptratioV2);
@@ -2633,6 +2669,14 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Tau_byVTightIsolationMVA3oldDMwLT", &Tau_byVTightIsolationMVA3oldDMwLT, &b_Tau_byVTightIsolationMVA3oldDMwLT);
    fChain->SetBranchAddress("Tau_byVVTightIsolationMVA3newDMwLT", &Tau_byVVTightIsolationMVA3newDMwLT, &b_Tau_byVVTightIsolationMVA3newDMwLT);
    fChain->SetBranchAddress("Tau_byVVTightIsolationMVA3oldDMwLT", &Tau_byVVTightIsolationMVA3oldDMwLT, &b_Tau_byVVTightIsolationMVA3oldDMwLT);
+   fChain->SetBranchAddress("Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017", &Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017, &b_Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017);
+   fChain->SetBranchAddress("Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byVVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+   fChain->SetBranchAddress("Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+   fChain->SetBranchAddress("Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+   fChain->SetBranchAddress("Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+   fChain->SetBranchAddress("Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+   fChain->SetBranchAddress("Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
+   fChain->SetBranchAddress("Tau_byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017", &Tau_byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017, &b_Tau_byVVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017);
    fChain->SetBranchAddress("Tau_byCombinedIsolationDeltaBetaCorrRaw3Hits", &Tau_byCombinedIsolationDeltaBetaCorrRaw3Hits, &b_Tau_byCombinedIsolationDeltaBetaCorrRaw3Hits);
    fChain->SetBranchAddress("Tau_byIsolationMVA3newDMwLTraw", &Tau_byIsolationMVA3newDMwLTraw, &b_Tau_byIsolationMVA3newDMwLTraw);
    fChain->SetBranchAddress("Tau_byIsolationMVA3oldDMwLTraw", &Tau_byIsolationMVA3oldDMwLTraw, &b_Tau_byIsolationMVA3oldDMwLTraw);

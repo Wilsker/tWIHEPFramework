@@ -261,8 +261,8 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
     Double_t tauCharge = evtr -> Tau_charge   -> operator[](iE);
     Setdz       (evtr -> Tau_packedLeadTauCand_dz      -> operator[](iE));
     Setdxy       (evtr -> Tau_packedLeadTauCand_dxy      -> operator[](iE));
-    SetisLoose       (evtr -> Tau_byLooseIsolationMVArun2v1DBdR03oldDMwLT      -> operator[](iE));
-    SetisMedium       (evtr -> Tau_byMediumIsolationMVArun2v1DBdR03oldDMwLT      -> operator[](iE));
+    SetisLoose       (evtr -> Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetisMedium       (evtr -> Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
     SetdecayModeFinding       (evtr -> Tau_decayModeFinding      -> operator[](iE));
 
     SetPtEtaPhiE(tauPt, tauEta, tauPhi, tauE);

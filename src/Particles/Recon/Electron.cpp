@@ -42,7 +42,8 @@ ClassImp(Electron)
  * Output: None                                                               *
  ******************************************************************************/
 Electron::Electron() : Particle::Particle(),_passVetoId(0), _passLooseId(0), _passMediumId(0), _passTightId(0), _passHEEPId(0), _passConversionVeto(0), _expectedMissingInnerHits(0), _patElectron_d0(0.0),  _patElectron_dz(0.0), _patElectron_dxy(0.0),  _isoChargedHadrons(0.0),  _isoNeutralHadrons(0.0), _isoPhotons(0.0),  _isoPU(0.0), _charge(0.0), _scEta(0.0), _inCrack(0), _sigmaEtaEta(0.), _dEtaInSeed(0.), _dPhiIn(0.), _hOverE(0.), _ooEmooP(0.), _relIsoPFRhoEA(0.), _missingHits(0.),_IP3Dsig(0.0),_miniIsoRel(0.0),
-  _mvaValue_nonTrig       (0.0)
+  _mvaValue_nonTrig       (0.0),
+  _ntMVAeleID       (0.0)
 {
 } //Electron()
 
@@ -95,6 +96,7 @@ _isoPhotons(other.GetisoPhotons()),
 					   _missingHits(other.missingHits()),
   _IP3Dsig(other.GetIP3Dsig()),
   _mvaValue_nonTrig(other.GetmvaValue_nonTrig()),
+  _ntMVAeleID(other.GetntMVAeleID()),
   _miniIsoRel(other.GetminiIsoRel())
 {
 } //Electron()
@@ -110,6 +112,7 @@ _isoPhotons(other.GetisoPhotons()),
 Electron::Electron(const Particle& other) : Particle(other),_passVetoId(0), _passLooseId(0), _passMediumId(0), _passTightId(0), _passHEEPId(0), _passConversionVeto(0), _expectedMissingInnerHits(0), _patElectron_d0(0.0),  _patElectron_dz(0.0), _patElectron_dxy(0.0),  _isoChargedHadrons(0.0),  _isoNeutralHadrons(0.0), _isoPhotons(0.0),  _isoPU(0.0), _charge(0.0), _scEta(0.0), _inCrack(0), _sigmaEtaEta(0.), _dEtaInSeed(0.), _dPhiIn(0.), _hOverE(0.), _ooEmooP(0.), _relIsoPFRhoEA(0.), _missingHits(0.),
 _IP3Dsig(0.0),
 _mvaValue_nonTrig(0.0),
+_ntMVAeleID(0.0),
 _miniIsoRel(0.0)
 { 
 } //Electron()
@@ -185,6 +188,7 @@ Electron& Electron::operator=(const Particle& other)
   SetMissingHits(0);
   SetIP3Dsig		(0.0);
   SetmvaValue_nonTrig		(0.0);
+  SetntMVAeleID		(0.0);
   SetminiIsoRel		(0.0);
 
   return *this;
@@ -228,6 +232,7 @@ Electron& Electron::operator=(const Electron& other)
   SetMissingHits(other.missingHits());
   SetIP3Dsig(other.GetIP3Dsig());
   SetmvaValue_nonTrig(other.GetmvaValue_nonTrig());
+  SetntMVAeleID(other.GetntMVAeleID());
   SetminiIsoRel(other.GetminiIsoRel());
   return *this;
 } //= const Electron
@@ -270,6 +275,7 @@ Electron& Electron::operator=(Electron& other)
   SetMissingHits(other.missingHits());
   SetIP3Dsig(other.GetIP3Dsig());
   SetmvaValue_nonTrig(other.GetmvaValue_nonTrig());
+  SetntMVAeleID(other.GetntMVAeleID());
   SetminiIsoRel(other.GetminiIsoRel());
   return *this;
 } //= non-const Electron
@@ -356,6 +362,7 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   SetminiIsoRel		(evtr -> patElectron_miniIsoRel   		-> operator[](iE));
   SetIP3Dsig		(evtr -> patElectron_IP3Dsig   		-> operator[](iE));
   SetmvaValue_nonTrig		(evtr -> patElectron_mvaValue_nonTrig   		-> operator[](iE));
+  SetntMVAeleID		(evtr -> patElectron_isPassMvanontrigwpLoose   		-> operator[](iE));
 
   // **************************************************************
   // **************************************************************
@@ -443,6 +450,8 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
     passCustomVeto = kFALSE;
   
   Bool_t eleMVAId = kFALSE;
+  eleMVAId = ntMVAeleID() >0.5 ;
+  /*
   if(elPt <=10){
     if((TMath::Abs(scEta()) <0.8 && mvaValue_nonTrig() > -0.13285867293779202)||
           (0.8 <= TMath::Abs(scEta()) && TMath::Abs(scEta()) <1.479 && mvaValue_nonTrig() > -0.31765300958836074)||
@@ -454,7 +463,7 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
         (1.479 <=TMath::Abs(scEta()) && TMath::Abs(scEta())<500 && mvaValue_nonTrig()> -0.7179265933023059)
     ) eleMVAId = kTRUE;
   }
-
+*/
 
   // Apply the ID requirements individually so that we can invert the isolation for QCD electrons
   if (TMath::Abs(scEta()) <= 1.479){ //Electron in barrel
