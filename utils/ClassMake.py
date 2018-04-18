@@ -18,7 +18,8 @@ workpath = "/publicfs/cms/user/libh/Test/Rootplizer/analyzer"
 # Variable Case
 #Case = "CaseA"
 #Case = "CaseB"
-Case = "CaseC"
+#Case = "CaseC"
+Case = "CaseD"
 # Variable Definition
 
 rObject = "float"
@@ -121,12 +122,27 @@ VariableNames = [
 #"numMother","numDaught","BmotherIndex","motherpdg_id",
 #"BmotherIndices","BdaughtIndices",
 
-"leadLep_isMatchRightCharge","leadLep_mcMatchId","leadLep_MatchMother_Id","leadLep_MatchGrandMother_Id",
-"leadLep_isFromTop","leadLep_isFromH","leadLep_isFromB","leadLep_isFromC",
-"leadLep_mcPromptGamma","leadLep_mcPromptFS",
-"subleadLep_isMatchRightCharge","subleadLep_mcMatchId","subleadLep_MatchMother_Id","subleadLep_MatchGrandMother_Id",
-"subleadLep_isFromTop","subleadLep_isFromH","subleadLep_isFromB","subleadLep_isFromC",
-"subleadLep_mcPromptGamma","subleadLep_mcPromptFS",
+#"leadLep_isMatchRightCharge","leadLep_mcMatchId","leadLep_MatchMother_Id","leadLep_MatchGrandMother_Id",
+#"leadLep_isFromTop","leadLep_isFromH","leadLep_isFromB","leadLep_isFromC",
+#"leadLep_mcPromptGamma","leadLep_mcPromptFS",
+#"subleadLep_isMatchRightCharge","subleadLep_mcMatchId","subleadLep_MatchMother_Id","subleadLep_MatchGrandMother_Id",
+#"subleadLep_isFromTop","subleadLep_isFromH","subleadLep_isFromB","subleadLep_isFromC",
+#"subleadLep_mcPromptGamma","subleadLep_mcPromptFS",
+
+"Jet25_axis2","Jet25_ptD","Jet25_mult","Jet25_pfCombinedCvsLJetTags","Jet25_pfCombinedCvsBJetTags",
+
+"Jet25_pt","Jet25_eta","Jet25_phi","Jet25_energy","Jet25_px",
+"Jet25_py","Jet25_pz","Jet25_mass",
+
+"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId",
+
+"Jet25_neutralHadEnergyFraction","Jet25_neutralEmEnergyFraction","Jet25_chargedHadronEnergyFraction","Jet25_chargedEmEnergyFraction",
+"Jet25_muonEnergyFraction","Jet25_electronEnergy","Jet25_photonEnergy","Jet25_emEnergyFraction","Jet25_numberOfConstituents","Jet25_chargedMultiplicity",
+ "Jet25_metptratio","Jet25_dilepmetptratio",
+"Jet25_nonjdr","Jet25_nonjdilepdr","Jet25_lepdrmin","Jet25_lepdrmax","Jet25_dilepdr","Jet25_bjdr", 
+"Jet25_nonjdeta","Jet25_nonjdilepdeta","Jet25_lepdetamin","Jet25_lepdetamax","Jet25_dilepdeta","Jet25_bjdeta", 
+"Jet25_nonjdphi","Jet25_nonjdilepdphi","Jet25_lepdphimin","Jet25_lepdphimax","Jet25_dilepdphi","Jet25_bjdphi",
+"Jet25_nonjptratio","Jet25_nonjdilepptratio","Jet25_lepptratiomin","Jet25_lepptratiomax","Jet25_dilepptratio","Jet25_bjptratio", 
 
 ]
 
@@ -243,3 +259,27 @@ elif Case == "CaseC":
  for Variable in VariableNames:
      print >> vector, "  "+Variable+" = -999;"
  
+elif Case == "CaseD":
+ print >> vector, "//This is CaseD"
+ print >> vector, "//Head file declaration"
+ print >> vector, "//variables to be written"
+ for Variable in VariableNames:
+     print >> vector, "    std::vector<double> "+Variable+";"
+ 
+ print >> vector, "//source file definition"
+ 
+ print >> vector, "   //Write setbranchaddress"
+ for Variable in VariableNames:
+     print >> vector, '  _doubleVecs["'+Variable+'"] = {-0.1,100};'
+ 
+ print >> vector, "   //Clear vector"
+ for Variable in VariableNames:
+     print >> vector, "  "+Variable+".clear();"
+ 
+ print >> vector, "   //class member"
+ for Variable in VariableNames:
+     print >> vector, "  "+Variable+".push_back(-999);"
+ 
+ print >> vector, "   //class member"
+ for Variable in VariableNames:
+     print >> vector, '  _doubleVecs["'+Variable+'"] = '+Variable+";"

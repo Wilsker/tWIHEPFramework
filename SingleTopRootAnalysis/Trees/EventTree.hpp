@@ -556,6 +556,9 @@ public :
    std::vector<double>  *Jet_py;
    std::vector<double>  *Jet_pz;
    std::vector<double>  *Jet_qg;
+   std::vector<double>  *Jet_axis2;
+   std::vector<double>  *Jet_ptD;
+   std::vector<double>  *Jet_mult;
    std::vector<double>  *Jet_Uncorr_pt;
    std::vector<double>  *Jet_L1corr_pt;
    std::vector<double>  *Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags;
@@ -1307,6 +1310,9 @@ public :
    TBranch        *b_Jet_py;   //!
    TBranch        *b_Jet_pz;   //!
    TBranch        *b_Jet_qg;   //!
+   TBranch        *b_Jet_axis2;   //!
+   TBranch        *b_Jet_ptD;   //!
+   TBranch        *b_Jet_mult;   //!
    TBranch        *b_Jet_Uncorr_pt;   //!
    TBranch        *b_Jet_L1corr_pt;   //!
    TBranch        *b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags;   //!
@@ -2025,6 +2031,9 @@ void EventTree::Init(TTree *tree)
    Jet_py = 0;
    Jet_pz = 0;
    Jet_qg = 0;
+   Jet_axis2 = 0;
+   Jet_ptD = 0;
+   Jet_mult = 0;
    Jet_Uncorr_pt = 0;
    Jet_L1corr_pt = 0;
    Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags = 0;
@@ -2746,6 +2755,9 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Jet_py", &Jet_py, &b_Jet_py);
    fChain->SetBranchAddress("Jet_pz", &Jet_pz, &b_Jet_pz);
    fChain->SetBranchAddress("Jet_qg", &Jet_qg, &b_Jet_qg);
+   fChain->SetBranchAddress("Jet_axis2", &Jet_axis2, &b_Jet_axis2);
+   fChain->SetBranchAddress("Jet_ptD", &Jet_ptD, &b_Jet_ptD);
+   fChain->SetBranchAddress("Jet_mult", &Jet_mult, &b_Jet_mult);
    fChain->SetBranchAddress("Jet_Uncorr_pt", &Jet_Uncorr_pt, &b_Jet_Uncorr_pt);
    fChain->SetBranchAddress("Jet_L1corr_pt", &Jet_L1corr_pt, &b_Jet_L1corr_pt);
    fChain->SetBranchAddress("Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags", &Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags, &b_Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags);

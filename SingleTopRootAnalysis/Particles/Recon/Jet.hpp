@@ -76,6 +76,11 @@ class Jet: public Particle
  _isMediumBdisc =0.0;
  _isTightBdisc =0.0;
  _qg =0.0;
+ _axis2 =0.0;
+ _ptD =0.0;
+ _mult =0.0;
+ _pfCombinedCvsLJetTags =0.0;
+ _pfCombinedCvsBJetTags =0.0;
  _lepdrmax =0.0;
  _lepdrmin =0.0;
  _HjDisc =0.0;
@@ -189,6 +194,26 @@ class Jet: public Particle
   inline Double_t Getqg() const {return _qg;};
   inline Double_t qg() const {return _qg;};
 
+  inline void Setaxis2(Double_t axis2){_axis2 = axis2;};
+  inline Double_t Getaxis2() const {return _axis2;};
+  inline Double_t axis2() const {return _axis2;};
+
+  inline void SetptD(Double_t ptD){_ptD = ptD;};
+  inline Double_t GetptD() const {return _ptD;};
+  inline Double_t ptD() const {return _ptD;};
+
+  inline void Setmult(Double_t mult){_mult = mult;};
+  inline Double_t Getmult() const {return _mult;};
+  inline Double_t mult() const {return _mult;};
+
+  inline void SetpfCombinedCvsLJetTags(Double_t pfCombinedCvsLJetTags){_pfCombinedCvsLJetTags = pfCombinedCvsLJetTags;};
+  inline Double_t GetpfCombinedCvsLJetTags() const {return _pfCombinedCvsLJetTags;};
+  inline Double_t pfCombinedCvsLJetTags() const {return _pfCombinedCvsLJetTags;};
+
+  inline void SetpfCombinedCvsBJetTags(Double_t pfCombinedCvsBJetTags){_pfCombinedCvsBJetTags = pfCombinedCvsBJetTags;};
+  inline Double_t GetpfCombinedCvsBJetTags() const {return _pfCombinedCvsBJetTags;};
+  inline Double_t pfCombinedCvsBJetTags() const {return _pfCombinedCvsBJetTags;};
+
   inline void Setlepdrmax(Double_t lepdrmax){_lepdrmax = lepdrmax;};
   inline Double_t Getlepdrmax() const {return _lepdrmax;};
   inline Double_t lepdrmax() const {return _lepdrmax;};
@@ -277,6 +302,11 @@ class Jet: public Particle
   Double_t _isTightBdisc;
   Double_t _HjDisc;
   Double_t _qg;
+  Double_t _axis2;
+  Double_t _ptD;
+  Double_t _mult;
+  Double_t _pfCombinedCvsLJetTags;
+  Double_t _pfCombinedCvsBJetTags;
   Double_t _lepdrmax;
   Double_t _lepdrmin;
   Double_t _partonFlavour;

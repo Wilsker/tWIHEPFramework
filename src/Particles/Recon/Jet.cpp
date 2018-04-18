@@ -71,6 +71,11 @@ ClassImp(Jet)
   _isMediumBdisc       (0.0),
   _isTightBdisc       (0.0),
   _qg       (0.0),
+  _axis2       (0.0),
+  _ptD       (0.0),
+  _mult       (0.0),
+  _pfCombinedCvsLJetTags       (0.0),
+  _pfCombinedCvsBJetTags       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _isToptag       (0.0),
@@ -128,6 +133,11 @@ _electronEnergy			(other.GetelectronEnergy()),
   _isMediumBdisc(other.GetisMediumBdisc()),
   _isTightBdisc(other.GetisTightBdisc()),
   _qg(other.Getqg()),
+  _axis2(other.Getaxis2()),
+  _ptD(other.GetptD()),
+  _mult(other.Getmult()),
+  _pfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags()),
+  _pfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags()),
   _lepdrmax(other.Getlepdrmax()),
   _lepdrmin(other.Getlepdrmin()),
   _partonFlavour(other.GetpartonFlavour()),
@@ -159,6 +169,11 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _isMediumBdisc       (0.0),
   _isTightBdisc       (0.0),
   _qg       (0.0),
+  _axis2       (0.0),
+  _ptD       (0.0),
+  _mult       (0.0),
+  _pfCombinedCvsLJetTags       (0.0),
+  _pfCombinedCvsBJetTags       (0.0),
   _L1corrPt  (0.0),
   _uncorrE  (0.0),
   _lepdrmax       (0.0),
@@ -241,6 +256,11 @@ Jet& Jet::operator=(const Particle& other)
   SetisMediumBdisc       (0.0);
   SetisTightBdisc       (0.0);
   Setqg       (0.0);
+  Setaxis2       (0.0);
+  SetptD       (0.0);
+  Setmult       (0.0);
+  SetpfCombinedCvsLJetTags       (0.0);
+  SetpfCombinedCvsBJetTags       (0.0);
   Setlepdrmax       (0.0);
   Setlepdrmin       (0.0);
   SetpartonFlavour       (0.0);
@@ -289,6 +309,11 @@ Jet& Jet::operator=(const Jet& other)
   SetisMediumBdisc(other.GetisMediumBdisc());
   SetisTightBdisc(other.GetisTightBdisc());
   Setqg(other.Getqg());
+  Setaxis2(other.Getaxis2());
+  SetptD(other.GetptD());
+  Setmult(other.Getmult());
+  SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
+  SetpfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -335,6 +360,11 @@ Jet& Jet::operator=(Jet& other)
   SetisMediumBdisc(other.GetisMediumBdisc());
   SetisTightBdisc(other.GetisTightBdisc());
   Setqg(other.Getqg());
+  Setaxis2(other.Getaxis2());
+  SetptD(other.GetptD());
+  Setmult(other.Getmult());
+  SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
+  SetpfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -472,6 +502,11 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetelectronEnergy			(evtr -> Jet_electronEnergy     	-> operator[](iE));
   SetphotonEnergy			(evtr -> Jet_photonEnergy     		-> operator[](iE));
   Setqg       (evtr -> Jet_qg      -> operator[](iE));
+  Setaxis2       (evtr -> Jet_axis2      -> operator[](iE));
+  SetptD       (evtr -> Jet_ptD      -> operator[](iE));
+  Setmult       (evtr -> Jet_mult      -> operator[](iE));
+  SetpfCombinedCvsLJetTags       (evtr -> Jet_pfCombinedCvsLJetTags      -> operator[](iE));
+  SetpfCombinedCvsBJetTags       (evtr -> Jet_pfCombinedCvsBJetTags      -> operator[](iE));
   SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
   SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
   //SetgenMother_pdgId       (evtr -> Jet_genMother_pdgId      -> operator[](iE));

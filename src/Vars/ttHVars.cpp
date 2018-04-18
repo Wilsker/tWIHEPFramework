@@ -16,6 +16,7 @@ ttHVars::ttHVars(bool makeHistos){
 
   SetName("ttHVars");
 
+  /*
   _doubleVecs["Jet25_isFromH"] = {-0.1, 1.9 }; 
   _doubleVecs["Jet25_isFromTop"] = {-0.1, 1.9 }; 
   _doubleVecs["Jet25_matchId"] = {-25., 25. }; 
@@ -36,6 +37,7 @@ ttHVars::ttHVars(bool makeHistos){
   _doubleVecs["FakeLep_eta"] = {0, 9.9 }; 
   _doubleVecs["FakeLep_phi"] = {-5., 5. }; 
   _doubleVecs["FakeLep_energy"] = {-0.1, 999. }; 
+  */
 
   _intVars["Jet_numbLoose"] = 10;
   _intVars["Bin2l"] = 10;
@@ -643,7 +645,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     // Fill the variables in event container
 
     // Fill the branches
-    
+    /* 
     _doubleVecs["FakeLep_isFromB"] = FakeLep_isFromB; 
     _doubleVecs["FakeLep_isFromC"] = FakeLep_isFromC; 
     _doubleVecs["FakeLep_isFromH"] = FakeLep_isFromH; 
@@ -664,7 +666,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _doubleVecs["Jet25_eta"] = Jet25_eta; 
     _doubleVecs["Jet25_phi"] = Jet25_phi; 
     _doubleVecs["Jet25_energy"] = Jet25_energy; 
-    
+    */
+
     _floatVars["massL"] = evtObj->massL;
     _floatVars["massL_SFOS"] = evtObj->massL_SFOS;
     _floatVars["mass_diele"] = evtObj->mass_diele;
