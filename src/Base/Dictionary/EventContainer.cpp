@@ -488,6 +488,7 @@ Int_t EventContainer::ReadEvent()
     // Will have to be updated when we have a fast sim tree
     _treeEventWeight = _fastSimTree -> eventWeight;
     runNumber   = _fastSimTree      -> runNumber;
+    lumiBlock   = -9999; 
     eventNumber = _fastSimTree      -> eventNumber;
     larError = 5;
     actualIntPerXing = 0;
@@ -501,6 +502,7 @@ Int_t EventContainer::ReadEvent()
   }  else {
     _treeEventWeight = 1.0;
     runNumber          = _eventTree -> EVENT_run;
+    lumiBlock          = _eventTree -> EVENT_lumiBlock;
     eventNumber        = _eventTree -> EVENT_event;
     actualIntPerXing   = 1;//_eventTree -> 
     averageIntPerXing  = 1;//_eventTree -> 
@@ -725,7 +727,7 @@ Int_t EventContainer::ReadEvent()
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
         if(!amu && _sync == 11){
-          //std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<std::endl;
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<" " << newLepton.isFake() << " " << newLepton.isMVASel() <<std::endl;
           amu = kTRUE;
         }
       } // if useObj
@@ -803,7 +805,7 @@ Int_t EventContainer::ReadEvent()
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
         if(!aele && _sync == 21){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " " << newLepton.BDT() << std::endl;
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " " << newLepton.BDT() <<" " << newLepton.isFake() << " " << newLepton.isMVASel() <<std::endl;
           aele = kTRUE;
         }
       }

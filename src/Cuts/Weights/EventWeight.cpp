@@ -839,11 +839,11 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getFakeRateWeight(EventConta
   if(EventContainerObj->fakeleptonsVetoPtr->size()<2) return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
   Lepton lep1 =  EventContainerObj->fakeleptonsVetoPtr->at(0);
   Lepton lep2 =  EventContainerObj->fakeleptonsVetoPtr->at(1);
-  if(lep1.isTight()==1 && lep2.isTight()==1) return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
+  if(lep1.isMVASel()==1 && lep2.isMVASel()==1) return std::make_tuple(FakeRateWeight,FakeRateWeightUp,FakeRateWeightDown);
   int xAxisBin1 = 0, yAxisBin1 = 0, xAxisBin2 = 0, yAxisBin2 = 0;
   Double_t FakeRateWeight1 = 0., FakeRateUnc1 = 0., FakeRateWeight2 = 0., FakeRateUnc2 = 0.;
   //Get the bin and fake rate for each lepton
-  if(lep1.isTight()==1){
+  if(lep1.isMVASel()==1){
     // choose fr so that fr/(1-fr)==1
     FakeRateWeight1 = 0.5;
     FakeRateUnc1 = 0.;
@@ -858,7 +858,7 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getFakeRateWeight(EventConta
     FakeRateWeight1 = _ElectronFakeRate->GetBinContent(xAxisBin1,yAxisBin1);
     FakeRateUnc1 = _ElectronFakeRate->GetBinError(xAxisBin1,yAxisBin1); 
   }
-  if(lep2.isTight()==1){
+  if(lep2.isMVASel()==1){
     // choose fr so that fr/(1-fr)==1
     FakeRateWeight2 = 0.5;
     FakeRateUnc2 = 0.;
@@ -877,7 +877,7 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getFakeRateWeight(EventConta
   FakeRateWeight = (FakeRateWeight1/(1-FakeRateWeight1))*(FakeRateWeight2/(1-FakeRateWeight2));
   FakeRateWeightUp = ((FakeRateWeight1+FakeRateUnc1)/(1-(FakeRateWeight1+FakeRateUnc1)))*((FakeRateWeight2+FakeRateUnc2)/(1-(FakeRateWeight2+FakeRateUnc2)));
   FakeRateWeightDown = ((FakeRateWeight1-FakeRateUnc1)/(1-(FakeRateWeight1-FakeRateUnc1)))*((FakeRateWeight2-FakeRateUnc2)/(1-(FakeRateWeight2-FakeRateUnc2)));
-  if(lep1.isTight()==0 && lep2.isTight()==0){
+  if(lep1.isMVASel()==0 && lep2.isMVASel()==0){
       FakeRateWeight *= -1;
       FakeRateWeightUp *= -1;
       FakeRateWeightDown *= -1;

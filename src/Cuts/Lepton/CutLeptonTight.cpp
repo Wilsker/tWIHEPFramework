@@ -227,7 +227,7 @@ Bool_t CutLeptonTight::Apply()
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  LeptonPairNumTight = leptonVector[0].isTight()+leptonVector[1].isTight();
+  LeptonPairNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel();
 
   // Fill the histograms before the cuts
   _hLeptonTightBefore    -> Fill(LeptonPairNumTight);

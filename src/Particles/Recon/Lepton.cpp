@@ -1110,10 +1110,13 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   SetisTight(ispassTight);
   Bool_t PassFake = false;
   Bool_t PassTight = false;
-  if(TMath::Abs(pdgId())==11)PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId;
-  else PassFake = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake;
-  if(TMath::Abs(pdgId())==11)PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId && passTight;
-  else PassFake = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake && passTight;
+  if(TMath::Abs(pdgId())==11){
+      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId;
+      PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId && passTight;
+  }else{
+      PassFake = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake;
+      PassTight = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake && passTight;
+  }
   SetisFake(PassFake);
   SetisMVASel(PassTight);
   //  if(     "Tight"      == leptonType) return( passMinPt && passMaxEta  && IsTight() && Isolation() && !GetOverlapWithJet() && IsCombinedMuon());

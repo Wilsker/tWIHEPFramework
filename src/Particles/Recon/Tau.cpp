@@ -266,7 +266,7 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
     SetdecayModeFinding       (evtr -> Tau_decayModeFinding      -> operator[](iE));
 
     SetPtEtaPhiE(tauPt, tauEta, tauPhi, tauE);
-    SetCharge(tauCharge);
+    Setcharge(tauCharge);
     //
 
     ////////////////////////////////

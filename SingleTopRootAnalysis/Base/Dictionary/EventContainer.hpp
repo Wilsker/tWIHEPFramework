@@ -506,6 +506,7 @@ class EventContainer
 
   // Information for partons
   Int_t runNumber;              // run number from the root tree
+  Int_t lumiBlock;              // run number from the root tree
   Int_t eventNumber;            // event number from the root tree
   Double_t HiggsDecay;            
   Bool_t larError;

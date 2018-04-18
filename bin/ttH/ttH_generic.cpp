@@ -362,7 +362,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
   
-  //mystudy.AddVars(new WeightVars());
+  mystudy.AddVars(new WeightVars());
   TFile *_skimBDTFile;
   TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
   _skimBDTFile = new TFile(NNname,"RECREATE"); 
