@@ -55,6 +55,7 @@ Tau::Tau() : Particle::Particle(),
   _dxy       (0.0),
   _isLoose       (0.0),
   _isMedium       (0.0),
+  _rawMVA       (0.0),
   _decayModeFinding       (0.0),
   _NumTracks(0.0)
 {
@@ -89,6 +90,7 @@ Tau::Tau(const Tau& other): Particle(other),
   _dxy(other.Getdxy()),
   _isLoose(other.GetisLoose()),
   _isMedium(other.GetisMedium()),
+  _rawMVA(other.GetrawMVA()),
   _decayModeFinding(other.GetdecayModeFinding()),
   _NumTracks(other.GetNumTracks())
 {
@@ -109,6 +111,7 @@ Tau::Tau(const Particle& other): Particle(other),
   _dxy       (0.0),
   _isLoose       (0.0),
   _isMedium       (0.0),
+  _rawMVA       (0.0),
   _decayModeFinding       (0.0),
   _NumTracks(0.0)
 {
@@ -170,6 +173,7 @@ Tau& Tau::operator=(const Particle& other)
   Setdxy       (0.0);
   SetisLoose       (0.0);
   SetisMedium       (0.0);
+  SetrawMVA       (0.0);
   SetdecayModeFinding       (0.0);
   SetNumTracks(0.0);
   return *this;
@@ -192,6 +196,7 @@ Tau& Tau::operator=(const Tau& other)
   Setdxy(other.Getdxy());
   SetisLoose(other.GetisLoose());
   SetisMedium(other.GetisMedium());
+  SetrawMVA(other.GetrawMVA());
   SetdecayModeFinding(other.GetdecayModeFinding());
   SetNumTracks(other.GetNumTracks());
   return *this;
@@ -214,6 +219,7 @@ Tau& Tau::operator=(Tau& other)
   Setdxy(other.Getdxy());
   SetisLoose(other.GetisLoose());
   SetisMedium(other.GetisMedium());
+  SetrawMVA(other.GetrawMVA());
   SetdecayModeFinding(other.GetdecayModeFinding());
   SetNumTracks(other.GetNumTracks());
   return *this;
@@ -263,6 +269,7 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
     Setdxy       (evtr -> Tau_packedLeadTauCand_dxy      -> operator[](iE));
     SetisLoose       (evtr -> Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
     SetisMedium       (evtr -> Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetrawMVA      (evtr  -> Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017     -> operator[](iE));
     SetdecayModeFinding       (evtr -> Tau_decayModeFinding      -> operator[](iE));
 
     SetPtEtaPhiE(tauPt, tauEta, tauPhi, tauE);

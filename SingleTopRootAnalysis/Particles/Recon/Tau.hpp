@@ -60,6 +60,7 @@ public:
         _dxy =0.0;
         _isLoose =0.0;
         _isMedium =0.0;
+        _rawMVA =0.0;
         _decayModeFinding =0.0;
       };
 
@@ -108,6 +109,10 @@ public:
   inline Double_t GetisMedium() const {return _isMedium;};
   inline Double_t isMedium() const {return _isMedium;};
 
+  inline void SetrawMVA(Double_t rawMVA){_rawMVA = rawMVA;};
+  inline Double_t GetrawMVA() const {return _rawMVA;};
+  inline Double_t rawMVA() const {return _rawMVA;};
+
   inline void SetdecayModeFinding(Double_t decayModeFinding){_decayModeFinding = decayModeFinding;};
   inline Double_t GetdecayModeFinding() const {return _decayModeFinding;};
   inline Double_t decayModeFinding() const {return _decayModeFinding;};
@@ -120,6 +125,7 @@ private:
   Double_t _dxy;
   Double_t _isLoose;
   Double_t _isMedium;
+  Double_t _rawMVA;
   Double_t _decayModeFinding;
   
   /// cuts reading from config

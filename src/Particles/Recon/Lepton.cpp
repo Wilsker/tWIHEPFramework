@@ -82,6 +82,7 @@ ClassImp(Lepton)
   _relIsoRhoEA       (0.0),
   _jetdr       (0.0),
   _jetl1corr       (0.0),
+  _jetislep       (0.0),
   _pdgId       (0.0),
   _jetpt       (0.0),
   _isGlobal       (0.0),
@@ -187,6 +188,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _relIsoRhoEA(other.GetrelIsoRhoEA()),
   _jetdr(other.Getjetdr()),
   _jetl1corr(other.Getjetl1corr()),
+  _jetislep(other.Getjetislep()),
   _pdgId(other.GetpdgId()),
   _jetpt(other.Getjetpt()),
   _isGlobal(other.GetisGlobal()),
@@ -279,6 +281,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _relIsoRhoEA       (0.0),
   _jetdr       (0.0),
   _jetl1corr       (0.0),
+  _jetislep       (0.0),
   _pdgId       (0.0),
   _jetpt       (0.0),
   _isGlobal       (0.0),
@@ -402,6 +405,7 @@ Lepton& Lepton::operator=(const Particle& other)
   SetrelIsoRhoEA       (0.0);
   Setjetdr       (0.0);
   Setjetl1corr       (0.0);
+  Setjetislep       (0.0);
   SetpdgId       (0.0);
   Setjetpt       (0.0);
   SetisGlobal       (0.0);
@@ -495,6 +499,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetrelIsoRhoEA(other.GetrelIsoRhoEA());
   Setjetdr(other.Getjetdr());
   Setjetl1corr(other.Getjetl1corr());
+  Setjetislep(other.Getjetislep());
   SetpdgId(other.GetpdgId());
   Setjetpt(other.Getjetpt());
   SetisGlobal(other.GetisGlobal());
@@ -588,6 +593,7 @@ Lepton& Lepton::operator=(Lepton& other)
   SetrelIsoRhoEA(other.GetrelIsoRhoEA());
   Setjetdr(other.Getjetdr());
   Setjetl1corr(other.Getjetl1corr());
+  Setjetislep(other.Getjetislep());
   SetpdgId(other.GetpdgId());
   Setjetpt(other.Getjetpt());
   SetisGlobal(other.GetisGlobal());
@@ -801,6 +807,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetjetptratioV2       (evtr -> Muon_jetptratioV2      -> operator[](iE));
     Setjetdr       (evtr -> Muon_jetdr      -> operator[](iE));
     Setjetl1corr       (evtr -> Muon_jetl1corr      -> operator[](iE));
+    Setjetislep       (evtr -> Muon_jetislep      -> operator[](iE));
     SetpdgId       (evtr -> Muon_pdgId      -> operator[](iE));
     Setjetpt       (evtr -> Muon_jetpt      -> operator[](iE));
     SetisGlobal       (evtr -> Muon_isGlobal      -> operator[](iE));
@@ -862,6 +869,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetjetptratioV2       (evtr -> patElectron_jetptratioV2      -> operator[](iE));
     Setjetdr       (evtr -> patElectron_jetdr      -> operator[](iE));
     Setjetl1corr       (evtr -> patElectron_jetl1corr      -> operator[](iE));
+    Setjetislep       (evtr -> patElectron_jetislep      -> operator[](iE));
     Setjetpt       (evtr -> patElectron_jetpt      -> operator[](iE));
     SetSCeta       (evtr -> patElectron_SCeta      -> operator[](iE));
     SetntMVAeleID		(evtr -> patElectron_isPassMvanontrigwpLoose   		-> operator[](iE));
@@ -974,8 +982,14 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     //std::cout<<Pt()<<" "<<Eta()<<" "<< lepJet.Pt() <<" "<< lepJet.uncorrPt() << " "<<lepJet.E()<<" "<<lepJet.uncorrE()<<" " << lepptratio<<" "<< lepptrel<< " L1 Factor "<< L1Factor<< " L1L2L3 "<< lepJet.Pt()/lepJet.uncorrPt()<<" " <<lep_jet.Pt()<<" "<< lep_jet.Px()<<" "<<lep_jet.Py()<<" "<<lepJet.Pz()<<" "<<lep_jet.E() <<std::endl;
     //}
   }
-  SetjetptratioV2(lepptratio);
-  Setptrel(lepptrel);
+  if(jetislep()>0.5){ // set to default if jet is matched to lepton
+    SetjetptratioV2(1);
+    Setptrel(0);
+    Setlepjetchtrks(0);
+  }else if(jetpt()>0){ // recalculate ptratio and ptrel for JesSF purpose and only for the case where jet is found
+    SetjetptratioV2(lepptratio);
+    Setptrel(lepptrel);
+  }
 
   // **************************************************************
   // Pt and Eta Cuts
@@ -1022,6 +1036,9 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   Bool_t isMedium = TMath::Abs(pdgId())==11 || passMediumId();
   // calculate lepton BDT
   SetBDT(get_LeptonMVA());
+  if(eventNumber == 13579745){
+    std::cout << " nEvent " <<eventNumber << " LepGood_pt "<<  varpt << " LepGood_eta " << vareta << " LepGood_jetNDauChargedMVASel "<< varjetNDauCharged_in << " LepGood_miniRelIsoCharged "<< varchRelIso << " LepGood_miniRelIsoNeutral "<< varneuRelIso << " LepGood_jetPtRelv2 "<< varjetPtRel_in << " LepGood_jetBTagCSV " << varjetBTagCSV_in << " LepGood_jetPtRatiov2 " << varjetPtRatio_in << " LepGood_sip3d "<< varsip3d << " LepGood_dxy " << vardxy << " LepGood_dz " << vardz<< " LepGood_mvaIdFall17noIso "<< varmvaId << " LepGood_segmentCompatibility "<< varSegCompat << " output MVA "<< BDT() <<std::endl; 
+  }
   // calculate conept
   Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * lepPt / jetptratioV2());
   // calculate lepton tight selections

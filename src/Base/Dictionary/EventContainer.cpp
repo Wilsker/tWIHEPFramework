@@ -722,12 +722,12 @@ Int_t EventContainer::ReadEvent()
       newLepton.Clear();
       useObj = newLepton.Fill(*muonsVetoPtr, *lepJetsPtr, _eventTree, io,"MuLoose", isSimulation, SourceNumber ,13);// 13 means Muon
       if(_debugEvt == eventNumber && _sync == 11){
-        std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<std::endl;
+        std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  << " " << newLepton.isFake() << " " << newLepton.isMVASel() << " "<< newLepton.jetislep() << std::endl;
       }
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
-        if(!amu && _sync == 11){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<" " << newLepton.isFake() << " " << newLepton.isMVASel() <<std::endl;
+        if(_debugEvt ==99 && !amu && _sync == 11){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.segmentCompatibility() << " " << newLepton.BDT() <<" " << newLepton.passLooseId()<<" "<< newLepton.passMediumId()  <<" " << newLepton.isFake() << " " << newLepton.isMVASel() << " "<< newLepton.jetislep() <<std::endl;
           amu = kTRUE;
         }
       } // if useObj
@@ -862,7 +862,8 @@ Int_t EventContainer::ReadEvent()
 
 
     // lepton are sorted by conept, unless specified by Pt
-    sort(looseLeptons.begin(), looseLeptons.end(), byPt);
+    //sort(looseLeptons.begin(), looseLeptons.end(), byPt);
+    sort(looseLeptons.begin(), looseLeptons.end());
     sort(fakeLeptons.begin(), fakeLeptons.end());
     sort(tightLeptons.begin(), tightLeptons.end());
 

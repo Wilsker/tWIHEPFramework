@@ -70,6 +70,7 @@ public:
  _relIsoRhoEA =0.0;
  _jetdr =0.0;
  _jetl1corr =0.0;
+ _jetislep =0.0;
  _pdgId =0.0;
  _jetpt =0.0;
  _isGlobal =0.0;
@@ -271,6 +272,10 @@ public:
   inline void Setjetl1corr(Double_t jetl1corr){_jetl1corr = jetl1corr;};
   inline Double_t Getjetl1corr() const {return _jetl1corr;};
   inline Double_t jetl1corr() const {return _jetl1corr;};
+
+  inline void Setjetislep(Double_t jetislep){_jetislep = jetislep;};
+  inline Double_t Getjetislep() const {return _jetislep;};
+  inline Double_t jetislep() const {return _jetislep;};
 
   inline void SetpdgId(Double_t pdgId){_pdgId = pdgId;};
   inline Double_t GetpdgId() const {return _pdgId;};
@@ -492,6 +497,7 @@ private:
   Double_t _relIsoRhoEA;
   Double_t _jetdr;
   Double_t _jetl1corr;
+  Double_t _jetislep;
   Double_t _pdgId;
   Double_t _jetpt;
   Double_t _isGlobal;

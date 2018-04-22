@@ -214,6 +214,7 @@ public :
    std::vector<double>  *Muon_miniIsoPUsub;
    std::vector<double>  *Muon_jetdr;
    std::vector<double>  *Muon_jetl1corr;
+   std::vector<double>  *Muon_jetislep;
    std::vector<double>  *Muon_jetpt;
    std::vector<double>  *Muon_jetptratio;
    std::vector<double>  *Muon_jetptratioV2;
@@ -356,6 +357,7 @@ public :
    std::vector<double>  *patElectron_miniIsoPUsub;
    std::vector<double>  *patElectron_jetdr;
    std::vector<double>  *patElectron_jetl1corr;
+   std::vector<double>  *patElectron_jetislep;
    std::vector<double>  *patElectron_jetpt;
    std::vector<double>  *patElectron_jetptratio;
    std::vector<double>  *patElectron_jetptratioV2;
@@ -968,6 +970,7 @@ public :
    TBranch        *b_Muon_miniIsoPUsub;   //!
    TBranch        *b_Muon_jetdr;   //!
    TBranch        *b_Muon_jetl1corr;   //!
+   TBranch        *b_Muon_jetislep;   //!
    TBranch        *b_Muon_jetpt;   //!
    TBranch        *b_Muon_jetptratio;   //!
    TBranch        *b_Muon_jetptratioV2;   //!
@@ -1110,6 +1113,7 @@ public :
    TBranch        *b_patElectron_miniIsoPUsub;   //!
    TBranch        *b_patElectron_jetdr;   //!
    TBranch        *b_patElectron_jetl1corr;   //!
+   TBranch        *b_patElectron_jetislep;   //!
    TBranch        *b_patElectron_jetpt;   //!
    TBranch        *b_patElectron_jetptratio;   //!
    TBranch        *b_patElectron_jetptratioV2;   //!
@@ -1689,6 +1693,7 @@ void EventTree::Init(TTree *tree)
    Muon_miniIsoPUsub = 0;
    Muon_jetdr = 0;
    Muon_jetl1corr = 0;
+   Muon_jetislep = 0;
    Muon_jetpt = 0;
    Muon_jetptratio = 0;
    Muon_jetptratioV2 = 0;
@@ -1831,6 +1836,7 @@ void EventTree::Init(TTree *tree)
    patElectron_miniIsoPUsub = 0;
    patElectron_jetdr = 0;
    patElectron_jetl1corr = 0;
+   patElectron_jetislep = 0;
    patElectron_jetpt = 0;
    patElectron_jetptratio = 0;
    patElectron_jetptratioV2 = 0;
@@ -2413,6 +2419,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Muon_miniIsoPUsub", &Muon_miniIsoPUsub, &b_Muon_miniIsoPUsub);
    fChain->SetBranchAddress("Muon_jetdr", &Muon_jetdr, &b_Muon_jetdr);
    fChain->SetBranchAddress("Muon_jetl1corr", &Muon_jetl1corr, &b_Muon_jetl1corr);
+   fChain->SetBranchAddress("Muon_jetislep", &Muon_jetislep, &b_Muon_jetislep);
    fChain->SetBranchAddress("Muon_jetpt", &Muon_jetpt, &b_Muon_jetpt);
    fChain->SetBranchAddress("Muon_jetptratio", &Muon_jetptratio, &b_Muon_jetptratio);
    fChain->SetBranchAddress("Muon_jetptratioV2", &Muon_jetptratioV2, &b_Muon_jetptratioV2);
@@ -2555,6 +2562,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_miniIsoPUsub", &patElectron_miniIsoPUsub, &b_patElectron_miniIsoPUsub);
    fChain->SetBranchAddress("patElectron_jetdr", &patElectron_jetdr, &b_patElectron_jetdr);
    fChain->SetBranchAddress("patElectron_jetl1corr", &patElectron_jetl1corr, &b_patElectron_jetl1corr);
+   fChain->SetBranchAddress("patElectron_jetislep", &patElectron_jetislep, &b_patElectron_jetislep);
    fChain->SetBranchAddress("patElectron_jetpt", &patElectron_jetpt, &b_patElectron_jetpt);
    fChain->SetBranchAddress("patElectron_jetptratio", &patElectron_jetptratio, &b_patElectron_jetptratio);
    fChain->SetBranchAddress("patElectron_jetptratioV2", &patElectron_jetptratioV2, &b_patElectron_jetptratioV2);

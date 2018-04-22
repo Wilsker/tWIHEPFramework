@@ -152,6 +152,8 @@ ttHVars::ttHVars(bool makeHistos){
   _intVars["tau1_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03"] = 999.;
   _intVars["tau1_byTightCombinedIsolationDeltaBetaCorr3HitsdR03"] = 999.;
   _intVars["tau1_byLooseIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
+  _floatVars["tau1_rawMVArun2v1DBdR03oldDMwLT"] = 999.;
+  _intVars["tau1_byVLooseIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
   _intVars["tau1_byMediumIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
   _intVars["tau1_byTightIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
   _intVars["tau1_byVTightIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
@@ -165,6 +167,8 @@ ttHVars::ttHVars(bool makeHistos){
   _intVars["tau2_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03"] = 999.;
   _intVars["tau2_byTightCombinedIsolationDeltaBetaCorr3HitsdR03"] = 999.;
   _intVars["tau2_byLooseIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
+  _floatVars["tau2_rawMVArun2v1DBdR03oldDMwLT"] = 999.;
+  _intVars["tau2_byVLooseIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
   _intVars["tau2_byMediumIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
   _intVars["tau2_byTightIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
   _intVars["tau2_byVTightIsolationMVArun2v1DBdR03oldDMwLT"] = 999.;
@@ -421,6 +425,8 @@ void ttHVars::Clear(){
     tau1_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
     tau1_byTightCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
     tau1_byLooseIsolationMVArun2v1DBdR03oldDMwLT = -9999;
+    tau1_rawMVArun2v1DBdR03oldDMwLT = -9999;
+    tau1_byVLooseIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     tau1_byMediumIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     tau1_byTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     tau1_byVTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
@@ -434,6 +440,8 @@ void ttHVars::Clear(){
     tau2_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
     tau2_byTightCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
     tau2_byLooseIsolationMVArun2v1DBdR03oldDMwLT = -9999;
+    tau2_rawMVArun2v1DBdR03oldDMwLT = -9999;
+    tau2_byVLooseIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     tau2_byMediumIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     tau2_byTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     tau2_byVTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
@@ -863,8 +871,10 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         tau1_byLooseCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
         tau1_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
         tau1_byTightCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
-        tau1_byLooseIsolationMVArun2v1DBdR03oldDMwLT = FirstTau.isLoose();
-        tau1_byMediumIsolationMVArun2v1DBdR03oldDMwLT = FirstTau.isMedium();
+        tau1_rawMVArun2v1DBdR03oldDMwLT = FirstTau.rawMVA();
+        tau1_byLooseIsolationMVArun2v1DBdR03oldDMwLT = FirstTau.isMedium();
+        tau1_byVLooseIsolationMVArun2v1DBdR03oldDMwLT = FirstTau.isLoose();
+        tau1_byMediumIsolationMVArun2v1DBdR03oldDMwLT = -9999;
         tau1_byTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
         tau1_byVTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     }
@@ -885,8 +895,10 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         tau2_byLooseCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
         tau2_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
         tau2_byTightCombinedIsolationDeltaBetaCorr3HitsdR03 = -9999;
-        tau2_byLooseIsolationMVArun2v1DBdR03oldDMwLT = SecondTau.isLoose();
-        tau2_byMediumIsolationMVArun2v1DBdR03oldDMwLT = SecondTau.isMedium();
+        tau2_byLooseIsolationMVArun2v1DBdR03oldDMwLT = SecondTau.isMedium();
+        tau2_rawMVArun2v1DBdR03oldDMwLT = SecondTau.rawMVA();
+        tau2_byVLooseIsolationMVArun2v1DBdR03oldDMwLT = SecondTau.isLoose();
+        tau2_byMediumIsolationMVArun2v1DBdR03oldDMwLT = -9999;
         tau2_byTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
         tau2_byVTightIsolationMVArun2v1DBdR03oldDMwLT = -9999;
     }
@@ -989,6 +1001,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _intVars["tau1_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03"] = tau1_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03;
   _intVars["tau1_byTightCombinedIsolationDeltaBetaCorr3HitsdR03"] = tau1_byTightCombinedIsolationDeltaBetaCorr3HitsdR03;
   _intVars["tau1_byLooseIsolationMVArun2v1DBdR03oldDMwLT"] = tau1_byLooseIsolationMVArun2v1DBdR03oldDMwLT;
+  _floatVars["tau1_rawMVArun2v1DBdR03oldDMwLT"] = tau1_rawMVArun2v1DBdR03oldDMwLT;
+  _intVars["tau1_byVLooseIsolationMVArun2v1DBdR03oldDMwLT"] = tau1_byVLooseIsolationMVArun2v1DBdR03oldDMwLT;
   _intVars["tau1_byMediumIsolationMVArun2v1DBdR03oldDMwLT"] = tau1_byMediumIsolationMVArun2v1DBdR03oldDMwLT;
   _intVars["tau1_byTightIsolationMVArun2v1DBdR03oldDMwLT"] = tau1_byTightIsolationMVArun2v1DBdR03oldDMwLT;
   _intVars["tau1_byVTightIsolationMVArun2v1DBdR03oldDMwLT"] = tau1_byVTightIsolationMVArun2v1DBdR03oldDMwLT;
@@ -1002,6 +1016,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _intVars["tau2_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03"] = tau2_byMediumCombinedIsolationDeltaBetaCorr3HitsdR03;
   _intVars["tau2_byTightCombinedIsolationDeltaBetaCorr3HitsdR03"] = tau2_byTightCombinedIsolationDeltaBetaCorr3HitsdR03;
   _intVars["tau2_byLooseIsolationMVArun2v1DBdR03oldDMwLT"] = tau2_byLooseIsolationMVArun2v1DBdR03oldDMwLT;
+  _floatVars["tau2_rawMVArun2v1DBdR03oldDMwLT"] = tau2_rawMVArun2v1DBdR03oldDMwLT;
+  _intVars["tau2_byVLooseIsolationMVArun2v1DBdR03oldDMwLT"] = tau2_byVLooseIsolationMVArun2v1DBdR03oldDMwLT;
   _intVars["tau2_byMediumIsolationMVArun2v1DBdR03oldDMwLT"] = tau2_byMediumIsolationMVArun2v1DBdR03oldDMwLT;
   _intVars["tau2_byTightIsolationMVArun2v1DBdR03oldDMwLT"] = tau2_byTightIsolationMVArun2v1DBdR03oldDMwLT;
   _intVars["tau2_byVTightIsolationMVArun2v1DBdR03oldDMwLT"] = tau2_byVTightIsolationMVArun2v1DBdR03oldDMwLT;

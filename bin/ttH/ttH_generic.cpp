@@ -284,6 +284,7 @@ int main(int argc, char **argv)
 
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
+  mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
@@ -295,10 +296,11 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonMissHit(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
-  
   //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
 
-  //mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
+ /*
+  mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
+  */
  
 
 
@@ -318,8 +320,9 @@ int main(int argc, char **argv)
   //  mystudy.AddCut(new CutEMuOverlap(particlesObj));
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
-  mystudy.AddCut(new CutJetN(particlesObj,nJets));
   
+  /*
+  mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
   
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
@@ -359,10 +362,11 @@ int main(int argc, char **argv)
   //  mystudy.AddVars(new TestVar());
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
- 
+  */
+
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
-  mystudy.AddVars(new HjTagger());
+  //mystudy.AddVars(new HjTagger());
   
   mystudy.AddVars(new WeightVars());
   TFile *_skimBDTFile;
