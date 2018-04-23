@@ -134,7 +134,7 @@ VariableNames = [
 "Jet25_pt","Jet25_eta","Jet25_phi","Jet25_energy","Jet25_px",
 "Jet25_py","Jet25_pz","Jet25_mass",
 
-"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId",
+"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId","Jet25_isToptag",
 
 "Jet25_neutralHadEnergyFraction","Jet25_neutralEmEnergyFraction","Jet25_chargedHadronEnergyFraction","Jet25_chargedEmEnergyFraction",
 "Jet25_muonEnergyFraction","Jet25_electronEnergy","Jet25_photonEnergy","Jet25_emEnergyFraction","Jet25_numberOfConstituents","Jet25_chargedMultiplicity",

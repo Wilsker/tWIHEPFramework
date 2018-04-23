@@ -653,11 +653,16 @@ Int_t EventContainer::ReadEvent()
     missingPhi = _eventTree->Met_type1PF_phi;
     missingEy = _eventTree->Met_type1PF_py;
 
+    missingEt_xy = _eventTree->Met_type1PF_pt;
+    missingEx_xy = _eventTree->Met_type1PF_px;
+    missingPhi_xy = _eventTree->Met_type1PF_phi;
+    missingEy_xy = _eventTree->Met_type1PF_py;
+    /*
     missingEt_xy = _eventTree->Met_type1PFxy_pt;
     missingEx_xy = _eventTree->Met_type1PFxy_px;
     missingPhi_xy = _eventTree->Met_type1PFxy_phi;
     missingEy_xy = _eventTree->Met_type1PFxy_py;
-
+*/
     passesMETFilters = _eventTree->Flag_METFilters;
 
     //Fill pvtx information
@@ -1566,13 +1571,13 @@ void EventContainer::MakeTopQuarks()
 /////TTH Flags
 void EventContainer::set_TTHFlags(){
     //set TTH Triggers
-    if( _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1 ||_eventTree -> HLT_IsoMu22==1 || _eventTree -> HLT_IsoTkMu22==1 || _eventTree -> HLT_IsoMu22_eta2p1==1 || _eventTree -> HLT_IsoTkMu22_eta2p1 ==1||_eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoTkMu24==1)TTHLep_2Mu=1;
+    if( _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 || _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoMu27==1)TTHLep_2Mu=1;
     else TTHLep_2Mu=0;
-    if( _eventTree -> HLT_Ele27_WPTight_Gsf==1 || _eventTree -> HLT_Ele25_eta2p1_WPTight_Gsf==1 || _eventTree -> HLT_Ele27_eta2p1_WPLoose_Gsf==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 )TTHLep_2Ele=1;
+    if( _eventTree -> HLT_Ele32_WPTight_Gsf==1 || _eventTree -> HLT_Ele35_WPTight_Gsf ==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 )TTHLep_2Ele=1;
     else TTHLep_2Ele=0;
-    if( _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 
-    || _eventTree -> HLT_IsoMu22==1 || _eventTree -> HLT_IsoTkMu22==1 || _eventTree -> HLT_IsoMu22_eta2p1==1 || _eventTree -> HLT_IsoTkMu22_eta2p1 ==1||_eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoTkMu24==1 
-    || _eventTree -> HLT_Ele27_WPTight_Gsf==1 || _eventTree -> HLT_Ele25_eta2p1_WPTight_Gsf==1 || _eventTree -> HLT_Ele27_eta2p1_WPLoose_Gsf==1
+    if( _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || 
+    _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoMu27==1 ||
+    _eventTree -> HLT_Ele32_WPTight_Gsf==1 || _eventTree -> HLT_Ele35_WPTight_Gsf ==1
     ) TTHLep_MuEle=1;
     else TTHLep_MuEle=0;
     if(TTHLep_MuEle ==1 || TTHLep_2Mu ==1 || TTHLep_2Ele ==1) TTHLep_2L =1;

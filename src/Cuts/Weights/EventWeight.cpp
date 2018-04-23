@@ -418,7 +418,8 @@ Bool_t EventWeight::Apply()
  float bEventWeight(1.0);
  
  if (isbWeight()){
-   bEventWeight = tree->bWeight;
+   //bEventWeight = tree->bWeight;
+   bEventWeight =1; // temporarily set to 1
    wgt *= bEventWeight;
  }
   
