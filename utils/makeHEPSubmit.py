@@ -12,15 +12,15 @@ taskname = "EvtSel"
 frameworkDir = "/publicfs/cms/data/TopQuark/cms13TeV/Binghuan/tWIHEPFramework/"
 executable = "bin/ttH/ttH_generic.x"
 #executable = "Wt_nVertOnly.x"
-configFile = "config/overall/ttH.MultiLeptons.EleMuSR.config"
-invPostfix = ""
+configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
+invPostfix = " -MCatNLO -mc -bTagReshape -lepSFs -PileUpWgt -TriggerSFs "
 #mcPostfix = " -MCatNLO -mc -bTagReshape -lepSFs -PileUpWgt -chargeMis -FakeRate -TriggerSFs"
 #mcPostfix = " -MCatNLO -mc -lepSFs -chargeMis -FakeRate -TriggerSFs -bTagReshape"
 mcPostfix = " -chargeMis -FakeRate"
-triggerName = "TTHLep_2Ele "
+triggerName = "TTHLep_2L "
 nJets = 3
 nbJets = 1
-fileListDirectory = "config/files/ttH_Mor17/"
+fileListDirectory = "config/files/ttH_2018/Preliminary/"
 makeSkims = True
 samplesMC76=[
 "qcd1000_1500",
@@ -48,7 +48,7 @@ samplesMC76=[
 #"TTHnobb","TTWToLNuext2","TTWToLNuext1","TTZToLLNuNu","TTZToLL_M1to10","TTJets_sinLepTbar_v1","TTJets_sinLepTbar_ext1","TTJets_sinLepT_v1","TTJets_sinLepT_ext1","TTJets_diLep_v1","TTJets_diLep_ext1","TTGToJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG_ext1","ZGTo2LG","TGJets_ext1","WpWpJJ","WW_DS_To2L2Nu","WWW_4F","WWZ","WZZ","ZZZ","tZq","TTTT","tWll","amcWJets","WZTo3LNu","WWTo2L2Nu","ZZTo4L"
 #]
 samplesMC=[
-"TTHnobb","TTWToLNuext2","TTWToLNuext1","TTZToLLNuNu","TTZToLL_M1to10","TTJets_sinLepTbar_v1","TTJets_sinLepTbar_ext1","TTJets_sinLepT_v1","TTJets_sinLepT_ext1","TTJets_diLep_v1","TTJets_diLep_ext1","WpWpJJ","WW_DS_To2L2Nu","WWW_4F","WWZ","WZZ","ZZZ","tZq","TTTT","tWll","amcWJets","WZTo3LNu","WWTo2L2Nu","ZZTo4L"
+"TTHnobb","TTWToLNu","TTZToLL","TTJets"
 ]
 #samplesMC = [
 #"TTHnobb","TTWToLNuext2","TTWToLNuext1"
@@ -185,7 +185,11 @@ if "jerDown" in sys.argv:
 if "wJetsReg" in sys.argv and "ttbarReg" in sys.argv:
     print "Please only use one of ttbar and wJets -Reg! Exiting..."
     sys.exit()
-if "convs" in sys.argv:
+if "mva" in sys.argv:
+    mcPostfix = " -isTrainMVA"
+    configFile = "config/overall/ttH.MultiLeptons.DiLepTrainMVA.config"
+    analysis += "TrainMVA"
+elif "convs" in sys.argv:
     mcPostfix = " -mcPromptGamma"
     analysis += "Conv"
     sample = samplesConv
@@ -254,125 +258,10 @@ rootplizer  = "Rootplizer_"+task+".cc"
 headplizer  = "Rootplizer_"+task+".h"
 #Directory of input files
 nJobs = {
-"TTHnobb":11,
-"TTWToLNuext2":4,
-"TTWToLNuext1":3,
-"TTZToLLNuNu":3,
-"TTZToLL_M1to10":2,
-"TTJets_sinLepTbar_v1":19,
-"TTJets_sinLepTbar_ext1":45,
-"TTJets_sinLepT_v1":14,
-"TTJets_sinLepT_ext1":48,
-"TTJets_diLep_v1":6,
-"TTJets_diLep_ext1":26,
-"TTGToJets_ext1":24,
-"WGToLNuG_ext2":13,
-"TGJets_v1":2,
-"WGToLNuG_ext1":15,
-"ZGTo2LG":21,
-"TGJets_ext1":4,
-"WpWpJJ":1,
-"WW_DS_To2L2Nu":2,
-"WWW_4F":1,
-"WWZ":1,
-"WZZ":1,
-"ZZZ":1,
-"tZq":31,
-"TTTT":2,
-"tWll":1,
-"amcWJets":30,
-"WZTo3LNu":4,
-"WWTo2L2Nu":3,
-"ZZTo4L":10,
-"DEleGmRecoverB1":47,
-"DEleGmRecoverC1":14,
-"DEleGmRecoverD1":21,
-"DEleGmRecoverE1":10,
-"DEleGmRecoverF1":7,
-"DEleGmRecoverF2":1,
-"DEleGmRecoverG1":31,
-"DEleGmRecoverH1":38,
-"DEleGmRecoverH2":1,
-"MuEleGmRecoverB1":32,
-"MuEleGmRecoverC1":17,
-"MuEleGmRecoverD1":16,
-"MuEleGmRecoverE1":23,
-"MuEleGmRecoverF1":15,
-"MuEleGmRecoverF2":3,
-"MuEleGmRecoverG1":27,
-"MuEleGmRecoverH1":36,
-"MuEleGmRecoverH2":1,
-"DMuRecoverB1":58,
-"DMuRecoverC1":12,
-"DMuRecoverD1":13,
-"DMuRecoverE1":20,
-"DMuRecoverF1":13,
-"DMuRecoverF2":3,
-"DMuRecoverG1":38,
-"DMuRecoverH1":23,
-"DMuRecoverH2":1,
-"SEleRecoverB1":29,
-"SEleRecoverC1":12,
-"SEleRecoverD1":23,
-"SEleRecoverE1":20,
-"SEleRecoverF1":16,
-"SEleRecoverF2":1,
-"SEleRecoverG1":39,
-"SEleRecoverH1":25,
-"SMuRecoverB1":30,
-"SMuRecoverC1":14,
-"SMuRecoverD1":25,
-"SMuRecoverE1":20,
-"SMuRecoverF1":13,
-"SMuRecoverF2":2,
-"SMuRecoverG1":29,
-"SMuRecoverH1":36,
-"SMuRecoverH2":1,
-"DEleGmB1":128,
-"DEleGmC1":44,
-"DEleGmD1":76,
-"DEleGmE1":74,
-"DEleGmF1":46,
-"DEleGmF2":8,
-"DEleGmG1":110,
-"DEleGmH1":114,
-"DEleGmH2":4,
-"MuEleGmB1":144,
-"MuEleGmC1":41,
-"MuEleGmD1":82,
-"MuEleGmE1":59,
-"MuEleGmF1":38,
-"MuEleGmF2":6,
-"MuEleGmG1":116,
-"MuEleGmH1":118,
-"MuEleGmH2":4,
-"DMuB1":116,
-"DMuC1":47,
-"DMuD1":85,
-"DMuE1":62,
-"DMuF1":40,
-"DMuF2":6,
-"DMuG1":104,
-"DMuH1":131,
-"DMuH2":4,
-"SEleB1":146,
-"SEleC1":46,
-"SEleD1":75,
-"SEleE1":62,
-"SEleF1":36,
-"SEleF2":8,
-"SEleG1":103,
-"SEleH1":129,
-"SEleH2":5,
-"SMuB1":145,
-"SMuC1":44,
-"SMuD1":73,
-"SMuE1":63,
-"SMuF1":40,
-"SMuF2":7,
-"SMuG1":113,
-"SMuH1":117,
-"SMuH2":4
+"TTHnobb":22,
+"TTWToLNu":11,
+"TTZToLL":22,
+"TTJets":282
 }
 
 nJobsSum16 = {

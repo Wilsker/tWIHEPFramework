@@ -1036,9 +1036,11 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   Bool_t isMedium = TMath::Abs(pdgId())==11 || passMediumId();
   // calculate lepton BDT
   SetBDT(get_LeptonMVA());
+  /*
   if(eventNumber == 13579745){
     std::cout << " nEvent " <<eventNumber << " LepGood_pt "<<  varpt << " LepGood_eta " << vareta << " LepGood_jetNDauChargedMVASel "<< varjetNDauCharged_in << " LepGood_miniRelIsoCharged "<< varchRelIso << " LepGood_miniRelIsoNeutral "<< varneuRelIso << " LepGood_jetPtRelv2 "<< varjetPtRel_in << " LepGood_jetBTagCSV " << varjetBTagCSV_in << " LepGood_jetPtRatiov2 " << varjetPtRatio_in << " LepGood_sip3d "<< varsip3d << " LepGood_dxy " << vardxy << " LepGood_dz " << vardz<< " LepGood_mvaIdFall17noIso "<< varmvaId << " LepGood_segmentCompatibility "<< varSegCompat << " output MVA "<< BDT() <<std::endl; 
   }
+  */
   // calculate conept
   Setconept((isMedium && BDT() > 0.9) ?  lepPt : 0.9 * lepPt / jetptratioV2());
   // calculate lepton tight selections

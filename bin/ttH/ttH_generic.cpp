@@ -127,6 +127,7 @@ int main(int argc, char **argv)
   Bool_t useTriggerSFs = kFALSE;
   Bool_t useMCPromptFS = kFALSE;
   Bool_t useMCPromptGamma = kFALSE;
+  Bool_t isTrainMVA = kFALSE;
   TString leptonTypeToSelect = "Tight"; //This variable is altered to unisolated when running QCD estimation.
   string evtListFileName="";
   int whichtrig = -1;
@@ -168,6 +169,10 @@ int main(int argc, char **argv)
     if (!strcmp(argv[i], "-FakeRate")){
       useFakeRate = kTRUE;
       cout << "Driver: Using FakeRate" << endl;
+    }
+    if (!strcmp(argv[i], "-isTrainMVA")){
+      isTrainMVA = kTRUE;
+      cout << "Driver: is Train MVA" << endl;
     }
     if (!strcmp(argv[i], "-bTagReshape")){
       usebTagReweight = kTRUE;
@@ -284,7 +289,6 @@ int main(int argc, char **argv)
 
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
-  mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
@@ -293,9 +297,12 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
-  mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
-  mystudy.AddCut(new CutLeptonMissHit(particlesObj,"TTHFake"));
-  mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
+
+  if(!isTrainMVA){
+    mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
+    mystudy.AddCut(new CutLeptonMissHit(particlesObj,"TTHFake"));
+    mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
+  }
   //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
 
  /*
@@ -321,21 +328,21 @@ int main(int argc, char **argv)
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
   
-  /*
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
   
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   
-  mystudy.AddCut(new CutZveto(particlesObj));
-  mystudy.AddCut(new CutMassL(particlesObj));
-  mystudy.AddCut(new CutMetLD(particlesObj));
-  
+  if(!isTrainMVA){
+    mystudy.AddCut(new CutZveto(particlesObj));
+    mystudy.AddCut(new CutMassL(particlesObj));
+    mystudy.AddCut(new CutMetLD(particlesObj));
+    mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
+  }
   mystudy.AddCut(new CutHiggsDecay(particlesObj));
   //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
-  mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
 
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
@@ -362,11 +369,10 @@ int main(int argc, char **argv)
   //  mystudy.AddVars(new TestVar());
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
-  */
 
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
-  //mystudy.AddVars(new HjTagger());
+  mystudy.AddVars(new HjTagger());
   
   mystudy.AddVars(new WeightVars());
   TFile *_skimBDTFile;
