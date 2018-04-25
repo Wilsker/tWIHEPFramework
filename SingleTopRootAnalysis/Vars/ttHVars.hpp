@@ -320,6 +320,20 @@ private:
   float HTT;
   int nBJetLoose;
   int nBJetMedium;
+  float mu1_PFRelIso04;
+  float mu2_PFRelIso04;
+  float ele1_PFRelIso04;
+  float ele1_sigmaEtaEta;
+  float ele1_HoE;
+  float ele1_deltaEta;
+  float ele1_deltaPhi;
+  float ele1_OoEminusOoP;
+  float ele2_PFRelIso04;
+  float ele2_sigmaEtaEta;
+  float ele2_HoE;
+  float ele2_deltaEta;
+  float ele2_deltaPhi;
+  float ele2_OoEminusOoP;
 
 };
 

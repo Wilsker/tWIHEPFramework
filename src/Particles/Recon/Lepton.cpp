@@ -1130,8 +1130,8 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   Bool_t PassFake = false;
   Bool_t PassTight = false;
   if(TMath::Abs(pdgId())==11){
-      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId;
-      PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId && passTight;
+      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId &&  passMissHit();
+      PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId && passTight &&  passMissHit() && passConversionVeto();
   }else{
       PassFake = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake;
       PassTight = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake && passTight;
@@ -1143,7 +1143,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
   else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
   else if("EleLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && eleMVAId );
-  else if("EleTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passTight && passFake && eleMVAId);
+  else if("EleTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passTight && passFake && eleMVAId );
   else if("EleFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId); 
   //else if("Isolated"   == leptonType) return( GetIsolation()  && !GetOverlapWithJet() && IsCombinedMuon() && OverlapUse());
   //else if("UnIsolated" == leptonType) return( !GetIsolation()  && passMinPt && passMaxEta && IsTight() && !GetOverlapWithJet()&& IsCombinedMuon());

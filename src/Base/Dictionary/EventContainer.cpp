@@ -844,7 +844,7 @@ Int_t EventContainer::ReadEvent()
     for(Int_t io = 0;io < _eventTree -> Tau_pt->size(); io++) {
       
       newTau.Clear();
-      useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"Loose");
+      useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"VLoose");
       if(useObj) {
 	    looseTaus.push_back(newTau);
         if(!atau && _sync == 31){
@@ -854,7 +854,7 @@ Int_t EventContainer::ReadEvent()
       }//use Obj
 
       newTau.Clear();
-      useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"Medium");
+      useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"Loose");
       if(useObj) {
 	    taus.push_back(newTau);
         if(!atau && _sync == 32){
@@ -924,6 +924,7 @@ Int_t EventContainer::ReadEvent()
     
     } //jets
 
+  sort(jets.begin(), jets.end());
   if(isSimulation){
     int motherIndex =0;
     int daughtIndex =0;
@@ -1203,7 +1204,6 @@ Int_t EventContainer::ReadEvent()
     missingEt = top_met.MET_EtMiss()/1000;
 
     //sorts moved here because of particle index useage in top met tool.  sorts use scaled/smeared pt's
-    sort(jets.begin(), jets.end());
     sort(alljets.begin(), alljets.end());
     sort(jetms.begin(), jetms.end());
     sort(taggedJets.begin(), taggedJets.end());

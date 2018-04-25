@@ -40,10 +40,14 @@ using namespace std;
  ******************************************************************************/
 CutTauN::CutTauN(EventContainer *EventContainerObj, TString tauTypePassed)
 {
-  if( tauTypePassed.CompareTo("Loose") && tauTypePassed.CompareTo("Medium") && tauTypePassed.CompareTo("loose") && 
+  if( 
+      tauTypePassed.CompareTo("VLoose")&& tauTypePassed.CompareTo("Vloose") &&
+      tauTypePassed.CompareTo("VTight")&& tauTypePassed.CompareTo("Vtight") &&
+      tauTypePassed.CompareTo("Tight")&& tauTypePassed.CompareTo("tight") &&
+      tauTypePassed.CompareTo("Loose") && tauTypePassed.CompareTo("Medium") && tauTypePassed.CompareTo("loose") && 
       tauTypePassed.CompareTo("medium") ){
     std::cout << "ERROR " << "<CutTauN::CutTauN()> " 
-	      << "Must pass L/loose, M/medium to constructor" << std::endl;
+	      << "Must pass VL/loose, M/medium, VT/tight to constructor" << std::endl;
     exit(8);
   } //if
   tauType = tauTypePassed;
@@ -139,8 +143,8 @@ Bool_t CutTauN::Apply()
   EventContainer *EventContainerObj = GetEventContainer();
 
   // Get Variables from electron vector in Particles Object
-  if(tauType=="Medium" || tauType=="medium")TauNumber = EventContainerObj -> taus.size();
-  if(tauType=="Loose" || tauType=="loose")TauNumber = EventContainerObj -> looseTaus.size();
+  if(tauType=="Loose" || tauType=="loose")TauNumber = EventContainerObj -> taus.size();
+  if(tauType=="VLoose" || tauType=="Vloose")TauNumber = EventContainerObj -> looseTaus.size();
 
   // Fill the histograms before the cuts
   _hTauNumberBefore    -> Fill(TauNumber);

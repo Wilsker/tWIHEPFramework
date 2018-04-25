@@ -14,9 +14,9 @@
 #include "TLorentzVector.h"
 
 // Header file for the classes stored in the TTree if any.
-#include "vector"
-#include "vector"
-#include "vector"
+#include <vector>
+#include <vector>
+#include <vector>
 
 class EventTree {
 public :
@@ -624,6 +624,21 @@ public :
    Double_t        Met_type1PF_shiftedPtUp;
    Double_t        Met_type1PF_shiftedPtDown;
    Double_t        Gen_type1PF_Met;
+
+   //Here we will store the location of the selected objects of various sorts.
+   std::vector<int> electronIndexTight;
+   std::vector<int> electronIndexLoose;
+   std::vector<int> muonIndexTight;
+   std::vector<int> muonIndexLoose;
+   std::vector<int> jetIndex;
+   std::vector<int> bTagIndex;
+   TLorentzVector lepton1;
+   float lepton1RelIso;
+   TLorentzVector lepton2;
+   float lepton2RelIso;
+   TLorentzVector bJetVec;
+   TLorentzVector otherJetVec1;
+   TLorentzVector otherJetVec2;
 
    // List of branches
    TBranch        *b_Gen_pt;   //!
@@ -1249,7 +1264,7 @@ EventTree::EventTree(TTree *tree) : fChain(0)
          f = new TFile("TTH94X_test.root");
       }
       TDirectory * dir = (TDirectory*)f->Get("TTH94X_test.root:/TNT");
-      dir->GetObject("EventTree",tree);
+      dir->GetObject("BOOM",tree);
 
    }
    Init(tree);

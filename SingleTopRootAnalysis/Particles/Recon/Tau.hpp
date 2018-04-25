@@ -58,8 +58,11 @@ public:
         _charge =0.0;
         _dz =0.0;
         _dxy =0.0;
+        _isVLoose =0.0;
         _isLoose =0.0;
         _isMedium =0.0;
+        _isTight =0.0;
+        _isVTight =0.0;
         _rawMVA =0.0;
         _decayModeFinding =0.0;
       };
@@ -101,6 +104,10 @@ public:
   inline Double_t Getdxy() const {return _dxy;};
   inline Double_t dxy() const {return _dxy;};
 
+  inline void SetisVLoose(Double_t isVLoose){_isVLoose = isVLoose;};
+  inline Double_t GetisVLoose() const {return _isVLoose;};
+  inline Double_t isVLoose() const {return _isVLoose;};
+
   inline void SetisLoose(Double_t isLoose){_isLoose = isLoose;};
   inline Double_t GetisLoose() const {return _isLoose;};
   inline Double_t isLoose() const {return _isLoose;};
@@ -108,6 +115,14 @@ public:
   inline void SetisMedium(Double_t isMedium){_isMedium = isMedium;};
   inline Double_t GetisMedium() const {return _isMedium;};
   inline Double_t isMedium() const {return _isMedium;};
+
+  inline void SetisTight(Double_t isTight){_isTight = isTight;};
+  inline Double_t GetisTight() const {return _isTight;};
+  inline Double_t isTight() const {return _isTight;};
+
+  inline void SetisVTight(Double_t isVTight){_isVTight = isVTight;};
+  inline Double_t GetisVTight() const {return _isVTight;};
+  inline Double_t isVTight() const {return _isVTight;};
 
   inline void SetrawMVA(Double_t rawMVA){_rawMVA = rawMVA;};
   inline Double_t GetrawMVA() const {return _rawMVA;};
@@ -123,8 +138,11 @@ private:
   Double_t _charge;
   Double_t _dz;
   Double_t _dxy;
+  Double_t _isVLoose;
   Double_t _isLoose;
   Double_t _isMedium;
+  Double_t _isTight;
+  Double_t _isVTight;
   Double_t _rawMVA;
   Double_t _decayModeFinding;
   

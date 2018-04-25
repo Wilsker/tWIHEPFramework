@@ -53,8 +53,11 @@ Tau::Tau() : Particle::Particle(),
   _charge       (0.0),
   _dz       (0.0),
   _dxy       (0.0),
+  _isVLoose       (0.0),
   _isLoose       (0.0),
   _isMedium       (0.0),
+  _isTight       (0.0),
+  _isVTight       (0.0),
   _rawMVA       (0.0),
   _decayModeFinding       (0.0),
   _NumTracks(0.0)
@@ -88,8 +91,11 @@ Tau::Tau(const Tau& other): Particle(other),
   _charge(other.Getcharge()),
   _dz(other.Getdz()),
   _dxy(other.Getdxy()),
+  _isVLoose(other.GetisVLoose()),
   _isLoose(other.GetisLoose()),
   _isMedium(other.GetisMedium()),
+  _isTight(other.GetisTight()),
+  _isVTight(other.GetisVTight()),
   _rawMVA(other.GetrawMVA()),
   _decayModeFinding(other.GetdecayModeFinding()),
   _NumTracks(other.GetNumTracks())
@@ -109,8 +115,11 @@ Tau::Tau(const Particle& other): Particle(other),
   _charge       (0.0),
   _dz       (0.0),
   _dxy       (0.0),
+  _isVLoose       (0.0),
   _isLoose       (0.0),
   _isMedium       (0.0),
+  _isTight       (0.0),
+  _isVTight       (0.0),
   _rawMVA       (0.0),
   _decayModeFinding       (0.0),
   _NumTracks(0.0)
@@ -171,8 +180,11 @@ Tau& Tau::operator=(const Particle& other)
   Setcharge       (0.0);
   Setdz       (0.0);
   Setdxy       (0.0);
+  SetisVLoose       (0.0);
   SetisLoose       (0.0);
   SetisMedium       (0.0);
+  SetisTight       (0.0);
+  SetisVTight       (0.0);
   SetrawMVA       (0.0);
   SetdecayModeFinding       (0.0);
   SetNumTracks(0.0);
@@ -194,8 +206,11 @@ Tau& Tau::operator=(const Tau& other)
   Setcharge(other.Getcharge());
   Setdz(other.Getdz());
   Setdxy(other.Getdxy());
+  SetisVLoose(other.GetisVLoose());
   SetisLoose(other.GetisLoose());
   SetisMedium(other.GetisMedium());
+  SetisTight(other.GetisTight());
+  SetisVTight(other.GetisVTight());
   SetrawMVA(other.GetrawMVA());
   SetdecayModeFinding(other.GetdecayModeFinding());
   SetNumTracks(other.GetNumTracks());
@@ -217,8 +232,11 @@ Tau& Tau::operator=(Tau& other)
   Setcharge(other.Getcharge());
   Setdz(other.Getdz());
   Setdxy(other.Getdxy());
+  SetisVLoose(other.GetisVLoose());
   SetisLoose(other.GetisLoose());
   SetisMedium(other.GetisMedium());
+  SetisTight(other.GetisTight());
+  SetisVTight(other.GetisVTight());
   SetrawMVA(other.GetrawMVA());
   SetdecayModeFinding(other.GetdecayModeFinding());
   SetNumTracks(other.GetNumTracks());
@@ -255,9 +273,13 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
   // **************************************************************
   // Check Tau type
   // **************************************************************
-  if( (tauType != "Loose") && (tauType != "Medium")){
+  if( 
+      (tauType != "VLoose") && (tauType != "Medium")&&
+      (tauType != "Loose") && (tauType != "Tight")&&
+      (tauType != "VTight")
+      ){
     std::cout << "ERROR: <Tau::Fill()> " << "Passed variable tauType of value " << tauType << " is not valid.  "
-	      << "Must be Loose, Medium " << std::endl;
+	      << "Must be VLoose, Loose, Medium, Tight, VTight " << std::endl;
   } //if
     Double_t tauPt     = evtr -> Tau_pt       -> operator[](iE) ;
     Double_t tauEta    = evtr -> Tau_eta      -> operator[](iE);
@@ -267,8 +289,11 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
     Double_t tauCharge = evtr -> Tau_charge   -> operator[](iE);
     Setdz       (evtr -> Tau_packedLeadTauCand_dz      -> operator[](iE));
     Setdxy       (evtr -> Tau_packedLeadTauCand_dxy      -> operator[](iE));
-    SetisLoose       (evtr -> Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
-    SetisMedium       (evtr -> Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetisVLoose       (evtr -> Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetisLoose       (evtr -> Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetisMedium       (evtr -> Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetisTight       (evtr -> Tau_byTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
+    SetisVTight       (evtr -> Tau_byVTightIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
     SetrawMVA      (evtr  -> Tau_byIsolationMVArun2017v2DBoldDMdR0p3wLTraw2017     -> operator[](iE));
     SetdecayModeFinding       (evtr -> Tau_decayModeFinding      -> operator[](iE));
 
@@ -297,8 +322,11 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
         && decayModeFinding()) passeCommonCuts = kTRUE;
 
     //std::cout <<tauPt << " > pt 20? "<<tauEta<< " < eta 2.3? " << dxy() << " < 1000?  " << dz() << " < 0.2 ? " << decayModeFinding() << " " <<isMedium() << " ispassCommonCuts?: "<< passeCommonCuts << " isLoose()?: " << isLoose()<< " isMedium()?: "<< isMedium()<< std::endl;
-    if(     "Loose"      == tauType) return (passesCleaning && passeCommonCuts && isLoose());
+    if(     "VLoose"      == tauType) return (passesCleaning && passeCommonCuts && isVLoose());
+    else if(     "Loose"      == tauType) return (passesCleaning && passeCommonCuts && isLoose());
     else if(     "Medium"      == tauType) return (passesCleaning && passeCommonCuts && isMedium());
+    else if(     "Tight"      == tauType) return (passesCleaning && passeCommonCuts && isTight());
+    else if(     "VTight"      == tauType) return (passesCleaning && passeCommonCuts && isVTight());
 
     return kTRUE;
 } //Fill()
