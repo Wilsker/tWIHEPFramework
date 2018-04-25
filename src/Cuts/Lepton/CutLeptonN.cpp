@@ -108,7 +108,7 @@ void CutLeptonN::BookHistogram(){
 
   // Histogram before cut
   _hLeptonNumberBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 10, 0.0, 10.0);
-  _hLeptonNumberBefore -> SetXAxisTitle("N_{#mu}");
+  _hLeptonNumberBefore -> SetXAxisTitle("N_{#lep}");
   _hLeptonNumberBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
