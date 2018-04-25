@@ -46,6 +46,7 @@
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt1.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt2.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Tau/CutTauCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonAbsPdgIdSum.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonTight.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonConversion.hpp"
@@ -328,6 +329,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
+  mystudy.AddCut(new CutTauCharge(particlesObj,"Medium"));
   
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
