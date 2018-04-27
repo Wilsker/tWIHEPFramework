@@ -56,20 +56,20 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["FakeRate"] = evtObj->GetEventFakeRateWeight();
   _floatVars["TriggerSF"] = evtObj->GetEventTriggerWeight();
 
-  /*
   _floatVars["MC_weight"] = evtObj->GetOutputEventWeight();
   _floatVars["bTagSF_weight"] = evtObj->GetEventbTagReshape();
   _floatVars["PU_weight"] = evtObj->GetEventPileupWeight();
   _floatVars["leptonSF_weight"] = evtObj->GetEventLepSFWeight();
   _floatVars["FR_weight"] = evtObj->GetEventFakeRateWeight();
   _floatVars["triggerSF_weight"] = evtObj->GetEventTriggerWeight();
-  */
+/*
   _floatVars["FR_weight"] = -9999.;
   _floatVars["triggerSF_weight"] = -9999.;
   _floatVars["leptonSF_weight"] = -9999.;
   _floatVars["bTagSF_weight"] = -9999.;
   _floatVars["PU_weight"] = -9999.;
   _floatVars["MC_weight"] = -9999.;
+  */
 
   //Get the systematic variations
   _floatVars["lepSF_SysUp"] = evtObj->GetEventLepSFWeightUp();

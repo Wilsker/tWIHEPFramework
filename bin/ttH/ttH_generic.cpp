@@ -298,16 +298,15 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
 
+  mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
+  /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonMissHit(particlesObj,"TTHFake"));
-    mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   }
   //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
- /*
   mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
   */
- 
 
 
   //mystudy.AddCut(new CutElectronN(particlesObj, leptonTypeToSelect)); //require that lepton to be isolated, central, high pt
@@ -327,9 +326,11 @@ int main(int argc, char **argv)
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
+  mystudy.AddCut(new CutTauN(particlesObj, "VLoose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  mystudy.AddCut(new CutTauCharge(particlesObj,"Medium"));
+  mystudy.AddCut(new CutTauN(particlesObj, "VTight"));
+  //mystudy.AddCut(new CutTauCharge(particlesObj,"Medium"));
   
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
@@ -338,9 +339,9 @@ int main(int argc, char **argv)
     mystudy.AddCut(new CutZveto(particlesObj));
     mystudy.AddCut(new CutMassL(particlesObj));
     mystudy.AddCut(new CutMetLD(particlesObj));
-    mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
   }
-  mystudy.AddCut(new CutHiggsDecay(particlesObj));
+   // mystudy.AddCut(new CutHiggsDecay(particlesObj));
+   // mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
   //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions

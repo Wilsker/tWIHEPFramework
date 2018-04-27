@@ -63,6 +63,7 @@ public:
  _jetptratio =0.0;
  _jetptratioV2 =0.0;
  _jetcsv =0.0;
+ _jetdeepcsv =0.0;
  _lepjetchtrks =0.0;
  _miniIsoCh =0.0;
  _miniIsoPUsub =0.0;
@@ -244,6 +245,10 @@ public:
   inline void Setjetcsv(Double_t jetcsv){_jetcsv = jetcsv;};
   inline Double_t Getjetcsv() const {return _jetcsv;};
   inline Double_t jetcsv() const {return _jetcsv;};
+
+  inline void Setjetdeepcsv(Double_t jetdeepcsv){_jetdeepcsv = jetdeepcsv;};
+  inline Double_t Getjetdeepcsv() const {return _jetdeepcsv;};
+  inline Double_t jetdeepcsv() const {return _jetdeepcsv;};
 
   inline void Setlepjetchtrks(Double_t lepjetchtrks){_lepjetchtrks = lepjetchtrks;};
   inline Double_t Getlepjetchtrks() const {return _lepjetchtrks;};
@@ -490,6 +495,7 @@ private:
   Double_t _jetptratio;
   Double_t _jetptratioV2;
   Double_t _jetcsv;
+  Double_t _jetdeepcsv;
   Double_t _lepjetchtrks;
   Double_t _miniIsoCh;
   Double_t _miniIsoPUsub;

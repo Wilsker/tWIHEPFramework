@@ -26,7 +26,7 @@ Cut.Muon.Veto.Number.Max:  999
 Cut.Electron.Veto.Number.Min:  1
 Cut.Electron.Veto.Number.Max:  999
 ############## DiLep Cuts ############################
-Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
+Cut.Dilepton.TTHFake.SameSign: -1  # 1:same sign; -1: opposite sign; 0: Any
 Cut.Dilepton.TTHFake.NumTightMin: 2 
 Cut.Dilepton.TTHFake.NumTightMax: 2 
 Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
@@ -38,7 +38,7 @@ Cut.Tau.Loose.Number.Max:  999
 Cut.Tau.Medium.Number.Min:  1
 Cut.Tau.Medium.Number.Max:  999
 Cut.Tau.VTight.Number.Min:  0
-Cut.Tau.VTight.Number.Max:  1
+Cut.Tau.VTight.Number.Max:  999
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
