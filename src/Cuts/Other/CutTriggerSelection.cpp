@@ -154,6 +154,12 @@ Bool_t CutTriggerSelection::Apply()
 {
 
   EventTree *EventContainerObj = GetEventContainer()->GetEventTree();
+  EventContainer *ContainerObj = GetEventContainer();
+  Int_t selectedChannel = -1;
+  if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==22)selectedChannel =3; //isEE
+  if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==24)selectedChannel =4; //isEM
+  if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==26)selectedChannel =2; //isMM
+
 
   Int_t SourceNumber = GetEventContainer()->GetSourceNumber();
   Int_t SampleType = SourceNumber < 200000? 0:(SourceNumber % 10000); //1000/1001 SEle, 2000/2001 SMu, 3000/3001 2Mu, 4000/4001 2EleR, 5000/5001 MuEleR
@@ -161,6 +167,9 @@ Bool_t CutTriggerSelection::Apply()
   Bool_t passesTrigger = kFALSE;  //Event passes the trigger selection
 
   Int_t triggerBit = 0;
+  Int_t EEtrigger = 0;
+  Int_t EMtrigger = 0;
+  Int_t MMtrigger = 0;
 
   Int_t electronTrigger = 0; //I seem to have messed up the electron trigger?
   electronTrigger = EventContainerObj->HLT_Ele32_WPTight_Gsf;
@@ -172,43 +181,46 @@ Bool_t CutTriggerSelection::Apply()
     //triggerBit = EventContainerObj->HLT_IsoMu18;
     triggerBit = EventContainerObj->HLT_IsoMu24 || EventContainerObj->HLT_IsoTkMu24;
   }
-  if (_whichtrigger == 2){
+  if (_whichtrigger == 2 || _whichtrigger ==5 ){
     if(SampleType == 3000 || SampleType == 3001){
-        if( EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1)triggerBit =1; 
+        if(selectedChannel ==2 && (EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1))MMtrigger =1; 
     }
     else if(SampleType == 2000 || SampleType == 2001){
-        if( !(EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1) && (EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoMu27==1))triggerBit=1;
+        if(selectedChannel==2 && ( !(EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1) && (EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoMu27==1)))MMtrigger=1;
     }
     else{
-        triggerBit = GetEventContainer()->TTHLep_2Mu;
+        MMtrigger = selectedChannel ==2 && GetEventContainer()->TTHLep_2Mu;
     }
   }
-  if (_whichtrigger == 3){
+  if (_whichtrigger == 3 || _whichtrigger ==5 ){
     if(SampleType == 4000 || SampleType == 4001){
-        if(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1)triggerBit =1;
+        if(selectedChannel ==3 && (EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1))EEtrigger =1;
     }else if(SampleType == 1000 || SampleType == 1001){
-        if( (EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1) && !(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1) )triggerBit=1;
+        if(selectedChannel==3 &&( (EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1) && !(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1) ))EEtrigger=1;
     }else{
-        triggerBit = GetEventContainer()->TTHLep_2Ele;
+        EEtrigger = selectedChannel ==3 && GetEventContainer()->TTHLep_2Ele;
     }
   }
-  if (_whichtrigger == 4){
+  if (_whichtrigger == 4 || _whichtrigger ==5 ){
     if(SampleType == 5000 || SampleType == 5001){
-        if(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1)triggerBit=1;
+        if( selectedChannel ==4 && (EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1))EMtrigger=1;
     }else if(SampleType == 2000 || SampleType == 2001){
-        if( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1) && (EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1 )) triggerBit =1;
+        if( selectedChannel ==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1) && (EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1 ))) EMtrigger =1;
     }else if(SampleType == 1000 || SampleType == 1001){
-        if(!(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1) &&
-       ( EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf==1 )) triggerBit =1;
+        if( selectedChannel==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1) &&
+       ( EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf==1 ))) EMtrigger =1;
     }else{
-        triggerBit = GetEventContainer()->TTHLep_MuEle;
+        EMtrigger = selectedChannel ==4 && GetEventContainer()->TTHLep_MuEle;
     }
   }
-  if (_whichtrigger == 5) triggerBit = GetEventContainer()->TTHLep_2L;
-  
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;
   if (_whichtrigger == 1) passesTrigger = electronTrigger == 0. and muonTrigger != 0;
-  if ( _whichtrigger == 2 || _whichtrigger == 3 || _whichtrigger == 4 || _whichtrigger == 5 ) passesTrigger = triggerBit == 1 ;
+  if ( _whichtrigger == 2) passesTrigger = MMtrigger == 1;
+  if ( _whichtrigger == 3) passesTrigger = EEtrigger == 1;
+  if ( _whichtrigger == 4) passesTrigger = EMtrigger == 1;
+  if ( _whichtrigger == 5) passesTrigger = MMtrigger == 1 || EEtrigger == 1 || EMtrigger == 1;
+  triggerBit = passesTrigger;
+ 
   
   //if (triggerBit != 0.) passesTrigger = kTRUE;
 
@@ -226,6 +238,10 @@ Bool_t CutTriggerSelection::Apply()
   
   cutFlowNameStream << _triggerChannel << "Trigger";
   cutFlowName = cutFlowNameStream.str().c_str();
+  
+  if( ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber && !passesTrigger ){
+    std::cout<< " Event " << ContainerObj->_debugEvt <<" Fail passesTrigger : _whichtrigger is "<< _whichtrigger << " MMtrigger "<< MMtrigger << " EEtrigger "<< EEtrigger <<" EMtrigger "<< EMtrigger << std::endl; 
+  }
   
   if (passesTrigger){
     _hTriggerSelectionAfter -> Fill(triggerBit);
