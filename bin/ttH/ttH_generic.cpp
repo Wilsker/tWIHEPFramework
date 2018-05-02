@@ -35,6 +35,7 @@
 #include "SingleTopRootAnalysis/Cuts/Other/CutZveto.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutMassL.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutMetLD.hpp"
+#include "SingleTopRootAnalysis/Cuts/Other/CutMetFilter.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutHiggsDecay.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
@@ -298,6 +299,7 @@ int main(int argc, char **argv)
 
   mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
+  mystudy.AddCut(new CutMetFilter(particlesObj));
   /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));

@@ -79,6 +79,10 @@ public :
    Int_t           Flag_trkPOG_toomanystripclus53X;
    Int_t           Flag_trkPOG_logErrorTooManyClusters;
    Int_t           Flag_METFilters;
+   Int_t           Flag_globalTightHalo2016Filter;
+   Int_t           Flag_BadPFMuonFilter;
+   Int_t           Flag_BadChargedCandidateFilter;
+   Int_t           Flag_ecalBadCalibFilter;
    Int_t           HLT_PFHT650_WideJetMJJ900DEtaJJ1p5;
    Int_t           HLT_PFHT650_WideJetMJJ950DEtaJJ1p5;
    Int_t           HLT_PFHT800;
@@ -694,6 +698,10 @@ public :
    TBranch        *b_Flag_trkPOG_toomanystripclus53X;   //!
    TBranch        *b_Flag_trkPOG_logErrorTooManyClusters;   //!
    TBranch        *b_Flag_METFilters;   //!
+   TBranch        *b_Flag_globalTightHalo2016Filter;   //!
+   TBranch        *b_Flag_BadPFMuonFilter;   //!
+   TBranch        *b_Flag_BadChargedCandidateFilter;   //!
+   TBranch        *b_Flag_ecalBadCalibFilter;   //!
    TBranch        *b_HLT_PFHT650_WideJetMJJ900DEtaJJ1p5;   //!
    TBranch        *b_HLT_PFHT650_WideJetMJJ950DEtaJJ1p5;   //!
    TBranch        *b_HLT_PFHT800;   //!
@@ -1870,6 +1878,10 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Flag_trkPOG_toomanystripclus53X", &Flag_trkPOG_toomanystripclus53X, &b_Flag_trkPOG_toomanystripclus53X);
    fChain->SetBranchAddress("Flag_trkPOG_logErrorTooManyClusters", &Flag_trkPOG_logErrorTooManyClusters, &b_Flag_trkPOG_logErrorTooManyClusters);
    fChain->SetBranchAddress("Flag_METFilters", &Flag_METFilters, &b_Flag_METFilters);
+   fChain->SetBranchAddress("Flag_globalTightHalo2016Filter", &Flag_globalTightHalo2016Filter, &b_Flag_globalTightHalo2016Filter);
+   fChain->SetBranchAddress("Flag_BadPFMuonFilter", &Flag_BadPFMuonFilter, &b_Flag_BadPFMuonFilter);
+   fChain->SetBranchAddress("Flag_BadChargedCandidateFilter", &Flag_BadChargedCandidateFilter, &b_Flag_BadChargedCandidateFilter);
+   fChain->SetBranchAddress("Flag_ecalBadCalibFilter", &Flag_ecalBadCalibFilter, &b_Flag_ecalBadCalibFilter);
    fChain->SetBranchAddress("HLT_PFHT650_WideJetMJJ900DEtaJJ1p5", &HLT_PFHT650_WideJetMJJ900DEtaJJ1p5, &b_HLT_PFHT650_WideJetMJJ900DEtaJJ1p5);
    fChain->SetBranchAddress("HLT_PFHT650_WideJetMJJ950DEtaJJ1p5", &HLT_PFHT650_WideJetMJJ950DEtaJJ1p5, &b_HLT_PFHT650_WideJetMJJ950DEtaJJ1p5);
    fChain->SetBranchAddress("HLT_PFHT800", &HLT_PFHT800, &b_HLT_PFHT800);
