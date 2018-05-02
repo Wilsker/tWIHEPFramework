@@ -220,6 +220,9 @@ Bool_t CutLeptonTightCharge::Apply()
   // ***********************************************
   // Return if it passes
   // ***********************************************
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !LeptonTightChargePass ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightChargePass " << leptonType << " lep1PassTightCharge " << leptonVector[0].passTightCharge()<< " lep2PassTightCharge "<< leptonVector[1].passTightCharge() << std::endl; 
+  }
   
   return(LeptonTightChargePass);
  

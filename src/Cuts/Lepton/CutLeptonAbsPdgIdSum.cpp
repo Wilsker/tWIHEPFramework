@@ -258,6 +258,9 @@ Bool_t CutLeptonAbsPdgIdSum::Apply()
 
   // ***********************************************
   // Return if it passes
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !LeptonAbsPdgIdSumPass ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonAbsPdgIdSumPass " << leptonType << " LeptonPairAbsPdgIdSum "<< LeptonPairAbsPdgIdSum   <<  std::endl; 
+  }
   // ***********************************************
   
   return(LeptonAbsPdgIdSumPass);

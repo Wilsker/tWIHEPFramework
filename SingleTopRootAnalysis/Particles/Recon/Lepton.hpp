@@ -99,6 +99,7 @@ public:
  _isTight =0.0;
  _isMVASel =0.0;
  _ntMVAeleID =0.0;
+ _isPassMvanontrigwpLoose =0.0;
  _isFake =0.0;
  _gen_pt =0.0;
  _gen_eta =0.0;
@@ -459,6 +460,10 @@ public:
   inline Double_t GetntMVAeleID() const {return _ntMVAeleID;};
   inline Double_t ntMVAeleID() const {return _ntMVAeleID;};
   
+  inline void SetisPassMvanontrigwpLoose(Double_t isPassMvanontrigwpLoose){_isPassMvanontrigwpLoose = isPassMvanontrigwpLoose;};
+  inline Double_t GetisPassMvanontrigwpLoose() const {return _isPassMvanontrigwpLoose;};
+  inline Double_t isPassMvanontrigwpLoose() const {return _isPassMvanontrigwpLoose;};
+  
   inline void SetisFake(Double_t isFake){_isFake = isFake;};
   inline Double_t GetisFake() const {return _isFake;};
   inline Double_t isFake() const {return _isFake;};
@@ -531,6 +536,7 @@ private:
   Double_t _isTight;
   Double_t _isMVASel;
   Double_t _ntMVAeleID;
+  Double_t _isPassMvanontrigwpLoose;
   Double_t _isFake;
   Double_t _gen_pt;
   Double_t _gen_eta;

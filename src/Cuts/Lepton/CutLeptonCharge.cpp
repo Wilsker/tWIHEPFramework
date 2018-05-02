@@ -256,6 +256,9 @@ Bool_t CutLeptonCharge::Apply()
   // ***********************************************
   // Return if it passes
   // ***********************************************
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !LeptonChargePass ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonChargePass " << leptonType << " product of LeptonChargePair "<< LeptonPairCharge<< std::endl; 
+  }
   
   return(LeptonChargePass);
  

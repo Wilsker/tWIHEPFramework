@@ -287,6 +287,9 @@ Bool_t CutLeptonTight::Apply()
   // ***********************************************
   // Return if it passes
   // ***********************************************
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !LeptonTightPass ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightPass " << leptonType << " LeptonPairNumTight "<< LeptonPairNumTight  << std::endl; 
+  }
   
   return(LeptonTightPass);
  

@@ -284,9 +284,8 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  
   //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
-  //mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
+  mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
@@ -326,12 +325,9 @@ int main(int argc, char **argv)
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
-  mystudy.AddCut(new CutTauN(particlesObj, "VLoose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  mystudy.AddCut(new CutTauN(particlesObj, "VTight"));
-  //mystudy.AddCut(new CutTauCharge(particlesObj,"Medium"));
-  
+  mystudy.AddCut(new CutTauCharge(particlesObj,"Loose"));
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   
@@ -349,12 +345,14 @@ int main(int argc, char **argv)
 
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
 
+  /*
   mystudy.AddCut(new HistogrammingMET(particlesObj));
   mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
   mystudy.AddCut(new HistogrammingJetAngular(particlesObj,useInvertedIsolation));
   mystudy.AddCut(new HistogrammingJet(particlesObj));
   mystudy.AddCut(new HistogrammingNPvtx(particlesObj));
   
+  */
   //mystudy.AddCut(new CutTriangularSumDeltaPhiLepMET(particlesObj));  
   //if (isemu){
   //  mystudy.AddCut(new CutHTJET1(particlesObj));

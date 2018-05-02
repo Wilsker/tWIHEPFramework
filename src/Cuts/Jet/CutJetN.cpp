@@ -158,6 +158,10 @@ Bool_t CutJetN::Apply()
     GetCutFlowTable() -> PassCut("Jet.Number.All");
   } //if
   else GetCutFlowTable() -> FailCut("Jet.Number.All");
+  
+  if( evObj->_sync >= 80  && evObj->_sync != 99 && evObj->_debugEvt == evObj->eventNumber && !(JetNumberMinPass && JetNumberMaxPass)){
+    std::cout<< " Event " << evObj->_debugEvt <<" Fail CutJetN :  JetNumber Is " << JetNumber << " JetNumberMinPass "<<JetNumberMinPass <<" JetNumberMax " << JetNumberMaxPass<< std::endl; 
+  }
 
   return(JetNumberMinPass && JetNumberMaxPass);
 

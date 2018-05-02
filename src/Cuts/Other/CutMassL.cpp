@@ -173,6 +173,9 @@ Bool_t CutMassL::Apply()
     _hMassLAfter->Fill(MassL);
   }
 
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesMassLCut ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesMassLCut: MassL is " << MassL  <<  std::endl; 
+  }
   return passesMassLCut;
 
 } //Apply

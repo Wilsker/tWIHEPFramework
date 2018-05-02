@@ -845,9 +845,12 @@ Int_t EventContainer::ReadEvent()
       
       newTau.Clear();
       useObj = newTau.Fill(*looseleptonsVetoPtr, _eventTree, io,"VLoose");
+      if(_debugEvt == eventNumber && _sync == 31){
+            std::cout << eventNumber << " "<<newTau.Pt() << " "<<newTau.Eta()<< " "<< newTau.Phi()<< " "<< newTau.E()<< " "<< newTau.charge() << " " << newTau.dxy() << " " << newTau.dz() << " " << newTau.decayModeFinding() << " " <<newTau.isVLoose() << " "<<std::endl;
+      }
       if(useObj) {
 	    looseTaus.push_back(newTau);
-        if(!atau && _sync == 31){
+        if( _debugEvt == 99 && !atau && _sync == 31){
             std::cout << eventNumber << " "<<newTau.Pt() << " "<<newTau.Eta()<< " "<< newTau.Phi()<< " "<< newTau.E()<< " "<< newTau.charge() << " " << newTau.dxy() << " " << newTau.dz() << " " << newTau.decayModeFinding() << " " <<newTau.isMedium() << " "<<std::endl;
             atau = kTRUE;
         }
@@ -1262,7 +1265,7 @@ Int_t EventContainer::ReadEvent()
       TLorentzVector lv(0.,0.,0.,0.);
       lv.SetPtEtaPhiE(tau.Pt(),tau.Eta(),tau.Phi(),tau.E());
       mht_lv = mht_lv + lv;
-      if(tau.isMedium()==1){
+      if(tau.isLoose()==1){
           mhtT_lv = mhtT_lv + lv;
       }
   }
@@ -1700,6 +1703,15 @@ void EventContainer::Cal_dilep_mass(){
     }
     massL = diloosemass;
     massL_SFOS = lSFOSmass;
+    for(uint lep_en =0; lep_en < fakeLeptons.size(); lep_en++){
+        if(fabs(fakeLeptons.at(lep_en).pdgId())==11)FakeLep0.SetPtEtaPhiE(fakeLeptons.at(lep_en).Pt(), fakeLeptons.at(lep_en).Eta(), fakeLeptons.at(lep_en).Phi(), fakeLeptons.at(lep_en).E());
+        for(uint l_en =lep_en+1; l_en < fakeLeptons.size(); l_en++){
+           if(fabs(fakeLeptons.at(l_en).pdgId())==11)FakeLep1.SetPtEtaPhiE(fakeLeptons.at(l_en).Pt(), fakeLeptons.at(l_en).Eta(), fakeLeptons.at(l_en).Phi(), fakeLeptons.at(l_en).E());
+           if(fabs(mass_diele-91.2)>fabs((FakeLep0+FakeLep1).M()-91.2) && FakeLep1.Pt()>0 && FakeLep0.Pt()>0)dielemass = (FakeLep0+FakeLep1).M();
+        }
+    }
+    mass_diele = dielemass;
+    /*
     if (fakeLeptons.size()>=2){
         Lepton fakelep0 = fakeLeptons.at(0);
         Lepton fakelep1 = fakeLeptons.at(1);
@@ -1709,6 +1721,7 @@ void EventContainer::Cal_dilep_mass(){
             dielemass = (FakeLep0+FakeLep1).M();
         mass_diele = dielemass;
     }
+    */
 };
 // Jet matching
 void EventContainer::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets){

@@ -181,6 +181,9 @@ Bool_t CutMetLD::Apply()
     _hMetLDAfter->Fill(MetLD);
   }
 
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesMetLDCut ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesMetLDCut: MetLD is " << MetLD  << " IsEE "<< isEE << std::endl; 
+  }
   return passesMetLDCut;
 
 } //Apply

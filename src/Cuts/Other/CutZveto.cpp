@@ -173,6 +173,9 @@ Bool_t CutZveto::Apply()
     _hZvetoAfter->Fill(diele_mass);
   }
 
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesZvetoCut ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesZvetoCut: mass_diele is " << diele_mass  <<  std::endl; 
+  }
   return passesZvetoCut;
 
 } //Apply

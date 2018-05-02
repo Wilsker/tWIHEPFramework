@@ -207,6 +207,9 @@ Bool_t CutBTaggedJetN::Apply()
     //  cout<<"EventNumber : "<<evObj->eventNumber<<endl;
   }
 
+  if( evObj->_sync >= 80  && evObj->_sync != 99 && evObj->_debugEvt == evObj->eventNumber && !((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass))){
+    std::cout<< " Event " << evObj->_debugEvt <<" Fail CutBTaggedJetN : JetbLooseN "<< bLooseJetNumber <<" JetbMediumN "<< bMediumJetNumber <<" JetbLooseNumberMin " << bLooseJetNumberMinPass <<" bLooseJetNumberMax " << bLooseJetNumberMaxPass <<" JetbMediumNumberMin " << bMediumJetNumberMinPass << " JetbMediumNumberMax "<< bMediumJetNumberMaxPass << std::endl; 
+  }
   return((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass));
 
 } //Apply

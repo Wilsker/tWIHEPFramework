@@ -199,20 +199,28 @@ Bool_t CutTauCharge::Apply()
         break;
     }
     else if(     "Loose"        == tauType){ 
-        if(tauVector.at(tau_en).isLoose()>0.5) selectedTau = tauVector.at(tau_en);
-        break;
+        if(tauVector.at(tau_en).isLoose()>0.5){
+            selectedTau = tauVector.at(tau_en);
+            break;
+        }
     }
     else if(     "Medium"        == tauType){
-        if(tauVector.at(tau_en).isMedium()>0.5) selectedTau = tauVector.at(tau_en);
-        break;
+        if(tauVector.at(tau_en).isMedium()>0.5){
+            selectedTau = tauVector.at(tau_en);
+            break;
+        }
     }
     else if(     "Tight"        == tauType ){
-        if(tauVector.at(tau_en).isTight()>0.5) selectedTau = tauVector.at(tau_en);
-        break;
+        if(tauVector.at(tau_en).isTight()>0.5){
+            selectedTau = tauVector.at(tau_en);
+            break;
+        }
     }
     else if(     "VTight"        == tauType ){
-        if(tauVector.at(tau_en).isVTight()>0.5) selectedTau = tauVector.at(tau_en);
-        break;
+        if(tauVector.at(tau_en).isVTight()>0.5){
+            selectedTau = tauVector.at(tau_en);
+            break;
+        }
     }
     else{
         std::cout << "ERROR " << "<CutTauCharge::Apply()> "
@@ -259,6 +267,9 @@ Bool_t CutTauCharge::Apply()
   // ***********************************************
   // Return if it passes
   // ***********************************************
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !TauChargePass ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail TauChargePass " << tauType << " TauCharge "<< TauCharge <<" lep1pdg "<< leptonVector[0].pdgId()<< " lep2pdg "<<leptonVector[1].pdgId() << std::endl; 
+  }
   
   return(TauChargePass);
  

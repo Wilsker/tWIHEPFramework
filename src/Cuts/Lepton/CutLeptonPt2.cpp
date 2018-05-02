@@ -263,6 +263,9 @@ Bool_t CutLeptonPt2::Apply()
     GetCutFlowTable()->FailCut(cutFlowName.Data());
   }
 
+  if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !PassesSubLeadingLetonPt ){
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail PassesSubLeadingLetonPt " << _leptonType << " Lep2Pt "<< SubLeadingLeptonPt<<   std::endl; 
+  }
   return PassesSubLeadingLetonPt;
 
  
