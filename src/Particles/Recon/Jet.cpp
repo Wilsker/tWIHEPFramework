@@ -457,7 +457,7 @@ double Jet::get_JetMVA()
  * Output: True if this jet passes jet ID cuts                                *         
  ******************************************************************************/
 
-Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets)
+Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets, Bool_t isSimulation)
 {
 
   Double_t jetPt, jetEta,jetPhi,jetE, jetCharge, jetM;
@@ -507,8 +507,13 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Setmult       (evtr -> Jet_mult      -> operator[](iE));
   SetpfCombinedCvsLJetTags       (evtr -> Jet_pfCombinedCvsLJetTags      -> operator[](iE));
   SetpfCombinedCvsBJetTags       (evtr -> Jet_pfCombinedCvsBJetTags      -> operator[](iE));
-  SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
-  SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
+  if(isSimulation){
+    SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
+    SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
+  }else{
+    SetpartonFlavour       (-999.);
+    SethadronFlavour       (-999.);
+  }
   //SetgenMother_pdgId       (evtr -> Jet_genMother_pdgId      -> operator[](iE));
   //SetgenGrandMother_pdgId       (evtr -> Jet_genGrandMother_pdgId      -> operator[](iE));
   SetgenMother_pdgId       (-999.);

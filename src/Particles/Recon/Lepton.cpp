@@ -830,13 +830,23 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetsegmentCompatibility       (evtr -> Muon_segmentCompatibility      -> operator[](iE));
     SetpTErrOVpT_it       (evtr -> Muon_pTErrOVpT_it      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just Before Muon_gen_pt Fill " << std::endl;
-    Setgen_pt       (evtr -> Muon_gen_pt      -> operator[](iE));
-    Setgen_eta       (evtr -> Muon_gen_eta      -> operator[](iE));
-    Setgen_phi       (evtr -> Muon_gen_phi      -> operator[](iE));
-    Setgen_en       (evtr -> Muon_gen_en      -> operator[](iE));
-    Setgen_pdgId       (evtr -> Muon_gen_pdgId      -> operator[](iE));
-    Setgen_isPrompt       (evtr -> Muon_gen_isPromptFinalState      -> operator[](iE));
-    Setgen_isPromptTau       (evtr -> Muon_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
+    if(isSimulation){
+        Setgen_pt       (evtr -> Muon_gen_pt      -> operator[](iE));
+        Setgen_eta       (evtr -> Muon_gen_eta      -> operator[](iE));
+        Setgen_phi       (evtr -> Muon_gen_phi      -> operator[](iE));
+        Setgen_en       (evtr -> Muon_gen_en      -> operator[](iE));
+        Setgen_pdgId       (evtr -> Muon_gen_pdgId      -> operator[](iE));
+        Setgen_isPrompt       (evtr -> Muon_gen_isPromptFinalState      -> operator[](iE));
+        Setgen_isPromptTau       (evtr -> Muon_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
+    }else{
+        Setgen_pt       (-999.);
+        Setgen_eta       (-999.);
+        Setgen_phi       (-999.);
+        Setgen_en       (-999.);
+        Setgen_pdgId       (-999.);
+        Setgen_isPrompt       (-999.);
+        Setgen_isPromptTau       (-999.);
+    }
     //SetgenMother_pdgId       (evtr -> Muon_genMother_pdgId      -> operator[](iE));
     //SetgenGrandMother_pdgId       (evtr -> Muon_genGrandMother_pdgId      -> operator[](iE));
     SetgenMother_pdgId       (-999.);
@@ -899,13 +909,23 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetisGsfCtfScPixChargeConsistent       (evtr -> patElectron_isGsfCtfScPixChargeConsistent      -> operator[](iE));
     SetisGsfScPixChargeConsistent       (evtr -> patElectron_isGsfScPixChargeConsistent      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before Electron_gen_pt Fill " << std::endl;
-    Setgen_pt       (evtr -> patElectron_gen_pt      -> operator[](iE));
-    Setgen_eta       (evtr -> patElectron_gen_eta      -> operator[](iE));
-    Setgen_phi       (evtr -> patElectron_gen_phi      -> operator[](iE));
-    Setgen_en       (evtr -> patElectron_gen_en      -> operator[](iE));
-    Setgen_pdgId       (evtr -> patElectron_gen_pdgId      -> operator[](iE));
-    Setgen_isPrompt       (evtr -> patElectron_gen_isPromptFinalState      -> operator[](iE));
-    Setgen_isPromptTau       (evtr -> patElectron_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
+    if(isSimulation){
+        Setgen_pt       (evtr -> patElectron_gen_pt      -> operator[](iE));
+        Setgen_eta       (evtr -> patElectron_gen_eta      -> operator[](iE));
+        Setgen_phi       (evtr -> patElectron_gen_phi      -> operator[](iE));
+        Setgen_en       (evtr -> patElectron_gen_en      -> operator[](iE));
+        Setgen_pdgId       (evtr -> patElectron_gen_pdgId      -> operator[](iE));
+        Setgen_isPrompt       (evtr -> patElectron_gen_isPromptFinalState      -> operator[](iE));
+        Setgen_isPromptTau       (evtr -> patElectron_gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
+    }else{
+        Setgen_pt       (-999.);
+        Setgen_eta       (-999.);
+        Setgen_phi       (-999.);
+        Setgen_en       (-999.);
+        Setgen_pdgId       (-999.);
+        Setgen_isPrompt       (-999.);
+        Setgen_isPromptTau       (-999.);
+    }
     //SetgenMother_pdgId       (evtr -> patElectron_genMother_pdgId      -> operator[](iE));
     //SetgenGrandMother_pdgId       (evtr -> patElectron_genGrandMother_pdgId      -> operator[](iE));
     SetgenMother_pdgId       (-999.);
