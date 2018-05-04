@@ -804,8 +804,8 @@ Int_t EventContainer::ReadEvent()
       
       newLepton.Clear();
       useObj = newLepton.Fill(*muonsVetoPtr,*lepJetsPtr ,_eventTree, io,"EleLoose", isSimulation, SourceNumber ,11);// 11 means Electron
-      if(_debugEvt == eventNumber && _sync == 21){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.ntMVAeleID() << " " << newLepton.BDT() << std::endl;
+      if(_debugEvt == eventNumber && _sync == 20 && useObj){
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " "<< newLepton.isPassMvanontrigwpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<<newLepton.BDT() << std::endl;
       }
       if(useObj) {
 	    looseLeptons.push_back(newLepton);

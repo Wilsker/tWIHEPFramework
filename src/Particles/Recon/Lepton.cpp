@@ -1082,8 +1082,6 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   SetpassTightCharge   ((pdgid==13 && TMath::Abs(pTErrOVpT_it())<0.2)||(pdgid==11 && (isGsfCtfScPixChargeConsistent() + isGsfScPixChargeConsistent()) >1));
   SetpassMissHit       ((pdgid==13)||(expectedMissingInnerHits()==0 && pdgid ==11));
   
-  Bool_t eleMVAId = kFALSE;
-  eleMVAId = mvaValue_nonTrig() > 0.5 ;
   /*
   if(lepPt <=10){
     if((TMath::Abs(SCeta()) <0.8 && mvaValue_nonTrig() > -0.13285867293779202)||
@@ -1144,7 +1142,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
      && passCuts && (
       (BDT() > _BDTCuts[leptonType] && jetdeepcsv() < _jetcsvHCuts[leptonType] ) ||
       (BDT() < _BDTCuts[leptonType] && jetdeepcsv() < _jetcsvLCuts[leptonType] 
-       && jetptratioV2() > _jetptratioCuts[leptonType]  )
+       && jetptratioV2() > _jetptratioCuts[leptonType] && mvaValue_nonTrig() > 0.5 )
        && expectedMissingInnerHits() == 0
       )
      )passFake = kTRUE;
@@ -1171,8 +1169,8 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   Bool_t PassFake = false;
   Bool_t PassTight = false;
   if(TMath::Abs(pdgId())==11){
-      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId &&  passMissHit() && isPassMvanontrigwpLoose() ;
-      PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake && eleMVAId && passTight &&  passMissHit() && passConversionVeto() && isPassMvanontrigwpLoose();
+      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake &&  passMissHit() && isPassMvanontrigwpLoose() ;
+      PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake  && passTight &&  passMissHit() && passConversionVeto() && isPassMvanontrigwpLoose();
   }else{
       PassFake = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake;
       PassTight = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake && passTight;
