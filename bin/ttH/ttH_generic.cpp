@@ -299,7 +299,9 @@ int main(int argc, char **argv)
 
   mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
+/*
   mystudy.AddCut(new CutMetFilter(particlesObj));
+*/
   /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
