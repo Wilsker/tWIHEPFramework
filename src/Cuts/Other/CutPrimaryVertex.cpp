@@ -158,13 +158,14 @@ Bool_t CutPrimaryVertex::Apply()
 {
 
   EventTree *EventContainerObj = GetEventContainer()->GetEventTree();
+  EventContainer *EvtObj = GetEventContainer();
 
   Bool_t hasPV = kFALSE;
 
-  Bool_t passesMETFilterFlags = kTRUE;
+  //Bool_t passesMETFilterFlags = kTRUE;
 
   //  if ( !EventContainerObj->Flag_goodVertices || !EventContainerObj->Flag_HBHENoiseFilter || !EventContainerObj->Flag_HBHENoiseIsoFilter || !EventContainerObj->Flag_EcalDeadCellTriggerPrimitiveFilter || !EventContainerObj->Flag_globalTightHalo2016Filter) passesMETFilterFlags = kFALSE; //2016 version. 2016 halo filter not currently in full production, will be added next crab round.
-  if ( !EventContainerObj->Flag_goodVertices || !EventContainerObj->Flag_HBHENoiseFilter || !EventContainerObj->Flag_HBHENoiseIsoFilter || !EventContainerObj->Flag_EcalDeadCellTriggerPrimitiveFilter || !EventContainerObj->Flag_CSCTightHaloFilter) passesMETFilterFlags = kFALSE; //old halo filter. Will be changed after re-crab.
+  // if ( !EventContainerObj->Flag_goodVertices || !EventContainerObj->Flag_HBHENoiseFilter || !EventContainerObj->Flag_HBHENoiseIsoFilter || !EventContainerObj->Flag_EcalDeadCellTriggerPrimitiveFilter || !EventContainerObj->Flag_CSCTightHaloFilter) passesMETFilterFlags = kFALSE; //old halo filter. Will be changed after re-crab.
 
   //  if (!EventContainerObj->Flag_METFilters) passesMETFilterFlags = kFALSE;
 
@@ -200,7 +201,11 @@ Bool_t CutPrimaryVertex::Apply()
   _hNTrueInteractions->Fill(EventContainerObj->trueInteractions);
   _hNTrueIntsUnweighted->FillWithoutWeight(EventContainerObj->trueInteractions);
 
-  if (hasPV && passesMETFilterFlags) {
+  if( EvtObj->_sync >= 80  && EvtObj->_sync != 99 && EvtObj->_debugEvt == EvtObj->eventNumber && !hasPV ){
+    std::cout<< " Event " << EvtObj->_debugEvt <<" Fail passesPrimary Vertex Cuts is " << hasPV  << std::endl; 
+  }
+  
+  if (hasPV) {
     _hPrimaryVertexAfter->Fill(tmpCounter);
     GetCutFlowTable()->PassCut(cutFlowName);
     return kTRUE;

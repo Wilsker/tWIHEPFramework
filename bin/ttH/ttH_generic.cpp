@@ -285,7 +285,8 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
+  mystudy.AddCut(new CutPrimaryVertex(particlesObj));
+  mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
@@ -299,9 +300,6 @@ int main(int argc, char **argv)
 
   mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
-/*
-  mystudy.AddCut(new CutMetFilter(particlesObj));
-*/
   /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
@@ -331,10 +329,9 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  mystudy.AddCut(new CutTauCharge(particlesObj,"Loose"));
+  //mystudy.AddCut(new CutTauCharge(particlesObj,"Loose"));
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
-  
   if(!isTrainMVA){
     mystudy.AddCut(new CutZveto(particlesObj));
     mystudy.AddCut(new CutMassL(particlesObj));

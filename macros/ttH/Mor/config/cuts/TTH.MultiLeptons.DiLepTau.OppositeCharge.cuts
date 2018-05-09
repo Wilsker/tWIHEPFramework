@@ -36,7 +36,7 @@ Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 Cut.Tau.Loose.Number.Min:  1
 Cut.Tau.Loose.Number.Max:  999
 Cut.Tau.Medium.Number.Min:  0
-Cut.Tau.Medium.Number.Max:  999
+Cut.Tau.Medium.Number.Max:  1
 Cut.Tau.VTight.Number.Min:  0
 Cut.Tau.VTight.Number.Max:  999
 
