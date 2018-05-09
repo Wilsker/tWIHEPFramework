@@ -372,6 +372,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   TTHLep_2Ele =0;
   TTHLep_MuEle =0;
   TTHLep_2L =0;
+  TTHLep_3L =0;
   metLD = -999.;
   mht = -999.;
   mhtT = -999.;
@@ -1585,6 +1586,8 @@ void EventContainer::set_TTHFlags(){
     else TTHLep_MuEle=0;
     if(TTHLep_MuEle ==1 || TTHLep_2Mu ==1 || TTHLep_2Ele ==1) TTHLep_2L =1;
     else TTHLep_2L =0;
+    if(TTHLep_2L || _eventTree -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 || _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || _eventTree->HLT_TripleMu_12_10_5==1) TTHLep_3L =1;
+    else TTHLep_3L =0; 
 };
 
 

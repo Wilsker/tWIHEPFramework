@@ -722,6 +722,7 @@ class EventContainer
     Int_t TTHLep_2Ele;
     Int_t TTHLep_MuEle;
     Int_t TTHLep_2L;
+    Int_t TTHLep_3L;
     void set_TTHFlags();
     void Cal_dilep_mass();
 

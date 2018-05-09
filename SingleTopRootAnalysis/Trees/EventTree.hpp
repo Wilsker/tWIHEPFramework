@@ -124,6 +124,10 @@ public :
    Int_t           HLT_IsoMu27;
    Int_t           HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;
    Int_t           HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;
+   Int_t           HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;
+   Int_t           HLT_Mu8_DiEle12_CaloIdL_TrackIdL;
+   Int_t           HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ;
+   Int_t           HLT_TripleMu_12_10_5;
    Int_t           pvertex_notempty;
    Int_t           nBestVtx;
    Int_t           npuVertices;
@@ -769,6 +773,10 @@ public :
    TBranch        *b_HLT_IsoMu27;   //!
    TBranch        *b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL;   //!
    TBranch        *b_HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ;   //!
+   TBranch        *b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL;   //!
+   TBranch        *b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL;   //!
+   TBranch        *b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ;   //!
+   TBranch        *b_HLT_TripleMu_12_10_5;   //!
    TBranch        *b_pvertex_notempty;   //!
    TBranch        *b_nBestVtx;   //!
    TBranch        *b_npuVertices;   //!
@@ -2001,6 +2009,10 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_IsoMu27", &HLT_IsoMu27, &b_HLT_IsoMu27);
    fChain->SetBranchAddress("HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL", &HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL, &b_HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL);
    fChain->SetBranchAddress("HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ", &HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ, &b_HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ);
+   fChain->SetBranchAddress("HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL", &HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL, &b_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL);
+   fChain->SetBranchAddress("HLT_Mu8_DiEle12_CaloIdL_TrackIdL", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL, &b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL);
+   fChain->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ);
+   fChain->SetBranchAddress("HLT_TripleMu_12_10_5", &HLT_TripleMu_12_10_5, &b_HLT_TripleMu_12_10_5);
    fChain->SetBranchAddress("pvertex_notempty", &pvertex_notempty, &b_pvertex_notempty);
    fChain->SetBranchAddress("nBestVtx", &nBestVtx, &b_nBestVtx);
    fChain->SetBranchAddress("npuVertices", &npuVertices, &b_npuVertices);

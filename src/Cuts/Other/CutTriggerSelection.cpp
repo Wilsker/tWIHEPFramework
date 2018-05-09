@@ -84,10 +84,12 @@ void CutTriggerSelection::BookHistogram(){
   else if (triggerConfig == "TTHLep_2Ele")_whichtrigger =3;
   else if (triggerConfig == "TTHLep_MuEle")_whichtrigger =4;
   else if (triggerConfig == "TTHLep_2L")_whichtrigger =5;
-  else if (_whichtrigger == 2) _triggerChannel = "TTHLep_2Mu";
+  else if (triggerConfig == "TTHLep_3L")_whichtrigger =6;
+  if (_whichtrigger == 2) _triggerChannel = "TTHLep_2Mu";
   else if (_whichtrigger == 3) _triggerChannel = "TTHLep_2Ele";
   else if (_whichtrigger == 4) _triggerChannel = "TTHLep_MuEle";
   else if (_whichtrigger == 5) _triggerChannel = "TTHLep_2L";
+  else if (_whichtrigger == 6) _triggerChannel = "TTHLep_3L";
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
@@ -159,7 +161,12 @@ Bool_t CutTriggerSelection::Apply()
   if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==22)selectedChannel =3; //isEE
   if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==24)selectedChannel =4; //isEM
   if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==26)selectedChannel =2; //isMM
-
+  if(ContainerObj -> fakeLeptons.size()>=3 && _whichtrigger == 6 ){
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==33)selectedChannel =61;//isEEE
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==35)selectedChannel =62;//isEEM
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==37)selectedChannel =63;//isEMM
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==39)selectedChannel =64;//isMMM
+  }
 
   Int_t SourceNumber = GetEventContainer()->GetSourceNumber();
   Int_t SampleType = SourceNumber < 200000? 0:(SourceNumber % 10000); //1000/1001 SEle, 2000/2001 SMu, 3000/3001 2Mu, 4000/4001 2EleR, 5000/5001 MuEleR
@@ -170,6 +177,8 @@ Bool_t CutTriggerSelection::Apply()
   Int_t EEtrigger = 0;
   Int_t EMtrigger = 0;
   Int_t MMtrigger = 0;
+  Int_t TriLeptrigger = 0;
+  Bool_t TriLeptriggerPath = kFALSE;
 
   Int_t electronTrigger = 0; //I seem to have messed up the electron trigger?
   electronTrigger = EventContainerObj->HLT_Ele32_WPTight_Gsf;
@@ -213,12 +222,32 @@ Bool_t CutTriggerSelection::Apply()
         EMtrigger = selectedChannel ==4 && GetEventContainer()->TTHLep_MuEle;
     }
   }
+  if (_whichtrigger ==6 ){
+    TriLeptriggerPath = ( (selectedChannel == 61 && (GetEventContainer()->TTHLep_2Ele || EventContainerObj->HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ))
+     || (selectedChannel == 62 && (GetEventContainer()->TTHLep_MuEle || EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ))
+     || (selectedChannel == 63 && (GetEventContainer()->TTHLep_MuEle || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 ))
+     || (selectedChannel == 64 && (GetEventContainer()->TTHLep_2Mu || EventContainerObj -> HLT_TripleMu_12_10_5==1 )));
+    if(SampleType == 4000 || SampleType == 4001){
+        if( EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ) TriLeptrigger =1;
+    }else if(SampleType == 3000 || SampleType == 3001){
+        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ) && (EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 )) TriLeptrigger = 1;
+    }else if(SampleType == 5000 || SampleType == 5001){
+        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 ) && (EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ))TriLeptrigger =1;
+    }else if(SampleType == 1000 || SampleType == 1001){
+        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ) && (EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1))TriLeptrigger =1;
+    }else if(SampleType == 2000 || SampleType == 2001){
+        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1) && ( EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoMu27==1))TriLeptrigger =1;
+    }else{
+        TriLeptrigger = GetEventContainer()->TTHLep_3L;
+    }
+  }
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;
   if (_whichtrigger == 1) passesTrigger = electronTrigger == 0. and muonTrigger != 0;
   if ( _whichtrigger == 2) passesTrigger = MMtrigger == 1;
   if ( _whichtrigger == 3) passesTrigger = EEtrigger == 1;
   if ( _whichtrigger == 4) passesTrigger = EMtrigger == 1;
   if ( _whichtrigger == 5) passesTrigger = MMtrigger == 1 || EEtrigger == 1 || EMtrigger == 1;
+  if ( _whichtrigger == 6) passesTrigger = TriLeptrigger == 1 && TriLeptriggerPath ;
   triggerBit = passesTrigger;
  
   
@@ -240,7 +269,7 @@ Bool_t CutTriggerSelection::Apply()
   cutFlowName = cutFlowNameStream.str().c_str();
   
   if( ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber && !passesTrigger ){
-    std::cout<< " Event " << ContainerObj->_debugEvt <<" Fail passesTrigger : _whichtrigger is "<< _whichtrigger << " MMtrigger "<< MMtrigger << " EEtrigger "<< EEtrigger <<" EMtrigger "<< EMtrigger << std::endl; 
+    std::cout<< " Event " << ContainerObj->_debugEvt <<" Fail passesTrigger : _whichtrigger is "<< _whichtrigger << " MMtrigger "<< MMtrigger << " EEtrigger "<< EEtrigger <<" EMtrigger "<< EMtrigger << " TrilepTrigger "<< TriLeptrigger<< " 3l trigger path "<< TriLeptriggerPath<< std::endl; 
   }
   
   if (passesTrigger){

@@ -5,7 +5,7 @@
 ###############################################################################
 
 # ############ Trigger Cuts ###############
-Cut.Trigger.Channel:TTHLep_2L
+Cut.Trigger.Channel:TTHLep_3L
 
 ################# Lepton Cuts #########################
 # Number of Leptons

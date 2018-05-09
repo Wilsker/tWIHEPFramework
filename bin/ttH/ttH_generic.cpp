@@ -230,8 +230,9 @@ int main(int argc, char **argv)
       if(!strcmp(argv[i+1],"TTHLep_2Ele")) whichtrig = 3;
       if(!strcmp(argv[i+1],"TTHLep_MuEle")) whichtrig = 4;
       if(!strcmp(argv[i+1],"TTHLep_2L")) whichtrig = 5;
+      if(!strcmp(argv[i+1],"TTHLep_3L")) whichtrig = 6;
       if( whichtrig == -1){
-	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose Electron, Muon, TTHLep_2Mu, TTHLep_2Ele, TTHLep_MuEle, TTHLep_2L" << endl;
+	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose Electron, Muon, TTHLep_2Mu, TTHLep_2Ele, TTHLep_MuEle, TTHLep_2L, TTHLep_3L" << endl;
 	return 1;
       }
     }
@@ -286,8 +287,8 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  mystudy.AddCut(new CutPrimaryVertex(particlesObj));
-  mystudy.AddCut(new CutMetFilter(particlesObj));
+  //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
+  //mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
@@ -331,7 +332,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  //mystudy.AddCut(new CutTauCharge(particlesObj,"Loose"));
+  mystudy.AddCut(new CutTauCharge(particlesObj,"Loose"));
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   if(!isTrainMVA){
