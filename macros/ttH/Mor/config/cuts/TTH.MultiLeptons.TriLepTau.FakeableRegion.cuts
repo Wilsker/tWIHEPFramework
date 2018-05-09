@@ -1,0 +1,100 @@
+###############################################################################
+#
+#  TTH.MultiLeptons.DiLepton.SignalRegion.cuts
+#
+###############################################################################
+
+# ############ Trigger Cuts ###############
+Cut.Trigger.Channel:TTHLep_2L
+
+################# Lepton Cuts #########################
+# Number of Leptons
+Cut.Lepton.TTHTight.Number.Min:  0
+Cut.Lepton.TTHTight.Number.Max:  2
+Cut.Lepton.TTHFake.Number.Min:  2
+Cut.Lepton.TTHFake.Number.Max:  999
+Cut.Electron.TTHFake.LeadingPt:  25
+Cut.Electron.TTHFake.SubLeadingPt:  15
+Cut.Muon.TTHFake.LeadingPt:  25
+Cut.Muon.TTHFake.SubLeadingPt:  10
+################# Muon Cuts #########################
+# Number of  Muons
+Cut.Muon.Veto.Number.Min:  1
+Cut.Muon.Veto.Number.Max:  999
+################# Electron Cuts #########################
+# Number of  Electrons
+Cut.Electron.Veto.Number.Min:  1
+Cut.Electron.Veto.Number.Max:  999
+############## DiLep Cuts ############################
+Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
+Cut.Dilepton.TTHFake.NumTightMin: 0 
+Cut.Dilepton.TTHFake.NumTightMax: 1 
+Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
+
+################# Tau Cuts #########################
+# Number of Taus
+Cut.Tau.Loose.Number.Min:  1
+Cut.Tau.Loose.Number.Max:  999
+Cut.Tau.Medium.Number.Min:  0
+Cut.Tau.Medium.Number.Max:  1
+Cut.Tau.VTight.Number.Min:  0
+Cut.Tau.VTight.Number.Max:  999
+
+# ############## Jet Cuts ##############################
+# Jet multiplicity cuts
+Cut.Jet.Number.Min:  3
+Cut.Jet.Number.Max:  999 
+Cut.Jet.Pt.1.Min:  25
+Cut.Jet.Pt.1.Max: 999
+# ############## B-Tagged Jet Cuts #################
+Cut.bLoose.Jet.Number.Min: 2
+Cut.bLoose.Jet.Number.Max: 999
+Cut.bMedium.Jet.Number.Min: 1
+Cut.bMedium.Jet.Number.Max: 999
+
+
+############ Gen Cuts #####################3
+# HiggsDecay
+Cut.Event.HiggsDecayType: 0 #  0: H->WW/ZZ/TauTau; 1: H->WW ; 2: H->TauTau; 3: H->ZZ; 4: H->WW or ZZ; 5: H->WW/TauTau; 6: H->TauTau/ZZ
+
+# Leptons is MatchRightCharge
+Cut.Gen.MCRightCharge: 1
+
+# Leptons is MatchId
+Cut.Gen.MCMatchId: 1
+
+# Leptons is MCPromptGamma
+Cut.Gen.MCPromptGamma: 1
+
+# Leptons is MCPromptFS
+Cut.Gen.MCPromptFS: 1
+
+################ Global Event Cuts #####################
+# Missing ET
+Cut.Event.MissingEt.Min:  50.0
+Cut.Event.MissingEt.Max: 999.0
+
+# ############## SumDeltaPhiLepMET #################
+# SumDeltaPhiLepMET cuts
+Triangular.SumDeltaPhiLepMET.Min:  2.5
+Triangular.SumDeltaPhiLepMET.Max: 999
+
+################ Global Event Cuts #####################
+# HTJet1
+Cut.Event.HTJET1.Min:  999.0
+Cut.Event.HTJET1.Max: 999.0
+
+################ Z veto Cuts #####################
+# Zveto Cut
+Cut.Event.Zveto.Min:   81.2
+Cut.Event.Zveto.Max:   101.2
+
+################ MetLD Cuts #####################
+# MetLD Cut
+Cut.Event.MetLD.Min:   0.2
+Cut.Event.MetLD.Max:   999.
+
+################ MassL veto Cuts #####################
+# MassL Cut
+Cut.Event.MassLveto.Min:   0
+Cut.Event.MassLveto.Max:   12
