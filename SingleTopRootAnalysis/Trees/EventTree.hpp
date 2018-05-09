@@ -305,6 +305,32 @@ public :
    std::vector<double>  *patElectron_Et;
    std::vector<double>  *patElectron_SCeta;
    std::vector<double>  *patElectron_inCrack;
+   std::vector<double>  *patElectron_energySF;
+   std::vector<double>  *patElectron_ecalEnergyErrPostCorr;
+   std::vector<double>  *patElectron_ecalEnergyErrPreCorr;
+   std::vector<double>  *patElectron_ecalEnergyPostCorr;
+   std::vector<double>  *patElectron_ecalEnergyPreCorr;
+   std::vector<double>  *patElectron_ecalTrkEnergyErrPostCorr;
+   std::vector<double>  *patElectron_ecalTrkEnergyErrPreCorr;
+   std::vector<double>  *patElectron_ecalTrkEnergyPostCorr;
+   std::vector<double>  *patElectron_ecalTrkEnergyPreCorr;
+   std::vector<double>  *patElectron_energyScaleDown;
+   std::vector<double>  *patElectron_energyScaleGainDown;
+   std::vector<double>  *patElectron_energyScaleGainUp;
+   std::vector<double>  *patElectron_energyScaleStatDown;
+   std::vector<double>  *patElectron_energyScaleStatUp;
+   std::vector<double>  *patElectron_energyScaleSystDown;
+   std::vector<double>  *patElectron_energyScaleSystUp;
+   std::vector<double>  *patElectron_energyScaleUp;
+   std::vector<double>  *patElectron_energyScaleValue;
+   std::vector<double>  *patElectron_energySigmaDown;
+   std::vector<double>  *patElectron_energySigmaPhiDown;
+   std::vector<double>  *patElectron_energySigmaPhiUp;
+   std::vector<double>  *patElectron_energySigmaRhoDown;
+   std::vector<double>  *patElectron_energySigmaRhoUp;
+   std::vector<double>  *patElectron_energySigmaUp;
+   std::vector<double>  *patElectron_energySigmaValue;
+   std::vector<double>  *patElectron_energySmearNrSigma;
    std::vector<double>  *patElectron_charge;
    std::vector<double>  *patElectron_isGsfCtfScPixChargeConsistent;
    std::vector<double>  *patElectron_isGsfScPixChargeConsistent;
@@ -924,6 +950,32 @@ public :
    TBranch        *b_patElectron_Et;   //!
    TBranch        *b_patElectron_SCeta;   //!
    TBranch        *b_patElectron_inCrack;   //!
+   TBranch        *b_patElectron_energySF;   //!
+   TBranch        *b_patElectron_ecalEnergyErrPostCorr;   //!
+   TBranch        *b_patElectron_ecalEnergyErrPreCorr;   //!
+   TBranch        *b_patElectron_ecalEnergyPostCorr;   //!
+   TBranch        *b_patElectron_ecalEnergyPreCorr;   //!
+   TBranch        *b_patElectron_ecalTrkEnergyErrPostCorr;   //!
+   TBranch        *b_patElectron_ecalTrkEnergyErrPreCorr;   //!
+   TBranch        *b_patElectron_ecalTrkEnergyPostCorr;   //!
+   TBranch        *b_patElectron_ecalTrkEnergyPreCorr;   //!
+   TBranch        *b_patElectron_energyScaleDown;   //!
+   TBranch        *b_patElectron_energyScaleGainDown;   //!
+   TBranch        *b_patElectron_energyScaleGainUp;   //!
+   TBranch        *b_patElectron_energyScaleStatDown;   //!
+   TBranch        *b_patElectron_energyScaleStatUp;   //!
+   TBranch        *b_patElectron_energyScaleSystDown;   //!
+   TBranch        *b_patElectron_energyScaleSystUp;   //!
+   TBranch        *b_patElectron_energyScaleUp;   //!
+   TBranch        *b_patElectron_energyScaleValue;   //!
+   TBranch        *b_patElectron_energySigmaDown;   //!
+   TBranch        *b_patElectron_energySigmaPhiDown;   //!
+   TBranch        *b_patElectron_energySigmaPhiUp;   //!
+   TBranch        *b_patElectron_energySigmaRhoDown;   //!
+   TBranch        *b_patElectron_energySigmaRhoUp;   //!
+   TBranch        *b_patElectron_energySigmaUp;   //!
+   TBranch        *b_patElectron_energySigmaValue;   //!
+   TBranch        *b_patElectron_energySmearNrSigma;   //!
    TBranch        *b_patElectron_charge;   //!
    TBranch        *b_patElectron_isGsfCtfScPixChargeConsistent;   //!
    TBranch        *b_patElectron_isGsfScPixChargeConsistent;   //!
@@ -1506,6 +1558,32 @@ void EventTree::Init(TTree *tree)
    patElectron_Et = 0;
    patElectron_SCeta = 0;
    patElectron_inCrack = 0;
+   patElectron_energySF = 0;
+   patElectron_ecalEnergyErrPostCorr = 0;
+   patElectron_ecalEnergyErrPreCorr = 0;
+   patElectron_ecalEnergyPostCorr = 0;
+   patElectron_ecalEnergyPreCorr = 0;
+   patElectron_ecalTrkEnergyErrPostCorr = 0;
+   patElectron_ecalTrkEnergyErrPreCorr = 0;
+   patElectron_ecalTrkEnergyPostCorr = 0;
+   patElectron_ecalTrkEnergyPreCorr = 0;
+   patElectron_energyScaleDown = 0;
+   patElectron_energyScaleGainDown = 0;
+   patElectron_energyScaleGainUp = 0;
+   patElectron_energyScaleStatDown = 0;
+   patElectron_energyScaleStatUp = 0;
+   patElectron_energyScaleSystDown = 0;
+   patElectron_energyScaleSystUp = 0;
+   patElectron_energyScaleUp = 0;
+   patElectron_energyScaleValue = 0;
+   patElectron_energySigmaDown = 0;
+   patElectron_energySigmaPhiDown = 0;
+   patElectron_energySigmaPhiUp = 0;
+   patElectron_energySigmaRhoDown = 0;
+   patElectron_energySigmaRhoUp = 0;
+   patElectron_energySigmaUp = 0;
+   patElectron_energySigmaValue = 0;
+   patElectron_energySmearNrSigma = 0;
    patElectron_charge = 0;
    patElectron_isGsfCtfScPixChargeConsistent = 0;
    patElectron_isGsfScPixChargeConsistent = 0;
@@ -2104,6 +2182,32 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_Et", &patElectron_Et, &b_patElectron_Et);
    fChain->SetBranchAddress("patElectron_SCeta", &patElectron_SCeta, &b_patElectron_SCeta);
    fChain->SetBranchAddress("patElectron_inCrack", &patElectron_inCrack, &b_patElectron_inCrack);
+   fChain->SetBranchAddress("patElectron_energySF", &patElectron_energySF, &b_patElectron_energySF);
+   fChain->SetBranchAddress("patElectron_ecalEnergyErrPostCorr", &patElectron_ecalEnergyErrPostCorr, &b_patElectron_ecalEnergyErrPostCorr);
+   fChain->SetBranchAddress("patElectron_ecalEnergyErrPreCorr", &patElectron_ecalEnergyErrPreCorr, &b_patElectron_ecalEnergyErrPreCorr);
+   fChain->SetBranchAddress("patElectron_ecalEnergyPostCorr", &patElectron_ecalEnergyPostCorr, &b_patElectron_ecalEnergyPostCorr);
+   fChain->SetBranchAddress("patElectron_ecalEnergyPreCorr", &patElectron_ecalEnergyPreCorr, &b_patElectron_ecalEnergyPreCorr);
+   fChain->SetBranchAddress("patElectron_ecalTrkEnergyErrPostCorr", &patElectron_ecalTrkEnergyErrPostCorr, &b_patElectron_ecalTrkEnergyErrPostCorr);
+   fChain->SetBranchAddress("patElectron_ecalTrkEnergyErrPreCorr", &patElectron_ecalTrkEnergyErrPreCorr, &b_patElectron_ecalTrkEnergyErrPreCorr);
+   fChain->SetBranchAddress("patElectron_ecalTrkEnergyPostCorr", &patElectron_ecalTrkEnergyPostCorr, &b_patElectron_ecalTrkEnergyPostCorr);
+   fChain->SetBranchAddress("patElectron_ecalTrkEnergyPreCorr", &patElectron_ecalTrkEnergyPreCorr, &b_patElectron_ecalTrkEnergyPreCorr);
+   fChain->SetBranchAddress("patElectron_energyScaleDown", &patElectron_energyScaleDown, &b_patElectron_energyScaleDown);
+   fChain->SetBranchAddress("patElectron_energyScaleGainDown", &patElectron_energyScaleGainDown, &b_patElectron_energyScaleGainDown);
+   fChain->SetBranchAddress("patElectron_energyScaleGainUp", &patElectron_energyScaleGainUp, &b_patElectron_energyScaleGainUp);
+   fChain->SetBranchAddress("patElectron_energyScaleStatDown", &patElectron_energyScaleStatDown, &b_patElectron_energyScaleStatDown);
+   fChain->SetBranchAddress("patElectron_energyScaleStatUp", &patElectron_energyScaleStatUp, &b_patElectron_energyScaleStatUp);
+   fChain->SetBranchAddress("patElectron_energyScaleSystDown", &patElectron_energyScaleSystDown, &b_patElectron_energyScaleSystDown);
+   fChain->SetBranchAddress("patElectron_energyScaleSystUp", &patElectron_energyScaleSystUp, &b_patElectron_energyScaleSystUp);
+   fChain->SetBranchAddress("patElectron_energyScaleUp", &patElectron_energyScaleUp, &b_patElectron_energyScaleUp);
+   fChain->SetBranchAddress("patElectron_energyScaleValue", &patElectron_energyScaleValue, &b_patElectron_energyScaleValue);
+   fChain->SetBranchAddress("patElectron_energySigmaDown", &patElectron_energySigmaDown, &b_patElectron_energySigmaDown);
+   fChain->SetBranchAddress("patElectron_energySigmaPhiDown", &patElectron_energySigmaPhiDown, &b_patElectron_energySigmaPhiDown);
+   fChain->SetBranchAddress("patElectron_energySigmaPhiUp", &patElectron_energySigmaPhiUp, &b_patElectron_energySigmaPhiUp);
+   fChain->SetBranchAddress("patElectron_energySigmaRhoDown", &patElectron_energySigmaRhoDown, &b_patElectron_energySigmaRhoDown);
+   fChain->SetBranchAddress("patElectron_energySigmaRhoUp", &patElectron_energySigmaRhoUp, &b_patElectron_energySigmaRhoUp);
+   fChain->SetBranchAddress("patElectron_energySigmaUp", &patElectron_energySigmaUp, &b_patElectron_energySigmaUp);
+   fChain->SetBranchAddress("patElectron_energySigmaValue", &patElectron_energySigmaValue, &b_patElectron_energySigmaValue);
+   fChain->SetBranchAddress("patElectron_energySmearNrSigma", &patElectron_energySmearNrSigma, &b_patElectron_energySmearNrSigma);
    fChain->SetBranchAddress("patElectron_charge", &patElectron_charge, &b_patElectron_charge);
    fChain->SetBranchAddress("patElectron_isGsfCtfScPixChargeConsistent", &patElectron_isGsfCtfScPixChargeConsistent, &b_patElectron_isGsfCtfScPixChargeConsistent);
    fChain->SetBranchAddress("patElectron_isGsfScPixChargeConsistent", &patElectron_isGsfScPixChargeConsistent, &b_patElectron_isGsfScPixChargeConsistent);

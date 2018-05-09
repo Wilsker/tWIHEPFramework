@@ -867,11 +867,19 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   // **************************************************************
   if(pdgid == 11){
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before 4Momentum Fill " << std::endl;
-    lepPt     = evtr -> patElectron_pt       -> operator[](iE);
     lepEta    = evtr -> patElectron_eta      -> operator[](iE);
     lepPhi    = evtr -> patElectron_phi      -> operator[](iE);
-    lepE      = evtr -> patElectron_energy   -> operator[](iE);
-    
+    // currently MC is not reMiniAOD, data is reMiniAOD
+    // for MC , the pt is already smear and scaled
+    // for Data , the pt is not scaled and smeared yet
+    // this needs to be updated when new samples comes
+    if(isSimulation){
+        lepPt     = evtr -> patElectron_pt       -> operator[](iE);
+        lepE      = evtr -> patElectron_energy   -> operator[](iE);
+    }else{
+        lepPt        = evtr -> patElectron_pt     -> operator[](iE) * evtr -> patElectron_energySF -> operator[](iE);
+        lepE         = evtr -> patElectron_energy     -> operator[](iE) * evtr -> patElectron_energySF -> operator[](iE);
+    }
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before 4Momentum Fill " << std::endl;
     SetCharge       (evtr -> patElectron_charge      -> operator[](iE));
     SetIP3Dsig       (evtr -> patElectron_IP3Dsig      -> operator[](iE));

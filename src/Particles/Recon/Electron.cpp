@@ -328,11 +328,20 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   } 
 
   // ******************************  Set up electron candidate ********************************
-  Double_t elPt        = evtr -> patElectron_pt     -> operator[](iE);
-  Double_t elEta       = evtr -> patElectron_eta    -> operator[](iE);
-  Double_t elPhi       = evtr -> patElectron_phi    -> operator[](iE);
-  Double_t elE         = evtr -> patElectron_energy -> operator[](iE);
-
+  Double_t elPt, elEta, elPhi, elE;
+  elEta       = evtr -> patElectron_eta    -> operator[](iE);
+  elPhi       = evtr -> patElectron_phi    -> operator[](iE);
+  // currently MC is not reMiniAOD, data is reMiniAOD
+  // for MC , the pt is already smear and scaled
+  // for Data , the pt is not scaled and smeared yet
+  // this needs to be updated when new samples comes
+  if(isSimulation){
+    elPt        = evtr -> patElectron_pt     -> operator[](iE);
+    elE         = evtr -> patElectron_energy -> operator[](iE);
+  }else{
+    elPt        = evtr -> patElectron_pt     -> operator[](iE) * evtr -> patElectron_energySF -> operator[](iE);
+    elE         = evtr -> patElectron_energy     -> operator[](iE) * evtr -> patElectron_energySF -> operator[](iE);
+  }
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   SetPtEtaPhiE(elPt, elEta, elPhi, elE);
 
