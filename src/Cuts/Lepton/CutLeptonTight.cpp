@@ -80,42 +80,6 @@ CutLeptonTight::~CutLeptonTight()
 void CutLeptonTight::BookHistogram(){
   
   // ***********************************************
-  // Make Strings for histogram titles and labels
-  // ***********************************************  
-
-  // Histogram Before Cut
-  std::ostringstream histNameBeforeStream;
-  histNameBeforeStream << leptonType << "DileptonTightBefore";
-  TString histNameBefore = histNameBeforeStream.str().c_str();
-
-  std::ostringstream histTitleBeforeStream;
-  histTitleBeforeStream << leptonType << "Dilepton Tight Before Cut";
-  TString histTitleBefore = histTitleBeforeStream.str().c_str();
-
-  // Histogram After Cut
-  std::ostringstream histNameAfterStream;
-  histNameAfterStream << leptonType << "DileptonTightAfter";
-  TString histNameAfter = histNameAfterStream.str().c_str();
-
-  std::ostringstream histTitleAfterStream;
-  histTitleAfterStream << leptonType << "Dilepton Tight After Cut";
-  TString histTitleAfter = histTitleAfterStream.str().c_str();
-
-  // ***********************************************
-  // Book Histograms
-  // ***********************************************  
-
-  // Histogram before cut
-  _hLeptonTightBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -0.5, 2.5);
-  _hLeptonTightBefore -> SetXAxisTitle("#Dilepton tight");
-  _hLeptonTightBefore -> SetYAxisTitle("Events");
-
-  // Histogram after cut
-  _hLeptonTightAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, 0.5, 2.5);
-  _hLeptonTightAfter -> SetXAxisTitle("#Dilepton tight");
-  _hLeptonTightAfter -> SetYAxisTitle("Events");
-
-  // ***********************************************
   // Get cuts from configuration file
   // ***********************************************  
 
@@ -123,22 +87,64 @@ void CutLeptonTight::BookHistogram(){
   EventContainer *EventContainerObj = GetEventContainer();
   TEnv *config = EventContainerObj -> GetConfig();
 
+  _Channel = config -> GetValue("Cut.Trigger.Channel","TTHLep_2L");
+  leptonNumber = "Dilepton";
+  if(_Channel.Contains("TTHLep_3L")){
+    leptonNumber = "Trilepton";
+  }
+  
   std::ostringstream configNumTightMaxStream;
-  configNumTightMaxStream << "Cut.Dilepton." << leptonType.Data() << ".NumTightMax";
+  configNumTightMaxStream << "Cut." << leptonNumber.Data() <<"." << leptonType.Data() << ".NumTightMax";
   TString configNumTightMax = configNumTightMaxStream.str().c_str();
 
   std::ostringstream configNumTightMinStream;
-  configNumTightMinStream << "Cut.Dilepton." << leptonType.Data() << ".NumTightMin";
+  configNumTightMinStream << "Cut."<< leptonNumber.Data() <<"." << leptonType.Data() << ".NumTightMin";
   TString configNumTightMin = configNumTightMinStream.str().c_str();
 
   std::ostringstream configNumTightAllStream;
-  configNumTightAllStream << "Cut.Dilepton." << leptonType.Data() << ".NumTightAll";
+  configNumTightAllStream << "Cut."<< leptonNumber.Data() <<"." << leptonType.Data() << ".NumTightAll";
   TString configNumTightAll = configNumTightAllStream.str().c_str();
 
   //
   _LeptonNumTightMin = config -> GetValue(configNumTightMin.Data(), 0);
   _LeptonNumTightMax = config -> GetValue(configNumTightMax.Data(), 999);
   
+  // ***********************************************
+  // Make Strings for histogram titles and labels
+  // ***********************************************  
+
+  // Histogram Before Cut
+  std::ostringstream histNameBeforeStream;
+  histNameBeforeStream << leptonType << leptonNumber <<"TightBefore";
+  TString histNameBefore = histNameBeforeStream.str().c_str();
+
+  std::ostringstream histTitleBeforeStream;
+  histTitleBeforeStream << leptonType <<  leptonNumber <<"Tight Before Cut";
+  TString histTitleBefore = histTitleBeforeStream.str().c_str();
+
+  // Histogram After Cut
+  std::ostringstream histNameAfterStream;
+  histNameAfterStream << leptonType <<  leptonNumber <<"TightAfter";
+  TString histNameAfter = histNameAfterStream.str().c_str();
+
+  std::ostringstream histTitleAfterStream;
+  histTitleAfterStream << leptonType << leptonNumber <<"Tight After Cut";
+  TString histTitleAfter = histTitleAfterStream.str().c_str();
+
+  // ***********************************************
+  // Book Histograms
+  // ***********************************************  
+
+  // Histogram before cut
+  _hLeptonTightBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 4, -0.5, 3.5);
+  _hLeptonTightBefore -> SetXAxisTitle("#"+leptonNumber+ "tight");
+  _hLeptonTightBefore -> SetYAxisTitle("Events");
+
+  // Histogram after cut
+  _hLeptonTightAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 4, -0.5, 3.5);
+  _hLeptonTightAfter -> SetXAxisTitle("#"+leptonNumber+ "tight");
+  _hLeptonTightAfter -> SetYAxisTitle("Events");
+
   // ***********************************************
   // Add these cuts to the cut flow table
   // ***********************************************
@@ -149,33 +155,33 @@ void CutLeptonTight::BookHistogram(){
 
   // Min cut
   cutFlowTitleStream.str("");
-  cutFlowTitleStream << leptonType.Data() << " Dilepton : " << "N_tight>= " << _LeptonNumTightMin; 
+  cutFlowTitleStream << leptonType.Data() << leptonNumber.Data()  << " : N_tight>= " << _LeptonNumTightMin; 
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << leptonType.Data() << "Dilepton.NumberTight.Min";
+  cutFlowNameStream << leptonType.Data() << leptonNumber.Data() <<".NumberTight.Min";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
 
   // Max cut
   cutFlowTitleStream.str("");
-  cutFlowTitleStream << leptonType.Data() << " Dilepton : " << "N_tight<= " << _LeptonNumTightMax; 
+  cutFlowTitleStream << leptonType.Data() << leptonNumber.Data() << " : N_tight<= " << _LeptonNumTightMax; 
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << leptonType.Data() << "Dilepton.NumberTight.Max";
+  cutFlowNameStream << leptonType.Data() << leptonNumber.Data() <<".NumberTight.Max";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
 
   // Min + Max cut
   cutFlowTitleStream.str("");
-  cutFlowTitleStream << leptonType.Data() << " Dilepton : "  << _LeptonNumTightMin << " <= N_tight <= "<< _LeptonNumTightMax; 
+  cutFlowTitleStream << leptonType.Data() << leptonNumber.Data() <<" : "  << _LeptonNumTightMin << " <= N_tight <= "<< _LeptonNumTightMax; 
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << leptonType.Data() << "Dilepton.NumberTight.All";
+  cutFlowNameStream << leptonType.Data() << leptonNumber.Data() <<".NumberTight.All";
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
@@ -202,7 +208,7 @@ Bool_t CutLeptonTight::Apply()
   // ***********************************************
   
   // Initialize number of leptons
-  Int_t LeptonPairNumTight    = 0;       
+  Int_t SelectedLeptonsNumTight    = 0;       
 
   // Flags 
   Bool_t LeptonTightPass = kTRUE; // Event passes sign selection
@@ -227,10 +233,11 @@ Bool_t CutLeptonTight::Apply()
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  LeptonPairNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel();
+  if(leptonNumber=="Dilepton")SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel();
+  if(leptonNumber=="Trilepton")SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel()+leptonVector[2].isMVASel();
 
   // Fill the histograms before the cuts
-  _hLeptonTightBefore    -> Fill(LeptonPairNumTight);
+  _hLeptonTightBefore    -> Fill(SelectedLeptonsNumTight);
   
   // ***********************************************
   // Fill cut flow table
@@ -245,50 +252,50 @@ Bool_t CutLeptonTight::Apply()
   TString cutFlowNameMax;
   TString cutFlowNameMin;
   
-  cutFlowNameAllStream << leptonType.Data() << "Dilepton.NumberTight.All";
+  cutFlowNameAllStream << leptonType.Data() << leptonNumber <<".NumberTight.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  cutFlowNameMinStream << leptonType.Data() << "Dilepton.NumberTight.Min";
+  cutFlowNameMinStream << leptonType.Data() << leptonNumber<<".NumberTight.Min";
   cutFlowNameMin = cutFlowNameMinStream.str().c_str();
   
-  cutFlowNameMaxStream << leptonType.Data() << "Dilepton.NumberTight.Max";
+  cutFlowNameMaxStream << leptonType.Data() << leptonNumber<<".NumberTight.Max";
   cutFlowNameMax = cutFlowNameMaxStream.str().c_str();
   
   //Cut on Min 
-  if ( _LeptonNumTightMax < LeptonPairNumTight){
+  if ( _LeptonNumTightMax < SelectedLeptonsNumTight){
     LeptonTightPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameMax.Data());
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowNameMax.Data());
-    _hLeptonTightAfter -> Fill(LeptonPairNumTight);
+    _hLeptonTightAfter -> Fill(SelectedLeptonsNumTight);
   }
 
   //Cut on Min 
-  if ( _LeptonNumTightMin > LeptonPairNumTight){
+  if ( _LeptonNumTightMin > SelectedLeptonsNumTight){
     LeptonTightPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameMin.Data());
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowNameMin.Data());
-    _hLeptonTightAfter -> Fill(LeptonPairNumTight);
+    _hLeptonTightAfter -> Fill(SelectedLeptonsNumTight);
   }
 
   //Cut on Min and Max 
-  if ( _LeptonNumTightMin > LeptonPairNumTight || _LeptonNumTightMax < LeptonPairNumTight){
+  if ( _LeptonNumTightMin > SelectedLeptonsNumTight || _LeptonNumTightMax < SelectedLeptonsNumTight){
     LeptonTightPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
-    _hLeptonTightAfter -> Fill(LeptonPairNumTight);
+    _hLeptonTightAfter -> Fill(SelectedLeptonsNumTight);
   }
 
   // ***********************************************
   // Return if it passes
   // ***********************************************
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !LeptonTightPass ){
-    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightPass " << leptonType << " LeptonPairNumTight "<< LeptonPairNumTight  << std::endl; 
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightPass " << leptonType << " SelectedLeptonsNumTight "<< SelectedLeptonsNumTight  << std::endl; 
   }
   
   return(LeptonTightPass);

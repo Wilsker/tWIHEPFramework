@@ -66,6 +66,8 @@ private:
   
   Int_t _LeptonNumTightMin;
   Int_t _LeptonNumTightMax;
+  TString _Channel;
+  TString leptonNumber;
 
   // Lepton Type (veto, tight, unIsolated)
   TString leptonType;
