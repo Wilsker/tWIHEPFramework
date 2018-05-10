@@ -373,6 +373,15 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   TTHLep_MuEle =0;
   TTHLep_2L =0;
   TTHLep_3L =0;
+  Trig_1Ele =0;
+  Trig_2Ele =0;
+  Trig_3Ele =0;
+  Trig_1Mu =0;
+  Trig_1Mu1Ele =0;
+  Trig_1Mu2Ele =0;
+  Trig_2Mu =0;
+  Trig_2Mu1Ele =0;
+  Trig_3Mu =0;
   metLD = -999.;
   mht = -999.;
   mhtT = -999.;
@@ -1574,9 +1583,23 @@ void EventContainer::MakeTopQuarks()
 
 /////TTH Flags
 void EventContainer::set_TTHFlags(){
+    //set HLT
+    Trig_1Ele = _eventTree -> HLT_Ele32_WPTight_Gsf==1 || _eventTree -> HLT_Ele35_WPTight_Gsf ==1 ? 1:0;
+    Trig_2Ele = _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1: 0 ;
+    Trig_3Ele = _eventTree -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ? 1:0;
+    Trig_1Mu =  _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoMu27==1 ? 1:0;
+    Trig_1Mu1Ele = _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1:0 ;
+    Trig_1Mu2Ele = _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ? 1:0;
+    Trig_2Mu = _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 ? 1:0;
+    Trig_2Mu1Ele = _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 ? 1:0 ;
+    Trig_3Mu = _eventTree->HLT_TripleMu_12_10_5==1 ? 1:0 ;
     //set TTH Triggers
-    if( _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 || _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoMu27==1)TTHLep_2Mu=1;
-    else TTHLep_2Mu=0;
+    TTHLep_2Mu = Trig_1Mu ==1 || Trig_2Mu ==1 ? 1:0 ;
+    TTHLep_2Ele = Trig_1Ele ==1 || Trig_2Ele==1 ? 1:0;
+    TTHLep_MuEle = Trig_1Mu ==1 || Trig_1Ele ==1 || Trig_1Mu1Ele==1 ? 1:0;
+    TTHLep_2L = TTHLep_MuEle ==1 || TTHLep_2Mu ==1 || TTHLep_2Ele ==1 ? 1:0;
+    TTHLep_3L = TTHLep_2L==1 || Trig_1Mu1Ele==1 || Trig_1Mu2Ele==1 || Trig_2Mu1Ele ==1 ? 1:0;
+    /*
     if( _eventTree -> HLT_Ele32_WPTight_Gsf==1 || _eventTree -> HLT_Ele35_WPTight_Gsf ==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 )TTHLep_2Ele=1;
     else TTHLep_2Ele=0;
     if( _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || 
@@ -1588,6 +1611,7 @@ void EventContainer::set_TTHFlags(){
     else TTHLep_2L =0;
     if(TTHLep_2L || _eventTree -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 || _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || _eventTree->HLT_TripleMu_12_10_5==1) TTHLep_3L =1;
     else TTHLep_3L =0; 
+    */
 };
 
 

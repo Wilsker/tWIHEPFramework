@@ -180,6 +180,7 @@ Bool_t CutTriggerSelection::Apply()
   Int_t TriLeptrigger = 0;
   Bool_t TriLeptriggerPath = kFALSE;
 
+  
   Int_t electronTrigger = 0; //I seem to have messed up the electron trigger?
   electronTrigger = EventContainerObj->HLT_Ele32_WPTight_Gsf;
   Int_t muonTrigger = EventContainerObj->HLT_IsoMu24 || EventContainerObj->HLT_IsoTkMu24;
@@ -192,53 +193,59 @@ Bool_t CutTriggerSelection::Apply()
   }
   if (_whichtrigger == 2 || _whichtrigger ==5 ){
     if(SampleType == 3000 || SampleType == 3001){
-        if(selectedChannel ==2 && (EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1))MMtrigger =1; 
+        //if(selectedChannel ==2 && (EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1))MMtrigger =1; 
+        if(selectedChannel ==2 && ContainerObj->Trig_2Mu==1 )MMtrigger =1; 
     }
     else if(SampleType == 2000 || SampleType == 2001){
-        if(selectedChannel==2 && ( !(EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1) && (EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoMu27==1)))MMtrigger=1;
+        //if(selectedChannel==2 && ( !(EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1) && (EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoMu27==1)))MMtrigger=1;
+        if(selectedChannel==2 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu ==1 )MMtrigger=1;
     }
     else{
-        MMtrigger = selectedChannel ==2 && GetEventContainer()->TTHLep_2Mu;
+        MMtrigger = selectedChannel ==2 && ContainerObj->TTHLep_2Mu==1;
     }
   }
   if (_whichtrigger == 3 || _whichtrigger ==5 ){
     if(SampleType == 4000 || SampleType == 4001){
-        if(selectedChannel ==3 && (EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1))EEtrigger =1;
+        //if(selectedChannel ==3 && (EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1))EEtrigger =1;
+        if(selectedChannel ==3 && ContainerObj->Trig_2Ele ==1 )EEtrigger =1;
     }else if(SampleType == 1000 || SampleType == 1001){
-        if(selectedChannel==3 &&( (EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1) && !(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1) ))EEtrigger=1;
+        //if(selectedChannel==3 &&( (EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1) && !(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1) ))EEtrigger=1;
+        if(selectedChannel==3 && ContainerObj->Trig_2Ele !=1 && ContainerObj->Trig_1Ele==1 )EEtrigger=1;
     }else{
-        EEtrigger = selectedChannel ==3 && GetEventContainer()->TTHLep_2Ele;
+        EEtrigger = selectedChannel ==3 && ContainerObj->TTHLep_2Ele==1 ;
     }
   }
   if (_whichtrigger == 4 || _whichtrigger ==5 ){
     if(SampleType == 5000 || SampleType == 5001){
-        if( selectedChannel ==4 && (EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1))EMtrigger=1;
+        //if( selectedChannel ==4 && (EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1))EMtrigger=1;
+        if( selectedChannel ==4 && ContainerObj->Trig_1Mu1Ele ==1 )EMtrigger=1;
     }else if(SampleType == 2000 || SampleType == 2001){
-        if( selectedChannel ==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1) && (EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1 ))) EMtrigger =1;
+        //if( selectedChannel ==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1) && (EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1 ))) EMtrigger =1;
+        if( selectedChannel ==4 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Mu==1) EMtrigger =1;
     }else if(SampleType == 1000 || SampleType == 1001){
-        if( selectedChannel==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1) &&
-       ( EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf==1 ))) EMtrigger =1;
+        //if( selectedChannel==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1) &&
+        if( selectedChannel ==4 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Mu!=1 && ContainerObj->Trig_1Ele==1) EMtrigger =1;
     }else{
-        EMtrigger = selectedChannel ==4 && GetEventContainer()->TTHLep_MuEle;
+        EMtrigger = selectedChannel ==4 && ContainerObj->TTHLep_MuEle==1;
     }
   }
   if (_whichtrigger ==6 ){
-    TriLeptriggerPath = ( (selectedChannel == 61 && (GetEventContainer()->TTHLep_2Ele || EventContainerObj->HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ))
-     || (selectedChannel == 62 && (GetEventContainer()->TTHLep_MuEle || EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ))
-     || (selectedChannel == 63 && (GetEventContainer()->TTHLep_MuEle || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 ))
-     || (selectedChannel == 64 && (GetEventContainer()->TTHLep_2Mu || EventContainerObj -> HLT_TripleMu_12_10_5==1 )));
+    TriLeptriggerPath = ( (selectedChannel == 61 && (ContainerObj->TTHLep_2Ele==1 || ContainerObj->Trig_3Ele==1 ))
+     || (selectedChannel == 62 && (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_1Mu2Ele==1 ))
+     || (selectedChannel == 63 && (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_2Mu1Ele==1 ))
+     || (selectedChannel == 64 && (ContainerObj->TTHLep_2Mu==1 || ContainerObj->Trig_3Mu==1 )));
     if(SampleType == 4000 || SampleType == 4001){
-        if( EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ) TriLeptrigger =1;
+        if(ContainerObj->Trig_3Ele==1 || ContainerObj->Trig_1Mu2Ele==1 || ContainerObj->Trig_2Ele==1) TriLeptrigger =1;
     }else if(SampleType == 3000 || SampleType == 3001){
-        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ) && (EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 )) TriLeptrigger = 1;
+        if(ContainerObj->Trig_3Ele!=1 && ContainerObj->Trig_1Mu2Ele!=1 && ContainerObj->Trig_2Ele!=1 && (ContainerObj->Trig_3Mu==1 || ContainerObj->Trig_2Mu1Ele==1 || ContainerObj->Trig_2Mu==1) ) TriLeptrigger =1;
     }else if(SampleType == 5000 || SampleType == 5001){
-        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 ) && (EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ))TriLeptrigger =1;
+        if(ContainerObj->Trig_3Ele!=1 && ContainerObj->Trig_1Mu2Ele!=1 && ContainerObj->Trig_2Ele!=1 && ContainerObj->Trig_3Mu!=1 && ContainerObj->Trig_2Mu1Ele!=1 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu1Ele==1 ) TriLeptrigger =1;
     }else if(SampleType == 1000 || SampleType == 1001){
-        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ) && (EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1))TriLeptrigger =1;
+        if(ContainerObj->Trig_3Ele!=1 && ContainerObj->Trig_1Mu2Ele!=1 && ContainerObj->Trig_2Ele!=1 && ContainerObj->Trig_3Mu!=1 && ContainerObj->Trig_2Mu1Ele!=1 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Ele ==1 ) TriLeptrigger =1;
     }else if(SampleType == 2000 || SampleType == 2001){
-        if(!(EventContainerObj -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ||  EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ||  EventContainerObj ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || EventContainerObj -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 || EventContainerObj->HLT_TripleMu_12_10_5==1 ||EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1 || EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1) && ( EventContainerObj -> HLT_IsoMu24 ==1 || EventContainerObj -> HLT_IsoMu27==1))TriLeptrigger =1;
+        if(ContainerObj->Trig_3Ele!=1 && ContainerObj->Trig_1Mu2Ele!=1 && ContainerObj->Trig_2Ele!=1 && ContainerObj->Trig_3Mu!=1 && ContainerObj->Trig_2Mu1Ele!=1 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Ele !=1 && ContainerObj->Trig_1Mu ==1 ) TriLeptrigger =1;
     }else{
-        TriLeptrigger = GetEventContainer()->TTHLep_3L;
+        TriLeptrigger = ContainerObj->TTHLep_3L;
     }
   }
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;

@@ -723,6 +723,15 @@ class EventContainer
     Int_t TTHLep_MuEle;
     Int_t TTHLep_2L;
     Int_t TTHLep_3L;
+    Int_t Trig_1Ele;
+    Int_t Trig_2Ele;
+    Int_t Trig_3Ele;
+    Int_t Trig_1Mu;
+    Int_t Trig_1Mu1Ele;
+    Int_t Trig_1Mu2Ele;
+    Int_t Trig_2Mu;
+    Int_t Trig_2Mu1Ele;
+    Int_t Trig_3Mu;
     void set_TTHFlags();
     void Cal_dilep_mass();
 

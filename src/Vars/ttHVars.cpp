@@ -45,6 +45,16 @@ ttHVars::ttHVars(bool makeHistos){
   _intVars["TTHLep_2Ele"] = 10;
   _intVars["TTHLep_2Mu"] = 10;
   _intVars["TTHLep_MuEle"] = 10;
+  _intVars["TTHLep_3L"] = 10;
+  _intVars["Trig_1Ele"] = 10;
+  _intVars["Trig_2Ele"] = 10;
+  _intVars["Trig_3Ele"] = 10;
+  _intVars["Trig_1Mu"] = 10;
+  _intVars["Trig_1Mu1Ele"] = 10;
+  _intVars["Trig_1Mu2Ele"] = 10;
+  _intVars["Trig_2Mu"] = 10;
+  _intVars["Trig_2Mu1Ele"] = 10;
+  _intVars["Trig_3Mu"] = 10;
   _floatVars["SubCat2l"] = 20.;
     
   _floatVars["massL"] = 800.;
@@ -720,6 +730,16 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _intVars["TTHLep_2Ele"] = evtObj->TTHLep_2Ele;
     _intVars["TTHLep_2Mu"] = evtObj->TTHLep_2Mu;
     _intVars["TTHLep_MuEle"] = evtObj->TTHLep_MuEle;
+    _intVars["TTHLep_3L"] = evtObj->TTHLep_3L;
+    _intVars["Trig_1Ele"] = evtObj->Trig_1Ele;
+    _intVars["Trig_2Ele"] = evtObj->Trig_2Ele;
+    _intVars["Trig_3Ele"] = evtObj->Trig_3Ele;
+    _intVars["Trig_1Mu"] = evtObj->Trig_1Mu;
+    _intVars["Trig_1Mu1Ele"] = evtObj->Trig_1Mu1Ele;
+    _intVars["Trig_1Mu2Ele"] = evtObj->Trig_1Mu2Ele;
+    _intVars["Trig_2Mu"] = evtObj->Trig_2Mu;
+    _intVars["Trig_2Mu1Ele"] = evtObj->Trig_2Mu1Ele;
+    _intVars["Trig_3Mu"] = evtObj->Trig_3Mu;
     
     _floatVars["ttbarBDT_2lss"] = ttbarBDT_2lss;
     _floatVars["ttvBDT_2lss"] = ttvBDT_2lss;
