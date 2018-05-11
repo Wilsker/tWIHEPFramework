@@ -23,6 +23,11 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["Jet25_mult"] = {-0.1,100};
   _doubleVecs["Jet25_pfCombinedCvsLJetTags"] = {-0.1,100};
   _doubleVecs["Jet25_pfCombinedCvsBJetTags"] = {-0.1,100};
+  _doubleVecs["Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags"] = {-0.1,100};
+  _doubleVecs["Jet25_pfCombinedMVAV2BJetTags"] = {-0.1,100};
+  _doubleVecs["Jet25_pfJetProbabilityBJetTags"] = {-0.1,100};
+  _doubleVecs["Jet25_pfDeepCSVCvsLJetTags"] = {-0.1,100};
+  _doubleVecs["Jet25_pfDeepCSVCvsBJetTags"] = {-0.1,100};
   _doubleVecs["Jet25_pt"] = {-0.1,100};
   _doubleVecs["Jet25_eta"] = {-0.1,100};
   _doubleVecs["Jet25_phi"] = {-0.1,100};
@@ -106,6 +111,11 @@ void HjTagger::Clear(){
     Jet25_mult.clear();
     Jet25_pfCombinedCvsLJetTags.clear();
     Jet25_pfCombinedCvsBJetTags.clear();
+    Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags.clear();
+    Jet25_pfCombinedMVAV2BJetTags.clear();
+    Jet25_pfJetProbabilityBJetTags.clear();
+    Jet25_pfDeepCSVCvsLJetTags.clear();
+    Jet25_pfDeepCSVCvsBJetTags.clear();
     Jet25_pt.clear();
     Jet25_eta.clear();
     Jet25_phi.clear();
@@ -222,6 +232,11 @@ void HjTagger::FillBranches(EventContainer * evtObj){
       Jet25_mult.push_back(jet.mult());
       Jet25_pfCombinedCvsLJetTags.push_back(jet.pfCombinedCvsLJetTags());
       Jet25_pfCombinedCvsBJetTags.push_back(jet.pfCombinedCvsBJetTags());
+      Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags.push_back(jet.pfCombinedInclusiveSecondaryVertexV2BJetTags());
+      Jet25_pfCombinedMVAV2BJetTags.push_back(jet.pfCombinedMVAV2BJetTags());
+      Jet25_pfJetProbabilityBJetTags.push_back(jet.pfJetProbabilityBJetTags());
+      Jet25_pfDeepCSVCvsLJetTags.push_back(jet.pfDeepCSVCvsLJetTags());
+      Jet25_pfDeepCSVCvsBJetTags.push_back(jet.pfDeepCSVCvsBJetTags());
       Jet25_pt.push_back(jet.Pt());
       Jet25_eta.push_back(jet.Eta());
       Jet25_phi.push_back(jet.Phi());
@@ -320,6 +335,11 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     _doubleVecs["Jet25_mult"] = Jet25_mult;
     _doubleVecs["Jet25_pfCombinedCvsLJetTags"] = Jet25_pfCombinedCvsLJetTags;
     _doubleVecs["Jet25_pfCombinedCvsBJetTags"] = Jet25_pfCombinedCvsBJetTags;
+    _doubleVecs["Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags"] = Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags;
+    _doubleVecs["Jet25_pfCombinedMVAV2BJetTags"] = Jet25_pfCombinedMVAV2BJetTags;
+    _doubleVecs["Jet25_pfJetProbabilityBJetTags"] = Jet25_pfJetProbabilityBJetTags;
+    _doubleVecs["Jet25_pfDeepCSVCvsLJetTags"] = Jet25_pfDeepCSVCvsLJetTags;
+    _doubleVecs["Jet25_pfDeepCSVCvsBJetTags"] = Jet25_pfDeepCSVCvsBJetTags;
     _doubleVecs["Jet25_pt"] = Jet25_pt;
     _doubleVecs["Jet25_eta"] = Jet25_eta;
     _doubleVecs["Jet25_phi"] = Jet25_phi;

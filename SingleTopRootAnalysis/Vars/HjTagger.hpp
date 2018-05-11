@@ -55,13 +55,18 @@ private:
     std::vector<double> FakeLep_phi;
     std::vector<double> FakeLep_energy;
 
-    std::vector<double> Jet25_axis2;
-    std::vector<double> Jet25_qg;
+    std::vector<double>  Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags;
+    std::vector<double>  Jet25_pfCombinedMVAV2BJetTags;
+    std::vector<double>  Jet25_pfJetProbabilityBJetTags;
+    std::vector<double>  Jet25_pfDeepCSVCvsLJetTags;
+    std::vector<double>  Jet25_pfDeepCSVCvsBJetTags;
     std::vector<double> Jet25_bDiscriminator;
-    std::vector<double> Jet25_ptD;
-    std::vector<double> Jet25_mult;
     std::vector<double> Jet25_pfCombinedCvsLJetTags;
     std::vector<double> Jet25_pfCombinedCvsBJetTags;
+    std::vector<double> Jet25_qg;
+    std::vector<double> Jet25_axis2;
+    std::vector<double> Jet25_ptD;
+    std::vector<double> Jet25_mult;
     std::vector<double> Jet25_pt;
     std::vector<double> Jet25_eta;
     std::vector<double> Jet25_phi;

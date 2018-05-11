@@ -76,6 +76,11 @@ ClassImp(Jet)
   _mult       (0.0),
   _pfCombinedCvsLJetTags       (0.0),
   _pfCombinedCvsBJetTags       (0.0),
+  _pfCombinedInclusiveSecondaryVertexV2BJetTags       (0.0),
+  _pfCombinedMVAV2BJetTags       (0.0),
+  _pfJetProbabilityBJetTags       (0.0),
+  _pfDeepCSVCvsLJetTags       (0.0),
+  _pfDeepCSVCvsBJetTags       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _isToptag       (0.0),
@@ -138,6 +143,11 @@ _electronEnergy			(other.GetelectronEnergy()),
   _mult(other.Getmult()),
   _pfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags()),
   _pfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags()),
+  _pfCombinedInclusiveSecondaryVertexV2BJetTags(other.GetpfCombinedInclusiveSecondaryVertexV2BJetTags()),
+  _pfCombinedMVAV2BJetTags(other.GetpfCombinedMVAV2BJetTags()),
+  _pfJetProbabilityBJetTags(other.GetpfJetProbabilityBJetTags()),
+  _pfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags()),
+  _pfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags()),
   _lepdrmax(other.Getlepdrmax()),
   _lepdrmin(other.Getlepdrmin()),
   _partonFlavour(other.GetpartonFlavour()),
@@ -174,6 +184,11 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _mult       (0.0),
   _pfCombinedCvsLJetTags       (0.0),
   _pfCombinedCvsBJetTags       (0.0),
+  _pfCombinedInclusiveSecondaryVertexV2BJetTags       (0.0),
+  _pfCombinedMVAV2BJetTags       (0.0),
+  _pfJetProbabilityBJetTags       (0.0),
+  _pfDeepCSVCvsLJetTags       (0.0),
+  _pfDeepCSVCvsBJetTags       (0.0),
   _L1corrPt  (0.0),
   _uncorrE  (0.0),
   _lepdrmax       (0.0),
@@ -261,6 +276,11 @@ Jet& Jet::operator=(const Particle& other)
   Setmult       (0.0);
   SetpfCombinedCvsLJetTags       (0.0);
   SetpfCombinedCvsBJetTags       (0.0);
+  SetpfCombinedInclusiveSecondaryVertexV2BJetTags       (0.0);
+  SetpfCombinedMVAV2BJetTags       (0.0);
+  SetpfJetProbabilityBJetTags       (0.0);
+  SetpfDeepCSVCvsLJetTags       (0.0);
+  SetpfDeepCSVCvsBJetTags       (0.0);
   Setlepdrmax       (0.0);
   Setlepdrmin       (0.0);
   SetpartonFlavour       (0.0);
@@ -314,6 +334,11 @@ Jet& Jet::operator=(const Jet& other)
   Setmult(other.Getmult());
   SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
   SetpfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags());
+  SetpfCombinedInclusiveSecondaryVertexV2BJetTags(other.GetpfCombinedInclusiveSecondaryVertexV2BJetTags());
+  SetpfCombinedMVAV2BJetTags(other.GetpfCombinedMVAV2BJetTags());
+  SetpfJetProbabilityBJetTags(other.GetpfJetProbabilityBJetTags());
+  SetpfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags());
+  SetpfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -365,6 +390,11 @@ Jet& Jet::operator=(Jet& other)
   Setmult(other.Getmult());
   SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
   SetpfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags());
+  SetpfCombinedInclusiveSecondaryVertexV2BJetTags(other.GetpfCombinedInclusiveSecondaryVertexV2BJetTags());
+  SetpfCombinedMVAV2BJetTags(other.GetpfCombinedMVAV2BJetTags());
+  SetpfJetProbabilityBJetTags(other.GetpfJetProbabilityBJetTags());
+  SetpfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags());
+  SetpfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -443,7 +473,8 @@ double Jet::get_JetMVA()
     jetvarlepdrmax = lepdrmax();
     jetvarpt = Pt();
     jetvarlepdrmin = lepdrmin();
-    jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = bDiscriminator();
+    //jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = bDiscriminator();
+    jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = pfCombinedInclusiveSecondaryVertexV2BJetTags();
     return readerjet->EvaluateMVA("BDTG method");
 }
 
@@ -507,6 +538,11 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Setmult       (evtr -> Jet_mult      -> operator[](iE));
   SetpfCombinedCvsLJetTags       (evtr -> Jet_pfCombinedCvsLJetTags      -> operator[](iE));
   SetpfCombinedCvsBJetTags       (evtr -> Jet_pfCombinedCvsBJetTags      -> operator[](iE));
+  SetpfCombinedInclusiveSecondaryVertexV2BJetTags       (evtr -> Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags      -> operator[](iE));
+  SetpfCombinedMVAV2BJetTags       (evtr -> Jet_pfCombinedMVAV2BJetTags      -> operator[](iE));
+  SetpfJetProbabilityBJetTags       (evtr -> Jet_pfJetProbabilityBJetTags      -> operator[](iE));
+  SetpfDeepCSVCvsLJetTags       (evtr -> Jet_pfDeepCSVCvsLJetTags      -> operator[](iE));
+  SetpfDeepCSVCvsBJetTags       (evtr -> Jet_pfDeepCSVCvsBJetTags      -> operator[](iE));
   if(isSimulation){
     SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
     SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));

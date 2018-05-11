@@ -81,6 +81,11 @@ class Jet: public Particle
  _mult =0.0;
  _pfCombinedCvsLJetTags =0.0;
  _pfCombinedCvsBJetTags =0.0;
+ _pfCombinedInclusiveSecondaryVertexV2BJetTags =0.0;
+ _pfCombinedMVAV2BJetTags =0.0;
+ _pfJetProbabilityBJetTags =0.0;
+ _pfDeepCSVCvsLJetTags =0.0;
+ _pfDeepCSVCvsBJetTags =0.0;
  _lepdrmax =0.0;
  _lepdrmin =0.0;
  _HjDisc =0.0;
@@ -214,6 +219,26 @@ class Jet: public Particle
   inline Double_t GetpfCombinedCvsBJetTags() const {return _pfCombinedCvsBJetTags;};
   inline Double_t pfCombinedCvsBJetTags() const {return _pfCombinedCvsBJetTags;};
 
+  inline void SetpfCombinedInclusiveSecondaryVertexV2BJetTags(Double_t pfCombinedInclusiveSecondaryVertexV2BJetTags){_pfCombinedInclusiveSecondaryVertexV2BJetTags = pfCombinedInclusiveSecondaryVertexV2BJetTags;};
+  inline Double_t GetpfCombinedInclusiveSecondaryVertexV2BJetTags() const {return _pfCombinedInclusiveSecondaryVertexV2BJetTags;};
+  inline Double_t pfCombinedInclusiveSecondaryVertexV2BJetTags() const {return _pfCombinedInclusiveSecondaryVertexV2BJetTags;};
+
+  inline void SetpfCombinedMVAV2BJetTags(Double_t pfCombinedMVAV2BJetTags){_pfCombinedMVAV2BJetTags = pfCombinedMVAV2BJetTags;};
+  inline Double_t GetpfCombinedMVAV2BJetTags() const {return _pfCombinedMVAV2BJetTags;};
+  inline Double_t pfCombinedMVAV2BJetTags() const {return _pfCombinedMVAV2BJetTags;};
+
+  inline void SetpfJetProbabilityBJetTags(Double_t pfJetProbabilityBJetTags){_pfJetProbabilityBJetTags = pfJetProbabilityBJetTags;};
+  inline Double_t GetpfJetProbabilityBJetTags() const {return _pfJetProbabilityBJetTags;};
+  inline Double_t pfJetProbabilityBJetTags() const {return _pfJetProbabilityBJetTags;};
+
+  inline void SetpfDeepCSVCvsLJetTags(Double_t pfDeepCSVCvsLJetTags){_pfDeepCSVCvsLJetTags = pfDeepCSVCvsLJetTags;};
+  inline Double_t GetpfDeepCSVCvsLJetTags() const {return _pfDeepCSVCvsLJetTags;};
+  inline Double_t pfDeepCSVCvsLJetTags() const {return _pfDeepCSVCvsLJetTags;};
+
+  inline void SetpfDeepCSVCvsBJetTags(Double_t pfDeepCSVCvsBJetTags){_pfDeepCSVCvsBJetTags = pfDeepCSVCvsBJetTags;};
+  inline Double_t GetpfDeepCSVCvsBJetTags() const {return _pfDeepCSVCvsBJetTags;};
+  inline Double_t pfDeepCSVCvsBJetTags() const {return _pfDeepCSVCvsBJetTags;};
+
   inline void Setlepdrmax(Double_t lepdrmax){_lepdrmax = lepdrmax;};
   inline Double_t Getlepdrmax() const {return _lepdrmax;};
   inline Double_t lepdrmax() const {return _lepdrmax;};
@@ -307,6 +332,11 @@ class Jet: public Particle
   Double_t _mult;
   Double_t _pfCombinedCvsLJetTags;
   Double_t _pfCombinedCvsBJetTags;
+  Double_t _pfCombinedInclusiveSecondaryVertexV2BJetTags;
+  Double_t _pfCombinedMVAV2BJetTags;
+  Double_t _pfJetProbabilityBJetTags;
+  Double_t _pfDeepCSVCvsLJetTags;
+  Double_t _pfDeepCSVCvsBJetTags;
   Double_t _lepdrmax;
   Double_t _lepdrmin;
   Double_t _partonFlavour;
