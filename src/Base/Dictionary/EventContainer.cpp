@@ -1726,10 +1726,15 @@ void EventContainer::Cal_dilep_mass(){
             if(fabs(lSFOSmass-91.2)>fabs((Lep0+Lep1).M()-91.2)
                 && (looseLeptons.at(lep_en).pdgId()+looseLeptons.at(l_en).pdgId())==0)
                 lSFOSmass = (Lep0+Lep1).M(); 
+            if(fabs(mass_diele-91.2)>fabs((Lep0+Lep1).M()-91.2)
+                && (fabs(looseLeptons.at(lep_en).pdgId())+fabs(looseLeptons.at(l_en).pdgId()))==22)
+                dielemass = (Lep0+Lep1).M(); 
         }
     }
     massL = diloosemass;
     massL_SFOS = lSFOSmass;
+    mass_diele = dielemass;
+    /*
     for(uint lep_en =0; lep_en < fakeLeptons.size(); lep_en++){
         if(fabs(fakeLeptons.at(lep_en).pdgId())==11)FakeLep0.SetPtEtaPhiE(fakeLeptons.at(lep_en).Pt(), fakeLeptons.at(lep_en).Eta(), fakeLeptons.at(lep_en).Phi(), fakeLeptons.at(lep_en).E());
         for(uint l_en =lep_en+1; l_en < fakeLeptons.size(); l_en++){
@@ -1738,7 +1743,6 @@ void EventContainer::Cal_dilep_mass(){
         }
     }
     mass_diele = dielemass;
-    /*
     if (fakeLeptons.size()>=2){
         Lepton fakelep0 = fakeLeptons.at(0);
         Lepton fakelep1 = fakeLeptons.at(1);

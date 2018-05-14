@@ -34,10 +34,20 @@ using namespace std;
  * Input:  Event Object class                                                 *
  * Output: None                                                               *
  ******************************************************************************/
-CutZveto::CutZveto(EventContainer *EventContainerObj)
+CutZveto::CutZveto(EventContainer *EventContainerObj, TString LeptonPairType)
 {
+  // Check leptonType parameter
+  if( 
+       LeptonPairType.CompareTo("presel_ele")
+       && LeptonPairType.CompareTo("presel_SFOSlep")
+      ){
+    std::cout << "ERROR " << "<CutZveto::CutZveto()> " 
+	      << "Must pass presel_ele or presel_SFOSlep to constructor" << std::endl;
+    exit(8);
+  }
   // Set Event Container
   SetEventContainer(EventContainerObj);
+  _LeptonPairType = LeptonPairType;
 } // CutZveto
 
 
@@ -130,7 +140,7 @@ void CutZveto::BookHistogram(){
   //Then set the cuts here.
   _ZvetoMin = config -> GetValue("Cut.Event.Zveto.Min",0.0);
   _ZvetoMax = config -> GetValue("Cut.Event.Zveto.Max",999.0);
-
+  _isOffZ = config -> GetValue("Cut.Event.Zveto.isOffZ",1);
 
 }//BookHistograms()
 
@@ -151,9 +161,12 @@ Bool_t CutZveto::Apply()
 
   Bool_t passesZvetoCut = kTRUE;
 
-  Float_t diele_mass = EventContainerObj->mass_diele;
+  Float_t massZ = 0.;
+  
+  if(_LeptonPairType =="presel_ele") massZ=EventContainerObj->mass_diele;
+  else if(_LeptonPairType =="presel_SFOSlep") massZ=EventContainerObj->massL_SFOS;
 
-  _hZvetoBefore->Fill(diele_mass);
+  _hZvetoBefore->Fill(massZ);
 
 
 
@@ -164,17 +177,19 @@ Bool_t CutZveto::Apply()
   cutFlowNameStream << "Zveto.All";
   cutFlowName = cutFlowNameStream.str().c_str();
 
-  if (diele_mass > _ZvetoMin && diele_mass < _ZvetoMax){
-    passesZvetoCut = kFALSE;
+  if(_isOffZ ==1 && massZ > _ZvetoMin && massZ < _ZvetoMax) passesZvetoCut = kFALSE;
+  if(_isOffZ ==0 && (massZ < _ZvetoMin || massZ > _ZvetoMax)) passesZvetoCut = kFALSE;
+
+  if (!passesZvetoCut){
     GetCutFlowTable()->FailCut(cutFlowName);
   }
   else{
     GetCutFlowTable()->PassCut(cutFlowName);
-    _hZvetoAfter->Fill(diele_mass);
+    _hZvetoAfter->Fill(massZ);
   }
 
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesZvetoCut ){
-    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesZvetoCut: mass_diele is " << diele_mass  <<  std::endl; 
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesZvetoCut: massZ is " << massZ  <<  " isOffZ? "<< _isOffZ<<" _ZvetoMin "<< _ZvetoMin << " _ZvetoMax "<<_ZvetoMax << std::endl; 
   }
   return passesZvetoCut;
 

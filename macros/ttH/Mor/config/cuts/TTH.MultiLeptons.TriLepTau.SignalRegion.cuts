@@ -94,6 +94,7 @@ Cut.Event.HTJET1.Max: 999.0
 # Zveto Cut
 Cut.Event.Zveto.Min:   81.2
 Cut.Event.Zveto.Max:   101.2
+Cut.Event.Zveto.isOffZ:   1
 
 ################ MetLD Cuts #####################
 # MetLD Cut

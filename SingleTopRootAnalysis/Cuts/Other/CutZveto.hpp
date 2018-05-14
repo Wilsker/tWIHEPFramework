@@ -35,7 +35,7 @@ class CutZveto : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutZveto(EventContainer *EventContainerObj);
+  CutZveto(EventContainer *EventContainerObj, TString LeptonPairType="presel_ele");
   
   // Destructor
   ~CutZveto();
@@ -60,6 +60,9 @@ private:
   Double_t _ZvetoMin;           // Minimum Zveto
   Double_t _ZvetoMax;           // Maximum Zveto
 
+  //
+  TString _LeptonPairType;
+  Int_t _isOffZ;
 };
 
 
