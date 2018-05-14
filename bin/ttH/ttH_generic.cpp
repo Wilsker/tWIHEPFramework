@@ -33,6 +33,7 @@
 //#include "SingleTopRootAnalysis/Cuts/Other/CutTriangularSumDeltaPhiLepMET.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Other/CutEMuOverlap.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutZveto.hpp"
+#include "SingleTopRootAnalysis/Cuts/Other/CutM4L.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutMassL.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutMetLD.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutMetFilter.hpp"
@@ -301,6 +302,7 @@ int main(int argc, char **argv)
   if(isTriLepton){
     mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     mystudy.AddCut(new CutLeptonSumCharge(particlesObj,"TTHFake"));// Sum Charge for ttH 3 Leptons 
+    mystudy.AddCut(new CutM4L(particlesObj, "TTHLoose"));     //require that lepton to be isolated, central, high pt
   }else{
     mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
