@@ -43,7 +43,7 @@ class CutTauCharge : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutTauCharge(EventContainer *EventContainerObj, TString tauType);
+  CutTauCharge(EventContainer *EventContainerObj, TString tauType, Bool_t isTriLep=false);
   
   // Destructor
   ~CutTauCharge();
@@ -69,7 +69,9 @@ private:
 
   // Tau Type (veto, tight, unIsolated)
   TString tauType;
-
+  
+  // isDiLep or TriLep
+  Bool_t _isTriLep;
 };
 
 

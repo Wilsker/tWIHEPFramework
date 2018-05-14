@@ -38,7 +38,7 @@ using namespace std;
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutTauCharge::CutTauCharge(EventContainer *EventContainerObj, TString tauTypePassed)
+CutTauCharge::CutTauCharge(EventContainer *EventContainerObj, TString tauTypePassed, Bool_t isTriLep)
 {
   // Check tauType parameter
   if( tauTypePassed.CompareTo("VLoose") && tauTypePassed.CompareTo("Loose") && tauTypePassed.CompareTo("Medium") && 
@@ -49,7 +49,7 @@ CutTauCharge::CutTauCharge(EventContainer *EventContainerObj, TString tauTypePas
     exit(8);
   } //if
   tauType = tauTypePassed;
-
+  _isTriLep = isTriLep;
   // Set Event Container
   SetEventContainer(EventContainerObj);
 } // CutTauCharge
@@ -230,14 +230,19 @@ Bool_t CutTauCharge::Apply()
   }
   TauCharge = selectedTau.charge();
 
-  if(leptonVector[0].charge()*leptonVector[1].charge()>0){//if same sign
-    TauChargePass = TauCharge *leptonVector[0].charge() < 0;// tau is opposite to leptons
-  }else if(fabs(leptonVector[0].pdgId())+fabs(leptonVector[1].pdgId())==24){// if emu opposite sign
-    TauChargePass = (fabs(leptonVector[0].pdgId())==11? TauCharge*leptonVector[0].charge()>0 : TauCharge*leptonVector[1].charge()>0 );// tau is same sign as electron
-  }else if(fabs(leptonVector[0].pdgId())+fabs(leptonVector[1].pdgId())==22){// if ee opposite sign
-    TauChargePass = true;
+  if(!_isTriLep){
+    if(leptonVector[0].charge()*leptonVector[1].charge()>0){//if same sign
+      TauChargePass = TauCharge *leptonVector[0].charge() < 0;// tau is opposite to leptons
+    }else if(fabs(leptonVector[0].pdgId())+fabs(leptonVector[1].pdgId())==24){// if emu opposite sign
+      TauChargePass = (fabs(leptonVector[0].pdgId())==11? TauCharge*leptonVector[0].charge()>0 : TauCharge*leptonVector[1].charge()>0 );// tau is same sign as electron
+    }else if(fabs(leptonVector[0].pdgId())+fabs(leptonVector[1].pdgId())==22){// if ee opposite sign
+      TauChargePass = true;
+    }else{
+      TauChargePass = false;
+    }
   }else{
-    TauChargePass = false;
+    if((leptonVector[0].charge()+leptonVector[1].charge()+leptonVector[2].charge()+TauCharge)==0)TauChargePass= true;
+    else TauChargePass = false;
   }
 
 
@@ -268,7 +273,11 @@ Bool_t CutTauCharge::Apply()
   // Return if it passes
   // ***********************************************
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !TauChargePass ){
-    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail TauChargePass " << tauType << " TauCharge "<< TauCharge <<" lep1pdg "<< leptonVector[0].pdgId()<< " lep2pdg "<<leptonVector[1].pdgId() << std::endl; 
+    if(!_isTriLep){  
+        std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail TauChargePass " << tauType << " TauCharge "<< TauCharge <<" lep1pdg "<< leptonVector[0].pdgId()<< " lep2pdg "<<leptonVector[1].pdgId() << std::endl; 
+    }else{
+        std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail TauChargePass " << tauType << " TauCharge "<< TauCharge <<" lep1pdg "<< leptonVector[0].pdgId()<< " lep2pdg "<<leptonVector[1].pdgId() << " lep3pdg "<< leptonVector[2].pdgId() << std::endl; 
+    }
   }
   
   return(TauChargePass);

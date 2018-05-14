@@ -132,6 +132,7 @@ int main(int argc, char **argv)
   Bool_t useMCPromptFS = kFALSE;
   Bool_t useMCPromptGamma = kFALSE;
   Bool_t isTrainMVA = kFALSE;
+  Bool_t isTriLepton = kFALSE;
   TString leptonTypeToSelect = "Tight"; //This variable is altered to unisolated when running QCD estimation.
   string evtListFileName="";
   int whichtrig = -1;
@@ -231,7 +232,7 @@ int main(int argc, char **argv)
       if(!strcmp(argv[i+1],"TTHLep_2Ele")) whichtrig = 3;
       if(!strcmp(argv[i+1],"TTHLep_MuEle")) whichtrig = 4;
       if(!strcmp(argv[i+1],"TTHLep_2L")) whichtrig = 5;
-      if(!strcmp(argv[i+1],"TTHLep_3L")) whichtrig = 6;
+      if(!strcmp(argv[i+1],"TTHLep_3L")){ whichtrig = 6; isTriLepton = kTRUE;}
       if( whichtrig == -1){
 	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose Electron, Muon, TTHLep_2Mu, TTHLep_2Ele, TTHLep_MuEle, TTHLep_2L, TTHLep_3L" << endl;
 	return 1;
@@ -297,11 +298,14 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-  //mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
-  mystudy.AddCut(new CutLeptonSumCharge(particlesObj,"TTHFake"));// Sum Charge for ttH 3 Leptons 
+  if(isTriLepton){
+    mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
+    mystudy.AddCut(new CutLeptonSumCharge(particlesObj,"TTHFake"));// Sum Charge for ttH 3 Leptons 
+  }else{
+    mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
+    mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
+  }
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
-  mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
 
   mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
@@ -334,7 +338,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  //mystudy.AddCut(new CutTauCharge(particlesObj,"Loose"));
+  mystudy.AddCut(new CutTauCharge(particlesObj,"Loose", isTriLepton));
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   if(!isTrainMVA){
