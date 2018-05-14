@@ -34,7 +34,7 @@ Cut.Dilepton.TTHFake.NumTightMax: 2
 Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 
 ############## TriLep Cuts ############################
-Cut.Trilepton.TTHFake.SameSign: 0  # 1:charge sum +1; -1: charge sum -1; 0: charge sum +1 or -1
+Cut.Trilepton.TTHFake.SumCharge: 0  # 1:charge sum +1; -1: charge sum -1; 0: charge sum +1 or -1
 Cut.Trilepton.TTHFake.NumTightMin: 3 
 Cut.Trilepton.TTHFake.NumTightMax: 999 
 ################# Tau Cuts #########################
