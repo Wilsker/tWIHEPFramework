@@ -34,10 +34,11 @@ using namespace std;
  * Input:  Event Object class                                                 *
  * Output: None                                                               *
  ******************************************************************************/
-CutMetLD::CutMetLD(EventContainer *EventContainerObj)
+CutMetLD::CutMetLD(EventContainer *EventContainerObj, Bool_t isTriLep)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
+  _isTriLep = isTriLep;
 } // CutMetLD
 
 
@@ -130,6 +131,7 @@ void CutMetLD::BookHistogram(){
   //Then set the cuts here.
   _MetLDMin = config -> GetValue("Cut.Event.MetLD.Min",0.0);
   _MetLDMax = config -> GetValue("Cut.Event.MetLD.Max",999.0);
+  _MetLDTight = config -> GetValue("Cut.Event.MetLD.Tight",0.0);
 
 
 }//BookHistograms()
@@ -152,12 +154,26 @@ Bool_t CutMetLD::Apply()
   Bool_t passesMetLDCut = kTRUE;
   
   Bool_t isEE = kFALSE;
+  Bool_t isSFOS = kFALSE;
   
   std::vector<Lepton> leptonVector;
+  Int_t n_presel_jet = EventContainerObj -> jets.size();
 
   leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
   
   if(leptonVector.size()>=2 && fabs(leptonVector[0].pdgId())==11 && fabs(leptonVector[1].pdgId())==11)isEE = kTRUE;
+  
+  // find SFOS leptons
+  for(uint lep1_en; lep1_en<leptonVector.size(); lep1_en++){
+    Double_t lep1_pdg = leptonVector[lep1_en].pdgId();
+    for(uint lep2_en; lep2_en<leptonVector.size(); lep2_en++){
+        Double_t lep2_pdg = leptonVector[lep2_en].pdgId();
+        if((lep1_pdg+lep2_pdg)==0){
+            isSFOS = kTRUE;
+            break;
+        }
+    }
+  }
 
   Float_t MetLD = EventContainerObj->metLD;
 
@@ -172,8 +188,13 @@ Bool_t CutMetLD::Apply()
   cutFlowNameStream << "MetLD.All";
   cutFlowName = cutFlowNameStream.str().c_str();
 
-  if (MetLD < _MetLDMin && isEE ){
-    passesMetLDCut = kFALSE;
+  if(!_isTriLep){
+    if(MetLD < _MetLDMin && isEE)passesMetLDCut = kFALSE;
+  }else{
+    if(!(n_presel_jet >=4 || MetLD > (isSFOS? _MetLDTight : _MetLDMin)))passesMetLDCut = kTRUE;
+  }
+
+  if (!passesMetLDCut ){
     GetCutFlowTable()->FailCut(cutFlowName);
   }
   else{
@@ -182,7 +203,7 @@ Bool_t CutMetLD::Apply()
   }
 
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesMetLDCut ){
-    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesMetLDCut: MetLD is " << MetLD  << " IsEE "<< isEE << std::endl; 
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesMetLDCut:  isTriLep? " << _isTriLep << " MetLD is "<< MetLD  << " IsEE? "<< isEE <<" Jet number "<< n_presel_jet << " isSFOS? "<< isSFOS<< std::endl; 
   }
   return passesMetLDCut;
 

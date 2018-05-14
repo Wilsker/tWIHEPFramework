@@ -35,7 +35,7 @@ class CutMetLD : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutMetLD(EventContainer *EventContainerObj);
+  CutMetLD(EventContainer *EventContainerObj, Bool_t isTriLep=false);
   
   // Destructor
   ~CutMetLD();
@@ -59,7 +59,9 @@ private:
   // Cut parameters
   Double_t _MetLDMin;           // Minimum MetLD
   Double_t _MetLDMax;           // Maximum MetLD
+  Double_t _MetLDTight;           // Tighter Cut for 3L  MetLD
 
+  Bool_t _isTriLep;
 };
 
 

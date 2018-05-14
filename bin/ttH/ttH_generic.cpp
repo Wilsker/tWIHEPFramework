@@ -344,7 +344,7 @@ int main(int argc, char **argv)
   if(!isTrainMVA){
     mystudy.AddCut(new CutZveto(particlesObj));
     mystudy.AddCut(new CutMassL(particlesObj));
-    mystudy.AddCut(new CutMetLD(particlesObj));
+    mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
   }
    // mystudy.AddCut(new CutHiggsDecay(particlesObj));
    // mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
