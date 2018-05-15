@@ -12,6 +12,7 @@ Weight.Lumi: 35900.
 # 100000 - TTHnobb
 Weight.Source.100000: 0.215
 Events.Source.100000: 3905631
+PileUp.Source.100000: ttHJetToNonbb_M125_amcatnlo
 
 # 100001 - TTWToLNuext2
 Weight.Source.100001: 0.196

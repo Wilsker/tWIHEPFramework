@@ -87,13 +87,16 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
     setPileUpWgt(false);
   }
  **/
+  //std::cout << "Debug line 89 ######### " << std::endl;
   SetEventContainer(EventContainerObj);
-  if(MCtype.find("UseTotalEvtFromFile")<=MCtype.size()){
+  TString pileupHistName=" ";
+  if(MCtype.find("UseTotalEvtFromFile")<=MCtype.size()){ // please keep this to be true so that we can read pileup histograms
     Int_t sNumber = EventContainerObj -> GetSourceNumber();
-    stringstream strNumber;
+    stringstream strNumber, puName;
     strNumber<<"Events.Source."<<sNumber;
+    puName <<"PileUp.Source."<<sNumber;
     Double_t totMCnloEvt = conf -> GetValue(strNumber.str().c_str(), -1.);
-
+    pileupHistName=conf -> GetValue(puName.str().c_str(),"null");
     SetTotalMCatNLOEvents(totMCnloEvt);
   } else {
     SetTotalMCatNLOEvents(TotalMCatNLOEvents);
@@ -102,20 +105,32 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
   if(pileup){
     setPileUpWgt(true);
     TFile* dataPVFile = TFile::Open(conf -> GetValue("Include.dataPVFile","null"),"READ");
-    _dataPV = (TH1F*)dataPVFile->Get("pileup");
+    _dataPV = (TH1D*)dataPVFile->Get("pileup");
     _dataPV->SetDirectory(0);
     _dataPV->Scale(1./_dataPV->Integral());
+    
+    setPileUpSyst(true);
+    _minBiasUpPV = (TH1D*)dataPVFile->Get("pileup_plus");
+    _minBiasUpPV->SetDirectory(0);
+    _minBiasUpPV->Scale(1./_minBiasUpPV->Integral());
+    
+    _minBiasDownPV = (TH1D*)dataPVFile->Get("pileup_minus");
+    _minBiasDownPV->SetDirectory(0);
+    _minBiasDownPV->Scale(1./_minBiasDownPV->Integral());
     dataPVFile->Close();
     delete dataPVFile;
     
+    
     TFile* mcPVFile = TFile::Open(conf -> GetValue("Include.mcPVFile","null"),"READ");
-    _mcPV = (TH1F*)mcPVFile->Get("pileup");
+    std::cout << "pileupHistName is " << pileupHistName << std::endl;
+    _mcPV = (TH1D*)mcPVFile->Get(pileupHistName);
     _mcPV->SetDirectory(0);
     _mcPV->Scale(1./_mcPV->Integral());
     mcPVFile->Close();
     delete mcPVFile;
 
     //Load in the pileup distributions with the min bias x-section altered for systematic studies
+    /*
     string minBiasFileName = conf -> GetValue("Include.minBiasUp","null");
     if (minBiasFileName != "null"){
       TFile* minBiasUpFile = TFile::Open(minBiasFileName.c_str(),"READ");
@@ -136,6 +151,7 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
       minBiasDownFile->Close();
       delete minBiasDownFile;
     }
+    */
 
   }
   else setPileUpWgt(false);

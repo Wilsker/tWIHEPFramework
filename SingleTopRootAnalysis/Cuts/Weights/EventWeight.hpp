@@ -133,11 +133,11 @@ private:
   TH2F* _eleLooseToTightSF;
 
   //Pileup reweighting hisotgrams
-  TH1F* _dataPV;
-  TH1F* _mcPV;
+  TH1D* _dataPV;
+  TH1D* _mcPV;
   //Pileup reweighting systematic histograms
-  TH1F* _minBiasUpPV;
-  TH1F* _minBiasDownPV;
+  TH1D* _minBiasUpPV;
+  TH1D* _minBiasDownPV;
 
   //For debugging
   Bool_t _verbose;
