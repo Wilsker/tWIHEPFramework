@@ -306,8 +306,11 @@ void EventWeight::BookHistogram()
   } //if
 
   //Set up the lepton efficiency SF histograms
-  if (_useLeptonSFs) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFsFile","null"),conf->GetValue("LeptonID.MuonLooseToTightHistName","null"),conf->GetValue("Include.EleLooseToTightSFsFile","null"),conf->GetValue("LeptonID.EleLooseToTightHistName","null"));
-
+  if (_useLeptonSFs){
+      if(_whichTrigger <=5 && _whichTrigger >=2) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFs2lFile","null"),conf->GetValue("LeptonID.MuonLooseToTight2lHistName","null"),conf->GetValue("Include.EleLooseToTightSFs2lFile","null"),conf->GetValue("LeptonID.EleLooseToTight2lHistName","null"));
+      else if(_whichTrigger ==6) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFs3lFile","null"),conf->GetValue("LeptonID.MuonLooseToTight3lHistName","null"),conf->GetValue("Include.EleLooseToTightSFs3lFile","null"),conf->GetValue("LeptonID.EleLooseToTight3lHistName","null"));
+      else { std::cout << "You want leptonSFs included in the weight but you haven't specified correct trigger type for this! Fix your config!" << std::endl;}
+  }
   //Set up the lepton charge mismeasurement histograms
   if (_useChargeMis) setChargeMisHistograms(conf->GetValue("Include.ChargeMisFile","null"),conf->GetValue("ChargeMis.HistName","null"));
   
@@ -621,7 +624,7 @@ void EventWeight::setLeptonHistograms(TString muonIDFileName, TString muonIDHist
 std::tuple<Double_t,Double_t,Double_t> EventWeight::getLeptonWeight(EventContainer* EventContainerObj){
 
   Double_t leptonWeight = 1.0, leptonWeightUp = 1.0, leptonWeightDown = 1.0;
-  if(_whichTrigger <=5 && _whichTrigger >=2 ){//if it is ttH 2l category
+  if(_whichTrigger <=6 && _whichTrigger >=2 ){//if it is ttH category
     for(auto const & lep: *EventContainerObj->leptonsToUsePtr){
         Float_t _L1_SF = 1.0, _L1_SFUnc =0.;//iso; id1
         Float_t _L2_SF = 1.0, _L2_SFUnc =0.;//id; id2
@@ -914,6 +917,10 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getTriggerWeight(){
       TriggerWeight = 1.01; 
       TriggerWeightUp = 1.02;
       TriggerWeightDown = 1.00;
+  }else if(_whichTrigger==6){//3l
+      TriggerWeight = 1.00; 
+      TriggerWeightUp = 1.03;
+      TriggerWeightDown = 0.97;
   }else{
       TriggerWeight = 1.00; 
       TriggerWeightUp = 1.03;
