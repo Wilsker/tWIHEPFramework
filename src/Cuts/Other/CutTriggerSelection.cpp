@@ -162,10 +162,10 @@ Bool_t CutTriggerSelection::Apply()
   if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==24)selectedChannel =4; //isEM
   if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==26)selectedChannel =2; //isMM
   if(ContainerObj -> fakeLeptons.size()>=3 && _whichtrigger == 6 ){
-    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==33)selectedChannel =61;//isEEE
-    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==35)selectedChannel =62;//isEEM
-    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==37)selectedChannel =63;//isEMM
-    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId()+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==39)selectedChannel =64;//isMMM
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==33)selectedChannel =61;//isEEE
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==35)selectedChannel =62;//isEEE
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==37)selectedChannel =63;//isEEE
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==39)selectedChannel =64;//isEEE
   }
 
   Int_t SourceNumber = GetEventContainer()->GetSourceNumber();
@@ -276,7 +276,7 @@ Bool_t CutTriggerSelection::Apply()
   cutFlowName = cutFlowNameStream.str().c_str();
   
   if( ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber && !passesTrigger ){
-    std::cout<< " Event " << ContainerObj->_debugEvt <<" Fail passesTrigger : _whichtrigger is "<< _whichtrigger << " MMtrigger "<< MMtrigger << " EEtrigger "<< EEtrigger <<" EMtrigger "<< EMtrigger << " TrilepTrigger "<< TriLeptrigger<< " 3l trigger path "<< TriLeptriggerPath<< std::endl; 
+    std::cout<< " Event " << ContainerObj->_debugEvt <<" Fail passesTrigger : _whichtrigger is "<< _whichtrigger << " MMtrigger "<< MMtrigger << " EEtrigger "<< EEtrigger <<" EMtrigger "<< EMtrigger << " TrilepTrigger "<< TriLeptrigger<< " 3l trigger path "<< TriLeptriggerPath<< " selectedChannel 61:EEE/62:EEM/63:EMM/64:MMM "<< selectedChannel<< std::endl; 
   }
   
   if (passesTrigger){

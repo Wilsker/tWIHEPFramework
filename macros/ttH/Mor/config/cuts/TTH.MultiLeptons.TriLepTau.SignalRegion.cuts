@@ -42,13 +42,13 @@ Cut.Trilepton.TTHFake.NumTightMax: 999
 Cut.Tau.Loose.Number.Min:  1
 Cut.Tau.Loose.Number.Max:  999
 Cut.Tau.Medium.Number.Min:  0
-Cut.Tau.Medium.Number.Max:  1 
+Cut.Tau.Medium.Number.Max:  999 
 Cut.Tau.VTight.Number.Min:  0
 Cut.Tau.VTight.Number.Max:  999
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
-Cut.Jet.Number.Min:  3
+Cut.Jet.Number.Min:  2
 Cut.Jet.Number.Max:  999 
 Cut.Jet.Pt.1.Min:  25
 Cut.Jet.Pt.1.Max: 999

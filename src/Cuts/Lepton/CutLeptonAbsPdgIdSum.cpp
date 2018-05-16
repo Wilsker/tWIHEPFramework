@@ -146,6 +146,12 @@ void CutLeptonAbsPdgIdSum::BookHistogram(){
    cutFlowTitleStream << leptonType.Data() << " Dilepton : em? ";
   } else if(_LeptonAbsPdgIdSum ==26 ){
    cutFlowTitleStream << leptonType.Data() << " Dilepton : mm? ";
+  } else if(_LeptonAbsPdgIdSum ==46 ){
+   cutFlowTitleStream << leptonType.Data() << " Dilepton : ee or em? ";
+  } else if(_LeptonAbsPdgIdSum ==48 ){
+   cutFlowTitleStream << leptonType.Data() << " Dilepton : ee or mm? ";
+  } else if(_LeptonAbsPdgIdSum ==50 ){
+   cutFlowTitleStream << leptonType.Data() << " Dilepton : mm or em? ";
   }else{
    cutFlowTitleStream << leptonType.Data() << " Dilepton : any flavor ";
   }
@@ -247,8 +253,13 @@ Bool_t CutLeptonAbsPdgIdSum::Apply()
   cutFlowNameAllStream << leptonType.Data() << "Dilepton.AbsPdgIdSum.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( _LeptonAbsPdgIdSum != LeptonPairAbsPdgIdSum && _LeptonAbsPdgIdSum != 999 ){
-    LeptonAbsPdgIdSumPass = kFALSE;
+  if((_LeptonAbsPdgIdSum ==22 || _LeptonAbsPdgIdSum == 24 || _LeptonAbsPdgIdSum == 26) && _LeptonAbsPdgIdSum != LeptonPairAbsPdgIdSum)LeptonAbsPdgIdSumPass = kFALSE;
+  else if (_LeptonAbsPdgIdSum ==46 && LeptonPairAbsPdgIdSum != 22 && LeptonPairAbsPdgIdSum !=24 )LeptonAbsPdgIdSumPass = kFALSE;
+  else if (_LeptonAbsPdgIdSum ==48 && LeptonPairAbsPdgIdSum != 22 && LeptonPairAbsPdgIdSum !=26 )LeptonAbsPdgIdSumPass = kFALSE;
+  else if (_LeptonAbsPdgIdSum ==50 && LeptonPairAbsPdgIdSum != 24 && LeptonPairAbsPdgIdSum !=26 )LeptonAbsPdgIdSumPass = kFALSE;
+  else LeptonAbsPdgIdSumPass = kTRUE;
+  
+  if (!LeptonAbsPdgIdSumPass){
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
   else{

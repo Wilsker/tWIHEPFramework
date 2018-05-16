@@ -306,10 +306,10 @@ int main(int argc, char **argv)
   }else{
     mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
+    mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   }
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
 
-  mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
   mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
   /*
   if(!isTrainMVA){
@@ -339,8 +339,8 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutJetPt1(particlesObj));
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
-  mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  mystudy.AddCut(new CutTauCharge(particlesObj,"Loose", isTriLepton));
+  //mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
+  //mystudy.AddCut(new CutTauCharge(particlesObj,"Loose", isTriLepton));
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   if(!isTrainMVA){

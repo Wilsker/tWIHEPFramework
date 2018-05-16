@@ -9,7 +9,7 @@ Cut.Trigger.Channel:TTHLep_3L
 
 ################# Lepton Cuts #########################
 # Number of Leptons
-Cut.Lepton.TTHTight.Number.Min:  3
+Cut.Lepton.TTHTight.Number.Min:  0
 Cut.Lepton.TTHTight.Number.Max:  999
 Cut.Lepton.TTHFake.Number.Min:  3
 Cut.Lepton.TTHFake.Number.Max:  999
@@ -17,7 +17,7 @@ Cut.Electron.TTHFake.LeadingPt:  25
 Cut.Electron.TTHFake.SubLeadingPt:  15
 Cut.Electron.TTHFake.ThirdPt:  10
 Cut.Muon.TTHFake.LeadingPt:  25
-Cut.Muon.TTHFake.SubLeadingPt:  10
+Cut.Muon.TTHFake.SubLeadingPt:  15
 Cut.Muon.TTHFake.ThirdPt:  10
 ################# Muon Cuts #########################
 # Number of  Muons
@@ -48,7 +48,7 @@ Cut.Tau.VTight.Number.Max:  0
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
-Cut.Jet.Number.Min:  3
+Cut.Jet.Number.Min:  2
 Cut.Jet.Number.Max:  999 
 Cut.Jet.Pt.1.Min:  25
 Cut.Jet.Pt.1.Max: 999
@@ -96,10 +96,6 @@ Cut.Event.Zveto.Min:   81.2
 Cut.Event.Zveto.Max:   101.2
 Cut.Event.Zveto.isOffZ:   1
 
-################ 4 Lepton veto Cuts #####################
-# M_4L Cut
-Cut.Event.TTHLoose.Mass4L.Min: 140.
-
 ################ MetLD Cuts #####################
 # MetLD Cut
 Cut.Event.MetLD.Min:   0.2
@@ -110,3 +106,6 @@ Cut.Event.MetLD.Tight:   0.3
 # MassL Cut
 Cut.Event.MassLveto.Min:   0
 Cut.Event.MassLveto.Max:   12
+
+############### M4L Cut ###########
+Cut.Event.TTHLoose.Mass4L.Min: 140
