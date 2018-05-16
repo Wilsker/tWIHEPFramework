@@ -82,6 +82,7 @@
 #include "SingleTopRootAnalysis/Vars/ttHVars.hpp"
 #include "SingleTopRootAnalysis/Vars/HjTagger.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
+#include "SingleTopRootAnalysis/Vars/DNNVars.hpp"
 
 using std::cout;
 using std::endl;
@@ -384,6 +385,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
+  mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
   TFile *_skimBDTFile;
