@@ -11,6 +11,11 @@ eventLists/
 errorLog
 moreCopies.txt
 *#*
-*root
 log
 *.tar.*
+*.txt
+lib/
+bin/ttH/ttH_generic.x
+.*
+*Class.cc
+obj/
