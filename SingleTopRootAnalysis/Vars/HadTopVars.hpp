@@ -38,6 +38,15 @@ private:
     Float_t get_hadTopMVA(int numbJet, EventContainer* EvtObj);
 
     std::vector<double> Jet25_isToptag;
+    std::vector<double> HadTop_bjet_lepTop_csv;
+    std::vector<double> HadTop_bjet_hadTop_csv;
+    std::vector<double> HadTop_reco_hadTop_pt;
+    std::vector<double> HadTop_reco_hadTop_mass;
+    std::vector<double> HadTop_reco_WhadTop_mass;
+    std::vector<double> HadTop_PtRatio_leptOverleph;
+    std::vector<double> HadTop_Dr_lept_bfromlTop;
+    std::vector<double> HadTop_Dr_lept_bfromhTop;
+    std::vector<double> HadTop_Dr_leph_bfromlTop;
     std::vector<Float_t> Jet_null_pt; 
     std::vector<Float_t> Jet_null_eta; 
     std::vector<Float_t> Jet_null_phi;

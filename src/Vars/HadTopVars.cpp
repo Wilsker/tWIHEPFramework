@@ -22,6 +22,15 @@ HadTopVars::HadTopVars(bool makeHistos){
   _floatVars["hadTop_BDT"] = -1.;
  
   _doubleVecs["Jet25_isToptag"] = {-0.1, 1.9 }; 
+  _doubleVecs["HadTop_bjet_lepTop_csv"] = {-0.1,100};
+  _doubleVecs["HadTop_bjet_hadTop_csv"] = {-0.1,100};
+  _doubleVecs["HadTop_reco_hadTop_pt"] = {-0.1,100};
+  _doubleVecs["HadTop_reco_hadTop_mass"] = {-0.1,100};
+  _doubleVecs["HadTop_reco_WhadTop_mass"] = {-0.1,100};
+  _doubleVecs["HadTop_PtRatio_leptOverleph"] = {-0.1,100};
+  _doubleVecs["HadTop_Dr_lept_bfromlTop"] = {-0.1,100};
+  _doubleVecs["HadTop_Dr_lept_bfromhTop"] = {-0.1,100};
+  _doubleVecs["HadTop_Dr_leph_bfromlTop"] = {-0.1,100};
 
   SetDoHists(makeHistos);
 
@@ -29,6 +38,15 @@ HadTopVars::HadTopVars(bool makeHistos){
 
 void HadTopVars::Clear(){
   Jet25_isToptag.clear();
+  HadTop_bjet_lepTop_csv.clear();
+  HadTop_bjet_hadTop_csv.clear();
+  HadTop_reco_hadTop_pt.clear();
+  HadTop_reco_hadTop_mass.clear();
+  HadTop_reco_WhadTop_mass.clear();
+  HadTop_PtRatio_leptOverleph.clear();
+  HadTop_Dr_lept_bfromlTop.clear();
+  HadTop_Dr_lept_bfromhTop.clear();
+  HadTop_Dr_leph_bfromlTop.clear();
   Jet_null_pt.clear();
   Jet_null_eta.clear();
   Jet_null_phi.clear();
@@ -106,6 +124,15 @@ void HadTopVars::FillBranches(EventContainer * evtObj){
   }
 
   _doubleVecs["Jet25_isToptag"] = Jet25_isToptag; 
+  _doubleVecs["HadTop_bjet_lepTop_csv"] = HadTop_bjet_lepTop_csv;
+  _doubleVecs["HadTop_bjet_hadTop_csv"] = HadTop_bjet_hadTop_csv;
+  _doubleVecs["HadTop_reco_hadTop_pt"] = HadTop_reco_hadTop_pt;
+  _doubleVecs["HadTop_reco_hadTop_mass"] = HadTop_reco_hadTop_mass;
+  _doubleVecs["HadTop_reco_WhadTop_mass"] = HadTop_reco_WhadTop_mass;
+  _doubleVecs["HadTop_PtRatio_leptOverleph"] = HadTop_PtRatio_leptOverleph;
+  _doubleVecs["HadTop_Dr_lept_bfromlTop"] = HadTop_Dr_lept_bfromlTop;
+  _doubleVecs["HadTop_Dr_lept_bfromhTop"] = HadTop_Dr_lept_bfromhTop;
+  _doubleVecs["HadTop_Dr_leph_bfromlTop"] = HadTop_Dr_leph_bfromlTop;
   if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
 }
@@ -203,6 +230,15 @@ void HadTopVars::Reco_hadTop(EventContainer *EvtObj){
        EvtObj->varDr_lept_bfromhTop = bjet_fromHadTop_tlv.Pt()==0? -1: lep_fromTop_tlv.DeltaR(bjet_fromHadTop_tlv);
        EvtObj->varDr_leph_bfromlTop = bjet_fromLepTop_tlv.Pt()==0? -1: lep_fromHiggs_tlv.DeltaR(bjet_fromLepTop_tlv);
        Float_t mva_value= get_hadTopMVA(Jet_numbMedium, EvtObj);
+       HadTop_bjet_lepTop_csv.push_back(Jet_null_csv.at(blep_en));
+       HadTop_bjet_hadTop_csv.push_back(Jet_null_csv.at(bhad_en));
+       HadTop_reco_hadTop_pt.push_back(hadTop_tlv.Pt());
+       HadTop_reco_hadTop_mass.push_back(hadTop_tlv.M());
+       HadTop_reco_WhadTop_mass.push_back(w_fromHadTop_tlv.M());
+       HadTop_PtRatio_leptOverleph.push_back(lep_fromTop_tlv.Pt()/lep_fromHiggs_tlv.Pt());
+       HadTop_Dr_lept_bfromlTop.push_back((bjet_fromLepTop_tlv.Pt()==0 ? -1: lep_fromTop_tlv.DeltaR(bjet_fromLepTop_tlv)));
+       HadTop_Dr_lept_bfromhTop.push_back((bjet_fromHadTop_tlv.Pt()==0? -1: lep_fromTop_tlv.DeltaR(bjet_fromHadTop_tlv)));
+       HadTop_Dr_leph_bfromlTop.push_back((bjet_fromLepTop_tlv.Pt()==0? -1: lep_fromHiggs_tlv.DeltaR(bjet_fromLepTop_tlv)));
        if(mva_value > hadTop_BDT){
         hadTop_BDT = mva_value;
         bjet_lepTop_index = bjet_lepTop_INDEX;
