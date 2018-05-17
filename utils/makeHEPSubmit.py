@@ -13,14 +13,14 @@ frameworkDir = "/publicfs/cms/data/TopQuark/cms13TeV/Binghuan/tWIHEPFramework/"
 executable = "bin/ttH/ttH_generic.x"
 #executable = "Wt_nVertOnly.x"
 configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
-invPostfix = " -MCatNLO -mc -bTagReshape -lepSFs -PileUpWgt -TriggerSFs "
-#mcPostfix = " -MCatNLO -mc -bTagReshape -lepSFs -PileUpWgt -chargeMis -FakeRate -TriggerSFs"
-#mcPostfix = " -MCatNLO -mc -lepSFs -chargeMis -FakeRate -TriggerSFs -bTagReshape"
-mcPostfix = " -chargeMis -FakeRate"
+#invPostfix = " -MCatNLO -mc -lepSFs -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs"
+invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs"
+#mcPostfix = " -mcPromptFS -mcPromptGamma -FakeRate -mcPromptFS -chargeMis" 
+mcPostfix = " "
 triggerName = "TTHLep_2L "
 nJets = 3
 nbJets = 1
-fileListDirectory = "config/files/ttH_2018/Preliminary/"
+fileListDirectory = "config/files/ttH_2018/Fall17V1/mc/"
 makeSkims = True
 samplesMC76=[
 "qcd1000_1500",
@@ -44,11 +44,14 @@ samplesMC76=[
 "zPlusJetsHighMass",
 "wPlusJetsMCatNLO"
 ]
-#samplesMC=[
-#"TTHnobb","TTWToLNuext2","TTWToLNuext1","TTZToLLNuNu","TTZToLL_M1to10","TTJets_sinLepTbar_v1","TTJets_sinLepTbar_ext1","TTJets_sinLepT_v1","TTJets_sinLepT_ext1","TTJets_diLep_v1","TTJets_diLep_ext1","TTGToJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG_ext1","ZGTo2LG","TGJets_ext1","WpWpJJ","WW_DS_To2L2Nu","WWW_4F","WWZ","WZZ","ZZZ","tZq","TTTT","tWll","amcWJets","WZTo3LNu","WWTo2L2Nu","ZZTo4L"
+samples94XData = [
+"SEleBlockB", "SEleBlockC", "SEleBlockD", "SEleBlockE", "SEleBlockF", "SMuBlockB", "SMuBlockC", "SMuBlockD", "SMuBlockE", "SMuBlockF", "DblEGBlockB", "DblEGBlockC", "DblEGBlockD", "DblEGBlockE", "DblEGBlockF", "DblMuBlockB", "DblMuBlockC", "DblMuBlockD", "DblMuBlockE", "DblMuBlockF", "MuEGBlockB", "MuEGBlockC", "MuEGBlockD", "MuEGBlockE", "MuEGBlockF",
+]
+#samples94MC=[
+#"TTHnobb", "ttH_powheg_ToNonbb", "TTWToLNu", "TTW_PSwgt_ToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_M50", "DY_ext_M50", "WJets", "WWTo2L2Nu", "WZTo3LNu", "ZZTo4L", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron", "ST_tW_top", "ST_tW_antitop", "STt_top", "STt_antitop", "STs", "TTGJets", "tZq", "WW_DoubleScatter", "WW_DS_To2L2Nu", "WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune"
 #]
 samplesMC=[
-"TTHnobb","TTWToLNu","TTZToLL","TTJets"
+"TTHnobb", "ttH_powheg_ToNonbb", "TTWToLNu", "TTW_PSwgt_ToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_M50", "DY_ext_M50", "WJets", "WWTo2L2Nu", "WZTo3LNu", "ZZTo4L", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron", "ST_tW_top", "ST_tW_antitop", "STt_top", "STt_antitop", "STs", "TTGJets", "tZq","WW_DS_To2L2Nu", "WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune"
 ]
 #samplesMC = [
 #"TTHnobb","TTWToLNuext2","TTWToLNuext1"
@@ -189,6 +192,16 @@ if "mva" in sys.argv:
     mcPostfix = " -isTrainMVA"
     configFile = "config/overall/ttH.MultiLeptons.DiLepTrainMVA.config"
     analysis += "TrainMVA"
+elif "ttZctrl" in sys.argv:
+    triggerName = "TTHLep_3L "
+    configFile = "config/overall/ttH.MultiLeptons.ttZControl.config"
+    analysis += "ttZctrl"
+elif "ttWctrl" in sys.argv:
+    configFile = "config/overall/ttH.MultiLeptons.ttWControl.config"
+    analysis += "ttWctrl"
+elif "lepSB" in sys.argv:
+    configFile = "config/overall/ttH.MultiLeptons.LeptonSideband.config"
+    analysis += "lepSB"
 elif "convs" in sys.argv:
     mcPostfix = " -mcPromptGamma"
     analysis += "Conv"
@@ -197,22 +210,47 @@ else :
     mcPostfix = " -mcPromptFS"
 if "data" in sys.argv:
     mcPostfix = ""
-    analysis += "Data"
-    if triggerName == "TTHLep_MuEle ":
+    analysis = "ttHData"
+    sample = samples94XData
+    fileListDirectory = "config/files/ttH_2018/Fall17V1/data/"
+    if "ttZctrl" in sys.argv:
+        analysis += "ttZctrl"
+        triggerName = "TTHLep_3L "
+        configFile = "config/overall/ttH.MultiLeptons.ttZControl.config"
+    elif "ttWctrl" in sys.argv:
+        analysis += "ttWctrl"
+        configFile = "config/overall/ttH.MultiLeptons.ttWControl.config"
+    elif "lepSB" in sys.argv:
+        analysis += "lepSB"
+        configFile = "config/overall/ttH.MultiLeptons.LeptonSideband.config"
+    elif triggerName == "TTHLep_2L ":
+        configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
+    elif triggerName == "TTHLep_MuEle ":
         sample = samplesDataMuEle
         configFile = "config/overall/ttH.MultiLeptons.EleMuSR.config"
-    if triggerName == "TTHLep_2Mu ":
+    elif triggerName == "TTHLep_2Mu ":
         sample = samplesDataDiMu
         configFile = "config/overall/ttH.MultiLeptons.DiMuSR.config"
-    if triggerName == "TTHLep_2Ele ":
+    elif triggerName == "TTHLep_2Ele ":
         sample = samplesDataDiEle
         configFile = "config/overall/ttH.MultiLeptons.DiEleSR.config"
-    if "electron" in sys.argv:
+    elif "electron" in sys.argv:
         sample = samplesDataElectron
 if "fakes" in sys.argv:
-    mcPostfix = "-FakeRate"
-    analysis += "fakes"
-    if triggerName == "TTHLep_MuEle ":
+    mcPostfix = " -FakeRate"
+    analysis = "ttHfakes"
+    sample = samples94XData
+    fileListDirectory = "config/files/ttH_2018/Fall17V1/data/"
+    if "ttZctrl" in sys.argv:
+        analysis += "ttZctrl"
+        triggerName = "TTHLep_3L "
+        configFile = "config/overall/ttH.MultiLeptons.ttZControlFakes.config"
+    elif "ttWctrl" in sys.argv:
+        analysis += "ttWctrl"
+        configFile = "config/overall/ttH.MultiLeptons.ttWControlFakes.config"
+    elif triggerName == "TTHLep_2L ":
+        configFile = "config/overall/ttH.MultiLeptons.DiLepFakes.config"
+    elif triggerName == "TTHLep_MuEle ":
         sample = samplesDataMuEle
         configFile = "config/overall/ttH.MultiLeptons.EleMuFakes.config"
     if triggerName == "TTHLep_2Mu ":
@@ -222,8 +260,15 @@ if "fakes" in sys.argv:
         sample = samplesDataDiEle
         configFile = "config/overall/ttH.MultiLeptons.DiEleFakes.config"
 if "flips" in sys.argv:
-    mcPostfix = "-chargeMis"
-    analysis += "flips"
+    mcPostfix = " -chargeMis"
+    analysis = "ttHflips"
+    sample = samples94XData
+    fileListDirectory = "config/files/ttH_2018/Fall17V1/data/"
+    if "ttWctrl" in sys.argv:
+        analysis += "ttWctrl"
+        configFile = "config/overall/ttH.MultiLeptons.ttWControlFlips.config"
+    elif triggerName == "TTHLep_2L ":
+        configFile = "config/overall/ttH.MultiLeptons.DiLepFlips.config"
     if triggerName == "TTHLep_MuEle ":
         sample = samplesDataMuEle
         configFile = "config/overall/ttH.MultiLeptons.EleMuFlips.config"
@@ -233,6 +278,10 @@ if "flips" in sys.argv:
     if triggerName == "TTHLep_2Ele ":
         sample = samplesDataDiEle
         configFile = "config/overall/ttH.MultiLeptons.DiEleFlips.config"
+if triggerName == "TTHLep_2L ":
+    analysis += "2L"
+if triggerName == "TTHLep_3L ":
+    analysis += "3L"
 if "systs" in sys.argv:
     analysis += "Systs"
     sample = samplesSyst
