@@ -152,13 +152,13 @@ Bool_t CutHiggsDecay::Apply()
  
   Bool_t passesHiggsDecayCut = kTRUE;
   
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==0 && !(higgsDecay == 2 || higgsDecay ==3 || higgsDecay ==6))passesHiggsDecayCut = kFALSE;  
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==1 && !(higgsDecay == 2 ))passesHiggsDecayCut = kFALSE; // WW 
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==2 && !(higgsDecay == 3 ))passesHiggsDecayCut = kFALSE;  // TauTau
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==3 && !(higgsDecay == 6 ))passesHiggsDecayCut = kFALSE;  // ZZ
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==4 && !(higgsDecay == 2 ||  higgsDecay ==6 ))passesHiggsDecayCut = kFALSE;  
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==5 && !(higgsDecay == 2 || higgsDecay ==3 ))passesHiggsDecayCut = kFALSE;  
-  if(EventContainerObj->GetSourceName().Contains("TTHnobb") && _HiggsDecayType ==6 && !(higgsDecay == 2 || higgsDecay ==6 ))passesHiggsDecayCut = kFALSE;  
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==0 && !(higgsDecay == 2 || higgsDecay ==3 || higgsDecay ==6))passesHiggsDecayCut = kFALSE;  
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==1 && !(higgsDecay == 2 ))passesHiggsDecayCut = kFALSE; // WW 
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==2 && !(higgsDecay == 3 ))passesHiggsDecayCut = kFALSE;  // TauTau
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==3 && !(higgsDecay == 6 ))passesHiggsDecayCut = kFALSE;  // ZZ
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==4 && !(higgsDecay == 2 ||  higgsDecay ==6 ))passesHiggsDecayCut = kFALSE;  
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==5 && !(higgsDecay == 2 || higgsDecay ==3 ))passesHiggsDecayCut = kFALSE;  
+  if(EventContainerObj->GetSourceName().Contains("TTH") && _HiggsDecayType ==6 && !(higgsDecay == 2 || higgsDecay ==6 ))passesHiggsDecayCut = kFALSE;  
 
   //std::cout << " SourceName is " << EventContainerObj->GetSourceName() << " _HiggsDecayType is " << _HiggsDecayType << " HiggsDecay is " << higgsDecay << " pass Cut ? "<< passesHiggsDecayCut << std::endl;
   _hHiggsDecayBefore->Fill(higgsDecay);

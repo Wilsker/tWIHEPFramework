@@ -291,12 +291,13 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
-  //mystudy.AddCut(new CutMetFilter(particlesObj));
+  mystudy.AddCut(new CutPrimaryVertex(particlesObj));
+  mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
+  mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
@@ -311,7 +312,6 @@ int main(int argc, char **argv)
   }
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
 
-  mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
   /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
@@ -350,8 +350,8 @@ int main(int argc, char **argv)
     mystudy.AddCut(new CutMassL(particlesObj));
     mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
   }
-   // mystudy.AddCut(new CutHiggsDecay(particlesObj));
-   // mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
+  mystudy.AddCut(new CutHiggsDecay(particlesObj));
+  //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
   //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
@@ -385,7 +385,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
-  mystudy.AddVars(new DNNVars());
+  //mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
   TFile *_skimBDTFile;

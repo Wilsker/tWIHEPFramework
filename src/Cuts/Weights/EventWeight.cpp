@@ -469,7 +469,7 @@ Bool_t EventWeight::Apply()
  float TriggerWeight(1.0), TriggerWeightUp(1.0), TriggerWeightDown(1.0);
 
  if(_useTriggerSFs){
-   std::tie(TriggerWeight,TriggerWeightUp,TriggerWeightDown) = getTriggerWeight();
+   std::tie(TriggerWeight,TriggerWeightUp,TriggerWeightDown) = getTriggerWeight(EventContainerObj);
    //std::cout << EventContainerObj->eventNumber <<" " <<TriggerWeight <<"  " << TriggerWeightUp << "  " <<TriggerWeightDown << std::endl;
    wgt *= TriggerWeight;
  }
@@ -985,24 +985,26 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getFakeRateWeight(EventConta
  * Input:  None                                                               * 
  * Output: Double_t weight to be applied to the event weight                  * 
  ******************************************************************************/
-std::tuple<Double_t,Double_t,Double_t> EventWeight::getTriggerWeight(){
+std::tuple<Double_t,Double_t,Double_t> EventWeight::getTriggerWeight(EventContainer * EventContainerObj){
   Double_t TriggerWeight = 1.0, TriggerWeightUp = 1.0, TriggerWeightDown = 1.0;
-  if(_whichTrigger==2){//mm
+  Int_t category = 0;
+  if((fabs(EventContainerObj->fakeLeptons.at(0).pdgId())+fabs(EventContainerObj->fakeLeptons.at(1).pdgId()))==22)category =1;
+  else if((fabs(EventContainerObj->fakeLeptons.at(0).pdgId())+fabs(EventContainerObj->fakeLeptons.at(1).pdgId()))==24)category =2;
+  else if((fabs(EventContainerObj->fakeLeptons.at(0).pdgId())+fabs(EventContainerObj->fakeLeptons.at(1).pdgId()))==26)category =3;
+  if(_whichTrigger>=2 && _whichTrigger <=5){
+    if(category ==3){//mm
       TriggerWeight = 1.0; 
       TriggerWeightUp = 1.01;
       TriggerWeightDown = 0.99;
-  }else if(_whichTrigger==3){//ee
+    }else if(category==1){//ee
       TriggerWeight = 1.01; 
       TriggerWeightUp = 1.03;
       TriggerWeightDown = 0.99;
-  }else if(_whichTrigger==4){//em
+    }else if(category==2){//em
       TriggerWeight = 1.01; 
       TriggerWeightUp = 1.02;
       TriggerWeightDown = 1.00;
-  }else if(_whichTrigger==5){//2l
-      TriggerWeight = 1.01; 
-      TriggerWeightUp = 1.02;
-      TriggerWeightDown = 1.00;
+    }
   }else if(_whichTrigger==6){//3l
       TriggerWeight = 1.00; 
       TriggerWeightUp = 1.03;

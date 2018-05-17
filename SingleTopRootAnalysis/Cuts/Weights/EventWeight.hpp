@@ -156,7 +156,7 @@ private:
   std::tuple<Double_t,Double_t,Double_t> getFakeRateWeight(EventContainer * EventContainerObj);
   void setFakeRateHistograms(TString FakeRateFileName,TString FakeRateMuonHistName, TString FakeRateElectronHistName);
   // Trigger Sfs
-  std::tuple<Double_t,Double_t,Double_t> getTriggerWeight();
+  std::tuple<Double_t,Double_t,Double_t> getTriggerWeight(EventContainer* EventContainerObj);
 
   // BTagReshape
   Double_t getBTagReshape(EventContainer * EventContainerObj, std::string systName = "central");

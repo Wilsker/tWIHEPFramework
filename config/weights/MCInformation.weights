@@ -1,132 +1,182 @@
-# Combining the MC information into a single configuration file, because it's way too complicated as it is. 
-# The Weight.Source.ID is now the cross section * BR only. Lumi is included as an additional variable in this file so that changes in lumi can be applied easily.
-# 5th July 2015 - Duncan Leggat
-#########################################
-#I will be using my own codes because what is a D3PD.
-#########################################
-
-# The luminosity of the sample to be processed. For some reason before it was already in all of the weights, which is not ideal.
-#Weight.Lumi: 27217.
-Weight.Lumi: 35900.
-
+################# 
+### Fall 17 MC Informations #### 
+###################
+ 
+#The luminosity of the Sample to be processed
+Weight.Lumi: 41298
+ 
 # 100000 - TTHnobb
-Weight.Source.100000: 0.215
-Events.Source.100000: 3905631
+Weight.Source.100000: 0.2118
+Events.Source.100000: 3303585
 PileUp.Source.100000: ttHJetToNonbb_M125_amcatnlo
 
-# 100001 - TTWToLNuext2
-Weight.Source.100001: 0.196
-Events.Source.100001: 2304580
+# 100001 - TTH_powheg_ToNonbb
+Weight.Source.100001: 0.2118
+Events.Source.100001: 7453126
+PileUp.Source.100001: ttHToNonbb_M125_powheg
 
-# 100002 - TTWToLNuext1
-Weight.Source.100002: 0.196
-Events.Source.100002: 2304580
+# 100002 - DY_M10to50
+Weight.Source.100002: 18610
+Events.Source.100002: 38801157
+PileUp.Source.100002: DYJetsToLL_M-10to50
 
-# 100003 - TTZToLLNuNu
-Weight.Source.100003: 0.2728
-Events.Source.100003: 774457
+# 100003 - DY_M50
+Weight.Source.100003: 5765.4
+Events.Source.100003: 18197380
+PileUp.Source.100003: DYJetsToLL_M-50
 
-# 100004 - TTZToLL_M1to10
-Weight.Source.100004: 0.0493
-Events.Source.100004: 185686
+# 100004 - DY_ext_M50
+Weight.Source.100004: 5764.4
+Events.Source.100004: 125735724
+PileUp.Source.100004: DYJetsToLL_M-50_ext1
 
-# 100005 - TTJets_sinLepTbar_v1
-Weight.Source.100005: 182.18
-Events.Source.100005: 50375216
+# 100005 - ST_tW_antitop
+Weight.Source.100005: 35.85
+Events.Source.100005: 7697174
+PileUp.Source.100005: ST_tW_antitop_5f_inclusiveDecays
 
-# 100006 - TTJets_sinLepTbar_ext1
-Weight.Source.100006: 182.18
-Events.Source.100006: 50375216
+# 100006 - ST_tW_top
+Weight.Source.100006: 35.85
+Events.Source.100006: 7499888
+PileUp.Source.100006: ST_tW_top_5f_inclusiveDecays
 
-#100007 - TTJets_sinLepT_v1
-Weight.Source.100007: 182.18
-Events.Source.100007: 48115204
+# 100007 - STs
+Weight.Source.100007: 3.36
+Events.Source.100007: 5910707
+PileUp.Source.100007: ST_s-channel_4f_leptonDecays
 
-#100008 - TTJets_sinLepT_ext1
-Weight.Source.100008: 182.18
-Events.Source.100008: 48115204
+# 100008 - STt_antitop
+Weight.Source.100008: 80.95
+Events.Source.100008: 3891190
+PileUp.Source.100008: ST_t-channel_antitop_4f_inclusiveDecays
 
-#100009 - TTJets_diLep_v1
-Weight.Source.100009: 87.3 
-Events.Source.100009: 22737078
+# 100009 - STt_top
+Weight.Source.100009: 136.02
+Events.Source.100009: 5841455
+PileUp.Source.100009: ST_t-channel_top_4f_inclusiveDecays
 
-#100010 - TTJets_diLep_ext1
-Weight.Source.100010: 87.3
-Events.Source.100010: 22737078
+# 100010 - TTGJets
+Weight.Source.100010: 3.697
+Events.Source.100010: 1805186
+PileUp.Source.100010: TTGJets
 
-#100011 - TTGToJets_ext1
-Weight.Source.100011: 3.697
-Events.Source.100011: 3199101
+# 100011 - TTTT_Tune
+Weight.Source.100011: 0.008213
+Events.Source.100011: 371504
+PileUp.Source.100011: TTTT
 
-#100012 - WGToLNuG_ext2
-Weight.Source.100012: 585.8
-Events.Source.100012: 9798114
+# 100012 - TTTo2L2Nu
+Weight.Source.100012: 88.29
+Events.Source.100012: 8634992
+PileUp.Source.100012: TTTo2L2Nu
 
-#100013 - TGJets_v1
-Weight.Source.100013: 2.967
-Events.Source.100013: 366970
+# 100013 - TTToHadron
+Weight.Source.100013: 377.96
+Events.Source.100013: 42483408
+PileUp.Source.100013: TTToHadronic
 
-#100014 - WGToLNuG_ext1
-Weight.Source.100014: 585.8
-Events.Source.100014: 9798114
+# 100014 - TTToSemiLep
+Weight.Source.100014: 365.34
+Events.Source.100014: 40784585
+PileUp.Source.100014: TTToSemiLeptonic
 
-#100015 - ZGTo2LG
-Weight.Source.100015: 131.3
-Events.Source.100015: 9831911
+# 100015 - TTWToLNu
+Weight.Source.100015: 0.2043
+Events.Source.100015: 2652074
+PileUp.Source.100015: TTWJetsToLNu
 
-#100016 - TGJets_ext1
-Weight.Source.100016: 2.967
-Events.Source.100016: 366970
+# 100016 - TTWW
+Weight.Source.100016: 0.007834
+Events.Source.100016: 199010
+PileUp.Source.100016: TTWW
 
-#100017 - WpWpJJ
-Weight.Source.100017: 0.03711
-Events.Source.100017: 149677
+# 100017 - TTW_PSwgt_ToLNu
+Weight.Source.100017: 0.2043
+Events.Source.100017: 2657226
+PileUp.Source.100017: TTWJetsToLNu_PSweights
 
-#100018 -WW_DS_To2L2Nu
-Weight.Source.100018: 0.1729
-Events.Source.100018: 999349
+# 100018 - TTZToLLNuNu_M10
+Weight.Source.100018: 0.2529
+Events.Source.100018: 3555803
+PileUp.Source.100018: TTZToLL_M10
 
-#100019 - WWW_4F
-Weight.Source.100019: 0.2086
-Events.Source.100019: 210527
+# 100019 - TTZToLL_M1to10
+Weight.Source.100019: 0.0493
+Events.Source.100019: 131210
+PileUp.Source.100019: TTZToLL_M-1to10
 
-#100020 - WWZ
-Weight.Source.100020: 0.1651
-Events.Source.100020: 221461
+# 100020 - TT_PSwgt_To2L2Nu
+Weight.Source.100020: 88.29
+Events.Source.100020: 68931196
+PileUp.Source.100020: TTTo2L2Nu_PSweights
 
-#100021 - WZZ
-Weight.Source.100021: 0.05565
-Events.Source.100021: 216357
+# 100021 - TT_PSwgt_ToHadron
+Weight.Source.100021: 377.96
+Events.Source.100021: 128613320
+PileUp.Source.100021: TTToHadronic_PSweights
 
-#100022 - ZZZ
-Weight.Source.100022: 0.01398
-Events.Source.100022: 213192
+# 100022 - TT_PSwgt_ToSemiLep
+Weight.Source.100022: 365.34
+Events.Source.100022: 110268496
+PileUp.Source.100022: TTToSemiLeptonic_PSweights
 
-#100023 - tZq
-Weight.Source.100023: 0.0758
-Events.Source.100023: 3845965
+# 100023 - WJets
+Weight.Source.100023: 61526.7
+Events.Source.100023: 23219762
+PileUp.Source.100023: WJetsToLNu
 
-#100024 - TTTT
-Weight.Source.100024: 0.009103
-Events.Source.100024: 104632
+# 100024 - WWTo2L2Nu
+Weight.Source.100024: 12.178
+Events.Source.100024: 1811994
+PileUp.Source.100024: WWTo2L2Nu
 
-#100025 - tWll
-Weight.Source.100025: 0.01123
-Events.Source.100025: 49997
+# 100025 - WWW
+Weight.Source.100025: 0.2086
+Events.Source.100025: 210490
+PileUp.Source.100025: WWW_4F
 
-#100026 - amcWJets
-Weight.Source.100026: 61526.7
-Events.Source.100026: 16370054
+# 100026 - WWZ
+Weight.Source.100026: 0.1651
+Events.Source.100026: 221622
+PileUp.Source.100026: WWZ_4F
 
-#100027 - WZTo3LNu
-Weight.Source.100027: 4.42965
-Events.Source.100027: 1993154
+# 100027 - WW_DS_To2L2Nu
+Weight.Source.100027: 0.1743
+Events.Source.100027: 1000000
+PileUp.Source.100027: WWTo2L2Nu_DoubleScattering
 
-#100028 - WWTo2L2Nu
-Weight.Source.100028: 10.481
-Events.Source.100028: 1998956
+# 100028 - WW_DoubleScatter
+Weight.Source.100028: 0.32
+Events.Source.100028: 1000000
+PileUp.Source.100028: WWTo2L2Nu_DoubleScattering
 
-#100029 - ZZTo4L
-Weight.Source.100029: 1.256
-Events.Source.100029: 6669854
+# 100029 - WZTo3LNu
+Weight.Source.100029: 4.42965
+Events.Source.100029: 6738866
+PileUp.Source.100029: WZTo3LNu
+
+# 100030 - WZZ
+Weight.Source.100030: 0.05565
+Events.Source.100030: 219660
+PileUp.Source.100030: WZZ
+
+# 100031 - ZZTo4L
+Weight.Source.100031: 1.256
+Events.Source.100031: 6890129
+PileUp.Source.100031: ZZTo4L
+
+# 100032 - ZZZ
+Weight.Source.100032: 0.01398
+Events.Source.100032: 213514
+PileUp.Source.100032: ZZZ
+
+# 100033 - ZZ_ext_To4L
+Weight.Source.100033: 1.256
+Events.Source.100033: 94652057
+PileUp.Source.100033: ZZTo4L_ext1
+
+# 100034 - tZq
+Weight.Source.100034: 0.0758
+Events.Source.100034: 3433300
+PileUp.Source.100034: tZq_ll_4f
 
