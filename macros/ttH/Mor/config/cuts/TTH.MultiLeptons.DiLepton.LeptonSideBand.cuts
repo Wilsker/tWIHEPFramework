@@ -16,7 +16,7 @@ Cut.Lepton.TTHFake.Number.Max:  999
 Cut.Electron.TTHFake.LeadingPt:  25
 Cut.Electron.TTHFake.SubLeadingPt:  15
 Cut.Muon.TTHFake.LeadingPt:  25
-Cut.Muon.TTHFake.SubLeadingPt:  10
+Cut.Muon.TTHFake.SubLeadingPt:  15
 ################# Muon Cuts #########################
 # Number of  Muons
 Cut.Muon.Veto.Number.Min:  1
@@ -36,9 +36,9 @@ Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 Cut.Tau.Loose.Number.Min:  0
 Cut.Tau.Loose.Number.Max:  0
 Cut.Tau.Medium.Number.Min:  0
-Cut.Tau.Medium.Number.Max:  999
+Cut.Tau.Medium.Number.Max:  0
 Cut.Tau.VTight.Number.Min:  0
-Cut.Tau.VTight.Number.Max:  999
+Cut.Tau.VTight.Number.Max:  0
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
