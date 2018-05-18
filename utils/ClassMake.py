@@ -22,7 +22,7 @@ workpath = "/publicfs/cms/user/libh/Test/Rootplizer/analyzer"
 Case = "CaseD"
 # Variable Definition
 
-rObject = "float"
+rObject = "double"
 wObject = "Lepton"
 
 VariableType  = "Double_t"
@@ -129,20 +129,30 @@ VariableNames = [
 #"subleadLep_isFromTop","subleadLep_isFromH","subleadLep_isFromB","subleadLep_isFromC",
 #"subleadLep_mcPromptGamma","subleadLep_mcPromptFS",
 
-"Jet25_axis2","Jet25_ptD","Jet25_mult","Jet25_pfCombinedCvsLJetTags","Jet25_pfCombinedCvsBJetTags",
+#"Jet25_axis2","Jet25_ptD","Jet25_mult","Jet25_pfCombinedCvsLJetTags","Jet25_pfCombinedCvsBJetTags",
+#
+#"Jet25_pt","Jet25_eta","Jet25_phi","Jet25_energy","Jet25_px",
+#"Jet25_py","Jet25_pz","Jet25_mass",
+#
+#"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId","Jet25_isToptag",
+#
+#"Jet25_neutralHadEnergyFraction","Jet25_neutralEmEnergyFraction","Jet25_chargedHadronEnergyFraction","Jet25_chargedEmEnergyFraction",
+#"Jet25_muonEnergyFraction","Jet25_electronEnergy","Jet25_photonEnergy","Jet25_emEnergyFraction","Jet25_numberOfConstituents","Jet25_chargedMultiplicity",
+# "Jet25_metptratio","Jet25_dilepmetptratio",
+#"Jet25_nonjdr","Jet25_nonjdilepdr","Jet25_lepdrmin","Jet25_lepdrmax","Jet25_dilepdr","Jet25_bjdr", 
+#"Jet25_nonjdeta","Jet25_nonjdilepdeta","Jet25_lepdetamin","Jet25_lepdetamax","Jet25_dilepdeta","Jet25_bjdeta", 
+#"Jet25_nonjdphi","Jet25_nonjdilepdphi","Jet25_lepdphimin","Jet25_lepdphimax","Jet25_dilepdphi","Jet25_bjdphi",
+#"Jet25_nonjptratio","Jet25_nonjdilepptratio","Jet25_lepptratiomin","Jet25_lepptratiomax","Jet25_dilepptratio","Jet25_bjptratio", 
 
-"Jet25_pt","Jet25_eta","Jet25_phi","Jet25_energy","Jet25_px",
-"Jet25_py","Jet25_pz","Jet25_mass",
+#"Jet25_pfCombinedInclusiveSecondaryVertexV2BJet25Tags", "Jet25_pfCombinedMVAV2BJet25Tags", "Jet25_pfJet25ProbabilityBJet25Tags", "Jet25_pfDeepCSVCvsLJet25Tags", "Jet25_pfDeepCSVCvsBJet25Tags",
 
-"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId","Jet25_isToptag",
+#"TTHLep_3L", "Trig_1Ele", "Trig_2Ele", "Trig_3Ele", "Trig_1Mu", "Trig_1Mu1Ele", "Trig_1Mu2Ele", "Trig_2Mu", "Trig_2Mu1Ele", "Trig_3Mu",
 
-"Jet25_neutralHadEnergyFraction","Jet25_neutralEmEnergyFraction","Jet25_chargedHadronEnergyFraction","Jet25_chargedEmEnergyFraction",
-"Jet25_muonEnergyFraction","Jet25_electronEnergy","Jet25_photonEnergy","Jet25_emEnergyFraction","Jet25_numberOfConstituents","Jet25_chargedMultiplicity",
- "Jet25_metptratio","Jet25_dilepmetptratio",
-"Jet25_nonjdr","Jet25_nonjdilepdr","Jet25_lepdrmin","Jet25_lepdrmax","Jet25_dilepdr","Jet25_bjdr", 
-"Jet25_nonjdeta","Jet25_nonjdilepdeta","Jet25_lepdetamin","Jet25_lepdetamax","Jet25_dilepdeta","Jet25_bjdeta", 
-"Jet25_nonjdphi","Jet25_nonjdilepdphi","Jet25_lepdphimin","Jet25_lepdphimax","Jet25_dilepdphi","Jet25_bjdphi",
-"Jet25_nonjptratio","Jet25_nonjdilepptratio","Jet25_lepptratiomin","Jet25_lepptratiomax","Jet25_dilepptratio","Jet25_bjptratio", 
+"HadTop_bjet_lepTop_csv","HadTop_bjet_hadTop_csv",
+"HadTop_reco_hadTop_pt","HadTop_reco_hadTop_mass",
+"HadTop_reco_WhadTop_mass","HadTop_PtRatio_leptOverleph",
+"HadTop_Dr_lept_bfromlTop","HadTop_Dr_lept_bfromhTop",
+"HadTop_Dr_leph_bfromlTop",
 
 ]
 

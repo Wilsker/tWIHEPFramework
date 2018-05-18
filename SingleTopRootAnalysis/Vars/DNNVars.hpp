@@ -17,7 +17,11 @@
 #include "TLorentzVector.h"
 #include <TEnv.h>
 
+#include "TStopwatch.h"
+#include "TMVA/Tools.h"
+#include "TMVA/PyMethodBase.h"
 #include "TMVA/Reader.h"
+
 
 class DNNVars: public VarBase {
   
@@ -29,9 +33,6 @@ public:
   
 private:
     void Clear();
-   
-    EventContainer *EvtObj;
-    TEnv *config;
     
     // Event mva
     TMVA::Reader *DNNMultiClass_Dilep_reader_;
@@ -47,7 +48,7 @@ private:
     Float_t varEVENT_event;
     
     // evaluate mva
-    void get_DNNResponse();
+    void get_DNNResponse(EventContainer* EvtObj);
 
     std::vector<double> DNN_response;
 };

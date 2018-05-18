@@ -62,7 +62,7 @@ private:
 protected:
   std::map<string,int> _intVars;
   std::map<string,float> _floatVars;
-  std::map<string,bool> _boolVars;
+  //std::map<string,Bool_t> _boolVars;
   std::map<string,Long_t> _LongVars;
   std::map<string,std::vector<double>> _doubleVecs;
   std::map<string,TBranch*> _branchVec;

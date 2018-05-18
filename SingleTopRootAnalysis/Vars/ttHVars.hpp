@@ -132,6 +132,21 @@ private:
     Double_t secondLep_mcPromptFS;
 
   long nEvent;
+  int mu1_mediumID;
+  int mu1_isfakeablesel;
+  int mu1_ismvasel;
+  int mu2_mediumID;
+  int mu2_isfakeablesel;
+  int mu2_ismvasel;
+  int ele1_isfakeablesel;
+  int ele1_ismvasel;
+  int ele1_isChargeConsistent;
+  int ele1_passesConversionVeto;
+  int ele2_isfakeablesel;
+  int ele2_ismvasel;
+  int ele2_isChargeConsistent;
+  int ele2_passesConversionVeto;
+  /*
   bool mu1_mediumID;
   bool mu1_isfakeablesel;
   bool mu1_ismvasel;
@@ -146,6 +161,7 @@ private:
   bool ele2_ismvasel;
   bool ele2_isChargeConsistent;
   bool ele2_passesConversionVeto;
+  */
   int ls;
   int run;
   int n_presel_mu;

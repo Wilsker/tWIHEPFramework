@@ -1029,7 +1029,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetjetptratioV2(1);
     Setptrel(0);
     Setlepjetchtrks(0);
-  }else if(jetpt()>0){ // recalculate ptratio and ptrel for JesSF purpose and only for the case where jet is found
+  }else if(jetpt()>0){ // recalculate ptratio and ptrel for JesSF && ele Scale & Smear purpose and only for the case where jet is found
     SetjetptratioV2(lepptratio);
     Setptrel(lepptrel);
   }
@@ -1177,7 +1177,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   Bool_t PassFake = false;
   Bool_t PassTight = false;
   if(TMath::Abs(pdgId())==11){
-      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake &&  passMissHit() && isPassMvanontrigwpLoose() ;
+      PassFake=passMinPt && passMaxEta  && passCustomVeto && passFake &&  passMissHit() && isPassMvanontrigwpLoose() && passConversionVeto() ;
       PassTight=passMinPt && passMaxEta  && passCustomVeto && passFake  && passTight &&  passMissHit() && passConversionVeto() && isPassMvanontrigwpLoose();
   }else{
       PassFake = passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake;

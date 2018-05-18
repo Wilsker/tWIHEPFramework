@@ -11,6 +11,7 @@
 
 #include <iostream>
 
+
 //Test out a couple of variables, one Int_t and one float I guess
 DNNVars::DNNVars(bool makeHistos){
 
@@ -18,8 +19,8 @@ DNNVars::DNNVars(bool makeHistos){
   
   _doubleVecs["DNN_response"] = {-2., 2. }; 
 
+    TMVA::Tools::Instance();
     // DNN MultiClass
-    std::cout << "Debug line 24 ######### " << std::endl;
     DNNMultiClass_Dilep_reader_ = new TMVA::Reader("!Color:!Silent");
     DNNMultiClass_Dilep_reader_->AddVariable("Jet_numLoose",&varJet_numLoose);
     DNNMultiClass_Dilep_reader_->AddVariable("maxeta",&varmaxeta);
@@ -31,8 +32,7 @@ DNNVars::DNNVars(bool makeHistos){
     DNNMultiClass_Dilep_reader_->AddVariable("corrptlep1",&varcorrptlep1);
     DNNMultiClass_Dilep_reader_->AddVariable("corrptlep2",&varcorrptlep2);
     DNNMultiClass_Dilep_reader_->AddSpectator("EVENT_event",&varEVENT_event);
-    DNNMultiClass_Dilep_reader_->BookMVA("DNN", "config/weights/DNN/MultiClass_DNN.weights.xml"); 
-    std::cout << "Debug line 37 ######### " << std::endl;
+    DNNMultiClass_Dilep_reader_->BookMVA("DNN", "config/weights/DNN/Factory_MultiClass_DNN_10HLs_relu_D+G-VarTrans_0.008-learnRate_10-epochs_DNN.weights.xml"); 
   
   SetDoHists(makeHistos);
 
@@ -47,15 +47,13 @@ void DNNVars::FillBranches(EventContainer* evtObj){
   //Initialise vectors;
   Clear();
   
-  std::cout << "Debug line 51 ######### " << std::endl;
-  get_DNNResponse(); 
-  std::cout << "Debug line 53 ######### " << std::endl;
+  get_DNNResponse(evtObj); 
   _doubleVecs["DNN_response"] = DNN_response;
-  if (DoHists()) FillHistograms(EvtObj->GetEventWeight());
+  if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
 }
 
-void DNNVars::get_DNNResponse(){
+void DNNVars::get_DNNResponse(EventContainer* EvtObj){
    Float_t minus = -1.0;
    varJet_numLoose = EvtObj->Dilepttbar_numJets;
    varmaxeta = EvtObj->Dilepttbar_maxlepeta;

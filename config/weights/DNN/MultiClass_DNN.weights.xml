@@ -19,7 +19,7 @@
     <Option name="CreateMVAPdfs" modified="No">False</Option>
     <Option name="IgnoreNegWeightsInTraining" modified="No">False</Option>
     <Option name="FilenameModel" modified="Yes">model.h5</Option>
-    <Option name="FilenameTrainedModel" modified="No">MultiClass_DNN_10HLs_relu_D+G-VarTrans_0.008-learnRate_10-epochs/weights/TrainedModel_DNN.h5</Option>
+    <Option name="FilenameTrainedModel" modified="No">config/weights/DNN/TrainedModel_DNN.h5</Option>
     <Option name="BatchSize" modified="Yes">100</Option>
     <Option name="NumEpochs" modified="Yes">10</Option>
     <Option name="Verbose" modified="No">1</Option>
@@ -27,7 +27,7 @@
     <Option name="SaveBestOnly" modified="No">True</Option>
     <Option name="TriesEarlyStopping" modified="No">-1</Option>
     <Option name="LearningRateSchedule" modified="No"/>
-    <Option name="TensorBoard" modified="Yes">MultiClass_DNN_10HLs_relu_D+G-VarTrans_0.008-learnRate_10-epochs/logs</Option>
+    <Option name="TensorBoard" modified="Yes">config/weights/DNN/logs</Option>
   </Options>
   <Variables NVar="9">
     <Variable VarIndex="0" Expression="Jet_numLoose" Label="Jet_numLoose" Title="Jet_numLoose" Unit="" Internal="Jet_numLoose" Type="F" Min="3.40282347e+38" Max="-3.40282347e+38"/>
