@@ -306,9 +306,9 @@ int HadTopVars::Add_nullJet(std::vector<Jet>& selectedJets){
         Jet_null_phi.push_back(selectedJets.at(jet_en).Phi());
         Jet_null_energy.push_back(selectedJets.at(jet_en).E());
         Jet_null_csv.push_back(selectedJets.at(jet_en).pfCombinedInclusiveSecondaryVertexV2BJetTags());
-        if(selectedJets.at(jet_en).pfCombinedInclusiveSecondaryVertexV2BJetTags()>0.8838 )num_bjet++;
+        //if(selectedJets.at(jet_en).pfCombinedInclusiveSecondaryVertexV2BJetTags()>0.8838 )num_bjet++;
         //Jet_null_csv.push_back(selectedJets.at(jet_en).bDiscriminator());
-       // if(selectedJets.at(jet_en).isMediumBdisc() )num_bjet++;
+        if(selectedJets.at(jet_en).isMediumBdisc() )num_bjet++;
     }
     if(Jet_numLoose<=7){
         Jet_null_pt.push_back(0);
