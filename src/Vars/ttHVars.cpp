@@ -832,7 +832,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu1_miniIsoNeutral = FirstMuon.miniIsoPUsub();
         mu1_jetPtRel = FirstMuon.ptrel();
         mu1_jetPtRatio = FirstMuon.jetptratioV2();
-        mu1_jetCSV = FirstMuon.jetcsv();
+        mu1_jetCSV = FirstMuon.jetdeepcsv();
         mu1_sip3D = FirstMuon.IP3Dsig();
         mu1_dxyAbs = TMath::Abs(FirstMuon.dxy());
         mu1_dz = FirstMuon.dz();
@@ -857,7 +857,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu2_miniIsoNeutral = SecondMuon.miniIsoPUsub();
         mu2_jetPtRel = SecondMuon.ptrel();
         mu2_jetPtRatio = SecondMuon.jetptratioV2();
-        mu2_jetCSV = SecondMuon.jetcsv();
+        mu2_jetCSV = SecondMuon.jetdeepcsv();
         mu2_sip3D = SecondMuon.IP3Dsig();
         mu2_dxyAbs = TMath::Abs(SecondMuon.dxy());
         mu2_dz = SecondMuon.dz();
@@ -870,12 +870,6 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu2_ismvasel = SecondMuon.isMVASel();
         mu2_dpt_div_pt = -9999;
     }
-    ele2_PFRelIso04 = -9999;
-    ele2_sigmaEtaEta = -9999;
-    ele2_HoE = -9999;
-    ele2_deltaEta = -9999;
-    ele2_deltaPhi = -9999;
-    ele2_OoEminusOoP = -9999;
     if(looseElectrons.size()>=1){
         ele1_pt = FirstElectron.Pt();
         ele1_conept = FirstElectron.conept();
@@ -887,7 +881,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         ele1_miniIsoNeutral = FirstElectron.miniIsoPUsub();
         ele1_jetPtRel = FirstElectron.ptrel();
         ele1_jetPtRatio = FirstElectron.jetptratioV2();
-        ele1_jetCSV = FirstElectron.jetcsv();
+        ele1_jetCSV = FirstElectron.jetdeepcsv();
         ele1_sip3D = FirstElectron.IP3Dsig();
         ele1_dxyAbs = TMath::Abs(FirstElectron.dxy());
         ele1_dz = FirstElectron.dz();
@@ -918,7 +912,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         ele2_miniIsoNeutral = SecondElectron.miniIsoPUsub();
         ele2_jetPtRel = SecondElectron.ptrel();
         ele2_jetPtRatio = SecondElectron.jetptratioV2();
-        ele2_jetCSV = SecondElectron.jetcsv();
+        ele2_jetCSV = SecondElectron.jetdeepcsv();
         ele2_sip3D = SecondElectron.IP3Dsig();
         ele2_dxyAbs = TMath::Abs(SecondElectron.dxy());
         ele2_dz = SecondElectron.dz();
@@ -1266,9 +1260,9 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
             Lep1.SetPtEtaPhiE(firstLepton.Pt(),firstLepton.Eta(),firstLepton.Phi(),firstLepton.E());
             Lep2.SetPtEtaPhiE(secondLepton.Pt(),secondLepton.Eta(),secondLepton.Phi(),secondLepton.E());
             double curr_mass = (Lep1+Lep2).M();
-            if(curr_mass < minMass_AFAS )minMass_AFAS=curr_mass; 
-            if(curr_mass < minMass_AFOS && firstLepton.charge()*secondLepton.charge() < 0)minMass_AFOS=curr_mass; 
-            if(curr_mass < minMass_SFOS && firstLepton.charge()*secondLepton.charge() < 0 && fabs(firstLepton.pdgId())== fabs(secondLepton.pdgId()))minMass_SFOS=curr_mass; 
+            if(fabs(curr_mass-91.2) < fabs(minMass_AFAS-91.2) )minMass_AFAS=curr_mass; 
+            if(fabs(curr_mass-91.2) < fabs(minMass_AFOS-91.2) && firstLepton.charge()*secondLepton.charge() < 0)minMass_AFOS=curr_mass; 
+            if(fabs(curr_mass-91.2) < fabs(minMass_SFOS-91.2) && firstLepton.pdgId()+secondLepton.pdgId()==0)minMass_SFOS=curr_mass; 
         }
     }
     minMllAFOS = minMass_AFOS;

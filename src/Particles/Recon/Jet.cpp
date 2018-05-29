@@ -488,7 +488,7 @@ double Jet::get_JetMVA()
  * Output: True if this jet passes jet ID cuts                                *         
  ******************************************************************************/
 
-Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets, Bool_t isSimulation)
+Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets, Bool_t isSimulation, int whichtrig)
 {
 
   Double_t jetPt, jetEta,jetPhi,jetE, jetCharge, jetM;
@@ -655,6 +655,34 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
     maxlepdr = TMath::Max(selectedLeptons.at(0).DeltaR(*this),selectedLeptons.at(1).DeltaR(*this));
   }
 
+  int clean_num =0;
+  if(whichtrig>=2 && whichtrig <= 5){//2L categories
+      clean_num = TMath::Min(2,lep_num);
+  }else if(whichtrig ==6){//3L
+      clean_num = TMath::Min(3,lep_num);
+  }
+    
+
+  for(int lep_en=0; lep_en< clean_num; lep_en++){
+    Lepton lep = selectedLeptons.at(lep_en);
+    if (lep.DeltaR(*this) < closestLepton){
+        closestLepton = lep.DeltaR(*this);
+    }
+  }
+ /*
+  int clean_tau=0;
+  int tau_num = selectedTaus.size();
+  clean_tau= TMath::Min(1,tau_num);
+  
+  for(int tau_en=0; tau_en< clean_tau; tau_en++){
+    Tau tau = selectedTaus.at(tau_en);
+    if (tau.DeltaR(*this) < closestLepton){
+        closestLepton = tau.DeltaR(*this);
+    }
+  }
+  */
+
+  /*
   for (auto const & lep : selectedLeptons){
     if (lep.DeltaR(*this) < closestLepton){
         closestLepton = lep.DeltaR(*this);
@@ -663,6 +691,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   for (auto const & tau : selectedTaus){
     if (tau.DeltaR(*this) < closestLepton) closestLepton = tau.DeltaR(*this);
   }
+  */
+
   if (closestLepton < _closestLeptonCut) passesCleaning = kFALSE;
 
   SetClosestLep(closestLepton);

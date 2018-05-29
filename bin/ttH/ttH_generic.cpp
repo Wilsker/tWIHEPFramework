@@ -286,7 +286,6 @@ int main(int argc, char **argv)
   // ******** Cuts and Histograms applied to all studies ********
 
   //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
-
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"All"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
@@ -310,7 +309,6 @@ int main(int argc, char **argv)
     mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
   }
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
-
   /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
@@ -352,15 +350,15 @@ int main(int argc, char **argv)
     mystudy.AddCut(new CutMassL(particlesObj));
     mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
   }
-  mystudy.AddCut(new CutHiggsDecay(particlesObj));
+  //mystudy.AddCut(new CutHiggsDecay(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
   //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
-  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
-
+  
+  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+  
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
-
   /*
   mystudy.AddCut(new HistogrammingMET(particlesObj));
   mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
@@ -390,6 +388,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
+  
   TFile *_skimBDTFile;
   TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
   _skimBDTFile = new TFile(NNname,"RECREATE"); 
