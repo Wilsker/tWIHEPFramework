@@ -356,7 +356,7 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
   
-  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
   
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   /*

@@ -77,6 +77,7 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["secondLep_corrpt"] = 400.;
   _floatVars["secondLep_jetcsv"] = 1.;
   _floatVars["secondLep_BDT"] = -1.;
+  _floatVars["thirdLep_jetcsv"] = 1.;
   _floatVars["maxeta"] = 3.;
   _floatVars["Mt_metleadlep"] = 500.;
   _floatVars["massll"] = 600.;
@@ -333,8 +334,92 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["mbb_loose"] = 999.;
   _floatVars["Hj_tagger"] = 999.;
   _floatVars["HTT"] = 999.;
-  _intVars["nBJetLoose"] = 999.;
-  _intVars["nBJetMedium"] = 999.;
+  _intVars["nBJetLoose"] = 999;
+  _intVars["nBJetMedium"] = 999;
+  
+  _floatVars["Dilep_worseIso"] = 999;
+  _floatVars["Dilep_worseSip"] = 999;
+  _floatVars["mass3L"] = 999;
+  _floatVars["Trilep_mtWmin"] = 999;
+  _floatVars["SubCat3L"] = 999;
+  _floatVars["Sum3LCharge"] = 999;
+  _floatVars["Trilep_n_mu"] = 999;
+  _floatVars["Trilep_nTight"] = 999;
+  _floatVars["Trilep_n_ele"] = 999;
+  _floatVars["Trilep_bestMVA"] = 999;
+  _floatVars["Trilep_worseIso"] = 999;
+  _floatVars["Trilep_worseMVA"] = 999;
+  _floatVars["Trilep_worseSip"] = 999;
+  _floatVars["Dilep_worsedz"] = 999;
+  _floatVars["thirdLep_isMatchRightCharge"] = 999;
+  _floatVars["thirdLep_mcMatchId"] = 999;
+  _floatVars["thirdLep_isFromTop"] = 999;
+  _floatVars["thirdLep_isFromH"] = 999;
+  _floatVars["thirdLep_isFromB"] = 999;
+  _floatVars["thirdLep_isFromC"] = 999;
+  _floatVars["thirdLep_mcPromptGamma"] = 999;
+  _floatVars["thirdLep_mcPromptFS"] = 999;
+  _floatVars["lep3_BDT"] = 999;
+  _floatVars["lep1_charge"] = 999;
+  _floatVars["lep1_dxy"] = 999;
+  _floatVars["lep1_dz"] = 999;
+  _floatVars["lep1_mvaId"] = 999;
+  _floatVars["lep1_eta"] = 999;
+  _floatVars["lep1_minIso"] = 999;
+  _floatVars["lep1_minIsoCh"] = 999;
+  _floatVars["lep1_minIsoNeu"] = 999;
+  _floatVars["lep1_pdgId"] = 999;
+  _floatVars["lep1_pt"] = 999;
+  _floatVars["lep1_phi"] = 999;
+  _floatVars["lep1_ptratio"] = 999;
+  _floatVars["lep1_ptrel"] = 999;
+  _floatVars["lep1_segment"] = 999;
+  _floatVars["lep1_sig3d"] = 999;
+  _floatVars["lep1_lostHits"] = 999;
+  _floatVars["lep1_relIso04"] = 999;
+  _floatVars["lep1_relIso03"] = 999;
+  _floatVars["lep1_TightCharge"] = 999;
+  _floatVars["lep1_passConv"] = 999;
+  _floatVars["lep2_charge"] = 999;
+  _floatVars["lep2_dxy"] = 999;
+  _floatVars["lep2_dz"] = 999;
+  _floatVars["lep2_mvaId"] = 999;
+  _floatVars["lep2_eta"] = 999;
+  _floatVars["lep2_minIso"] = 999;
+  _floatVars["lep2_minIsoCh"] = 999;
+  _floatVars["lep2_minIsoNeu"] = 999;
+  _floatVars["lep2_pdgId"] = 999;
+  _floatVars["lep2_pt"] = 999;
+  _floatVars["lep2_phi"] = 999;
+  _floatVars["lep2_ptratio"] = 999;
+  _floatVars["lep2_ptrel"] = 999;
+  _floatVars["lep2_segment"] = 999;
+  _floatVars["lep2_sig3d"] = 999;
+  _floatVars["lep2_lostHits"] = 999;
+  _floatVars["lep2_relIso04"] = 999;
+  _floatVars["lep2_relIso03"] = 999;
+  _floatVars["lep2_TightCharge"] = 999;
+  _floatVars["lep2_passConv"] = 999;
+  _floatVars["lep3_charge"] = 999;
+  _floatVars["lep3_dxy"] = 999;
+  _floatVars["lep3_dz"] = 999;
+  _floatVars["lep3_mvaId"] = 999;
+  _floatVars["lep3_eta"] = 999;
+  _floatVars["lep3_minIso"] = 999;
+  _floatVars["lep3_minIsoCh"] = 999;
+  _floatVars["lep3_minIsoNeu"] = 999;
+  _floatVars["lep3_pdgId"] = 999;
+  _floatVars["lep3_pt"] = 999;
+  _floatVars["lep3_phi"] = 999;
+  _floatVars["lep3_ptratio"] = 999;
+  _floatVars["lep3_ptrel"] = 999;
+  _floatVars["lep3_segment"] = 999;
+  _floatVars["lep3_sig3d"] = 999;
+  _floatVars["lep3_lostHits"] = 999;
+  _floatVars["lep3_relIso04"] = 999;
+  _floatVars["lep3_relIso03"] = 999;
+  _floatVars["lep3_TightCharge"] = 999;
+  _floatVars["lep3_passConv"] = 999;
   
   SetDoHists(makeHistos);
 
@@ -379,6 +464,7 @@ void ttHVars::Clear(){
     secondLep_jetdr = -9999;
     secondLep_corrpt = -9999;
     secondLep_jetcsv = -9999;
+    thirdLep_jetcsv = -9999;
     secondLep_BDT = -9999;
     maxeta = -9999;
     Mt_metleadlep = -9999;
@@ -623,6 +709,89 @@ void ttHVars::Clear(){
     HTT = -9999;
     nBJetLoose = -9999;
     nBJetMedium = -9999;
+    Dilep_worseIso = -999;
+    Dilep_worseSip = -999;
+    mass3L = -999;
+    Trilep_mtWmin = -999;
+    SubCat3L = -999;
+    Sum3LCharge = -999;
+    Trilep_n_mu = -999;
+    Trilep_nTight = -999;
+    Trilep_n_ele = -999;
+    Trilep_bestMVA = -999;
+    Trilep_worseIso = -999;
+    Trilep_worseMVA = -999;
+    Trilep_worseSip = -999;
+    Dilep_worsedz = -999;
+    thirdLep_isMatchRightCharge = -999;
+    thirdLep_mcMatchId = -999;
+    thirdLep_isFromTop = -999;
+    thirdLep_isFromH = -999;
+    thirdLep_isFromB = -999;
+    thirdLep_isFromC = -999;
+    thirdLep_mcPromptGamma = -999;
+    thirdLep_mcPromptFS = -999;
+    lep3_BDT = -999;
+    lep1_charge = -999;
+    lep1_dxy = -999;
+    lep1_dz = -999;
+    lep1_mvaId = -999;
+    lep1_eta = -999;
+    lep1_minIso = -999;
+    lep1_minIsoCh = -999;
+    lep1_minIsoNeu = -999;
+    lep1_pdgId = -999;
+    lep1_pt = -999;
+    lep1_phi = -999;
+    lep1_ptratio = -999;
+    lep1_ptrel = -999;
+    lep1_segment = -999;
+    lep1_sig3d = -999;
+    lep1_lostHits = -999;
+    lep1_relIso04 = -999;
+    lep1_relIso03 = -999;
+    lep1_TightCharge = -999;
+    lep1_passConv = -999;
+    lep2_charge = -999;
+    lep2_dxy = -999;
+    lep2_dz = -999;
+    lep2_mvaId = -999;
+    lep2_eta = -999;
+    lep2_minIso = -999;
+    lep2_minIsoCh = -999;
+    lep2_minIsoNeu = -999;
+    lep2_pdgId = -999;
+    lep2_pt = -999;
+    lep2_phi = -999;
+    lep2_ptratio = -999;
+    lep2_ptrel = -999;
+    lep2_segment = -999;
+    lep2_sig3d = -999;
+    lep2_lostHits = -999;
+    lep2_relIso04 = -999;
+    lep2_relIso03 = -999;
+    lep2_TightCharge = -999;
+    lep2_passConv = -999;
+    lep3_charge = -999;
+    lep3_dxy = -999;
+    lep3_dz = -999;
+    lep3_mvaId = -999;
+    lep3_eta = -999;
+    lep3_minIso = -999;
+    lep3_minIsoCh = -999;
+    lep3_minIsoNeu = -999;
+    lep3_pdgId = -999;
+    lep3_pt = -999;
+    lep3_phi = -999;
+    lep3_ptratio = -999;
+    lep3_ptrel = -999;
+    lep3_segment = -999;
+    lep3_sig3d = -999;
+    lep3_lostHits = -999;
+    lep3_relIso04 = -999;
+    lep3_relIso03 = -999;
+    lep3_TightCharge = -999;
+    lep3_passConv = -999;
 }
 
 void ttHVars::FillBranches(EventContainer * evtObj){
@@ -767,6 +936,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["secondLep_corrpt"] = secondLep_corrpt;
     _floatVars["secondLep_jetcsv"] = secondLep_jetcsv;
     _floatVars["secondLep_BDT"] = secondLep_BDT;
+    _floatVars["thirdLep_jetcsv"] = thirdLep_jetcsv;
     _floatVars["maxeta"] = maxeta;
     _floatVars["Mt_metleadlep"] = Mt_metleadlep;
     _floatVars["SubCat2l"] = SubCat2l;
@@ -1013,22 +1183,15 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     MHT = evtObj->mht;
     lep1_conePt = leadLep_corrpt;
     lep2_conePt = secondLep_corrpt;
-    lep3_conePt = -9999;
     mindr_lep1_jet = leadLep_jetdr;
     mindr_lep2_jet = secondLep_jetdr;
-    mindr_lep3_jet = -9999;
-    dr_leps = -9999;
     mT_lep1 = Mt_metleadlep;
-    mT_lep2 = -9999;
     max_lep_eta = maxeta;
     min_dr_lep_jet = -9999;
-    mbb = -9999;
-    mbb_loose = -9999;
     Hj_tagger = Hj1_BDT;
     HTT = evtObj->HadTop_BDT;
     nBJetLoose = Jet_numbLoose;
     nBJetMedium = Jet_numbMedium;
-    avg_dr_jet = -9999;
     mvaOutput_2lss_ttV = ttvBDT_2lss;
     mvaOutput_2lss_ttbar = ttbarBDT_2lss;
 
@@ -1236,6 +1399,90 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["HTT"] = HTT;
   _intVars["nBJetLoose"] = nBJetLoose;
   _intVars["nBJetMedium"] = nBJetMedium;
+  
+  _floatVars["Dilep_worseIso"] = Dilep_worseIso;
+  _floatVars["Dilep_worseSip"] = Dilep_worseSip;
+  _floatVars["mass3L"] = mass3L;
+  _floatVars["Trilep_mtWmin"] = Trilep_mtWmin;
+  _floatVars["SubCat3L"] = SubCat3L;
+  _floatVars["Sum3LCharge"] = Sum3LCharge;
+  _floatVars["Trilep_n_mu"] = Trilep_n_mu;
+  _floatVars["Trilep_nTight"] = Trilep_nTight;
+  _floatVars["Trilep_n_ele"] = Trilep_n_ele;
+  _floatVars["Trilep_bestMVA"] = Trilep_bestMVA;
+  _floatVars["Trilep_worseIso"] = Trilep_worseIso;
+  _floatVars["Trilep_worseMVA"] = Trilep_worseMVA;
+  _floatVars["Trilep_worseSip"] = Trilep_worseSip;
+  _floatVars["Dilep_worsedz"] = Dilep_worsedz;
+  _floatVars["thirdLep_isMatchRightCharge"] = thirdLep_isMatchRightCharge;
+  _floatVars["thirdLep_mcMatchId"] = thirdLep_mcMatchId;
+  _floatVars["thirdLep_isFromTop"] = thirdLep_isFromTop;
+  _floatVars["thirdLep_isFromH"] = thirdLep_isFromH;
+  _floatVars["thirdLep_isFromB"] = thirdLep_isFromB;
+  _floatVars["thirdLep_isFromC"] = thirdLep_isFromC;
+  _floatVars["thirdLep_mcPromptGamma"] = thirdLep_mcPromptGamma;
+  _floatVars["thirdLep_mcPromptFS"] = thirdLep_mcPromptFS;
+  _floatVars["lep3_BDT"] = lep3_BDT;
+  _floatVars["lep1_charge"] = lep1_charge;
+  _floatVars["lep1_dxy"] = lep1_dxy;
+  _floatVars["lep1_dz"] = lep1_dz;
+  _floatVars["lep1_mvaId"] = lep1_mvaId;
+  _floatVars["lep1_eta"] = lep1_eta;
+  _floatVars["lep1_minIso"] = lep1_minIso;
+  _floatVars["lep1_minIsoCh"] = lep1_minIsoCh;
+  _floatVars["lep1_minIsoNeu"] = lep1_minIsoNeu;
+  _floatVars["lep1_pdgId"] = lep1_pdgId;
+  _floatVars["lep1_pt"] = lep1_pt;
+  _floatVars["lep1_phi"] = lep1_phi;
+  _floatVars["lep1_ptratio"] = lep1_ptratio;
+  _floatVars["lep1_ptrel"] = lep1_ptrel;
+  _floatVars["lep1_segment"] = lep1_segment;
+  _floatVars["lep1_sig3d"] = lep1_sig3d;
+  _floatVars["lep1_lostHits"] = lep1_lostHits;
+  _floatVars["lep1_relIso04"] = lep1_relIso04;
+  _floatVars["lep1_relIso03"] = lep1_relIso03;
+  _floatVars["lep1_TightCharge"] = lep1_TightCharge;
+  _floatVars["lep1_passConv"] = lep1_passConv;
+  _floatVars["lep2_charge"] = lep2_charge;
+  _floatVars["lep2_dxy"] = lep2_dxy;
+  _floatVars["lep2_dz"] = lep2_dz;
+  _floatVars["lep2_mvaId"] = lep2_mvaId;
+  _floatVars["lep2_eta"] = lep2_eta;
+  _floatVars["lep2_minIso"] = lep2_minIso;
+  _floatVars["lep2_minIsoCh"] = lep2_minIsoCh;
+  _floatVars["lep2_minIsoNeu"] = lep2_minIsoNeu;
+  _floatVars["lep2_pdgId"] = lep2_pdgId;
+  _floatVars["lep2_pt"] = lep2_pt;
+  _floatVars["lep2_phi"] = lep2_phi;
+  _floatVars["lep2_ptratio"] = lep2_ptratio;
+  _floatVars["lep2_ptrel"] = lep2_ptrel;
+  _floatVars["lep2_segment"] = lep2_segment;
+  _floatVars["lep2_sig3d"] = lep2_sig3d;
+  _floatVars["lep2_lostHits"] = lep2_lostHits;
+  _floatVars["lep2_relIso04"] = lep2_relIso04;
+  _floatVars["lep2_relIso03"] = lep2_relIso03;
+  _floatVars["lep2_TightCharge"] = lep2_TightCharge;
+  _floatVars["lep2_passConv"] = lep2_passConv;
+  _floatVars["lep3_charge"] = lep3_charge;
+  _floatVars["lep3_dxy"] = lep3_dxy;
+  _floatVars["lep3_dz"] = lep3_dz;
+  _floatVars["lep3_mvaId"] = lep3_mvaId;
+  _floatVars["lep3_eta"] = lep3_eta;
+  _floatVars["lep3_minIso"] = lep3_minIso;
+  _floatVars["lep3_minIsoCh"] = lep3_minIsoCh;
+  _floatVars["lep3_minIsoNeu"] = lep3_minIsoNeu;
+  _floatVars["lep3_pdgId"] = lep3_pdgId;
+  _floatVars["lep3_pt"] = lep3_pt;
+  _floatVars["lep3_phi"] = lep3_phi;
+  _floatVars["lep3_ptratio"] = lep3_ptratio;
+  _floatVars["lep3_ptrel"] = lep3_ptrel;
+  _floatVars["lep3_segment"] = lep3_segment;
+  _floatVars["lep3_sig3d"] = lep3_sig3d;
+  _floatVars["lep3_lostHits"] = lep3_lostHits;
+  _floatVars["lep3_relIso04"] = lep3_relIso04;
+  _floatVars["lep3_relIso03"] = lep3_relIso03;
+  _floatVars["lep3_TightCharge"] = lep3_TightCharge;
+  _floatVars["lep3_passConv"] = lep3_passConv;
     if(evtObj -> _sync == 52){     
         std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj1_BDT <<" " << evtObj->HadTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
     }                          
@@ -1248,6 +1495,11 @@ void ttHVars::FillBranches(EventContainer * evtObj){
 void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     TLorentzVector FakeLep1{0,0,0,0};
     TLorentzVector FakeLep2{0,0,0,0};
+    TLorentzVector FakeLep3{0,0,0,0};
+    TLorentzVector bLooseJet1{0,0,0,0};
+    TLorentzVector bLooseJet2{0,0,0,0};
+    TLorentzVector bMediumJet1{0,0,0,0};
+    TLorentzVector bMediumJet2{0,0,0,0};
     TLorentzVector Lep1{0,0,0,0};
     TLorentzVector Lep2{0,0,0,0};
     double minMass_AFAS =999;
@@ -1275,6 +1527,9 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     double maxHj = -9999;
     int jet_numbLoose = 0;
     int jet_numbMedium = 0;
+    double sum_jet_dr =0.;
+    bool isbb = false;
+    bool islbb = false;
     for(uint jet_en=0; jet_en < Jets.size(); jet_en++){
         Jet jet = Jets.at(jet_en);
         if(jet.isMediumBdisc())jet_numbMedium++;
@@ -1286,22 +1541,44 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if(jet_en == 3)fourthJetCSV = jet.bDiscriminator();
         if( maxCSV < jet.bDiscriminator()) maxCSV = jet.bDiscriminator();
         if( jet.isToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
+        for(uint bjet_en=0; bjet_en < Jets.size(); bjet_en++){
+            if (jet_en == bjet_en) continue;
+            Jet bjet = Jets.at(bjet_en);
+            sum_jet_dr += bjet.DeltaR(jet);
+            if(jet.isLooseBdisc())bLooseJet1.SetPtEtaPhiE(jet.Pt(),jet.Eta(),jet.Phi(),jet.E());
+            if(bjet.isLooseBdisc())bLooseJet2.SetPtEtaPhiE(bjet.Pt(),bjet.Eta(),bjet.Phi(),bjet.E());
+            if(jet.isMediumBdisc())bMediumJet1.SetPtEtaPhiE(jet.Pt(),jet.Eta(),jet.Phi(),jet.E());
+            if(bjet.isMediumBdisc())bMediumJet2.SetPtEtaPhiE(bjet.Pt(),bjet.Eta(),bjet.Phi(),bjet.E());
+            if(!isbb && bMediumJet1.Pt()>0.0001 && bMediumJet2.Pt() > 0.0001){
+                mbb = (bMediumJet1+bMediumJet2).M();
+                isbb = true;
+            }
+            if(!islbb && bLooseJet1.Pt()>0.0001 && bLooseJet2.Pt() > 0.0001){
+                mbb_loose = (bLooseJet1+bLooseJet2).M();
+                islbb = true;
+            }
+        }
     }
     Jet_numLoose = Jets.size();
     Jet_numbLoose = jet_numbLoose;
     Jet_numbMedium = jet_numbMedium;
+    avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
     Hj1_BDT = maxHj;
     HighestJetCSV = maxCSV;
     HtJet = SumPt;
     if(fakeLeptons.size()>=2){
         Lepton firstLepton = fakeLeptons.at(0);
         Lepton secondLepton = fakeLeptons.at(1);
+        Lepton thirdLepton;
+        if(fakeLeptons.size()>=3)thirdLepton=fakeLeptons.at(2);
         double leadLep_closedr =999.;
         double secondLep_closedr =999.;
+        double thirdLep_closedr = 999.;
         for(uint jet_en=0; jet_en < Jets.size(); jet_en++){
             Jet jet = Jets.at(jet_en);
             double lead_dr = firstLepton.DeltaR(jet);
             double second_dr = secondLepton.DeltaR(jet);
+            double third_dr = thirdLepton.DeltaR(jet);
             double csv = jet.bDiscriminator();
             if(lead_dr>0.4 && leadLep_closedr > lead_dr){
                 leadLep_closedr = lead_dr;
@@ -1311,7 +1588,15 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
                 secondLep_closedr = second_dr;
                 secondLep_jetcsv = csv; 
             }
+            if(third_dr>0.4 && thirdLep_closedr > third_dr && thirdLepton.Pt()>0.0001){
+                thirdLep_closedr = third_dr;
+                thirdLep_jetcsv = csv; 
+            }
         }
+        lep3_conePt = thirdLepton.conept();
+        mindr_lep3_jet = thirdLep_closedr;
+        dr_leps = firstLepton.DeltaR(secondLepton);
+        mT_lep2 = getMTlepmet(secondLepton.Phi(),EvtObj->missingPhi,secondLepton.Pt(),EvtObj->missingEt); 
         if(EvtObj->isSimulation){
             leadLep_isMatchRightCharge = FakeLep_matchId.at(0) == FakeLep_PdgId.at(0)? 1 : 0;
             leadLep_mcMatchId = FakeLep_matchId.at(0);
@@ -1329,6 +1614,16 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
             secondLep_isFromC = FakeLep_isFromC.at(1);
             secondLep_mcPromptGamma = FakeLep_matchId.at(1) == 22 ? 1 : 0;
             secondLep_mcPromptFS = (secondLepton.gen_isPrompt() ==1 || secondLepton.gen_isPromptTau()==1)? 1 : 0;
+            if(fakeLeptons.size()>=3){
+                thirdLep_isMatchRightCharge = FakeLep_matchId.at(2) == FakeLep_PdgId.at(2)? 1 : 0;
+                thirdLep_mcMatchId = FakeLep_matchId.at(2);
+                thirdLep_isFromTop = FakeLep_isFromTop.at(2);
+                thirdLep_isFromH = FakeLep_isFromH.at(2);
+                thirdLep_isFromB = FakeLep_isFromB.at(2);
+                thirdLep_isFromC = FakeLep_isFromC.at(2);
+                thirdLep_mcPromptGamma = FakeLep_matchId.at(2) == 22 ? 1 : 0;
+                thirdLep_mcPromptFS = (thirdLepton.gen_isPrompt() ==1 || thirdLepton.gen_isPromptTau()==1)? 1 : 0;
+            }
         }
         leadLep_jetdr= leadLep_closedr; 
         secondLep_jetdr= secondLep_closedr;
@@ -1342,18 +1637,101 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         Sum2lCharge= firstLepton.charge()+secondLepton.charge();
         Dilep_bestMVA = std::max(firstLepton.BDT(),secondLepton.BDT());
         Dilep_worseMVA = std::min(firstLepton.BDT(),secondLepton.BDT());
+        Dilep_worsedz = std::max(firstLepton.dz(),secondLepton.dz());
         Dilep_pdgId = (28 - fabs(firstLepton.pdgId()) - fabs(secondLepton.pdgId()))/2;
         Dilep_htllv = firstLepton.conept() + secondLepton.conept() + EvtObj->missingEt; 
-        if((firstLepton.isTight() + secondLepton.isTight()) ==2) Dilep_nTight = 2 ;
-        else if((firstLepton.isTight() + secondLepton.isTight()) ==1) Dilep_nTight = 1 ;
+        if((firstLepton.isMVASel() + secondLepton.isMVASel()) ==2) Dilep_nTight = 2 ;
+        else if((firstLepton.isMVASel() + secondLepton.isMVASel()) ==1) Dilep_nTight = 1 ;
         else Dilep_nTight = 0 ;
-        Mt_metleadlep = getMTlepmet(firstLepton.Phi(),EvtObj->missingPhi,firstLepton.conept(),EvtObj->missingEt); 
+        Mt_metleadlep = getMTlepmet(firstLepton.Phi(),EvtObj->missingPhi,firstLepton.Pt(),EvtObj->missingEt); 
         maxeta = max(fabs(firstLepton.Eta()),fabs(secondLepton.Eta()));
         
-        Dilep_mtWmin = std::min(getMTlepmet(secondLepton.Phi(),EvtObj->missingPhi,secondLepton.conept(),EvtObj->missingEt), Mt_metleadlep); 
+        Dilep_mtWmin = std::min(getMTlepmet(secondLepton.Phi(),EvtObj->missingPhi,secondLepton.Pt(),EvtObj->missingEt), Mt_metleadlep); 
         ttbarBDT_2lss = get_Dilep_ttbarMVA(EvtObj);
         ttvBDT_2lss = get_Dilep_ttvMVA(EvtObj);
         Bin2l = get_2DBDTBin(ttbarBDT_2lss, ttvBDT_2lss, EvtObj);
+        lep1_charge = firstLepton.charge()  ;
+        lep1_dxy = firstLepton.dxy()  ;
+        lep1_dz = firstLepton.dz()  ;
+        lep1_mvaId = firstLepton.ntMVAeleID()  ;
+        lep1_eta = firstLepton.Eta()  ;
+        lep1_minIso = firstLepton.miniIsoRel()  ;
+        lep1_minIsoCh = firstLepton.miniIsoCh()  ;
+        lep1_minIsoNeu = firstLepton.miniIsoPUsub()  ;
+        lep1_pdgId = firstLepton.pdgId()  ;
+        lep1_pt = firstLepton.Pt()  ;
+        lep1_phi = firstLepton.Phi()  ;
+        lep1_ptratio = firstLepton.jetptratioV2()  ;
+        lep1_ptrel = firstLepton.ptrel()  ;
+        lep1_segment = firstLepton.segmentCompatibility()  ;
+        lep1_sig3d = firstLepton.IP3Dsig()  ;
+        lep1_lostHits = firstLepton.expectedMissingInnerHits()  ;
+        lep1_relIso04 = firstLepton.relIsoR04()  ;
+        lep1_relIso03 = firstLepton.relIsoRhoEA()  ;
+        lep1_TightCharge = firstLepton.passTightCharge()  ;
+        lep1_passConv = firstLepton.passConversionVeto()  ;
+        lep2_charge = secondLepton.charge()  ;
+        lep2_dxy = secondLepton.dxy()  ;
+        lep2_dz = secondLepton.dz()  ;
+        lep2_mvaId = secondLepton.ntMVAeleID()  ;
+        lep2_eta = secondLepton.Eta()  ;
+        lep2_minIso = secondLepton.miniIsoRel()  ;
+        lep2_minIsoCh = secondLepton.miniIsoCh()  ;
+        lep2_minIsoNeu = secondLepton.miniIsoPUsub()  ;
+        lep2_pdgId = secondLepton.pdgId()  ;
+        lep2_pt = secondLepton.Pt()  ;
+        lep2_phi = secondLepton.Phi()  ;
+        lep2_ptratio = secondLepton.jetptratioV2()  ;
+        lep2_ptrel = secondLepton.ptrel()  ;
+        lep2_segment = secondLepton.segmentCompatibility()  ;
+        lep2_sig3d = secondLepton.IP3Dsig()  ;
+        lep2_lostHits = secondLepton.expectedMissingInnerHits()  ;
+        lep2_relIso04 = secondLepton.relIsoR04()  ;
+        lep2_relIso03 = secondLepton.relIsoRhoEA()  ;
+        lep2_TightCharge = secondLepton.passTightCharge()  ;
+        lep2_passConv = secondLepton.passConversionVeto()  ;
+        Dilep_worseIso = std::max(lep1_minIso, lep2_minIso);
+        Dilep_worseSip = std::max(lep1_sig3d, lep2_sig3d );
+        if(fakeLeptons.size()>=3){
+            FakeLep3.SetPtEtaPhiE(thirdLepton.conept(),thirdLepton.Eta(),thirdLepton.Phi(),thirdLepton.E());
+            lep3_charge = thirdLepton.charge()  ;
+            lep3_dxy = thirdLepton.dxy()  ;
+            lep3_dz = thirdLepton.dz()  ;
+            lep3_mvaId = thirdLepton.ntMVAeleID()  ;
+            lep3_eta = thirdLepton.Eta()  ;
+            lep3_minIso = thirdLepton.miniIsoRel()  ;
+            lep3_minIsoCh = thirdLepton.miniIsoCh()  ;
+            lep3_minIsoNeu = thirdLepton.miniIsoPUsub()  ;
+            lep3_pdgId = thirdLepton.pdgId()  ;
+            lep3_pt = thirdLepton.Pt()  ;
+            lep3_phi = thirdLepton.Phi()  ;
+            lep3_ptratio = thirdLepton.jetptratioV2()  ;
+            lep3_ptrel = thirdLepton.ptrel()  ;
+            lep3_segment = thirdLepton.segmentCompatibility()  ;
+            lep3_sig3d = thirdLepton.IP3Dsig()  ;
+            lep3_lostHits = thirdLepton.expectedMissingInnerHits()  ;
+            lep3_relIso04 = thirdLepton.relIsoR04()  ;
+            lep3_relIso03 = thirdLepton.relIsoRhoEA()  ;
+            lep3_TightCharge = thirdLepton.passTightCharge()  ;
+            lep3_passConv = thirdLepton.passConversionVeto()  ;
+            Sum3LCharge = firstLepton.charge() + secondLepton.charge() + thirdLepton.charge();
+            if(jet_numbMedium<2){//bl
+                if(Sum3LCharge < 0)SubCat3L = 1;// bl-
+                else if(Sum3LCharge > 0)SubCat3L =2; // bl+
+            }else{//bt
+                if(Sum3LCharge < 0)SubCat3L = 3;// bt-
+                else if(Sum3LCharge > 0)SubCat3L =4; // bt+
+            }
+            mass3L = (FakeLep1 + FakeLep2 + FakeLep3).M();
+            Trilep_mtWmin = std::min(Dilep_mtWmin, getMTlepmet(thirdLepton.Phi(),EvtObj->missingPhi,thirdLepton.Pt(),EvtObj->missingEt));
+            Trilep_bestMVA = std::max(lep3_BDT,Dilep_bestMVA);
+            Trilep_worseMVA = std::min(lep3_BDT,Dilep_bestMVA);
+            Trilep_worseIso = std::max(Dilep_worseIso, lep3_minIso);
+            Trilep_worseSip = std::max(Dilep_worseSip, lep3_sig3d); 
+            Trilep_nTight = firstLepton.isMVASel() + secondLepton.isMVASel() + thirdLepton.isMVASel();
+            Trilep_n_mu = (fabs(firstLepton.pdgId())==13) + (fabs(secondLepton.pdgId())==13) + (fabs(thirdLepton.pdgId())==13);
+            Trilep_n_ele = (fabs(firstLepton.pdgId())==11) + (fabs(secondLepton.pdgId())==11) + (fabs(thirdLepton.pdgId())==11);
+        }
     }
     //2l sub category
     if(fakeLeptons.size()>=2){

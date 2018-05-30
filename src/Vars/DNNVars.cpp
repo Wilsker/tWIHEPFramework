@@ -18,6 +18,12 @@ DNNVars::DNNVars(bool makeHistos){
   SetName("DNNVars");
   
   _doubleVecs["DNN_response"] = {-2., 2. }; 
+  _floatVars["bestDNN"] = -999;
+  _floatVars["worseDNN"] = -999;
+  _floatVars["DNN_ttH_output"] = -999;
+  _floatVars["DNN_ttV_output"] = -999;
+  _floatVars["DNN_ttJet_output"] = -999;
+  _floatVars["SubCat_DNN"] = -999;
 
     TMVA::Tools::Instance();
     // DNN MultiClass
@@ -40,6 +46,12 @@ DNNVars::DNNVars(bool makeHistos){
 
 void DNNVars::Clear(){
   DNN_response.clear();
+  bestDNN = -999;
+  worseDNN = -999;
+  DNN_ttH_output = -999;
+  DNN_ttV_output = -999;
+  DNN_ttJet_output = -999;
+  SubCat_DNN = -999;
 }
 
 void DNNVars::FillBranches(EventContainer* evtObj){
@@ -48,7 +60,23 @@ void DNNVars::FillBranches(EventContainer* evtObj){
   Clear();
   
   get_DNNResponse(evtObj); 
+  if(DNN_response.size()>=3){
+    DNN_ttH_output = DNN_response.at(0);
+    DNN_ttV_output = DNN_response.at(1);
+    DNN_ttJet_output = DNN_response.at(2);
+    worseDNN = TMath::Min(TMath::Min(DNN_ttH_output,DNN_ttV_output),DNN_ttJet_output);
+    bestDNN = TMath::Max(TMath::Max(DNN_ttH_output,DNN_ttV_output),DNN_ttJet_output);
+    if(DNN_ttH_output > DNN_ttV_output && DNN_ttH_output > DNN_ttJet_output)SubCat_DNN=1;// DNN_ttH
+    else if(DNN_ttV_output > DNN_ttH_output && DNN_ttV_output > DNN_ttJet_output)SubCat_DNN=2; // DNN_ttV
+    else if(DNN_ttJet_output > DNN_ttH_output && DNN_ttJet_output > DNN_ttV_output)SubCat_DNN=3; // DNN_ttJet
+  }
   _doubleVecs["DNN_response"] = DNN_response;
+  _floatVars["bestDNN"] = bestDNN;
+  _floatVars["worseDNN"] = worseDNN;
+  _floatVars["DNN_ttH_output"] = DNN_ttH_output;
+  _floatVars["DNN_ttV_output"] = DNN_ttV_output;
+  _floatVars["DNN_ttJet_output"] = DNN_ttJet_output;
+  _floatVars["SubCat_DNN"] = SubCat_DNN;
   if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
 }

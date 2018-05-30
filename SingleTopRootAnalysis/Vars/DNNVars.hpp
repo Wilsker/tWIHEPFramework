@@ -51,6 +51,12 @@ private:
     void get_DNNResponse(EventContainer* EvtObj);
 
     std::vector<double> DNN_response;
+    Float_t bestDNN;
+    Float_t worseDNN;
+    Float_t DNN_ttH_output;
+    Float_t DNN_ttV_output;
+    Float_t DNN_ttJet_output;
+    Float_t SubCat_DNN;
 };
 
 #endif
