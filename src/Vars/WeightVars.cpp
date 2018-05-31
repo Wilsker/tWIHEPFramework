@@ -24,6 +24,7 @@ WeightVars::WeightVars(){
   _floatVars["ChargeMis"] = 0.;
   _floatVars["FakeRate"] = 0.;
   _floatVars["TriggerSF"] = 0.;
+  _floatVars["LHEWeight"] = 0.;
 
   _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2"};
 
@@ -71,6 +72,7 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["ChargeMis"] = evtObj->GetEventChargeMisWeight();
   _floatVars["FakeRate"] = evtObj->GetEventFakeRateWeight();
   _floatVars["TriggerSF"] = evtObj->GetEventTriggerWeight();
+  _floatVars["LHEWeight"] = evtObj->GetEventTriggerWeight();
 
   _floatVars["MC_weight"] = evtObj->GetOutputEventWeight();
   _floatVars["bTagSF_weight"] = evtObj->GetEventbTagReshape();

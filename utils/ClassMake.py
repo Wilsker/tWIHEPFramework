@@ -18,14 +18,14 @@ workpath = "/publicfs/cms/user/libh/Test/Rootplizer/analyzer"
 # Variable Case
 #Case = "CaseA"
 #Case = "CaseB"
-#Case = "CaseC"
-Case = "CaseD"
+Case = "CaseC"
+#Case = "CaseD"
 # Variable Definition
 
-rObject = "double"
+rObject = "float"
 wObject = "Lepton"
 
-VariableType  = "Double_t"
+VariableType  = "Float_t"
 VariableNames = [
 # CaseA Variables
 #"pt","eta","phi","energy",
@@ -148,11 +148,44 @@ VariableNames = [
 
 #"TTHLep_3L", "Trig_1Ele", "Trig_2Ele", "Trig_3Ele", "Trig_1Mu", "Trig_1Mu1Ele", "Trig_1Mu2Ele", "Trig_2Mu", "Trig_2Mu1Ele", "Trig_3Mu",
 
-"HadTop_bjet_lepTop_csv","HadTop_bjet_hadTop_csv",
-"HadTop_reco_hadTop_pt","HadTop_reco_hadTop_mass",
-"HadTop_reco_WhadTop_mass","HadTop_PtRatio_leptOverleph",
-"HadTop_Dr_lept_bfromlTop","HadTop_Dr_lept_bfromhTop",
-"HadTop_Dr_leph_bfromlTop",
+#"HadTop_bjet_lepTop_csv","HadTop_bjet_hadTop_csv",
+#"HadTop_reco_hadTop_pt","HadTop_reco_hadTop_mass",
+#"HadTop_reco_WhadTop_mass","HadTop_PtRatio_leptOverleph",
+#"HadTop_Dr_lept_bfromlTop","HadTop_Dr_lept_bfromhTop",
+#"HadTop_Dr_leph_bfromlTop",
+
+
+##### DNN ####
+#"bestDNN","worseDNN","DNN_ttH_output","DNN_ttV_output","DNN_ttJet_output","SubCat_DNN",
+##### 
+"Dilep_worseIso","Dilep_worseSip",
+"mass3L","Trilep_mtWmin",
+"SubCat3L","Sum3LCharge","Trilep_n_mu","Trilep_nTight","Trilep_n_ele",
+"Trilep_bestMVA","Trilep_worseIso","Trilep_worseMVA","Trilep_worseSip",
+"Dilep_worsedz",
+"thirdLep_isMatchRightCharge","thirdLep_mcMatchId",
+"thirdLep_isFromTop","thirdLep_isFromH","thirdLep_isFromB","thirdLep_isFromC",
+"thirdLep_mcPromptGamma","thirdLep_mcPromptFS",
+
+"lep3_BDT",
+
+"lep1_charge","lep1_dxy","lep1_dz",                                                  
+"lep1_mvaId","lep1_eta","lep1_minIso","lep1_minIsoCh",           
+"lep1_minIsoNeu","lep1_pdgId","lep1_pt","lep1_phi",                               
+"lep1_ptratio","lep1_ptrel","lep1_segment","lep1_sig3d","lep1_lostHits",
+"lep1_relIso04","lep1_relIso03","lep1_TightCharge","lep1_passConv",
+
+"lep2_charge","lep2_dxy","lep2_dz",                                                  
+"lep2_mvaId","lep2_eta","lep2_minIso","lep2_minIsoCh",           
+"lep2_minIsoNeu","lep2_pdgId","lep2_pt","lep2_phi",                               
+"lep2_ptratio","lep2_ptrel","lep2_segment","lep2_sig3d","lep2_lostHits",
+"lep2_relIso04","lep2_relIso03","lep2_TightCharge","lep2_passConv",
+
+"lep3_charge","lep3_dxy","lep3_dz",                                                  
+"lep3_mvaId","lep3_eta","lep3_minIso","lep3_minIsoCh",           
+"lep3_minIsoNeu","lep3_pdgId","lep3_pt","lep3_phi",                               
+"lep3_ptratio","lep3_ptrel","lep3_segment","lep3_sig3d","lep3_lostHits",
+"lep3_relIso04","lep3_relIso03","lep3_TightCharge","lep3_passConv",
 
 ]
 

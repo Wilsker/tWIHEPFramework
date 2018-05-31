@@ -335,6 +335,7 @@ void EventWeight::BookHistogram()
       gwgt = 1.0;
     }
     EventContainerObj -> SetGlobalEventWeight(gwgt);
+    
 
     cout << "<EventWeight::BookHistogram>          |     Counts + MCatNLO: " << std::setw(12) <<_totalMCatNLOEvents<< "|" << endl;
     cout << "<EventWeight::BookHistogram>          |     Global Weight: " << std::setw(12) << EventContainerObj -> GetGlobalEventWeight()<< "|" << endl;
@@ -406,6 +407,21 @@ Bool_t EventWeight::Apply()
   if (tree->EVENT_genWeight < 0.) genWeight = -1.;
 
   wgt *= genWeight;
+
+  // LHE weight
+  TString sName = EventContainerObj -> GetSourceName();
+  float LHEWeight(1.0);
+  float rwgt(1.0);
+  if(sName.Contains("THW")){
+       rwgt = (tree->EVENT_genWeights -> operator[](893));
+       LHEWeight = rwgt/5458.47479968;
+    }else if(sName.Contains("THQ")){
+       rwgt = (tree->EVENT_genWeights -> operator[](1091));
+       LHEWeight = rwgt/8837.23781460;
+    }
+  //std::cout<<" rwgt : " << rwgt << " LHEWeight : " << LHEWeight<<std::endl;
+ 
+  wgt *= LHEWeight;
 
   // multiply by PileUpWgt weight if desired.
  float pileupEventWeight(-1.0);
@@ -558,6 +574,8 @@ Bool_t EventWeight::Apply()
   EventContainerObj -> SetEventTriggerWeight(TriggerWeight);
   EventContainerObj -> SetEventTriggerWeightUp(TriggerWeightUp);
   EventContainerObj -> SetEventTriggerWeightDown(TriggerWeightDown);
+  
+  EventContainerObj -> SetEventLHEWeight(LHEWeight);
   //Also save the systematic variations in these SFs
   //  EventContainerObj -> SetEventLepSFWeightUp(lepSFWeightUp);
   //EventContainerObj -> SetEventLepSFWeightDown(lepSFWeightDown);

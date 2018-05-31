@@ -459,6 +459,11 @@ class EventContainer
   inline Double_t GetEventTriggerWeightDown() const {return _EventTriggerWeightDown;};
   inline Double_t EventTriggerWeightDown() const {return GetEventTriggerWeightDown();};
 
+  //LHE weight per event
+  inline void SetEventLHEWeight(const Double_t& LHEweight) {_EventLHEWeight = LHEweight;};
+  inline Double_t GetEventLHEWeight() const {return _EventLHEWeight;};
+  inline Double_t EventLHEWeight() const {return GetEventLHEWeight();};
+
   //set and get btag weights for central and systematics
   inline void SetEventbTagReshape(const Double_t& lepSFweight, std::string systName = "central" ) {_EventbTagReshape[systName] = lepSFweight;};
   inline Double_t GetEventbTagReshape(std::string systName = "central") {return _EventbTagReshape[systName];};
@@ -540,6 +545,7 @@ class EventContainer
   Float_t _EventChargeMisWeight;
   Float_t _EventFakeRateWeight;
   Float_t _EventTriggerWeight;
+  Float_t _EventLHEWeight;
   Float_t _EventGenWeight;
   std::map<std::string,Float_t> _EventbTagReshape;
 
