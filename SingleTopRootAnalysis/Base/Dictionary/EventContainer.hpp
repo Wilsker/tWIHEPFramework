@@ -469,6 +469,16 @@ class EventContainer
   inline Double_t GetEventbTagReshape(std::string systName = "central") {return _EventbTagReshape[systName];};
   inline Double_t EventbTagReshape() {return GetEventbTagReshape();};
 
+  //set and get fr weights for central and systematics
+  inline void SetEventmfrReweight(const Double_t& mfrReweight, std::string systName = "central" ) {_EventmfrReweight[systName] = mfrReweight;};
+  inline Double_t GetEventmfrReweight(std::string systName = "central") {return _EventmfrReweight[systName];};
+  inline Double_t EventmfrReweight() {return GetEventmfrReweight();};
+  
+  //set and get fr weights for central and systematics
+  inline void SetEventefrReweight(const Double_t& efrReweight, std::string systName = "central" ) {_EventefrReweight[systName] = efrReweight;};
+  inline Double_t GetEventefrReweight(std::string systName = "central") {return _EventefrReweight[systName];};
+  inline Double_t EventefrReweight() {return GetEventefrReweight();};
+  
   //Gen weight for event (actually just up or down)
   inline void SetGenWeight(const Double_t& genWeight) {_EventGenWeight = genWeight;};
   inline Double_t GetGenWeight() const {return _EventGenWeight;};
@@ -548,6 +558,8 @@ class EventContainer
   Float_t _EventLHEWeight;
   Float_t _EventGenWeight;
   std::map<std::string,Float_t> _EventbTagReshape;
+  std::map<std::string,Float_t> _EventmfrReweight;
+  std::map<std::string,Float_t> _EventefrReweight;
 
   //Add in the systematic variations to the SFs
   Float_t _EventLepSFWeightUp;

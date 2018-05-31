@@ -110,6 +110,8 @@ private:
   myTH1F* _hmulooseSFWeight; //Histogram of the lepton SF claculated for the event
   myTH1F* _hmutightSFWeight; //Histogram of the lepton SF claculated for the event
   std::map<std::string,myTH1F*> _hbTagReshape; //Map of histograms containing the information for b tag reshaping and its associated systematics
+  std::map<std::string,myTH1F*> _hefrReweight; //Map of histograms containing the information for b tag reshaping and its associated systematics
+  std::map<std::string,myTH1F*> _hmfrReweight; //Map of histograms containing the information for b tag reshaping and its associated systematics
   myTH1F* _hGenWeight; //Histogram of the gen weight for the event
   myTH1F* _hOutputWeight; // Histogram of output weights
   Double_t _totalMCatNLOEvents;
@@ -119,8 +121,8 @@ private:
   //Histograms that are used for applying charge mismeasurement weight
   TH2F* _chargeMis;
   //Histograms that are used for applying lepton fake rate weight
-  TH2F* _MuonFakeRate;
-  TH2F* _ElectronFakeRate;
+  std::map<std::string,TH2F*> _MuonFakeRate;
+  std::map<std::string,TH2F*> _ElectronFakeRate;
 
   
   //Histograms that are used for applying scale factors to leptons
@@ -149,6 +151,9 @@ private:
   std::vector<std::string> _bTagSystNames;
   std::map<std::string,float> _bTagSystValues;
 
+  std::vector<std::string> _frSystNames;
+  std::map<std::string,float> _frSystValues;
+  
   // LeptonSFs
   std::tuple<Double_t,Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Double_t, Double_t,Double_t,Double_t,Double_t, Double_t,Double_t> getLeptonWeight(EventContainer * EventContainerObj);
   //void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString muonTKGraphName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleID_1_HistName, TString eleID_2_HistName, TString eleID_3_HistName, TString muonLooseToTightFileName, TString muonLooseToTightHistName, TString eleLooseToTightFileName, TString eleLooseToTightHistName);
@@ -157,8 +162,8 @@ private:
   std::tuple<Double_t,Double_t,Double_t> getChargeMisWeight(EventContainer * EventContainerObj);
   void setChargeMisHistograms(TString ChargeMisFileName,TString ChargeMisHistName);
   // FakeRate
-  std::tuple<Double_t,Double_t,Double_t> getFakeRateWeight(EventContainer * EventContainerObj);
-  void setFakeRateHistograms(TString FakeRateFileName,TString FakeRateMuonHistName, TString FakeRateElectronHistName);
+  Double_t getFakeRateWeight(EventContainer * EventContainerObj, std::string muSystName="central", std::string eleSystName="central");
+  void setFakeRateHistograms(TString FakeRateFileName,TString FakeRateMuonHistName, TString FakeRateElectronHistName, std::string muSystName="central", std::string eleSystName="central");
   // Trigger Sfs
   std::tuple<Double_t,Double_t,Double_t> getTriggerWeight(EventContainer* EventContainerObj);
 

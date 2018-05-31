@@ -27,9 +27,12 @@ WeightVars::WeightVars(){
   _floatVars["LHEWeight"] = 0.;
 
   _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2"};
+  _frReWeightNames = {"central","pt1","pt2","up","down","be1","be2"};
 
   //Systematic variations
   for (auto const bSystName: _bTagSystNames) _floatVars["bWeight_"+bSystName] = 0.;
+  for (auto const frReWeightName: _frReWeightNames) _floatVars["FakeRate_m_"+frReWeightName] = 0.;
+  for (auto const frReWeightName: _frReWeightNames) _floatVars["FakeRate_e_"+frReWeightName] = 0.;
   _floatVars["puWeight_SysUp"] = 0.;
   _floatVars["puWeight_SysDown"] = 0.;
   _floatVars["lepSF_SysUp"] = 0.;
@@ -44,8 +47,6 @@ WeightVars::WeightVars(){
   _floatVars["mutightSF_SysDown"] = 0.;
   _floatVars["ChargeMis_SysUp"] = 0.;
   _floatVars["ChargeMis_SysDown"] = 0.;
-  _floatVars["FakeRate_SysUp"] = 0.;
-  _floatVars["FakeRate_SysDown"] = 0.;
   _floatVars["TriggerSF_SysUp"] = 0.;
   _floatVars["TriggerSF_SysDown"] = 0.;
   
@@ -102,8 +103,6 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["mutightSF_SysDown"] = evtObj->GetEventmutightSFWeightDown();
   _floatVars["ChargeMis_SysUp"] = evtObj->GetEventChargeMisWeightUp();
   _floatVars["ChargeMis_SysDown"] = evtObj->GetEventChargeMisWeightDown();
-  _floatVars["FakeRate_SysUp"] = evtObj->GetEventFakeRateWeightUp();
-  _floatVars["FakeRate_SysDown"] = evtObj->GetEventFakeRateWeightDown();
   _floatVars["TriggerSF_SysUp"] = evtObj->GetEventTriggerWeightUp();
   _floatVars["TriggerSF_SysDown"] = evtObj->GetEventTriggerWeightDown();
   
@@ -112,5 +111,7 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["puWeight_SysDown"] = evtObj->GetEventPileupMinBiasDownWeight();
 
   for (auto const bSystName: _bTagSystNames) _floatVars["bWeight_"+bSystName] = evtObj->GetEventbTagReshape(bSystName);
+  for (auto const frReWeightName: _frReWeightNames) _floatVars["FakeRate_m_"+frReWeightName] = evtObj->GetEventmfrReweight(frReWeightName);
+  for (auto const frReWeightName: _frReWeightNames) _floatVars["FakeRate_e_"+frReWeightName] = evtObj->GetEventefrReweight(frReWeightName);
 
 }

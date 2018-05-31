@@ -23,6 +23,7 @@ public:
 
 private:
   std::vector<std::string> _bTagSystNames;
+  std::vector<std::string> _frReWeightNames;
   
 };
 
