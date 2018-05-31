@@ -105,6 +105,10 @@ private:
   myTH1F* _hFakeRate; // Histogram of Lepton Fake Rate
   myTH1F* _hTriggerSFs; // Histogram of Trigger Sfs
   myTH1F* _hLeptonSFWeight; //Histogram of the lepton SF claculated for the event
+  myTH1F* _helelooseSFWeight; //Histogram of the lepton SF claculated for the event
+  myTH1F* _heletightSFWeight; //Histogram of the lepton SF claculated for the event
+  myTH1F* _hmulooseSFWeight; //Histogram of the lepton SF claculated for the event
+  myTH1F* _hmutightSFWeight; //Histogram of the lepton SF claculated for the event
   std::map<std::string,myTH1F*> _hbTagReshape; //Map of histograms containing the information for b tag reshaping and its associated systematics
   myTH1F* _hGenWeight; //Histogram of the gen weight for the event
   myTH1F* _hOutputWeight; // Histogram of output weights
@@ -121,16 +125,16 @@ private:
   
   //Histograms that are used for applying scale factors to leptons
   //For now we are only using muons as we veto on electroons anyway
-  TH2F* _muonIsoSF;
-  TH2F* _muonIDSF;
-  TH2F* _muonTrigSF;
-  TGraphAsymmErrors* _muonTkSF;
-  TH2F* _muonLooseToTightSF;
-  TH2F* _eleRecoSF;
-  TH2F* _eleID1SF;
-  TH2F* _eleID2SF;
-  TH2F* _eleID3SF;
-  TH2F* _eleLooseToTightSF;
+  TH2F* _muonIsoSF=NULL;
+  TH2F* _muonIDSF=NULL;
+  TH2F* _muonTrigSF=NULL;
+  TGraphAsymmErrors* _muonTkSF=NULL;
+  TH2F* _muonLooseToTightSF=NULL;
+  TH2F* _eleRecoSF=NULL;
+  TH2F* _eleID1SF=NULL;
+  TH2F* _eleID2SF=NULL;
+  TH2F* _eleID3SF=NULL;
+  TH2F* _eleLooseToTightSF=NULL;
 
   //Pileup reweighting hisotgrams
   TH1D* _dataPV;
@@ -146,7 +150,7 @@ private:
   std::map<std::string,float> _bTagSystValues;
 
   // LeptonSFs
-  std::tuple<Double_t,Double_t,Double_t> getLeptonWeight(EventContainer * EventContainerObj);
+  std::tuple<Double_t,Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Double_t, Double_t,Double_t,Double_t,Double_t, Double_t,Double_t> getLeptonWeight(EventContainer * EventContainerObj);
   //void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString muonTKGraphName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleID_1_HistName, TString eleID_2_HistName, TString eleID_3_HistName, TString muonLooseToTightFileName, TString muonLooseToTightHistName, TString eleLooseToTightFileName, TString eleLooseToTightHistName);
   void setLeptonHistograms(TString muonIDFileName, TString muonIDHistName, TString muonIsoFileName, TString muonIsoHistName, TString muonTrigFileName, TString muonTrigHistName, TString muonTkFileName, TString eleRecoFileName, TString eleRecoHistName, TString eleIDFileName, TString eleID_1_HistName, TString eleID_2_HistName, TString eleID_3_HistName, TString muonLooseToTightFileName, TString muonLooseToTightHistName, TString eleLooseToTightFileName, TString eleLooseToTightHistName);
   // ChargeMis

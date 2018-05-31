@@ -191,7 +191,7 @@ Bool_t CutMetLD::Apply()
   if(!_isTriLep){
     if(MetLD < _MetLDMin && isEE)passesMetLDCut = kFALSE;
   }else{
-    if(!(n_presel_jet >=4 || MetLD > (isSFOS? _MetLDTight : _MetLDMin)))passesMetLDCut = kTRUE;
+    if(!(n_presel_jet >=4 || MetLD > (isSFOS? _MetLDTight : _MetLDMin)))passesMetLDCut = kFALSE;
   }
 
   if (!passesMetLDCut ){

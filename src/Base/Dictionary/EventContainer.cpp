@@ -1726,7 +1726,7 @@ void EventContainer::Cal_dilep_mass(){
             if(fabs(lSFOSmass-91.2)>fabs((Lep0+Lep1).M()-91.2)
                 && (looseLeptons.at(lep_en).pdgId()+looseLeptons.at(l_en).pdgId())==0)
                 lSFOSmass = (Lep0+Lep1).M(); 
-            if(fabs(mass_diele-91.2)>fabs((Lep0+Lep1).M()-91.2)
+            if(fabs(dielemass-91.2)>fabs((Lep0+Lep1).M()-91.2)
                 && (fabs(looseLeptons.at(lep_en).pdgId())+fabs(looseLeptons.at(l_en).pdgId()))==22)
                 dielemass = (Lep0+Lep1).M(); 
         }

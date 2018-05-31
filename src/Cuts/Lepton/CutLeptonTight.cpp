@@ -295,7 +295,7 @@ Bool_t CutLeptonTight::Apply()
   // Return if it passes
   // ***********************************************
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !LeptonTightPass ){
-    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightPass " << leptonType << " SelectedLeptonsNumTight "<< SelectedLeptonsNumTight  << std::endl; 
+    std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightPass " << leptonType << " SelectedLeptonsNumTight "<< SelectedLeptonsNumTight  <<" lep1 pt/conept/mva "<<  leptonVector[0].Pt()<<"/"<<leptonVector[0].conept() <<"/"  <<leptonVector[0].BDT() <<leptonVector[1].Pt()<<"/"<<leptonVector[1].conept() <<"/"  <<leptonVector[1].BDT()  <<std::endl; 
   }
   
   return(LeptonTightPass);

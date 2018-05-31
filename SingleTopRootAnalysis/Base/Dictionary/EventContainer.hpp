@@ -354,6 +354,66 @@ class EventContainer
   inline Double_t GetEventLepSFWeightDown() const {return _EventLepSFWeightDown;};
   inline Double_t EventLepSFWeightDown() const {return GetEventLepSFWeightDown();};
 
+  //lepton SF weight per event
+  inline void SetEventelelooseSFWeight(const Double_t& lepSFweight) {_EventelelooseSFWeight = lepSFweight;};
+  inline Double_t GetEventelelooseSFWeight() const {return _EventelelooseSFWeight;};
+  inline Double_t EventelelooseSFWeight() const {return GetEventelelooseSFWeight();};
+
+  //lepton SF weight up variation per event
+  inline void SetEventelelooseSFWeightUp(const Double_t& lepSFweight) {_EventelelooseSFWeightUp = lepSFweight;};
+  inline Double_t GetEventelelooseSFWeightUp() const {return _EventelelooseSFWeightUp;};
+  inline Double_t EventelelooseSFWeightUp() const {return GetEventelelooseSFWeightUp();};
+
+  //lepton SF weight down variation per event
+  inline void SetEventelelooseSFWeightDown(const Double_t& lepSFweight) {_EventelelooseSFWeightDown = lepSFweight;};
+  inline Double_t GetEventelelooseSFWeightDown() const {return _EventelelooseSFWeightDown;};
+  inline Double_t EventelelooseSFWeightDown() const {return GetEventelelooseSFWeightDown();};
+
+  //lepton SF weight per event
+  inline void SetEventeletightSFWeight(const Double_t& lepSFweight) {_EventeletightSFWeight = lepSFweight;};
+  inline Double_t GetEventeletightSFWeight() const {return _EventeletightSFWeight;};
+  inline Double_t EventeletightSFWeight() const {return GetEventeletightSFWeight();};
+
+  //lepton SF weight up variation per event
+  inline void SetEventeletightSFWeightUp(const Double_t& lepSFweight) {_EventeletightSFWeightUp = lepSFweight;};
+  inline Double_t GetEventeletightSFWeightUp() const {return _EventeletightSFWeightUp;};
+  inline Double_t EventeletightSFWeightUp() const {return GetEventeletightSFWeightUp();};
+
+  //lepton SF weight down variation per event
+  inline void SetEventeletightSFWeightDown(const Double_t& lepSFweight) {_EventeletightSFWeightDown = lepSFweight;};
+  inline Double_t GetEventeletightSFWeightDown() const {return _EventeletightSFWeightDown;};
+  inline Double_t EventeletightSFWeightDown() const {return GetEventeletightSFWeightDown();};
+
+  //lepton SF weight per event
+  inline void SetEventmulooseSFWeight(const Double_t& lepSFweight) {_EventmulooseSFWeight = lepSFweight;};
+  inline Double_t GetEventmulooseSFWeight() const {return _EventmulooseSFWeight;};
+  inline Double_t EventmulooseSFWeight() const {return GetEventmulooseSFWeight();};
+
+  //lepton SF weight up variation per event
+  inline void SetEventmulooseSFWeightUp(const Double_t& lepSFweight) {_EventmulooseSFWeightUp = lepSFweight;};
+  inline Double_t GetEventmulooseSFWeightUp() const {return _EventmulooseSFWeightUp;};
+  inline Double_t EventmulooseSFWeightUp() const {return GetEventmulooseSFWeightUp();};
+
+  //lepton SF weight down variation per event
+  inline void SetEventmulooseSFWeightDown(const Double_t& lepSFweight) {_EventmulooseSFWeightDown = lepSFweight;};
+  inline Double_t GetEventmulooseSFWeightDown() const {return _EventmulooseSFWeightDown;};
+  inline Double_t EventmulooseSFWeightDown() const {return GetEventmulooseSFWeightDown();};
+
+  //lepton SF weight per event
+  inline void SetEventmutightSFWeight(const Double_t& lepSFweight) {_EventmutightSFWeight = lepSFweight;};
+  inline Double_t GetEventmutightSFWeight() const {return _EventmutightSFWeight;};
+  inline Double_t EventmutightSFWeight() const {return GetEventmutightSFWeight();};
+
+  //lepton SF weight up variation per event
+  inline void SetEventmutightSFWeightUp(const Double_t& lepSFweight) {_EventmutightSFWeightUp = lepSFweight;};
+  inline Double_t GetEventmutightSFWeightUp() const {return _EventmutightSFWeightUp;};
+  inline Double_t EventmutightSFWeightUp() const {return GetEventmutightSFWeightUp();};
+
+  //lepton SF weight down variation per event
+  inline void SetEventmutightSFWeightDown(const Double_t& lepSFweight) {_EventmutightSFWeightDown = lepSFweight;};
+  inline Double_t GetEventmutightSFWeightDown() const {return _EventmutightSFWeightDown;};
+  inline Double_t EventmutightSFWeightDown() const {return GetEventmutightSFWeightDown();};
+  
   //chargeMis weight per event
   inline void SetEventChargeMisWeight(const Double_t& ChargeMisweight) {_EventChargeMisWeight = ChargeMisweight;};
   inline Double_t GetEventChargeMisWeight() const {return _EventChargeMisWeight;};
@@ -473,6 +533,10 @@ class EventContainer
   Float_t _EventPileupMinBiasDownWeight;
   Float_t _EventbWeight; // this may be the same as the tagging weight, but I'm making it different anyway
   Float_t _EventLepSFWeight;
+  Float_t _EventelelooseSFWeight;
+  Float_t _EventeletightSFWeight;
+  Float_t _EventmulooseSFWeight;
+  Float_t _EventmutightSFWeight;
   Float_t _EventChargeMisWeight;
   Float_t _EventFakeRateWeight;
   Float_t _EventTriggerWeight;
@@ -482,6 +546,14 @@ class EventContainer
   //Add in the systematic variations to the SFs
   Float_t _EventLepSFWeightUp;
   Float_t _EventLepSFWeightDown;
+  Float_t _EventelelooseSFWeightUp;
+  Float_t _EventelelooseSFWeightDown;
+  Float_t _EventeletightSFWeightUp;
+  Float_t _EventeletightSFWeightDown;
+  Float_t _EventmulooseSFWeightUp;
+  Float_t _EventmulooseSFWeightDown;
+  Float_t _EventmutightSFWeightUp;
+  Float_t _EventmutightSFWeightDown;
 
   //Add in the systematic variations to the ChargeMis
   Float_t _EventChargeMisWeightUp;

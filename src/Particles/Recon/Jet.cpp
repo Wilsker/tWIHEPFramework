@@ -669,7 +669,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
         closestLepton = lep.DeltaR(*this);
     }
   }
- /*
+  
+  /*
   int clean_tau=0;
   int tau_num = selectedTaus.size();
   clean_tau= TMath::Min(1,tau_num);
@@ -681,7 +682,6 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
     }
   }
   */
-
   /*
   for (auto const & lep : selectedLeptons){
     if (lep.DeltaR(*this) < closestLepton){
@@ -863,20 +863,21 @@ void Jet::SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met, Bo
     ptSF = evtr->Jet_JerSFdown->operator[](iE)/evtr->Jet_JerSF->operator[](iE);
   }
   //  float ptBefore = Pt();
+  if(!useLepAware){
   //Remove jet from MET
-  met->SetPx(met->Px() + Px());
-  met->SetPy(met->Py() + Py());
+    met->SetPx(met->Px() + Px());
+    met->SetPy(met->Py() + Py());
   //Apply the correction
   //  std::cout << Px() << " " << Py() << " " << Pt() << std::endl;
-  SetPx(Px()*ptSF);
-  SetPy(Py()*ptSF);
-  SetPz(Pz()*ptSF);
+    SetPx(Px()*ptSF);
+    SetPy(Py()*ptSF);
+    SetPz(Pz()*ptSF);
   //std::cout << Px() << " " << Py() << " " << Pt() << std::endl << std::endl;
   
   //Propagate to MET
-  met->SetPx(met->Px() - Px());
-  met->SetPy(met->Py() - Py());
-
+    met->SetPx(met->Px() - Px());
+    met->SetPy(met->Py() - Py());
+  }
   //  float ptAfter = Pt();
   //  if (ptBefore < 30 && ptAfter > 30) {
   //  std::cout << "Now selected: Jet #" << iE << "Jet Pt: " << ptBefore << " JER SF: " << evtr->Jet_JerSF->operator[](iE) << " up: " << evtr->Jet_JerSFup->operator[](iE) << " down: " << evtr->Jet_JerSFdown->operator[](iE) << " JES SF: " << evtr->Jet_JesSF->operator[](iE) << " up: " << evtr->Jet_JesSFup->operator[](iE) << " down: " << evtr->Jet_JesSFdown->operator[](iE);

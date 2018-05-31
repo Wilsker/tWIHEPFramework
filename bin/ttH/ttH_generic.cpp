@@ -342,10 +342,11 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   if(!isTrainMVA){
-    if(!isTriLepton)mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
-    else{
-        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));// presel_ele;presel_SFOSlep
+    if(!isTriLepton){
+        mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
         mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
+    }else{
+        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));// presel_ele;presel_SFOSlep
     }
     mystudy.AddCut(new CutMassL(particlesObj));
     mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
