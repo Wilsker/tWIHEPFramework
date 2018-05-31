@@ -1267,7 +1267,7 @@ Int_t EventContainer::ReadEvent()
       TLorentzVector lv(0.,0.,0.,0.);
       lv.SetPtEtaPhiE(lepton.Pt(),lepton.Eta(),lepton.Phi(),lepton.E());
       mht_lv = mht_lv + lv;
-      if(lepton.isTight()==1){
+      if(lepton.isMVASel()==1){
           mhtT_lv = mhtT_lv + lv;
       }
   }

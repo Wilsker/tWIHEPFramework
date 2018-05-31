@@ -10,7 +10,7 @@ Cut.Trigger.Channel:TTHLep_3L
 ################# Lepton Cuts #########################
 # Number of Leptons
 Cut.Lepton.TTHTight.Number.Min:  0
-Cut.Lepton.TTHTight.Number.Max:  999
+Cut.Lepton.TTHTight.Number.Max:  3
 Cut.Lepton.TTHFake.Number.Min:  3
 Cut.Lepton.TTHFake.Number.Max:  999
 Cut.Electron.TTHFake.LeadingPt:  25
