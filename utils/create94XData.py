@@ -8,6 +8,8 @@ import sys,os
 
 treeName = "RDOut_"
 
+DirOfData = "/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/"
+
 datasets = [
 "SEleBlockB", "SEleBlockC", "SEleBlockD", "SEleBlockE", "SEleBlockF", "SMuBlockB", "SMuBlockC", "SMuBlockD", "SMuBlockE", "SMuBlockF", "DblEGBlockB", "DblEGBlockC", "DblEGBlockD", "DblEGBlockE", "DblEGBlockF", "DblMuBlockB", "DblMuBlockC", "DblMuBlockD", "DblMuBlockE", "DblMuBlockF", "MuEGBlockB", "MuEGBlockC", "MuEGBlockD", "MuEGBlockE", "MuEGBlockF",
 ]
@@ -17,35 +19,40 @@ datasetID = {
     }
 
 nFilesDataset = {
-"SEleBlockB":803, "SEleBlockC":1725, "SEleBlockD":898, "SEleBlockE":1415, "SEleBlockF":1939, "SMuBlockB":808, "SMuBlockC":1721, "SMuBlockD":901, "SMuBlockE":1427, "SMuBlockF":1950, "DblMuBlockB":807, "DblMuBlockC":1727, "DblMuBlockD":902, "DblMuBlockE":1428, "DblMuBlockF":1951, "DblEGBlockB":806, "DblEGBlockC":1727, "DblEGBlockD":903, "DblEGBlockE":1428, "DblEGBlockF":1950, "MuEGBlockB":807, "MuEGBlockC":1727, "MuEGBlockD":902, "MuEGBlockE":1427, "MuEGBlockF":1950, 
+"DblMuBlockB":807, "SEleBlockF":1949, "MuEGBlockF":1950, "DblMuBlockD":902, "DblEGBlockD":903, "MuEGBlockC":1727, "MuEGBlockB":807, "DblEGBlockC":1727, "MuEGBlockE":1428, "DblMuBlockE":1428, "SMuBlockB":808, "SMuBlockE":1429, "SEleBlockB":808, "DblEGBlockE":1428, "SEleBlockD":902, "SMuBlockF":1950, "SEleBlockC":1725, "SEleBlockE":1428, "DblMuBlockC":1727, "MuEGBlockD":902, "DblEGBlockF":1950, "SMuBlockD":902, "SMuBlockC":1729, "DblEGBlockB":807, "DblMuBlockF":1950,
     }
 
 datasetDirs = {
-"SEleBlockB":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockB/180508_154036/0000/"],
-"SEleBlockC":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockC/180508_154125/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockC/180508_154125/0001/"],
-"SEleBlockD":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockD/180508_154212/0000/"],
-"SEleBlockE":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockE/180508_153846/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockE/180508_153846/0001/"],
-"SEleBlockF":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockF/180508_154300/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleElectron/crab_Fall17V1_SEleBlockF/180508_154300/0001/"],
-"SMuBlockB":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockB/180508_154353/0000/"],
-"SMuBlockC":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockC/180508_154442/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockC/180508_154442/0001/"],
-"SMuBlockD":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockD/180508_154529/0000/"],
-"SMuBlockE":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockE/180508_154618/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockE/180508_154618/0001/"],
-"SMuBlockF":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockF/180508_154714/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/SingleMuon/crab_Fall17V1_SMuBlockF/180508_154714/0001/"],
-"DblMuBlockB":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockB/180509_090626/0000/"],
-"DblMuBlockC":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockC/180509_090705/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockC/180509_090705/0001/"],
-"DblMuBlockD":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockD/180509_090748/0000/"],
-"DblMuBlockE":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockE/180509_090832/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockE/180509_090832/0001/"],
-"DblMuBlockF":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockF/180509_090917/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleMuon/crab_Fall17V1_DblMuBlockF/180509_090917/0001/"],
-"DblEGBlockB":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockB/180509_090303/0000/"],
-"DblEGBlockC":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockC/180509_090343/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockC/180509_090343/0001/"],
-"DblEGBlockD":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockD/180509_090423/0000/"],
-"DblEGBlockE":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockE/180509_090504/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockE/180509_090504/0001/"],
-"DblEGBlockF":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockF/180509_090545/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/DoubleEG/crab_Fall17V1_DblEGBlockF/180509_090545/0001/"],
-"MuEGBlockB":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockB/180509_091002/0000/"],
-"MuEGBlockC":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockC/180509_091043/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockC/180509_091043/0001/"],
-"MuEGBlockD":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockD/180509_091123/0000/"],
-"MuEGBlockE":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockE/180509_091206/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockE/180509_091206/0001/"],
-"MuEGBlockF":["/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockF/180509_091251/0000/","/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/data/MuonEG/crab_Fall17V1_MuEGBlockF/180509_091251/0001/"],
+#'SignleEle'
+"SEleBlockB":['SingleElectron/crab_Fall17V1_SEleBlockB/180508_154036/0000/'],
+"SEleBlockC":[ 'SingleElectron/crab_Fall17V1_SEleBlockC/180508_154125/0000/','SingleElectron/crab_Fall17V1_SEleBlockC/180508_154125/0001/'],
+"SEleBlockD":[ 'SingleElectron/crab_Fall17V1_SEleBlockD/180508_154212/0000/'],
+"SEleBlockE":[ 'SingleElectron/crab_Fall17V1_SEleBlockE/180508_153846/0000/','SingleElectron/crab_Fall17V1_SEleBlockE/180508_153846/0001/'],
+"SEleBlockF":['SingleElectron/crab_Fall17V2_SEleBlockF/180525_064028/0000/','SingleElectron/crab_Fall17V2_SEleBlockF/180525_064028/0001/'],
+#'SingleMuon'
+"SMuBlockB":[ 'SingleMuon/crab_Fall17V1_SMuBlockB/180508_154353/0000/'],
+"SMuBlockC":[ 'SingleMuon/crab_Fall17V1_SMuBlockC/180508_154442/0000/','SingleMuon/crab_Fall17V1_SMuBlockC/180508_154442/0001/'],
+"SMuBlockD":[ 'SingleMuon/crab_Fall17V1_SMuBlockD/180508_154529/0000/'],
+"SMuBlockE":[ 'SingleMuon/crab_Fall17V1_SMuBlockE/180508_154618/0000/','SingleMuon/crab_Fall17V1_SMuBlockE/180508_154618/0001/'],
+"SMuBlockF":['SingleMuon/crab_Fall17V2_SMuBlockF/180525_064111/0000/','SingleMuon/crab_Fall17V2_SMuBlockF/180525_064111/0001/'],
+#'DoubleMuon'
+"DblMuBlockB":[ 'DoubleMuon/crab_Fall17V1_DblMuBlockB/180509_090626/0000/'],
+"DblMuBlockC":[ 'DoubleMuon/crab_Fall17V1_DblMuBlockC/180509_090705/0000/','DoubleMuon/crab_Fall17V1_DblMuBlockC/180509_090705/0001/'],
+"DblMuBlockD":[ 'DoubleMuon/crab_Fall17V1_DblMuBlockD/180509_090748/0000/'],
+"DblMuBlockE":[ 'DoubleMuon/crab_Fall17V1_DblMuBlockE/180509_090832/0000/','DoubleMuon/crab_Fall17V1_DblMuBlockE/180509_090832/0001/'],
+"DblMuBlockF":[ 'DoubleMuon/crab_Fall17V2_DblMuBlockF/180525_064241/0000/','DoubleMuon/crab_Fall17V2_DblMuBlockF/180525_064241/0001/'],
+#'DoubleEG'
+"DblEGBlockB":[ 'DoubleEG/crab_Fall17V1_DblEGBlockB/180509_090303/0000/'],
+"DblEGBlockC":[ 'DoubleEG/crab_Fall17V1_DblEGBlockC/180509_090343/0000/','DoubleEG/crab_Fall17V1_DblEGBlockC/180509_090343/0001/'],
+"DblEGBlockD":[ 'DoubleEG/crab_Fall17V1_DblEGBlockD/180509_090423/0000/'],
+"DblEGBlockE":[ 'DoubleEG/crab_Fall17V1_DblEGBlockE/180509_090504/0000/','DoubleEG/crab_Fall17V1_DblEGBlockE/180509_090504/0001/'],
+"DblEGBlockF":['DoubleEG/crab_Fall17V2_DblEGBlockF/180525_064157/0000/','DoubleEG/crab_Fall17V2_DblEGBlockF/180525_064157/0001/'],
+#'MuonEG'
+"MuEGBlockB":[ 'MuonEG/crab_Fall17V1_MuEGBlockB/180509_091002/0000/'],
+"MuEGBlockC":[ 'MuonEG/crab_Fall17V1_MuEGBlockC/180509_091043/0000/','MuonEG/crab_Fall17V1_MuEGBlockC/180509_091043/0001/'],
+"MuEGBlockD":[ 'MuonEG/crab_Fall17V1_MuEGBlockD/180509_091123/0000/'],
+"MuEGBlockE":[ 'MuonEG/crab_Fall17V1_MuEGBlockE/180509_091206/0000/','MuonEG/crab_Fall17V1_MuEGBlockE/180509_091206/0001/'],
+"MuEGBlockF":['MuonEG/crab_Fall17V2_MuEGBlockF/180525_064329/0000/','MuonEG/crab_Fall17V2_MuEGBlockF/180525_064329/0001/'],
 }
 
 
@@ -71,7 +78,8 @@ for dataset in datasets:
     
     fileList = []
     for datasetDir in datasetDirs[dataset]:
-        fileList += [os.path.join(datasetDir,f) for f in os.listdir(datasetDir) if ".root" in f]
+        dataDir = DirOfData+datasetDir
+        fileList += [os.path.join(dataDir,f) for f in os.listdir(dataDir) if ".root" in f]
     nJobs = int(math.ceil(len(fileList)/namesPerFile))
     print ("Dataset: {0}, ID: {1}. Number of jobs created = {2}".format(dataset,datasetID[dataset],nJobs))
     nFile = 0

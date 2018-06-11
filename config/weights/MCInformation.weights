@@ -6,17 +6,17 @@
 Weight.Lumi: 41298
  
 # 100000 - TTHnobb
-Weight.Source.100000: 0.2118
+Weight.Source.100000: 0.2119678
 Events.Source.100000: 3303585
 PileUp.Source.100000: ttHJetToNonbb_M125_amcatnlo
 
-# 100001 - TTH_powheg_ToNonbb
-Weight.Source.100001: 0.2118
+# 100001 - ttH_powheg_ToNonbb
+Weight.Source.100001: 0.2119678
 Events.Source.100001: 7453126
 PileUp.Source.100001: ttHToNonbb_M125_powheg
 
 # 100002 - DY_M10to50
-Weight.Source.100002: 18610
+Weight.Source.100002: 15810
 Events.Source.100002: 38801157
 PileUp.Source.100002: DYJetsToLL_M-10to50
 
@@ -56,12 +56,12 @@ Events.Source.100009: 5841455
 PileUp.Source.100009: ST_t-channel_top_4f_inclusiveDecays
 
 # 100010 - TTGJets
-Weight.Source.100010: 3.697
+Weight.Source.100010: 4.09
 Events.Source.100010: 1805186
 PileUp.Source.100010: TTGJets
 
 # 100011 - TTTT_Tune
-Weight.Source.100011: 0.008213
+Weight.Source.100011: 0.009103
 Events.Source.100011: 371504
 PileUp.Source.100011: TTTT
 
@@ -86,7 +86,7 @@ Events.Source.100015: 2652074
 PileUp.Source.100015: TTWJetsToLNu
 
 # 100016 - TTWW
-Weight.Source.100016: 0.007834
+Weight.Source.100016: 0.0115
 Events.Source.100016: 199010
 PileUp.Source.100016: TTWW
 
@@ -101,7 +101,7 @@ Events.Source.100018: 3555803
 PileUp.Source.100018: TTZToLL_M10
 
 # 100019 - TTZToLL_M1to10
-Weight.Source.100019: 0.0493
+Weight.Source.100019: 0.05324
 Events.Source.100019: 131210
 PileUp.Source.100019: TTZToLL_M-1to10
 
@@ -126,7 +126,7 @@ Events.Source.100023: 23219762
 PileUp.Source.100023: WJetsToLNu
 
 # 100024 - WWTo2L2Nu
-Weight.Source.100024: 12.178
+Weight.Source.100024: 10.481
 Events.Source.100024: 1811994
 PileUp.Source.100024: WWTo2L2Nu
 
@@ -146,12 +146,12 @@ Events.Source.100027: 1000000
 PileUp.Source.100027: WWTo2L2Nu_DoubleScattering
 
 # 100028 - WW_DoubleScatter
-Weight.Source.100028: 0.32
+Weight.Source.100028: 1.921
 Events.Source.100028: 1000000
 PileUp.Source.100028: WWTo2L2Nu_DoubleScattering
 
 # 100029 - WZTo3LNu
-Weight.Source.100029: 4.42965
+Weight.Source.100029: 5.063
 Events.Source.100029: 6738866
 PileUp.Source.100029: WZTo3LNu
 
@@ -176,7 +176,162 @@ Events.Source.100033: 94652057
 PileUp.Source.100033: ZZTo4L_ext1
 
 # 100034 - tZq
-Weight.Source.100034: 0.0758
+Weight.Source.100034: 0.07358
 Events.Source.100034: 3433300
 PileUp.Source.100034: tZq_ll_4f
+
+# 100035 - THQ
+Weight.Source.100035: 0.7927
+Events.Source.100035: 123798
+PileUp.Source.100035: THQ
+
+# 100036 - THW
+Weight.Source.100036: 0.1472
+Events.Source.100036: 49936
+PileUp.Source.100036: THW
+
+# 100037 - VHToNobb
+Weight.Source.100037: 0.9561
+Events.Source.100037: 98527
+PileUp.Source.100037: VHToNonbb_M125,
+
+# 100038 - tWll
+Weight.Source.100038: 0.01123
+Events.Source.100038: 12498
+PileUp.Source.100038: ST_tWll
+
+# 100039 - WpWpJJ
+Weight.Source.100039: 0.03711
+Events.Source.100039: 24618
+PileUp.Source.100039: WpWpJJ_EWK_QCD
+
+# 100040 - GGHToZZ4L
+Weight.Source.100040: 0.01212
+Events.Source.100040: 924562
+PileUp.Source.100040: GGHToZZ4L
+
+# 100041 - GGH_ext_ToZZ4L
+Weight.Source.100041: 0.01212
+Events.Source.100041: 966302
+PileUp.Source.100041: GGH_ext_ToZZ4L
+
+# 100042 - TTWH
+Weight.Source.100042: 0.00114
+Events.Source.100042: 198982
+PileUp.Source.100042: TTWH
+
+# 100043 - WZG
+Weight.Source.100043: 0.04345
+Events.Source.100043: 837172
+PileUp.Source.100043: WZG
+
+# 100044 - TTTW
+Weight.Source.100044: 0.0007273
+Events.Source.100044: 199704
+PileUp.Source.100044: TTTW
+
+# 100045 - TGJets_Lep
+Weight.Source.100045: 1.018
+Events.Source.100045: 1172480
+PileUp.Source.100045: TGJets_Lep
+
+# 100046 - W1JetsToLNu
+Weight.Source.100046: 9503.9
+Events.Source.100046: 29404807
+PileUp.Source.100046: W1JetsToLNu
+
+# 100047 - W2JetsToLNu
+Weight.Source.100047: 3258.45
+Events.Source.100047: 19671031
+PileUp.Source.100047: W2JetsToLNu
+
+# 100048 - W3JetsToLNu
+Weight.Source.100048: 1162.278
+Events.Source.100048: 16955072
+PileUp.Source.100048: W3JetsToLNu
+
+# 100049 - W4JetsToLNu
+Weight.Source.100049: 613.548
+Events.Source.100049: 11054202
+PileUp.Source.100049: W4JetsToLNu
+
+# 100050 - DY1JetsToLL_M50
+Weight.Source.100050: 878
+Events.Source.100050: 32467510
+PileUp.Source.100050: DY1JetsToLL_M50
+
+# 100051 - DY1Jets_ext_ToLL_M50
+Weight.Source.100051: 878
+Events.Source.100051: 33386859
+PileUp.Source.100051: DY1Jets_ext_ToLL_M50
+
+# 100052 - DY2JetsToLL_M50
+Weight.Source.100052: 307
+Events.Source.100052: 11471595
+PileUp.Source.100052: DY2JetsToLL_M50
+
+# 100053 - DY2Jets_ext_ToLL_M50
+Weight.Source.100053: 307
+Events.Source.100053: 9294785
+PileUp.Source.100053: DY2Jets_ext_ToLL_M50
+
+# 100054 - DY3JetsToLL_M50
+Weight.Source.100054: 112
+Events.Source.100054: 4405488
+PileUp.Source.100054: DY3JetsToLL_M50
+
+# 100055 - DY3Jets_ext_ToLL_M50
+Weight.Source.100055: 112
+Events.Source.100055: 1085841
+PileUp.Source.100055: DY3Jets_ext_ToLL_M50
+
+# 100056 - DY4JetsToLL_M50
+Weight.Source.100056: 44.2
+Events.Source.100056: 3477047
+PileUp.Source.100056: DY4JetsToLL_M50
+
+# 100057 - DYJetsToLL_M4to50_HT70to100
+Weight.Source.100057: 145.4
+Events.Source.100057: 8985672
+PileUp.Source.100057: DYJetsToLL_M4to50_HT70to100
+
+# 100058 - DYJets_ext_ToLL_M4to50_HT70to100
+Weight.Source.100058: 145.4
+Events.Source.100058: 8849652
+PileUp.Source.100058: DYJets_ext_ToLL_M4to50_HT70to100
+
+# 100059 - DYJetsToLL_M4to50_HT100to200
+Weight.Source.100059: 202.8
+Events.Source.100059: 8780665
+PileUp.Source.100059: DYJetsToLL_M4to50_HT100to200
+
+# 100060 - DYJets_ext_ToLL_M4to50_HT100to200
+Weight.Source.100060: 202.8
+Events.Source.100060: 1024396
+PileUp.Source.100060: DYJets_ext_ToLL_M4to50_HT100to200
+
+# 100061 - DYJetsToLL_M4to50_HT200to400
+Weight.Source.100061: 53.7
+Events.Source.100061: 1810717
+PileUp.Source.100061: DYJetsToLL_M4to50_HT200to400
+
+# 100062 - DYJets_ext_ToLL_M4to50_HT200to400
+Weight.Source.100062: 53.7
+Events.Source.100062: 995070
+PileUp.Source.100062: DYJets_ext_ToLL_M4to50_HT200to400
+
+# 100063 - DYJetsToLL_M4to50_HT400to600
+Weight.Source.100063: 5.66
+Events.Source.100063: 1724885
+PileUp.Source.100063: DYJetsToLL_M4to50_HT400to600
+
+# 100064 - DYJets_ext_ToLL_M4to50_HT400to600
+Weight.Source.100064: 5.66
+Events.Source.100064: 984956
+PileUp.Source.100064: DYJets_ext_ToLL_M4to50_HT400to600
+
+# 100065 - DYJetsToLL_M4to50_HT600toInf
+Weight.Source.100065: 1.852
+Events.Source.100065: 1725735
+PileUp.Source.100065: DYJetsToLL_M4to50_HT600toInf
 

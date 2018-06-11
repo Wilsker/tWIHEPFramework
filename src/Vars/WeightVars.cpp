@@ -26,8 +26,8 @@ WeightVars::WeightVars(){
   _floatVars["TriggerSF"] = 0.;
   _floatVars["LHEWeight"] = 0.;
 
-  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2"};
-  _frReWeightNames = {"central","pt1","pt2","up","down","be1","be2"};
+  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_hf","down_hf"};
+  _frReWeightNames = {"central","pt1","pt2","up","down","be1","be2","QCD","TT"};
 
   //Systematic variations
   for (auto const bSystName: _bTagSystNames) _floatVars["bWeight_"+bSystName] = 0.;
@@ -75,7 +75,7 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["TriggerSF"] = evtObj->GetEventTriggerWeight();
   _floatVars["LHEWeight"] = evtObj->GetEventTriggerWeight();
 
-  _floatVars["MC_weight"] = evtObj->GetOutputEventWeight();
+  _floatVars["MC_weight"] = evtObj->GetGlobalEventWeight();
   _floatVars["bTagSF_weight"] = evtObj->GetEventbTagReshape();
   _floatVars["PU_weight"] = evtObj->GetEventPileupWeight();
   _floatVars["leptonSF_weight"] = evtObj->GetEventLepSFWeight();

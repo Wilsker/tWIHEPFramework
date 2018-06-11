@@ -180,9 +180,9 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
   //else  cout<<"EventContainer:: Initialization of TPileupReweighting NOT successful!"<<endl;
 
   //Default list of b tagging systematics. This could possibly become customisable, but it probably doesn't need to be.
-  _bTagSystNames = {"central","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_jes"};
+  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_hf","down_hf"};
   
-  _frSystNames = {"central","up","down","pt1","pt2","be1","be2"};
+  _frSystNames = {"central","up","down","pt1","pt2","be1","be2","QCD","TT"};
   
   
 } // EventWeight
@@ -472,13 +472,29 @@ Bool_t EventWeight::Apply()
 
  //only apply pileup weight if specified
  if(isPileUpWgt()) {
+   int PVbin  = std::max(1, std::min(_mcPV->GetNbinsX(), _mcPV->GetXaxis()->FindBin(tree->trueInteractions)));
+   if (_reCalPU && _mcPV->GetBinContent(PVbin) > 0){
+     pileupEventWeight = _dataPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
+     if (pileupEventWeight==0){
+          std::cout<<" trueInteractions: "<< tree->trueInteractions << " dataPV "<< _dataPV->GetBinContent(tree->trueInteractions) << " mcPV "<< _mcPV->GetBinContent(tree->trueInteractions)<< " pileupEventWeight " << pileupEventWeight;
+     }
+     if (isPileupSysts()){
+       pileupMinBiasUpWeight = _minBiasUpPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
+       pileupMinBiasDownWeight = _minBiasDownPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
+     }
+   }
+   /*
    if (_reCalPU && _mcPV->GetBinContent(tree->trueInteractions) > 0){
      pileupEventWeight = _dataPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
+     if (pileupEventWeight==0){
+          std::cout<<" trueInteractions: "<< tree->trueInteractions << " dataPV "<< _dataPV->GetBinContent(tree->trueInteractions) << " mcPV "<< _mcPV->GetBinContent(tree->trueInteractions)<< " pileupEventWeight " << pileupEventWeight;
+     }
      if (isPileupSysts()){
        pileupMinBiasUpWeight = _minBiasUpPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
        pileupMinBiasDownWeight = _minBiasDownPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
      }
    }
+   */
    else {
      pileupEventWeight = tree->PUWeight;
      pileupMinBiasUpWeight = tree->PUWeight;
@@ -815,8 +831,8 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
             mutightWeight *=  _ttH_SF ;
             mutightWeightUp *= ( _ttH_SF + _ttH_SFUnc);
             mutightWeightDown *= ( _ttH_SF - _ttH_SFUnc);
-              //   std::cout<< " mu looseWeight / Up/ Down " << mulooseWeight <<" / "<< mulooseWeightUp << " / "<<mulooseWeightDown << std::endl;
-              //   std::cout<< " mu tightWeight / Up/ Down " << mutightWeight <<" / "<< mutightWeightUp << " / "<<mutightWeightDown << std::endl;
+               //  std::cout<< " mu looseWeight / Up/ Down " << mulooseWeight <<" / "<< mulooseWeightUp << " / "<<mulooseWeightDown << std::endl;
+               //  std::cout<< " mu tightWeight / Up/ Down " << mutightWeight <<" / "<< mutightWeightUp << " / "<<mutightWeightDown << std::endl;
         }else{
             //get id1
             int ptbin, etabin;
@@ -865,8 +881,8 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
             eletightWeight *=  _ttH_SF ;
             eletightWeightUp *= ( _ttH_SF + _ttH_SFUnc);
             eletightWeightDown *= ( _ttH_SF - _ttH_SFUnc);
-               //  std::cout<< " ele looseWeight / Up/ Down " << elelooseWeight <<" / "<< elelooseWeightUp << " / "<<elelooseWeightDown << std::endl;
-               //  std::cout<< " ele tightWeight / Up/ Down " << eletightWeight <<" / "<< eletightWeightUp << " / "<<eletightWeightDown << std::endl;
+                // std::cout<< " ele looseWeight / Up/ Down " << elelooseWeight <<" / "<< elelooseWeightUp << " / "<<elelooseWeightDown << std::endl;
+                //  std::cout<< " ele tightWeight / Up/ Down " << eletightWeight <<" / "<< eletightWeightUp << " / "<<eletightWeightDown << std::endl;
         }
         leptonWeight *= _L1_SF * _L2_SF * _L3_SF * _L4_SF * _ttH_SF ;
         leptonWeightUp *= (_L1_SF + _L1_SFUnc) * (_L2_SF + _L2_SFUnc) * (_L3_SF + _L3_SFUnc) * (_L4_SF+_L4_SFUnc) * ( _ttH_SF + _ttH_SFUnc);
@@ -1008,12 +1024,21 @@ void EventWeight::setFakeRateHistograms(TString FakeRateFileName,TString FakeRat
   if (!FakeRateFile) std::cout << "FakeRate file not found!" << std::endl;
   if(muSystName=="central"){
       _MuonFakeRate[muSystName] = (TH2F*)FakeRateFile->Get(FakeRateMuonHistName)->Clone();
+  }else if(muSystName=="QCD"){
+      _MuonFakeRate[muSystName] = (TH2F*)FakeRateFile->Get("FR_mva090_mu_QCD")->Clone();
+  
+  }else if(muSystName=="TT"){
+      _MuonFakeRate[muSystName] = (TH2F*)FakeRateFile->Get("FR_mva090_mu_TT")->Clone();
   }else{
       _MuonFakeRate[muSystName] = (TH2F*)FakeRateFile->Get(FakeRateMuonHistName+"_"+muSystName)->Clone();
   }
   _MuonFakeRate[muSystName]->SetDirectory(0);
   if(eleSystName=="central"){
     _ElectronFakeRate[eleSystName] = (TH2F*)FakeRateFile->Get(FakeRateElectronHistName)->Clone();
+  }else if(eleSystName=="QCD"){
+    _ElectronFakeRate[eleSystName] = (TH2F*)FakeRateFile->Get("FR_mva090_el_QCD_NC")->Clone();
+  }else if(eleSystName=="TT"){
+    _ElectronFakeRate[eleSystName] = (TH2F*)FakeRateFile->Get("FR_mva090_el_TT")->Clone();
   }else{
      _ElectronFakeRate[eleSystName] = (TH2F*)FakeRateFile->Get(FakeRateElectronHistName+"_"+eleSystName)->Clone();
   } 
@@ -1211,16 +1236,22 @@ Double_t EventWeight::getBTagReshape(EventContainer * EventContainerObj, std::st
   for (auto const & jet : EventContainerObj->jets){
     if (jet.GethadronFlavour() == 5){
         float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        //std::cout<<"jet pt: "<<jet.Pt()<<", Flavour is "<< jet.GethadronFlavour() << ", read Systematic "<<syst<<", returned value <bTagWeight, jetSF>: <"<<bTagWeight <<", "<<jetSF<<">";
         if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
         bTagWeight *= jetSF;
+        //std::cout<< ", <bTagWeight, jetSF> after jetSF==0 check : <"<<bTagWeight <<", "<<jetSF<<">"<<std::endl;
     }else if(jet.GethadronFlavour() == 4){
         float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_C, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        //std::cout<<"jet pt: "<<jet.Pt()<<", Flavour is "<< jet.GethadronFlavour() << ", read Systematic "<<syst<<", returned value <bTagWeight, jetSF>: <"<<bTagWeight <<", "<<jetSF<<">";
         if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_C, jet.Eta(), jet.Pt(), jet.bDiscriminator());
         bTagWeight *= jetSF;
+        //std::cout<< ", <bTagWeight, jetSF> after jetSF==0 check : <"<<bTagWeight <<", "<<jetSF<<">"<<std::endl;
     }else{
         float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        //std::cout<<"jet pt: "<<jet.Pt()<<", Flavour is "<< jet.GethadronFlavour() << ", read Systematic "<<syst<<", returned value <bTagWeight, jetSF>: <"<<bTagWeight <<", "<<jetSF<<">";
         if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
         bTagWeight *= jetSF;
+        //std::cout<< ", <bTagWeight, jetSF> after jetSF==0 check : <"<<bTagWeight <<", "<<jetSF<<">"<<std::endl;
     }
   }
   return bTagWeight;

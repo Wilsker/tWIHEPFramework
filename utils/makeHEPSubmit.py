@@ -14,13 +14,13 @@ executable = "bin/ttH/ttH_generic.x"
 #executable = "Wt_nVertOnly.x"
 configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
 #invPostfix = " -MCatNLO -mc -lepSFs -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs"
-invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs"
+invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs -lepSFs"
 #mcPostfix = " -mcPromptFS -mcPromptGamma -FakeRate -mcPromptFS -chargeMis" 
 mcPostfix = " "
 triggerName = "TTHLep_2L "
 nJets = 3
 nbJets = 1
-fileListDirectory = "config/files/ttH_2018/Fall17V1/mc/"
+fileListDirectory = "config/files/ttH_2018/SmallJobs/mc/"
 makeSkims = True
 samplesMC76=[
 "qcd1000_1500",
@@ -47,15 +47,20 @@ samplesMC76=[
 samples94XData = [
 "SEleBlockB", "SEleBlockC", "SEleBlockD", "SEleBlockE", "SEleBlockF", "SMuBlockB", "SMuBlockC", "SMuBlockD", "SMuBlockE", "SMuBlockF", "DblEGBlockB", "DblEGBlockC", "DblEGBlockD", "DblEGBlockE", "DblEGBlockF", "DblMuBlockB", "DblMuBlockC", "DblMuBlockD", "DblMuBlockE", "DblMuBlockF", "MuEGBlockB", "MuEGBlockC", "MuEGBlockD", "MuEGBlockE", "MuEGBlockF",
 ]
+#samples94XData = [
+#"SEleBlockF", "SMuBlockF", "DblEGBlockF", "DblMuBlockF", "MuEGBlockF",
+#]
 #samples94MC=[
 #"TTHnobb", "ttH_powheg_ToNonbb", "TTWToLNu", "TTW_PSwgt_ToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_M50", "DY_ext_M50", "WJets", "WWTo2L2Nu", "WZTo3LNu", "ZZTo4L", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron", "ST_tW_top", "ST_tW_antitop", "STt_top", "STt_antitop", "STs", "TTGJets", "tZq", "WW_DoubleScatter", "WW_DS_To2L2Nu", "WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune"
 #]
 samplesMC=[
-"TTHnobb", "ttH_powheg_ToNonbb", "TTWToLNu", "TTW_PSwgt_ToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_M50", "DY_ext_M50", "WJets", "WWTo2L2Nu", "WZTo3LNu", "ZZTo4L", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron", "ST_tW_top", "ST_tW_antitop", "STt_top", "STt_antitop", "STs", "TTGJets", "tZq","WW_DS_To2L2Nu", "WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune"
+"TTHnobb", "TTWToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_ext_M50", "WJets", "WZTo3LNu", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TT_PSwgt_ToSemiLep", "TT_PSwgt_ToHadron", "TTGJets", "tZq", "WW_DoubleScatter","WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune",
+"THQ","THW","VHToNobb","tWll","WpWpJJ",
+"GGH_ext_ToZZ4L", "TTWH", "WZG", "TTTW", "TGJets_Lep", "W1JetsToLNu", "W2JetsToLNu", "W3JetsToLNu", "W4JetsToLNu", "DY1JetsToLL_M50","DY2JetsToLL_M50", "DY3JetsToLL_M50", "DY4JetsToLL_M50", "DYJetsToLL_M4to50_HT70to100","DYJetsToLL_M4to50_HT100to200", "DYJetsToLL_M4to50_HT200to400", "DYJetsToLL_M4to50_HT400to600", "DYJetsToLL_M4to50_HT600toInf"
 ]
-#samplesMC = [
-#"TTHnobb","TTWToLNuext2","TTWToLNuext1"
-#]
+samplesMVA = [
+"TTHnobb","ttH_powheg_ToNonbb","TTW_PSwgt_ToLNu","TTWToLNu","TTZToLLNuNu_M10","TTZToLL_M1to10","TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron"
+]
 samplesConv = [
 "TTGToJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG_ext1","ZGTo2LG","TGJets_ext1"
 ]
@@ -154,20 +159,10 @@ if triggerName == "TTHLep_2Ele ":
 if triggerName == "TTHLep_2Mu ":
     analysis += "2Mu"
 if "jesUp" in sys.argv:
-    if triggerName == "TTHLep_MuEle ":
-        configFile = "config/overall/ttH.MultiLeptons.EleMuJESup.config"
-    if triggerName == "TTHLep_2Mu ":
-        configFile = "config/overall/ttH.MultiLeptons.DiMuJESup.config"
-    if triggerName == "TTHLep_2Ele ":
-        configFile = "config/overall/ttH.MultiLeptons.DiEleJESup.config"
+    configFile = "config/overall/ttH.MultiLeptons.DiLepJESup.config"
     analysis += "JESUp"
 if "jesDown" in sys.argv:
-    if triggerName == "TTHLep_MuEle ":
-        configFile = "config/overall/ttH.MultiLeptons.EleMuJESdown.config"
-    if triggerName == "TTHLep_2Mu ":
-        configFile = "config/overall/ttH.MultiLeptons.DiMuJESdown.config"
-    if triggerName == "TTHLep_2Ele ":
-        configFile = "config/overall/ttH.MultiLeptons.DiEleJESdown.config"
+    configFile = "config/overall/ttH.MultiLeptons.DiLepJESdown.config"
     analysis += "JESDown"
 if "jerUp" in sys.argv:
     if triggerName == "TTHLep_MuEle ":
@@ -192,6 +187,7 @@ if "mva" in sys.argv:
     mcPostfix = " -isTrainMVA"
     configFile = "config/overall/ttH.MultiLeptons.DiLepTrainMVA.config"
     analysis += "TrainMVA"
+    sample = samplesMVA
 elif "ttZctrl" in sys.argv:
     triggerName = "TTHLep_3L "
     configFile = "config/overall/ttH.MultiLeptons.ttZControl.config"
@@ -210,9 +206,10 @@ else :
     mcPostfix = " -mcPromptFS"
 if "data" in sys.argv:
     mcPostfix = ""
+    invPostfix = " "
     analysis = "ttHData"
     sample = samples94XData
-    fileListDirectory = "config/files/ttH_2018/Fall17V1/data/"
+    fileListDirectory = "config/files/ttH_2018/SmallJobs/data/"
     if "ttZctrl" in sys.argv:
         analysis += "ttZctrl"
         triggerName = "TTHLep_3L "
@@ -238,9 +235,10 @@ if "data" in sys.argv:
         sample = samplesDataElectron
 if "fakes" in sys.argv:
     mcPostfix = " -FakeRate"
+    invPostfix = " "
     analysis = "ttHfakes"
     sample = samples94XData
-    fileListDirectory = "config/files/ttH_2018/Fall17V1/data/"
+    fileListDirectory = "config/files/ttH_2018/SmallJobs/data/"
     if "ttZctrl" in sys.argv:
         analysis += "ttZctrl"
         triggerName = "TTHLep_3L "
@@ -261,9 +259,10 @@ if "fakes" in sys.argv:
         configFile = "config/overall/ttH.MultiLeptons.DiEleFakes.config"
 if "flips" in sys.argv:
     mcPostfix = " -chargeMis"
+    invPostfix = " "
     analysis = "ttHflips"
     sample = samples94XData
-    fileListDirectory = "config/files/ttH_2018/Fall17V1/data/"
+    fileListDirectory = "config/files/ttH_2018/SmallJobs/data/"
     if "ttWctrl" in sys.argv:
         analysis += "ttWctrl"
         configFile = "config/overall/ttH.MultiLeptons.ttWControlFlips.config"
@@ -413,6 +412,7 @@ def prepareCshJob(sample,shFile,frameworkDir,workpath,samplePost=""):
         subFile      = file(shFile,"w")
         print >> subFile, "#!/bin/bash"
         print >> subFile, "/bin/hostname"
+        print >> subFile, "source /cvmfs/sft.cern.ch/lcg/views/LCG_93/x86_64-slc6-gcc62-opt/setup.sh"
         print >> subFile, "gcc -v"
         print >> subFile, "pwd"
     #print >> subFile, "cd /publicfs/cms/data/TopQuark/cms13TeV/software/root/bin/"
@@ -483,7 +483,7 @@ for k in sample:
             print >> allJobFile, "hep_sub "+ shFileName + " -o "+logFileName+ " -e "+errorFileName
 #           print >> allJobFile, "condor_submit "+ submitPath + " -group cms -name job@schedd01.ihep.ac.cn"
 
-    print >> MergeFile, "hadd -f "+analysis+"/"+sampleName + "/hists/merged"+sampleName+".root  "+analysis+"/"+sampleName + "/hists/"+sampleName+"*hists.root"
+    #print >> MergeFile, "hadd -f "+analysis+"/"+sampleName + "/hists/merged"+sampleName+".root  "+analysis+"/"+sampleName + "/hists/"+sampleName+"*hists.root"
     print >> MergeFile, "hadd -f "+analysis+"/"+sampleName + "/skims/merged"+sampleName+".root  "+analysis+"/"+sampleName + "/skims/"+sampleName+"*Skim.root"
 
 #print >> MergeFile, "cd",outputDirectory
