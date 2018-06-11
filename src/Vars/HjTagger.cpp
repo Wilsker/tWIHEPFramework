@@ -85,6 +85,28 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["FakeLep_eta"] = {0, 9.9 }; 
   _doubleVecs["FakeLep_phi"] = {-5., 5. }; 
   _doubleVecs["FakeLep_energy"] = {-0.1, 999. }; 
+  _doubleVecs["FakeLep_corrpt"] = {-0.1,100};
+  _doubleVecs["FakeLep_ismvasel"] = {-0.1,100};
+  _doubleVecs["FakeLep_charge"] = {-0.1,100};
+  _doubleVecs["FakeLep_mvaId"] = {-0.1,100};
+  _doubleVecs["FakeLep_minIso"] = {-0.1,100};
+  _doubleVecs["FakeLep_minIsoCh"] = {-0.1,100};
+  _doubleVecs["FakeLep_minIsoNeu"] = {-0.1,100};
+  _doubleVecs["FakeLep_ptratio"] = {-0.1,100};
+  _doubleVecs["FakeLep_ptrel"] = {-0.1,100};
+  _doubleVecs["FakeLep_sig3d"] = {-0.1,100};
+  _doubleVecs["FakeLep_segment"] = {-0.1,100};
+  _doubleVecs["FakeLep_lostHits"] = {-0.1,100};
+  _doubleVecs["FakeLep_relIso04"] = {-0.1,100};
+  _doubleVecs["FakeLep_relIsoRhoEA"] = {-0.1,100};
+  _doubleVecs["FakeLep_TightCharge"] = {-0.1,100};
+  _doubleVecs["FakeLep_passConv"] = {-0.1,100};
+  _doubleVecs["FakeLep_jetdr"] = {-0.1,100};
+  _doubleVecs["FakeLep_jetCSV"] = {-0.1,100};
+  _doubleVecs["FakeLep_dxyAbs"] = {-0.1,100};
+  _doubleVecs["FakeLep_dz"] = {-0.1,100};
+  _doubleVecs["FakeLep_leptonMVA"] = {-0.1,100};
+  _doubleVecs["FakeLep_jetNDauChargedMVASel"] = {-0.1,100};
 
   SetDoHists(makeHistos);
 
@@ -104,6 +126,28 @@ void HjTagger::Clear(){
     FakeLep_eta.clear();
     FakeLep_phi.clear();
     FakeLep_energy.clear();
+    FakeLep_corrpt.clear();
+    FakeLep_ismvasel.clear();
+    FakeLep_charge.clear();
+    FakeLep_mvaId.clear();
+    FakeLep_minIso.clear();
+    FakeLep_minIsoCh.clear();
+    FakeLep_minIsoNeu.clear();
+    FakeLep_ptratio.clear();
+    FakeLep_ptrel.clear();
+    FakeLep_sig3d.clear();
+    FakeLep_segment.clear();
+    FakeLep_lostHits.clear();
+    FakeLep_relIso04.clear();
+    FakeLep_relIsoRhoEA.clear();
+    FakeLep_TightCharge.clear();
+    FakeLep_passConv.clear();
+    FakeLep_jetdr.clear();
+    FakeLep_jetCSV.clear();
+    FakeLep_dxyAbs.clear();
+    FakeLep_dz.clear();
+    FakeLep_leptonMVA.clear();
+    FakeLep_jetNDauChargedMVASel.clear();
     Jet25_axis2.clear();
     Jet25_bDiscriminator.clear();
     Jet25_qg.clear();
@@ -311,7 +355,30 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     FakeLep_energy.assign(evtObj -> FakeLep_energy.begin(), evtObj -> FakeLep_energy.end());
     FakeLep_PdgId.assign(evtObj -> FakeLep_PdgId.begin(), evtObj -> FakeLep_PdgId.end());
     
-   
+    for(auto lep: fakeLeptons){
+        FakeLep_corrpt.push_back(lep.conept());
+        FakeLep_ismvasel.push_back(lep.isMVASel());
+        FakeLep_charge.push_back(lep.charge());
+        FakeLep_mvaId.push_back(lep.ntMVAeleID());
+        FakeLep_minIso.push_back(lep.miniIsoRel());
+        FakeLep_minIsoCh.push_back(lep.miniIsoCh());
+        FakeLep_minIsoNeu.push_back(lep.miniIsoPUsub());
+        FakeLep_ptratio.push_back(lep.jetptratioV2());
+        FakeLep_ptrel.push_back(lep.ptrel());
+        FakeLep_sig3d.push_back(lep.IP3Dsig());
+        FakeLep_segment.push_back(lep.segmentCompatibility());
+        FakeLep_lostHits.push_back(lep.expectedMissingInnerHits());
+        FakeLep_relIso04.push_back(lep.relIsoR04());
+        FakeLep_relIsoRhoEA.push_back(lep.relIsoRhoEA());
+        FakeLep_TightCharge.push_back(lep.passTightCharge());
+        FakeLep_passConv.push_back(lep.passConversionVeto());
+        FakeLep_jetdr.push_back(-999);
+        FakeLep_jetCSV.push_back(lep.jetdeepcsv());
+        FakeLep_dxyAbs.push_back(TMath::Abs(lep.dxy()));
+        FakeLep_dz.push_back(lep.dz());
+        FakeLep_leptonMVA.push_back(lep.BDT());
+        FakeLep_jetNDauChargedMVASel.push_back(lep.lepjetchtrks());
+    }
     // Fill the variables in event container
 
     // Fill the branches
@@ -327,6 +394,28 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     _doubleVecs["FakeLep_eta"] = FakeLep_eta; 
     _doubleVecs["FakeLep_phi"] = FakeLep_phi; 
     _doubleVecs["FakeLep_energy"] = FakeLep_energy; 
+    _doubleVecs["FakeLep_corrpt"] = FakeLep_corrpt;
+    _doubleVecs["FakeLep_ismvasel"] = FakeLep_ismvasel;
+    _doubleVecs["FakeLep_charge"] = FakeLep_charge;
+    _doubleVecs["FakeLep_mvaId"] = FakeLep_mvaId;
+    _doubleVecs["FakeLep_minIso"] = FakeLep_minIso;
+    _doubleVecs["FakeLep_minIsoCh"] = FakeLep_minIsoCh;
+    _doubleVecs["FakeLep_minIsoNeu"] = FakeLep_minIsoNeu;
+    _doubleVecs["FakeLep_ptratio"] = FakeLep_ptratio;
+    _doubleVecs["FakeLep_ptrel"] = FakeLep_ptrel;
+    _doubleVecs["FakeLep_sig3d"] = FakeLep_sig3d;
+    _doubleVecs["FakeLep_segment"] = FakeLep_segment;
+    _doubleVecs["FakeLep_lostHits"] = FakeLep_lostHits;
+    _doubleVecs["FakeLep_relIso04"] = FakeLep_relIso04;
+    _doubleVecs["FakeLep_relIsoRhoEA"] = FakeLep_relIsoRhoEA;
+    _doubleVecs["FakeLep_TightCharge"] = FakeLep_TightCharge;
+    _doubleVecs["FakeLep_passConv"] = FakeLep_passConv;
+    _doubleVecs["FakeLep_jetdr"] = FakeLep_jetdr;
+    _doubleVecs["FakeLep_jetCSV"] = FakeLep_jetCSV;
+    _doubleVecs["FakeLep_dxyAbs"] = FakeLep_dxyAbs;
+    _doubleVecs["FakeLep_dz"] = FakeLep_dz;
+    _doubleVecs["FakeLep_leptonMVA"] = FakeLep_leptonMVA;
+    _doubleVecs["FakeLep_jetNDauChargedMVASel"] = FakeLep_jetNDauChargedMVASel;
     
     _doubleVecs["Jet25_axis2"] = Jet25_axis2;
     _doubleVecs["Jet25_bDiscriminator"] = Jet25_bDiscriminator;

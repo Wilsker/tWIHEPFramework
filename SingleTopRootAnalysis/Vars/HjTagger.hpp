@@ -54,6 +54,28 @@ private:
     std::vector<double> FakeLep_eta;
     std::vector<double> FakeLep_phi;
     std::vector<double> FakeLep_energy;
+    std::vector<double> FakeLep_corrpt;
+    std::vector<double> FakeLep_ismvasel;
+    std::vector<double> FakeLep_charge;
+    std::vector<double> FakeLep_mvaId;
+    std::vector<double> FakeLep_minIso;
+    std::vector<double> FakeLep_minIsoCh;
+    std::vector<double> FakeLep_minIsoNeu;
+    std::vector<double> FakeLep_ptratio;
+    std::vector<double> FakeLep_ptrel;
+    std::vector<double> FakeLep_sig3d;
+    std::vector<double> FakeLep_segment;
+    std::vector<double> FakeLep_lostHits;
+    std::vector<double> FakeLep_relIso04;
+    std::vector<double> FakeLep_relIsoRhoEA;
+    std::vector<double> FakeLep_TightCharge;
+    std::vector<double> FakeLep_passConv;
+    std::vector<double> FakeLep_jetdr;
+    std::vector<double> FakeLep_jetCSV;
+    std::vector<double> FakeLep_dxyAbs;
+    std::vector<double> FakeLep_dz;
+    std::vector<double> FakeLep_leptonMVA;
+    std::vector<double> FakeLep_jetNDauChargedMVASel;
 
     std::vector<double>  Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags;
     std::vector<double>  Jet25_pfCombinedMVAV2BJetTags;

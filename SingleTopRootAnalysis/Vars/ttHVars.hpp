@@ -436,6 +436,15 @@ private:
   float lep3_relIso03;
   float lep3_TightCharge;
   float lep3_passConv;
+  float lep1_E;
+  float lep1_isfakeablesel;
+  float lep1_ismvasel;
+  float lep2_E;
+  float lep2_isfakeablesel;
+  float lep2_ismvasel;
+  float lep3_E;
+  float lep3_isfakeablesel;
+  float lep3_ismvasel;
 };
 
 #endif
