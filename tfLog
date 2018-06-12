@@ -1,0 +1,150 @@
+<driver> Starting parton_analysis
+AnalysisMain::AnalysisMain Constructor called
+Command line parameter 1 is -config
+Command line parameter 2 is config/overall/ttH.MultiLeptons.TriLepton.All.config
+Command line parameter 3 is -inlist
+Command line parameter 4 is config/files/ttH_test/ttH.list
+Command line parameter 5 is -hfile
+Command line parameter 6 is hists/SingleTop.105200_1.t.LP2fb_v5.MC.mm1+j.muonMSSmeardown.WtDilepton.root
+Command line parameter 7 is -skimfile
+Command line parameter 8 is skims/ttHTriLepAll.root
+Command line parameter 9 is -mc
+Driver: This is a MC sample
+Command line parameter 10 is -BkgdTreeName
+Command line parameter 11 is DiElectronPreTagTree
+Command line parameter 12 is -UseTotalEvtFromFile
+Driver: UseTotalEvtFromFile 
+Command line parameter 13 is -MCatNLO
+Driver: This is MCatNLO 
+Command line parameter 14 is -mc
+Driver: This is a MC sample
+Command line parameter 15 is -SelectTrigger
+Command line parameter 16 is TTHLep_3L
+Command line parameter 17 is -lepSFs
+Driver: Using lepton ID/iso SFs
+Command line parameter 18 is -bTagReshape
+Driver: Enable b-tag discriminant reshaping
+Command line parameter 19 is -PileUpWgt
+Driver: Use PileUpWgt 
+Command line parameter 20 is -ReCalPU
+Driver: Use ReCalPU 
+Command line parameter 21 is -chargeMis
+Driver: Using chargeMis
+Command line parameter 22 is -FakeRate
+Driver: Using FakeRate
+Command line parameter 23 is -TriggerSFs
+Driver: Using TriggerSFs
+Command line parameter 24 is -mcPromptFS
+Driver: Using mcPromptFS
+USING THE TOPINPUTS TREE
+<AnalysisMain::ParseCmdLine> Parsing command line.
+in
+<AnalysisMain::ParseCmdLine> Parsing configuration file 
+<AnalysisMain::ParseCmdLine> Setting debug level to 10
+<AnalysisMain::ParseCmdLine> Reading object ID config file: macros/ttH/Mor/config/objects/ttHObjects.Mor.noshift.config
+<AnalysisMain::ParseCmdLine> Setting jet energy scale error to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale uniform shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale low Pt shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale high Pt shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale shift to 0
+<AnalysisMain::ParseCmdLine> Setting b-tagging algorithm to SV0
+<AnalysisMain::ParseCmdLine> Setting b-tagging weight cut to 5.85
+<AnalysisMain::ParseCmdLine> Setting mis-tagging weight cut to 5.85
+<AnalysisMain::ParseCmdLine> Setting cellout shift to 0
+<AnalysisMain::ParseCmdLine> Setting softjet shift to 0
+<AnalysisMain::ParseCmdLine> Setting pileup shift to 0
+<AnalysisMain::ParseCmdLine> Chaining files listed in: config/files/ttH_test/ttH.list
+<AnalysisMain::ParseCmdLine> Name of this source: Name: TTHnobb
+<AnalysisMain::ParseCmdLine> Setting source number to: Number: 100001_1
+<AnalysisMain::ParseCmdLine> Reading root tree from /publicfs/cms/data/TopQuark/cms13TeV/Binghuan/NTuple/ttH/TTH946_v1.root
+<AnalysisMain::ParseCmdLine> **WARNING** Truth required but tree not found. Running without it!
+<AnalysisMain::ParseCmdLine> **WARNING** Config tree not found. Running without it!
+<AnalysisMain::ParseCmdLine> TOTAL AOD EVENT COUNT 0
+<AnalysisMain::ParseCmdLine> TOTAL AOD EVENT COUNT WITH MCATNLO 0
+<AnalysisMain::ParseCmdLine> TOTAL EVENT COUNT IN TNT/BOOM = 56465
+<AnalysisMain::ParseCmdLine> 1 lines read from chain list.
+<AnalysisMain::ParseCmdLine> 1 files successfully chained from chain list.
+<AnalysisMain::ParseCmdLine> Parsing configuration file (part2) 
+<AnalysisMain::ParseCmdLine> Setting debug level to 10
+<AnalysisMain::ParseCmdLine> Setting target top mass to 172.5
+<AnalysisMain::ParseCmdLine> Reading cuts config file: config/weights/MCInformation.weights
+<AnalysisMain::ParseCmdLine> Reading cuts config file: macros/ttH/Mor/config/cuts/TTH.MultiLeptons.TriLep.All.cuts
+<AnalysisMain::ParseCmdLine> Reading weights config file: config/weights/MCInformation.weights
+Skimed chain name = TNT/BOOM
+Skimed tree name = BOOM
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/bloose_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/btight_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/2lss_ttbar_withBDTv8_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/2lss_ttV_withHj_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/el_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/mu_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/Hj_csv_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG_Tree125MNS2Cut25" of type: "BDT"
+ParseCmdLine done
+pileupHistName is ttHToNonbb_M125_powheg
+                         : Booking "DNN" of type "PyKeras" from config/weights/DNN/Factory_MultiClass_DNN_10HLs_relu_D+G-VarTrans_0.008-learnRate_10-epochs_DNN.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "ttH"
+<HEADER> DataSetInfo              : [Default] : Added class "ttV"
+<HEADER> DataSetInfo              : [Default] : Added class "ttJets"
+                         : Booked classifier "DNN" of type: "PyKeras"
+<driver> Starting Loop over events in chain
+
+<AnalysisMain::Loop::BookHistogram Start> 
+<CutListProcessor::BookHistogram>      --------------------------------  
+<CutListProcessor::BookHistogram>     |   Cut & Histo Classes Called   | 
+<CutListProcessor::BookHistogram>      --------------------------------  
+<CutListProcessor::BookHistogram>     |  00_CutPrimaryVertex           |
+<CutListProcessor::BookHistogram>     |  01_CutMetFilter               |
+<CutListProcessor::BookHistogram>     |  02_CutLeptonN                 |
+<CutListProcessor::BookHistogram>     |  03_CutLeptonN                 |
+<CutListProcessor::BookHistogram>     |  04_CutTriggerSelection        |
+<CutListProcessor::BookHistogram>     |  05_CutLeptonPt1               |
+<CutListProcessor::BookHistogram>     |  06_CutLeptonPt2               |
+<CutListProcessor::BookHistogram>     |  07_CutLeptonPt3               |
+<CutListProcessor::BookHistogram>     |  08_CutLeptonSumCharge         |
+<CutListProcessor::BookHistogram>     |  09_CutM4L                     |
+<CutListProcessor::BookHistogram>     |  10_CutLeptonTight             |
+<CutListProcessor::BookHistogram>     |  11_CutJetN                    |
+<CutListProcessor::BookHistogram>     |  12_CutTauN                    |
+<CutListProcessor::BookHistogram>     |  13_CutBTaggedJetN             |
+<CutListProcessor::BookHistogram>     |  14_CutMassL                   |
+<CutListProcessor::BookHistogram>     |  15_CutMetLD                   |
+<CutListProcessor::BookHistogram>     |  16_EventWeight                |
+<EventWeight::BookHistogram>          |     Source Name:    TTHnobb    |
+<EventWeight::BookHistogram>          |     Source Num:    100001      |
+<EventWeight::BookHistogram>          |     xsec*BR*lum: 8753.85     |
+<EventWeight::BookHistogram>          |     Counts + MCatNLO: 7.45313e+06 |
+<EventWeight::BookHistogram>          |     Global Weight: 0.00117452  |
+Muon trig file not found!
+Electron reco SF file not found!
+Electron ID SF file not found!
+<CutListProcessor::BookHistogram>      -------------------------------- 
+<AnalysisMain::Loop::BookHistogram End> 
+<AnalysisMain::Loop> 
+<AnalysisMain::Loop> Processing event 0
+<AdditionalVarsProcessor::BookBranches>      ----------------------------------  
+<AdditionalVarsProcessor::BookBranches>     |   Variables added to output tree | 
+<AdditionalVarsProcessor::BookBranches>      ----------------------------------  
+<AdditionalVarsProcessor::BookBranches>      ----------------------------------

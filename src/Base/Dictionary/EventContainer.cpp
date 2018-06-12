@@ -1289,7 +1289,8 @@ Int_t EventContainer::ReadEvent()
   mhtT = mhtT_lv.Pt();
   mht_met = mht + missingEt;
   mhtT_met = mhtT + missingEt;
-  metLD =  0.00397*missingEt+0.00265*mht;  
+  //metLD =  0.00397*missingEt+0.00265*mht;  
+  metLD =  0.6*missingEt+0.4*mht;   // update the metLD definition for ttH 2017 analysis
 
   Cal_dilep_mass();
  

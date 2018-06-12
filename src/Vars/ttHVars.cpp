@@ -429,6 +429,10 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["lep3_E"] = 999;
   _floatVars["lep3_isfakeablesel"] = 999;
   _floatVars["lep3_ismvasel"] = 999;
+  _floatVars["genWeight_muF2"] = 999;
+  _floatVars["genWeight_muF0p5"] = 999;
+  _floatVars["genWeight_muR2"] = 999;
+  _floatVars["genWeight_muR0p5"] = 999;
   
   SetDoHists(makeHistos);
 
@@ -810,6 +814,10 @@ void ttHVars::Clear(){
     lep3_E = -999;
     lep3_isfakeablesel = -999;
     lep3_ismvasel = -999;
+    genWeight_muF2 = -999;
+    genWeight_muF0p5 = -999;
+    genWeight_muR2 = -999;
+    genWeight_muR0p5 = -999;
 }
 
 void ttHVars::FillBranches(EventContainer * evtObj){
@@ -998,6 +1006,20 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   
     // calculate variables
     nEvent = evtObj->eventNumber;
+    
+    EventTree* tree = evtObj->GetEventTree();
+    if(tree->EVENT_genWeights->size()>6){
+        genWeight_muF2 = tree->EVENT_genWeights -> operator[](1);
+        genWeight_muF0p5 = tree->EVENT_genWeights -> operator[](2);
+        genWeight_muR2 = tree->EVENT_genWeights -> operator[](3);
+        genWeight_muR0p5 = tree->EVENT_genWeights -> operator[](6);
+    }else{
+        genWeight_muF2 = tree->EVENT_genWeight; 
+        genWeight_muF0p5 = tree->EVENT_genWeight; 
+        genWeight_muR2 = tree->EVENT_genWeight; 
+        genWeight_muR0p5 = tree->EVENT_genWeight; 
+    }
+
     ls = evtObj-> lumiBlock;
     run = evtObj->runNumber;
     n_presel_mu = n_looseMu;
@@ -1510,6 +1532,10 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["lep3_E"] = lep3_E;
   _floatVars["lep3_isfakeablesel"] = lep3_isfakeablesel;
   _floatVars["lep3_ismvasel"] = lep3_ismvasel;
+  _floatVars["genWeight_muF2"] = genWeight_muF2;
+  _floatVars["genWeight_muF0p5"] = genWeight_muF0p5;
+  _floatVars["genWeight_muR2"] = genWeight_muR2;
+  _floatVars["genWeight_muR0p5"] = genWeight_muR0p5;
     if(evtObj -> _sync == 52){     
         std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj1_BDT <<" " << evtObj->HadTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
     }                          

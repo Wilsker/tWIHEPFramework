@@ -1025,6 +1025,7 @@ void EventWeight::setFakeRateHistograms(TString FakeRateFileName,TString FakeRat
   if(muSystName=="central"){
       _MuonFakeRate[muSystName] = (TH2F*)FakeRateFile->Get(FakeRateMuonHistName)->Clone();
   }else if(muSystName=="QCD"){
+      // histograms QCD and TT are used for fake rate closure systematics, I'm not going to put it in config files, because it's ttH exclusive file and I may need to change all(dozens of) config files if I do put it in config files
       _MuonFakeRate[muSystName] = (TH2F*)FakeRateFile->Get("FR_mva090_mu_QCD")->Clone();
   
   }else if(muSystName=="TT"){

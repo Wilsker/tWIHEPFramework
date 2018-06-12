@@ -345,9 +345,12 @@ int main(int argc, char **argv)
     if(!isTriLepton){
         mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
         mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
-    }else{
-        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));// presel_ele;presel_SFOSlep
     }
+    /*
+    else{
+        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));// presel_ele;presel_SFOSlep   // turn off because we want to make it more adaptable, turn it on for syncrhonization 
+    }
+    */
     mystudy.AddCut(new CutMassL(particlesObj));
     mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
   }
@@ -386,7 +389,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
-  //mystudy.AddVars(new DNNVars());
+  mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
   

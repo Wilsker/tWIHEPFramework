@@ -445,6 +445,10 @@ private:
   float lep3_E;
   float lep3_isfakeablesel;
   float lep3_ismvasel;
+  float genWeight_muF2;
+  float genWeight_muF0p5;
+  float genWeight_muR2;
+  float genWeight_muR0p5;
 };
 
 #endif
