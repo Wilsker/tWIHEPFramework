@@ -61,6 +61,9 @@ samplesMC=[
 samplesMVA = [
 "TTHnobb","ttH_powheg_ToNonbb","TTW_PSwgt_ToLNu","TTWToLNu","TTZToLLNuNu_M10","TTZToLL_M1to10","TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron"
 ]
+samplesClos = [
+"TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron"
+]
 samplesConv = [
 "TTGToJets_ext1","WGToLNuG_ext2","TGJets_v1","WGToLNuG_ext1","ZGTo2LG","TGJets_ext1"
 ]
@@ -202,10 +205,14 @@ elif "convs" in sys.argv:
     mcPostfix = " -mcPromptGamma"
     analysis += "Conv"
     sample = samplesConv
+elif "clos" in sys.argv:
+    sample = samplesClos
+    configFile = "config/overall/ttH.MultiLeptons.DiLepFakes.config"
+    mcPostfix = "  -FakeRate"
 else :
     mcPostfix = " -mcPromptFS"
 if "data" in sys.argv:
-    mcPostfix = ""
+    mcPostfix = "  -FakeRate -chargeMis"
     invPostfix = " "
     analysis = "ttHData"
     sample = samples94XData
@@ -295,6 +302,19 @@ if "electron" in sys.argv:
 if "jesTest" in sys.argv:
     sample = jesTestSamples
     analysis += "JESTest"
+if "All2L" in sys.argv:
+    configFile = "config/overall/ttH.MultiLeptons.DiLepton.All.config"
+    analysis += "All2L"
+if "All3L" in sys.argv:
+    configFile = "config/overall/ttH.MultiLeptons.TriLepton.All.config"
+    analysis += "All3L"
+    triggerName = "TTHLep_3L "
+if "AlljesUp" in sys.argv:
+    configFile = "config/overall/ttH.MultiLeptons.DiLeptonJESUp.All.config"
+    analysis += "AllJESUp"
+if "AlljesDown" in sys.argv:
+    configFile = "config/overall/ttH.MultiLeptons.DiLeptonJESDown.All.config"
+    analysis += "AllJESDown"
 #executable = "Wt_generic.x"
 #for the queue
 workpath    = os.getcwd()+"/"+analysis +"/"

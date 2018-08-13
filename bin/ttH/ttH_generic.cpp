@@ -389,7 +389,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
-  mystudy.AddVars(new DNNVars());
+  //mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
   

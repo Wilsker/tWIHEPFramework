@@ -26,6 +26,8 @@ DNNVars::DNNVars(bool makeHistos){
   _floatVars["SubCat_DNN"] = -999;
 
     TMVA::Tools::Instance();
+    //ROOT::DisableImplicitMT();
+    //ROOT::EnableImplicitMT(4);
     // DNN MultiClass
     DNNMultiClass_Dilep_reader_ = new TMVA::Reader("!Color:!Silent");
     DNNMultiClass_Dilep_reader_->AddVariable("Jet_numLoose",&varJet_numLoose);
