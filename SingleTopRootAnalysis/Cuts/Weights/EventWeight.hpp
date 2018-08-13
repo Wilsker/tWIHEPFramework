@@ -128,11 +128,14 @@ private:
   //Histograms that are used for applying scale factors to leptons
   //For now we are only using muons as we veto on electroons anyway
   TH2F* _muonIsoSF=NULL;
-  TH2F* _muonIDSF=NULL;
+  TH2F* _muonIDSFLpt=NULL;
+  TH2F* _muonIDSFHpt=NULL;
   TH2F* _muonTrigSF=NULL;
-  TGraphAsymmErrors* _muonTkSF=NULL;
+  TGraphAsymmErrors* _muonTkSFLpt=NULL;
+  TGraphAsymmErrors* _muonTkSFHpt=NULL;
   TH2F* _muonLooseToTightSF=NULL;
-  TH2F* _eleRecoSF=NULL;
+  TH2F* _eleRecoSFLpt=NULL;
+  TH2F* _eleRecoSFHpt=NULL;
   TH2F* _eleID1SF=NULL;
   TH2F* _eleID2SF=NULL;
   TH2F* _eleID3SF=NULL;
