@@ -207,7 +207,7 @@ elif "convs" in sys.argv:
     sample = samplesConv
 elif "clos" in sys.argv:
     sample = samplesClos
-    configFile = "config/overall/ttH.MultiLeptons.DiLepFakes.config"
+    configFile = "config/overall/ttH.MultiLeptons.DiLepFakes.GT3J.config"
     mcPostfix = "  -FakeRate"
 else :
     mcPostfix = " -mcPromptFS"

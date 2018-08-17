@@ -820,13 +820,18 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
                 etabin = std::max(1, std::min(_muonIsoSF->GetNbinsY(), _muonIsoSF->GetYaxis()->FindBin(fabs(lep.Eta()))));
                 _L1_SF = _muonIsoSF->GetBinContent(ptbin, etabin);
                 _L1_SFUnc = _muonIsoSF->GetBinError(ptbin, etabin);
-                //std::cout<< " mu _L1_SF +/- Uncerntainty " << _L1_SF <<" +/- "<< _L1_SFUnc<< std::endl;
+                /*
+                if(_L1_SF<0.01) {
+                    std::cout<< " mu _L1_SF +/- Uncerntainty " << _L1_SF <<" +/- "<< _L1_SFUnc<< std::endl;
+                }
+                */
             }
             // id
             if(_muonIDSFLpt){
                 if(lep.Pt()<30){
                     ptbin  = std::max(1, std::min(_muonIDSFLpt->GetNbinsX(), _muonIDSFLpt->GetXaxis()->FindBin(lep.Pt()))); 
-                    etabin = std::max(1, std::min(_muonIDSFLpt->GetNbinsY(), _muonIDSFLpt->GetYaxis()->FindBin(fabs(lep.Eta()))));
+                    //etabin = std::max(1, std::min(_muonIDSFLpt->GetNbinsY(), _muonIDSFLpt->GetYaxis()->FindBin(fabs(lep.Eta()))));
+                    etabin = std::max(1, std::min(_muonIDSFLpt->GetNbinsY(), _muonIDSFLpt->GetYaxis()->FindBin(std::min(fabs(lep.Eta()),2.09))));
                     _L2_SF = _muonIDSFLpt->GetBinContent(ptbin, etabin);
                     _L2_SFUnc = _muonIDSFLpt->GetBinError(ptbin, etabin);
                 }else{
@@ -835,7 +840,9 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
                     _L2_SF = _muonIDSFHpt->GetBinContent(ptbin, etabin);
                     _L2_SFUnc = _muonIDSFHpt->GetBinError(ptbin, etabin);
                 }
-               // std::cout<< " mu _L2_SF +/- Uncerntainty " << _L2_SF <<" +/- "<< _L2_SFUnc<< std::endl;
+                //if(_L2_SF<0.01) {
+                    //std::cout<< " mu _L2_SF +/- Uncerntainty " << _L2_SF <<" +/- "<< _L2_SFUnc<< std::endl;
+                //}
             }
             // get trig
             if(_muonTrigSF){
@@ -843,7 +850,11 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
                 etabin = std::max(1, std::min(_muonTrigSF->GetNbinsY(), _muonTrigSF->GetYaxis()->FindBin(fabs(lep.Eta()))));
                 _L3_SF = _muonTrigSF->GetBinContent(ptbin, etabin);
                 _L3_SFUnc = _muonTrigSF->GetBinError(ptbin, etabin);
-               // std::cout<< " mu _L3_SF +/- Uncerntainty " << _L3_SF <<" +/- "<< _L3_SFUnc<< std::endl;
+                /*
+                if(_L3_SF<0.01) {
+                    std::cout<< " mu _L3_SF +/- Uncerntainty " << _L3_SF <<" +/- "<< _L3_SFUnc<< std::endl;
+                }
+                */
             }
             // get Tk SF
             double eta1;
@@ -855,7 +866,11 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
                     eta1 = std::max(float(_muonTkSFHpt->GetXaxis()->GetXmin()+1e-5), std::min(float(_muonTkSFHpt->GetXaxis()->GetXmax()-1e-5), float(lep.Eta())));
                     _L4_SF = _muonTkSFHpt->Eval(eta1);
                 }
-               // std::cout<< " mu _L4_SF +/- Uncerntainty " << _L4_SF <<" +/- "<< _L4_SFUnc<< std::endl;
+                /*
+                if(_L4_SF<0.01) {
+                    std::cout<< " mu _L4_SF +/- Uncerntainty " << _L4_SF <<" +/- "<< _L4_SFUnc<< std::endl;
+                }
+                */
             }
             //get ttH SF
             if(_muonLooseToTightSF){
@@ -871,8 +886,11 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
             mutightWeight *=  _ttH_SF ;
             mutightWeightUp *= ( _ttH_SF + _ttH_SFUnc);
             mutightWeightDown *= ( _ttH_SF - _ttH_SFUnc);
-               //  std::cout<< " mu looseWeight / Up/ Down " << mulooseWeight <<" / "<< mulooseWeightUp << " / "<<mulooseWeightDown << std::endl;
-               //  std::cout<< " mu tightWeight / Up/ Down " << mutightWeight <<" / "<< mutightWeightUp << " / "<<mutightWeightDown << std::endl;
+                if(mulooseWeight<0.01) {
+                 std::cout<< " mu looseWeight / Up/ Down " << mulooseWeight <<" / "<< mulooseWeightUp << " / "<<mulooseWeightDown << std::endl;
+                 std::cout<< " mu tightWeight / Up/ Down " << mutightWeight <<" / "<< mutightWeightUp << " / "<<mutightWeightDown << std::endl;
+                 std::cout<< " mu pt/eta " << lep.Pt() << " / " << lep.Eta()<<std::endl;
+                }
         }else{
             //get id1
             int ptbin, etabin;
