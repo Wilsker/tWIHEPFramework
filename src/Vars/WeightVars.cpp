@@ -26,7 +26,7 @@ WeightVars::WeightVars(){
   _floatVars["TriggerSF"] = 0.;
   _floatVars["LHEWeight"] = 0.;
 
-  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_hf","down_hf"};
+  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_hf","down_hf","up_lfstats1","down_lfstats1","up_lfstats2","down_lfstats2" };
   _frReWeightNames = {"central","pt1","pt2","up","down","be1","be2","QCD","TT"};
 
   //Systematic variations

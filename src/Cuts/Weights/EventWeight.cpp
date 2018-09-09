@@ -180,7 +180,7 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
   //else  cout<<"EventContainer:: Initialization of TPileupReweighting NOT successful!"<<endl;
 
   //Default list of b tagging systematics. This could possibly become customisable, but it probably doesn't need to be.
-  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_hf","down_hf"};
+  _bTagSystNames = {"central","up_jes","down_jes","up_lf","down_lf","up_hfstats1","down_hfstats1","up_hfstats2","down_hfstats2","up_cferr1","down_cferr1","up_cferr2","down_cferr2","up_hf","down_hf","up_lfstats1","down_lfstats1","up_lfstats2","down_lfstats2" };
   
   _frSystNames = {"central","up","down","pt1","pt2","be1","be2","QCD","TT"};
   
