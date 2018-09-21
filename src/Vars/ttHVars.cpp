@@ -1616,7 +1616,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     Jet_numbLoose = jet_numbLoose;
     Jet_numbMedium = jet_numbMedium;
     avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
-    Hj1_BDT = maxHj;
+    Hj1_BDT = max(maxHj,-1.);
     HighestJetCSV = maxCSV;
     HtJet = SumPt;
     if(fakeLeptons.size()>=2){
