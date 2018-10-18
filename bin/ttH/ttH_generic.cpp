@@ -79,6 +79,7 @@
 #include "SingleTopRootAnalysis/Vars/TestVar.hpp"
 #include "SingleTopRootAnalysis/Vars/BDTVars.hpp"
 #include "SingleTopRootAnalysis/Vars/HadTopVars.hpp"
+#include "SingleTopRootAnalysis/Vars/ResTopVars.hpp"
 #include "SingleTopRootAnalysis/Vars/ttHVars.hpp"
 #include "SingleTopRootAnalysis/Vars/HjTagger.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
@@ -387,6 +388,7 @@ int main(int argc, char **argv)
   //mystudy.AddVars(new BDTVars(true));
 
   mystudy.AddVars(new HadTopVars());
+  //mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
   //mystudy.AddVars(new DNNVars());

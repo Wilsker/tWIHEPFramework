@@ -892,6 +892,7 @@ class EventContainer
     Float_t varDr_leph_bfromlTop;
  
     Double_t HadTop_BDT; 
+    Double_t ResTop_BDT; 
     // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
     Int_t _sync;
     Int_t _debugEvt;
