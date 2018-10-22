@@ -1,10 +1,10 @@
 /******************************************************************************
- * testVar.cpp                                                                *
- *
- * Testing out some variables being added to the skim tree.
- *
+ * ResTopVars.hpp                                                                *
+ *                                                                            *
+ * Add the variables we will use in the BDT to the skim tree                  *
+ * 
  * History
- *      10th Nov 2016 - Created by D. Leggat. Just a test, so probably not that important
+ *      18 Oct 2018 - Created by Binghuan Li
  ******************************************************************************/
 
 #include "SingleTopRootAnalysis/Vars/ResTopVars.hpp"
@@ -16,86 +16,95 @@ ResTopVars::ResTopVars(bool makeHistos){
 
   SetName("ResTopVars");
   
-  
   _floatVars["resTop_BDT"] = -1.;
+  _floatVars["bjet_resTop_index"] = -1.;
+  _floatVars["wjet1_resTop_index"] = -1.;
+  _floatVars["wjet2_resTop_index"] = -1.;
+  _floatVars["resTop_b_pt"] = -1.;
+  _floatVars["resTop_b_mass"] = -1.;
+  _floatVars["resTop_b_ptD"] = -1.;
+  _floatVars["resTop_b_axis1"] = -1.;
+  _floatVars["resTop_b_mult"] = -1.;
+  _floatVars["resTop_b_csv"] = -1.;
+  _floatVars["resTop_b_cvsb"] = -1.;
+  _floatVars["resTop_b_cvsl"] = -1.;
+
+  _floatVars["resTop_wj1_pt"] = -1.;
+  _floatVars["resTop_wj1_mass"] = -1.;
+  _floatVars["resTop_wj1_ptD"] = -1.;
+  _floatVars["resTop_wj1_axis1"] = -1.;
+  _floatVars["resTop_wj1_mult"] = -1.;
+  _floatVars["resTop_wj1_csv"] = -1.;
+  _floatVars["resTop_wj1_cvsb"] = -1.;
+  _floatVars["resTop_wj1_cvsl"] = -1.;
+
+  _floatVars["resTop_wj2_pt"] = -1.;
+  _floatVars["resTop_wj2_mass"] = -1.;
+  _floatVars["resTop_wj2_ptD"] = -1.;
+  _floatVars["resTop_wj2_axis1"] = -1.;
+  _floatVars["resTop_wj2_mult"] = -1.;
+  _floatVars["resTop_wj2_csv"] = -1.;
+  _floatVars["resTop_wj2_cvsb"] = -1.;
+  _floatVars["resTop_wj2_cvsl"] = -1.;
+
+  _floatVars["resTop_b_wj1_deltaR"] = -1.;
+  _floatVars["resTop_b_wj1_mass"] = -1.;
+  _floatVars["resTop_b_wj2_deltaR"] = -1.;
+  _floatVars["resTop_b_wj2_mass"] = -1.;
+  _floatVars["resTop_wcand_deltaR"] = -1.;
+  _floatVars["resTop_wcand_mass"] = -1.;
+  _floatVars["resTop_b_wcand_deltaR"] = -1.;
+  _floatVars["resTop_topcand_mass"] = -1.;
  
-  /*
-  _intVars["Jet_numLoose"] = 10;
-  _intVars["Jet_numbMedium"] = 10;
-  _doubleVecs["Jet25_isToptag"] = {-0.1, 1.9 }; 
-  _doubleVecs["ResTop_bjet_lepTop_csv"] = {-0.1,100};
-  _doubleVecs["ResTop_bjet_hadTop_csv"] = {-0.1,100};
-  _doubleVecs["ResTop_reco_hadTop_pt"] = {-0.1,100};
-  _doubleVecs["ResTop_reco_hadTop_mass"] = {-0.1,100};
-  _doubleVecs["ResTop_reco_WhadTop_mass"] = {-0.1,100};
-  _doubleVecs["ResTop_PtRatio_leptOverleph"] = {-0.1,100};
-  _doubleVecs["ResTop_Dr_lept_bfromlTop"] = {-0.1,100};
-  _doubleVecs["ResTop_Dr_lept_bfromhTop"] = {-0.1,100};
-  _doubleVecs["ResTop_Dr_leph_bfromlTop"] = {-0.1,100};
- */
+  _doubleVecs["Jet25_isResToptag"] = {-0.1, 1.9 }; 
 
   SetDoHists(makeHistos);
 
 }
 
 void ResTopVars::Clear(){
-  Jet25_isToptag.clear();
-  ResTop_bjet_lepTop_csv.clear();
-  ResTop_bjet_hadTop_csv.clear();
-  ResTop_reco_hadTop_pt.clear();
-  ResTop_reco_hadTop_mass.clear();
-  ResTop_reco_WhadTop_mass.clear();
-  ResTop_PtRatio_leptOverleph.clear();
-  ResTop_Dr_lept_bfromlTop.clear();
-  ResTop_Dr_lept_bfromhTop.clear();
-  ResTop_Dr_leph_bfromlTop.clear();
-  Jet_null_pt.clear();
-  Jet_null_eta.clear();
-  Jet_null_phi.clear();
-  Jet_null_energy.clear();
-  Jet_null_csv.clear();
-  Jet_numLoose =-999;
-  Jet_numbMedium =-999;
-  bjet_lepTop_index= 999;
-  bjet_hadTop_index= 999;
-  wjet1_hadTop_index= 999;
-  wjet2_hadTop_index= 999;
-  lep_Top_index= 999;
-  lep_H_index= 999;
-  bjet_lepTop_pt= -999;
-  bjet_hadTop_pt= -999;
-  wjet1_hadTop_pt= -999;
-  wjet2_hadTop_pt= -999;
-  lep_Top_pt= -999;
-  lep_H_pt= -999;
-  bjet_lepTop_eta= -999;
-  bjet_hadTop_eta= -999;
-  wjet1_hadTop_eta= -999;
-  wjet2_hadTop_eta= -999;
-  lep_Top_eta= -999;
-  lep_H_eta= -999;
-  bjet_lepTop_phi= -999;
-  bjet_hadTop_phi= -999;
-  wjet1_hadTop_phi= -999;
-  wjet2_hadTop_phi= -999;
-  lep_Top_phi= -999;
-  lep_H_phi= -999;
-  bjet_lepTop_energy= -999;
-  bjet_hadTop_energy= -999;
-  wjet1_hadTop_energy= -999;
-  wjet2_hadTop_energy= -999;
-  lep_Top_energy= -999;
-  lep_H_energy= -999;
-  bjet_lepTop_csv= -999;
-  bjet_hadTop_csv= -999;
-  reco_hadTop_pt= -999;
-  reco_hadTop_mass= -999;
-  reco_WhadTop_mass= -999;
-  PtRatio_leptOverleph= -999;
-  Dr_lept_bfromlTop= -999;
-  Dr_lept_bfromhTop= -999;
-  Dr_leph_bfromlTop= -999;
+  Jet25_isResToptag.clear();
   resTop_BDT= -999;
+    
+  bjet_resTop_index = 999;
+  wjet1_resTop_index = 999;
+  wjet2_resTop_index = 999;
+
+  resTop_b_pt = -999;
+  resTop_b_mass = -999;
+  resTop_b_ptD = -999;
+  resTop_b_axis1 = -999;
+  resTop_b_mult = -999;
+  resTop_b_csv = -999;
+  resTop_b_cvsb = -999;
+  resTop_b_cvsl = -999;
+
+  resTop_wj1_pt = -999;
+  resTop_wj1_mass = -999;
+  resTop_wj1_ptD = -999;
+  resTop_wj1_axis1 = -999;
+  resTop_wj1_mult = -999;
+  resTop_wj1_csv = -999;
+  resTop_wj1_cvsb = -999;
+  resTop_wj1_cvsl = -999;
+
+  resTop_wj2_pt = -999;
+  resTop_wj2_mass = -999;
+  resTop_wj2_ptD = -999;
+  resTop_wj2_axis1 = -999;
+  resTop_wj2_mult = -999;
+  resTop_wj2_csv = -999;
+  resTop_wj2_cvsb = -999;
+  resTop_wj2_cvsl = -999;
+
+  resTop_b_wj1_deltaR = -999;
+  resTop_b_wj1_mass = -999;
+  resTop_b_wj2_deltaR = -999;
+  resTop_b_wj2_mass = -999;
+  resTop_wcand_deltaR = -999;
+  resTop_wcand_mass = -999;
+  resTop_b_wcand_deltaR = -999;
+  resTop_topcand_mass = -999;
 }
 
 void ResTopVars::FillBranches(EventContainer * evtObj){
@@ -103,272 +112,214 @@ void ResTopVars::FillBranches(EventContainer * evtObj){
   //Initialise vectors;
   Clear();
   
-  Jet_numbMedium = Add_nullJet(evtObj->jets);
-  Reco_hadTop(evtObj);
+  Reco_resTop(evtObj);
   
   _floatVars["resTop_BDT"] = resTop_BDT;
 
   evtObj->ResTop_BDT = resTop_BDT;
-  if(evtObj -> _sync == 51){                                                                      
-        std::cout<< evtObj->eventNumber<<" "<< bjet_hadTop_pt << " "<< wjet1_hadTop_pt<<" "<< wjet2_hadTop_pt<<" "<<bjet_hadTop_csv <<" "<< bjet_lepTop_csv << " "<< reco_hadTop_mass<< " "<< reco_hadTop_pt << " " << reco_WhadTop_mass << " " << PtRatio_leptOverleph << " " << Dr_lept_bfromlTop << " "<< Dr_lept_bfromhTop<< " "<<Dr_leph_bfromlTop <<" "<< resTop_BDT<< endl;
+  if(evtObj -> _sync == 52){                                                                      
+    std::cout << evtObj->eventNumber << " ";
+    std::cout <<  evtObj->var_b_pt << " " ;
+    std::cout <<  evtObj->var_b_mass << " " ;
+    std::cout <<  evtObj->var_b_ptD << " " ;
+    std::cout <<  evtObj->var_b_axis1 << " " ;
+    std::cout <<  evtObj->var_b_mult << " " ;
+    std::cout <<  evtObj->var_b_csv << " " ;
+    std::cout <<  evtObj->var_b_cvsb << " " ;
+    std::cout <<  evtObj->var_b_cvsl << " " ;
+
+    std::cout <<  evtObj->var_wj1_pt << " " ;
+    std::cout <<  evtObj->var_wj1_mass << " " ;
+    std::cout <<  evtObj->var_wj1_ptD << " " ;
+    std::cout <<  evtObj->var_wj1_axis1 << " " ;
+    std::cout <<  evtObj->var_wj1_mult << " " ;
+    std::cout <<  evtObj->var_wj1_csv << " " ;
+    std::cout <<  evtObj->var_wj1_cvsb << " " ;
+    std::cout <<  evtObj->var_wj1_cvsl << " " ;
+
+    std::cout <<  evtObj->var_wj2_pt << " " ;
+    std::cout <<  evtObj->var_wj2_mass << " " ;
+    std::cout <<  evtObj->var_wj2_ptD << " " ;
+    std::cout <<  evtObj->var_wj2_axis1 << " " ;
+    std::cout <<  evtObj->var_wj2_mult << " " ;
+    std::cout <<  evtObj->var_wj2_csv << " " ;
+    std::cout <<  evtObj->var_wj2_cvsb << " " ;
+    std::cout <<  evtObj->var_wj2_cvsl << " " ;
+
+    std::cout <<  evtObj->var_b_wj1_deltaR << " " ;
+    std::cout <<  evtObj->var_b_wj1_mass << " " ;
+    std::cout <<  evtObj->var_b_wj2_deltaR << " " ;
+    std::cout <<  evtObj->var_b_wj2_mass << " " ;
+    std::cout <<  evtObj->var_wcand_deltaR << " " ;
+    std::cout <<  evtObj->var_wcand_mass << " " ;
+    std::cout <<  evtObj->var_b_wcand_deltaR << " " ;
+    std::cout <<  evtObj->var_topcand_mass << " " << std::endl;
+    std::cout << resTop_BDT << std::endl;
+  
   }                          
 
+  _floatVars["bjet_resTop_index"] = bjet_resTop_index;
+  _floatVars["wjet1_resTop_index"] = wjet1_resTop_index;
+  _floatVars["wjet2_resTop_index"] = wjet2_resTop_index;
+  _floatVars["resTop_b_pt"] = resTop_b_pt ;
+  _floatVars["resTop_b_mass"] = resTop_b_mass ;
+  _floatVars["resTop_b_ptD"] = resTop_b_ptD ;
+  _floatVars["resTop_b_axis1"] = resTop_b_axis1;
+  _floatVars["resTop_b_mult"] = resTop_b_mult;
+  _floatVars["resTop_b_csv"] = resTop_b_csv;
+  _floatVars["resTop_b_cvsb"] = resTop_b_cvsb;
+  _floatVars["resTop_b_cvsl"] = resTop_b_cvsl;
+
+  _floatVars["resTop_wj1_pt"] = resTop_wj1_pt ;
+  _floatVars["resTop_wj1_mass"] = resTop_wj1_mass ;
+  _floatVars["resTop_wj1_ptD"] = resTop_wj1_ptD ;
+  _floatVars["resTop_wj1_axis1"] = resTop_wj1_axis1;
+  _floatVars["resTop_wj1_mult"] = resTop_wj1_mult;
+  _floatVars["resTop_wj1_csv"] = resTop_wj1_csv;
+  _floatVars["resTop_wj1_cvsb"] = resTop_wj1_cvsb;
+  _floatVars["resTop_wj1_cvsl"] = resTop_wj1_cvsl;
+
+  _floatVars["resTop_wj2_pt"] = resTop_wj2_pt ;
+  _floatVars["resTop_wj2_mass"] = resTop_wj2_mass ;
+  _floatVars["resTop_wj2_ptD"] = resTop_wj2_ptD ;
+  _floatVars["resTop_wj2_axis1"] = resTop_wj2_axis1;
+  _floatVars["resTop_wj2_mult"] = resTop_wj2_mult;
+  _floatVars["resTop_wj2_csv"] = resTop_wj2_csv;
+  _floatVars["resTop_wj2_cvsb"] = resTop_wj2_cvsb;
+  _floatVars["resTop_wj2_cvsl"] = resTop_wj2_cvsl;
+
+
+  _floatVars["resTop_b_wj1_deltaR"] = resTop_b_wj1_deltaR;
+  _floatVars["resTop_b_wj1_mass"] = resTop_b_wj1_mass;
+  _floatVars["resTop_b_wj2_deltaR"] = resTop_b_wj2_deltaR;
+  _floatVars["resTop_b_wj2_mass"] = resTop_b_wj2_mass;
+  _floatVars["resTop_wcand_deltaR"] = resTop_wcand_deltaR;
+  _floatVars["resTop_wcand_mass"] = resTop_wcand_mass;
+  _floatVars["resTop_b_wcand_deltaR"] = resTop_b_wcand_deltaR ;
+  _floatVars["resTop_topcand_mass"] = resTop_topcand_mass ;
+  
   Int_t jet_index=-1;
   for(uint jet_en=0; jet_en< evtObj->jets.size();jet_en++){
     jet_index++;
     Double_t isTagged = 0.;
-    if(jet_index == bjet_hadTop_index || jet_index == wjet1_hadTop_index || jet_index == wjet2_hadTop_index)isTagged=1.;
-    evtObj->jets.at(jet_en).SetisToptag(isTagged);
-    Jet25_isToptag.push_back(isTagged);
+    if(jet_index == bjet_resTop_index || jet_index == wjet1_resTop_index || jet_index == wjet2_resTop_index)isTagged=1.;
+    evtObj->jets.at(jet_en).SetisResToptag(isTagged);
+    Jet25_isResToptag.push_back(isTagged);
   }
 
-   /*
-  _intVars["Jet_numLoose"] = Jet_numLoose;
-  _intVars["Jet_numbMedium"] = Jet_numbMedium;
-  _doubleVecs["Jet25_isToptag"] = Jet25_isToptag; 
-  _doubleVecs["ResTop_bjet_lepTop_csv"] = ResTop_bjet_lepTop_csv;
-  _doubleVecs["ResTop_bjet_hadTop_csv"] = ResTop_bjet_hadTop_csv;
-  _doubleVecs["ResTop_reco_hadTop_pt"] = ResTop_reco_hadTop_pt;
-  _doubleVecs["ResTop_reco_hadTop_mass"] = ResTop_reco_hadTop_mass;
-  _doubleVecs["ResTop_reco_WhadTop_mass"] = ResTop_reco_WhadTop_mass;
-  _doubleVecs["ResTop_PtRatio_leptOverleph"] = ResTop_PtRatio_leptOverleph;
-  _doubleVecs["ResTop_Dr_lept_bfromlTop"] = ResTop_Dr_lept_bfromlTop;
-  _doubleVecs["ResTop_Dr_lept_bfromhTop"] = ResTop_Dr_lept_bfromhTop;
-  _doubleVecs["ResTop_Dr_leph_bfromlTop"] = ResTop_Dr_leph_bfromlTop;
-  */
+  _doubleVecs["Jet25_isResToptag"] = Jet25_isResToptag; 
   if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
 }
 
 /***************************************************************
- * void ResTopVars::Reco_hadTop( )              *
+ * void ResTopVars::Reco_resTop( )              *
  *                                                              * 
  * Calculate ResTop Tagger                                    *
  *                                                              *
  * Input: selected Leptons and Jets                                    *
  * Output: None                                                *
  * **************************************************************/
-void ResTopVars::Reco_hadTop(EventContainer *EvtObj){
- Int_t bjet_lepTop_INDEX= -999;
- Int_t bjet_hadTop_INDEX= -999;
- Int_t wjet1_hadTop_INDEX= -999;
- Int_t wjet2_hadTop_INDEX= -999;
- Int_t lep_Top_INDEX= -999;
- Int_t lep_H_INDEX= -999;
+void ResTopVars::Reco_resTop(EventContainer *EvtObj){
+ Int_t bjet_resTop_INDEX= -999;
+ Int_t wjet1_resTop_INDEX= -999;
+ Int_t wjet2_resTop_INDEX= -999;
  std::vector<Lepton> selectedLeptons = EvtObj->fakeLeptons;
- TLorentzVector bjet_fromResTop_tlv={0,0,0,0};
- TLorentzVector bjet_fromLepTop_tlv={0,0,0,0};
- TLorentzVector wjet1_fromResTop_tlv={0,0,0,0};
- TLorentzVector wjet2_fromResTop_tlv={0,0,0,0};
- TLorentzVector w_fromResTop_tlv={0,0,0,0};
- TLorentzVector lep_fromTop_tlv={0,0,0,0};
- TLorentzVector lep_fromHiggs_tlv={0,0,0,0};
- TLorentzVector lepTop_tlv={0,0,0,0};
- TLorentzVector hadTop_tlv={0,0,0,0};
- bjet_hadTop_INDEX = -1;
- for(uint bhad_en=0; bhad_en < Jet_null_pt.size(); bhad_en++){
-  bjet_hadTop_INDEX +=1;
-  if(bhad_en!=0&& Jet_null_pt.at(bhad_en)==0 && Jet_null_pt.at(bhad_en-1)==0)continue;//skip useless empty b-jet iterations (skip all perms with 2 null bjets)
-  //if(Jet_null_pt.at(bhad_en)==0 && Jet_null_pt.at(bhad_en-1)==0)continue;//skip useless empty b-jet iterations (skip all perms with 2 null bjets)
-  if(Jet_numbMedium>=2 && Jet_null_csv.at(bhad_en)<0.8)continue;//speed improvement
-  if(Jet_null_csv.at(bhad_en)>0 && Jet_null_csv.at(bhad_en)<0.46)continue; //speed improvement
-  
-
-  bjet_lepTop_INDEX = -1;
-  for(uint blep_en=0; blep_en < Jet_null_pt.size();blep_en++){
-   bjet_lepTop_INDEX +=1;
-   if(bjet_lepTop_INDEX==bjet_hadTop_INDEX)continue;
-   if(Jet_null_pt.at(blep_en)==0 && Jet_null_pt.at(blep_en-1)==0)continue;//skip useless empty b-jet iterations (skip all perms with 2 null bjets)
-   if(Jet_numbMedium>=2 && Jet_null_csv.at(blep_en)<0.8)continue;//speed improvement
-   if(Jet_null_csv.at(blep_en)>0 && Jet_null_csv.at(blep_en)<0.46)continue; //speed improvement
-   if(!((Jet_null_csv.at(blep_en)>0.8||Jet_null_csv.at(bhad_en)>0.8)||(Jet_null_csv.at(blep_en)>0.46 && Jet_null_csv.at(bhad_en)>0.46)))continue;
-    
-   wjet1_hadTop_INDEX = -1;
-   for(uint wjet1_en=0; wjet1_en < Jet_null_pt.size(); wjet1_en++){
-    wjet1_hadTop_INDEX += 1;
-    if(wjet1_hadTop_INDEX==bjet_lepTop_INDEX)continue;
-    if(wjet1_hadTop_INDEX==bjet_hadTop_INDEX)continue;
-    
-    
-    wjet2_hadTop_INDEX = -1;
-    for(uint wjet2_en=0; wjet2_en < Jet_null_pt.size(); wjet2_en++){
-     wjet2_hadTop_INDEX += 1;
-     if(wjet2_hadTop_INDEX==bjet_lepTop_INDEX)continue;
-     if(wjet2_hadTop_INDEX==bjet_hadTop_INDEX)continue;
-     if(wjet2_hadTop_INDEX<=wjet1_hadTop_INDEX)continue;//skip duplicates
-     bjet_fromResTop_tlv.SetPtEtaPhiE(Jet_null_pt.at(bhad_en),Jet_null_eta.at(bhad_en),Jet_null_phi.at(bhad_en),Jet_null_energy.at(bhad_en));
-     bjet_fromLepTop_tlv.SetPtEtaPhiE(Jet_null_pt.at(blep_en),Jet_null_eta.at(blep_en),Jet_null_phi.at(blep_en),Jet_null_energy.at(blep_en));
-     wjet1_fromResTop_tlv.SetPtEtaPhiE(Jet_null_pt.at(wjet1_en),Jet_null_eta.at(wjet1_en),Jet_null_phi.at(wjet1_en),Jet_null_energy.at(wjet1_en));
-     wjet2_fromResTop_tlv.SetPtEtaPhiE(Jet_null_pt.at(wjet2_en),Jet_null_eta.at(wjet2_en),Jet_null_phi.at(wjet2_en),Jet_null_energy.at(wjet2_en));
-     w_fromResTop_tlv = wjet1_fromResTop_tlv + wjet2_fromResTop_tlv;
-     if (w_fromResTop_tlv.M() > 120 ) continue; 
-     hadTop_tlv = w_fromResTop_tlv + bjet_fromResTop_tlv;
-     if ( hadTop_tlv.M() > 220 ) continue;
-
-     lep_Top_INDEX= -1;
-     for(uint ltop_en=0; ltop_en<2; ltop_en++){
-      lep_Top_INDEX += 1;
+ std::vector<Jet> Jets = EvtObj->jets;
+ int njets = Jets.size();
+ std::sort(Jets.begin(),Jets.end(),[](const Jet &a, const Jet &b){return a.bDiscriminator() > b.bDiscriminator();});
+  for (int i1=0; i1<njets-2; i1++) {
+    for (int i2=i1+1; i2<njets-1; i2++){
+      for (int i3=i2+1; i3<njets; i3++){
+        TLorentzVector bjet={0,0,0,0};
+        TLorentzVector w1jet={0,0,0,0};
+        TLorentzVector w2jet={0,0,0,0};
+        bjet.SetPtEtaPhiE(Jets.at(i1).Pt(), Jets.at(i1).Eta(), Jets.at(i1).Phi(), Jets.at(i1).E());
+        w1jet.SetPtEtaPhiE(Jets.at(i2).Pt(), Jets.at(i2).Eta(), Jets.at(i2).Phi(), Jets.at(i2).E());
+        w2jet.SetPtEtaPhiE(Jets.at(i3).Pt(), Jets.at(i3).Eta(), Jets.at(i3).Phi(), Jets.at(i3).E());
+        if(fabs((bjet+w1jet+w2jet).M()-175)>80) continue;
+        EvtObj->var_b_pt = bjet.Pt();
+        EvtObj->var_b_mass = bjet.M();
+        EvtObj->var_b_ptD = Jets.at(i1).ptD();
+        EvtObj->var_b_axis1 = std::exp(-Jets.at(i1).axis2()); // training uses definition of axis1 without -log, I should use axis1 but it is not saved in Ntuple, so axis2 for the moment
+        EvtObj->var_b_mult = Jets.at(i1).mult();
+        EvtObj->var_b_csv = Jets.at(i1).bDiscriminator();
+        EvtObj->var_b_cvsb = Jets.at(i1).pfDeepCSVCvsBJetTags();
+        EvtObj->var_b_cvsl = Jets.at(i1).pfDeepCSVCvsLJetTags();
      
-      lep_H_INDEX= -1;
-      for(uint lhig_en=0; lhig_en<2; lhig_en++){
-       lep_H_INDEX += 1;
-       if(lep_Top_INDEX==lep_H_INDEX)continue;
-       if(selectedLeptons.size()>=2){
-        lep_fromTop_tlv.SetPtEtaPhiE(selectedLeptons.at(ltop_en).conept(),selectedLeptons.at(ltop_en).Eta(),selectedLeptons.at(ltop_en).Phi(),selectedLeptons.at(ltop_en).E());
-        lep_fromHiggs_tlv.SetPtEtaPhiE(selectedLeptons.at(lhig_en).conept(),selectedLeptons.at(lhig_en).Eta(),selectedLeptons.at(lhig_en).Phi(),selectedLeptons.at(lhig_en).E());
-       }else{
-        lep_fromTop_tlv.SetPtEtaPhiE(1,1,1,2);//set to 1,1,1,2 to avoid null at denominator
-        lep_fromHiggs_tlv.SetPtEtaPhiE(1,1,1,2); // set to 1,1,1,2 to avoid null at denominator
-       }
-       lepTop_tlv = lep_fromTop_tlv + bjet_fromLepTop_tlv;
-       if ( lepTop_tlv.M() > 180 ) continue;
-       //calculate all variables       
-       EvtObj->varbjet_lepTop_csv = Jet_null_csv.at(blep_en);
-       EvtObj->varbjet_hadTop_csv = Jet_null_csv.at(bhad_en);
-       EvtObj->varreco_hadTop_pt = hadTop_tlv.Pt();
-       EvtObj->varreco_hadTop_mass = hadTop_tlv.M();
-       EvtObj->varreco_WhadTop_mass = w_fromResTop_tlv.M();
-       EvtObj->varPtRatio_leptOverleph = lep_fromTop_tlv.Pt()/lep_fromHiggs_tlv.Pt();
-       EvtObj->varDr_lept_bfromlTop = bjet_fromLepTop_tlv.Pt()==0 ? -1: lep_fromTop_tlv.DeltaR(bjet_fromLepTop_tlv);
-       EvtObj->varDr_lept_bfromhTop = bjet_fromResTop_tlv.Pt()==0? -1: lep_fromTop_tlv.DeltaR(bjet_fromResTop_tlv);
-       EvtObj->varDr_leph_bfromlTop = bjet_fromLepTop_tlv.Pt()==0? -1: lep_fromHiggs_tlv.DeltaR(bjet_fromLepTop_tlv);
-       Float_t mva_value= get_hadTopMVA(Jet_numbMedium, EvtObj);
-       ResTop_bjet_lepTop_csv.push_back(Jet_null_csv.at(blep_en));
-       ResTop_bjet_hadTop_csv.push_back(Jet_null_csv.at(bhad_en));
-       ResTop_reco_hadTop_pt.push_back(hadTop_tlv.Pt());
-       ResTop_reco_hadTop_mass.push_back(hadTop_tlv.M());
-       ResTop_reco_WhadTop_mass.push_back(w_fromResTop_tlv.M());
-       ResTop_PtRatio_leptOverleph.push_back(lep_fromTop_tlv.Pt()/lep_fromHiggs_tlv.Pt());
-       ResTop_Dr_lept_bfromlTop.push_back((bjet_fromLepTop_tlv.Pt()==0 ? -1: lep_fromTop_tlv.DeltaR(bjet_fromLepTop_tlv)));
-       ResTop_Dr_lept_bfromhTop.push_back((bjet_fromResTop_tlv.Pt()==0? -1: lep_fromTop_tlv.DeltaR(bjet_fromResTop_tlv)));
-       ResTop_Dr_leph_bfromlTop.push_back((bjet_fromLepTop_tlv.Pt()==0? -1: lep_fromHiggs_tlv.DeltaR(bjet_fromLepTop_tlv)));
-       if(mva_value > resTop_BDT){
-        resTop_BDT = mva_value;
-        bjet_lepTop_index = bjet_lepTop_INDEX;
-        bjet_hadTop_index = bjet_hadTop_INDEX;
-        wjet1_hadTop_index = wjet1_hadTop_INDEX;
-        wjet2_hadTop_index = wjet2_hadTop_INDEX;
-        lep_Top_index = lep_Top_INDEX;
-        lep_H_index = lep_H_INDEX;
-        bjet_lepTop_pt = bjet_fromLepTop_tlv.Pt();
-        bjet_hadTop_pt = bjet_fromResTop_tlv.Pt();
-        wjet1_hadTop_pt = wjet1_fromResTop_tlv.Pt();
-        wjet2_hadTop_pt = wjet2_fromResTop_tlv.Pt();
-        lep_Top_pt = lep_fromTop_tlv.Pt();
-        lep_H_pt = lep_fromHiggs_tlv.Pt();
-        bjet_lepTop_eta = bjet_fromLepTop_tlv.Eta();
-        bjet_hadTop_eta = bjet_fromResTop_tlv.Eta();
-        wjet1_hadTop_eta = wjet1_fromResTop_tlv.Eta();
-        wjet2_hadTop_eta = wjet2_fromResTop_tlv.Eta();
-        lep_Top_eta = lep_fromTop_tlv.Eta();
-        lep_H_eta = lep_fromHiggs_tlv.Eta();
-        bjet_lepTop_phi = bjet_fromLepTop_tlv.Phi();
-        bjet_hadTop_phi = bjet_fromResTop_tlv.Phi();
-        wjet1_hadTop_phi = wjet1_fromResTop_tlv.Phi();
-        wjet2_hadTop_phi = wjet2_fromResTop_tlv.Phi();
-        lep_Top_phi = lep_fromTop_tlv.Phi();
-        lep_H_phi = lep_fromHiggs_tlv.Phi();
-        bjet_lepTop_energy = bjet_fromLepTop_tlv.E();
-        bjet_hadTop_energy = bjet_fromResTop_tlv.E();
-        wjet1_hadTop_energy = wjet1_fromResTop_tlv.E();
-        wjet2_hadTop_energy = wjet2_fromResTop_tlv.E();
-        lep_Top_energy = lep_fromTop_tlv.E();
-        lep_H_energy = lep_fromHiggs_tlv.E();
-        bjet_lepTop_csv = EvtObj->varbjet_lepTop_csv;
-        bjet_hadTop_csv = EvtObj->varbjet_hadTop_csv;
-        reco_hadTop_pt = EvtObj->varreco_hadTop_pt;
-        reco_hadTop_mass = EvtObj->varreco_hadTop_mass;
-        reco_WhadTop_mass = EvtObj->varreco_WhadTop_mass;
-        PtRatio_leptOverleph = EvtObj->varPtRatio_leptOverleph;
-        Dr_lept_bfromlTop = EvtObj->varDr_lept_bfromlTop;
-        Dr_lept_bfromhTop = EvtObj->varDr_lept_bfromhTop;
-        Dr_leph_bfromlTop = EvtObj->varDr_leph_bfromlTop;
-       }
+        EvtObj->var_wj1_pt = w1jet.Pt();
+        EvtObj->var_wj1_mass = w1jet.M();
+        EvtObj->var_wj1_ptD = Jets.at(i2).ptD();
+        EvtObj->var_wj1_axis1 = std::exp(-Jets.at(i2).axis2()); // training uses definition of axis1 without -log, I should use axis1 but it is not saved in Ntuple, so axis2 for the moment
+        EvtObj->var_wj1_mult = Jets.at(i2).mult();
+        EvtObj->var_wj1_csv = Jets.at(i2).bDiscriminator();
+        EvtObj->var_wj1_cvsb = Jets.at(i2).pfDeepCSVCvsBJetTags();
+        EvtObj->var_wj1_cvsl = Jets.at(i2).pfDeepCSVCvsLJetTags();
+     
+        EvtObj->var_wj2_pt = w2jet.Pt();
+        EvtObj->var_wj2_mass = w2jet.M();
+        EvtObj->var_wj2_ptD = Jets.at(i3).ptD();
+        EvtObj->var_wj2_axis1 = std::exp(-Jets.at(i3).axis2()); // training uses definition of axis1 without -log, I should use axis1 but it is not saved in Ntuple, so axis2 for the moment
+        EvtObj->var_wj2_mult = Jets.at(i3).mult();
+        EvtObj->var_wj2_csv = Jets.at(i3).bDiscriminator();
+        EvtObj->var_wj2_cvsb = Jets.at(i3).pfDeepCSVCvsBJetTags();
+        EvtObj->var_wj2_cvsl = Jets.at(i3).pfDeepCSVCvsLJetTags();
+     
+        EvtObj->var_b_wj1_deltaR = bjet.DeltaR(w1jet);
+        EvtObj->var_b_wj1_mass = (bjet+w1jet).M();
+        EvtObj->var_b_wj2_deltaR = bjet.DeltaR(w2jet);
+        EvtObj->var_b_wj2_mass = (bjet+w2jet).M();
+        EvtObj->var_wcand_deltaR = w1jet.DeltaR(w2jet); 
+        EvtObj->var_wcand_mass = (w1jet+w2jet).M();
+        EvtObj->var_b_wcand_deltaR = bjet.DeltaR(w1jet+w2jet);
+        EvtObj->var_topcand_mass = (bjet+w1jet+w2jet).M();
+
+        float score = EvtObj->resTop_reader->EvaluateMVA("BDT");
+        if(score > resTop_BDT){
+            resTop_BDT = score;
+            bjet_resTop_index = Jets.at(i1).index();
+            wjet1_resTop_index = Jets.at(i2).index();
+            wjet2_resTop_index = Jets.at(i3).index();
+            resTop_b_pt = EvtObj->var_b_pt ;
+            resTop_b_mass = EvtObj->var_b_mass ;
+            resTop_b_ptD = EvtObj->var_b_ptD ;
+            resTop_b_axis1 = EvtObj->var_b_axis1;
+            resTop_b_mult = EvtObj->var_b_mult;
+            resTop_b_csv = EvtObj->var_b_csv;
+            resTop_b_cvsb = EvtObj->var_b_cvsb;
+            resTop_b_cvsl = EvtObj->var_b_cvsl;
+
+            resTop_wj1_pt = EvtObj->var_wj1_pt ;
+            resTop_wj1_mass = EvtObj->var_wj1_mass ;
+            resTop_wj1_ptD = EvtObj->var_wj1_ptD ;
+            resTop_wj1_axis1 = EvtObj->var_wj1_axis1;
+            resTop_wj1_mult = EvtObj->var_wj1_mult;
+            resTop_wj1_csv = EvtObj->var_wj1_csv;
+            resTop_wj1_cvsb = EvtObj->var_wj1_cvsb;
+            resTop_wj1_cvsl = EvtObj->var_wj1_cvsl;
+
+            resTop_wj2_pt = EvtObj->var_wj2_pt ;
+            resTop_wj2_mass = EvtObj->var_wj2_mass ;
+            resTop_wj2_ptD = EvtObj->var_wj2_ptD ;
+            resTop_wj2_axis1 = EvtObj->var_wj2_axis1;
+            resTop_wj2_mult = EvtObj->var_wj2_mult;
+            resTop_wj2_csv = EvtObj->var_wj2_csv;
+            resTop_wj2_cvsb = EvtObj->var_wj2_cvsb;
+            resTop_wj2_cvsl = EvtObj->var_wj2_cvsl;
+
+
+            resTop_b_wj1_deltaR = EvtObj->var_b_wj1_deltaR;
+            resTop_b_wj1_mass = EvtObj->var_b_wj1_mass;
+            resTop_b_wj2_deltaR = EvtObj->var_b_wj2_deltaR;
+            resTop_b_wj2_mass = EvtObj->var_b_wj2_mass;
+            resTop_wcand_deltaR = EvtObj->var_wcand_deltaR;
+            resTop_wcand_mass = EvtObj->var_wcand_mass;
+            resTop_b_wcand_deltaR = EvtObj->var_b_wcand_deltaR ;
+            resTop_topcand_mass = EvtObj->var_topcand_mass ;
+        }
+
       }
-     }
     }
-   }
   }
- }
 };
 
-/***************************************************************
- * Int_t  ResTopVars::Add_nullJet(std::vector<Jet>& selectedJets)*
- *                                                              * 
- * Set up the null Jets                                         *
- *                                                              *
- * Input: selected Jets                                         *
- * Output: number of bjet                                                 *
- * **************************************************************/
-int ResTopVars::Add_nullJet(std::vector<Jet>& selectedJets){
-    Int_t num_bjet =0;
-    Jet_numLoose = selectedJets.size();
-    for(uint jet_en=0; jet_en<selectedJets.size();jet_en++){
-        Jet_null_pt.push_back(selectedJets.at(jet_en).Pt());
-        Jet_null_eta.push_back(selectedJets.at(jet_en).Eta());
-        Jet_null_phi.push_back(selectedJets.at(jet_en).Phi());
-        Jet_null_energy.push_back(selectedJets.at(jet_en).E());
-        Jet_null_csv.push_back(selectedJets.at(jet_en).pfCombinedInclusiveSecondaryVertexV2BJetTags());
-        if(selectedJets.at(jet_en).pfCombinedInclusiveSecondaryVertexV2BJetTags()>0.8838 )num_bjet++;
-        //Jet_null_csv.push_back(selectedJets.at(jet_en).bDiscriminator());
-        //if(selectedJets.at(jet_en).isMediumBdisc() )num_bjet++;
-    }
-    if(Jet_numLoose<=7){
-        Jet_null_pt.push_back(0);
-        Jet_null_eta.push_back(0);
-        Jet_null_phi.push_back(0);
-        Jet_null_energy.push_back(0);
-        Jet_null_csv.push_back(-0.2);
-
-        Jet_null_pt.push_back(0);
-        Jet_null_eta.push_back(0);
-        Jet_null_phi.push_back(0);
-        Jet_null_energy.push_back(0);
-        Jet_null_csv.push_back(-0.2);
-
-        Jet_null_pt.push_back(0);
-        Jet_null_eta.push_back(0);
-        Jet_null_phi.push_back(0);
-        Jet_null_energy.push_back(0);
-        Jet_null_csv.push_back(-0.2);
-    }
-    else if(Jet_numLoose==8){
-        Jet_null_pt.push_back(0);
-        Jet_null_eta.push_back(0);
-        Jet_null_phi.push_back(0);
-        Jet_null_energy.push_back(0);
-        Jet_null_csv.push_back(-0.2);
-
-        Jet_null_pt.push_back(0);
-        Jet_null_eta.push_back(0);
-        Jet_null_phi.push_back(0);
-        Jet_null_energy.push_back(0);
-        Jet_null_csv.push_back(-0.2);
-    }
-    else{
-        Jet_null_pt.push_back(0);
-        Jet_null_eta.push_back(0);
-        Jet_null_phi.push_back(0);
-        Jet_null_energy.push_back(0);
-        Jet_null_csv.push_back(-0.2);
-    }   
-    return num_bjet; 
-};
-
-/***************************************************************
- * void ResTopVars::get_hadTopMVA(int numbJet)              *
- *                                                              * 
- * Evaluate ResTop MVA                                        *
- *                                                              *
- * Input: number of bjet                                      *
- * Output: BDT value                                                 *
- * **************************************************************/
-Float_t ResTopVars::get_hadTopMVA(int numbJet, EventContainer *EvtObj){ 
-    Float_t BDToutput=0.;
-    if(numbJet<2){
-        BDToutput = EvtObj->hadTop_reader_loose->EvaluateMVA("BDTG method");
-    }else{
-        BDToutput = EvtObj->hadTop_reader_tight->EvaluateMVA("BDTG method");
-    }
-    return BDToutput; 
-}

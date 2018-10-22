@@ -84,6 +84,8 @@ ClassImp(Jet)
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _isToptag       (0.0),
+  _isResToptag       (0.0),
+  _index       (0.0),
   _L1corrPt       (0.0),
   _uncorrE       (0.0),
   _partonFlavour       (0.0),
@@ -153,6 +155,8 @@ _electronEnergy			(other.GetelectronEnergy()),
   _partonFlavour(other.GetpartonFlavour()),
   _hadronFlavour(other.GethadronFlavour()),
   _isToptag(other.GetisToptag()),
+  _isResToptag(other.GetisResToptag()),
+  _index(other.Getindex()),
   _HjDisc(other.GetHjDisc()),
   _genMother_pdgId(other.GetgenMother_pdgId()),
   _genGrandMother_pdgId(other.GetgenGrandMother_pdgId()),
@@ -196,6 +200,8 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _partonFlavour       (0.0),
   _hadronFlavour       (0.0),
   _isToptag       (0.0),
+  _isResToptag       (0.0),
+  _index       (0.0),
   _HjDisc       (0.0),
   _genMother_pdgId       (0.0),
   _genGrandMother_pdgId       (0.0),
@@ -286,6 +292,8 @@ Jet& Jet::operator=(const Particle& other)
   SetpartonFlavour       (0.0);
   SethadronFlavour       (0.0);
   SetisToptag       (0.0);
+  SetisResToptag       (0.0);
+  Setindex       (0.0);
   SetHjDisc       (0.0);
   SetgenMother_pdgId       (0.0);
   SetgenGrandMother_pdgId       (0.0);
@@ -344,6 +352,8 @@ Jet& Jet::operator=(const Jet& other)
   SetpartonFlavour(other.GetpartonFlavour());
   SethadronFlavour(other.GethadronFlavour());
   SetisToptag(other.GetisToptag());
+  SetisResToptag(other.GetisResToptag());
+  Setindex(other.Getindex());
   SetHjDisc(other.GetHjDisc());
   SetgenMother_pdgId(other.GetgenMother_pdgId());
   SetgenGrandMother_pdgId(other.GetgenGrandMother_pdgId());
@@ -400,6 +410,8 @@ Jet& Jet::operator=(Jet& other)
   SetpartonFlavour(other.GetpartonFlavour());
   SethadronFlavour(other.GethadronFlavour());
   SetisToptag(other.GetisToptag());
+  SetisResToptag(other.GetisResToptag());
+  Setindex(other.Getindex());
   SetHjDisc(other.GetHjDisc());
   SetgenMother_pdgId(other.GetgenMother_pdgId());
   SetgenGrandMother_pdgId(other.GetgenGrandMother_pdgId());

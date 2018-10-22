@@ -1593,7 +1593,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if(jet_en == 2)thirdJetCSV = jet.bDiscriminator(); 
         if(jet_en == 3)fourthJetCSV = jet.bDiscriminator();
         if( maxCSV < jet.bDiscriminator()) maxCSV = jet.bDiscriminator();
-        if( jet.isToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
+        if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
         for(uint bjet_en=0; bjet_en < Jets.size(); bjet_en++){
             if (jet_en == bjet_en) continue;
             Jet bjet = Jets.at(bjet_en);

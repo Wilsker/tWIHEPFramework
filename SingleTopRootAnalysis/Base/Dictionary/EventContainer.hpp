@@ -891,7 +891,49 @@ class EventContainer
     Float_t varDr_lept_bfromhTop;
     Float_t varDr_leph_bfromlTop;
  
-    Double_t HadTop_BDT; 
+    Double_t HadTop_BDT;
+    
+    /////// Resolved Top Tagger 
+    void set_resTopMVA();
+    //MVA
+    TMVA::Reader *resTop_reader;
+
+    Float_t var_b_pt ;
+    Float_t var_b_mass ;
+    Float_t var_b_ptD ;
+    Float_t var_b_axis1 ;
+    Float_t var_b_mult ;
+    Float_t var_b_csv ;
+    Float_t var_b_cvsb ;
+    Float_t var_b_cvsl ;
+
+    Float_t var_wj1_pt ;
+    Float_t var_wj1_mass ;
+    Float_t var_wj1_ptD ;
+    Float_t var_wj1_axis1 ;
+    Float_t var_wj1_mult ;
+    Float_t var_wj1_csv ;
+    Float_t var_wj1_cvsb ;
+    Float_t var_wj1_cvsl ;
+
+    Float_t var_wj2_pt ;
+    Float_t var_wj2_mass ;
+    Float_t var_wj2_ptD ;
+    Float_t var_wj2_axis1 ;
+    Float_t var_wj2_mult ;
+    Float_t var_wj2_csv ;
+    Float_t var_wj2_cvsb ;
+    Float_t var_wj2_cvsl ;
+
+    Float_t var_b_wj1_deltaR ;
+    Float_t var_b_wj1_mass ;
+    Float_t var_b_wj2_deltaR ;
+    Float_t var_b_wj2_mass ;
+    Float_t var_wcand_deltaR ;
+    Float_t var_wcand_mass ;
+    Float_t var_b_wcand_deltaR ;
+    Float_t var_topcand_mass ;
+  
     Double_t ResTop_BDT; 
     // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
     Int_t _sync;

@@ -393,6 +393,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   mass_diele = -999.;
   HadTop_BDT = -999.;
   set_hadTopMVA();
+  set_resTopMVA();
   set_ttHDiLepMVA();
 
   return;
@@ -896,6 +897,7 @@ Int_t EventContainer::ReadEvent()
 
     Double_t ejoverlap = GetConfig() -> GetValue("ObjectID.Jet.ElectronDeltaRMin", 0.0);
     Bool_t ajet = kFALSE;
+    int jet_index = 0;
     for(Int_t io = 0;io < _eventTree -> Jet_pt->size(); io++) {
       newJet.Clear();
       jeteoverlap = kFALSE;
@@ -910,7 +912,10 @@ Int_t EventContainer::ReadEvent()
       /////////////////////////////////////
       
       alljets.push_back(newJet);
+
       if(useObj) {
+            newJet.Setindex(jet_index);
+            jet_index ++;
 	        jets.push_back(newJet);
             if(!ajet && _sync == 41){
             std::cout << eventNumber << " " << newJet.Pt() << " " << newJet.Eta() << " " << newJet.Phi() << " "<< newJet.E() << " " << newJet.bDiscriminator() << " "<< newJet.qg()<<" "<< newJet.lepdrmin() << " " << newJet.lepdrmax() <<" "<< newJet.HjDisc() << " "<< missingEt <<" "<< missingPhi << std::endl;
@@ -1653,6 +1658,58 @@ void EventContainer::set_hadTopMVA()
     hadTop_reader_tight->AddVariable( "dr_lepFromTop_bFromHadTop", &varDr_lept_bfromhTop );
     hadTop_reader_tight->AddVariable( "dr_lepFromHiggs_bFromLepTop", &varDr_leph_bfromlTop );
     hadTop_reader_tight->BookMVA("BDTG method", _config.GetValue("Include.HadTopMVA.bTightFile","null"));
+};
+
+/***************************************************************
+ * void EventContainer::set_resTopMVA()                       *
+ *                                                              * 
+ * Set up the resolved Top tagger MVA xml file                  *
+ *                                                              *
+ * Input: TEnv* config                                          *
+ * Output: None                                                 *
+ * **************************************************************/
+ 
+void EventContainer::set_resTopMVA()
+{
+    resTop_reader = new TMVA::Reader( "!Color:!Silent" );
+
+    resTop_reader->AddVariable("var_b_pt",&var_b_pt);
+    resTop_reader->AddVariable("var_b_mass",&var_b_mass);
+    resTop_reader->AddVariable("var_b_ptD",&var_b_ptD);
+    resTop_reader->AddVariable("var_b_axis1",&var_b_axis1);
+    resTop_reader->AddVariable("var_b_mult",&var_b_mult);
+    resTop_reader->AddVariable("var_b_deepcsv_bvsall",&var_b_csv);
+    resTop_reader->AddVariable("var_b_deepcsv_cvsb",&var_b_cvsb);
+    resTop_reader->AddVariable("var_b_deepcsv_cvsl",&var_b_cvsl);
+
+    resTop_reader->AddVariable("var_wj1_pt",&var_wj1_pt);
+    resTop_reader->AddVariable("var_wj1_mass",&var_wj1_mass);
+    resTop_reader->AddVariable("var_wj1_ptD",&var_wj1_ptD);
+    resTop_reader->AddVariable("var_wj1_axis1",&var_wj1_axis1);
+    resTop_reader->AddVariable("var_wj1_mult",&var_wj1_mult);
+    resTop_reader->AddVariable("var_wj1_deepcsv_bvsall",&var_wj1_csv);
+    resTop_reader->AddVariable("var_wj1_deepcsv_cvsb",&var_wj1_cvsb);
+    resTop_reader->AddVariable("var_wj1_deepcsv_cvsl",&var_wj1_cvsl);
+
+    resTop_reader->AddVariable("var_wj2_pt",&var_wj2_pt);
+    resTop_reader->AddVariable("var_wj2_mass",&var_wj2_mass);
+    resTop_reader->AddVariable("var_wj2_ptD",&var_wj2_ptD);
+    resTop_reader->AddVariable("var_wj2_axis1",&var_wj2_axis1);
+    resTop_reader->AddVariable("var_wj2_mult",&var_wj2_mult);
+    resTop_reader->AddVariable("var_wj2_deepcsv_bvsall",&var_wj2_csv);
+    resTop_reader->AddVariable("var_wj2_deepcsv_cvsb",&var_wj2_cvsb);
+    resTop_reader->AddVariable("var_wj2_deepcsv_cvsl",&var_wj2_cvsl);
+
+    resTop_reader->AddVariable("var_b_wj1_deltaR",&var_b_wj1_deltaR);
+    resTop_reader->AddVariable("var_b_wj1_mass",&var_b_wj1_mass);
+    resTop_reader->AddVariable("var_b_wj2_deltaR",&var_b_wj2_deltaR);
+    resTop_reader->AddVariable("var_b_wj2_mass",&var_b_wj2_mass);
+    resTop_reader->AddVariable("var_wcand_deltaR",&var_wcand_deltaR);
+    resTop_reader->AddVariable("var_wcand_mass",&var_wcand_mass);
+    resTop_reader->AddVariable("var_b_wcand_deltaR",&var_b_wcand_deltaR);
+    resTop_reader->AddVariable("var_topcand_mass",&var_topcand_mass);
+  
+    resTop_reader -> BookMVA("BDT", _config.GetValue("Include.resTopMVA","null"));
 };
 
 /***************************************************************

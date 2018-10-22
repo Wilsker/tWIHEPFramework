@@ -388,7 +388,7 @@ int main(int argc, char **argv)
   //mystudy.AddVars(new BDTVars(true));
 
   mystudy.AddVars(new HadTopVars());
-  //mystudy.AddVars(new ResTopVars());
+  mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
   //mystudy.AddVars(new DNNVars());

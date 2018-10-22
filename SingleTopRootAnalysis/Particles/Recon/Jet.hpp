@@ -101,6 +101,8 @@ class Jet: public Particle
  _matchMother_Id =0.0;
  _matchGrandMother_Id =0.0;
  _isToptag =0.0;
+ _isResToptag =0.0;
+ _index =0.0;
 }
 
   void SetCuts(TEnv* config);
@@ -259,6 +261,14 @@ class Jet: public Particle
   inline Double_t GetisToptag() const {return _isToptag;};
   inline Double_t isToptag() const {return _isToptag;};
   
+  inline void SetisResToptag(Double_t isResToptag){_isResToptag = isResToptag;};
+  inline Double_t GetisResToptag() const {return _isResToptag;};
+  inline Double_t isResToptag() const {return _isResToptag;};
+  
+  inline void Setindex(Double_t index){_index = index;};
+  inline Double_t Getindex() const {return _index;};
+  inline Double_t index() const {return _index;};
+  
   inline void SetgenMother_pdgId(Double_t genMother_pdgId){_genMother_pdgId = genMother_pdgId;};
   inline Double_t GetgenMother_pdgId() const {return _genMother_pdgId;};
   inline Double_t genMother_pdgId() const {return _genMother_pdgId;};
@@ -342,6 +352,8 @@ class Jet: public Particle
   Double_t _partonFlavour;
   Double_t _hadronFlavour;
   Double_t _isToptag;
+  Double_t _isResToptag;
+  Double_t _index;
   Double_t _genMother_pdgId;
   Double_t _genGrandMother_pdgId;
   Double_t _matchId;

@@ -4,7 +4,7 @@
  * Add the variables we will use in the BDT to the skim tree                  *
  * 
  * History
- *      25 Nov 2016 - Created by D. Leggat
+ *      18 Oct 2018 - Created by Binghuan Li
  ******************************************************************************/
 
 #ifndef ResTopVars_h
@@ -29,73 +29,54 @@ public:
   
 private:
     void Clear();
-    // hadronic top tagger
-    // hadTop algorithm 
-    void Reco_hadTop(EventContainer * EvtObj);
-    // add null jets
-    Int_t Add_nullJet(std::vector<Jet>& selectedJets);
+    // resolved top tagger
+    // resolved top tagger algorithm 
+    void Reco_resTop(EventContainer * EvtObj);
     // evaluate mva
-    Float_t get_hadTopMVA(int numbJet, EventContainer* EvtObj);
+    Float_t get_resTopMVA(EventContainer* EvtObj);
 
-    std::vector<double> Jet25_isToptag;
-    std::vector<double> ResTop_bjet_lepTop_csv;
-    std::vector<double> ResTop_bjet_hadTop_csv;
-    std::vector<double> ResTop_reco_hadTop_pt;
-    std::vector<double> ResTop_reco_hadTop_mass;
-    std::vector<double> ResTop_reco_WhadTop_mass;
-    std::vector<double> ResTop_PtRatio_leptOverleph;
-    std::vector<double> ResTop_Dr_lept_bfromlTop;
-    std::vector<double> ResTop_Dr_lept_bfromhTop;
-    std::vector<double> ResTop_Dr_leph_bfromlTop;
-    std::vector<Float_t> Jet_null_pt; 
-    std::vector<Float_t> Jet_null_eta; 
-    std::vector<Float_t> Jet_null_phi;
-    std::vector<Float_t> Jet_null_energy; 
-    std::vector<Float_t> Jet_null_csv;
-    Int_t Jet_numLoose ;
-    Int_t Jet_numbMedium ;
-  
-    Float_t bjet_lepTop_pt;
-    Float_t lep_Top_pt;
-    Float_t lep_H_pt;
-    Float_t bjet_lepTop_eta;
-    Float_t bjet_hadTop_eta;
-    Float_t wjet1_hadTop_eta;
-    Float_t wjet2_hadTop_eta;
-    Float_t lep_Top_eta;
-    Float_t lep_H_eta;
-    Float_t bjet_lepTop_phi;
-    Float_t bjet_hadTop_phi;
-    Float_t wjet1_hadTop_phi;
-    Float_t wjet2_hadTop_phi;
-    Float_t lep_Top_phi;
-    Float_t lep_H_phi;
-    Float_t bjet_lepTop_energy;
-    Float_t bjet_hadTop_energy;
-    Float_t wjet1_hadTop_energy;
-    Float_t wjet2_hadTop_energy;
-    Float_t lep_Top_energy;
-    Float_t lep_H_energy;
-    Int_t bjet_lepTop_index;
-    Int_t bjet_hadTop_index;
-    Int_t wjet1_hadTop_index;
-    Int_t wjet2_hadTop_index;
-    Int_t lep_Top_index;
-    Int_t lep_H_index;
+    std::vector<double> Jet25_isResToptag;
     Float_t resTop_BDT;
-    Float_t bjet_hadTop_pt;
-    Float_t wjet1_hadTop_pt;
-    Float_t wjet2_hadTop_pt;
-    Float_t bjet_hadTop_csv;
-    Float_t bjet_lepTop_csv;
-    Float_t reco_hadTop_pt;
-    Float_t reco_hadTop_mass;
-    Float_t reco_WhadTop_mass;
-    Float_t PtRatio_leptOverleph;
-    Float_t Dr_lept_bfromlTop;
-    Float_t Dr_lept_bfromhTop;
-    Float_t Dr_leph_bfromlTop;
+  
+    Int_t bjet_resTop_index;
+    Int_t wjet1_resTop_index;
+    Int_t wjet2_resTop_index;
 
+    Float_t resTop_b_pt ;
+    Float_t resTop_b_mass ;
+    Float_t resTop_b_ptD ;
+    Float_t resTop_b_axis1 ;
+    Float_t resTop_b_mult ;
+    Float_t resTop_b_csv ;
+    Float_t resTop_b_cvsb ;
+    Float_t resTop_b_cvsl ;
+
+    Float_t resTop_wj1_pt ;
+    Float_t resTop_wj1_mass ;
+    Float_t resTop_wj1_ptD ;
+    Float_t resTop_wj1_axis1 ;
+    Float_t resTop_wj1_mult ;
+    Float_t resTop_wj1_csv ;
+    Float_t resTop_wj1_cvsb ;
+    Float_t resTop_wj1_cvsl ;
+
+    Float_t resTop_wj2_pt ;
+    Float_t resTop_wj2_mass ;
+    Float_t resTop_wj2_ptD ;
+    Float_t resTop_wj2_axis1 ;
+    Float_t resTop_wj2_mult ;
+    Float_t resTop_wj2_csv ;
+    Float_t resTop_wj2_cvsb ;
+    Float_t resTop_wj2_cvsl ;
+
+    Float_t resTop_b_wj1_deltaR ;
+    Float_t resTop_b_wj1_mass ;
+    Float_t resTop_b_wj2_deltaR ;
+    Float_t resTop_b_wj2_mass ;
+    Float_t resTop_wcand_deltaR ;
+    Float_t resTop_wcand_mass ;
+    Float_t resTop_b_wcand_deltaR ;
+    Float_t resTop_topcand_mass ;
 };
 
 #endif
