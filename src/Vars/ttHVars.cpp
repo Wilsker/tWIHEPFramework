@@ -1537,7 +1537,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["genWeight_muR2"] = genWeight_muR2;
   _floatVars["genWeight_muR0p5"] = genWeight_muR0p5;
     if(evtObj -> _sync == 52){     
-        std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj1_BDT <<" " << evtObj->HadTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
+        std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj1_BDT <<" " << evtObj->ResTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
     }                          
 
     if (DoHists()) FillHistograms(evtObj->GetEventWeight());
@@ -1844,7 +1844,7 @@ double ttHVars::get_Dilep_ttbarMVA(EventContainer* EvtObj){
     EvtObj->Dilepttbar_mindrlep1jet= leadLep_jetdr;
     EvtObj->Dilepttbar_mindrlep2jet= secondLep_jetdr;
     EvtObj->Dilepttbar_Mtmetlep1=Mt_metleadlep;
-    EvtObj->Dilepttbar_HadTopBDT = max(-1.1, EvtObj->HadTop_BDT) ;
+    EvtObj->Dilepttbar_HadTopBDT = max(-1.1, EvtObj->ResTop_BDT) ;
     //cout << "get_EleMVA end" << endl;
     return EvtObj->Dilepttbar_reader_->EvaluateMVA("BDTG method");
 };

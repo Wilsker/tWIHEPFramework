@@ -387,7 +387,7 @@ int main(int argc, char **argv)
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
 
-  mystudy.AddVars(new HadTopVars());
+  //mystudy.AddVars(new HadTopVars());
   mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());

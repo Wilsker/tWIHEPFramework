@@ -1729,7 +1729,7 @@ void EventContainer::set_ttHDiLepMVA()
     Dilepttbar_reader_->AddVariable("mindr_lep1_jet",&Dilepttbar_mindrlep1jet);
     Dilepttbar_reader_->AddVariable("mindr_lep2_jet",&Dilepttbar_mindrlep2jet);
     Dilepttbar_reader_->AddVariable("MT_met_lep1",&Dilepttbar_Mtmetlep1);
-    //Dilepttbar_reader_->AddVariable("max(-1.1,BDTv8_eventReco_mvaValue)",&Dilepttbar_HadTopBDT);
+    Dilepttbar_reader_->AddVariable("max(-1.1,BDTrTT_eventReco_mvaValue)",&Dilepttbar_HadTopBDT);
     Dilepttbar_reader_->AddSpectator("iLepFO_Recl[0]",&Dilepttbar_mindrlep1jet);
     Dilepttbar_reader_->AddSpectator("iLepFO_Recl[1]",&Dilepttbar_mindrlep2jet);
     Dilepttbar_reader_->AddSpectator("iLepFO_Recl[2]",&Dilepttbar_maxlepeta);
@@ -1744,7 +1744,7 @@ void EventContainer::set_ttHDiLepMVA()
     Dilepttv_reader_->AddVariable("MT_met_lep1",&Dilepttv_Mtmetlep1);
     Dilepttv_reader_->AddVariable("LepGood_conePt[iLepFO_Recl[1]]",&Dilepttv_ptlep2);
     Dilepttv_reader_->AddVariable("LepGood_conePt[iLepFO_Recl[0]]",&Dilepttv_ptlep1);
-    //Dilepttv_reader_->AddVariable("max(-1.1,BDTv8_eventReco_Hj_score)",&Dilepttv_Hj1BDT);
+    Dilepttv_reader_->AddVariable("max(-1.1,BDTrTT_eventReco_Hj_score)",&Dilepttv_Hj1BDT);
     Dilepttv_reader_->AddSpectator("iLepFO_Recl[0]",&Dilepttv_mindrlep1jet);
     Dilepttv_reader_->AddSpectator("iLepFO_Recl[1]",&Dilepttv_mindrlep2jet);
     Dilepttv_reader_->AddSpectator("iLepFO_Recl[2]",&Dilepttv_ptlep1);
