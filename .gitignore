@@ -14,8 +14,9 @@ moreCopies.txt
 log
 *.tar.*
 *.txt
-lib/
-bin/ttH/ttH_generic.x
+lib/*
 .*
 *Class.cc
 obj/
+config/weights/ttH2018/resTop_xgb_csv_order_deepCTag.xml
+bin/ttH/ttH_generic.x
