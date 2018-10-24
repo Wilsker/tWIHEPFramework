@@ -39,6 +39,7 @@ ttHVars::ttHVars(bool makeHistos){
   _doubleVecs["FakeLep_energy"] = {-0.1, 999. }; 
   */
 
+  _floatVars["SourceNumber"] = 10;
   _floatVars["Jet_numbLoose"] = 10;
   _floatVars["Bin2l"] = 10;
   _floatVars["TTHLep_2L"] = 10;
@@ -470,6 +471,7 @@ void ttHVars::Clear(){
     ttbarBDT_2lss = -9999;
     ttvBDT_2lss = -9999;
     Bin2l = -9999;
+    SourceNumber = -9999;
     leadLep_jetdr = -9999;
     leadLep_corrpt = -9999;
     leadLep_jetcsv = -9999;
@@ -837,6 +839,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
    int n_fakeEle =0; 
    int n_tightEle =0;
    
+   SourceNumber = evtObj->GetSourceNumber();
+   
    for(uint lep_en;lep_en<looseLeptons.size();lep_en++){
     Lepton curr_lep = looseLeptons.at(lep_en);
     if(TMath::Abs(curr_lep.pdgId())==13){
@@ -937,6 +941,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
      
     _floatVars["Jet_numbLoose"] = Jet_numbLoose;
     _floatVars["Bin2l"] = Bin2l;
+    _floatVars["SourceNumber"] = SourceNumber;
     _floatVars["TTHLep_2L"] = evtObj->TTHLep_2L;
     _floatVars["TTHLep_2Ele"] = evtObj->TTHLep_2Ele;
     _floatVars["TTHLep_2Mu"] = evtObj->TTHLep_2Mu;

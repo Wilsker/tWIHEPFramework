@@ -938,6 +938,11 @@ class EventContainer
     // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
     Int_t _sync;
     Int_t _debugEvt;
+    void readSyncFile();
+    TTree* syncTree;
+    std::vector<Float_t> sync_runs;
+    std::vector<Float_t> sync_lumis;
+    std::vector<Long_t> sync_nEvts;
 
 protected:
   

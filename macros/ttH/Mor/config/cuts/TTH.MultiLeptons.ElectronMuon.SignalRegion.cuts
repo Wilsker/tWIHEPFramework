@@ -9,7 +9,7 @@ Cut.Trigger.Channel:TTHLep_MuEle
 
 ################# Lepton Cuts #########################
 # Number of Leptons
-Cut.Lepton.TTHTight.Number.Min:  2
+Cut.Lepton.TTHTight.Number.Min:  0
 Cut.Lepton.TTHTight.Number.Max:  2
 Cut.Lepton.TTHFake.Number.Min:  2
 Cut.Lepton.TTHFake.Number.Max:  999
@@ -81,11 +81,13 @@ Cut.Event.HTJET1.Max: 999.0
 # Zveto Cut
 Cut.Event.Zveto.Min:   81.2
 Cut.Event.Zveto.Max:   101.2
+Cut.Event.Zveto.isOffZ:   1
 
 ################ MetLD Cuts #####################
 # MetLD Cut
-Cut.Event.MetLD.Min:   0.2
+Cut.Event.MetLD.Min:   30
 Cut.Event.MetLD.Max:   999.
+Cut.Event.MetLD.Tight:   45
 
 ################ MassL veto Cuts #####################
 # MassL Cut

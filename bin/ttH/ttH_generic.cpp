@@ -38,6 +38,7 @@
 #include "SingleTopRootAnalysis/Cuts/Other/CutMetLD.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutMetFilter.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutHiggsDecay.hpp"
+#include "SingleTopRootAnalysis/Cuts/Other/CutEventList.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
 #include "SingleTopRootAnalysis/Cuts/TaggedJet/CutBTaggedJetN.hpp"
@@ -49,6 +50,7 @@
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt2.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt3.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonSameSign.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonSumCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Tau/CutTauCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonAbsPdgIdSum.hpp"
@@ -291,25 +293,44 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  mystudy.AddCut(new CutPrimaryVertex(particlesObj));
-  mystudy.AddCut(new CutMetFilter(particlesObj));
+  mystudy.AddCut(new CutEventList(particlesObj));
+  //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
+  //mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
-  mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
+  /*
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
-  //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   if(isTriLepton){
     mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     mystudy.AddCut(new CutLeptonSumCharge(particlesObj,"TTHFake"));// Sum Charge for ttH 3 Leptons 
     mystudy.AddCut(new CutM4L(particlesObj, "TTHLoose"));     //require that lepton to be isolated, central, high pt
   }else{
-    mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
+    mystudy.AddCut(new CutLeptonSameSign(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
   }
+  mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
+  if(!isTrainMVA){
+    mystudy.AddCut(new CutMassL(particlesObj));
+  }
+  mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
+  mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
+  mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
+  if(!isTriLepton)mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
+  if(!isTrainMVA){
+    if(!isTriLepton){
+        mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
+    }
+    mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
+    if(!isTriLepton){
+        mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
+    }
+  }
+  mystudy.AddCut(new CutJetN(particlesObj,nJets));
+  mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
+  mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
+  */
+  //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
@@ -336,32 +357,16 @@ int main(int argc, char **argv)
   //  mystudy.AddCut(new CutEMuOverlap(particlesObj));
   //}
   //mystudy.AddCut(new CutJetPt1(particlesObj));
-  mystudy.AddCut(new CutJetN(particlesObj,nJets));
-  mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
   //mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
   //mystudy.AddCut(new CutTauCharge(particlesObj,"Loose", isTriLepton));
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
-  mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
-  if(!isTrainMVA){
-    if(!isTriLepton){
-        mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
-        mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
-    }
-    /*
-    else{
-        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));// presel_ele;presel_SFOSlep   // turn off because we want to make it more adaptable, turn it on for syncrhonization 
-    }
-    */
-    mystudy.AddCut(new CutMassL(particlesObj));
-    mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
-  }
   //mystudy.AddCut(new CutHiggsDecay(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
   //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj));// do not add this cut for MCPromptGamma
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
   
-  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
   
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   /*
@@ -388,12 +393,14 @@ int main(int argc, char **argv)
   //mystudy.AddVars(new BDTVars(true));
 
   //mystudy.AddVars(new HadTopVars());
+  /*
   mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
   mystudy.AddVars(new HjTagger());
   //mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
+  */
   
   TFile *_skimBDTFile;
   TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;

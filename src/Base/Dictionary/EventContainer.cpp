@@ -392,9 +392,13 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   massL_SFOS = -999.;
   mass_diele = -999.;
   HadTop_BDT = -999.;
+  sync_runs.clear();
+  sync_lumis.clear();
+  sync_nEvts.clear();
   set_hadTopMVA();
   set_resTopMVA();
   set_ttHDiLepMVA();
+  readSyncFile();
 
   return;
 } //Initialize()
@@ -1660,6 +1664,45 @@ void EventContainer::set_hadTopMVA()
     hadTop_reader_tight->BookMVA("BDTG method", _config.GetValue("Include.HadTopMVA.bTightFile","null"));
 };
 
+/***************************************************************
+ * void EventContainer::readSyncFile()                       *
+ *                                                              * 
+ * save the run:lumi:nEvts information from sync file         *
+ *                                                              *
+ * Input: TEnv* config                                          *
+ * Output: None                                                 *
+ * **************************************************************/
+ 
+void EventContainer::readSyncFile()
+{
+    TString syncFileName = _config.GetValue("Include.SyncFile","null");
+    if(syncFileName=="null"){
+        std::cout << " syncFile not found!" << std::endl;
+        return;
+    }
+    TFile* syncFile = TFile::Open(syncFileName,"READ");
+    syncTree = (TTree*)syncFile->Get("syncTree");
+    Long64_t nEvent = 0;
+    Float_t run = 0;
+    Float_t ls = 0;
+    syncTree->SetBranchStatus("*", 1);
+    syncTree->SetBranchAddress("nEvent", &nEvent);
+    syncTree->SetBranchAddress("run", &run);
+    syncTree->SetBranchAddress("ls", &ls);
+    Long64_t nentries = syncTree->GetEntries(); 
+    for (Long64_t i=0;i<nentries; i++) {
+        syncTree->GetEntry(i);
+        sync_runs.push_back(run);
+        sync_lumis.push_back(ls);
+        sync_nEvts.push_back(nEvent);
+        //std::cout<< "run:ls:nEvent "<<run<<":"<<ls<<":"<<nEvent<<std::endl;
+        nEvent = -1;
+        run = -1;
+        ls = -1;
+    }
+    std::cout << " number of sync events is : " << sync_runs.size()<<std::endl;
+    delete syncFile;
+};
 /***************************************************************
  * void EventContainer::set_resTopMVA()                       *
  *                                                              * 

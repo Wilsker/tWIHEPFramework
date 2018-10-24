@@ -19,12 +19,8 @@ Cut.Muon.TTHFake.LeadingPt:  25
 Cut.Muon.TTHFake.SubLeadingPt:  15
 ################# Muon Cuts #########################
 # Number of  Muons
-Cut.Muon.Veto.Number.Min:  1
-Cut.Muon.Veto.Number.Max:  999
-################# Electron Cuts #########################
-# Number of  Electrons
-Cut.Electron.Veto.Number.Min:  1
-Cut.Electron.Veto.Number.Max:  999
+#Cut.Muon.Tight.Number.Min:  1
+#Cut.Muon.Tight.Number.Max:  1
 ############## DiLep Cuts ############################
 Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
 Cut.Dilepton.TTHFake.NumTightMin: 2 
@@ -33,8 +29,8 @@ Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 
 ################# Tau Cuts #########################
 # Number of Taus
-Cut.Tau.Loose.Number.Min:  0
-Cut.Tau.Loose.Number.Max:  0
+Cut.Tau.Number.Min:  0
+Cut.Tau.Number.Max:  0
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
@@ -47,7 +43,6 @@ Cut.bLoose.Jet.Number.Min: 2
 Cut.bLoose.Jet.Number.Max: 999
 Cut.bMedium.Jet.Number.Min: 1
 Cut.bMedium.Jet.Number.Max: 999
-
 
 ############ Gen Cuts #####################3
 # HiggsDecay
@@ -64,6 +59,8 @@ Cut.Gen.MCPromptGamma: 1
 
 # Leptons is MCPromptFS
 Cut.Gen.MCPromptFS: 1
+
+
 
 ################ Global Event Cuts #####################
 # Missing ET

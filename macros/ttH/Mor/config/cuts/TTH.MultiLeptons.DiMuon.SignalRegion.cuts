@@ -9,7 +9,7 @@ Cut.Trigger.Channel:TTHLep_2Mu
 
 ################# Lepton Cuts #########################
 # Number of Leptons
-Cut.Lepton.TTHTight.Number.Min:  2
+Cut.Lepton.TTHTight.Number.Min:  0
 Cut.Lepton.TTHTight.Number.Max:  2
 Cut.Lepton.TTHFake.Number.Min:  2
 Cut.Lepton.TTHFake.Number.Max:  999
@@ -44,18 +44,6 @@ Cut.bLoose.Jet.Number.Max: 999
 Cut.bMedium.Jet.Number.Min: 1
 Cut.bMedium.Jet.Number.Max: 999
 
-
-
-################ Global Event Cuts #####################
-# Missing ET
-Cut.Event.MissingEt.Min:  50.0
-Cut.Event.MissingEt.Max: 999.0
-
-# ############## SumDeltaPhiLepMET #################
-# SumDeltaPhiLepMET cuts
-Triangular.SumDeltaPhiLepMET.Min:  2.5
-Triangular.SumDeltaPhiLepMET.Max: 999
-
 ############ Gen Cuts #####################3
 # HiggsDecay
 Cut.Event.HiggsDecayType: 0 #  0: H->WW/ZZ/TauTau; 1: H->WW ; 2: H->TauTau; 3: H->ZZ; 4: H->WW or ZZ; 5: H->WW/TauTau; 6: H->TauTau/ZZ
@@ -72,6 +60,18 @@ Cut.Gen.MCPromptGamma: 1
 # Leptons is MCPromptFS
 Cut.Gen.MCPromptFS: 1
 
+
+
+################ Global Event Cuts #####################
+# Missing ET
+Cut.Event.MissingEt.Min:  50.0
+Cut.Event.MissingEt.Max: 999.0
+
+# ############## SumDeltaPhiLepMET #################
+# SumDeltaPhiLepMET cuts
+Triangular.SumDeltaPhiLepMET.Min:  2.5
+Triangular.SumDeltaPhiLepMET.Max: 999
+
 ################ Global Event Cuts #####################
 # HTJet1
 Cut.Event.HTJET1.Min:  999.0
@@ -81,11 +81,13 @@ Cut.Event.HTJET1.Max: 999.0
 # Zveto Cut
 Cut.Event.Zveto.Min:   81.2
 Cut.Event.Zveto.Max:   101.2
+Cut.Event.Zveto.isOffZ:   1
 
 ################ MetLD Cuts #####################
 # MetLD Cut
-Cut.Event.MetLD.Min:   0.2
+Cut.Event.MetLD.Min:   30
 Cut.Event.MetLD.Max:   999.
+Cut.Event.MetLD.Tight:   45
 
 ################ MassL veto Cuts #####################
 # MassL Cut

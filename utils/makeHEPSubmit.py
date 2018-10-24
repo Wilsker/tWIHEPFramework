@@ -12,7 +12,7 @@ taskname = "EvtSel"
 frameworkDir = "/publicfs/cms/data/TopQuark/cms13TeV/Binghuan/tWIHEPFramework/"
 executable = "bin/ttH/ttH_generic.x"
 #executable = "Wt_nVertOnly.x"
-configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
+configFile = "config/overall/ttH.MultiLeptons.DiLepton.SR.config"
 #invPostfix = " -MCatNLO -mc -lepSFs -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs"
 invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs -lepSFs"
 #mcPostfix = " -mcPromptFS -mcPromptGamma -FakeRate -mcPromptFS -chargeMis" 
@@ -69,30 +69,15 @@ samplesConv = [
 ]
 
 samplesDataMuEle=[
-"MuEleGmRecoverB1","MuEleGmRecoverC1","MuEleGmRecoverD1","MuEleGmRecoverE1","MuEleGmRecoverF1","MuEleGmRecoverF2","MuEleGmRecoverG1","MuEleGmRecoverH1","MuEleGmRecoverH2",
-"SEleRecoverB1","SEleRecoverC1","SEleRecoverD1","SEleRecoverE1","SEleRecoverF1","SEleRecoverF2","SEleRecoverG1","SEleRecoverH1",
-"SMuRecoverB1","SMuRecoverC1","SMuRecoverD1","SMuRecoverE1","SMuRecoverF1","SMuRecoverF2","SMuRecoverG1","SMuRecoverH1","SMuRecoverH2",
-"MuEleGmB1","MuEleGmC1","MuEleGmD1","MuEleGmE1","MuEleGmF1","MuEleGmF2","MuEleGmG1","MuEleGmH1","MuEleGmH2",
-"SEleB1","SEleC1","SEleD1","SEleE1","SEleF1","SEleF2","SEleG1","SEleH1","SEleH2",
-"SMuB1","SMuC1","SMuD1","SMuE1","SMuF1","SMuF2","SMuG1","SMuH1","SMuH2"
+"SEleBlockB", "SEleBlockC", "SEleBlockD", "SEleBlockE", "SEleBlockF", "SMuBlockB", "SMuBlockC", "SMuBlockD", "SMuBlockE", "SMuBlockF", "DblEGBlockB", "DblEGBlockC", "DblEGBlockD", "DblEGBlockE", "DblEGBlockF", "DblMuBlockB", "DblMuBlockC", "DblMuBlockD", "DblMuBlockE", "DblMuBlockF", "MuEGBlockB", "MuEGBlockC", "MuEGBlockD", "MuEGBlockE", "MuEGBlockF",
 ]
 
 samplesDataDiMu=[
-"DMuRecoverB1","DMuRecoverC1","DMuRecoverD1","DMuRecoverE1","DMuRecoverF1","DMuRecoverF2","DMuRecoverG1","DMuRecoverH1","DMuRecoverH2",
-"SEleRecoverB1","SEleRecoverC1","SEleRecoverD1","SEleRecoverE1","SEleRecoverF1","SEleRecoverF2","SEleRecoverG1","SEleRecoverH1",
-"SMuRecoverB1","SMuRecoverC1","SMuRecoverD1","SMuRecoverE1","SMuRecoverF1","SMuRecoverF2","SMuRecoverG1","SMuRecoverH1","SMuRecoverH2",
-"DMuB1","DMuC1","DMuD1","DMuE1","DMuF1","DMuF2","DMuG1","DMuH1","DMuH2",
-"SEleB1","SEleC1","SEleD1","SEleE1","SEleF1","SEleF2","SEleG1","SEleH1","SEleH2",
-"SMuB1","SMuC1","SMuD1","SMuE1","SMuF1","SMuF2","SMuG1","SMuH1","SMuH2"
+ "SMuBlockB", "SMuBlockC", "SMuBlockD", "SMuBlockE", "SMuBlockF", "DblMuBlockB", "DblMuBlockC", "DblMuBlockD", "DblMuBlockE", "DblMuBlockF", "MuEGBlockB", "MuEGBlockC", "MuEGBlockD", "MuEGBlockE", "MuEGBlockF",
 ]
 
 samplesDataDiEle=[
-"DEleGmRecoverB1","DEleGmRecoverC1","DEleGmRecoverD1","DEleGmRecoverE1","DEleGmRecoverF1","DEleGmRecoverF2","DEleGmRecoverG1","DEleGmRecoverH1","DEleGmRecoverH2",
-"SEleRecoverB1","SEleRecoverC1","SEleRecoverD1","SEleRecoverE1","SEleRecoverF1","SEleRecoverF2","SEleRecoverG1","SEleRecoverH1",
-"SMuRecoverB1","SMuRecoverC1","SMuRecoverD1","SMuRecoverE1","SMuRecoverF1","SMuRecoverF2","SMuRecoverG1","SMuRecoverH1","SMuRecoverH2",
-"DEleGmB1","DEleGmC1","DEleGmD1","DEleGmE1","DEleGmF1","DEleGmF2","DEleGmG1","DEleGmH1","DEleGmH2",
-"SEleB1","SEleC1","SEleD1","SEleE1","SEleF1","SEleF2","SEleG1","SEleH1","SEleH2",
-"SMuB1","SMuC1","SMuD1","SMuE1","SMuF1","SMuF2","SMuG1","SMuH1","SMuH2"
+"SEleBlockB", "SEleBlockC", "SEleBlockD", "SEleBlockE", "SEleBlockF", "DblEGBlockB", "DblEGBlockC", "DblEGBlockD", "DblEGBlockE", "DblEGBlockF", "MuEGBlockB", "MuEGBlockC", "MuEGBlockD", "MuEGBlockE", "MuEGBlockF",
 ]
 
 samplesSyst = [
@@ -228,7 +213,7 @@ if "data" in sys.argv:
         analysis += "lepSB"
         configFile = "config/overall/ttH.MultiLeptons.LeptonSideband.config"
     elif triggerName == "TTHLep_2L ":
-        configFile = "config/overall/ttH.MultiLeptons.DiLep.config"
+        configFile = "config/overall/ttH.MultiLeptons.DiLepton.SR.config"
     elif triggerName == "TTHLep_MuEle ":
         sample = samplesDataMuEle
         configFile = "config/overall/ttH.MultiLeptons.EleMuSR.config"
@@ -504,7 +489,7 @@ for k in sample:
 #           print >> allJobFile, "condor_submit "+ submitPath + " -group cms -name job@schedd01.ihep.ac.cn"
 
     print >> MergeFile, "hadd -f "+analysis+"/"+sampleName + "/hists/merged"+sampleName+".root  "+analysis+"/"+sampleName + "/hists/"+sampleName+"*hists.root"
-    #print >> MergeFile, "hadd -f "+analysis+"/"+sampleName + "/skims/merged"+sampleName+".root  "+analysis+"/"+sampleName + "/skims/"+sampleName+"*Skim.root"
+    print >> MergeFile, "hadd -f "+analysis+"/"+sampleName + "/skims/merged"+sampleName+".root  "+analysis+"/"+sampleName + "/skims/"+sampleName+"*Skim.root"
 
 #print >> MergeFile, "cd",outputDirectory
 #print >> MergeFile, "hadd Merged_rootplas.root",MergeSourceFile
