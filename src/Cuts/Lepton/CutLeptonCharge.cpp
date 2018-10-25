@@ -224,7 +224,7 @@ Bool_t CutLeptonCharge::Apply()
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if("TTHFake" == leptonType ) LeptonPairCharge = leptonVector[0].charge()*leptonVector[1].charge();
+  if("TTHFake" == leptonType && leptonVector.size()>=2 ) LeptonPairCharge = leptonVector[0].charge()*leptonVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "mumu") LeptonPairCharge = muonVector[0].charge()*muonVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "ee") LeptonPairCharge = electronVector[0].charge() * electronVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "emu") LeptonPairCharge = muonVector[0].charge() * electronVector[0].charge();
@@ -244,7 +244,7 @@ Bool_t CutLeptonCharge::Apply()
   cutFlowNameAllStream << leptonType.Data() << "Dilepton.Charge.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( _LeptonSameSign * LeptonPairCharge < 0){
+  if ( (_LeptonSameSign * LeptonPairCharge < 0) || leptonVector.size()<2){
     LeptonChargePass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
@@ -260,7 +260,13 @@ Bool_t CutLeptonCharge::Apply()
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonChargePass " << leptonType << " product of LeptonChargePair "<< LeptonPairCharge<< std::endl; 
   }
   
-  return(LeptonChargePass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonChargePass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(LeptonChargePass);
+  }
  
 } //Apply
 

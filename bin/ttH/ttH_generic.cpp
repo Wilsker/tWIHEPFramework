@@ -293,12 +293,11 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  mystudy.AddCut(new CutEventList(particlesObj));
+  //mystudy.AddCut(new CutEventList(particlesObj));
   //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
   //mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
-  /*
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   if(isTriLepton){
     mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
@@ -329,7 +328,6 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
-  */
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   /*
   if(!isTrainMVA){
@@ -388,14 +386,14 @@ int main(int argc, char **argv)
   //}
 
   //Add in any variables to the skim tree that you want here
-  //  mystudy.AddVars(new TestVar());
+  mystudy.AddVars(new TestVar());
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
 
   //mystudy.AddVars(new HadTopVars());
-  /*
   mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
+  /*
   mystudy.AddVars(new HjTagger());
   //mystudy.AddVars(new DNNVars());
   

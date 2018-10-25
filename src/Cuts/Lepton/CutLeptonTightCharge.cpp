@@ -191,7 +191,9 @@ Bool_t CutLeptonTightCharge::Apply()
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  LeptonPairTightCharge = leptonVector[0].passTightCharge()+leptonVector[1].passTightCharge();
+  if(leptonVector.size()>=2) {
+      LeptonPairTightCharge = leptonVector[0].passTightCharge()+leptonVector[1].passTightCharge();
+  }
 
   // Fill the histograms before the cuts
   _hLeptonTightChargeBefore    -> Fill(LeptonPairTightCharge);
@@ -224,7 +226,13 @@ Bool_t CutLeptonTightCharge::Apply()
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightChargePass " << leptonType << " lep1PassTightCharge " << leptonVector[0].passTightCharge()<< " lep2PassTightCharge "<< leptonVector[1].passTightCharge() << std::endl; 
   }
   
-  return(LeptonTightChargePass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonTightChargePass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(LeptonTightChargePass);
+  }
  
 } //Apply
 

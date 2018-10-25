@@ -270,7 +270,13 @@ Bool_t CutLeptonSameSign::Apply()
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonSameSignPass " << leptonType << " FoundSameSign? "<< FoundSameSign<<" Number of Different Charges " << chargeVector.size()<< std::endl; 
   }
   
-  return(LeptonSameSignPass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonSameSignPass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(LeptonSameSignPass);
+  }
  
 } //Apply
 

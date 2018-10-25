@@ -264,7 +264,13 @@ Bool_t CutLeptonPt1::Apply()
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail PassesLeadingLeptonPt " << _leptonType << " Lep1Pt "<< LeadingLeptonPt <<std::endl; 
   }
 
-  return PassesLeadingLetonPt;
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = PassesLeadingLetonPt ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return PassesLeadingLetonPt;
+  }
 
  
 } //Apply

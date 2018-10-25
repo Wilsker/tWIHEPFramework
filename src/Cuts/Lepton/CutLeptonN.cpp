@@ -304,7 +304,16 @@ Bool_t CutLeptonN::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !(LeptonNumberMinPass && LeptonNumberMaxPass)){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail CutLeptonN " << leptonType << " LeptonNumber "<< LeptonNumber << " LeptonNumberMin " << LeptonNumberMinPass <<" LeptonNumberMax " << LeptonNumberMaxPass<< std::endl; 
   }
-  return(LeptonNumberMinPass && LeptonNumberMaxPass);
+  
+  //std::cout<< "_SaveCut is " << EventContainerObj->_SaveCut << std::endl;
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonNumberMinPass && LeptonNumberMaxPass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    //std::cout<< "in cut LeptonN always return true ";
+    return kTRUE;
+  }else{
+    return(LeptonNumberMinPass && LeptonNumberMaxPass);
+  }
  
 } //Apply
 

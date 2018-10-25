@@ -163,7 +163,13 @@ Bool_t CutTaggedJetN::Apply()
     //  cout<<"EventNumber : "<<evObj->eventNumber<<endl;
   }
 
-  return(JetNumberMinPass && JetNumberMaxPass);
+  if(evObj->_SaveCut ==1 ){
+    Double_t flag = JetNumberMinPass && JetNumberMaxPass ? 1:0;
+    evObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(JetNumberMinPass && JetNumberMaxPass);
+  }
 
 } //Apply
 

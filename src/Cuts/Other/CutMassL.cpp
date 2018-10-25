@@ -176,7 +176,14 @@ Bool_t CutMassL::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesMassLCut ){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesMassLCut: MassL is " << MassL  <<  std::endl; 
   }
-  return passesMassLCut;
+
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = passesMassLCut ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return passesMassLCut;
+  }
 
 } //Apply
 

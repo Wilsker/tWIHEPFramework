@@ -675,7 +675,9 @@ class EventContainer
 
   std::vector<MCParticle> * mcParticlesPtr;
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
- 
+
+  // store cuts
+  std::vector<Double_t> Flag_cuts; 
   
   // also store MET
   Double_t missingEt;
@@ -938,6 +940,7 @@ class EventContainer
     // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
     Int_t _sync;
     Int_t _debugEvt;
+    Int_t _SaveCut;
     void readSyncFile();
     TTree* syncTree;
     std::vector<Float_t> sync_runs;

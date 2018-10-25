@@ -253,7 +253,14 @@ Bool_t CutM4L::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !PassedM4L ){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail CutM4L " << leptonType << " M4L "<< Mass_4L << " > M4LMin? " << _M4LMin << std::endl; 
   }
-  return(PassedM4L);
+  
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = PassedM4L ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(PassedM4L);
+  }
  
 } //Apply
 

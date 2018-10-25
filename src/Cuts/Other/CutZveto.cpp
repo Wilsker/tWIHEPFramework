@@ -191,7 +191,13 @@ Bool_t CutZveto::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesZvetoCut ){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesZvetoCut: massZ is " << massZ  <<  " isOffZ? "<< _isOffZ<<" _ZvetoMin "<< _ZvetoMin << " _ZvetoMax "<<_ZvetoMax << std::endl; 
   }
-  return passesZvetoCut;
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = passesZvetoCut ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return passesZvetoCut;
+  }
 
 } //Apply
 

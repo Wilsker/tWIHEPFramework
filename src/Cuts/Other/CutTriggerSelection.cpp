@@ -158,9 +158,11 @@ Bool_t CutTriggerSelection::Apply()
   EventTree *EventContainerObj = GetEventContainer()->GetEventTree();
   EventContainer *ContainerObj = GetEventContainer();
   Int_t selectedChannel = -1;
-  if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==22)selectedChannel =3; //isEE
-  if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==24)selectedChannel =4; //isEM
-  if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==26)selectedChannel =2; //isMM
+  if(ContainerObj -> fakeLeptons.size()>=2){
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==22)selectedChannel =3; //isEE
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==24)selectedChannel =4; //isEM
+    if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==26)selectedChannel =2; //isMM
+  }
   if(ContainerObj -> fakeLeptons.size()>=3 && _whichtrigger == 6 ){
     if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==33)selectedChannel =61;//isEEE
     if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==35)selectedChannel =62;//isEEE
@@ -293,13 +295,18 @@ Bool_t CutTriggerSelection::Apply()
   if (passesTrigger){
     _hTriggerSelectionAfter -> Fill(triggerBit);
     GetCutFlowTable()->PassCut(cutFlowName.Data());
-    return kTRUE;
   }
   else{
     GetCutFlowTable()->FailCut(cutFlowName.Data());
-    return kFALSE;
   }
 
+  if(ContainerObj->_SaveCut ==1 ){
+    Double_t flag = passesTrigger ? 1:0;
+    ContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return passesTrigger;
+  }
 } //Apply
 
 

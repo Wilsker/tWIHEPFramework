@@ -276,7 +276,13 @@ Bool_t CutTauN::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !(TauNumberMinPass && TauNumberMaxPass)){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail CutTauN " << tauType <<" TauNumber is "<<TauNumber <<" TauNumberMin " << TauNumberMinPass <<" TauNumberMax " << TauNumberMaxPass<< std::endl; 
   }
-  return(TauNumberMinPass && TauNumberMaxPass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = TauNumberMinPass && TauNumberMaxPass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(TauNumberMinPass && TauNumberMaxPass);
+  }
 
 
 } //Apply

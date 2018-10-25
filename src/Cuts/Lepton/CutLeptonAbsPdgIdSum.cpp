@@ -233,7 +233,7 @@ Bool_t CutLeptonAbsPdgIdSum::Apply()
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if("TTHFake" == leptonType ) LeptonPairAbsPdgIdSum = fabs(leptonVector[0].pdgId())+fabs(leptonVector[1].pdgId());
+  if("TTHFake" == leptonType && leptonVector.size()>=2) LeptonPairAbsPdgIdSum = fabs(leptonVector[0].pdgId())+fabs(leptonVector[1].pdgId());
   else if (EventContainerObj->GetChannelName() == "mumu") LeptonPairAbsPdgIdSum = 26;
   else if (EventContainerObj->GetChannelName() == "ee") LeptonPairAbsPdgIdSum = 22;
   else if (EventContainerObj->GetChannelName() == "emu") LeptonPairAbsPdgIdSum = 24;
@@ -252,8 +252,9 @@ Bool_t CutLeptonAbsPdgIdSum::Apply()
   
   cutFlowNameAllStream << leptonType.Data() << "Dilepton.AbsPdgIdSum.All";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
-  
-  if((_LeptonAbsPdgIdSum ==22 || _LeptonAbsPdgIdSum == 24 || _LeptonAbsPdgIdSum == 26) && _LeptonAbsPdgIdSum != LeptonPairAbsPdgIdSum)LeptonAbsPdgIdSumPass = kFALSE;
+ 
+  if(leptonVector.size()<2)LeptonAbsPdgIdSumPass= kFALSE; 
+  else if((_LeptonAbsPdgIdSum ==22 || _LeptonAbsPdgIdSum == 24 || _LeptonAbsPdgIdSum == 26) && _LeptonAbsPdgIdSum != LeptonPairAbsPdgIdSum)LeptonAbsPdgIdSumPass = kFALSE;
   else if (_LeptonAbsPdgIdSum ==46 && LeptonPairAbsPdgIdSum != 22 && LeptonPairAbsPdgIdSum !=24 )LeptonAbsPdgIdSumPass = kFALSE;
   else if (_LeptonAbsPdgIdSum ==48 && LeptonPairAbsPdgIdSum != 22 && LeptonPairAbsPdgIdSum !=26 )LeptonAbsPdgIdSumPass = kFALSE;
   else if (_LeptonAbsPdgIdSum ==50 && LeptonPairAbsPdgIdSum != 24 && LeptonPairAbsPdgIdSum !=26 )LeptonAbsPdgIdSumPass = kFALSE;
@@ -274,7 +275,13 @@ Bool_t CutLeptonAbsPdgIdSum::Apply()
   }
   // ***********************************************
   
-  return(LeptonAbsPdgIdSumPass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonAbsPdgIdSumPass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(LeptonAbsPdgIdSumPass);
+  }
  
 } //Apply
 

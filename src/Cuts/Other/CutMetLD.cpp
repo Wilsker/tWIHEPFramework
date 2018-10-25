@@ -205,7 +205,13 @@ Bool_t CutMetLD::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !passesMetLDCut ){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail passesMetLDCut:  isTriLep? " << _isTriLep << " MetLD is "<< MetLD  << " IsEE? "<< isEE <<" Jet number "<< n_presel_jet << " isSFOS? "<< isSFOS<< std::endl; 
   }
-  return passesMetLDCut;
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = passesMetLDCut ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return passesMetLDCut;
+  }
 
 } //Apply
 

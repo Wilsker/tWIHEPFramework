@@ -266,7 +266,14 @@ Bool_t CutLeptonPt2::Apply()
   if( EventContainerObj->_sync >= 80  && EventContainerObj->_sync != 99 && EventContainerObj->_debugEvt == EventContainerObj->eventNumber && !PassesSubLeadingLetonPt ){
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail PassesSubLeadingLetonPt " << _leptonType << " Lep2Pt "<< SubLeadingLeptonPt<<   std::endl; 
   }
-  return PassesSubLeadingLetonPt;
+  
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = PassesSubLeadingLetonPt ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return PassesSubLeadingLetonPt;
+  }
 
  
 } //Apply

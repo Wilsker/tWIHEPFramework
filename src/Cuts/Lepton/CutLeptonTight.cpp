@@ -233,8 +233,8 @@ Bool_t CutLeptonTight::Apply()
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if(leptonNumber=="Dilepton")SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel();
-  if(leptonNumber=="Trilepton")SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel()+leptonVector[2].isMVASel();
+  if(leptonNumber=="Dilepton" && leptonVector.size()>=2)SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel();
+  if(leptonNumber=="Trilepton" && leptonVector.size()>=3)SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel()+leptonVector[2].isMVASel();
 
   // Fill the histograms before the cuts
   _hLeptonTightBefore    -> Fill(SelectedLeptonsNumTight);
@@ -298,7 +298,13 @@ Bool_t CutLeptonTight::Apply()
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonTightPass " << leptonType << " SelectedLeptonsNumTight "<< SelectedLeptonsNumTight  <<" lep1 pt/conept/mva "<<  leptonVector[0].Pt()<<"/"<<leptonVector[0].conept() <<"/"  <<leptonVector[0].BDT() <<leptonVector[1].Pt()<<"/"<<leptonVector[1].conept() <<"/"  <<leptonVector[1].BDT()  <<std::endl; 
   }
   
-  return(LeptonTightPass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonTightPass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(LeptonTightPass);
+  }
  
 } //Apply
 

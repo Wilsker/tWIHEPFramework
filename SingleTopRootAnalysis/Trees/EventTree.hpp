@@ -648,6 +648,7 @@ public :
    std::vector<double>  *TopTagging_minMass;
    std::vector<double>  *TopTagging_wMass;
    std::vector<int>     *TopTagging_nSubJets;
+   Float_t        SourceNumber;
    Double_t        PUWeight;
    Double_t        Met_type1PF_pt;
    Double_t        Met_type1PF_px;
@@ -1298,6 +1299,7 @@ public :
    TBranch        *b_TopTagging_wMass;   //!
    TBranch        *b_TopTagging_nSubJets;   //!
    TBranch        *b_PUWeight;   //!
+   TBranch        *b_SourceNumber;   //!
    TBranch        *b_Met_type1PF_pt;   //!
    TBranch        *b_Met_type1PF_px;   //!
    TBranch        *b_Met_type1PF_py;   //!
@@ -2534,6 +2536,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("TopTagging_wMass", &TopTagging_wMass, &b_TopTagging_wMass);
    fChain->SetBranchAddress("TopTagging_nSubJets", &TopTagging_nSubJets, &b_TopTagging_nSubJets);
    fChain->SetBranchAddress("PUWeight", &PUWeight, &b_PUWeight);
+   fChain->SetBranchAddress("SourceNumber", &SourceNumber, &b_SourceNumber);
    fChain->SetBranchAddress("Met_type1PF_pt", &Met_type1PF_pt, &b_Met_type1PF_pt);
    fChain->SetBranchAddress("Met_type1PF_px", &Met_type1PF_px, &b_Met_type1PF_px);
    fChain->SetBranchAddress("Met_type1PF_py", &Met_type1PF_py, &b_Met_type1PF_py);

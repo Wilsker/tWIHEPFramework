@@ -256,7 +256,13 @@ Bool_t CutLeptonSumCharge::Apply()
     std::cout<< " Event " << EventContainerObj->_debugEvt <<" Fail LeptonSumChargePass " << leptonType << "  LeptonSumCharge "<< LeptonTripleSumCharge<< std::endl; 
   }
   
-  return(LeptonSumChargePass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonSumChargePass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    return kTRUE;
+  }else{
+    return(LeptonSumChargePass);
+  }
  
 } //Apply
 

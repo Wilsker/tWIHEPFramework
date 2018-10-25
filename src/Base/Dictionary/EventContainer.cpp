@@ -336,6 +336,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
     Jet25_eta.clear();
     Jet25_phi.clear();
     Jet25_energy.clear();
+    Flag_cuts.clear();
 //  MCBQuarks.clear();
 //  MCCQuarks.clear();
 //
@@ -367,6 +368,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   _metShift = _config.GetValue("Systs.metShift",0);
   _channelName = _config.GetValue("ChannelName","");
   _sync = _config.GetValue("SyncType",0);
+  _SaveCut = _config.GetValue("SaveCuts",0);
   _debugEvt = _config.GetValue("DebugEvent",0);
   TTHLep_2Mu =0;
   TTHLep_2Ele =0;
@@ -589,6 +591,7 @@ Int_t EventContainer::ReadEvent()
     FakeLep_phi.clear();
     FakeLep_energy.clear();
     Jet25_isFromH.clear();
+    Flag_cuts.clear();
     Jet25_isFromTop.clear();
     Jet25_matchId.clear();
     Jet25_matchIndex.clear();
@@ -629,6 +632,12 @@ Int_t EventContainer::ReadEvent()
         HiggsDecay = _eventTree -> HiggsDecay;
     }else{
         isSimulation = kFALSE;
+    }
+    if(SourceNumber = 999999){
+        //std::cout<< " set sourceNumber to the value in Ntuple "<< std::endl;
+        SetSourceNumber(_eventTree -> SourceNumber);
+        SourceNumber = GetSourceNumber();
+        //std::cout<< " SourceNumber is now "<< SourceNumber << std::endl;
     }
     _badJetEvent = kFALSE;
     //must be done for each event
