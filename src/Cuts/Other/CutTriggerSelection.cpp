@@ -213,33 +213,60 @@ Bool_t CutTriggerSelection::Apply()
     if(SampleType == 4000 || SampleType == 4001){
         //if(selectedChannel ==3 && (EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1))EEtrigger =1;
         if(selectedChannel ==3 && ContainerObj->Trig_2Ele ==1 )EEtrigger =1;
+        if( selectedChannel==3 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 4000, EEtrigger: "<<  EEtrigger << std::endl;
+        }
     }else if(SampleType == 1000 || SampleType == 1001){
         //if(selectedChannel==3 &&( (EventContainerObj -> HLT_Ele35_WPTight_Gsf ==1 || EventContainerObj -> HLT_Ele32_WPTight_Gsf==1) && !(EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL ==1) ))EEtrigger=1;
         if(selectedChannel==3 && ContainerObj->Trig_2Ele !=1 && ContainerObj->Trig_1Ele==1 )EEtrigger=1;
+        if( selectedChannel==3 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 1000, EEtrigger: "<<  EEtrigger << std::endl;
+        }
     }
     else if(SampleType == 2000 || SampleType == 3000 || SampleType == 5000 || SampleType == 2001 || SampleType == 3001 || SampleType == 5001 ){
         EEtrigger =0;
+        if( selectedChannel==3 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 2000/3000/5000, EEtrigger: "<<  EEtrigger << std::endl;
+        }
     }
     else{
         EEtrigger = selectedChannel ==3 && ContainerObj->TTHLep_2Ele==1 ;
+        if( selectedChannel==3 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" Others, EEtrigger: "<<  EEtrigger << std::endl;
+        }
     }
   }
   if (_whichtrigger == 4 || _whichtrigger ==5 ){
     if(SampleType == 5000 || SampleType == 5001){
         //if( selectedChannel ==4 && (EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1))EMtrigger=1;
         if( selectedChannel ==4 && ContainerObj->Trig_1Mu1Ele ==1 )EMtrigger=1;
+        if( selectedChannel==4 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 5000, EMtrigger: "<<  EMtrigger << std::endl;
+        }
     }else if(SampleType == 2000 || SampleType == 2001){
         //if( selectedChannel ==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1) && (EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1 ))) EMtrigger =1;
         if( selectedChannel ==4 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Mu==1) EMtrigger =1;
+        if(selectedChannel==4 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 2000, EMtrigger: "<<  EMtrigger << std::endl;
+        }
     }else if(SampleType == 1000 || SampleType == 1001){
         //if( selectedChannel==4 && ( !(EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || EventContainerObj -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || EventContainerObj -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || EventContainerObj -> HLT_IsoMu27==1 || EventContainerObj -> HLT_IsoMu24 ==1) &&
         if( selectedChannel ==4 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Mu!=1 && ContainerObj->Trig_1Ele==1) EMtrigger =1;
+        if(selectedChannel==4 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 1000, EMtrigger: "<<  EMtrigger << std::endl;
+        }
     }
     else if(SampleType == 4000 || SampleType == 3000  || SampleType == 4001 || SampleType == 3001 ){
         EMtrigger =0;
+        if(selectedChannel==4 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" SampleType 3000/4000, EMtrigger: "<<  EMtrigger << std::endl;
+        }
     }
     else{
         EMtrigger = selectedChannel ==4 && ContainerObj->TTHLep_MuEle==1;
+        if(selectedChannel==4 && ContainerObj->_sync >= 80  && ContainerObj->_sync != 99 && ContainerObj->_debugEvt == ContainerObj->eventNumber){
+            std::cout<<" Others, EMtrigger: "<<  EMtrigger << std::endl;
+        }
     }
   }
   if (_whichtrigger ==6 ){
