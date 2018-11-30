@@ -61,7 +61,6 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["massL"] = 800.;
   _floatVars["massL_SFOS"] = 500.;
   _floatVars["mass_diele"] = 500.;
-  _floatVars["mass_dilep"] = 500.;
   
   _floatVars["metLD"] = 4.;
   _floatVars["mht"] = 500.;
@@ -120,6 +119,7 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["secondLep_mcPromptFS"] = 2.;
 
   
+  _LongVars["nEvent"] = 999.;
   _floatVars["mu1_PFRelIso04"] = 999.;
   _floatVars["mu2_PFRelIso04"] = 999.;
   _floatVars["ele1_PFRelIso04"] = 999.;
@@ -164,14 +164,8 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["mu2_ismvasel"] = 999;
   _floatVars["ele1_isfakeablesel"] = 999;
   _floatVars["ele1_ismvasel"] = 999;
-  /*
-  _LongVars["nEvent"] = 999.;
   _floatVars["ls"] = 999.;
   _floatVars["run"] = 999.;
-  */
-  _intVars["nEvent"] = 999.;
-  _intVars["ls"] = 999.;
-  _intVars["run"] = 999.;
   _floatVars["n_presel_mu"] = 999.;
   _floatVars["n_fakeablesel_mu"] = 999.;
   _floatVars["n_mvasel_mu"] = 999.;
@@ -320,6 +314,26 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["jet4_phi"] = 999.;
   _floatVars["jet4_E"] = 999.;
   _floatVars["jet4_CSV"] = 999.;
+  _floatVars["jet5_pt"] = 999.;
+  _floatVars["jet5_eta"] = 999.;
+  _floatVars["jet5_phi"] = 999.;
+  _floatVars["jet5_E"] = 999.;
+  _floatVars["jet5_CSV"] = 999.;
+  _floatVars["jet6_pt"] = 999.;
+  _floatVars["jet6_eta"] = 999.;
+  _floatVars["jet6_phi"] = 999.;
+  _floatVars["jet6_E"] = 999.;
+  _floatVars["jet6_CSV"] = 999.;
+  _floatVars["jet7_pt"] = 999.;
+  _floatVars["jet7_eta"] = 999.;
+  _floatVars["jet7_phi"] = 999.;
+  _floatVars["jet7_E"] = 999.;
+  _floatVars["jet7_CSV"] = 999.;
+  _floatVars["jet8_pt"] = 999.;
+  _floatVars["jet8_eta"] = 999.;
+  _floatVars["jet8_phi"] = 999.;
+  _floatVars["jet8_E"] = 999.;
+  _floatVars["jet8_CSV"] = 999.;
   _floatVars["PFMET"] = 999.;
   _floatVars["PFMETphi"] = 999.;
   _floatVars["MHT"] = 999.;
@@ -706,6 +720,26 @@ void ttHVars::Clear(){
     jet4_phi = -9999;
     jet4_E = -9999;
     jet4_CSV = -9999;
+    jet5_pt = -9999;
+    jet5_eta = -9999;
+    jet5_phi = -9999;
+    jet5_E = -9999;
+    jet5_CSV = -9999;
+    jet6_pt = -9999;
+    jet6_eta = -9999;
+    jet6_phi = -9999;
+    jet6_E = -9999;
+    jet6_CSV = -9999;
+    jet7_pt = -9999;
+    jet7_eta = -9999;
+    jet7_phi = -9999;
+    jet7_E = -9999;
+    jet7_CSV = -9999;
+    jet8_pt = -9999;
+    jet8_eta = -9999;
+    jet8_phi = -9999;
+    jet8_E = -9999;
+    jet8_CSV = -9999;
     PFMET = -9999;
     PFMETphi = -9999;
     MHT = -9999;
@@ -890,6 +924,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
    Lepton FirstMuon, SecondMuon, FirstElectron, SecondElectron;
    Tau FirstTau, SecondTau; 
    Jet FirstJet, SecondJet, ThirdJet, FourthJet; 
+   Jet FifthJet, SixthJet, SeventhJet, EighthJet; 
    if(looseMuons.size()>=1){
         FirstMuon = looseMuons.at(0);
         if(looseMuons.size()>=2) SecondMuon = looseMuons.at(1);
@@ -907,6 +942,10 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         if(Jets.size()>=2) SecondJet = Jets.at(1);
         if(Jets.size()>=3) ThirdJet = Jets.at(2);
         if(Jets.size()>=4) FourthJet = Jets.at(3);
+        if(Jets.size()>=5) FifthJet = Jets.at(4);
+        if(Jets.size()>=6) SixthJet = Jets.at(5);
+        if(Jets.size()>=7) SeventhJet = Jets.at(6);
+        if(Jets.size()>=8) EighthJet = Jets.at(7);
    }
    
     // Fill the variables in event container
@@ -938,7 +977,6 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["massL"] = evtObj->massL;
     _floatVars["massL_SFOS"] = evtObj->massL_SFOS;
     _floatVars["mass_diele"] = evtObj->mass_diele;
-    _floatVars["mass_dilep"] = evtObj->mass_dilep;
   
     _floatVars["metLD"] = evtObj->metLD;
     _floatVars["mht"] = evtObj->mht;
@@ -1017,7 +1055,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["secondLep_mcPromptFS"] = secondLep_mcPromptFS;
   
     // calculate variables
-    nEvent = evtObj->eventNumber<0? (4294967296+evtObj->eventNumber)  : evtObj->eventNumber;
+    nEvent = evtObj->eventNumber;
     
     EventTree* tree = evtObj->GetEventTree();
     if(tree->EVENT_genWeights->size()>6){
@@ -1230,6 +1268,34 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         jet4_E = FourthJet.E();
         jet4_CSV = FourthJet.bDiscriminator();
     }
+    if(Jets.size()>=5){
+        jet5_pt = FifthJet.Pt();
+        jet5_eta = FifthJet.Eta();
+        jet5_phi = FifthJet.Phi();
+        jet5_E = FifthJet.E();
+        jet5_CSV = FifthJet.bDiscriminator();
+    }
+    if(Jets.size()>=6){
+        jet6_pt = SixthJet.Pt();
+        jet6_eta = SixthJet.Eta();
+        jet6_phi = SixthJet.Phi();
+        jet6_E = SixthJet.E();
+        jet6_CSV = SixthJet.bDiscriminator();
+    }
+    if(Jets.size()>=7){
+        jet7_pt = SeventhJet.Pt();
+        jet7_eta = SeventhJet.Eta();
+        jet7_phi = SeventhJet.Phi();
+        jet7_E = SeventhJet.E();
+        jet7_CSV = SeventhJet.bDiscriminator();
+    }
+    if(Jets.size()>=8){
+        jet8_pt = EighthJet.Pt();
+        jet8_eta = EighthJet.Eta();
+        jet8_phi = EighthJet.Phi();
+        jet8_E = EighthJet.E();
+        jet8_CSV = EighthJet.bDiscriminator();
+    }
     PFMET = evtObj->missingEt;
     PFMETphi = evtObj->missingPhi;
     MHT = evtObj->mht;
@@ -1241,7 +1307,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     max_lep_eta = maxeta;
     min_dr_lep_jet = -9999;
     Hj_tagger = Hj1_BDT;
-    HTT = evtObj->ResTop_BDT;
+    HTT = evtObj->HadTop_BDT;
     nBJetLoose = Jet_numbLoose;
     nBJetMedium = Jet_numbMedium;
     mvaOutput_2lss_ttV = ttvBDT_2lss;
@@ -1249,6 +1315,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
 
 
   //save variables
+  _LongVars["nEvent"] = nEvent;
   _floatVars["mu1_mediumID"] = mu1_mediumID;
   _floatVars["mu1_isfakeablesel"] = mu1_isfakeablesel;
   _floatVars["mu1_ismvasel"] = mu1_ismvasel;
@@ -1277,14 +1344,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["ele2_ismvasel"] = ele2_ismvasel;
   _floatVars["ele2_isChargeConsistent"] = ele2_isChargeConsistent;
   _floatVars["ele2_passesConversionVeto"] = ele2_passesConversionVeto;
-  /*
-  _LongVars["nEvent"] = nEvent;
   _floatVars["ls"] = ls;
   _floatVars["run"] = run;
-  */
-  _intVars["nEvent"] = nEvent;
-  _intVars["ls"] = ls;
-  _intVars["run"] = run;
   _floatVars["n_presel_mu"] = n_presel_mu;
   _floatVars["n_fakeablesel_mu"] = n_fakeablesel_mu;
   _floatVars["n_mvasel_mu"] = n_mvasel_mu;
@@ -1433,6 +1494,26 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["jet4_phi"] = jet4_phi;
   _floatVars["jet4_E"] = jet4_E;
   _floatVars["jet4_CSV"] = jet4_CSV;
+  _floatVars["jet5_pt"] = jet5_pt;
+  _floatVars["jet5_eta"] = jet5_eta;
+  _floatVars["jet5_phi"] = jet5_phi;
+  _floatVars["jet5_E"] = jet5_E;
+  _floatVars["jet5_CSV"] = jet5_CSV;
+  _floatVars["jet6_pt"] = jet6_pt;
+  _floatVars["jet6_eta"] = jet6_eta;
+  _floatVars["jet6_phi"] = jet6_phi;
+  _floatVars["jet6_E"] = jet6_E;
+  _floatVars["jet6_CSV"] = jet6_CSV;
+  _floatVars["jet7_pt"] = jet7_pt;
+  _floatVars["jet7_eta"] = jet7_eta;
+  _floatVars["jet7_phi"] = jet7_phi;
+  _floatVars["jet7_E"] = jet7_E;
+  _floatVars["jet7_CSV"] = jet7_CSV;
+  _floatVars["jet8_pt"] = jet8_pt;
+  _floatVars["jet8_eta"] = jet8_eta;
+  _floatVars["jet8_phi"] = jet8_phi;
+  _floatVars["jet8_E"] = jet8_E;
+  _floatVars["jet8_CSV"] = jet8_CSV;
   _floatVars["PFMET"] = PFMET;
   _floatVars["PFMETphi"] = PFMETphi;
   _floatVars["MHT"] = MHT;
@@ -1566,6 +1647,10 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     TLorentzVector FakeLep1{0,0,0,0};
     TLorentzVector FakeLep2{0,0,0,0};
     TLorentzVector FakeLep3{0,0,0,0};
+    TLorentzVector bLooseJet1{0,0,0,0};
+    TLorentzVector bLooseJet2{0,0,0,0};
+    TLorentzVector bMediumJet1{0,0,0,0};
+    TLorentzVector bMediumJet2{0,0,0,0};
     TLorentzVector Lep1{0,0,0,0};
     TLorentzVector Lep2{0,0,0,0};
     double minMass_AFAS =999;
@@ -1606,14 +1691,12 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if(jet_en == 2)thirdJetCSV = jet.bDiscriminator(); 
         if(jet_en == 3)fourthJetCSV = jet.bDiscriminator();
         if( maxCSV < jet.bDiscriminator()) maxCSV = jet.bDiscriminator();
-        if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
-        for(uint bjet_en=jet_en+1; bjet_en < Jets.size(); bjet_en++){
+        //if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
+        if( jet.isToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
+        for(uint bjet_en=0; bjet_en < Jets.size(); bjet_en++){
+            if (jet_en == bjet_en) continue;
             Jet bjet = Jets.at(bjet_en);
             sum_jet_dr += bjet.DeltaR(jet);
-            TLorentzVector bLooseJet1{0,0,0,0};
-            TLorentzVector bLooseJet2{0,0,0,0};
-            TLorentzVector bMediumJet1{0,0,0,0};
-            TLorentzVector bMediumJet2{0,0,0,0};
             if(jet.isLooseBdisc())bLooseJet1.SetPtEtaPhiE(jet.Pt(),jet.Eta(),jet.Phi(),jet.E());
             if(bjet.isLooseBdisc())bLooseJet2.SetPtEtaPhiE(bjet.Pt(),bjet.Eta(),bjet.Phi(),bjet.E());
             if(jet.isMediumBdisc())bMediumJet1.SetPtEtaPhiE(jet.Pt(),jet.Eta(),jet.Phi(),jet.E());
@@ -1631,7 +1714,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     Jet_numLoose = Jets.size();
     Jet_numbLoose = jet_numbLoose;
     Jet_numbMedium = jet_numbMedium;
-    avg_dr_jet = Jet_numLoose >=2? sum_jet_dr/((Jet_numLoose-1)*0.5*Jet_numLoose) : -999.;
+    avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
     Hj1_BDT = max(maxHj,-1.);
     HighestJetCSV = maxCSV;
     HtJet = SumPt;
@@ -1738,7 +1821,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         lep1_segment = firstLepton.segmentCompatibility()  ;
         lep1_sig3d = firstLepton.IP3Dsig()  ;
         lep1_lostHits = firstLepton.expectedMissingInnerHits()  ;
-        lep1_relIso04 = TMath::Abs(firstLepton.pdgId())==13 ? firstLepton.relIsoR04() : firstLepton.relIsoRhoEA() ;
+        lep1_relIso04 = firstLepton.relIsoR04()  ;
         lep1_relIso03 = firstLepton.relIsoRhoEA()  ;
         lep1_TightCharge = firstLepton.passTightCharge()  ;
         lep1_passConv = firstLepton.passConversionVeto()  ;
@@ -1761,7 +1844,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         lep2_segment = secondLepton.segmentCompatibility()  ;
         lep2_sig3d = secondLepton.IP3Dsig()  ;
         lep2_lostHits = secondLepton.expectedMissingInnerHits()  ;
-        lep2_relIso04 = TMath::Abs(secondLepton.pdgId())==13 ? secondLepton.relIsoR04() : secondLepton.relIsoRhoEA() ;
+        lep2_relIso04 = secondLepton.relIsoR04()  ;
         lep2_relIso03 = secondLepton.relIsoRhoEA()  ;
         lep2_TightCharge = secondLepton.passTightCharge()  ;
         lep2_passConv = secondLepton.passConversionVeto()  ;
@@ -1788,7 +1871,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
             lep3_segment = thirdLepton.segmentCompatibility()  ;
             lep3_sig3d = thirdLepton.IP3Dsig()  ;
             lep3_lostHits = thirdLepton.expectedMissingInnerHits()  ;
-            lep3_relIso04 = TMath::Abs(thirdLepton.pdgId())==13 ? thirdLepton.relIsoR04() : thirdLepton.relIsoRhoEA() ;
+            lep3_relIso04 = thirdLepton.relIsoR04()  ;
             lep3_relIso03 = thirdLepton.relIsoRhoEA()  ;
             lep3_TightCharge = thirdLepton.passTightCharge()  ;
             lep3_passConv = thirdLepton.passConversionVeto()  ;

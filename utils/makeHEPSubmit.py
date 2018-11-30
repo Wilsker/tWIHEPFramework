@@ -59,7 +59,7 @@ samplesMC=[
 "GGH_ext_ToZZ4L", "TTWH", "WZG", "TTTW", "TGJets_Lep", "W1JetsToLNu", "W2JetsToLNu", "W3JetsToLNu", "W4JetsToLNu", "DY1JetsToLL_M50","DY2JetsToLL_M50", "DY3JetsToLL_M50", "DY4JetsToLL_M50", "DYJetsToLL_M4to50_HT70to100","DYJetsToLL_M4to50_HT100to200", "DYJetsToLL_M4to50_HT200to400", "DYJetsToLL_M4to50_HT400to600", "DYJetsToLL_M4to50_HT600toInf"
 ]
 samplesMVA = [
-"TTHnobb","ttH_powheg_ToNonbb","TTW_PSwgt_ToLNu","TTWToLNu","TTZToLLNuNu_M10","TTZToLL_M1to10","TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron"
+"ttHnobb","ttW_ext_Jets","ttWJets","ttZ_ext_Jets","ttZ_Jets","TT_PSwgt_To2L2Nu","TT_PSwgt_ToSemiLep","TT_PSwgt_ToHadron","TTTo2L2Nu","TTToSemiLep","TTToHadron"
 ]
 samplesClos = [
 "TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron"
@@ -172,9 +172,15 @@ if "wJetsReg" in sys.argv and "ttbarReg" in sys.argv:
     print "Please only use one of ttbar and wJets -Reg! Exiting..."
     sys.exit()
 if "mva" in sys.argv:
-    mcPostfix = " -isTrainMVA"
+    fileListDirectory = "config/files/ttH_2018/MVA/"
+    mcPostfix = " -isTrainMVA -FakeRate"
     configFile = "config/overall/ttH.MultiLeptons.DiLepTrainMVA.config"
     analysis += "TrainMVA"
+    sample = samplesMVA
+elif "Hjtagger" in sys.argv:
+    fileListDirectory = "config/files/ttH_2018/MVA/"
+    configFile = "config/overall/ttH.MultiLeptons.DiLepton.TrainHj.config"
+    analysis += "TrainHj"
     sample = samplesMVA
 elif "ttZctrl" in sys.argv:
     triggerName = "TTHLep_3L "

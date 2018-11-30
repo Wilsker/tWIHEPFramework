@@ -34,7 +34,7 @@ Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 ################# Tau Cuts #########################
 # Number of Taus
 Cut.Tau.Loose.Number.Min:  0
-Cut.Tau.Loose.Number.Max:  0
+Cut.Tau.Loose.Number.Max:  999
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
