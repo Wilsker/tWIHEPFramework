@@ -336,12 +336,10 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   // for Data , the pt is not scaled and smeared yet
   // this needs to be updated when new samples comes
   //if(isSimulation){
-    elPt        = evtr -> patElectron_pt     -> operator[](iE);
-    elE         = evtr -> patElectron_energy -> operator[](iE);
-  /*
-  }else{
     elPt        = evtr -> patElectron_pt     -> operator[](iE) * evtr -> patElectron_energySF -> operator[](iE);
     elE         = evtr -> patElectron_energy     -> operator[](iE) * evtr -> patElectron_energySF -> operator[](iE);
+  /*
+  }else{
   }
   */
  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

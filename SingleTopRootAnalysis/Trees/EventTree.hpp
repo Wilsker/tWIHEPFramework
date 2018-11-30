@@ -210,6 +210,8 @@ public :
    std::vector<double>  *Muon_dxy_pv;
    std::vector<double>  *Muon_dz_pv;
    std::vector<double>  *Muon_dz_bs;
+   std::vector<double>  *Muon_dz_bt;
+   std::vector<double>  *Muon_dxy_bt;
    std::vector<double>  *Muon_dxy_bs;
    std::vector<double>  *Muon_dzError;
    std::vector<double>  *Muon_dxyError;
@@ -223,6 +225,7 @@ public :
    std::vector<double>  *Muon_jetdr;
    std::vector<double>  *Muon_jetl1corr;
    std::vector<double>  *Muon_jetislep;
+   std::vector<int>  *Muon_jetidx;
    std::vector<double>  *Muon_jetpt;
    std::vector<double>  *Muon_jetptratio;
    std::vector<double>  *Muon_jetptratioV2;
@@ -396,6 +399,7 @@ public :
    std::vector<double>  *patElectron_jetdr;
    std::vector<double>  *patElectron_jetl1corr;
    std::vector<double>  *patElectron_jetislep;
+   std::vector<int>  *patElectron_jetidx;
    std::vector<double>  *patElectron_jetpt;
    std::vector<double>  *patElectron_jetptratio;
    std::vector<double>  *patElectron_jetptratioV2;
@@ -861,6 +865,8 @@ public :
    TBranch        *b_Muon_dz_pv;   //!
    TBranch        *b_Muon_dz_bs;   //!
    TBranch        *b_Muon_dxy_bs;   //!
+   TBranch        *b_Muon_dz_bt;   //!
+   TBranch        *b_Muon_dxy_bt;   //!
    TBranch        *b_Muon_dzError;   //!
    TBranch        *b_Muon_dxyError;   //!
    TBranch        *b_Muon_vtx;   //!
@@ -873,6 +879,7 @@ public :
    TBranch        *b_Muon_jetdr;   //!
    TBranch        *b_Muon_jetl1corr;   //!
    TBranch        *b_Muon_jetislep;   //!
+   TBranch        *b_Muon_jetidx;   //!
    TBranch        *b_Muon_jetpt;   //!
    TBranch        *b_Muon_jetptratio;   //!
    TBranch        *b_Muon_jetptratioV2;   //!
@@ -1046,6 +1053,7 @@ public :
    TBranch        *b_patElectron_jetdr;   //!
    TBranch        *b_patElectron_jetl1corr;   //!
    TBranch        *b_patElectron_jetislep;   //!
+   TBranch        *b_patElectron_jetidx;   //!
    TBranch        *b_patElectron_jetpt;   //!
    TBranch        *b_patElectron_jetptratio;   //!
    TBranch        *b_patElectron_jetptratioV2;   //!
@@ -1470,6 +1478,8 @@ void EventTree::Init(TTree *tree)
    Muon_dz_pv = 0;
    Muon_dz_bs = 0;
    Muon_dxy_bs = 0;
+   Muon_dz_bt = 0;
+   Muon_dxy_bt = 0;
    Muon_dzError = 0;
    Muon_dxyError = 0;
    Muon_vtx = 0;
@@ -1482,6 +1492,7 @@ void EventTree::Init(TTree *tree)
    Muon_jetdr = 0;
    Muon_jetl1corr = 0;
    Muon_jetislep = 0;
+   Muon_jetidx = 0;
    Muon_jetpt = 0;
    Muon_jetptratio = 0;
    Muon_jetptratioV2 = 0;
@@ -1655,6 +1666,7 @@ void EventTree::Init(TTree *tree)
    patElectron_jetdr = 0;
    patElectron_jetl1corr = 0;
    patElectron_jetislep = 0;
+   patElectron_jetidx = 0;
    patElectron_jetpt = 0;
    patElectron_jetptratio = 0;
    patElectron_jetptratioV2 = 0;
@@ -2098,6 +2110,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Muon_dz_pv", &Muon_dz_pv, &b_Muon_dz_pv);
    fChain->SetBranchAddress("Muon_dz_bs", &Muon_dz_bs, &b_Muon_dz_bs);
    fChain->SetBranchAddress("Muon_dxy_bs", &Muon_dxy_bs, &b_Muon_dxy_bs);
+   fChain->SetBranchAddress("Muon_dz_bt", &Muon_dz_bt, &b_Muon_dz_bt);
+   fChain->SetBranchAddress("Muon_dxy_bt", &Muon_dxy_bt, &b_Muon_dxy_bt);
    fChain->SetBranchAddress("Muon_dzError", &Muon_dzError, &b_Muon_dzError);
    fChain->SetBranchAddress("Muon_dxyError", &Muon_dxyError, &b_Muon_dxyError);
    fChain->SetBranchAddress("Muon_vtx", &Muon_vtx, &b_Muon_vtx);
@@ -2110,6 +2124,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Muon_jetdr", &Muon_jetdr, &b_Muon_jetdr);
    fChain->SetBranchAddress("Muon_jetl1corr", &Muon_jetl1corr, &b_Muon_jetl1corr);
    fChain->SetBranchAddress("Muon_jetislep", &Muon_jetislep, &b_Muon_jetislep);
+   fChain->SetBranchAddress("Muon_jetidx", &Muon_jetidx, &b_Muon_jetidx);
    fChain->SetBranchAddress("Muon_jetpt", &Muon_jetpt, &b_Muon_jetpt);
    fChain->SetBranchAddress("Muon_jetptratio", &Muon_jetptratio, &b_Muon_jetptratio);
    fChain->SetBranchAddress("Muon_jetptratioV2", &Muon_jetptratioV2, &b_Muon_jetptratioV2);
@@ -2283,6 +2298,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("patElectron_jetdr", &patElectron_jetdr, &b_patElectron_jetdr);
    fChain->SetBranchAddress("patElectron_jetl1corr", &patElectron_jetl1corr, &b_patElectron_jetl1corr);
    fChain->SetBranchAddress("patElectron_jetislep", &patElectron_jetislep, &b_patElectron_jetislep);
+   fChain->SetBranchAddress("patElectron_jetidx", &patElectron_jetidx, &b_patElectron_jetidx);
    fChain->SetBranchAddress("patElectron_jetpt", &patElectron_jetpt, &b_patElectron_jetpt);
    fChain->SetBranchAddress("patElectron_jetptratio", &patElectron_jetptratio, &b_patElectron_jetptratio);
    fChain->SetBranchAddress("patElectron_jetptratioV2", &patElectron_jetptratioV2, &b_patElectron_jetptratioV2);

@@ -57,6 +57,7 @@ private:
   myTH1F* _hbLooseJetNumberAfter;     // Histogram number of jets after the cut
 
   // Cut parameters
+  Int_t _isAndLogic;           //  default 0 : use or logic
   Int_t _bLooseJetNumberMin;           // Minimum number of loose-b-jets to require
   Int_t _bLooseJetNumberMax;           // Maximum number of loose-b-jets allowed
   Int_t _bMediumJetNumberMin;           // Minimum number of medium-b-jets to require

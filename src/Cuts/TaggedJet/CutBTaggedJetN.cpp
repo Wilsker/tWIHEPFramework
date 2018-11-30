@@ -87,6 +87,7 @@ void CutBTaggedJetN::BookHistogram(){
   TEnv *config = EventContainerObj -> GetConfig();
 
   // Use configuration to set min and max number of jets to cut on if default value used
+   _isAndLogic = config -> GetValue("Cut.bJet.isAndLogic", 0); // default 0: use or logic
   if (_bLooseJetNumberMax < 0.){
     _bLooseJetNumberMin = config -> GetValue("Cut.bLoose.Jet.Number.Min", 999);
     _bLooseJetNumberMax = config -> GetValue("Cut.bLoose.Jet.Number.Max", 999);
@@ -116,9 +117,15 @@ void CutBTaggedJetN::BookHistogram(){
   GetCutFlowTable()->AddCutToFlow("BMediumTagged.Jet.Number.Max",tTitle);
   // also add the overal pass rate
   titleStr.str("");
-  titleStr <<"BLooseTagged Jet : "<< _bLooseJetNumberMin<<" <= N <= "<<_bLooseJetNumberMax << " Or BMediumTagged Jet: "<<_bMediumJetNumberMin<<" <= N <= "<<_bMediumJetNumberMax ;
-  tTitle=titleStr.str().c_str();
-  GetCutFlowTable()->AddCutToFlow("bLooseOrMedium.Jet.Number.All",tTitle);
+  if(_isAndLogic ==1){
+    titleStr <<"BLooseTagged Jet : "<< _bLooseJetNumberMin<<" <= N <= "<<_bLooseJetNumberMax << " And BMediumTagged Jet: "<<_bMediumJetNumberMin<<" <= N <= "<<_bMediumJetNumberMax ;
+    tTitle=titleStr.str().c_str();
+    GetCutFlowTable()->AddCutToFlow("bLooseAndMedium.Jet.Number.All",tTitle);
+  }else{
+    titleStr <<"BLooseTagged Jet : "<< _bLooseJetNumberMin<<" <= N <= "<<_bLooseJetNumberMax << " Or BMediumTagged Jet: "<<_bMediumJetNumberMin<<" <= N <= "<<_bMediumJetNumberMax ;
+    tTitle=titleStr.str().c_str();
+    GetCutFlowTable()->AddCutToFlow("bLooseOrMedium.Jet.Number.All",tTitle);
+  }
   
 }//BookHistograms()
 
@@ -197,27 +204,40 @@ Bool_t CutBTaggedJetN::Apply()
 
 
   // Fill Histogram after cuts
-  if((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass)){
-    _hbLooseJetNumberAfter -> Fill(bLooseJetNumber);
-    GetCutFlowTable() -> PassCut("bLooseOrMedium.Jet.Number.All");
-  } //if
-  else GetCutFlowTable() -> FailCut("bLooseOrMedium.Jet.Number.All");
-
-  if((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass)){
-    //  cout<<"EventNumber : "<<evObj->eventNumber<<endl;
-  }
-
-  if( evObj->_sync >= 80  && evObj->_sync != 99 && evObj->_debugEvt == evObj->eventNumber && !((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass))){
-    std::cout<< " Event " << evObj->_debugEvt <<" Fail CutBTaggedJetN : JetbLooseN "<< bLooseJetNumber <<" JetbMediumN "<< bMediumJetNumber <<" JetbLooseNumberMin " << bLooseJetNumberMinPass <<" bLooseJetNumberMax " << bLooseJetNumberMaxPass <<" JetbMediumNumberMin " << bMediumJetNumberMinPass << " JetbMediumNumberMax "<< bMediumJetNumberMaxPass << std::endl; 
+  if(_isAndLogic ==1){
+    if((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) && (bMediumJetNumberMinPass && bMediumJetNumberMaxPass)){
+        _hbLooseJetNumberAfter -> Fill(bLooseJetNumber);
+        GetCutFlowTable() -> PassCut("bLooseAndMedium.Jet.Number.All");
+    } //if
+    else GetCutFlowTable() -> FailCut("bLooseAndMedium.Jet.Number.All");
+    if( evObj->_sync >= 80  && evObj->_sync != 99 && evObj->_debugEvt == evObj->eventNumber && !((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) && (bMediumJetNumberMinPass && bMediumJetNumberMaxPass))){
+        std::cout<< " Event " << evObj->_debugEvt <<" Fail CutBTaggedJetN : JetbLooseN "<< bLooseJetNumber <<" JetbMediumN "<< bMediumJetNumber <<" JetbLooseNumberMin " << bLooseJetNumberMinPass <<" bLooseJetNumberMax " << bLooseJetNumberMaxPass <<" JetbMediumNumberMin " << bMediumJetNumberMinPass << " JetbMediumNumberMax "<< bMediumJetNumberMaxPass << std::endl; 
+    }
+    if(evObj->_SaveCut ==1 ){
+        Double_t flag = (bLooseJetNumberMinPass && bLooseJetNumberMaxPass) && (bMediumJetNumberMinPass && bMediumJetNumberMaxPass) ? 1:0;
+        evObj->Flag_cuts.push_back(flag);
+        return kTRUE;
+    }else{
+        return((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) && (bMediumJetNumberMinPass && bMediumJetNumberMaxPass));
+    }
+  }else{
+    if((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass)){
+        _hbLooseJetNumberAfter -> Fill(bLooseJetNumber);
+        GetCutFlowTable() -> PassCut("bLooseOrMedium.Jet.Number.All");
+    } //if
+    else GetCutFlowTable() -> FailCut("bLooseOrMedium.Jet.Number.All");
+    if( evObj->_sync >= 80  && evObj->_sync != 99 && evObj->_debugEvt == evObj->eventNumber && !((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass))){
+        std::cout<< " Event " << evObj->_debugEvt <<" Fail CutBTaggedJetN : JetbLooseN "<< bLooseJetNumber <<" JetbMediumN "<< bMediumJetNumber <<" JetbLooseNumberMin " << bLooseJetNumberMinPass <<" bLooseJetNumberMax " << bLooseJetNumberMaxPass <<" JetbMediumNumberMin " << bMediumJetNumberMinPass << " JetbMediumNumberMax "<< bMediumJetNumberMaxPass << std::endl; 
+    }
+    if(evObj->_SaveCut ==1 ){
+        Double_t flag = (bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass) ? 1:0;
+        evObj->Flag_cuts.push_back(flag);
+        return kTRUE;
+    }else{
+        return((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass));
+    }
   }
   
-  if(evObj->_SaveCut ==1 ){
-    Double_t flag = (bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass) ? 1:0;
-    evObj->Flag_cuts.push_back(flag);
-    return kTRUE;
-  }else{
-    return((bLooseJetNumberMinPass && bLooseJetNumberMaxPass) || (bMediumJetNumberMinPass && bMediumJetNumberMaxPass));
-  }
 
 } //Apply
 

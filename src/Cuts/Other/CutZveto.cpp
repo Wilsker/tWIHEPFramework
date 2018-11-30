@@ -39,10 +39,11 @@ CutZveto::CutZveto(EventContainer *EventContainerObj, TString LeptonPairType)
   // Check leptonType parameter
   if( 
        LeptonPairType.CompareTo("presel_ele")
+       && LeptonPairType.CompareTo("fake_dilep")
        && LeptonPairType.CompareTo("presel_SFOSlep")
       ){
     std::cout << "ERROR " << "<CutZveto::CutZveto()> " 
-	      << "Must pass presel_ele or presel_SFOSlep to constructor" << std::endl;
+	      << "Must pass fake_dilep, presel_ele or presel_SFOSlep to constructor" << std::endl;
     exit(8);
   }
   // Set Event Container
@@ -102,12 +103,12 @@ void CutZveto::BookHistogram(){
 
   // Histogram before cut
   _hZvetoBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 100, 0.0, 200.);
-  _hZvetoBefore -> SetXAxisTitle("DiEle Mass");
+  _hZvetoBefore -> SetXAxisTitle("Z Mass");
   _hZvetoBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
   _hZvetoAfter=  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 100, 0.0, 200.);
-  _hZvetoAfter-> SetXAxisTitle("DiEle Mass");
+  _hZvetoAfter-> SetXAxisTitle("Z Mass");
   _hZvetoAfter-> SetYAxisTitle("Events");
 
 
@@ -164,6 +165,7 @@ Bool_t CutZveto::Apply()
   Float_t massZ = 0.;
   
   if(_LeptonPairType =="presel_ele") massZ=EventContainerObj->mass_diele;
+  else if(_LeptonPairType =="fake_dilep") massZ=EventContainerObj->mass_dilep;
   else if(_LeptonPairType =="presel_SFOSlep") massZ=EventContainerObj->massL_SFOS;
 
   _hZvetoBefore->Fill(massZ);

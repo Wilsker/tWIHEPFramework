@@ -503,6 +503,7 @@ double Jet::get_JetMVA()
 Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets, Bool_t isSimulation, int whichtrig)
 {
 
+  int eventNumber = evtr -> EVENT_event; 
   Double_t jetPt, jetEta,jetPhi,jetE, jetCharge, jetM;
   Double_t jetUncorrPt, jetUncorrE, jesSF, jerSF;
   jetUncorrPt = evtr->Jet_Uncorr_pt -> operator[](iE);
@@ -655,6 +656,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Double_t minlepdr = -1.;
   Double_t maxlepdr = -1.;
   
+  /*
   int lep_num =selectedLeptons.size();
   
   if (lep_num == 1){
@@ -682,7 +684,6 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
     }
   }
   
-  /*
   int clean_tau=0;
   int tau_num = selectedTaus.size();
   clean_tau= TMath::Min(1,tau_num);
@@ -694,7 +695,6 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
     }
   }
   */
-  /*
   for (auto const & lep : selectedLeptons){
     if (lep.DeltaR(*this) < closestLepton){
         closestLepton = lep.DeltaR(*this);
@@ -703,7 +703,6 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   for (auto const & tau : selectedTaus){
     if (tau.DeltaR(*this) < closestLepton) closestLepton = tau.DeltaR(*this);
   }
-  */
 
   if (closestLepton < _closestLeptonCut) passesCleaning = kFALSE;
 
@@ -727,7 +726,11 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
 
   if (passbPt && passbEta && passTagCut) SetTagged(kTRUE);
   else SetTagged(kFALSE);
-
+  /*
+  if( eventNumber==18841459 ){
+      std::cout<< " jet pt "<< Pt()<< " passesJetID " << passesJetID<< " passesCleaning "<< passesCleaning<<" JetID details : neutralHadEnergyFraction() " << neutralHadEnergyFraction() << " neutralEmEmEnergyFraction() " << neutralEmEmEnergyFraction() << " numberOfConstituents() " << numberOfConstituents() << " chargedHadronEnergyFraction() " << chargedHadronEnergyFraction() << " chargedMultiplicity() "<< chargedMultiplicity() << std::endl;
+  } 
+  */
   if (passPt && passEta && passesJetID && passesCleaning) return kTRUE;
   
   return kFALSE;

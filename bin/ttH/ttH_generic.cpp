@@ -298,6 +298,7 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
+
   mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
   if(isTriLepton){
     mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
@@ -318,7 +319,10 @@ int main(int argc, char **argv)
   if(!isTriLepton)mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
   if(!isTrainMVA){
     if(!isTriLepton){
-        mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
+        //mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
+        mystudy.AddCut(new CutZveto(particlesObj, "fake_dilep"));//fake_dilep ;presel_ele;presel_SFOSlep
+    }else{
+        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));//fake_dilep ;presel_ele;presel_SFOSlep
     }
     mystudy.AddCut(new CutMetLD(particlesObj, isTriLepton));
     if(!isTriLepton){
@@ -328,6 +332,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
+  
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   /*
   if(!isTrainMVA){
@@ -364,7 +369,7 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
   
-  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
   
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   /*
@@ -386,20 +391,23 @@ int main(int argc, char **argv)
   //}
 
   //Add in any variables to the skim tree that you want here
+  
   mystudy.AddVars(new TestVar());
+  
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
 
   //mystudy.AddVars(new HadTopVars());
+  
   mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
-  /*
-  mystudy.AddVars(new HjTagger());
+  
+  //mystudy.AddVars(new HjTagger());
   //mystudy.AddVars(new DNNVars());
   
   mystudy.AddVars(new WeightVars());
-  */
-  
+ 
+ 
   TFile *_skimBDTFile;
   TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
   _skimBDTFile = new TFile(NNname,"RECREATE"); 

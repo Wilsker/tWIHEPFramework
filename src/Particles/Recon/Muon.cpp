@@ -360,8 +360,8 @@ Bool_t Muon::Fill(EventTree *evtr,int iE,TString muonType, Bool_t isSimulation)
   SetisoPhoton		(evtr -> Muon_isoR04Photon   	-> operator[](iE));
   SetisoPU		(evtr -> Muon_isoR04PU   		-> operator[](iE));
   Setchi2		(evtr -> Muon_chi2   		-> operator[](iE));
-  Setdxy		(evtr -> Muon_dxy_pv   		-> operator[](iE));
-  Setdz			(evtr -> Muon_dz_pv   		-> operator[](iE));
+  Setdxy		(evtr -> Muon_dxy_bt   		-> operator[](iE));
+  Setdz			(evtr -> Muon_dz_bt   		-> operator[](iE));
   SetvalidHits		(evtr -> Muon_validHits   	-> operator[](iE));
   SetvalidHitsInner	(evtr -> Muon_validHitsInner   	-> operator[](iE));
   SetmatchedStat	(evtr -> Muon_matchedStat   	-> operator[](iE));

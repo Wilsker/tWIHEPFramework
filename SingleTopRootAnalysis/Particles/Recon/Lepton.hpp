@@ -71,7 +71,8 @@ public:
  _relIsoRhoEA =0.0;
  _jetdr =0.0;
  _jetl1corr =0.0;
- _jetislep =0.0;
+ _jetislep =0;
+ _jetidx =0.0;
  _pdgId =0.0;
  _jetpt =0.0;
  _isGlobal =0.0;
@@ -79,7 +80,7 @@ public:
  _trkKink =0.0;
  _validFraction =0.0;
  _segmentCompatibility =0.0;
- _pTErrOVpT_it =0.0;
+ _pTErrOVpT_bt =0.0;
  _BDT =0.0;
  _conept =0.0;
  _SCeta =0.0;
@@ -283,6 +284,10 @@ public:
   inline Double_t Getjetislep() const {return _jetislep;};
   inline Double_t jetislep() const {return _jetislep;};
 
+  inline void Setjetidx(Int_t jetidx){_jetidx = jetidx;};
+  inline Int_t Getjetidx() const {return _jetidx;};
+  inline Int_t jetidx() const {return _jetidx;};
+
   inline void SetpdgId(Double_t pdgId){_pdgId = pdgId;};
   inline Double_t GetpdgId() const {return _pdgId;};
   inline Double_t pdgId() const {return _pdgId;};
@@ -311,9 +316,9 @@ public:
   inline Double_t GetsegmentCompatibility() const {return _segmentCompatibility;};
   inline Double_t segmentCompatibility() const {return _segmentCompatibility;};
 
-  inline void SetpTErrOVpT_it(Double_t pTErrOVpT_it){_pTErrOVpT_it = pTErrOVpT_it;};
-  inline Double_t GetpTErrOVpT_it() const {return _pTErrOVpT_it;};
-  inline Double_t pTErrOVpT_it() const {return _pTErrOVpT_it;};
+  inline void SetpTErrOVpT_bt(Double_t pTErrOVpT_bt){_pTErrOVpT_bt = pTErrOVpT_bt;};
+  inline Double_t GetpTErrOVpT_bt() const {return _pTErrOVpT_bt;};
+  inline Double_t pTErrOVpT_bt() const {return _pTErrOVpT_bt;};
 
   inline void SetSCeta(Double_t SCeta){_SCeta = SCeta;};
   inline Double_t GetSCeta() const {return _SCeta;};
@@ -509,6 +514,7 @@ private:
   Double_t _jetdr;
   Double_t _jetl1corr;
   Double_t _jetislep;
+  Int_t _jetidx;
   Double_t _pdgId;
   Double_t _jetpt;
   Double_t _isGlobal;
@@ -516,7 +522,7 @@ private:
   Double_t _trkKink;
   Double_t _validFraction;
   Double_t _segmentCompatibility;
-  Double_t _pTErrOVpT_it;
+  Double_t _pTErrOVpT_bt;
   Double_t _BDT;
   Double_t _conept;
   Double_t _SCeta;

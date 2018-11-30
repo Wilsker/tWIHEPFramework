@@ -165,9 +165,9 @@ Bool_t CutTriggerSelection::Apply()
   }
   if(ContainerObj -> fakeLeptons.size()>=3 && _whichtrigger == 6 ){
     if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==33)selectedChannel =61;//isEEE
-    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==35)selectedChannel =62;//isEEE
-    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==37)selectedChannel =63;//isEEE
-    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==39)selectedChannel =64;//isEEE
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==35)selectedChannel =62;//isEEM
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==37)selectedChannel =63;//isEMM
+    if((fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())+fabs(ContainerObj -> fakeLeptons.at(2).pdgId()))==39)selectedChannel =64;//isMMM
   }
 
   Int_t SourceNumber = GetEventContainer()->GetSourceNumber();
@@ -180,7 +180,8 @@ Bool_t CutTriggerSelection::Apply()
   Int_t EMtrigger = 0;
   Int_t MMtrigger = 0;
   Int_t TriLeptrigger = 0;
-  Bool_t TriLeptriggerPath = kFALSE;
+  Int_t DiLeptrigger = 0;
+  Bool_t TriLeptriggerPath = kTRUE;
 
   
   Int_t electronTrigger = 0; //I seem to have messed up the electron trigger?
@@ -193,6 +194,7 @@ Bool_t CutTriggerSelection::Apply()
     //triggerBit = EventContainerObj->HLT_IsoMu18;
     triggerBit = EventContainerObj->HLT_IsoMu24 || EventContainerObj->HLT_IsoTkMu24;
   }
+  /*
   if (_whichtrigger == 2 || _whichtrigger ==5 ){
     if(SampleType == 3000 || SampleType == 3001){
         //if(selectedChannel ==2 && (EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || EventContainerObj -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8==1))MMtrigger =1; 
@@ -269,11 +271,29 @@ Bool_t CutTriggerSelection::Apply()
         }
     }
   }
+  */
+  if (_whichtrigger >=2 && _whichtrigger <=5 ){
+    if(SampleType == 4000 || SampleType == 4001){
+        if(ContainerObj->Trig_2Ele==1) DiLeptrigger =1;
+    }else if(SampleType == 3000 || SampleType == 3001){
+        if(ContainerObj->Trig_2Ele!=1 &&  ContainerObj->Trig_2Mu==1)  DiLeptrigger =1;
+    }else if(SampleType == 5000 || SampleType == 5001){
+        if(ContainerObj->Trig_2Ele!=1 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu1Ele==1 ) DiLeptrigger =1;
+    }else if(SampleType == 1000 || SampleType == 1001){
+        if(ContainerObj->Trig_2Ele!=1 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Ele ==1 ) DiLeptrigger =1;
+    }else if(SampleType == 2000 || SampleType == 2001){
+        if(ContainerObj->Trig_2Ele!=1 && ContainerObj->Trig_2Mu!=1 && ContainerObj->Trig_1Mu1Ele!=1 && ContainerObj->Trig_1Ele !=1 && ContainerObj->Trig_1Mu ==1 ) DiLeptrigger =1;
+    }else{
+        DiLeptrigger = ContainerObj->TTHLep_2L;
+    }
+  }
   if (_whichtrigger ==6 ){
+    /*
     TriLeptriggerPath = ( (selectedChannel == 61 && (ContainerObj->TTHLep_2Ele==1 || ContainerObj->Trig_3Ele==1 ))
      || (selectedChannel == 62 && (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_1Mu2Ele==1 ))
      || (selectedChannel == 63 && (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_2Mu1Ele==1 ))
      || (selectedChannel == 64 && (ContainerObj->TTHLep_2Mu==1 || ContainerObj->Trig_3Mu==1 )));
+    */
     if(SampleType == 4000 || SampleType == 4001){
         if(ContainerObj->Trig_3Ele==1 || ContainerObj->Trig_1Mu2Ele==1 || ContainerObj->Trig_2Ele==1) TriLeptrigger =1;
     }else if(SampleType == 3000 || SampleType == 3001){
@@ -290,10 +310,13 @@ Bool_t CutTriggerSelection::Apply()
   }
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;
   if (_whichtrigger == 1) passesTrigger = electronTrigger == 0. and muonTrigger != 0;
+  /*
   if ( _whichtrigger == 2) passesTrigger = MMtrigger == 1;
   if ( _whichtrigger == 3) passesTrigger = EEtrigger == 1;
   if ( _whichtrigger == 4) passesTrigger = EMtrigger == 1;
   if ( _whichtrigger == 5) passesTrigger = MMtrigger == 1 || EEtrigger == 1 || EMtrigger == 1;
+  */
+  if ( _whichtrigger >=2 && _whichtrigger <=5) passesTrigger = DiLeptrigger ==1 ;
   if ( _whichtrigger == 6) passesTrigger = TriLeptrigger == 1 && TriLeptriggerPath ;
   triggerBit = passesTrigger;
  

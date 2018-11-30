@@ -804,6 +804,7 @@ class EventContainer
     ////// ttH Variables
     Double_t metLD;
     Double_t mass_diele;
+    Double_t mass_dilep;
     Double_t massL;
     Double_t mht;
     Double_t mhtT;
