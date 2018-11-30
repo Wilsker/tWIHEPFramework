@@ -1157,12 +1157,12 @@ Int_t EventContainer::ReadEvent()
         }
      }
         //Jet matching 
-        for(auto jet: jets){
+        for(auto &jet: jets){
             Do_Jet_Match(jet, MCBJets, MCCJets, MCLightJets);
         }
     
         //Lep matching 
-        for(auto lep: fakeLeptons){
+        for(auto &lep: fakeLeptons){
             Do_Lepton_Match(lep, MCElectrons, MCMuons,MCPhotons);
         }
 
@@ -1866,7 +1866,8 @@ void EventContainer::Cal_dilep_mass(){
     */
 };
 // Jet matching
-void EventContainer::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets){
+void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets){
+    // MatchQuality: default: dpho; options: dr, dptrel
     double isFromH = -999.;
     double isFromTop = -999.;
     double matchId = -999.;
@@ -1926,6 +1927,9 @@ void EventContainer::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vect
         if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
         else isFromTop = 0;
     }
+    reco.SetisFromH(isFromH);
+    reco.SetisFromTop(isFromTop);
+    reco.SetmatchId(matchId);
     Jet25_isFromH.push_back(isFromH); 
     Jet25_isFromTop.push_back(isFromTop); 
     Jet25_matchId.push_back(matchId); 
@@ -1937,9 +1941,10 @@ void EventContainer::Do_Jet_Match(Jet reco, std::vector<MCJet>& BJets, std::vect
 };
     
 //Lepton matching
-void EventContainer::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons){
+void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons){
     MCParticle gen;
     double min_dpho =999.;
+    double min_dr =999.;
     double isFromH = -999.;
     double isFromB = -999.;
     double isFromC = -999.;
@@ -1950,11 +1955,12 @@ void EventContainer::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCEle
     for(auto MCEle: MCElectrons){
         if(MCEle.Status()!=1 || fabs(MCEle.PdgId())!= fabs(reco.pdgId()) || MCEle.Pt()<1.0)continue;
         double dr = reco.DeltaR(MCEle);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-MCEle.Pt())/MCEle.Pt());
-            if(dpho < min_dpho){
+        double dptrel = fabs((reco.Pt()-MCEle.Pt())/MCEle.Pt());
+        if(dr < 0.3 && dptrel < 0.5){
+            double dpho = dr + 0.2*dptrel;
+            if(dr < min_dr){
                 gen = MCEle;
-                min_dpho = dpho;
+                min_dr = dr;
                 ismatch = true;
             }
         }
@@ -1962,11 +1968,12 @@ void EventContainer::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCEle
     for(auto MCMu: MCMuons){
         if(MCMu.Status()!=1 || fabs(MCMu.PdgId())!= fabs(reco.pdgId()) || MCMu.Pt()<1.0)continue;
         double dr = reco.DeltaR(MCMu);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-MCMu.Pt())/MCMu.Pt());
-            if(dpho < min_dpho){
+        double dptrel = fabs((reco.Pt()-MCMu.Pt())/MCMu.Pt());
+        if(dr < 0.3 && dptrel < 0.5){
+            double dpho = dr + 0.2*dptrel;
+            if(dr < min_dr){
                 gen = MCMu;
-                min_dpho = dpho;
+                min_dr = dr;
                 ismatch = true;
             }
         }
@@ -1976,11 +1983,12 @@ void EventContainer::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCEle
         for(auto MCPhoton: MCPhotons){
             if(MCPhoton.Status()!=1 || MCPhoton.Pt()<1.0)continue;
             double dr = reco.DeltaR(MCPhoton);
-            if(dr < 0.3 && reco.Pt() > 0.3 * MCPhoton.Pt() && reco.Pt()< 1.5 * MCPhoton.Pt()){
-                double dpho = dr + 0.2*fabs((reco.Pt()-MCPhoton.Pt())/MCPhoton.Pt());
-                if(dpho < min_dpho){
+            double dptrel = fabs((reco.Pt()-MCPhoton.Pt())/MCPhoton.Pt());
+            if(dr < 0.3 && dptrel < 0.5){
+                double dpho = dr + 0.2*dptrel;
+                if(dr < min_dr){
                     gen = MCPhoton;
-                    min_dpho = dpho;
+                    min_dr = dr;
                     ismatch = true;
                 }
             }
@@ -2009,6 +2017,11 @@ void EventContainer::Do_Lepton_Match(Lepton reco, std::vector<MCElectron>& MCEle
             isFromB =0;
         }
     }
+    reco.SetisFromH(isFromH);
+    reco.SetisFromB(isFromB);
+    reco.SetisFromC(isFromC);
+    reco.SetisFromTop(isFromTop);
+    reco.SetmatchId(matchId);
     FakeLep_isFromB.push_back(isFromB); 
     FakeLep_isFromC.push_back(isFromC); 
     FakeLep_isFromH.push_back(isFromH); 

@@ -38,10 +38,11 @@ using namespace std;
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonMCRightCharge::CutLeptonMCRightCharge(EventContainer *EventContainerObj)
+CutLeptonMCRightCharge::CutLeptonMCRightCharge(EventContainer *EventContainerObj, Bool_t useMCRightCharge)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
+  _useMCRightCharge = useMCRightCharge;
 } // CutLeptonMCRightCharge
 
 
@@ -194,7 +195,7 @@ Bool_t CutLeptonMCRightCharge::Apply()
   cutFlowNameAllStream << " MCRightCharge ";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if (EventContainerObj->isSimulation && _LeptonMCRightCharge == 1 && LeptonPairMCRightCharge < 2){
+  if (EventContainerObj->isSimulation && _useMCRightCharge && _LeptonMCRightCharge == 1 && LeptonPairMCRightCharge < 2){
     LeptonMCRightChargePass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
@@ -206,8 +207,14 @@ Bool_t CutLeptonMCRightCharge::Apply()
   // ***********************************************
   // Return if it passes
   // ***********************************************
-  
-  return(LeptonMCRightChargePass);
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonMCRightChargePass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    //std::cout<< "in cut LeptonN always return true ";
+    return kTRUE;
+  }else{
+    return(LeptonMCRightChargePass);
+  }
  
 } //Apply
 

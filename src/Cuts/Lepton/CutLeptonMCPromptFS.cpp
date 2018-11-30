@@ -160,7 +160,6 @@ Bool_t CutLeptonMCPromptFS::Apply()
   // Get Number of Leptons and fill histograms
   // ***********************************************
  
-  if(!_useMCPromptFS)return kTRUE; 
   // Initialize number of leptons
   Float_t LeptonPairMCPromptFS    = 0;       
 
@@ -194,7 +193,7 @@ Bool_t CutLeptonMCPromptFS::Apply()
   cutFlowNameAllStream << " MCPromptFS ";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if (EventContainerObj->isSimulation && _LeptonMCPromptFS == 1 && LeptonPairMCPromptFS < 2){
+  if (EventContainerObj->isSimulation && _useMCPromptFS &&_LeptonMCPromptFS == 1 && LeptonPairMCPromptFS < 2){
     LeptonMCPromptFSPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
@@ -206,8 +205,15 @@ Bool_t CutLeptonMCPromptFS::Apply()
   // ***********************************************
   // Return if it passes
   // ***********************************************
+  if(EventContainerObj->_SaveCut ==1 ){
+    Double_t flag = LeptonMCPromptFSPass ? 1:0;
+    EventContainerObj->Flag_cuts.push_back(flag);
+    //std::cout<< "in cut LeptonN always return true ";
+    return kTRUE;
+  }else{
+    return(LeptonMCPromptFSPass);
+  }
   
-  return(LeptonMCPromptFSPass);
  
 } //Apply
 

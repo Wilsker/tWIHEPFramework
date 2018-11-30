@@ -43,7 +43,7 @@ class CutLeptonMCRightCharge : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutLeptonMCRightCharge(EventContainer *EventContainerObj);
+  CutLeptonMCRightCharge(EventContainer *EventContainerObj, Bool_t useMCRightCharge);
   
   // Destructor
   ~CutLeptonMCRightCharge();
@@ -65,6 +65,7 @@ private:
   myTH1F* _hLeptonMCRightChargeAfter;    // Histogram Lepton Number of jets after the cut
 
   Int_t _LeptonMCRightCharge;
+  Bool_t _useMCRightCharge;
 };
 
 
