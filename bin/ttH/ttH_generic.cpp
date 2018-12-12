@@ -337,7 +337,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
-  
+
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   /*
   if(!isTrainMVA){
@@ -370,14 +370,15 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
   //mystudy.AddCut(new CutHiggsDecay(particlesObj));
   
-  mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS)); // do not add this cut for conversions 
-  mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj, useMCRightCharge));// do not add this cut for MCPromptGamma
   
   //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
   //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
+
+  mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS, isTriLepton)); // do not add this cut for conversions 
+  mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj, useMCRightCharge, isTriLepton));// do not add this cut for MCPromptGamma
   
   mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
-  
+
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   /*
   mystudy.AddCut(new HistogrammingMET(particlesObj));

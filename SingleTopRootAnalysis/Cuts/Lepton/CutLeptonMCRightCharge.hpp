@@ -43,7 +43,7 @@ class CutLeptonMCRightCharge : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutLeptonMCRightCharge(EventContainer *EventContainerObj, Bool_t useMCRightCharge);
+  CutLeptonMCRightCharge(EventContainer *EventContainerObj, Bool_t useMCRightCharge, Bool_t isTriLep=false);
   
   // Destructor
   ~CutLeptonMCRightCharge();
@@ -66,6 +66,7 @@ private:
 
   Int_t _LeptonMCRightCharge;
   Bool_t _useMCRightCharge;
+  Bool_t _isTriLep;
 };
 
 
