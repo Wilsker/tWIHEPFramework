@@ -91,6 +91,8 @@ void CutLeptonTight::BookHistogram(){
   leptonNumber = "Dilepton";
   if(_Channel.Contains("TTHLep_3L")){
     leptonNumber = "Trilepton";
+  }else if(_Channel.Contains("TTHLep_4L")){
+    leptonNumber = "Qualepton";
   }
   
   std::ostringstream configNumTightMaxStream;
@@ -234,7 +236,8 @@ Bool_t CutLeptonTight::Apply()
 
   //Now work out the dilepton mass
   if(leptonNumber=="Dilepton" && leptonVector.size()>=2)SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel();
-  if(leptonNumber=="Trilepton" && leptonVector.size()>=3)SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel()+leptonVector[2].isMVASel();
+  else if(leptonNumber=="Trilepton" && leptonVector.size()>=3)SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel()+leptonVector[2].isMVASel();
+  else if(leptonNumber=="Qualepton" && leptonVector.size()>=4)SelectedLeptonsNumTight = leptonVector[0].isMVASel()+leptonVector[1].isMVASel()+leptonVector[2].isMVASel()+leptonVector[3].isMVASel();
 
   // Fill the histograms before the cuts
   _hLeptonTightBefore    -> Fill(SelectedLeptonsNumTight);

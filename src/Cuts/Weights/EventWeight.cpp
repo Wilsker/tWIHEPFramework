@@ -358,7 +358,7 @@ void EventWeight::BookHistogram()
   //Set up the lepton efficiency SF histograms
   if (_useLeptonSFs){
       if(_whichTrigger <=5 && _whichTrigger >=2) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFs2lFile","null"),conf->GetValue("LeptonID.MuonLooseToTight2lHistName","null"),conf->GetValue("Include.EleLooseToTightSFs2lFile","null"),conf->GetValue("LeptonID.EleLooseToTight2lHistName","null"));
-      else if(_whichTrigger ==6) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFs3lFile","null"),conf->GetValue("LeptonID.MuonLooseToTight3lHistName","null"),conf->GetValue("Include.EleLooseToTightSFs3lFile","null"),conf->GetValue("LeptonID.EleLooseToTight3lHistName","null"));
+      else if(_whichTrigger >=6) setLeptonHistograms(conf->GetValue("Include.MuonIDSFsFile","null"),conf->GetValue("LeptonID.MuonIDSFHistName","null"),conf->GetValue("Include.MuonISOSFsFile","null"),conf->GetValue("LeptonID.MuonIsoSFHistName","null"),conf->GetValue("Include.MuonTrigSFsFile","null"),conf->GetValue("LeptonID.MuonTrigSFHistName","null"),conf->GetValue("Include.MuonTKSFsFile","null"),conf->GetValue("Include.EleRecoFileName","null"),conf->GetValue("LeptonID.EleRecoHistName","null"),conf->GetValue("Include.EleIDFileName","null"),conf->GetValue("LeptonID.EleID_1_HistName","null"),conf->GetValue("LeptonID.EleID_2_HistName","null"),conf->GetValue("LeptonID.EleID_3_HistName","null"),conf->GetValue("Include.MuonLooseToTightSFs3lFile","null"),conf->GetValue("LeptonID.MuonLooseToTight3lHistName","null"),conf->GetValue("Include.EleLooseToTightSFs3lFile","null"),conf->GetValue("LeptonID.EleLooseToTight3lHistName","null"));
       else { std::cout << "You want leptonSFs included in the weight but you haven't specified correct trigger type for this! Fix your config!" << std::endl;}
   }
   //Set up the lepton charge mismeasurement histograms
@@ -804,7 +804,7 @@ std::tuple<Double_t,Double_t, Double_t, Double_t, Double_t,Double_t,Double_t,Dou
   Double_t eletightWeight = 1.0, eletightWeightUp = 1.0, eletightWeightDown = 1.0;
   Double_t mulooseWeight = 1.0, mulooseWeightUp = 1.0, mulooseWeightDown = 1.0;
   Double_t mutightWeight = 1.0, mutightWeightUp = 1.0, mutightWeightDown = 1.0;
-  if(_whichTrigger <=6 && _whichTrigger >=2 ){//if it is ttH category
+  if(_whichTrigger <=7 && _whichTrigger >=2 ){//if it is ttH category
     for(auto const & lep: *EventContainerObj->leptonsToUsePtr){
         Float_t _L1_SF = 1.0, _L1_SFUnc =0.;//iso; id1
         Float_t _L2_SF = 1.0, _L2_SFUnc =0.;//id; id2
@@ -1219,6 +1219,73 @@ Double_t EventWeight::getFakeRateWeight(EventContainer* EventContainerObj, std::
       //std::cout << EventContainerObj->eventNumber <<" "<< lep1.conept()<< " " << lep1.Eta()<< " " << lep1.pdgId() << " "<< FakeRateWeight1<<" "<< lep2.conept()<< " " << lep2.Eta()<< " " << lep2.pdgId() <<" " << FakeRateWeight2 <<FakeRateWeight <<"  " << FakeRateWeightUp << "  " <<FakeRateWeightDown << std::endl;
       return FakeRateWeight;
   }
+  else if(_whichTrigger ==7 ){//if it is ttH 4l category
+      if(EventContainerObj->fakeleptonsVetoPtr->size()<4) return FakeRateWeight;
+      Lepton lep1 =  EventContainerObj->fakeleptonsVetoPtr->at(0);
+      Lepton lep2 =  EventContainerObj->fakeleptonsVetoPtr->at(1);
+      Lepton lep3 =  EventContainerObj->fakeleptonsVetoPtr->at(2);
+      Lepton lep4 =  EventContainerObj->fakeleptonsVetoPtr->at(3);
+      if(lep1.isMVASel()==1 && lep2.isMVASel()==1 && lep3.isMVASel()==1 && lep4.isMVASel()==1) return FakeRateWeight;
+      int xAxisBin1 = 0, yAxisBin1 = 0, xAxisBin2 = 0, yAxisBin2 = 0, xAxisBin3 = 0, yAxisBin3 = 0, xAxisBin4 = 0, yAxisBin4 = 0;
+      Double_t FakeRateWeight1 = 0., FakeRateWeight2 = 0.,  FakeRateWeight3 = 0., FakeRateWeight4 =0.;
+      //Get the bin and fake rate for each lepton
+      if(lep1.isMVASel()==1){
+        // choose fr so that fr/(1-fr)==1
+        FakeRateWeight1 = 0.5;
+      }else if(fabs(lep1.pdgId())==13){
+        xAxisBin1  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsX(), _MuonFakeRate[muSystName]->GetXaxis()->FindBin(lep1.conept())));
+        yAxisBin1  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsY(), _MuonFakeRate[muSystName]->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
+        FakeRateWeight1 = _MuonFakeRate[muSystName]->GetBinContent(xAxisBin1,yAxisBin1);
+      }else{
+        xAxisBin1  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsX(), _ElectronFakeRate[eleSystName]->GetXaxis()->FindBin(lep1.conept())));
+        yAxisBin1  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsY(), _ElectronFakeRate[eleSystName]->GetYaxis()->FindBin(std::fabs(lep1.Eta()))));
+        FakeRateWeight1 = _ElectronFakeRate[eleSystName]->GetBinContent(xAxisBin1,yAxisBin1);
+      }
+      if(lep2.isMVASel()==1){
+        // choose fr so that fr/(1-fr)==1
+        FakeRateWeight2 = 0.5;
+      }else if(fabs(lep2.pdgId())==13){
+        xAxisBin2  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsX(), _MuonFakeRate[muSystName]->GetXaxis()->FindBin(lep2.conept())));
+        yAxisBin2  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsY(), _MuonFakeRate[muSystName]->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
+        FakeRateWeight2 = _MuonFakeRate[muSystName]->GetBinContent(xAxisBin2,yAxisBin2);
+      }else{
+        xAxisBin2  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsX(), _ElectronFakeRate[eleSystName]->GetXaxis()->FindBin(lep2.conept())));
+        yAxisBin2  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsY(), _ElectronFakeRate[eleSystName]->GetYaxis()->FindBin(std::fabs(lep2.Eta()))));
+        FakeRateWeight2 = _ElectronFakeRate[eleSystName]->GetBinContent(xAxisBin2,yAxisBin2);
+      }
+      if(lep3.isMVASel()==1){
+        // choose fr so that fr/(1-fr)==1
+        FakeRateWeight3 = 0.5;
+      }else if(fabs(lep3.pdgId())==13){
+        xAxisBin3  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsX(), _MuonFakeRate[muSystName]->GetXaxis()->FindBin(lep3.conept())));
+        yAxisBin3  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsY(), _MuonFakeRate[muSystName]->GetYaxis()->FindBin(std::fabs(lep3.Eta()))));
+        FakeRateWeight3 = _MuonFakeRate[muSystName]->GetBinContent(xAxisBin3,yAxisBin3);
+      }else{
+        xAxisBin3  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsX(), _ElectronFakeRate[eleSystName]->GetXaxis()->FindBin(lep3.conept())));
+        yAxisBin3  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsY(), _ElectronFakeRate[eleSystName]->GetYaxis()->FindBin(std::fabs(lep3.Eta()))));
+        FakeRateWeight3 = _ElectronFakeRate[eleSystName]->GetBinContent(xAxisBin3,yAxisBin3);
+      }
+      if(lep4.isMVASel()==1){
+        // choose fr so that fr/(1-fr)==1
+        FakeRateWeight4 = 0.5;
+      }else if(fabs(lep4.pdgId())==13){
+        xAxisBin4  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsX(), _MuonFakeRate[muSystName]->GetXaxis()->FindBin(lep4.conept())));
+        yAxisBin4  = std::max(1, std::min(_MuonFakeRate[muSystName]->GetNbinsY(), _MuonFakeRate[muSystName]->GetYaxis()->FindBin(std::fabs(lep4.Eta()))));
+        FakeRateWeight4 = _MuonFakeRate[muSystName]->GetBinContent(xAxisBin4,yAxisBin4);
+      }else{
+        xAxisBin4  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsX(), _ElectronFakeRate[eleSystName]->GetXaxis()->FindBin(lep4.conept())));
+        yAxisBin4  = std::max(1, std::min(_ElectronFakeRate[eleSystName]->GetNbinsY(), _ElectronFakeRate[eleSystName]->GetYaxis()->FindBin(std::fabs(lep4.Eta()))));
+        FakeRateWeight4 = _ElectronFakeRate[eleSystName]->GetBinContent(xAxisBin4,yAxisBin4);
+      }
+      //And now get the Event Weights/uncs
+      //And now get the Event Weights/uncs
+      FakeRateWeight = (FakeRateWeight1/(1-FakeRateWeight1))*(FakeRateWeight2/(1-FakeRateWeight2))*(FakeRateWeight3/(1-FakeRateWeight3))*(FakeRateWeight4/(1-FakeRateWeight4));
+      if(((lep1.isMVASel()==0 + lep2.isMVASel()==0 + lep3.isMVASel()==0 + lep4.isMVASel())%2) == 0){
+          FakeRateWeight *= -1;
+      }
+      //std::cout << EventContainerObj->eventNumber <<" "<< lep1.conept()<< " " << lep1.Eta()<< " " << lep1.pdgId() << " "<< FakeRateWeight1<<" "<< lep2.conept()<< " " << lep2.Eta()<< " " << lep2.pdgId() <<" " << FakeRateWeight2 <<FakeRateWeight <<"  " << FakeRateWeightUp << "  " <<FakeRateWeightDown << std::endl;
+      return FakeRateWeight;
+  }
   else return FakeRateWeight;
 }
 
@@ -1276,7 +1343,7 @@ std::tuple<Double_t,Double_t,Double_t> EventWeight::getTriggerWeight(EventContai
             TriggerWeightDown = 1.0 - 0.001;
         }
     }
-  }else if(_whichTrigger==6){//3l
+  }else if(_whichTrigger==6 || _whichTrigger==7){//4l
       TriggerWeight = 1.00; 
       TriggerWeightUp = 1.05;
       TriggerWeightDown = 0.95;

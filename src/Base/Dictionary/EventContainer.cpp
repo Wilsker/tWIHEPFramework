@@ -1607,7 +1607,7 @@ void EventContainer::set_TTHFlags(){
     TTHLep_2Ele = Trig_1Ele ==1 || Trig_2Ele==1 ? 1:0;
     TTHLep_MuEle = Trig_1Mu ==1 || Trig_1Ele ==1 || Trig_1Mu1Ele==1 ? 1:0;
     TTHLep_2L = TTHLep_MuEle ==1 || TTHLep_2Mu ==1 || TTHLep_2Ele ==1 ? 1:0;
-    TTHLep_3L = TTHLep_2L==1 || Trig_1Mu1Ele==1 || Trig_1Mu2Ele==1 || Trig_2Mu1Ele ==1 ? 1:0;
+    TTHLep_3L = TTHLep_2L==1 || Trig_1Mu1Ele==1 || Trig_1Mu2Ele==1 || Trig_2Mu1Ele ==1 || Trig_1Mu ==1 || Trig_1Ele ==1 ? 1:0;
     /*
     if( _eventTree -> HLT_Ele32_WPTight_Gsf==1 || _eventTree -> HLT_Ele35_WPTight_Gsf ==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 || _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 )TTHLep_2Ele=1;
     else TTHLep_2Ele=0;

@@ -186,8 +186,6 @@ Bool_t CutLeptonMCRightCharge::Apply()
     LeptonPairMCRightCharge = leptonMatchId[0]==leptonPdgId[0]? 1:0;
   }else if(leptonN>=2 && !_isTriLep){
     LeptonPairMCRightCharge = (leptonMatchId[0]==leptonPdgId[0]? 1:0) + (leptonMatchId[1]==leptonPdgId[1]? 1:0);
-  }else if(leptonN>=3 && _isTriLep){
-    LeptonPairMCRightCharge = (leptonMatchId[0]==leptonPdgId[0]? 1:0) + (leptonMatchId[1]==leptonPdgId[1]? 1:0) + (leptonMatchId[2]==leptonPdgId[2]? 1:0);
   }
 
   // Fill the histograms before the cuts
@@ -206,9 +204,6 @@ Bool_t CutLeptonMCRightCharge::Apply()
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
   if (EventContainerObj->isSimulation && _useMCRightCharge && _LeptonMCRightCharge == 1 && LeptonPairMCRightCharge < 2 && !_isTriLep){
-    LeptonMCRightChargePass = kFALSE;
-    GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
-  }else if (EventContainerObj->isSimulation && _useMCRightCharge && _LeptonMCRightCharge == 1 && LeptonPairMCRightCharge < 3 && _isTriLep){
     LeptonMCRightChargePass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }else{

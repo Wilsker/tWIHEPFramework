@@ -43,7 +43,7 @@ class CutLeptonSumCharge : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutLeptonSumCharge(EventContainer *EventContainerObj, TString leptonType);
+  CutLeptonSumCharge(EventContainer *EventContainerObj, TString leptonType, Int_t whichTrig);
   
   // Destructor
   ~CutLeptonSumCharge();
@@ -66,6 +66,8 @@ private:
 
   // Sum of lepton charges ?
   Int_t _LeptonSumCharge;	  //  0: Sum of lepton charges is 1 or -1
+  
+  Int_t _whichTrig; // 6: 3L; 7 :4L
 
   // Lepton Type (veto, tight, unIsolated)
   TString leptonType;

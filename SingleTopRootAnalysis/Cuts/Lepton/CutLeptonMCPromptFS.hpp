@@ -43,7 +43,7 @@ class CutLeptonMCPromptFS : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutLeptonMCPromptFS(EventContainer *EventContainerObj, Bool_t useMCPromptFS, Bool_t isTriLep=false);
+  CutLeptonMCPromptFS(EventContainer *EventContainerObj, Bool_t useMCPromptFS, Bool_t isTriLep=false, Bool_t isQuaLep=false);
   
   // Destructor
   ~CutLeptonMCPromptFS();
@@ -67,6 +67,7 @@ private:
   Int_t _LeptonMCPromptFS;
   Bool_t _useMCPromptFS;
   Bool_t _isTriLep;
+  Bool_t _isQuaLep;
 };
 
 
