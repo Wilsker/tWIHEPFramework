@@ -85,11 +85,13 @@ void CutTriggerSelection::BookHistogram(){
   else if (triggerConfig == "TTHLep_MuEle")_whichtrigger =4;
   else if (triggerConfig == "TTHLep_2L")_whichtrigger =5;
   else if (triggerConfig == "TTHLep_3L")_whichtrigger =6;
+  else if (triggerConfig == "TTHLep_4L")_whichtrigger =7;
   if (_whichtrigger == 2) _triggerChannel = "TTHLep_2Mu";
   else if (_whichtrigger == 3) _triggerChannel = "TTHLep_2Ele";
   else if (_whichtrigger == 4) _triggerChannel = "TTHLep_MuEle";
   else if (_whichtrigger == 5) _triggerChannel = "TTHLep_2L";
   else if (_whichtrigger == 6) _triggerChannel = "TTHLep_3L";
+  else if (_whichtrigger == 7) _triggerChannel = "TTHLep_4L";
 
   // Histogram Before Cut
   std::ostringstream histNameBeforeStream;
@@ -158,6 +160,20 @@ Bool_t CutTriggerSelection::Apply()
   EventTree *EventContainerObj = GetEventContainer()->GetEventTree();
   EventContainer *ContainerObj = GetEventContainer();
   Int_t selectedChannel = -1;
+  Int_t nEle =0;
+  Int_t nMu =0;
+  std::vector<Lepton> fakeLeptons;
+  fakeLeptons.assign(ContainerObj -> fakeLeptons.begin(), ContainerObj -> fakeLeptons.end());
+  for(uint lep_en=0;lep_en<fakeLeptons.size();lep_en++){
+    Lepton curr_lep = fakeLeptons.at(lep_en);
+    if(TMath::Abs(curr_lep.pdgId())==13){
+        nMu++;
+    }else{
+        nEle++;
+    }
+  }
+
+
   if(ContainerObj -> fakeLeptons.size()>=2){
     if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==22)selectedChannel =3; //isEE
     if(fabs(ContainerObj -> fakeLeptons.at(0).pdgId())+fabs(ContainerObj -> fakeLeptons.at(1).pdgId())==24)selectedChannel =4; //isEM
@@ -182,6 +198,7 @@ Bool_t CutTriggerSelection::Apply()
   Int_t TriLeptrigger = 0;
   Int_t DiLeptrigger = 0;
   Bool_t TriLeptriggerPath = kTRUE;
+  Bool_t DiLeptriggerPath = kTRUE;
 
   
   Int_t electronTrigger = 0; //I seem to have messed up the electron trigger?
@@ -273,6 +290,10 @@ Bool_t CutTriggerSelection::Apply()
   }
   */
   if (_whichtrigger >=2 && _whichtrigger <=5 ){
+    DiLeptriggerPath ==(
+        (nEle >= 2 &&  ( ContainerObj->Trig_2Ele==1 || ContainerObj->Trig_1Ele ==1 )) ||
+        (nEle >= 1 && nMu >=1 &&  (ContainerObj->Trig_1Mu1Ele==1 || ContainerObj->Trig_1Ele ==1 || ContainerObj->Trig_1Mu ==1 )) ||
+        (nMu >= 2 &&  (ContainerObj->Trig_2Mu==1 || ContainerObj->Trig_1Mu ==1 )));
     if(SampleType == 4000 || SampleType == 4001){
         if(ContainerObj->Trig_2Ele==1) DiLeptrigger =1;
     }else if(SampleType == 3000 || SampleType == 3001){
@@ -287,7 +308,12 @@ Bool_t CutTriggerSelection::Apply()
         DiLeptrigger = ContainerObj->TTHLep_2L;
     }
   }
-  if (_whichtrigger ==6 ){
+  if (_whichtrigger ==6  || _whichtrigger==7){
+    TriLeptriggerPath ==(
+        (nEle >= 3 &&  ( ContainerObj->Trig_3Ele==1 || ContainerObj->Trig_2Ele==1 || ContainerObj->Trig_1Ele ==1 )) ||
+        (nEle >= 2 && nMu >=1 &&  (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_1Mu2Ele==1 )) ||
+        (nEle >= 1 && nMu >=2 &&  (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_2Mu1Ele==1 )) ||
+        (nMu >= 3 &&  (ContainerObj->TTHLep_2Mu==1 || ContainerObj->Trig_3Mu==1  )));
     /*
     TriLeptriggerPath = ( (selectedChannel == 61 && (ContainerObj->TTHLep_2Ele==1 || ContainerObj->Trig_3Ele==1 ))
      || (selectedChannel == 62 && (ContainerObj->TTHLep_MuEle==1 || ContainerObj->Trig_1Mu2Ele==1 ))
@@ -310,14 +336,15 @@ Bool_t CutTriggerSelection::Apply()
   }
   if (_whichtrigger == 0) passesTrigger = electronTrigger != 0. and muonTrigger == 0;
   if (_whichtrigger == 1) passesTrigger = electronTrigger == 0. and muonTrigger != 0;
+  
   /*
   if ( _whichtrigger == 2) passesTrigger = MMtrigger == 1;
   if ( _whichtrigger == 3) passesTrigger = EEtrigger == 1;
   if ( _whichtrigger == 4) passesTrigger = EMtrigger == 1;
   if ( _whichtrigger == 5) passesTrigger = MMtrigger == 1 || EEtrigger == 1 || EMtrigger == 1;
   */
-  if ( _whichtrigger >=2 && _whichtrigger <=5) passesTrigger = DiLeptrigger ==1 ;
-  if ( _whichtrigger == 6) passesTrigger = TriLeptrigger == 1 && TriLeptriggerPath ;
+  if ( _whichtrigger >=2 && _whichtrigger <=5) passesTrigger = DiLeptrigger ==1 && DiLeptriggerPath ;
+  if ( _whichtrigger == 6 || _whichtrigger == 7) passesTrigger = TriLeptrigger == 1 && TriLeptriggerPath ;
   triggerBit = passesTrigger;
  
   

@@ -729,9 +729,9 @@ void Lepton::set_lepMVAreader(TEnv* config)
  * Output: lepton MVA value                                     *
  * **************************************************************/
  
-double Lepton::get_LeptonMVA()
+double Lepton::get_LeptonMVA(int EventNumber)
 {
-    varpt = Pt();
+    varpt = unCorrPt();
     vareta = Eta();
     varchRelIso = miniIsoCh(); // It's already setted to be miniIsoCh/Pt
     varneuRelIso = miniIsoPUsub(); // It's already setted to be miniIsoPUsub/Pt
@@ -744,6 +744,9 @@ double Lepton::get_LeptonMVA()
     vardz =  log(TMath::Abs(dz())); 
     varSegCompat = segmentCompatibility(); 
     varmvaId = mvaValue_nonTrig();
+    if(EventNumber == 13579661 ){
+        std::cout << " varpt "<< varpt<< " vareta "<< vareta << " varchRelIso " << varchRelIso << " varneuRelIso " << varneuRelIso << " varjetPtRel " << varjetPtRel_in <<" varjetptRatio_in"<< varjetPtRatio_in <<" varjetBTagCSV_in " << varjetBTagCSV_in << " varjetNDauCharged_in " << varjetNDauCharged_in  <<" varsip3d "<< varsip3d << " vardxy "<< vardxy << " vardz " << vardz<<" varSegCompa "<< varSegCompat << " varmvaId "<< varmvaId << std::endl;
+    }
     if( TMath::Abs(pdgId()) == 13) return mu_reader_->EvaluateMVA("BDTG method");
     else if( TMath::Abs(pdgId()) == 11) return ele_reader_->EvaluateMVA("BDTG method");
     else{
@@ -805,6 +808,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     Setchi2		(evtr -> Muon_chi2   		-> operator[](iE));
     Setdxy		(evtr -> Muon_dxy_bt   		-> operator[](iE));
     Setdz			(evtr -> Muon_dz_bt   		-> operator[](iE));
+    SetunCorrPt			(evtr -> Muon_pt   		-> operator[](iE));
     //std::cout << "Debug: <Lepton::Fill()>  Read Muon from Tree : Just after Muon_dz Fill " << std::endl;
     SetvalidHits		(evtr -> Muon_validHits   	-> operator[](iE));
     SetvalidHitsInner	(evtr -> Muon_validHitsInner   	-> operator[](iE));
@@ -895,6 +899,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetpdgId       (evtr -> patElectron_pdgId      -> operator[](iE));
     Setdxy       (evtr -> patElectron_gsfTrack_dxy_pv      -> operator[](iE));
     Setdz       (evtr -> patElectron_gsfTrack_dz_pv      -> operator[](iE));
+    SetunCorrPt       (evtr -> patElectron_pt      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just after Electron_dz Fill " << std::endl;
     Setjetptratio       (evtr -> patElectron_jetptratio      -> operator[](iE));
     SetrelIsoR04		(evtr -> patElectron_relIsoDeltaBeta-> operator[](iE));
@@ -1091,7 +1096,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   */
   Bool_t isMedium = TMath::Abs(pdgId())==11 || passMediumId();
   // calculate lepton BDT
-  SetBDT(get_LeptonMVA());
+  SetBDT(get_LeptonMVA(eventNumber));
   /*
   if(eventNumber == 13579745){
     std::cout << " nEvent " <<eventNumber << " LepGood_pt "<<  varpt << " LepGood_eta " << vareta << " LepGood_jetNDauChargedMVASel "<< varjetNDauCharged_in << " LepGood_miniRelIsoCharged "<< varchRelIso << " LepGood_miniRelIsoNeutral "<< varneuRelIso << " LepGood_jetPtRelv2 "<< varjetPtRel_in << " LepGood_jetBTagCSV " << varjetBTagCSV_in << " LepGood_jetPtRatiov2 " << varjetPtRatio_in << " LepGood_sip3d "<< varsip3d << " LepGood_dxy " << vardxy << " LepGood_dz " << vardz<< " LepGood_mvaIdFall17noIso "<< varmvaId << " LepGood_segmentCompatibility "<< varSegCompat << " output MVA "<< BDT() <<std::endl; 

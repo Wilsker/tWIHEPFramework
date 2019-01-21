@@ -164,9 +164,9 @@ Bool_t CutMetLD::Apply()
   if(leptonVector.size()>=2 && fabs(leptonVector[0].pdgId())==11 && fabs(leptonVector[1].pdgId())==11)isEE = kTRUE;
   
   // find SFOS leptons
-  for(uint lep1_en; lep1_en<leptonVector.size(); lep1_en++){
+  for(uint lep1_en=0; lep1_en<leptonVector.size(); lep1_en++){
     Double_t lep1_pdg = leptonVector[lep1_en].pdgId();
-    for(uint lep2_en; lep2_en<leptonVector.size(); lep2_en++){
+    for(uint lep2_en=lep1_en+1; lep2_en<leptonVector.size(); lep2_en++){
         Double_t lep2_pdg = leptonVector[lep2_en].pdgId();
         if((lep1_pdg+lep2_pdg)==0){
             isSFOS = kTRUE;

@@ -212,6 +212,10 @@ public:
   inline Double_t Getdz() const {return _dz;};
   inline Double_t dz() const {return _dz;};
 
+  inline void SetunCorrPt(Double_t unCorrPt){_unCorrPt = unCorrPt;};
+  inline Double_t GetunCorrPt() const {return _unCorrPt;};
+  inline Double_t unCorrPt() const {return _unCorrPt;};
+
   inline void SetTLayers(Double_t TLayers){_TLayers = TLayers;};
   inline Double_t GetTLayers() const {return _TLayers;};
   inline Double_t TLayers() const {return _TLayers;};
@@ -496,6 +500,7 @@ private:
   Double_t _matchedStat;
   Double_t _dxy;
   Double_t _dz;
+  Double_t _unCorrPt;
   Double_t _TLayers;
   Double_t _relIsoR04;
   Double_t _ndof;
@@ -598,7 +603,7 @@ private:
     Float_t vardxy;
     Float_t vardz;
     Float_t varSegCompat;
-    double get_LeptonMVA(); 
+    double get_LeptonMVA(int EventNumber); 
 
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system

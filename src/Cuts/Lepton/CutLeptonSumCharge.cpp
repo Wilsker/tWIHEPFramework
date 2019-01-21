@@ -38,7 +38,7 @@ using namespace std;
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonSumCharge::CutLeptonSumCharge(EventContainer *EventContainerObj, TString leptonTypePassed)
+CutLeptonSumCharge::CutLeptonSumCharge(EventContainer *EventContainerObj, TString leptonTypePassed, Int_t whichTrig)
 {
   // Check leptonType parameter
   if( leptonTypePassed.CompareTo("All") && leptonTypePassed.CompareTo("UnIsolated") && leptonTypePassed.CompareTo("Isolated") && 
@@ -50,6 +50,12 @@ CutLeptonSumCharge::CutLeptonSumCharge(EventContainer *EventContainerObj, TStrin
     exit(8);
   } //if
   leptonType = leptonTypePassed;
+  _whichTrig = whichTrig;
+  if(_whichTrig < 6){
+    std::cout << "ERROR " << "<CutLeptonSumCharge::CutLeptonSumCharge()> " 
+	      << "Must pass whichTrig 6 or 7 to constructor" << std::endl;
+    exit(8);
+  }
 
   // Set Event Container
   SetEventContainer(EventContainerObj);
@@ -84,37 +90,66 @@ void CutLeptonSumCharge::BookHistogram(){
   // ***********************************************  
 
   // Histogram Before Cut
+ 
   std::ostringstream histNameBeforeStream;
-  histNameBeforeStream << leptonType << "TrileptonSumChargeBefore";
+  if(_whichTrig==6){
+    histNameBeforeStream << leptonType << "TrileptonSumChargeBefore";
+  }else if(_whichTrig==7){
+    histNameBeforeStream << leptonType << "QualeptonSumChargeBefore";
+  }
   TString histNameBefore = histNameBeforeStream.str().c_str();
 
   std::ostringstream histTitleBeforeStream;
-  histTitleBeforeStream << leptonType << "Trilepton SumCharge Before Cut";
+  if(_whichTrig==6){
+    histTitleBeforeStream << leptonType << "Trilepton SumCharge Before Cut";
+  }else if(_whichTrig==7){
+    histTitleBeforeStream << leptonType << "Qualepton SumCharge Before Cut";
+  }
   TString histTitleBefore = histTitleBeforeStream.str().c_str();
 
   // Histogram After Cut
   std::ostringstream histNameAfterStream;
-  histNameAfterStream << leptonType << "TrileptonSumChargeAfter";
+  if(_whichTrig==6){
+    histNameAfterStream << leptonType << "TrileptonSumChargeAfter";
+  }else if(_whichTrig==7){
+    histNameAfterStream << leptonType << "QualeptonSumChargeAfter";
+  }  
   TString histNameAfter = histNameAfterStream.str().c_str();
 
   std::ostringstream histTitleAfterStream;
-  histTitleAfterStream << leptonType << "Trilepton SumCharge After Cut";
+  if(_whichTrig==6){
+    histTitleAfterStream << leptonType << "Trilepton SumCharge After Cut";
+  }else if(_whichTrig==7){
+    histTitleAfterStream << leptonType << "Qualepton SumCharge After Cut";
+  }
   TString histTitleAfter = histTitleAfterStream.str().c_str();
 
   // ***********************************************
   // Book Histograms
   // ***********************************************  
 
+  if(_whichTrig==6){
   // Histogram before cut
-  _hLeptonSumChargeBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -1.5, 1.5);
-  _hLeptonSumChargeBefore -> SetXAxisTitle("Trilepton charge");
-  _hLeptonSumChargeBefore -> SetYAxisTitle("Events");
+    _hLeptonSumChargeBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -1.5, 1.5);
+    _hLeptonSumChargeBefore -> SetXAxisTitle("Trilepton charge");
+    _hLeptonSumChargeBefore -> SetYAxisTitle("Events");
 
   // Histogram after cut
-  _hLeptonSumChargeAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -1.5, 1.5);
-  _hLeptonSumChargeAfter -> SetXAxisTitle("Trilepton charge");
-  _hLeptonSumChargeAfter -> SetYAxisTitle("Events");
+    _hLeptonSumChargeAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -1.5, 1.5);
+    _hLeptonSumChargeAfter -> SetXAxisTitle("Trilepton charge");
+    _hLeptonSumChargeAfter -> SetYAxisTitle("Events");
+  }else if(_whichTrig==7){
+  // Histogram before cut
+    _hLeptonSumChargeBefore =  DeclareTH1F(histNameBefore.Data(), histTitleBefore.Data(), 3, -1.5, 1.5);
+    _hLeptonSumChargeBefore -> SetXAxisTitle("Qualepton charge");
+    _hLeptonSumChargeBefore -> SetYAxisTitle("Events");
 
+  // Histogram after cut
+    _hLeptonSumChargeAfter =  DeclareTH1F(histNameAfter.Data(), histTitleAfter.Data(), 3, -1.5, 1.5);
+    _hLeptonSumChargeAfter -> SetXAxisTitle("Qualepton charge");
+    _hLeptonSumChargeAfter -> SetYAxisTitle("Events");
+  }
+  
   // ***********************************************
   // Get cuts from configuration file
   // ***********************************************  
@@ -124,7 +159,11 @@ void CutLeptonSumCharge::BookHistogram(){
   TEnv *config = EventContainerObj -> GetConfig();
 
   std::ostringstream configSumChargeStream;
-  configSumChargeStream << "Cut.Trilepton." << leptonType.Data() << ".SumCharge";
+  if(_whichTrig==6){
+    configSumChargeStream << "Cut.Trilepton." << leptonType.Data() << ".SumCharge";
+  }else if(_whichTrig==7){
+    configSumChargeStream << "Cut.Qualepton." << leptonType.Data() << ".SumCharge";
+  }
   TString configSumCharge = configSumChargeStream.str().c_str();
 
   //
@@ -141,15 +180,24 @@ void CutLeptonSumCharge::BookHistogram(){
 
   // Min + Max cut
   cutFlowTitleStream.str("");
-  if(_LeptonSumCharge !=0 ){
-   cutFlowTitleStream << leptonType.Data() << " Trilepton : " << _LeptonSumCharge ;
-  }else{
-   cutFlowTitleStream << leptonType.Data() << " Trilepton : " << " Sum of Charge 1 or -1 ";
+  
+  if(_whichTrig==6){
+    if(_LeptonSumCharge !=0 ){
+        cutFlowTitleStream << leptonType.Data() << " Trilepton : " << _LeptonSumCharge ;
+    }else{
+        cutFlowTitleStream << leptonType.Data() << " Trilepton : " << " Sum of Charge 1 or -1 ";
+    }
+  }else if(_whichTrig==7){
+    cutFlowTitleStream << leptonType.Data() << " Qualepton : " << _LeptonSumCharge ;
   }
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream.str("");
-  cutFlowNameStream << leptonType.Data() << "Trilepton.SumCharge.All";
+  if(_whichTrig==6){
+    cutFlowNameStream << leptonType.Data() << "Trilepton.SumCharge.All";
+  }else if(_whichTrig==7){
+    cutFlowNameStream << leptonType.Data() << "Qualepton.SumCharge.All";
+  }
   cutFlowName = cutFlowNameStream.str().c_str();
 
   GetCutFlowTable()->AddCutToFlow(cutFlowName, cutFlowTitle);
@@ -223,7 +271,8 @@ Bool_t CutLeptonSumCharge::Apply()
     exit(8);
   } //else                                                                                                          
 
-  if("TTHFake" == leptonType ) LeptonTripleSumCharge = leptonVector[0].charge()+leptonVector[1].charge()+leptonVector[2].charge();
+  if("TTHFake" == leptonType && _whichTrig==6 ) LeptonTripleSumCharge = leptonVector[0].charge()+leptonVector[1].charge()+leptonVector[2].charge();
+  if("TTHFake" == leptonType && _whichTrig==7 ) LeptonTripleSumCharge = leptonVector[0].charge()+leptonVector[1].charge()+leptonVector[2].charge()+leptonVector[3].charge();
 
   // Fill the histograms before the cuts
   _hLeptonSumChargeBefore    -> Fill(LeptonTripleSumCharge);
@@ -237,16 +286,31 @@ Bool_t CutLeptonSumCharge::Apply()
   
   TString cutFlowNameAll;
   
-  cutFlowNameAllStream << leptonType.Data() << "Trilepton.SumCharge.All";
+  if(_whichTrig==6){
+    cutFlowNameAllStream << leptonType.Data() << "Trilepton.SumCharge.All";
+  }else if(_whichTrig==7){
+    cutFlowNameAllStream << leptonType.Data() << "Qualepton.SumCharge.All";
+  } 
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if ( (_LeptonSumCharge!=0 && LeptonTripleSumCharge != _LeptonSumCharge) || (_LeptonSumCharge==0 && abs(LeptonTripleSumCharge) != 1)){
-    LeptonSumChargePass = kFALSE;
-    GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
-  }
-  else{
-    GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
-    _hLeptonSumChargeAfter -> Fill(LeptonTripleSumCharge);
+  if(_whichTrig==6){
+    if ( (_LeptonSumCharge!=0 && LeptonTripleSumCharge != _LeptonSumCharge) || (_LeptonSumCharge==0 && abs(LeptonTripleSumCharge) != 1)){
+        LeptonSumChargePass = kFALSE;
+        GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
+    }
+    else{
+        GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
+        _hLeptonSumChargeAfter -> Fill(LeptonTripleSumCharge);
+    }
+  }else if(_whichTrig==7){
+    if (LeptonTripleSumCharge != _LeptonSumCharge){
+        LeptonSumChargePass = kFALSE;
+        GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
+    }
+    else{
+        GetCutFlowTable()->PassCut(cutFlowNameAll.Data());
+        _hLeptonSumChargeAfter -> Fill(LeptonTripleSumCharge);
+    }
   }
 
   // ***********************************************

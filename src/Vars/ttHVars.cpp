@@ -881,7 +881,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
    
    SourceNumber = evtObj->GetSourceNumber();
    
-   for(uint lep_en;lep_en<looseLeptons.size();lep_en++){
+   for(uint lep_en=0;lep_en<looseLeptons.size();lep_en++){
     Lepton curr_lep = looseLeptons.at(lep_en);
     if(TMath::Abs(curr_lep.pdgId())==13){
         looseMuons.push_back(curr_lep);

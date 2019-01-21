@@ -38,11 +38,13 @@ using namespace std;
  * Input:  Event Object class                                                    *
  * Output: None                                                                  *
  ******************************************************************************/
-CutLeptonMCPromptFS::CutLeptonMCPromptFS(EventContainer *EventContainerObj, Bool_t useMCPromptFS)
+CutLeptonMCPromptFS::CutLeptonMCPromptFS(EventContainer *EventContainerObj, Bool_t useMCPromptFS, Bool_t isTriLep, Bool_t isQuaLep)
 {
   // Set Event Container
   SetEventContainer(EventContainerObj);
   _useMCPromptFS = useMCPromptFS;
+  _isTriLep = isTriLep;
+  _isQuaLep = isQuaLep;
 } // CutLeptonMCPromptFS
 
 
@@ -176,7 +178,18 @@ Bool_t CutLeptonMCPromptFS::Apply()
   leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
 
   //Now work out the dilepton mass
-  LeptonPairMCPromptFS = (leptonVector[0].gen_isPrompt()==1 || leptonVector[0].gen_isPromptTau()==1) + (leptonVector[1].gen_isPrompt()==1 || leptonVector[1].gen_isPromptTau()==1) ;
+  Int_t leptonN = leptonVector.size();
+  if(leptonN==0){
+    LeptonPairMCPromptFS = 0;
+  }else if(leptonN==1){
+    LeptonPairMCPromptFS = (leptonVector[0].gen_isPrompt()==1 || leptonVector[0].gen_isPromptTau()==1)? 1:0;
+  }else if(leptonN>=2 && !_isTriLep && !_isQuaLep){
+    LeptonPairMCPromptFS = ((leptonVector[0].gen_isPrompt()==1 || leptonVector[0].gen_isPromptTau()==1)? 1:0) + ((leptonVector[1].gen_isPrompt()==1 || leptonVector[1].gen_isPromptTau()==1)? 1:0);
+  }else if(leptonN>=3 && _isTriLep && !_isQuaLep){
+    LeptonPairMCPromptFS = ((leptonVector[0].gen_isPrompt()==1 || leptonVector[0].gen_isPromptTau()==1)? 1:0) + ((leptonVector[1].gen_isPrompt()==1 || leptonVector[1].gen_isPromptTau()==1)? 1:0) + ((leptonVector[2].gen_isPrompt()==1 || leptonVector[2].gen_isPromptTau()==1)? 1:0);
+  }else if(leptonN>=4 && !_isTriLep && _isQuaLep){
+    LeptonPairMCPromptFS = ((leptonVector[0].gen_isPrompt()==1 || leptonVector[0].gen_isPromptTau()==1)? 1:0) + ((leptonVector[1].gen_isPrompt()==1 || leptonVector[1].gen_isPromptTau()==1)? 1:0) + ((leptonVector[2].gen_isPrompt()==1 || leptonVector[2].gen_isPromptTau()==1)? 1:0) + ((leptonVector[3].gen_isPrompt()==1 || leptonVector[3].gen_isPromptTau()==1)? 1:0);
+  }
 
   // Fill the histograms before the cuts
   _hLeptonMCPromptFSBefore    -> Fill(LeptonPairMCPromptFS);
@@ -193,7 +206,13 @@ Bool_t CutLeptonMCPromptFS::Apply()
   cutFlowNameAllStream << " MCPromptFS ";
   cutFlowNameAll = cutFlowNameAllStream.str().c_str();
   
-  if (EventContainerObj->isSimulation && _useMCPromptFS &&_LeptonMCPromptFS == 1 && LeptonPairMCPromptFS < 2){
+  if (EventContainerObj->isSimulation && _useMCPromptFS &&_LeptonMCPromptFS == 1 && LeptonPairMCPromptFS < 2 && !_isTriLep && !_isQuaLep){
+    LeptonMCPromptFSPass = kFALSE;
+    GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
+  }else if (EventContainerObj->isSimulation && _useMCPromptFS &&_LeptonMCPromptFS == 1 && LeptonPairMCPromptFS < 3 && _isTriLep && !_isQuaLep){
+    LeptonMCPromptFSPass = kFALSE;
+    GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
+  }else if (EventContainerObj->isSimulation && _useMCPromptFS &&_LeptonMCPromptFS == 1 && LeptonPairMCPromptFS < 4 && !_isTriLep && _isQuaLep){
     LeptonMCPromptFSPass = kFALSE;
     GetCutFlowTable()->FailCut(cutFlowNameAll.Data());
   }
