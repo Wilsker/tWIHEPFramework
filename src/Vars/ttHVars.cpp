@@ -100,7 +100,8 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["minMllAFAS"] = 800.;
   _floatVars["minMllAFOS"] = 400.;
   _floatVars["minMllSFOS"] = 400.;
-  _floatVars["Hj1_BDT"] = -1.;
+  _floatVars["Hj_tagger_resTop"] = -1.;
+  _floatVars["Hj_tagger_hadTop"] = -1.;
   _floatVars["leadLep_isMatchRightCharge"] = 2.;
   _floatVars["leadLep_mcMatchId"] = 100.;
   _floatVars["leadLep_isFromTop"] = 2.;
@@ -523,7 +524,8 @@ void ttHVars::Clear(){
     minMllAFAS = -9999;
     minMllAFOS = -9999;
     minMllSFOS = -9999;
-    Hj1_BDT = -9999;
+    Hj_tagger_resTop = -9999;
+    Hj_tagger_hadTop = -9999;
     leadLep_isMatchRightCharge = -9999;
     leadLep_mcMatchId = -9999;
     leadLep_isFromTop = -9999;
@@ -1035,7 +1037,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["minMllAFAS"] = minMllAFAS;
     _floatVars["minMllAFOS"] = minMllAFOS;
     _floatVars["minMllSFOS"] = minMllSFOS;
-    _floatVars["Hj1_BDT"] = Hj1_BDT;
+    _floatVars["Hj_tagger_resTop"] = Hj_tagger_resTop;
+    _floatVars["Hj_tagger_hadTop"] = Hj_tagger_hadTop;
   
     _floatVars["leadLep_isMatchRightCharge"] = leadLep_isMatchRightCharge;
     _floatVars["leadLep_mcMatchId"] = leadLep_mcMatchId;
@@ -1306,8 +1309,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     mT_lep1 = Mt_metleadlep;
     max_lep_eta = maxeta;
     min_dr_lep_jet = -9999;
-    Hj_tagger = Hj1_BDT;
-    HTT = evtObj->HadTop_BDT;
+    Hj_tagger = Hj_tagger_resTop;
+    HTT = evtObj->ResTop_BDT;
     nBJetLoose = Jet_numbLoose;
     nBJetMedium = Jet_numbMedium;
     mvaOutput_2lss_ttV = ttvBDT_2lss;
@@ -1635,7 +1638,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["genWeight_muR2"] = genWeight_muR2;
   _floatVars["genWeight_muR0p5"] = genWeight_muR0p5;
     if(evtObj -> _sync == 52){     
-        std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj1_BDT <<" " << evtObj->ResTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
+        std::cout << " " <<  evtObj-> eventNumber <<" "<<maxeta<< " " << Jet_numLoose << " "<< Mt_metleadlep << " "<< leadLep_jetdr << " "<< secondLep_jetdr <<" "<< leadLep_corrpt <<" "<< secondLep_corrpt << " " << Hj_tagger_resTop <<" " << evtObj->ResTop_BDT << " " << ttbarBDT_2lss << " " << ttvBDT_2lss << " " << Bin2l <<std::endl;         
     }                          
 
     if (DoHists()) FillHistograms(evtObj->GetEventWeight());
@@ -1675,7 +1678,8 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     nLepTight = tightLeptons.size();
     double maxCSV = -9999;
     double SumPt =0;
-    double maxHj = -9999;
+    double maxHj_resTop = -9999;
+    double maxHj_hadTop = -9999;
     int jet_numbLoose = 0;
     int jet_numbMedium = 0;
     double sum_jet_dr =0.;
@@ -1691,8 +1695,8 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if(jet_en == 2)thirdJetCSV = jet.bDiscriminator(); 
         if(jet_en == 3)fourthJetCSV = jet.bDiscriminator();
         if( maxCSV < jet.bDiscriminator()) maxCSV = jet.bDiscriminator();
-        //if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
-        if( jet.isToptag()!=1 && jet.HjDisc() > maxHj) maxHj = jet.HjDisc();
+        if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj_resTop) maxHj_resTop = jet.HjDisc();
+        if( jet.isToptag()!=1 && jet.HjDisc() > maxHj_hadTop) maxHj_hadTop = jet.HjDisc();
         for(uint bjet_en=0; bjet_en < Jets.size(); bjet_en++){
             if (jet_en == bjet_en) continue;
             Jet bjet = Jets.at(bjet_en);
@@ -1715,7 +1719,8 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     Jet_numbLoose = jet_numbLoose;
     Jet_numbMedium = jet_numbMedium;
     avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
-    Hj1_BDT = max(maxHj,-1.);
+    Hj_tagger_resTop = max(maxHj_resTop,-1.);
+    Hj_tagger_hadTop = max(maxHj_hadTop,-1.);
     HighestJetCSV = maxCSV;
     HtJet = SumPt;
     if(fakeLeptons.size()>=2){
@@ -1958,7 +1963,7 @@ double ttHVars::get_Dilep_ttvMVA(EventContainer* EvtObj){
     EvtObj->Dilepttv_mindrlep2jet= secondLep_jetdr;
     EvtObj->Dilepttv_ptlep1= leadLep_corrpt;
     EvtObj->Dilepttv_ptlep2= secondLep_corrpt;
-    EvtObj->Dilepttv_Hj1BDT = max(-1.1,Hj1_BDT);
+    EvtObj->Dilepttv_Hj1BDT = max(-1.1,Hj_tagger_resTop);
     return EvtObj->Dilepttv_reader_->EvaluateMVA("BDTG method");
 };
 // utils

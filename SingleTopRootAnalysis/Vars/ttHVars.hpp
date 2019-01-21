@@ -115,7 +115,8 @@ private:
     Double_t minMllAFAS;
     Double_t minMllAFOS;
     Double_t minMllSFOS;
-    Double_t Hj1_BDT;
+    Double_t Hj_tagger_resTop;
+    Double_t Hj_tagger_hadTop;
     Double_t leadLep_isMatchRightCharge;
     Double_t leadLep_mcMatchId;
     Double_t leadLep_isFromTop;
