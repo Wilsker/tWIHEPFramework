@@ -150,9 +150,9 @@ Bool_t CutMetFilter::Apply()
   Bool_t isMC = EventContainerObj->isSimulation;
   
   Int_t MetFilter = -1 ;
-  if(!isMC && !(EvtTree->Flag_goodVertices && EvtTree-> Flag_globalTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter && EvtTree-> Flag_BadChargedCandidateFilter && EvtTree->Flag_ecalBadCalibFilter && EvtTree-> Flag_eeBadScFilter))MetFilter = 0; 
+  if(!isMC && !(EvtTree->Flag_goodVertices && EvtTree-> Flag_globalSuperTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter && EvtTree-> Flag_BadChargedCandidateFilter && EvtTree->Flag_ecalBadCalibFilter && EvtTree-> Flag_eeBadScFilter))MetFilter = 0; 
   else MetFilter =1;
-  if(isMC && !(EvtTree->Flag_goodVertices && EvtTree-> Flag_globalTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter && EvtTree-> Flag_BadChargedCandidateFilter && EvtTree->Flag_ecalBadCalibFilter))MetFilter = 0; 
+  if(isMC && !(EvtTree->Flag_goodVertices && EvtTree-> Flag_globalSuperTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter && EvtTree-> Flag_BadChargedCandidateFilter && EvtTree->Flag_ecalBadCalibFilter))MetFilter = 0; 
   else MetFilter =1;
   _hMetFilterBefore->Fill(MetFilter);
 

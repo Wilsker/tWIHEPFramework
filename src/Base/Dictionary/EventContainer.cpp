@@ -391,6 +391,9 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   mhtT_met = -999.;
   massL = -999.;
   HiggsDecay = -999.;
+  Gen_type1PF_Met = -999.;
+  Gen_type1PF_px = -999.;
+  Gen_type1PF_py = -999.;
   massL_SFOS = -999.;
   mass_diele = -999.;
   mass_dilep = -999.;
@@ -608,6 +611,9 @@ Int_t EventContainer::ReadEvent()
   mhtT_met = -999.;
   massL = -999.;
   HiggsDecay = -999.;
+  Gen_type1PF_Met = -999.;
+  Gen_type1PF_px = -999.;
+  Gen_type1PF_py = -999.;
   massL_SFOS = -999.;
   mass_diele = -999.;
   mass_dilep = -999.;
@@ -632,6 +638,9 @@ Int_t EventContainer::ReadEvent()
     if(SourceNumber<200000){
         isSimulation = kTRUE;//_eventTree->isSimulation;
         HiggsDecay = _eventTree -> HiggsDecay;
+        Gen_type1PF_Met = _eventTree -> Gen_type1PF_Met;
+        Gen_type1PF_px = _eventTree -> Gen_type1PF_px;
+        Gen_type1PF_py = _eventTree -> Gen_type1PF_py;
     }else{
         isSimulation = kFALSE;
     }
@@ -825,10 +834,10 @@ Int_t EventContainer::ReadEvent()
       newLepton.Clear();
       useObj = newLepton.Fill(*muonsVetoPtr,*lepJetsPtr ,_eventTree, io,"EleLoose", isSimulation, SourceNumber ,11);// 11 means Electron
       if(_debugEvt == eventNumber && _sync == 20){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " "<< newLepton.isPassMvanontrigwpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<<newLepton.BDT() << std::endl;
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonIso() << " "<< newLepton.isPassMvanonIsowpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<<newLepton.BDT() << std::endl;
       }
       if( _sync == 21 && _debugEvt == eventNumber){
-        std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " " << newLepton.BDT() <<" " << useObj <<" " <<newLepton.isFake() << " " << newLepton.isMVASel() <<std::endl;
+        std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept() << " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonIso() << " " << newLepton.BDT() <<" " << useObj <<" " <<newLepton.isFake() << " " << newLepton.isMVASel() <<std::endl;
       }
       if(useObj) {
 	    looseLeptons.push_back(newLepton);
@@ -837,7 +846,7 @@ Int_t EventContainer::ReadEvent()
       newLepton.Clear();
       useObj = newLepton.Fill(*muonsVetoPtr, *lepJetsPtr,_eventTree, io,"EleFake", isSimulation, SourceNumber ,11);// 11 means Electron
       if( _sync == 22 && _debugEvt == eventNumber){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " "<< newLepton.isPassMvanontrigwpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<< newLepton.passConversionVeto()<<" "<<newLepton.BDT() << std::endl;
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonIso() << " "<< newLepton.isPassMvanonIsowpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<< newLepton.passConversionVeto()<<" "<<newLepton.BDT() << std::endl;
       }
       if(useObj) {
 	    fakeLeptons.push_back(newLepton);
@@ -846,7 +855,7 @@ Int_t EventContainer::ReadEvent()
       newLepton.Clear();
       useObj = newLepton.Fill(*muonsVetoPtr,*lepJetsPtr ,_eventTree, io,"EleTight", isSimulation, SourceNumber ,11);// 11 means Electron
       if( _sync == 23 && _debugEvt == eventNumber){
-          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonTrig() << " "<< newLepton.isPassMvanontrigwpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<< newLepton.passConversionVeto()<<" "<<newLepton.BDT() << std::endl;
+          std::cout << eventNumber << " " << newLepton.Pt() << " " << newLepton.Eta() << " " << newLepton.Phi() << " "<< newLepton.E() <<" "<< newLepton.conept()<< " "<< newLepton.SCeta()<< " "<<newLepton.pdgId()<<" "<< newLepton.charge()<< " "<< newLepton.lepjetchtrks()<<" "<< newLepton.miniIsoRel()<< " "<< newLepton.miniIsoCh()<< " "<< newLepton.miniIsoPUsub() << " "<< newLepton.ptrel()<< " "<< newLepton.jetdeepcsv()<< " "<< newLepton.jetptratioV2() << " "<< newLepton.IP3Dsig()<< " "<< newLepton.dxy() << " " << newLepton.dz() << " "<< newLepton.mvaValue_nonIso() << " "<< newLepton.isPassMvanonIsowpLoose()<<" " << newLepton.isFake()<<" "<< newLepton.full5x5_sigmaIetaIeta()<<" "<< newLepton.hOverE()<<" "<< newLepton.ooEmooP()<<" "<< newLepton.passMissHit()<< " "<< newLepton.passConversionVeto()<<" "<<newLepton.BDT() << std::endl;
       }
       if(useObj) {
 	    tightLeptons.push_back(newLepton);
@@ -1017,6 +1026,12 @@ Int_t EventContainer::ReadEvent()
       if(newMCParticle.isPhoton()){
           MCPhotons.push_back(newMCParticle);
           if(_sync == 71){
+             std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+          }
+      }
+      if(newMCParticle.isNeutrino()){
+          MCNeutrinos.push_back(newMCParticle);
+          if(_sync == 72){
              std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
           }
       }
@@ -1872,46 +1887,47 @@ void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vec
     double isFromTop = -999.;
     double matchId = -999.;
     double matchIndex = -999.;
+    double matchMother_Id = -999;
+    double matchGrandMother_Id = -999;
     MCParticle gen;
     Bool_t ismatch = false;
-    double min_dpho_bc = 999.;
-    double min_dpho_light = 999.;
+    double min_dr = 999.;
     for(auto bjet: BJets){
-        if(bjet.numDaught()>1)continue;
+        // bjet from top are status 23
+        if(bjet.Status()!=23 || bjet.Pt()<10)continue;
         double dr = reco.DeltaR(bjet);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-bjet.Pt())/bjet.Pt());
-            if(dpho < min_dpho_bc){
+        double dptrel = fabs((reco.Pt()-bjet.Pt())/bjet.Pt());
+        if(dr < 0.4 && dptrel < 0.5){
+            if(dr < min_dr){
                 gen = bjet;
-                min_dpho_bc = dpho;
+                min_dr = dr;
                 ismatch = true;
             }
         }
     }
     for(auto cjet: CJets){
-        if(cjet.numDaught()>1)continue;
+        // cjet from top/W/Z are status 23
+        if(cjet.Status()!=23 || cjet.Pt()<10)continue;
         double dr = reco.DeltaR(cjet);
-        if(dr < 0.3){
-            double dpho = dr + 0.2*fabs((reco.Pt()-cjet.Pt())/cjet.Pt());
-            if(dpho < min_dpho_bc){
+        double dptrel = fabs((reco.Pt()-cjet.Pt())/cjet.Pt());
+        if(dr < 0.4 && dptrel < 0.5){
+            if(dr < min_dr){
                 gen = cjet;
-                min_dpho_bc = dpho;
+                min_dr = dr;
                 ismatch = true;
             }
         }
     }
-    // if we fail to find a b or c
-    if(min_dpho_bc == 999.){
-        for(auto lightjet: LightJets){
-            if(lightjet.numDaught()>1)continue;
-            double dr = reco.DeltaR(lightjet);
-            if(dr < 0.3){
-                double dpho = dr + 0.2*fabs((reco.Pt()-lightjet.Pt())/lightjet.Pt());
-                if(dpho < min_dpho_light ){
-                    gen = lightjet;
-                    min_dpho_light = dpho;
-                    ismatch = true;
-                }
+    for(auto lightjet: LightJets){
+        // light quark from top/W/Z are status 23 
+        if(lightjet.Status()!=23 || lightjet.Pt()<10)continue;
+        double dr = reco.DeltaR(lightjet);
+        double dptrel = fabs((reco.Pt()-lightjet.Pt())/lightjet.Pt());
+        if(dr < 0.4 && dptrel < 0.5){
+            if(dr < min_dr){
+                gen = lightjet;
+                min_dr = dr;
+                ismatch = true;
             }
         }
     }
@@ -1922,6 +1938,8 @@ void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vec
         MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
         MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
         MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
+        matchMother_Id = genMother.PdgId();
+        matchGrandMother_Id = genGMother.PdgId();
         if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
         else isFromH = 0;
         if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
@@ -1930,6 +1948,8 @@ void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vec
     reco.SetisFromH(isFromH);
     reco.SetisFromTop(isFromTop);
     reco.SetmatchId(matchId);
+    reco.SetmatchMother_Id(matchMother_Id);
+    reco.SetmatchGrandMother_Id(matchGrandMother_Id);
     Jet25_isFromH.push_back(isFromH); 
     Jet25_isFromTop.push_back(isFromTop); 
     Jet25_matchId.push_back(matchId); 
@@ -1950,7 +1970,11 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
     double isFromC = -999.;
     double isFromTop = -999.;
     double matchId = -999.;
+    double matchMother_Id = -999;
+    double matchGrandMother_Id = -999;
     double matchIndex = -999.;
+    double matchMother_Index = -999;
+    double matchGrandMother_Index = -999;
     Bool_t ismatch = false;
     for(auto MCEle: MCElectrons){
         if(MCEle.Status()!=1 || fabs(MCEle.PdgId())!= fabs(reco.pdgId()) || MCEle.Pt()<1.0)continue;
@@ -2001,6 +2025,10 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
         MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
         MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
         MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
+        matchMother_Id = genMother.PdgId();
+        matchGrandMother_Id = genGMother.PdgId();
+        matchMother_Index = genMother.Index();
+        matchGrandMother_Index = genGMother.Index();
         if(fabs(genMother.PdgId()) == 25 || fabs(genGMother.PdgId()) == 25 || fabs(genGGMother.PdgId()) == 25) isFromH = 1;
         else isFromH = 0;
         if(fabs(genMother.PdgId()) == 6 || fabs(genGMother.PdgId()) == 6 || fabs(genGGMother.PdgId()) == 6) isFromTop = 1;
@@ -2022,6 +2050,11 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
     reco.SetisFromC(isFromC);
     reco.SetisFromTop(isFromTop);
     reco.SetmatchId(matchId);
+    reco.SetmatchMother_Id(matchMother_Id);
+    reco.SetmatchGrandMother_Id(matchGrandMother_Id);
+    reco.SetmatchIndex(matchIndex);
+    reco.SetmatchMother_Index(matchMother_Index);
+    reco.SetmatchGrandMother_Index(matchGrandMother_Index);
     FakeLep_isFromB.push_back(isFromB); 
     FakeLep_isFromC.push_back(isFromC); 
     FakeLep_isFromH.push_back(isFromH); 

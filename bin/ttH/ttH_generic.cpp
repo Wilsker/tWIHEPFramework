@@ -87,6 +87,7 @@
 #include "SingleTopRootAnalysis/Vars/HjTagger.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
 #include "SingleTopRootAnalysis/Vars/DNNVars.hpp"
+#include "SingleTopRootAnalysis/Vars/HmassVars.hpp"
 
 using std::cout;
 using std::endl;
@@ -133,6 +134,7 @@ int main(int argc, char **argv)
   Bool_t useLeptonSFs = kFALSE;
   Bool_t usebTagReweight = kFALSE;
   Bool_t useChargeMis = kFALSE;
+  Bool_t usePrefire = kFALSE;
   Bool_t useFakeRate = kFALSE;
   Bool_t useTriggerSFs = kFALSE;
   Bool_t useMCPromptFS = kFALSE;
@@ -165,6 +167,10 @@ int main(int argc, char **argv)
     }
     if (!strcmp(argv[i], "-chargeMis")){
       useChargeMis = kTRUE;
+      cout << "Driver: Using chargeMis" << endl;
+    }
+    if (!strcmp(argv[i], "-Prefire")){
+      usePrefire = kTRUE;
       cout << "Driver: Using chargeMis" << endl;
     }
     if (!strcmp(argv[i], "-mcPromptFS")){
@@ -382,7 +388,7 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS, isTriLepton, isQuaLepton)); // do not add this cut for conversions 
   mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj, useMCRightCharge));// do not add this cut for MCPromptGamma
   
-  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+  mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, usePrefire, whichtrig));
 
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
   /*
@@ -405,7 +411,7 @@ int main(int argc, char **argv)
 
   //Add in any variables to the skim tree that you want here
   
-  mystudy.AddVars(new TestVar());
+  //mystudy.AddVars(new TestVar());
   
   //if (whichtrig) mystudy.AddVars(new BDTVars(true));
   //mystudy.AddVars(new BDTVars(true));
@@ -415,8 +421,9 @@ int main(int argc, char **argv)
   mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars());
   
-  //mystudy.AddVars(new HjTagger());
+  mystudy.AddVars(new HjTagger());
   //mystudy.AddVars(new DNNVars());
+  mystudy.AddVars(new HmassVars());
   
   mystudy.AddVars(new WeightVars());
  

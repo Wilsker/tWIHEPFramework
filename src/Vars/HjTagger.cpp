@@ -28,6 +28,7 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["Jet25_pfJetProbabilityBJetTags"] = {-0.1,100};
   _doubleVecs["Jet25_pfDeepCSVCvsLJetTags"] = {-0.1,100};
   _doubleVecs["Jet25_pfDeepCSVCvsBJetTags"] = {-0.1,100};
+  _doubleVecs["Jet25_pfDeepFlavourBJetTags"] = {-0.1,100};
   _doubleVecs["Jet25_pt"] = {-0.1,100};
   _doubleVecs["Jet25_eta"] = {-0.1,100};
   _doubleVecs["Jet25_phi"] = {-0.1,100};
@@ -39,6 +40,7 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["Jet25_isFromH"] = {-0.1,100};
   _doubleVecs["Jet25_isFromTop"] = {-0.1,100};
   _doubleVecs["Jet25_matchId"] = {-0.1,100};
+  _doubleVecs["Jet25_matchIndex"] = {-0.1,100};
   _doubleVecs["Jet25_neutralHadEnergyFraction"] = {-0.1,100};
   _doubleVecs["Jet25_chargedHadronEnergyFraction"] = {-0.1,100};
   _doubleVecs["Jet25_chargedEmEnergyFraction"] = {-0.1,100};
@@ -160,6 +162,7 @@ void HjTagger::Clear(){
     Jet25_pfJetProbabilityBJetTags.clear();
     Jet25_pfDeepCSVCvsLJetTags.clear();
     Jet25_pfDeepCSVCvsBJetTags.clear();
+    Jet25_pfDeepFlavourBJetTags.clear();
     Jet25_pt.clear();
     Jet25_eta.clear();
     Jet25_phi.clear();
@@ -171,6 +174,7 @@ void HjTagger::Clear(){
     Jet25_isFromH.clear();
     Jet25_isFromTop.clear();
     Jet25_matchId.clear();
+    Jet25_matchIndex.clear();
     Jet25_neutralHadEnergyFraction.clear();
     Jet25_chargedHadronEnergyFraction.clear();
     Jet25_chargedEmEnergyFraction.clear();
@@ -235,6 +239,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     Jet25_isFromH.assign(evtObj -> Jet25_isFromH.begin(), evtObj -> Jet25_isFromH.end());
     Jet25_isFromTop.assign(evtObj -> Jet25_isFromTop.begin(), evtObj -> Jet25_isFromTop.end());
     Jet25_matchId.assign(evtObj -> Jet25_matchId.begin(), evtObj -> Jet25_matchId.end());
+    Jet25_matchIndex.assign(evtObj -> Jet25_matchIndex.begin(), evtObj -> Jet25_matchIndex.end());
     for(auto jet: Jets){
       TLorentzVector CurrentJet = {0,0,0,0};
       CurrentJet.SetPtEtaPhiE(jet.Pt(),jet.Eta(),jet.Phi(),jet.E());
@@ -281,6 +286,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
       Jet25_pfJetProbabilityBJetTags.push_back(jet.pfJetProbabilityBJetTags());
       Jet25_pfDeepCSVCvsLJetTags.push_back(jet.pfDeepCSVCvsLJetTags());
       Jet25_pfDeepCSVCvsBJetTags.push_back(jet.pfDeepCSVCvsBJetTags());
+      Jet25_pfDeepFlavourBJetTags.push_back(jet.pfDeepFlavourBJetTags());
       Jet25_pt.push_back(jet.Pt());
       Jet25_eta.push_back(jet.Eta());
       Jet25_phi.push_back(jet.Phi());
@@ -429,6 +435,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     _doubleVecs["Jet25_pfJetProbabilityBJetTags"] = Jet25_pfJetProbabilityBJetTags;
     _doubleVecs["Jet25_pfDeepCSVCvsLJetTags"] = Jet25_pfDeepCSVCvsLJetTags;
     _doubleVecs["Jet25_pfDeepCSVCvsBJetTags"] = Jet25_pfDeepCSVCvsBJetTags;
+    _doubleVecs["Jet25_pfDeepFlavourBJetTags"] = Jet25_pfDeepFlavourBJetTags;
     _doubleVecs["Jet25_pt"] = Jet25_pt;
     _doubleVecs["Jet25_eta"] = Jet25_eta;
     _doubleVecs["Jet25_phi"] = Jet25_phi;
@@ -440,6 +447,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     _doubleVecs["Jet25_isFromH"] = Jet25_isFromH;
     _doubleVecs["Jet25_isFromTop"] = Jet25_isFromTop;
     _doubleVecs["Jet25_matchId"] = Jet25_matchId;
+    _doubleVecs["Jet25_matchIndex"] = Jet25_matchIndex;
     _doubleVecs["Jet25_neutralHadEnergyFraction"] = Jet25_neutralHadEnergyFraction;
     _doubleVecs["Jet25_chargedHadronEnergyFraction"] = Jet25_chargedHadronEnergyFraction;
     _doubleVecs["Jet25_chargedEmEnergyFraction"] = Jet25_chargedEmEnergyFraction;

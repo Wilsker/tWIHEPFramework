@@ -82,6 +82,7 @@ private:
     std::vector<double>  Jet25_pfJetProbabilityBJetTags;
     std::vector<double>  Jet25_pfDeepCSVCvsLJetTags;
     std::vector<double>  Jet25_pfDeepCSVCvsBJetTags;
+    std::vector<double>  Jet25_pfDeepFlavourBJetTags;
     std::vector<double> Jet25_bDiscriminator;
     std::vector<double> Jet25_pfCombinedCvsLJetTags;
     std::vector<double> Jet25_pfCombinedCvsBJetTags;
@@ -100,6 +101,7 @@ private:
     std::vector<double> Jet25_isFromH;
     std::vector<double> Jet25_isFromTop;
     std::vector<double> Jet25_matchId;
+    std::vector<double> Jet25_matchIndex;
     std::vector<double> Jet25_neutralHadEnergyFraction;
     std::vector<double> Jet25_chargedHadronEnergyFraction;
     std::vector<double> Jet25_chargedEmEnergyFraction;

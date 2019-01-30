@@ -1062,15 +1062,15 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     
     EventTree* tree = evtObj->GetEventTree();
     if(tree->EVENT_genWeights->size()>6){
-        genWeight_muF2 = tree->EVENT_genWeights -> operator[](1);
-        genWeight_muF0p5 = tree->EVENT_genWeights -> operator[](2);
-        genWeight_muR2 = tree->EVENT_genWeights -> operator[](3);
-        genWeight_muR0p5 = tree->EVENT_genWeights -> operator[](6);
+        genWeight_muF2 = tree->EVENT_genWeights -> operator[](1) / tree->EVENT_originalXWGTUP;
+        genWeight_muF0p5 = tree->EVENT_genWeights -> operator[](2)/ tree->EVENT_originalXWGTUP;
+        genWeight_muR2 = tree->EVENT_genWeights -> operator[](3)/ tree->EVENT_originalXWGTUP;
+        genWeight_muR0p5 = tree->EVENT_genWeights -> operator[](6)/ tree->EVENT_originalXWGTUP;
     }else{
-        genWeight_muF2 = tree->EVENT_genWeight; 
-        genWeight_muF0p5 = tree->EVENT_genWeight; 
-        genWeight_muR2 = tree->EVENT_genWeight; 
-        genWeight_muR0p5 = tree->EVENT_genWeight; 
+        genWeight_muF2 = 1; 
+        genWeight_muF0p5 = 1; 
+        genWeight_muR2 = 1 ; 
+        genWeight_muR0p5 = 1; 
     }
 
     ls = evtObj-> lumiBlock;

@@ -44,10 +44,11 @@ using namespace std;
  * Input:  Particle class                                                     *
  * Output: None                                                               *
  ******************************************************************************/
-EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t reCalPU, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Int_t whichTrig, Bool_t verbose):
+EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLOEvents,const std::string& MCtype, Bool_t pileup, Bool_t reCalPU, Bool_t bWeight, Bool_t useLeptonSFs, Bool_t usebTagReshape, Bool_t useChargeMis, Bool_t useFakeRate, Bool_t useTriggerSFs, Bool_t usePrefire, Int_t whichTrig, Bool_t verbose):
   _reCalPU(reCalPU),
   _useLeptonSFs(useLeptonSFs),
   _useChargeMis(useChargeMis),
+  _usePrefire(usePrefire),
   _useFakeRate(useFakeRate),
   _useTriggerSFs(useTriggerSFs),
   _usebTagReshape(usebTagReshape),
@@ -279,6 +280,11 @@ void EventWeight::BookHistogram()
   _hTriggerSFs -> SetXAxisTitle("TriggerSFs");
   _hTriggerSFs -> SetYAxisTitle("Events");
 
+  // Histogram of Prefire weight
+  _hPrefire =  DeclareTH1F("PrefireWeight","Event Weight for Prefire",100,0.,2);
+  _hPrefire -> SetXAxisTitle("Prefire");
+  _hPrefire -> SetYAxisTitle("Events");
+
   //Create one histogtam per b-tag systematic (and central value)
   for (auto const bTagSystName: _bTagSystNames){
     // Histogram of bTag shape weight
@@ -430,10 +436,12 @@ Bool_t EventWeight::Apply()
   float LHEWeight(1.0);
   float rwgt(1.0);
   if(sName.Contains("THW")){
-       rwgt = (tree->EVENT_genWeights -> operator[](1091));
+       //https://github.com/cms-sw/genproductions/blob/8d97961cda6fffccfa09cc245b715ce6f2b43f6f/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/Higgs/thq_4f_ckm_LO_ctcvcp_MH/thq_4f_ckm_LO_ctcvcp_MH_reweight_card.dat
+       // find the rwgt_12 and normilaze it to the sum of rwgt_i ( i=1,2...50)
+       rwgt = (tree->EVENT_rWeights -> operator[](11));
        LHEWeight = rwgt/5458.47479968;
     }else if(sName.Contains("THQ")){
-       rwgt = (tree->EVENT_genWeights -> operator[](893));
+       rwgt = (tree->EVENT_rWeights -> operator[](11));
        LHEWeight = rwgt/8837.23781460;
     }
   //std::cout<<" rwgt : " << rwgt << " LHEWeight : " << LHEWeight<<std::endl;
@@ -531,6 +539,16 @@ Bool_t EventWeight::Apply()
    wgt *= ChargeMisWeight;
  }
   
+ float PrefireWeight(1.0), PrefireWeightUp(1.0), PrefireWeightDown(1.0);
+
+ if(_usePrefire){
+   PrefireWeight = tree -> EVENT_prefireWeight;
+   PrefireWeightUp = tree -> EVENT_prefireWeightUp;
+   PrefireWeightDown = tree -> EVENT_prefireWeightDown;
+   //std::cout << EventContainerObj->eventNumber <<" "<<PrefireWeight <<"  " << PrefireWeightUp << "  " <<PrefireWeightDown << std::endl;
+   wgt *= PrefireWeight;
+ }
+  
  float TriggerWeight(1.0), TriggerWeightUp(1.0), TriggerWeightDown(1.0);
 
  if(_useTriggerSFs){
@@ -612,6 +630,10 @@ Bool_t EventWeight::Apply()
   EventContainerObj -> SetEventChargeMisWeightUp(ChargeMisWeightUp);
   EventContainerObj -> SetEventChargeMisWeightDown(ChargeMisWeightDown);
   
+  EventContainerObj -> SetEventPrefireWeight(PrefireWeight);
+  EventContainerObj -> SetEventPrefireWeightUp(PrefireWeightUp);
+  EventContainerObj -> SetEventPrefireWeightDown(PrefireWeightDown);
+  
   EventContainerObj -> SetEventTriggerWeight(TriggerWeight);
   EventContainerObj -> SetEventTriggerWeightUp(TriggerWeightUp);
   EventContainerObj -> SetEventTriggerWeightDown(TriggerWeightDown);
@@ -635,6 +657,7 @@ Bool_t EventWeight::Apply()
   _hmutightSFWeight -> FillWithoutWeight(EventContainerObj -> GetEventmutightSFWeight());
   _hGenWeight	   -> FillWithoutWeight(EventContainerObj -> GetGenWeight());
   _hChargeMis -> FillWithoutWeight(EventContainerObj -> GetEventChargeMisWeight());
+  _hPrefire -> FillWithoutWeight(EventContainerObj -> GetEventPrefireWeight());
   _hFakeRate -> FillWithoutWeight(EventContainerObj -> GetEventFakeRateWeight());
   _hTriggerSFs -> FillWithoutWeight(EventContainerObj -> GetEventTriggerWeight());
   for (auto const bSystName: _bTagSystNames) _hbTagReshape[bSystName] -> FillWithoutWeight(EventContainerObj -> GetEventbTagReshape(bSystName));
@@ -1389,6 +1412,7 @@ Double_t EventWeight::getBTagReshape(EventContainer * EventContainerObj, std::st
   }
   return bTagWeight;
 }
+
 
 Double_t EventWeight::PileupAdjust(int eventNumber, int runnumber)
 {

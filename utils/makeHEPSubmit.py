@@ -14,13 +14,13 @@ executable = "bin/ttH/ttH_generic.x"
 #executable = "Wt_nVertOnly.x"
 configFile = "config/overall/ttH.MultiLeptons.DiLepton.SR.config"
 #invPostfix = " -MCatNLO -mc -lepSFs -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs"
-invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs -lepSFs"
+invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs -lepSFs -Prefire"
 #mcPostfix = " -mcPromptFS -mcPromptGamma -FakeRate -mcPromptFS -chargeMis" 
 mcPostfix = " "
 triggerName = "TTHLep_2L "
 nJets = 3
 nbJets = 1
-fileListDirectory = "config/files/ttH_2018/SmallJobs/mc/"
+fileListDirectory = "config/files/ttH_2019/Fall17V2/mc/"
 makeSkims = True
 samplesMC76=[
 "qcd1000_1500",
@@ -54,9 +54,10 @@ samples94XData = [
 #"TTHnobb", "ttH_powheg_ToNonbb", "TTWToLNu", "TTW_PSwgt_ToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_M50", "DY_ext_M50", "WJets", "WWTo2L2Nu", "WZTo3LNu", "ZZTo4L", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TTTo2L2Nu", "TT_PSwgt_ToSemiLep", "TTToSemiLep", "TT_PSwgt_ToHadron", "TTToHadron", "ST_tW_top", "ST_tW_antitop", "STt_top", "STt_antitop", "STs", "TTGJets", "tZq", "WW_DoubleScatter", "WW_DS_To2L2Nu", "WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune"
 #]
 samplesMC=[
-"TTHnobb", "TTWToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_ext_M50", "WJets", "WZTo3LNu", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TT_PSwgt_ToSemiLep", "TT_PSwgt_ToHadron", "TTGJets", "tZq", "WW_DoubleScatter","WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune",
-"THQ","THW","VHToNobb","tWll","WpWpJJ",
-"GGH_ext_ToZZ4L", "TTWH", "WZG", "TTTW", "TGJets_Lep", "W1JetsToLNu", "W2JetsToLNu", "W3JetsToLNu", "W4JetsToLNu", "DY1JetsToLL_M50","DY2JetsToLL_M50", "DY3JetsToLL_M50", "DY4JetsToLL_M50", "DYJetsToLL_M4to50_HT70to100","DYJetsToLL_M4to50_HT100to200", "DYJetsToLL_M4to50_HT200to400", "DYJetsToLL_M4to50_HT400to600", "DYJetsToLL_M4to50_HT600toInf"
+"ttHnobb","ttW_ext_Jets","ttWJets","ttZ_ext_Jets","ttZ_Jets",
+#"TTHnobb", "TTWToLNu", "TTZToLLNuNu_M10", "TTZToLL_M1to10", "TTWW", "DY_M10to50", "DY_ext_M50", "WJets", "WZTo3LNu", "ZZ_ext_To4L", "TT_PSwgt_To2L2Nu", "TT_PSwgt_ToSemiLep", "TT_PSwgt_ToHadron", "TTGJets", "tZq", "WW_DoubleScatter","WWW", "WWZ", "WZZ", "ZZZ", "TTTT_Tune",
+#"THQ","THW","VHToNobb","tWll","WpWpJJ",
+#"GGH_ext_ToZZ4L", "TTWH", "WZG", "TTTW", "TGJets_Lep", "W1JetsToLNu", "W2JetsToLNu", "W3JetsToLNu", "W4JetsToLNu", "DY1JetsToLL_M50","DY2JetsToLL_M50", "DY3JetsToLL_M50", "DY4JetsToLL_M50", "DYJetsToLL_M4to50_HT70to100","DYJetsToLL_M4to50_HT100to200", "DYJetsToLL_M4to50_HT200to400", "DYJetsToLL_M4to50_HT400to600", "DYJetsToLL_M4to50_HT600toInf"
 ]
 samplesMVA = [
 "ttHnobb","ttW_ext_Jets","ttWJets","ttZ_ext_Jets","ttZ_Jets","TT_PSwgt_To2L2Nu","TT_PSwgt_ToSemiLep","TT_PSwgt_ToHadron","TTTo2L2Nu","TTToSemiLep","TTToHadron"

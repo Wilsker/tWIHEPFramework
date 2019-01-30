@@ -42,7 +42,7 @@ ClassImp(Electron)
  * Output: None                                                               *
  ******************************************************************************/
 Electron::Electron() : Particle::Particle(),_passVetoId(0), _passLooseId(0), _passMediumId(0), _passTightId(0), _passHEEPId(0), _passConversionVeto(0), _expectedMissingInnerHits(0), _patElectron_d0(0.0),  _patElectron_dz(0.0), _patElectron_dxy(0.0),  _isoChargedHadrons(0.0),  _isoNeutralHadrons(0.0), _isoPhotons(0.0),  _isoPU(0.0), _charge(0.0), _scEta(0.0), _inCrack(0), _sigmaEtaEta(0.), _dEtaInSeed(0.), _dPhiIn(0.), _hOverE(0.), _ooEmooP(0.), _relIsoPFRhoEA(0.), _missingHits(0.),_IP3Dsig(0.0),_miniIsoRel(0.0),
-  _mvaValue_nonTrig       (0.0),
+  _mvaValue_nonIso       (0.0),
   _ntMVAeleID       (0.0)
 {
 } //Electron()
@@ -95,7 +95,7 @@ _isoPhotons(other.GetisoPhotons()),
 					   _relIsoPFRhoEA(other.relIsoPFRhoEA()), 
 					   _missingHits(other.missingHits()),
   _IP3Dsig(other.GetIP3Dsig()),
-  _mvaValue_nonTrig(other.GetmvaValue_nonTrig()),
+  _mvaValue_nonIso(other.GetmvaValue_nonIso()),
   _ntMVAeleID(other.GetntMVAeleID()),
   _miniIsoRel(other.GetminiIsoRel())
 {
@@ -111,7 +111,7 @@ _isoPhotons(other.GetisoPhotons()),
  ******************************************************************************/
 Electron::Electron(const Particle& other) : Particle(other),_passVetoId(0), _passLooseId(0), _passMediumId(0), _passTightId(0), _passHEEPId(0), _passConversionVeto(0), _expectedMissingInnerHits(0), _patElectron_d0(0.0),  _patElectron_dz(0.0), _patElectron_dxy(0.0),  _isoChargedHadrons(0.0),  _isoNeutralHadrons(0.0), _isoPhotons(0.0),  _isoPU(0.0), _charge(0.0), _scEta(0.0), _inCrack(0), _sigmaEtaEta(0.), _dEtaInSeed(0.), _dPhiIn(0.), _hOverE(0.), _ooEmooP(0.), _relIsoPFRhoEA(0.), _missingHits(0.),
 _IP3Dsig(0.0),
-_mvaValue_nonTrig(0.0),
+_mvaValue_nonIso(0.0),
 _ntMVAeleID(0.0),
 _miniIsoRel(0.0)
 { 
@@ -187,7 +187,7 @@ Electron& Electron::operator=(const Particle& other)
   SetRelIsoPFRhoEA(0.);
   SetMissingHits(0);
   SetIP3Dsig		(0.0);
-  SetmvaValue_nonTrig		(0.0);
+  SetmvaValue_nonIso		(0.0);
   SetntMVAeleID		(0.0);
   SetminiIsoRel		(0.0);
 
@@ -231,7 +231,7 @@ Electron& Electron::operator=(const Electron& other)
   SetRelIsoPFRhoEA(other.relIsoPFRhoEA());
   SetMissingHits(other.missingHits());
   SetIP3Dsig(other.GetIP3Dsig());
-  SetmvaValue_nonTrig(other.GetmvaValue_nonTrig());
+  SetmvaValue_nonIso(other.GetmvaValue_nonIso());
   SetntMVAeleID(other.GetntMVAeleID());
   SetminiIsoRel(other.GetminiIsoRel());
   return *this;
@@ -274,7 +274,7 @@ Electron& Electron::operator=(Electron& other)
   SetRelIsoPFRhoEA(other.relIsoPFRhoEA());
   SetMissingHits(other.missingHits());
   SetIP3Dsig(other.GetIP3Dsig());
-  SetmvaValue_nonTrig(other.GetmvaValue_nonTrig());
+  SetmvaValue_nonIso(other.GetmvaValue_nonIso());
   SetntMVAeleID(other.GetntMVAeleID());
   SetminiIsoRel(other.GetminiIsoRel());
   return *this;
@@ -346,10 +346,6 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   SetPtEtaPhiE(elPt, elEta, elPhi, elE);
 
   SetCharge             ( evtr -> patElectron_charge                   -> operator[](iE) );
-  SetpassVetoId         ( evtr -> patElectron_isPassVeto               -> operator[](iE) );
-  SetpassLooseId        ( evtr -> patElectron_isPassLoose              -> operator[](iE) );
-  SetpassMediumId       ( evtr -> patElectron_isPassMedium             -> operator[](iE) );
-  SetpassTightId        ( evtr -> patElectron_isPassTight              -> operator[](iE) );
   SetpassHEEPId         ( evtr -> patElectron_isPassHEEPId             -> operator[](iE) );
   SetpassConversionVeto ( evtr -> patElectron_passConversionVeto       -> operator[](iE) );
   SetisoChargedHadrons  ( evtr -> patElectron_isoChargedHadrons        -> operator[](iE) );
@@ -370,8 +366,22 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   SetMissingHits	( evtr -> patElectron_expectedMissingInnerHits -> operator[](iE) );
   SetminiIsoRel		(evtr -> patElectron_miniIsoRel   		-> operator[](iE));
   SetIP3Dsig		(evtr -> patElectron_IP3Dsig   		-> operator[](iE));
-  SetmvaValue_nonTrig		(evtr -> patElectron_mvaValue_nonTrig   		-> operator[](iE));
-  SetntMVAeleID		(evtr -> patElectron_isPassMvanontrigwpLoose   		-> operator[](iE));
+  /* 
+  //This is Fall17V2 IDs
+  SetmvaValue_nonIso		(evtr -> patElectron_mvaValue_nonIso   		-> operator[](iE));
+  SetntMVAeleID		(evtr -> patElectron_isPassMvanonIsowpLoose   		-> operator[](iE));
+  SetpassVetoId         ( evtr -> patElectron_isPassVeto               -> operator[](iE) );
+  SetpassLooseId        ( evtr -> patElectron_isPassLoose              -> operator[](iE) );
+  SetpassMediumId       ( evtr -> patElectron_isPassMedium             -> operator[](iE) );
+  SetpassTightId        ( evtr -> patElectron_isPassTight              -> operator[](iE) );
+  */
+  //This is Fall17V1 IDs
+  SetmvaValue_nonIso		(evtr -> patElectron_OldmvaValue_nonIso   		-> operator[](iE));
+  SetntMVAeleID		(evtr -> patElectron_isPassOldMvanonIsowpLoose   		-> operator[](iE));
+  SetpassVetoId         ( evtr -> patElectron_isPassOldVeto               -> operator[](iE) );
+  SetpassLooseId        ( evtr -> patElectron_isPassOldLoose              -> operator[](iE) );
+  SetpassMediumId       ( evtr -> patElectron_isPassOldMedium             -> operator[](iE) );
+  SetpassTightId        ( evtr -> patElectron_isPassOldTight              -> operator[](iE) );
 
   // **************************************************************
   // **************************************************************
@@ -462,14 +472,14 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   eleMVAId = ntMVAeleID() >0.5 ;
   /*
   if(elPt <=10){
-    if((TMath::Abs(scEta()) <0.8 && mvaValue_nonTrig() > -0.13285867293779202)||
-          (0.8 <= TMath::Abs(scEta()) && TMath::Abs(scEta()) <1.479 && mvaValue_nonTrig() > -0.31765300958836074)||
-        (1.479 <=TMath::Abs(scEta()) && TMath::Abs(scEta())<500 && mvaValue_nonTrig()>-0.0799205914718861)
+    if((TMath::Abs(scEta()) <0.8 && mvaValue_nonIso() > -0.13285867293779202)||
+          (0.8 <= TMath::Abs(scEta()) && TMath::Abs(scEta()) <1.479 && mvaValue_nonIso() > -0.31765300958836074)||
+        (1.479 <=TMath::Abs(scEta()) && TMath::Abs(scEta())<500 && mvaValue_nonIso()>-0.0799205914718861)
     ) eleMVAId = kTRUE;
   }else{
-    if((TMath::Abs(scEta()) <0.8 && mvaValue_nonTrig() > -0.856871961305474 )||
-          (0.8 <= TMath::Abs(scEta()) && TMath::Abs(scEta()) <1.479 && mvaValue_nonTrig() > -0.8107642141584835)||
-        (1.479 <=TMath::Abs(scEta()) && TMath::Abs(scEta())<500 && mvaValue_nonTrig()> -0.7179265933023059)
+    if((TMath::Abs(scEta()) <0.8 && mvaValue_nonIso() > -0.856871961305474 )||
+          (0.8 <= TMath::Abs(scEta()) && TMath::Abs(scEta()) <1.479 && mvaValue_nonIso() > -0.8107642141584835)||
+        (1.479 <=TMath::Abs(scEta()) && TMath::Abs(scEta())<500 && mvaValue_nonIso()> -0.7179265933023059)
     ) eleMVAId = kTRUE;
   }
 */

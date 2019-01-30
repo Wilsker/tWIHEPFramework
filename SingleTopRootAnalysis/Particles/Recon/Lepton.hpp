@@ -64,6 +64,7 @@ public:
  _jetptratioV2 =0.0;
  _jetcsv =0.0;
  _jetdeepcsv =0.0;
+ _jetdeepflavour =0.0;
  _lepjetchtrks =0.0;
  _miniIsoCh =0.0;
  _miniIsoPUsub =0.0;
@@ -91,7 +92,7 @@ public:
  _dPhiIn =0.0;
  _ooEmooP =0.0;
  _mvaValue_HZZ =0.0;
- _mvaValue_nonTrig =0.0;
+ _mvaValue_nonIso =0.0;
  _isGsfCtfScPixChargeConsistent =0.0;
  _isGsfScPixChargeConsistent =0.0;
  _passConversionVeto =0.0;
@@ -100,7 +101,7 @@ public:
  _isTight =0.0;
  _isMVASel =0.0;
  _ntMVAeleID =0.0;
- _isPassMvanontrigwpLoose =0.0;
+ _isPassMvanonIsowpLoose =0.0;
  _isFake =0.0;
  _gen_pt =0.0;
  _gen_eta =0.0;
@@ -111,11 +112,14 @@ public:
  _gen_isPromptTau =0.0;
  _genMother_pdgId =0.0;
  _genGrandMother_pdgId =0.0;
- _matchId =0.0;
  _isFromTop =0.0;
  _isFromH =0.0;
+ _matchId =0.0;
  _matchMother_Id =0.0;
  _matchGrandMother_Id =0.0;
+ _matchIndex =0.0;
+ _matchMother_Index =0.0;
+ _matchGrandMother_Index =0.0;
  _isFromB =0.0;
  _isFromC =0.0;
  _mcPromptGamma =0.0;
@@ -256,6 +260,10 @@ public:
   inline Double_t Getjetdeepcsv() const {return _jetdeepcsv;};
   inline Double_t jetdeepcsv() const {return _jetdeepcsv;};
 
+  inline void Setjetdeepflavour(Double_t jetdeepflavour){_jetdeepflavour = jetdeepflavour;};
+  inline Double_t Getjetdeepflavour() const {return _jetdeepflavour;};
+  inline Double_t jetdeepflavour() const {return _jetdeepflavour;};
+
   inline void Setlepjetchtrks(Double_t lepjetchtrks){_lepjetchtrks = lepjetchtrks;};
   inline Double_t Getlepjetchtrks() const {return _lepjetchtrks;};
   inline Double_t lepjetchtrks() const {return _lepjetchtrks;};
@@ -356,9 +364,9 @@ public:
   inline Double_t GetmvaValue_HZZ() const {return _mvaValue_HZZ;};
   inline Double_t mvaValue_HZZ() const {return _mvaValue_HZZ;};
 
-  inline void SetmvaValue_nonTrig(Double_t mvaValue_nonTrig){_mvaValue_nonTrig = mvaValue_nonTrig;};
-  inline Double_t GetmvaValue_nonTrig() const {return _mvaValue_nonTrig;};
-  inline Double_t mvaValue_nonTrig() const {return _mvaValue_nonTrig;};
+  inline void SetmvaValue_nonIso(Double_t mvaValue_nonIso){_mvaValue_nonIso = mvaValue_nonIso;};
+  inline Double_t GetmvaValue_nonIso() const {return _mvaValue_nonIso;};
+  inline Double_t mvaValue_nonIso() const {return _mvaValue_nonIso;};
 
   inline void SetisGsfCtfScPixChargeConsistent(Double_t isGsfCtfScPixChargeConsistent){_isGsfCtfScPixChargeConsistent = isGsfCtfScPixChargeConsistent;};
   inline Double_t GetisGsfCtfScPixChargeConsistent() const {return _isGsfCtfScPixChargeConsistent;};
@@ -412,6 +420,10 @@ public:
   inline Double_t GetmatchId() const {return _matchId;};
   inline Double_t matchId() const {return _matchId;};
 
+  inline void SetmatchIndex(Double_t matchIndex){_matchIndex = matchIndex;};
+  inline Double_t GetmatchIndex() const {return _matchIndex;};
+  inline Double_t matchIndex() const {return _matchIndex;};
+
   inline void SetisFromTop(Double_t isFromTop){_isFromTop = isFromTop;};
   inline Double_t GetisFromTop() const {return _isFromTop;};
   inline Double_t isFromTop() const {return _isFromTop;};
@@ -427,6 +439,14 @@ public:
   inline void SetmatchGrandMother_Id(Double_t matchGrandMother_Id){_matchGrandMother_Id = matchGrandMother_Id;};
   inline Double_t GetmatchGrandMother_Id() const {return _matchGrandMother_Id;};
   inline Double_t matchGrandMother_Id() const {return _matchGrandMother_Id;};
+
+  inline void SetmatchMother_Index(Double_t matchMother_Index){_matchMother_Index = matchMother_Index;};
+  inline Double_t GetmatchMother_Index() const {return _matchMother_Index;};
+  inline Double_t matchMother_Index() const {return _matchMother_Index;};
+
+  inline void SetmatchGrandMother_Index(Double_t matchGrandMother_Index){_matchGrandMother_Index = matchGrandMother_Index;};
+  inline Double_t GetmatchGrandMother_Index() const {return _matchGrandMother_Index;};
+  inline Double_t matchGrandMother_Index() const {return _matchGrandMother_Index;};
 
   inline void SetisFromB(Double_t isFromB){_isFromB = isFromB;};
   inline Double_t GetisFromB() const {return _isFromB;};
@@ -469,9 +489,9 @@ public:
   inline Double_t GetntMVAeleID() const {return _ntMVAeleID;};
   inline Double_t ntMVAeleID() const {return _ntMVAeleID;};
   
-  inline void SetisPassMvanontrigwpLoose(Double_t isPassMvanontrigwpLoose){_isPassMvanontrigwpLoose = isPassMvanontrigwpLoose;};
-  inline Double_t GetisPassMvanontrigwpLoose() const {return _isPassMvanontrigwpLoose;};
-  inline Double_t isPassMvanontrigwpLoose() const {return _isPassMvanontrigwpLoose;};
+  inline void SetisPassMvanonIsowpLoose(Double_t isPassMvanonIsowpLoose){_isPassMvanonIsowpLoose = isPassMvanonIsowpLoose;};
+  inline Double_t GetisPassMvanonIsowpLoose() const {return _isPassMvanonIsowpLoose;};
+  inline Double_t isPassMvanonIsowpLoose() const {return _isPassMvanonIsowpLoose;};
   
   inline void SetisFake(Double_t isFake){_isFake = isFake;};
   inline Double_t GetisFake() const {return _isFake;};
@@ -511,6 +531,7 @@ private:
   Double_t _jetptratioV2;
   Double_t _jetcsv;
   Double_t _jetdeepcsv;
+  Double_t _jetdeepflavour;
   Double_t _lepjetchtrks;
   Double_t _miniIsoCh;
   Double_t _miniIsoPUsub;
@@ -538,7 +559,7 @@ private:
   Double_t _dPhiIn;
   Double_t _ooEmooP;
   Double_t _mvaValue_HZZ;
-  Double_t _mvaValue_nonTrig;
+  Double_t _mvaValue_nonIso;
   Double_t _isGsfCtfScPixChargeConsistent;
   Double_t _isGsfScPixChargeConsistent;
   Double_t _passConversionVeto;
@@ -547,7 +568,7 @@ private:
   Double_t _isTight;
   Double_t _isMVASel;
   Double_t _ntMVAeleID;
-  Double_t _isPassMvanontrigwpLoose;
+  Double_t _isPassMvanonIsowpLoose;
   Double_t _isFake;
   Double_t _gen_pt;
   Double_t _gen_eta;
@@ -559,10 +580,13 @@ private:
   Double_t _genMother_pdgId;
   Double_t _genGrandMother_pdgId;
   Double_t _matchId;
+  Double_t _matchIndex;
   Double_t _isFromTop;
   Double_t _isFromH;
   Double_t _matchMother_Id;
   Double_t _matchGrandMother_Id;
+  Double_t _matchMother_Index;
+  Double_t _matchGrandMother_Index;
   Double_t _isFromB;
   Double_t _isFromC;
   Double_t _mcPromptGamma;

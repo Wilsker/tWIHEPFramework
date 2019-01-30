@@ -27,6 +27,17 @@ wObject = "Lepton"
 
 VariableType  = "float"
 VariableNames = [
+#####
+"gen_lv1_px","gen_lv1_py","gen_lv1_pz","gen_lv1_E",
+"gen_lv2_px","gen_lv2_py","gen_lv2_pz","gen_lv2_E",
+"gen_miss_px","gen_miss_py", # gen_type1PF_px - gen_lv1_px - gen_lv2_px
+"Met_Fake_px","Met_Fake_py", # gen_type1PF_px - Met_type1PF_px
+"Met_missFake_px","Met_missFake_py", # Met_type1PF_px - gen_type1PF_px - gen_lv1_px - gen_lv2_px
+"n_leptons_fromH","n_leptons_fromTop","n_leptons_fromB",
+"n_jets_fromH","n_jets_fromTop",
+"genW_fromH_mass","genW_fromTop_mass","genZ_fromH_mass","genTau_fromH_mass",
+
+
 # CaseA Variables
 #"pt","eta","phi","energy",
 #"charge",
@@ -129,32 +140,49 @@ VariableNames = [
 #"subleadLep_isFromTop","subleadLep_isFromH","subleadLep_isFromB","subleadLep_isFromC",
 #"subleadLep_mcPromptGamma","subleadLep_mcPromptFS",
 
-"Jet25_axis2","Jet25_ptD","Jet25_mult","Jet25_pfCombinedCvsLJetTags","Jet25_pfCombinedCvsBJetTags",
+#"Jet25_axis2","Jet25_ptD","Jet25_mult","Jet25_pfCombinedCvsLJetTags","Jet25_pfCombinedCvsBJetTags",
 #
-"Jet25_pt","Jet25_eta","Jet25_phi","Jet25_energy","Jet25_px",
-"Jet25_py","Jet25_pz","Jet25_mass",
+#"Jet25_pt","Jet25_eta","Jet25_phi","Jet25_energy","Jet25_px",
+#"Jet25_py","Jet25_pz","Jet25_mass",
 #
-"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId","Jet25_isToptag",
+#"Jet25_isFromH","Jet25_isFromTop","Jet25_matchId","Jet25_isToptag",
 #
-"Jet25_neutralHadEnergyFraction","Jet25_chargedHadronEnergyFraction","Jet25_chargedEmEnergyFraction",
-"Jet25_muonEnergyFraction","Jet25_electronEnergy","Jet25_photonEnergy","Jet25_numberOfConstituents","Jet25_chargedMultiplicity",
- "Jet25_metptratio","Jet25_dilepmetptratio",
-"Jet25_nonjdr","Jet25_nonjdilepdr","Jet25_lepdrmin","Jet25_lepdrmax","Jet25_dilepdr","Jet25_bjdr", 
-"Jet25_nonjdeta","Jet25_nonjdilepdeta","Jet25_lepdetamin","Jet25_lepdetamax","Jet25_dilepdeta","Jet25_bjdeta", 
-"Jet25_nonjdphi","Jet25_nonjdilepdphi","Jet25_lepdphimin","Jet25_lepdphimax","Jet25_dilepdphi","Jet25_bjdphi",
-"Jet25_nonjptratio","Jet25_nonjdilepptratio","Jet25_lepptratiomin","Jet25_lepptratiomax","Jet25_dilepptratio","Jet25_bjptratio", 
+#"Jet25_neutralHadEnergyFraction","Jet25_chargedHadronEnergyFraction","Jet25_chargedEmEnergyFraction",
+#"Jet25_muonEnergyFraction","Jet25_electronEnergy","Jet25_photonEnergy","Jet25_numberOfConstituents","Jet25_chargedMultiplicity",
+# "Jet25_metptratio","Jet25_dilepmetptratio",
+#"Jet25_nonjdr","Jet25_nonjdilepdr","Jet25_lepdrmin","Jet25_lepdrmax","Jet25_dilepdr","Jet25_bjdr", 
+#"Jet25_nonjdeta","Jet25_nonjdilepdeta","Jet25_lepdetamin","Jet25_lepdetamax","Jet25_dilepdeta","Jet25_bjdeta", 
+#"Jet25_nonjdphi","Jet25_nonjdilepdphi","Jet25_lepdphimin","Jet25_lepdphimax","Jet25_dilepdphi","Jet25_bjdphi",
+#"Jet25_nonjptratio","Jet25_nonjdilepptratio","Jet25_lepptratiomin","Jet25_lepptratiomax","Jet25_dilepptratio","Jet25_bjptratio", 
 
-"Jet25_qg","Jet25_bDiscriminator","Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags","Jet25_pfCombinedMVAV2BJetTags","Jet25_pfJetProbabilityBJetTags",
-"Jet25_pfDeepCSVCvsLJetTags","Jet25_pfDeepCSVCvsBJetTags", 
+#"Jet25_qg","Jet25_bDiscriminator","Jet25_pfCombinedInclusiveSecondaryVertexV2BJetTags","Jet25_pfCombinedMVAV2BJetTags","Jet25_pfJetProbabilityBJetTags",
+#"Jet25_pfDeepCSVCvsLJetTags","Jet25_pfDeepCSVCvsBJetTags", 
 
 #"TTHLep_3L", "Trig_1Ele", "Trig_2Ele", "Trig_3Ele", "Trig_1Mu", "Trig_1Mu1Ele", "Trig_1Mu2Ele", "Trig_2Mu", "Trig_2Mu1Ele", "Trig_3Mu",
 
-"HadTop_bjet_lepTop_csv","HadTop_bjet_hadTop_csv",
-"HadTop_reco_hadTop_pt","HadTop_reco_hadTop_mass",
-"HadTop_reco_WhadTop_mass","HadTop_PtRatio_leptOverleph",
-"HadTop_Dr_lept_bfromlTop","HadTop_Dr_lept_bfromhTop",
-"HadTop_Dr_leph_bfromlTop",
+#"HadTop_bjet_lepTop_csv","HadTop_bjet_hadTop_csv",
+#"HadTop_reco_hadTop_pt","HadTop_reco_hadTop_mass",
+#"HadTop_reco_WhadTop_mass","HadTop_PtRatio_leptOverleph",
+#"HadTop_Dr_lept_bfromlTop","HadTop_Dr_lept_bfromhTop",
+#"HadTop_Dr_leph_bfromlTop",
 
+#"jet1_axis2","jet1_ptD","jet1_mult","jet1_pfCombinedCvsLJetTags","jet1_pfCombinedCvsBJetTags",
+#
+#"jet1_px",
+#"jet1_py","jet1_pz","jet1_mass",
+#
+#"jet1_isFromH","jet1_isFromTop","jet1_matchId","jet1_isToptag","jet1_isResToptag",
+#
+#"jet1_neutralHadEnergyFraction","jet1_chargedHadronEnergyFraction","jet1_chargedEmEnergyFraction",
+#"jet1_muonEnergyFraction","jet1_electronEnergy","jet1_photonEnergy","jet1_numberOfConstituents","jet1_chargedMultiplicity",
+# "jet1_metptratio","jet1_dilepmetptratio",
+#"jet1_nonjdr","jet1_nonjdilepdr","jet1_lepdrmin","jet1_lepdrmax","jet1_dilepdr","jet1_bjdr", 
+#"jet1_nonjdeta","jet1_nonjdilepdeta","jet1_lepdetamin","jet1_lepdetamax","jet1_dilepdeta","jet1_bjdeta", 
+#"jet1_nonjdphi","jet1_nonjdilepdphi","jet1_lepdphimin","jet1_lepdphimax","jet1_dilepdphi","jet1_bjdphi",
+#"jet1_nonjptratio","jet1_nonjdilepptratio","jet1_lepptratiomin","jet1_lepptratiomax","jet1_dilepptratio","jet1_bjptratio", 
+
+#"jet1_qg","jet1_bDiscriminator","jet1_pfCombinedInclusiveSecondaryVertexV2BJetTags","jet1_pfCombinedMVAV2BJetTags","jet1_pfJetProbabilityBJetTags",
+#"jet1_pfDeepCSVCvsLJetTags","jet1_pfDeepCSVCvsBJetTags","jet1_pfDeepFlavourBJetTags" 
 
 ##### DNN ####
 #"bestDNN","worseDNN","DNN_ttH_output","DNN_ttV_output","DNN_ttJet_output","SubCat_DNN",
@@ -194,21 +222,21 @@ VariableNames = [
 #"FakeRate_m_central","FakeRate_m_up","FakeRate_m_down","FakeRate_m_pt1","FakeRate_m_pt2","FakeRate_m_be1","FakeRate_m_be2",
 #"FakeRate_e_central","FakeRate_e_up","FakeRate_e_down","FakeRate_e_pt1","FakeRate_e_pt2","FakeRate_e_be1","FakeRate_e_be2",
 
-"FakeRate_m_TT","FakeRate_m_QCD",
-"FakeRate_e_TT","FakeRate_e_QCD",
-"lep1_E","lep1_isfakeablesel","lep1_ismvasel",
-"lep2_E","lep2_isfakeablesel","lep2_ismvasel",
-"lep3_E","lep3_isfakeablesel","lep3_ismvasel",
+#"FakeRate_m_TT","FakeRate_m_QCD",
+#"FakeRate_e_TT","FakeRate_e_QCD",
+#"lep1_E","lep1_isfakeablesel","lep1_ismvasel",
+#"lep2_E","lep2_isfakeablesel","lep2_ismvasel",
+#"lep3_E","lep3_isfakeablesel","lep3_ismvasel",
 
-"FakeLep_corrpt","FakeLep_ismvasel","FakeLep_charge",
-"FakeLep_mvaId","FakeLep_minIso","FakeLep_minIsoCh","FakeLep_minIsoNeu",
-"FakeLep_ptratio","FakeLep_ptrel","FakeLep_sig3d","FakeLep_segment",
-"FakeLep_lostHits","FakeLep_relIso04","FakeLep_relIsoRhoEA","FakeLep_TightCharge","FakeLep_passConv","FakeLep_jetdr","FakeLep_jetCSV","FakeLep_dxyAbs","FakeLep_dz","FakeLep_leptonMVA","FakeLep_jetNDauChargedMVASel",
-"FakeLep_isFromB","FakeLep_isFromC","FakeLep_isFromH","FakeLep_isFromTop","FakeLep_matchId","FakeLep_PdgId",
-"FakeLep_matchIndex","FakeLep_pt","FakeLep_eta","FakeLep_phi","FakeLep_energy",
+#"FakeLep_corrpt","FakeLep_ismvasel","FakeLep_charge",
+#"FakeLep_mvaId","FakeLep_minIso","FakeLep_minIsoCh","FakeLep_minIsoNeu",
+#"FakeLep_ptratio","FakeLep_ptrel","FakeLep_sig3d","FakeLep_segment",
+#"FakeLep_lostHits","FakeLep_relIso04","FakeLep_relIsoRhoEA","FakeLep_TightCharge","FakeLep_passConv","FakeLep_jetdr","FakeLep_jetCSV","FakeLep_dxyAbs","FakeLep_dz","FakeLep_leptonMVA","FakeLep_jetNDauChargedMVASel",
+#"FakeLep_isFromB","FakeLep_isFromC","FakeLep_isFromH","FakeLep_isFromTop","FakeLep_matchId","FakeLep_PdgId",
+#"FakeLep_matchIndex","FakeLep_pt","FakeLep_eta","FakeLep_phi","FakeLep_energy",
 
-"genWeight_muF2","genWeight_muF0p5","genWeight_muR2","genWeight_muR0p5",
-"bWeight_up_hf","bWeight_down_hf"
+#"genWeight_muF2","genWeight_muF0p5","genWeight_muR2","genWeight_muR0p5",
+#"bWeight_up_hf","bWeight_down_hf"
 ]
 
 #VariableType  = "int"
@@ -314,7 +342,7 @@ elif Case == "CaseC":
  
  print >> vector, "   //Write setbranchaddress"
  for Variable in VariableNames:
-     print >> vector, "  _"+rObject+'Vars["'+Variable+'"] = -999;'
+     print >> vector, "  _"+rObject+'Vars["'+Variable+'"] = 999.;'
  
  print >> vector, "   //Clear vector"
  for Variable in VariableNames:
@@ -322,11 +350,11 @@ elif Case == "CaseC":
  
  print >> vector, "   //class member"
  for Variable in VariableNames:
-     print >> vector, "  "+Variable+" = -999;"
+     print >> vector, "    "+Variable+" = -999;"
  
  print >> vector, "   //class member"
  for Variable in VariableNames:
-     print >> vector,'   readtree->SetBranchStatus("'+Variable+'",1);'
+    print >> vector,'     '+Variable+' = jet.'+Variable+'();'
  
 elif Case == "CaseD":
  print >> vector, "//This is CaseD"

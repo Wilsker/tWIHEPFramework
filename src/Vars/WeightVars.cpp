@@ -22,6 +22,7 @@ WeightVars::WeightVars(){
   _floatVars["mulooseSF"] = 0.;
   _floatVars["mutightSF"] = 0.;
   _floatVars["ChargeMis"] = 0.;
+  _floatVars["Prefire"] = 0.;
   _floatVars["FakeRate"] = 0.;
   _floatVars["TriggerSF"] = 0.;
   _floatVars["LHEWeight"] = 0.;
@@ -47,6 +48,8 @@ WeightVars::WeightVars(){
   _floatVars["mutightSF_SysDown"] = 0.;
   _floatVars["ChargeMis_SysUp"] = 0.;
   _floatVars["ChargeMis_SysDown"] = 0.;
+  _floatVars["Prefire_SysUp"] = 0.;
+  _floatVars["Prefire_SysDown"] = 0.;
   _floatVars["TriggerSF_SysUp"] = 0.;
   _floatVars["TriggerSF_SysDown"] = 0.;
   
@@ -71,6 +74,7 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["mulooseSF"] = evtObj->GetEventmulooseSFWeight();
   _floatVars["mutightSF"] = evtObj->GetEventmutightSFWeight();
   _floatVars["ChargeMis"] = evtObj->GetEventChargeMisWeight();
+  _floatVars["Prefire"] = evtObj->GetEventPrefireWeight();
   _floatVars["FakeRate"] = evtObj->GetEventFakeRateWeight();
   _floatVars["TriggerSF"] = evtObj->GetEventTriggerWeight();
   _floatVars["LHEWeight"] = evtObj->GetEventTriggerWeight();
@@ -103,6 +107,8 @@ void WeightVars::FillBranches(EventContainer * evtObj){
   _floatVars["mutightSF_SysDown"] = evtObj->GetEventmutightSFWeightDown();
   _floatVars["ChargeMis_SysUp"] = evtObj->GetEventChargeMisWeightUp();
   _floatVars["ChargeMis_SysDown"] = evtObj->GetEventChargeMisWeightDown();
+  _floatVars["Prefire_SysUp"] = evtObj->GetEventPrefireWeightUp();
+  _floatVars["Prefire_SysDown"] = evtObj->GetEventPrefireWeightDown();
   _floatVars["TriggerSF_SysUp"] = evtObj->GetEventTriggerWeightUp();
   _floatVars["TriggerSF_SysDown"] = evtObj->GetEventTriggerWeightDown();
   

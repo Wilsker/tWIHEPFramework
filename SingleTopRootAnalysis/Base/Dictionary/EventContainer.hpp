@@ -429,6 +429,21 @@ class EventContainer
   inline Double_t GetEventChargeMisWeightDown() const {return _EventChargeMisWeightDown;};
   inline Double_t EventChargeMisWeightDown() const {return GetEventChargeMisWeightDown();};
 
+  //Prefire weight per event
+  inline void SetEventPrefireWeight(const Double_t& Prefireweight) {_EventPrefireWeight = Prefireweight;};
+  inline Double_t GetEventPrefireWeight() const {return _EventPrefireWeight;};
+  inline Double_t EventPrefireWeight() const {return GetEventPrefireWeight();};
+
+  //Prefire weightUp per event
+  inline void SetEventPrefireWeightUp(const Double_t& PrefireweightUp) {_EventPrefireWeightUp = PrefireweightUp;};
+  inline Double_t GetEventPrefireWeightUp() const {return _EventPrefireWeightUp;};
+  inline Double_t EventPrefireWeightUp() const {return GetEventPrefireWeightUp();};
+
+  //Prefire weightDown per event
+  inline void SetEventPrefireWeightDown(const Double_t& PrefireweightDown) {_EventPrefireWeightDown = PrefireweightDown;};
+  inline Double_t GetEventPrefireWeightDown() const {return _EventPrefireWeightDown;};
+  inline Double_t EventPrefireWeightDown() const {return GetEventPrefireWeightDown();};
+
   //FakeRate weight per event
   inline void SetEventFakeRateWeight(const Double_t& FakeRateweight) {_EventFakeRateWeight = FakeRateweight;};
   inline Double_t GetEventFakeRateWeight() const {return _EventFakeRateWeight;};
@@ -553,6 +568,7 @@ class EventContainer
   Float_t _EventmulooseSFWeight;
   Float_t _EventmutightSFWeight;
   Float_t _EventChargeMisWeight;
+  Float_t _EventPrefireWeight;
   Float_t _EventFakeRateWeight;
   Float_t _EventTriggerWeight;
   Float_t _EventLHEWeight;
@@ -577,6 +593,10 @@ class EventContainer
   Float_t _EventChargeMisWeightUp;
   Float_t _EventChargeMisWeightDown;
 
+  //Add in the systematic variations to the Prefire
+  Float_t _EventPrefireWeightUp;
+  Float_t _EventPrefireWeightDown;
+
   //Add in the systematic variations to the FakeRate
   Float_t _EventFakeRateWeightUp;
   Float_t _EventFakeRateWeightDown;
@@ -599,6 +619,9 @@ class EventContainer
   Int_t lumiBlock;              // run number from the root tree
   Int_t eventNumber;            // event number from the root tree
   Double_t HiggsDecay;            
+  Double_t Gen_type1PF_Met;            
+  Double_t Gen_type1PF_px;            
+  Double_t Gen_type1PF_py;            
   Bool_t larError;
   Float_t actualIntPerXing;
   Float_t averageIntPerXing;

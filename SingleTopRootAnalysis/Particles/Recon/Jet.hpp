@@ -86,6 +86,7 @@ class Jet: public Particle
  _pfJetProbabilityBJetTags =0.0;
  _pfDeepCSVCvsLJetTags =0.0;
  _pfDeepCSVCvsBJetTags =0.0;
+ _pfDeepFlavourBJetTags =0.0;
  _lepdrmax =0.0;
  _lepdrmin =0.0;
  _HjDisc =0.0;
@@ -241,6 +242,10 @@ class Jet: public Particle
   inline Double_t GetpfDeepCSVCvsBJetTags() const {return _pfDeepCSVCvsBJetTags;};
   inline Double_t pfDeepCSVCvsBJetTags() const {return _pfDeepCSVCvsBJetTags;};
 
+  inline void SetpfDeepFlavourBJetTags(Double_t pfDeepFlavourBJetTags){_pfDeepFlavourBJetTags = pfDeepFlavourBJetTags;};
+  inline Double_t GetpfDeepFlavourBJetTags() const {return _pfDeepFlavourBJetTags;};
+  inline Double_t pfDeepFlavourBJetTags() const {return _pfDeepFlavourBJetTags;};
+
   inline void Setlepdrmax(Double_t lepdrmax){_lepdrmax = lepdrmax;};
   inline Double_t Getlepdrmax() const {return _lepdrmax;};
   inline Double_t lepdrmax() const {return _lepdrmax;};
@@ -347,6 +352,7 @@ class Jet: public Particle
   Double_t _pfJetProbabilityBJetTags;
   Double_t _pfDeepCSVCvsLJetTags;
   Double_t _pfDeepCSVCvsBJetTags;
+  Double_t _pfDeepFlavourBJetTags;
   Double_t _lepdrmax;
   Double_t _lepdrmin;
   Double_t _partonFlavour;

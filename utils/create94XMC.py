@@ -8,11 +8,12 @@ import sys,os
 
 treeName = "OutTree_"
 
-DirOfSamples = "/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V1/mc/"
+DirOfSamples = "/publicfs/cms/data/TopQuark/cms13TeV/Fall2017_V2/mc/"
 
 datasets = [
 # this are MVA samples 
-"ttHnobb","ttW_ext_Jets","ttWJets","ttZ_ext_Jets","ttZ_Jets","TT_PSwgt_To2L2Nu","TT_PSwgt_ToSemiLep","TT_PSwgt_ToHadron","TTTo2L2Nu","TTToSemiLep","TTToHadron"
+"ttHnobb","ttW_ext_Jets","ttWJets","ttZ_ext_Jets","ttZ_Jets",
+#"TT_PSwgt_To2L2Nu","TT_PSwgt_ToSemiLep","TT_PSwgt_ToHadron","TTTo2L2Nu","TTToSemiLep","TTToHadron"
 ]
 #datasets=[
 #"ttH_powheg_ToNonbb", "TTW_PSwgt_ToLNu", "DY_M50", "WWTo2L2Nu", "ZZTo4L", "TTTo2L2Nu", "TTToSemiLep", "TTToHadron", "ST_tW_top", "ST_tW_antitop", "STt_top", "STt_antitop", "STs",  "WW_DS_To2L2Nu", 
@@ -103,11 +104,11 @@ datasetDirs = {
 "THW":['private_Fall17V1_THW/'],
 "tWll":['private_Fall17V1_tWll/'],
 "WpWpJJ":['private_Fall17V1_WpWpJJ/'],
-"ttHnobb":['ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/Fall17V1_ttHnobb/181102_143536/0000/'],
-"ttWJets":['ttWJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V1_ttWJets/181102_143624/0000/'],
-"ttW_ext_Jets":['ttWJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V1_ttW_ext_Jets/181102_143713/0000/'],
-"ttZ_ext_Jets":['ttZJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V1_ttZ_ext_Tune/181102_143449/0000/'],
-"ttZ_Jets":['ttZJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V1_ttZ_Tune/181102_143400/0000/'],
+"ttHnobb":['ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/Fall17V2_ttHnobb/190128_162623/0000/'],
+"ttWJets":['ttWJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V2_ttWJets/190128_162723/0000/'],
+"ttW_ext_Jets":['ttWJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V2_ttW_ext_Jets/190128_162823/0000/'],
+"ttZ_ext_Jets":['ttZJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V2_ttZ_ext_Tune/190128_162522/0000/'],
+"ttZ_Jets":['ttZJets_TuneCP5_13TeV_madgraphMLM_pythia8/Fall17V2_ttZ_Tune/190128_162422/0000/'],
 
 }
 #datasetDirs = {"TTHnobb":["/publicfs/cms/data/TopQuark/cms13TeV/FullMorV2/mc/ttHToNonbb_M125_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8/FullMorV2_ttHnobb/170530_161519/0000/"],

@@ -81,6 +81,7 @@ ClassImp(Jet)
   _pfJetProbabilityBJetTags       (0.0),
   _pfDeepCSVCvsLJetTags       (0.0),
   _pfDeepCSVCvsBJetTags       (0.0),
+  _pfDeepFlavourBJetTags       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
   _isToptag       (0.0),
@@ -150,6 +151,7 @@ _electronEnergy			(other.GetelectronEnergy()),
   _pfJetProbabilityBJetTags(other.GetpfJetProbabilityBJetTags()),
   _pfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags()),
   _pfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags()),
+  _pfDeepFlavourBJetTags(other.GetpfDeepFlavourBJetTags()),
   _lepdrmax(other.Getlepdrmax()),
   _lepdrmin(other.Getlepdrmin()),
   _partonFlavour(other.GetpartonFlavour()),
@@ -193,6 +195,7 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _pfJetProbabilityBJetTags       (0.0),
   _pfDeepCSVCvsLJetTags       (0.0),
   _pfDeepCSVCvsBJetTags       (0.0),
+  _pfDeepFlavourBJetTags       (0.0),
   _L1corrPt  (0.0),
   _uncorrE  (0.0),
   _lepdrmax       (0.0),
@@ -287,6 +290,7 @@ Jet& Jet::operator=(const Particle& other)
   SetpfJetProbabilityBJetTags       (0.0);
   SetpfDeepCSVCvsLJetTags       (0.0);
   SetpfDeepCSVCvsBJetTags       (0.0);
+  SetpfDeepFlavourBJetTags       (0.0);
   Setlepdrmax       (0.0);
   Setlepdrmin       (0.0);
   SetpartonFlavour       (0.0);
@@ -347,6 +351,7 @@ Jet& Jet::operator=(const Jet& other)
   SetpfJetProbabilityBJetTags(other.GetpfJetProbabilityBJetTags());
   SetpfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags());
   SetpfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags());
+  SetpfDeepFlavourBJetTags(other.GetpfDeepFlavourBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -405,6 +410,7 @@ Jet& Jet::operator=(Jet& other)
   SetpfJetProbabilityBJetTags(other.GetpfJetProbabilityBJetTags());
   SetpfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags());
   SetpfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags());
+  SetpfDeepFlavourBJetTags(other.GetpfDeepFlavourBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -554,8 +560,9 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetpfCombinedInclusiveSecondaryVertexV2BJetTags       (evtr -> Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags      -> operator[](iE));
   SetpfCombinedMVAV2BJetTags       (evtr -> Jet_pfCombinedMVAV2BJetTags      -> operator[](iE));
   SetpfJetProbabilityBJetTags       (evtr -> Jet_pfJetProbabilityBJetTags      -> operator[](iE));
-  SetpfDeepCSVCvsLJetTags       (evtr -> Jet_pfDeepCSVCvsLJetTags      -> operator[](iE));
-  SetpfDeepCSVCvsBJetTags       (evtr -> Jet_pfDeepCSVCvsBJetTags      -> operator[](iE));
+  SetpfDeepCSVCvsLJetTags       (evtr -> Jet_pfDeepCSVProbc      -> operator[](iE)/(evtr -> Jet_pfDeepCSVProbc      -> operator[](iE) + evtr -> Jet_pfDeepCSVProbudsg -> operator[](iE)));
+  SetpfDeepCSVCvsBJetTags       (evtr -> Jet_pfDeepCSVProbc      -> operator[](iE)/(evtr -> Jet_pfDeepCSVProbc      -> operator[](iE)+ evtr -> Jet_pfDeepCSVProbb      -> operator[](iE) + evtr -> Jet_pfDeepCSVProbbb      -> operator[](iE)) );
+  SetpfDeepFlavourBJetTags       (evtr -> Jet_pfDeepFlavourBJetTags      -> operator[](iE));
   if(isSimulation){
     SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
     SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
