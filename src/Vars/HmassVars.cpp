@@ -243,7 +243,7 @@ void HmassVars::FillBranches(EventContainer* evtObj){
     }
    
     // calculate miss ETs 
-    if(gen_lvTop_px > 0 && gen_lvTop_px !=999  && gen_lvH_px > 0 &&  gen_lvH_px != 999){
+    if(gen_lvTop_E > 0 &&  gen_lvH_E > 0 ){
         // if found 2 lvs, calculate the difference between gen_Met and lv1+lv2
         gen_miss_px =  evtObj->Gen_type1PF_px - gen_lvTop_px - gen_lvH_px ;
         gen_miss_py =  evtObj->Gen_type1PF_py - gen_lvTop_py - gen_lvH_py ;
@@ -255,7 +255,7 @@ void HmassVars::FillBranches(EventContainer* evtObj){
     Met_Fake_py = evtObj->missingEy - evtObj->Gen_type1PF_py;
  
    // calculate jjl_lvH mass when we found 2 hj and 1 hlep:
-   if(gen_lvH_px>0 &&  gen_lvH_px != 999 && n_leptons_fromH >=1 && n_jets_fromH>=2 ){
+   if(gen_lvH_E>0  && n_leptons_fromH >=1 && n_jets_fromH>=2 ){
     jjl_fromH_lvH_mass = (h1jet + h2jet + hlep + hlv).M();
    }
   

@@ -487,11 +487,11 @@ void Jet::set_HjMVAreader(TEnv* config)
  
 double Jet::get_JetMVA()
 {
-    jetvarqg = qg();
+    jetvarqg = max(qg(),0.);
     jetvarlepdrmax = lepdrmax();
     jetvarpt = Pt();
     jetvarlepdrmin = lepdrmin();
-    jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = bDiscriminator();
+    jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = max(bDiscriminator(),0.);
     //jetvarpfCombinedInclusiveSecondaryVertexV2BJetTags = pfCombinedInclusiveSecondaryVertexV2BJetTags();
     return readerjet->EvaluateMVA("BDTG method");
 }
@@ -663,7 +663,6 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Double_t minlepdr = -1.;
   Double_t maxlepdr = -1.;
   
-  /*
   int lep_num =selectedLeptons.size();
   
   if (lep_num == 1){
@@ -676,6 +675,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
     maxlepdr = TMath::Max(selectedLeptons.at(0).DeltaR(*this),selectedLeptons.at(1).DeltaR(*this));
   }
 
+  /*
   int clean_num =0;
   if(whichtrig>=2 && whichtrig <= 5){//2L categories
       clean_num = TMath::Min(2,lep_num);

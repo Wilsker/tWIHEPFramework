@@ -102,6 +102,8 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["minMllSFOS"] = 400.;
   _floatVars["Hj_tagger_resTop"] = -1.;
   _floatVars["Hj_tagger_hadTop"] = -1.;
+  _floatVars["Hj1_score"] = -1.;
+  _floatVars["Hj2_score"] = -1.;
   _floatVars["leadLep_isMatchRightCharge"] = 2.;
   _floatVars["leadLep_mcMatchId"] = 100.;
   _floatVars["leadLep_isFromTop"] = 2.;
@@ -526,6 +528,8 @@ void ttHVars::Clear(){
     minMllSFOS = -9999;
     Hj_tagger_resTop = -9999;
     Hj_tagger_hadTop = -9999;
+    Hj1_score = -9999;
+    Hj2_score = -9999;
     leadLep_isMatchRightCharge = -9999;
     leadLep_mcMatchId = -9999;
     leadLep_isFromTop = -9999;
@@ -1039,6 +1043,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["minMllSFOS"] = minMllSFOS;
     _floatVars["Hj_tagger_resTop"] = Hj_tagger_resTop;
     _floatVars["Hj_tagger_hadTop"] = Hj_tagger_hadTop;
+    _floatVars["Hj1_score"] = Hj1_score;
+    _floatVars["Hj2_score"] = Hj2_score;
   
     _floatVars["leadLep_isMatchRightCharge"] = leadLep_isMatchRightCharge;
     _floatVars["leadLep_mcMatchId"] = leadLep_mcMatchId;
@@ -1680,6 +1686,8 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     double SumPt =0;
     double maxHj_resTop = -9999;
     double maxHj_hadTop = -9999;
+    double Hj_lead = -9998;
+    double Hj_sublead = -9999;
     int jet_numbLoose = 0;
     int jet_numbMedium = 0;
     double sum_jet_dr =0.;
@@ -1697,6 +1705,12 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if( maxCSV < jet.bDiscriminator()) maxCSV = jet.bDiscriminator();
         if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj_resTop) maxHj_resTop = jet.HjDisc();
         if( jet.isToptag()!=1 && jet.HjDisc() > maxHj_hadTop) maxHj_hadTop = jet.HjDisc();
+        if( jet.HjDisc() > Hj_lead){
+            Hj_sublead = Hj_lead;
+            Hj_lead = jet.HjDisc();
+        }else if(jet.HjDisc() > Hj_sublead){
+            Hj_sublead = jet.HjDisc();
+        }
         for(uint bjet_en=0; bjet_en < Jets.size(); bjet_en++){
             if (jet_en == bjet_en) continue;
             Jet bjet = Jets.at(bjet_en);
@@ -1721,6 +1735,8 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
     Hj_tagger_resTop = max(maxHj_resTop,-1.);
     Hj_tagger_hadTop = max(maxHj_hadTop,-1.);
+    Hj1_score = max(Hj_lead,-1.);
+    Hj2_score = max(Hj_sublead,-1.);
     HighestJetCSV = maxCSV;
     HtJet = SumPt;
     if(fakeLeptons.size()>=2){

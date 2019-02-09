@@ -84,6 +84,11 @@ private:
     std::vector<double>  Jet25_pfDeepCSVCvsBJetTags;
     std::vector<double>  Jet25_pfDeepFlavourBJetTags;
     std::vector<double> Jet25_bDiscriminator;
+    std::vector<double> Jet25_HjBDT;
+    std::vector<double> Jet25_isLooseBdisc;
+    std::vector<double> Jet25_isMediumBdisc;
+    std::vector<double> Jet25_isTightBdisc;
+    std::vector<double> Jet25_isFromLepTop;
     std::vector<double> Jet25_pfCombinedCvsLJetTags;
     std::vector<double> Jet25_pfCombinedCvsBJetTags;
     std::vector<double> Jet25_qg;

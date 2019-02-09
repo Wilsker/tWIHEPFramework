@@ -1894,10 +1894,12 @@ void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vec
     double min_dr = 999.;
     for(auto bjet: BJets){
         // bjet from top are status 23
-        if(bjet.Status()!=23 || bjet.Pt()<10)continue;
+        //if(bjet.Status()!=23 || bjet.Pt()<10)continue;
+        if(bjet.Status()!=23)continue;
         double dr = reco.DeltaR(bjet);
         double dptrel = fabs((reco.Pt()-bjet.Pt())/bjet.Pt());
-        if(dr < 0.4 && dptrel < 0.5){
+        //if(dr < 0.4 && dptrel < 0.5){
+        if(dr < 0.4 ){
             if(dr < min_dr){
                 gen = bjet;
                 min_dr = dr;
@@ -1907,10 +1909,12 @@ void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vec
     }
     for(auto cjet: CJets){
         // cjet from top/W/Z are status 23
-        if(cjet.Status()!=23 || cjet.Pt()<10)continue;
+        //if(cjet.Status()!=23 || cjet.Pt()<10)continue;
+        if(cjet.Status()!=23)continue;
         double dr = reco.DeltaR(cjet);
         double dptrel = fabs((reco.Pt()-cjet.Pt())/cjet.Pt());
-        if(dr < 0.4 && dptrel < 0.5){
+        //if(dr < 0.4 && dptrel < 0.5){
+        if(dr < 0.4){
             if(dr < min_dr){
                 gen = cjet;
                 min_dr = dr;
@@ -1920,10 +1924,12 @@ void EventContainer::Do_Jet_Match(Jet& reco, std::vector<MCJet>& BJets, std::vec
     }
     for(auto lightjet: LightJets){
         // light quark from top/W/Z are status 23 
-        if(lightjet.Status()!=23 || lightjet.Pt()<10)continue;
+        //if(lightjet.Status()!=23 || lightjet.Pt()<10)continue;
+        if(lightjet.Status()!=23 )continue;
         double dr = reco.DeltaR(lightjet);
         double dptrel = fabs((reco.Pt()-lightjet.Pt())/lightjet.Pt());
-        if(dr < 0.4 && dptrel < 0.5){
+        //if(dr < 0.4 && dptrel < 0.5){
+        if(dr < 0.4){
             if(dr < min_dr){
                 gen = lightjet;
                 min_dr = dr;

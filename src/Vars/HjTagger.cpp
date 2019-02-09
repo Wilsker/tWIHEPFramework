@@ -19,6 +19,11 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["Jet25_qg"] = {-0.1,100};
   _doubleVecs["Jet25_axis2"] = {-0.1,100};
   _doubleVecs["Jet25_bDiscriminator"] = {-0.1,100};
+  _doubleVecs["Jet25_HjBDT"] = {-0.1,100};
+  _doubleVecs["Jet25_isFromLepTop"] = {-0.1,100};
+  _doubleVecs["Jet25_isLooseBdisc"] = {-0.1,100};
+  _doubleVecs["Jet25_isMediumBdisc"] = {-0.1,100};
+  _doubleVecs["Jet25_isTightBdisc"] = {-0.1,100};
   _doubleVecs["Jet25_ptD"] = {-0.1,100};
   _doubleVecs["Jet25_mult"] = {-0.1,100};
   _doubleVecs["Jet25_pfCombinedCvsLJetTags"] = {-0.1,100};
@@ -152,6 +157,11 @@ void HjTagger::Clear(){
     FakeLep_jetNDauChargedMVASel.clear();
     Jet25_axis2.clear();
     Jet25_bDiscriminator.clear();
+    Jet25_HjBDT.clear();
+    Jet25_isFromLepTop.clear();
+    Jet25_isLooseBdisc.clear();
+    Jet25_isMediumBdisc.clear();
+    Jet25_isTightBdisc.clear();
     Jet25_qg.clear();
     Jet25_ptD.clear();
     Jet25_mult.clear();
@@ -247,6 +257,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
       TLorentzVector Lepmax = {0,0,0,0};
       TLorentzVector DiLep = {0,0,0,0};
       TLorentzVector NonJetVec = {0,0,0,0};
+      int isFromLepTop = -999;
       if(fakeLeptons.size()==1){
           FirstLepton = fakeLeptons.at(0);
           Lepmin.SetPtEtaPhiE(FirstLepton.conept(),FirstLepton.Eta(),FirstLepton.Phi(),FirstLepton.E());
@@ -273,9 +284,24 @@ void HjTagger::FillBranches(EventContainer * evtObj){
           }
       }
       NonJetVec.SetPtEtaPhiE(NonJet.Pt(),NonJet.Eta(),NonJet.Phi(),NonJet.E());
+     
+      // check whether is jets coming from a leptonically decayed top
+      if(jet.isFromTop()==1){
+        Lepton lepFromTop;
+        if(FirstLepton.isFromTop() ==1)lepFromTop=FirstLepton;
+        else if(SecondLepton.isFromTop() ==1)lepFromTop=SecondLepton;
+        // using charge information 
+        if( (jet.matchId() * lepFromTop.matchId()) <0 && abs(jet.matchId())>=5) isFromLepTop =1;
+        else isFromLepTop =0;
+      }
       
       Jet25_axis2.push_back(jet.axis2());
       Jet25_bDiscriminator.push_back(jet.bDiscriminator());
+      Jet25_HjBDT.push_back(jet.HjDisc());
+      Jet25_isLooseBdisc.push_back(jet.isLooseBdisc());
+      Jet25_isMediumBdisc.push_back(jet.isMediumBdisc());
+      Jet25_isTightBdisc.push_back(jet.isTightBdisc());
+      Jet25_isFromLepTop.push_back(isFromLepTop);
       Jet25_qg.push_back(jet.qg());
       Jet25_ptD.push_back(jet.ptD());
       Jet25_mult.push_back(jet.mult());
@@ -425,6 +451,11 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     
     _doubleVecs["Jet25_axis2"] = Jet25_axis2;
     _doubleVecs["Jet25_bDiscriminator"] = Jet25_bDiscriminator;
+    _doubleVecs["Jet25_HjBDT"] = Jet25_HjBDT;
+    _doubleVecs["Jet25_isFromLepTop"] = Jet25_isFromLepTop;
+    _doubleVecs["Jet25_isLooseBdisc"] = Jet25_isLooseBdisc;
+    _doubleVecs["Jet25_isMediumBdisc"] = Jet25_isMediumBdisc;
+    _doubleVecs["Jet25_isTightBdisc"] = Jet25_isTightBdisc;
     _doubleVecs["Jet25_qg"] = Jet25_qg;
     _doubleVecs["Jet25_ptD"] = Jet25_ptD;
     _doubleVecs["Jet25_mult"] = Jet25_mult;
