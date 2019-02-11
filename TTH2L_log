@@ -1,0 +1,288 @@
+<driver> Starting parton_analysis
+AnalysisMain::AnalysisMain Constructor called
+Command line parameter 1 is -config
+Command line parameter 2 is config/overall/ttH.MultiLeptons.DiLepton.SR.config
+Command line parameter 3 is -inlist
+Command line parameter 4 is config/files/ttH_test/ttH.list
+Command line parameter 5 is -hfile
+Command line parameter 6 is hists/SingleTop.105200_1.t.LP2fb_v5.MC.mm1+j.muonMSSmeardown.WtDilepton.root
+Command line parameter 7 is -skimfile
+Command line parameter 8 is skims/ttHDiLep.root
+Command line parameter 9 is -mc
+Driver: This is a MC sample
+Command line parameter 10 is -BkgdTreeName
+Command line parameter 11 is DiElectronPreTagTree
+Command line parameter 12 is -UseTotalEvtFromFile
+Driver: UseTotalEvtFromFile 
+Command line parameter 13 is -MCatNLO
+Driver: This is MCatNLO 
+Command line parameter 14 is -mc
+Driver: This is a MC sample
+Command line parameter 15 is -SelectTrigger
+Command line parameter 16 is TTHLep_2L
+Command line parameter 17 is -lepSFs
+Driver: Using lepton ID/iso SFs
+Command line parameter 18 is -bTagReshape
+Driver: Enable b-tag discriminant reshaping
+Command line parameter 19 is -PileUpWgt
+Driver: Use PileUpWgt 
+Command line parameter 20 is -ReCalPU
+Driver: Use ReCalPU 
+Command line parameter 21 is -chargeMis-Prefire
+Command line parameter 22 is -FakeRate
+Driver: Using FakeRate
+Command line parameter 23 is -TriggerSFs
+Driver: Using TriggerSFs
+Command line parameter 24 is -mcPromptFS
+Driver: Using mcPromptFS
+Command line parameter 25 is -mcRightCharge
+Driver: Using mcRightCharge
+USING THE TOPINPUTS TREE
+<AnalysisMain::ParseCmdLine> Parsing command line.
+in
+<AnalysisMain::ParseCmdLine> Parsing configuration file 
+<AnalysisMain::ParseCmdLine> Setting debug level to 10
+<AnalysisMain::ParseCmdLine> Reading object ID config file: macros/ttH/Mor/config/objects/ttHObjects.Mor.noshift.config
+<AnalysisMain::ParseCmdLine> Setting jet energy scale error to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale uniform shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale low Pt shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale high Pt shift to 0
+<AnalysisMain::ParseCmdLine> Setting jet energy scale shift to 0
+<AnalysisMain::ParseCmdLine> Setting b-tagging algorithm to SV0
+<AnalysisMain::ParseCmdLine> Setting b-tagging weight cut to 5.85
+<AnalysisMain::ParseCmdLine> Setting mis-tagging weight cut to 5.85
+<AnalysisMain::ParseCmdLine> Setting cellout shift to 0
+<AnalysisMain::ParseCmdLine> Setting softjet shift to 0
+<AnalysisMain::ParseCmdLine> Setting pileup shift to 0
+<AnalysisMain::ParseCmdLine> Chaining files listed in: config/files/ttH_test/ttH.list
+<AnalysisMain::ParseCmdLine> Name of this source: Name: TTHnobb
+<AnalysisMain::ParseCmdLine> Setting source number to: Number: 100001_1
+<AnalysisMain::ParseCmdLine> Reading root tree from /publicfs/cms/data/TopQuark/cms13TeV/Binghuan/NTuple/TTH9410_v2.root
+<AnalysisMain::ParseCmdLine> **WARNING** Truth required but tree not found. Running without it!
+<AnalysisMain::ParseCmdLine> **WARNING** Config tree not found. Running without it!
+<AnalysisMain::ParseCmdLine> TOTAL AOD EVENT COUNT 0
+<AnalysisMain::ParseCmdLine> TOTAL AOD EVENT COUNT WITH MCATNLO 0
+<AnalysisMain::ParseCmdLine> TOTAL EVENT COUNT IN TNT/BOOM = 39683
+<AnalysisMain::ParseCmdLine> 1 lines read from chain list.
+<AnalysisMain::ParseCmdLine> 1 files successfully chained from chain list.
+<AnalysisMain::ParseCmdLine> Parsing configuration file (part2) 
+<AnalysisMain::ParseCmdLine> Setting debug level to 10
+<AnalysisMain::ParseCmdLine> Setting target top mass to 172.5
+<AnalysisMain::ParseCmdLine> Reading cuts config file: config/weights/MCInformation.weights
+<AnalysisMain::ParseCmdLine> Reading cuts config file: macros/ttH/Mor/config/cuts/TTH.MultiLeptons.DiLepton.SignalRegion.cuts
+<AnalysisMain::ParseCmdLine> Reading weights config file: config/weights/MCInformation.weights
+Skimed chain name = TNT/BOOM
+Skimed tree name = BOOM
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/bloose_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/btight_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDT" of type "BDT" from config/weights/ttH2018/resTop_xgb_csv_order_deepCTag.xml.
+                         : Booked classifier "BDT" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH2018/2lss_ttbar_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH2018/2lss_ttV_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+ syncFile not found!
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/el_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/mu_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "BDTG" of type: "BDT"
+                         : Booking "BDTG method" of type "BDT" from config/weights/ttH/Hj_csv_BDTG.weights.xml.
+<HEADER> DataSetInfo              : [Default] : Added class "Signal"
+<HEADER> DataSetInfo              : [Default] : Added class "Background"
+                         : Booked classifier "training_2016" of type: "BDT"
+ParseCmdLine done
+pileupHistName is ttHToNonbb_M125_powheg
+<driver> Starting Loop over events in chain
+
+<AnalysisMain::Loop::BookHistogram Start> 
+<CutListProcessor::BookHistogram>      --------------------------------  
+<CutListProcessor::BookHistogram>     |   Cut & Histo Classes Called   | 
+<CutListProcessor::BookHistogram>      --------------------------------  
+<CutListProcessor::BookHistogram>     |  00_CutLeptonN                 |
+<CutListProcessor::BookHistogram>     |  01_CutLeptonSameSign          |
+<CutListProcessor::BookHistogram>     |  02_CutLeptonAbsPdgIdSum       |
+<CutListProcessor::BookHistogram>     |  03_CutTriggerSelection        |
+<CutListProcessor::BookHistogram>     |  04_CutMassL                   |
+<CutListProcessor::BookHistogram>     |  05_CutLeptonPt1               |
+<CutListProcessor::BookHistogram>     |  06_CutLeptonPt2               |
+<CutListProcessor::BookHistogram>     |  07_CutLeptonTight             |
+<CutListProcessor::BookHistogram>     |  08_CutLeptonN                 |
+<CutListProcessor::BookHistogram>     |  09_CutLeptonCharge            |
+<CutListProcessor::BookHistogram>     |  10_CutZveto                   |
+<CutListProcessor::BookHistogram>     |  11_CutMetLD                   |
+<CutListProcessor::BookHistogram>     |  12_CutLeptonTightCharge       |
+<CutListProcessor::BookHistogram>     |  13_CutJetN                    |
+<CutListProcessor::BookHistogram>     |  14_CutBTaggedJetN             |
+<CutListProcessor::BookHistogram>     |  15_CutTauN                    |
+<CutListProcessor::BookHistogram>     |  16_CutLeptonMCPromptFS        |
+<CutListProcessor::BookHistogram>     |  17_CutLeptonMCRightCharge     |
+<CutListProcessor::BookHistogram>     |  18_EventWeight                |
+<EventWeight::BookHistogram>          |     Source Name:    TTHnobb    |
+<EventWeight::BookHistogram>          |     Source Num:    100001      |
+<EventWeight::BookHistogram>          |     xsec*BR*lum: 8753.85     |
+<EventWeight::BookHistogram>          |     Counts + MCatNLO: 7.45313e+06 |
+<EventWeight::BookHistogram>          |     Global Weight: 0.00117452  |
+Muon trig file not found!
+<CutListProcessor::BookHistogram>      -------------------------------- 
+<AnalysisMain::Loop::BookHistogram End> 
+<AnalysisMain::Loop> 
+<AnalysisMain::Loop> Processing event 0
+ varpt 64.3303 vareta -2.38761 varchRelIso 0.00979138 varneuRelIso 0 varjetPtRel 5.03474 varjetptRatio_in0.911825 varjetBTagCSV_in 0.0946126 varjetNDauCharged_in 1 varsip3d 0.656885 vardxy -6.40135 vardz -4.7664 varSegCompa 0 varmvaId 0.980085
+ varpt 64.3303 vareta -2.38761 varchRelIso 0.00979138 varneuRelIso 0 varjetPtRel 5.03474 varjetptRatio_in0.911825 varjetBTagCSV_in 0.0946126 varjetNDauCharged_in 1 varsip3d 0.656885 vardxy -6.40135 vardz -4.7664 varSegCompa 0 varmvaId 0.980085
+ varpt 64.3303 vareta -2.38761 varchRelIso 0.00979138 varneuRelIso 0 varjetPtRel 5.03474 varjetptRatio_in0.911825 varjetBTagCSV_in 0.0946126 varjetNDauCharged_in 1 varsip3d 0.656885 vardxy -6.40135 vardz -4.7664 varSegCompa 0 varmvaId 0.980085
+ varpt 56.8651 vareta -2.51263 varchRelIso 0.00893013 varneuRelIso 0 varjetPtRel 17.7869 varjetptRatio_in0.92846 varjetBTagCSV_in 0 varjetNDauCharged_in 0 varsip3d 8.14135 vardxy -2.53855 vardz -2.17754 varSegCompa 0 varmvaId 0.931297
+ varpt 56.8651 vareta -2.51263 varchRelIso 0.00893013 varneuRelIso 0 varjetPtRel 17.7869 varjetptRatio_in0.92846 varjetBTagCSV_in 0 varjetNDauCharged_in 0 varsip3d 8.14135 vardxy -2.53855 vardz -2.17754 varSegCompa 0 varmvaId 0.931297
+ varpt 56.8651 vareta -2.51263 varchRelIso 0.00893013 varneuRelIso 0 varjetPtRel 17.7869 varjetptRatio_in0.92846 varjetBTagCSV_in 0 varjetNDauCharged_in 0 varsip3d 8.14135 vardxy -2.53855 vardz -2.17754 varSegCompa 0 varmvaId 0.931297
+ varpt 7.63829 vareta -2.35079 varchRelIso 0 varneuRelIso 0 varjetPtRel 2.57511 varjetptRatio_in0.628174 varjetBTagCSV_in 0 varjetNDauCharged_in 0 varsip3d 629.017 vardxy -6.29433 vardz 1.66578 varSegCompa 0 varmvaId 0.293389
+ varpt 7.63829 vareta -2.35079 varchRelIso 0 varneuRelIso 0 varjetPtRel 2.57511 varjetptRatio_in0.628174 varjetBTagCSV_in 0 varjetNDauCharged_in 0 varsip3d 629.017 vardxy -6.29433 vardz 1.66578 varSegCompa 0 varmvaId 0.293389
+ varpt 7.63829 vareta -2.35079 varchRelIso 0 varneuRelIso 0 varjetPtRel 2.57511 varjetptRatio_in0.628174 varjetBTagCSV_in 0 varjetNDauCharged_in 0 varsip3d 629.017 vardxy -6.29433 vardz 1.66578 varSegCompa 0 varmvaId 0.293389
+<AdditionalVarsProcessor::BookBranches>      ----------------------------------  
+<AdditionalVarsProcessor::BookBranches>     |   Variables added to output tree | 
+<AdditionalVarsProcessor::BookBranches>      ----------------------------------  
+<AdditionalVarsProcessor::BookBranches>      ----------------------------------
+<HEADER> DataSetInfo              : [Default] : Added class "data"
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<AnalysisMain::Loop> Processing event 10000
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 2-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<AnalysisMain::Loop> Processing event 20000
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<AnalysisMain::Loop> Processing event 30000
+<ERROR>                          : 2-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<ERROR>                          : 1-th variable of the event is NaN --> return MVA value -999, 
+<ERROR>                          :  that's all I can do, please fix or remove this event.
+<EventContainer> Read 0 bytes from event tree.
+<CutFlowJetTable> GlobalCutFlow result:
+-----------------------------------------------------------------------------------------------------------------------------
+|    Cut Name                     | 0 jet | 1 jet | 2 jet | 3 jet | 4 jet | 5 jet | 6 jet | 7 jet | 8+jet | total |
+|        TTHFakeLepton.Number.Min |      8|     93|    360|    769|   1025|   1013|    654|    374|    207|   4503|
+|        TTHFakeLepton.Number.Max |     15|    186|    833|   2470|   4802|   7137|   7835|   7025|   9380|  39683|
+|        TTHFakeLepton.Number.All |      8|     93|    360|    769|   1025|   1013|    654|    374|    207|   4503|
+|     TTHFakeDilepSkim.Charge.All |      3|     39|    159|    306|    368|    356|    227|    113|     65|   1636|
+|  TTHFakeDilepton.AbsPdgIdSum.All |      3|     39|    159|    306|    368|    356|    227|    113|     65|   1636|
+|                TTHLep_2LTrigger |      3|     39|    154|    293|    356|    338|    217|    112|     60|   1572|
+|                       MassL.All |      3|     36|    150|    286|    344|    333|    213|    108|     59|   1532|
+|         TTHFakeLepton.LeadingPt |      3|     35|    147|    283|    338|    329|    210|    106|     59|   1510|
+|      TTHFakeLepton.SubLeadingPt |      3|     33|    142|    272|    327|    309|    192|     99|     57|   1434|
+|  TTHFakeDilepton.NumberTight.Min |      3|     21|    102|    209|    222|    206|    133|     74|     37|   1007|
+|  TTHFakeDilepton.NumberTight.Max |      3|     33|    142|    272|    327|    309|    192|     99|     57|   1434|
+|  TTHFakeDilepton.NumberTight.All |      3|     21|    102|    209|    222|    206|    133|     74|     37|   1007|
+|       TTHTightLepton.Number.Min |      3|     21|    102|    209|    222|    206|    133|     74|     37|   1007|
+|       TTHTightLepton.Number.Max |      1|     13|     55|    146|    167|    174|    120|     68|     32|    776|
+|       TTHTightLepton.Number.All |      1|     13|     55|    146|    167|    174|    120|     68|     32|    776|
+|      TTHFakeDilepton.Charge.All |      0|     10|     45|    125|    151|    164|    111|     66|     30|    702|
+|                       Zveto.All |      0|     10|     45|    121|    151|    156|    110|     66|     29|    688|
+|                       MetLD.All |      0|     10|     45|    120|    150|    155|    108|     64|     29|    681|
+|  TTHFakeDilepton.TightCharge.All |      0|      9|     44|    117|    149|    154|    108|     63|     29|    673|
+|                  Jet.Number.Min |      0|      0|      0|      0|    149|    154|    108|     63|     29|    503|
+|                  Jet.Number.Max |      0|      9|     44|    117|    149|    154|    108|     63|     29|    673|
+|                  Jet.Number.All |      0|      0|      0|      0|    149|    154|    108|     63|     29|    503|
+|     BLooseTagged.Jet.Number.Min |      0|      0|      0|      0|    100|    113|     81|     55|     22|    371|
+|     BLooseTagged.Jet.Number.Max |      0|      0|      0|      0|    149|    154|    108|     63|     29|    503|
+|    BMediumTagged.Jet.Number.Min |      0|      0|      0|      0|    121|    133|     94|     55|     25|    428|
+|    BMediumTagged.Jet.Number.Max |      0|      0|      0|      0|    149|    154|    108|     63|     29|    503|
+|   bLooseOrMedium.Jet.Number.All |      0|      0|      0|      0|    130|    139|     98|     58|     25|    450|
+|             LooseTau.Number.Min |      0|      0|      0|      0|    130|    139|     98|     58|     25|    450|
+|             LooseTau.Number.Max |      0|      0|      0|      0|    116|    125|     87|     55|     22|    405|
+|             LooseTau.Number.All |      0|      0|      0|      0|    116|    125|     87|     55|     22|    405|
+|                     MCPromptFS  |      0|      0|      0|      0|    115|    122|     87|     52|     21|    397|
+|                  MCRightCharge  |      0|      0|      0|      0|    115|    122|     87|     52|     21|    397|
+-----------------------------------------------------------------------------------------------------------------------------
+<CutFlowTable> GlobalCutFlow result:
+-----------------------------------------------------------------------------------------------------------------------------
+|    Cut Name                    |        exposed         |        pass            |      cut
+|                                |  count  |     yield    |  count  |    yield     |
+|       TTHFakeLepton.Number.Min |   39683 |      101.164 |    4503 |        8.156 | TTHFake Lepton : N >= 2
+|       TTHFakeLepton.Number.Max |   39683 |      101.164 |   39683 |      101.164 | TTHFake Lepton : N <= 999
+|       TTHFakeLepton.Number.All |   39683 |      101.164 |    4503 |        8.156 | TTHFake Lepton : 2 <= N <= 999
+|    TTHFakeDilepSkim.Charge.All |    4503 |        8.156 |    1636 |      2.76727 | TTHFake DilepSkim : Same sign 
+|  TTHFakeDilepton.AbsPdgIdSum.All |    1636 |      2.76727 |    1636 |      2.76727 | TTHFake Dilepton : any flavor 
+|               TTHLep_2LTrigger |    1636 |      2.76727 |    1572 |      2.73306 | TTHLep_2L Trigger
+|                      MassL.All |    1572 |      2.73306 |    1532 |      2.70484 | MassL Cut
+|        TTHFakeLepton.LeadingPt |    1532 |      2.70484 |    1510 |      2.69301 | TTHFake Leading lepton : P_{T,#mu} > 25 p_{T,e} > 25
+|     TTHFakeLepton.SubLeadingPt |    1510 |      2.69301 |    1434 |      2.65113 | TTHFake SubLeading lepton : P_{T,#mu} > 15 p_{T,e} > 15
+|  TTHFakeDilepton.NumberTight.Min |    1434 |      2.65113 |    1007 |      1.42973 | TTHFakeDilepton : N_tight>= 2
+|  TTHFakeDilepton.NumberTight.Max |    1434 |      2.65113 |    1434 |      2.65113 | TTHFakeDilepton : N_tight<= 2
+|  TTHFakeDilepton.NumberTight.All |    1434 |      2.65113 |    1007 |      1.42973 | TTHFakeDilepton : 2 <= N_tight <= 2
+|      TTHTightLepton.Number.Min |    1007 |      1.42973 |    1007 |      1.42973 | TTHTight Lepton : N >= 0
+|      TTHTightLepton.Number.Max |    1007 |      1.42973 |     776 |      1.33023 | TTHTight Lepton : N <= 2
+|      TTHTightLepton.Number.All |    1007 |      1.42973 |     776 |      1.33023 | TTHTight Lepton : 0 <= N <= 2
+|     TTHFakeDilepton.Charge.All |     776 |      1.33023 |     702 |      1.29021 | TTHFake Dilepton : Same sign 
+|                      Zveto.All |     702 |      1.29021 |     688 |      1.28069 | Zveto Cut
+|                      MetLD.All |     688 |      1.28069 |     681 |      1.27471 | MetLD Cut
+|  TTHFakeDilepton.TightCharge.All |     681 |      1.27471 |     673 |      1.26866 | TTHFake Dilepton TightCharge 
+|                 Jet.Number.Min |     673 |      1.26866 |     503 |      1.18372 | Jet : N >=4
+|                 Jet.Number.Max |     673 |      1.26866 |     673 |      1.26866 | Jet : N <= 999
+|                 Jet.Number.All |     673 |      1.26866 |     503 |      1.18372 | Jet : 4 <= N <= 999
+|    BLooseTagged.Jet.Number.Min |     503 |      1.18372 |     371 |      1.12692 | BLooseTagged Jet : N >=2
+|    BLooseTagged.Jet.Number.Max |     503 |      1.18372 |     503 |      1.18372 | BLooseTagged Jet : N <= 999
+|   BMediumTagged.Jet.Number.Min |     503 |      1.18372 |     428 |      1.16358 | BMediumTagged Jet : N >=1
+|   BMediumTagged.Jet.Number.Max |     503 |      1.18372 |     503 |      1.18372 | BMediumTagged Jet : N <= 999
+|  bLooseOrMedium.Jet.Number.All |     503 |      1.18372 |     450 |      1.16719 | BLooseTagged Jet : 2 <= N <= 999 Or BMediumTagged Jet: 1 <= N <= 999
+|            LooseTau.Number.Min |     450 |      1.16719 |     450 |      1.16719 | Loose Tau : N >= 0
+|            LooseTau.Number.Max |     450 |      1.16719 |     405 |      1.15762 | Loose Tau : N <= 0
+|            LooseTau.Number.All |     450 |      1.16719 |     405 |      1.15762 | Loose Tau : 0 <= N <= 0
+|                    MCPromptFS  |     405 |      1.15762 |     397 |      1.15233 |  MCPromptFS 
+|                 MCRightCharge  |     397 |      1.15233 |     397 |      1.15233 |  MCRightCharge 
+-----------------------------------------------------------------------------------------------------------------------------
+
+<CutListProcessor::PrintCutDetails> Total Efficiency: 1.15233/101.164 = 0.0113907
+
+<AnalysisMain::Loop> 
+<AnalysisMain::Loop>            ------------------------------- 
+<AnalysisMain::Loop>           |      Processing Summary        |
+<AnalysisMain::Loop>            ------------------------------- 
+<AnalysisMain::Loop>           |  # of events:         39683   |
+<AnalysisMain::Loop>           |  Real time:           49.28 s |
+<AnalysisMain::Loop>           |  Time per event:   0.001242 s |
+<AnalysisMain::Loop>           |  Events/second:       805.2   |
+<AnalysisMain::Loop>            ------------------------------- 
+<AnalysisMain::Loop> 
+<AnalysisMain::Loop> Closing histogram file: hists/SingleTop.105200_1.t.LP2fb_v5.MC.mm1+j.muonMSSmeardown.WtDilepton.root
+<AnalysisMain::Loop> Write skim file: skims/ttHDiLep.root
+<AnalysisMain::Loop> Closing skim file: skims/ttHDiLep.root
+<driver> Finished Loop over events in chain
+<driver> Writing histograms to file: hists/SingleTop.105200_1.t.LP2fb_v5.MC.mm1+j.muonMSSmeardown.WtDilepton.root
+<driver> Deleting chains
+<driver> Sucessful Completion.

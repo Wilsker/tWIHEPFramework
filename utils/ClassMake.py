@@ -18,8 +18,9 @@ workpath = "/publicfs/cms/user/libh/Test/Rootplizer/analyzer"
 # Variable Case
 #Case = "CaseA"
 #Case = "CaseB"
-Case = "CaseC"
+#Case = "CaseC"
 #Case = "CaseD"
+Case = "CaseE"
 # Variable Definition
 
 rObject = "float"
@@ -35,7 +36,12 @@ VariableNames = [
 "Met_missFake_px","Met_missFake_py", # Met_type1PF_px - gen_type1PF_px - gen_lv1_px - gen_lv2_px
 "n_leptons_fromH","n_leptons_fromTop","n_leptons_fromB",
 "n_jets_fromH","n_jets_fromTop",
-"genW_fromH_mass","genW_fromTop_mass","genZ_fromH_mass","genTau_fromH_mass",
+"jjl_fromH_lvH_mass",
+"genWs_fromH_mass","genWs_fromTop_mass","genZs_fromH_mass","genTaus_fromH_mass",
+"genWs_fromH_pt","genWs_fromTop_pt","genZs_fromH_pt","genTaus_fromH_pt",
+"genWs_fromH_eta","genWs_fromTop_eta","genZs_fromH_eta","genTaus_fromH_eta",
+"genWs_fromH_phi","genWs_fromTop_phi","genZs_fromH_phi","genTaus_fromH_phi",
+"genWs_fromH_index","genWs_fromTop_index","genZs_fromH_index","genTaus_fromH_index",
 
 
 # CaseA Variables
@@ -380,3 +386,11 @@ elif Case == "CaseD":
  print >> vector, "   //class member"
  for Variable in VariableNames:
      print >> vector, '  _doubleVecs["'+Variable+'"] = '+Variable+";"
+
+
+elif Case == "CaseE":
+ print >> vector, "//This is CaseE"
+ print >> vector, "//variables to be copied"
+ for Variable in VariableNames:
+     print >> vector, '   readtree->SetBranchStatus("'+Variable+'",1);'
+ 
