@@ -13,10 +13,16 @@ Cut.Lepton.TTHTight.Number.Min:  0
 Cut.Lepton.TTHTight.Number.Max:  999
 Cut.Lepton.TTHFake.Number.Min:  2
 Cut.Lepton.TTHFake.Number.Max:  999
+Cut.Lepton.TTHLoose.Number.Min:  2
+Cut.Lepton.TTHLoose.Number.Max:  999
 Cut.Electron.TTHFake.LeadingPt:  25
 Cut.Electron.TTHFake.SubLeadingPt:  15
 Cut.Muon.TTHFake.LeadingPt:  25
 Cut.Muon.TTHFake.SubLeadingPt:  15
+Cut.Electron.TTHLoose.LeadingPt:  25
+Cut.Electron.TTHLoose.SubLeadingPt:  15
+Cut.Muon.TTHLoose.LeadingPt:  25
+Cut.Muon.TTHLoose.SubLeadingPt:  15
 ################# Muon Cuts #########################
 # Number of  Muons
 Cut.Muon.Veto.Number.Min:  1
@@ -30,6 +36,10 @@ Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
 Cut.Dilepton.TTHFake.NumTightMin: 0 
 Cut.Dilepton.TTHFake.NumTightMax: 999
 Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
+Cut.Dilepton.TTHLoose.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
+Cut.Dilepton.TTHLoose.NumTightMin: 0 
+Cut.Dilepton.TTHLoose.NumTightMax: 999
+Cut.Dilepton.TTHLoose.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 
 ################# Tau Cuts #########################
 # Number of Taus
@@ -38,7 +48,7 @@ Cut.Tau.Loose.Number.Max:  999
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
-Cut.Jet.Number.Min:  4
+Cut.Jet.Number.Min:  0
 Cut.Jet.Number.Max:  999 
 Cut.Jet.Pt.1.Min:  25
 Cut.Jet.Pt.1.Max: 999

@@ -45,9 +45,10 @@ CutLeptonN::CutLeptonN(EventContainer *EventContainerObj, TString leptonTypePass
       leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto") 
        && leptonTypePassed.CompareTo("TTHTight")
        && leptonTypePassed.CompareTo("TTHFake")
+       && leptonTypePassed.CompareTo("TTHLoose")
       ){
     std::cout << "ERROR " << "<CutLeptonN::CutLeptonN()> " 
-	      << "Must pass All, TTHTight, TTHFake, Tight, Veto, Isolated, or UnIsolated to constructor" << std::endl;
+	      << "Must pass All, TTHTight, TTHFake, TTHLoose,Tight, Veto, Isolated, or UnIsolated to constructor" << std::endl;
     exit(8);
   } //if
   leptonType = leptonTypePassed;
@@ -236,13 +237,16 @@ Bool_t CutLeptonN::Apply()
   else if( ! leptonType.CompareTo("TTHFake") ){
     LeptonNumber     = EventContainerObj -> fakeLeptons.size();
   } //if
+  else if( ! leptonType.CompareTo("TTHLoose") ){
+    LeptonNumber     = EventContainerObj -> looseLeptons.size();
+  } //if
   else{
     std::cout << "ERROR " << "<CutLeptonN::Apply()> " << "leptonType has an incorrect value of: " << leptonType.Data() << std::endl;
     exit(8);
   } //else
 
   // Add muons and electrons to get lepton number
-  if( leptonType.CompareTo("TTHTight") && leptonType.CompareTo("TTHFake") ) 
+  if( leptonType.CompareTo("TTHTight") && leptonType.CompareTo("TTHFake") && leptonType.CompareTo("TTHLoose") ) 
     LeptonNumber = MuonNumber + ElectronNumber;
 
   // Fill the histograms before the cuts

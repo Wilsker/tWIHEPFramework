@@ -29,12 +29,13 @@
 class ttHVars: public VarBase {
   
 public:
-  ttHVars(bool makeHistos = false);
+  ttHVars(bool makeHistos = false, bool useTTHLoose = false);
   
   //void BookBranches(TTree * skimTree);
   void FillBranches(EventContainer * evtObj);
   
 private:
+    bool _useTTHLoose;
     void Clear();
 
     void Cal_event_variables(EventContainer* EvtObj);
@@ -117,8 +118,6 @@ private:
     Double_t minMllSFOS;
     Double_t Hj_tagger_resTop;
     Double_t Hj_tagger_hadTop;
-    Double_t Hj1_score;
-    Double_t Hj2_score;
     Double_t leadLep_isMatchRightCharge;
     Double_t leadLep_mcMatchId;
     Double_t leadLep_isFromTop;

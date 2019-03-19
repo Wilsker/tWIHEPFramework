@@ -694,6 +694,7 @@ Lepton& Lepton::operator=(Lepton& other)
  ******************************************************************************/
 void Lepton::SetCuts(TEnv* config, TString leptonType)
 {
+  _dataEra = config -> GetValue("DataEra",2017);
   _closestMuonCut = config -> GetValue("ObjectID.Electron.MuonCleanR",0.);
   _minPtCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MinPt", 100.0);
   _maxEtaCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxEta", 0.0);
@@ -725,7 +726,8 @@ void Lepton::set_lepMVAreader(TEnv* config)
     mu_reader_ = new TMVA::Reader("!Color:!Silent");
     ele_reader_ = new TMVA::Reader("!Color:!Silent");
     std::vector<TMVA::Reader *> mvas = { ele_reader_, mu_reader_ };
-    for (auto &m : mvas) {
+    if(_dataEra==2017){
+      for (auto &m : mvas) {
         m->AddVariable("LepGood_pt", &varpt);
         m->AddVariable("LepGood_eta", &vareta);
         m->AddVariable("LepGood_jetNDauChargedMVASel", &varjetNDauCharged_in);
@@ -737,9 +739,28 @@ void Lepton::set_lepMVAreader(TEnv* config)
         m->AddVariable("LepGood_sip3d", &varsip3d);
         m->AddVariable("LepGood_dxy := log(abs(LepGood_dxy))", &vardxy);
         m->AddVariable("LepGood_dz := log(abs(LepGood_dz))", &vardz);
+      }
+      ele_reader_->AddVariable("LepGood_mvaIdFall17noIso", &varmvaId);
+      mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
+    }else if(_dataEra==2016){
+      for (auto &m : mvas) {
+        m->AddVariable("LepGood_pt", &varpt);
+        m->AddVariable("LepGood_eta", &vareta);
+        m->AddVariable("LepGood_jetNDauChargedMVASel", &varjetNDauCharged_in);
+        m->AddVariable("LepGood_miniRelIsoCharged", &varchRelIso);
+        m->AddVariable("LepGood_miniRelIsoNeutral", &varneuRelIso);
+        m->AddVariable("LepGood_jetPtRelv2", &varjetPtRel_in);
+        m->AddVariable("LepGood_jetPtRatiov2 := min(LepGood_jetPtRatiov2,1.5)", &varjetPtRatio_in);
+        m->AddVariable("LepGood_jetBTagCSV := max(LepGood_jetBTagCSV,0)", &varjetBTagCSV_in);
+        m->AddVariable("LepGood_sip3d", &varsip3d);
+        m->AddVariable("LepGood_dxy := log(abs(LepGood_dxy))", &vardxy);
+        m->AddVariable("LepGood_dz := log(abs(LepGood_dz))", &vardz);
+      }
+      ele_reader_->AddVariable("LepGood_mvaIdSpring16HZZ", &varmvaId);
+      mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
+    }else{
+        std::cout<< " ERROR dataEra in lepton mva reading "<<std::endl;
     }
-    ele_reader_->AddVariable("LepGood_mvaIdFall17noIso", &varmvaId);
-    mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
     ele_reader_->BookMVA("BDTG method",config -> GetValue("Include.ElectronMVAFile","null")); 
     mu_reader_->BookMVA("BDTG method",config -> GetValue("Include.MuonMVAFile","null")); 
 }
@@ -767,7 +788,11 @@ double Lepton::get_LeptonMVA(int EventNumber)
     vardxy = log(TMath::Abs(dxy())); 
     vardz =  log(TMath::Abs(dz())); 
     varSegCompat = segmentCompatibility(); 
-    varmvaId = mvaValue_nonIso();
+    if(_dataEra==2016){
+        varmvaId = mvaValue_HZZ();
+    }else{
+        varmvaId = mvaValue_nonIso();
+    }
     if(EventNumber == 13579661 ){
         std::cout << " varpt "<< varpt<< " vareta "<< vareta << " varchRelIso " << varchRelIso << " varneuRelIso " << varneuRelIso << " varjetPtRel " << varjetPtRel_in <<" varjetptRatio_in"<< varjetPtRatio_in <<" varjetBTagCSV_in " << varjetBTagCSV_in << " varjetNDauCharged_in " << varjetNDauCharged_in  <<" varsip3d "<< varsip3d << " vardxy "<< vardxy << " vardz " << vardz<<" varSegCompa "<< varSegCompat << " varmvaId "<< varmvaId << std::endl;
     }
@@ -954,16 +979,16 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetdPhiIn       (evtr -> patElectron_dPhiIn      -> operator[](iE));
     SetooEmooP       (evtr -> patElectron_ooEmooP      -> operator[](iE));
     SetmvaValue_HZZ       (evtr -> patElectron_mvaValue_HZZ      -> operator[](iE));
-    /*
     // This is Fall17V2 IDs 
     SetisPassMvanonIsowpLoose		(evtr -> patElectron_isPassMvanonIsowpLoose   		-> operator[](iE));
     SetmvaValue_nonIso       (evtr -> patElectron_mvaValue_nonIso      -> operator[](iE));
     SetntMVAeleID		(evtr -> patElectron_mvaValue_nonIso   		-> operator[](iE));
-    */
     // This is Fall17V1 IDs 
+    /*
     SetisPassMvanonIsowpLoose		(evtr -> patElectron_isPassOldMvanonIsowpLoose   		-> operator[](iE));
     SetmvaValue_nonIso       (evtr -> patElectron_OldmvaValue_nonIso      -> operator[](iE));
     SetntMVAeleID		(evtr -> patElectron_OldmvaValue_nonIso   		-> operator[](iE));
+    */
     SetisGsfCtfScPixChargeConsistent       (evtr -> patElectron_isGsfCtfScPixChargeConsistent      -> operator[](iE));
     SetisGsfScPixChargeConsistent       (evtr -> patElectron_isGsfScPixChargeConsistent      -> operator[](iE));
 //    std::cout << "Debug: <Lepton::Fill()>  Read Electron from Tree : Just Before Electron_gen_pt Fill " << std::endl;

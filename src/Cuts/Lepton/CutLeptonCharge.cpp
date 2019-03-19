@@ -44,9 +44,10 @@ CutLeptonCharge::CutLeptonCharge(EventContainer *EventContainerObj, TString lept
   if( leptonTypePassed.CompareTo("All") && leptonTypePassed.CompareTo("UnIsolated") && leptonTypePassed.CompareTo("Isolated") && 
       leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto")
       && leptonTypePassed.CompareTo("TTHFake")
+      && leptonTypePassed.CompareTo("TTHLoose")
        ){
     std::cout << "ERROR " << "<CutLeptonCharge::CutLeptonCharge()> " 
-	      << "Must pass All, Tight, Veto, Isolated, TTHFake or UnIsolated to constructor" << std::endl;
+	      << "Must pass All, Tight, Veto, Isolated, TTHLoose, TTHFake or UnIsolated to constructor" << std::endl;
     exit(8);
   } //if
   leptonType = leptonTypePassed;
@@ -217,14 +218,17 @@ Bool_t CutLeptonCharge::Apply()
   else if("TTHFake" == leptonType) {
     leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
   }
+  else if("TTHLoose" == leptonType) {
+    leptonVector.assign(EventContainerObj -> looseLeptons.begin(), EventContainerObj -> looseLeptons.end());
+  }
   else{
     std::cout << "ERROR " << "<CutLeptonCharge::Apply()> "
-	      << "leptonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHFake" << std::endl;
+	      << "leptonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHLoose, TTHFake" << std::endl;
     exit(8);
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if("TTHFake" == leptonType && leptonVector.size()>=2 ) LeptonPairCharge = leptonVector[0].charge()*leptonVector[1].charge();
+  if(("TTHFake" == leptonType || "TTHLoose"== leptonType) && leptonVector.size()>=2 ) LeptonPairCharge = leptonVector[0].charge()*leptonVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "mumu") LeptonPairCharge = muonVector[0].charge()*muonVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "ee") LeptonPairCharge = electronVector[0].charge() * electronVector[1].charge();
   else if (EventContainerObj->GetChannelName() == "emu") LeptonPairCharge = muonVector[0].charge() * electronVector[0].charge();

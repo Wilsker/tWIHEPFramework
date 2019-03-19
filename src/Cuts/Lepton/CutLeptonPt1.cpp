@@ -44,9 +44,10 @@ CutLeptonPt1::CutLeptonPt1(EventContainer *EventContainerObj, TString leptonType
   if( leptonType.CompareTo("All") && leptonType.CompareTo("UnIsolated") && leptonType.CompareTo("Isolated") && 
       leptonType.CompareTo("Tight") && leptonType.CompareTo("PtEtaCut") && leptonType.CompareTo("Veto")
       && leptonType.CompareTo("TTHFake")
+      && leptonType.CompareTo("TTHLoose")
        ){
     std::cout << "ERROR " << "<CutLeptonPt1::CutLeptonPt1()> " 
-	      << "Must pass All, Tight, PtEtaCut, Veto, Isolated, or UnIsolated, TTHFake to constructor" << std::endl;
+	      << "Must pass All, Tight, PtEtaCut, Veto, Isolated, or UnIsolated, TTHLoose, TTHFake to constructor" << std::endl;
     exit(8);
   } //if
   _leptonType = leptonType;
@@ -213,9 +214,12 @@ Bool_t CutLeptonPt1::Apply()
   else if("TTHFake" == _leptonType) {
     leptonVector.assign(EventContainerObj -> fakeLeptons.begin(), EventContainerObj -> fakeLeptons.end());
   }
+  else if("TTHLoose" == _leptonType) {
+    leptonVector.assign(EventContainerObj -> looseLeptons.begin(), EventContainerObj -> looseLeptons.end());
+  }
   else{
     std::cout << "ERROR " << "<HistogramminMuon::Apply()> "
-	      << "muonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHFake" << std::endl;
+	      << "muonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHLoose, TTHFake" << std::endl;
     exit(8);
   } //else                     
 

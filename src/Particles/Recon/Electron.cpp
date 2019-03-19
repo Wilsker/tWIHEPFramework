@@ -366,7 +366,6 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   SetMissingHits	( evtr -> patElectron_expectedMissingInnerHits -> operator[](iE) );
   SetminiIsoRel		(evtr -> patElectron_miniIsoRel   		-> operator[](iE));
   SetIP3Dsig		(evtr -> patElectron_IP3Dsig   		-> operator[](iE));
-  /* 
   //This is Fall17V2 IDs
   SetmvaValue_nonIso		(evtr -> patElectron_mvaValue_nonIso   		-> operator[](iE));
   SetntMVAeleID		(evtr -> patElectron_isPassMvanonIsowpLoose   		-> operator[](iE));
@@ -374,14 +373,15 @@ Bool_t Electron::Fill(std::vector<Muon>& selectedMuons, EventTree *evtr, Int_t i
   SetpassLooseId        ( evtr -> patElectron_isPassLoose              -> operator[](iE) );
   SetpassMediumId       ( evtr -> patElectron_isPassMedium             -> operator[](iE) );
   SetpassTightId        ( evtr -> patElectron_isPassTight              -> operator[](iE) );
-  */
   //This is Fall17V1 IDs
+  /* 
   SetmvaValue_nonIso		(evtr -> patElectron_OldmvaValue_nonIso   		-> operator[](iE));
   SetntMVAeleID		(evtr -> patElectron_isPassOldMvanonIsowpLoose   		-> operator[](iE));
   SetpassVetoId         ( evtr -> patElectron_isPassOldVeto               -> operator[](iE) );
   SetpassLooseId        ( evtr -> patElectron_isPassOldLoose              -> operator[](iE) );
   SetpassMediumId       ( evtr -> patElectron_isPassOldMedium             -> operator[](iE) );
   SetpassTightId        ( evtr -> patElectron_isPassOldTight              -> operator[](iE) );
+  */
 
   // **************************************************************
   // **************************************************************

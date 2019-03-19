@@ -1391,21 +1391,21 @@ Double_t EventWeight::getBTagReshape(EventContainer * EventContainerObj, std::st
   Double_t bTagWeight = 1.0;
   for (auto const & jet : EventContainerObj->jets){
     if (jet.GethadronFlavour() == 5){
-        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_B, fabs(jet.Eta()), jet.Pt(), jet.bDiscriminator());
         //std::cout<<"jet pt: "<<jet.Pt()<<", Flavour is "<< jet.GethadronFlavour() << ", read Systematic "<<syst<<", returned value <bTagWeight, jetSF>: <"<<bTagWeight <<", "<<jetSF<<">";
-        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_B, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_B, fabs(jet.Eta()), jet.Pt(), jet.bDiscriminator());
         bTagWeight *= jetSF;
         //std::cout<< ", <bTagWeight, jetSF> after jetSF==0 check : <"<<bTagWeight <<", "<<jetSF<<">"<<std::endl;
     }else if(jet.GethadronFlavour() == 4){
-        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_C, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_C, fabs(jet.Eta()), jet.Pt(), jet.bDiscriminator());
         //std::cout<<"jet pt: "<<jet.Pt()<<", Flavour is "<< jet.GethadronFlavour() << ", read Systematic "<<syst<<", returned value <bTagWeight, jetSF>: <"<<bTagWeight <<", "<<jetSF<<">";
-        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_C, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_C, fabs(jet.Eta()), jet.Pt(), jet.bDiscriminator());
         bTagWeight *= jetSF;
         //std::cout<< ", <bTagWeight, jetSF> after jetSF==0 check : <"<<bTagWeight <<", "<<jetSF<<">"<<std::endl;
     }else{
-        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        float jetSF = _bTagCalibReader.eval_auto_bounds(syst, BTagEntry::FLAV_UDSG, fabs(jet.Eta()), jet.Pt(), jet.bDiscriminator());
         //std::cout<<"jet pt: "<<jet.Pt()<<", Flavour is "<< jet.GethadronFlavour() << ", read Systematic "<<syst<<", returned value <bTagWeight, jetSF>: <"<<bTagWeight <<", "<<jetSF<<">";
-        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, jet.Eta(), jet.Pt(), jet.bDiscriminator());
+        if (jetSF == 0) jetSF = _bTagCalibReader.eval_auto_bounds("central", BTagEntry::FLAV_UDSG, fabs(jet.Eta()), jet.Pt(), jet.bDiscriminator());
         bTagWeight *= jetSF;
         //std::cout<< ", <bTagWeight, jetSF> after jetSF==0 check : <"<<bTagWeight <<", "<<jetSF<<">"<<std::endl;
     }

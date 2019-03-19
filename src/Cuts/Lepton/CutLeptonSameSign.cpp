@@ -44,9 +44,10 @@ CutLeptonSameSign::CutLeptonSameSign(EventContainer *EventContainerObj, TString 
   if( leptonTypePassed.CompareTo("All") && leptonTypePassed.CompareTo("UnIsolated") && leptonTypePassed.CompareTo("Isolated") && 
       leptonTypePassed.CompareTo("Tight") && leptonTypePassed.CompareTo("Veto")
       && leptonTypePassed.CompareTo("TTHFake")
+      && leptonTypePassed.CompareTo("TTHLoose")
        ){
     std::cout << "ERROR " << "<CutLeptonSameSign::CutLeptonSameSign()> " 
-	      << "Must pass All, Tight, Veto, Isolated, TTHFake or UnIsolated to constructor" << std::endl;
+	      << "Must pass All, Tight, Veto, Isolated, TTHLoose, TTHFake or UnIsolated to constructor" << std::endl;
     exit(8);
   } //if
   leptonType = leptonTypePassed;
@@ -220,14 +221,20 @@ Bool_t CutLeptonSameSign::Apply()
         chargeVector.push_back(lep.charge());
     }
   }
+  else if("TTHLoose" == leptonType) {
+    leptonVector.assign(EventContainerObj -> looseLeptons.begin(), EventContainerObj -> looseLeptons.end());
+    for(auto lep: leptonVector){
+        chargeVector.push_back(lep.charge());
+    }
+  }
   else{
     std::cout << "ERROR " << "<CutLeptonSameSign::Apply()> "
-	      << "leptonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHFake" << std::endl;
+	      << "leptonType must be All, Tight, Veto, Isolated, or UnIsolated, PtEtaCut, TTHFake, TTHLoose" << std::endl;
     exit(8);
   } //else                                                                                                          
 
   //Now work out the dilepton mass
-  if("TTHFake" == leptonType ){
+  if("TTHFake" == leptonType || "TTHLoose" == leptonType ){
       std::sort( chargeVector.begin(), chargeVector.end() );
       chargeVector.erase( unique( chargeVector.begin(), chargeVector.end() ), chargeVector.end() );
       if(leptonVector.size()>chargeVector.size()) FoundSameSign=1;  // we found a same sign , notice this doesn't exclude we found a opposite sign

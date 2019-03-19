@@ -12,7 +12,7 @@
 #include <iostream>
 
 //Test out a couple of variables, one Int_t and one float I guess
-ttHVars::ttHVars(bool makeHistos){
+ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
 
   SetName("ttHVars");
 
@@ -61,6 +61,7 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["massL"] = 800.;
   _floatVars["massL_SFOS"] = 500.;
   _floatVars["mass_diele"] = 500.;
+  _floatVars["mass_dilep"] = 500.;
   
   _floatVars["metLD"] = 4.;
   _floatVars["mht"] = 500.;
@@ -102,8 +103,6 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["minMllSFOS"] = 400.;
   _floatVars["Hj_tagger_resTop"] = -1.;
   _floatVars["Hj_tagger_hadTop"] = -1.;
-  _floatVars["Hj1_score"] = -1.;
-  _floatVars["Hj2_score"] = -1.;
   _floatVars["leadLep_isMatchRightCharge"] = 2.;
   _floatVars["leadLep_mcMatchId"] = 100.;
   _floatVars["leadLep_isFromTop"] = 2.;
@@ -176,6 +175,7 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["n_fakeablesel_ele"] = 999.;
   _floatVars["n_mvasel_ele"] = 999.;
   _floatVars["n_presel_tau"] = 999.;
+  _floatVars["n_fakeablesel_tau"] = 999.;
   _floatVars["n_presel_jet"] = 999.;
   _floatVars["mu1_charge"] = 999.;
   _floatVars["mu1_jetNDauChargedMVASel"] = 999.;
@@ -459,7 +459,7 @@ ttHVars::ttHVars(bool makeHistos){
   _floatVars["genWeight_muR0p5"] = 999;
   
   SetDoHists(makeHistos);
-
+  _useTTHLoose = useTTHLoose;
 }
 
 void ttHVars::Clear(){
@@ -528,8 +528,6 @@ void ttHVars::Clear(){
     minMllSFOS = -9999;
     Hj_tagger_resTop = -9999;
     Hj_tagger_hadTop = -9999;
-    Hj1_score = -9999;
-    Hj2_score = -9999;
     leadLep_isMatchRightCharge = -9999;
     leadLep_mcMatchId = -9999;
     leadLep_isFromTop = -9999;
@@ -983,6 +981,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["massL"] = evtObj->massL;
     _floatVars["massL_SFOS"] = evtObj->massL_SFOS;
     _floatVars["mass_diele"] = evtObj->mass_diele;
+    _floatVars["mass_dilep"] = evtObj->mass_dilep;
   
     _floatVars["metLD"] = evtObj->metLD;
     _floatVars["mht"] = evtObj->mht;
@@ -1043,8 +1042,6 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["minMllSFOS"] = minMllSFOS;
     _floatVars["Hj_tagger_resTop"] = Hj_tagger_resTop;
     _floatVars["Hj_tagger_hadTop"] = Hj_tagger_hadTop;
-    _floatVars["Hj1_score"] = Hj1_score;
-    _floatVars["Hj2_score"] = Hj2_score;
   
     _floatVars["leadLep_isMatchRightCharge"] = leadLep_isMatchRightCharge;
     _floatVars["leadLep_mcMatchId"] = leadLep_mcMatchId;
@@ -1068,15 +1065,15 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     
     EventTree* tree = evtObj->GetEventTree();
     if(tree->EVENT_genWeights->size()>6){
-        genWeight_muF2 = tree->EVENT_genWeights -> operator[](1) / tree->EVENT_originalXWGTUP;
-        genWeight_muF0p5 = tree->EVENT_genWeights -> operator[](2)/ tree->EVENT_originalXWGTUP;
-        genWeight_muR2 = tree->EVENT_genWeights -> operator[](3)/ tree->EVENT_originalXWGTUP;
-        genWeight_muR0p5 = tree->EVENT_genWeights -> operator[](6)/ tree->EVENT_originalXWGTUP;
+        genWeight_muF2 = tree->EVENT_genWeights -> operator[](1);
+        genWeight_muF0p5 = tree->EVENT_genWeights -> operator[](2);
+        genWeight_muR2 = tree->EVENT_genWeights -> operator[](3);
+        genWeight_muR0p5 = tree->EVENT_genWeights -> operator[](6);
     }else{
-        genWeight_muF2 = 1; 
-        genWeight_muF0p5 = 1; 
-        genWeight_muR2 = 1 ; 
-        genWeight_muR0p5 = 1; 
+        genWeight_muF2 = tree->EVENT_genWeight; 
+        genWeight_muF0p5 = tree->EVENT_genWeight; 
+        genWeight_muR2 = tree->EVENT_genWeight; 
+        genWeight_muR0p5 = tree->EVENT_genWeight; 
     }
 
     ls = evtObj-> lumiBlock;
@@ -1362,6 +1359,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["n_fakeablesel_ele"] = n_fakeablesel_ele;
   _floatVars["n_mvasel_ele"] = n_mvasel_ele;
   _floatVars["n_presel_tau"] = n_presel_tau;
+  _floatVars["n_fakeablesel_tau"] = evtObj-> taus.size();
   _floatVars["n_presel_jet"] = n_presel_jet;
   _floatVars["mu1_charge"] = mu1_charge;
   _floatVars["mu1_jetNDauChargedMVASel"] = mu1_jetNDauChargedMVASel;
@@ -1686,8 +1684,6 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     double SumPt =0;
     double maxHj_resTop = -9999;
     double maxHj_hadTop = -9999;
-    double Hj_lead = -9998;
-    double Hj_sublead = -9999;
     int jet_numbLoose = 0;
     int jet_numbMedium = 0;
     double sum_jet_dr =0.;
@@ -1705,12 +1701,6 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if( maxCSV < jet.bDiscriminator()) maxCSV = jet.bDiscriminator();
         if( jet.isResToptag()!=1 && jet.HjDisc() > maxHj_resTop) maxHj_resTop = jet.HjDisc();
         if( jet.isToptag()!=1 && jet.HjDisc() > maxHj_hadTop) maxHj_hadTop = jet.HjDisc();
-        if( jet.HjDisc() > Hj_lead){
-            Hj_sublead = Hj_lead;
-            Hj_lead = jet.HjDisc();
-        }else if(jet.HjDisc() > Hj_sublead){
-            Hj_sublead = jet.HjDisc();
-        }
         for(uint bjet_en=0; bjet_en < Jets.size(); bjet_en++){
             if (jet_en == bjet_en) continue;
             Jet bjet = Jets.at(bjet_en);
@@ -1732,18 +1722,30 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
     Jet_numLoose = Jets.size();
     Jet_numbLoose = jet_numbLoose;
     Jet_numbMedium = jet_numbMedium;
-    avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
+    avg_dr_jet = Jet_numLoose >=2? sum_jet_dr/((Jet_numLoose-1)*0.5*Jet_numLoose) : -999.;
+    //avg_dr_jet = Jet_numLoose >=1? sum_jet_dr/Jet_numLoose : -999.;
     Hj_tagger_resTop = max(maxHj_resTop,-1.);
     Hj_tagger_hadTop = max(maxHj_hadTop,-1.);
-    Hj1_score = max(Hj_lead,-1.);
-    Hj2_score = max(Hj_sublead,-1.);
     HighestJetCSV = maxCSV;
     HtJet = SumPt;
-    if(fakeLeptons.size()>=2){
-        Lepton firstLepton = fakeLeptons.at(0);
-        Lepton secondLepton = fakeLeptons.at(1);
+    int lepton_num =0;
+    if(!_useTTHLoose) lepton_num=fakeLeptons.size();
+    else lepton_num=looseLeptons.size();
+    if(lepton_num>=2){
+        Lepton firstLepton; 
+        Lepton secondLepton;
         Lepton thirdLepton;
-        if(fakeLeptons.size()>=3)thirdLepton=fakeLeptons.at(2);
+        if(!_useTTHLoose){
+            firstLepton = fakeLeptons.at(0);
+            secondLepton = fakeLeptons.at(1);
+        }else{
+            firstLepton = looseLeptons.at(0);
+            secondLepton = looseLeptons.at(1);
+        }
+        if(lepton_num>=3){
+            if(!_useTTHLoose)thirdLepton=fakeLeptons.at(2);
+            else thirdLepton=looseLeptons.at(2);
+        }
         double leadLep_closedr =999.;
         double secondLep_closedr =999.;
         double thirdLep_closedr = 999.;
@@ -1770,7 +1772,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         mindr_lep3_jet = thirdLep_closedr;
         dr_leps = firstLepton.DeltaR(secondLepton);
         mT_lep2 = getMTlepmet(secondLepton.Phi(),EvtObj->missingPhi,secondLepton.Pt(),EvtObj->missingEt); 
-        if(EvtObj->isSimulation){
+        if(EvtObj->isSimulation && !_useTTHLoose){
             leadLep_isMatchRightCharge = FakeLep_matchId.at(0) == FakeLep_PdgId.at(0)? 1 : 0;
             leadLep_mcMatchId = FakeLep_matchId.at(0);
             leadLep_isFromTop = FakeLep_isFromTop.at(0);
@@ -1797,6 +1799,12 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
                 thirdLep_mcPromptGamma = FakeLep_matchId.at(2) == 22 ? 1 : 0;
                 thirdLep_mcPromptFS = (thirdLepton.gen_isPrompt() ==1 || thirdLepton.gen_isPromptTau()==1)? 1 : 0;
             }
+        }
+        if(EvtObj->isSimulation && _useTTHLoose){
+            leadLep_mcPromptFS = (firstLepton.gen_isPrompt() ==1 || firstLepton.gen_isPromptTau()==1)? 1 : 0;
+            leadLep_isMatchRightCharge = firstLepton.matchId() == firstLepton.pdgId()? 1 : 0;
+            secondLep_mcPromptFS = (secondLepton.gen_isPrompt() ==1 || secondLepton.gen_isPromptTau()==1)? 1 : 0;
+            secondLep_isMatchRightCharge = secondLepton.matchId() == secondLepton.pdgId()? 1 : 0;
         }
         leadLep_jetdr= leadLep_closedr; 
         secondLep_jetdr= secondLep_closedr;
@@ -1871,7 +1879,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         lep2_passConv = secondLepton.passConversionVeto()  ;
         Dilep_worseIso = std::max(lep1_minIso, lep2_minIso);
         Dilep_worseSip = std::max(lep1_sig3d, lep2_sig3d );
-        if(fakeLeptons.size()>=3){
+        if(lepton_num>=3){
             FakeLep3.SetPtEtaPhiE(thirdLepton.conept(),thirdLepton.Eta(),thirdLepton.Phi(),thirdLepton.E());
             lep3_E = thirdLepton.E();
             lep3_isfakeablesel = thirdLepton.isFake();

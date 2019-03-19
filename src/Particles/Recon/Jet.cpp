@@ -532,7 +532,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetnumberOfConstituents		(evtr -> Jet_numberOfConstituents     	-> operator[](iE));
   SetchargedMultiplicity		(evtr -> Jet_chargedMultiplicity     	-> operator[](iE)); 
   //SetbDiscriminator 			(evtr -> Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags     	-> operator[](iE));
-  SetbDiscriminator 			(evtr -> Jet_pfDeepCSVBJetTags     	-> operator[](iE));
+  SetbDiscriminator 			(evtr -> Jet_pfDeepFlavourBJetTags     	-> operator[](iE));
   SetpileupId 				(evtr -> Jet_pileupId     		-> operator[](iE));
   Setmass 				(evtr -> Jet_mass     			-> operator[](iE));
   SetuncorrPt 				(evtr -> Jet_Uncorr_pt     		-> operator[](iE));
@@ -557,6 +557,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetpfDeepCSVCvsLJetTags       (evtr -> Jet_pfDeepCSVProbc      -> operator[](iE)/(evtr -> Jet_pfDeepCSVProbc      -> operator[](iE) + evtr -> Jet_pfDeepCSVProbudsg -> operator[](iE)));
   SetpfDeepCSVCvsBJetTags       (evtr -> Jet_pfDeepCSVProbc      -> operator[](iE)/(evtr -> Jet_pfDeepCSVProbc      -> operator[](iE)+ evtr -> Jet_pfDeepCSVProbb      -> operator[](iE) + evtr -> Jet_pfDeepCSVProbbb      -> operator[](iE)) );
   SetpfDeepFlavourBJetTags       (evtr -> Jet_pfDeepFlavourBJetTags      -> operator[](iE));
+  SetpfDeepCSVBJetTags       (evtr -> Jet_pfDeepCSVBJetTags      -> operator[](iE));
   if(isSimulation){
     SetpartonFlavour       (evtr -> Jet_partonFlavour      -> operator[](iE));
     SethadronFlavour       (evtr -> Jet_hadronFlavour      -> operator[](iE));
@@ -888,6 +889,7 @@ void Jet::SystematicPtShift(EventTree * evtr, Int_t iE, TLorentzVector * met, Bo
     SetPx(Px()*ptSF);
     SetPy(Py()*ptSF);
     SetPz(Pz()*ptSF);
+    SetE(E()*ptSF);
   //std::cout << Px() << " " << Py() << " " << Pt() << std::endl << std::endl;
   
   //Propagate to MET

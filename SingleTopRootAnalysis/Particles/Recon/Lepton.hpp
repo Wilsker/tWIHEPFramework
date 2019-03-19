@@ -593,6 +593,7 @@ private:
 
   /// cuts reading from config
   Double_t _closestMuonCut;
+  Int_t _dataEra;
   
   //////////////////////////////////
   // Definitions of the objects go here. This way we don't need to access the configuration file for every particle
