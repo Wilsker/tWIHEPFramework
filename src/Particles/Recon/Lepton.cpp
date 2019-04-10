@@ -726,41 +726,21 @@ void Lepton::set_lepMVAreader(TEnv* config)
     mu_reader_ = new TMVA::Reader("!Color:!Silent");
     ele_reader_ = new TMVA::Reader("!Color:!Silent");
     std::vector<TMVA::Reader *> mvas = { ele_reader_, mu_reader_ };
-    if(_dataEra==2017){
-      for (auto &m : mvas) {
-        m->AddVariable("LepGood_pt", &varpt);
-        m->AddVariable("LepGood_eta", &vareta);
-        m->AddVariable("LepGood_jetNDauChargedMVASel", &varjetNDauCharged_in);
-        m->AddVariable("LepGood_miniRelIsoCharged", &varchRelIso);
-        m->AddVariable("LepGood_miniRelIsoNeutral", &varneuRelIso);
-        m->AddVariable("LepGood_jetPtRelv2", &varjetPtRel_in);
-        m->AddVariable("LepGood_jetBTagCSV := max(LepGood_jetBTagCSV,0)", &varjetBTagCSV_in);
-        m->AddVariable("LepGood_jetPtRatiov2 := (LepGood_jetBTagCSV>-5)*min(LepGood_jetPtRatiov2,1.5)+(LepGood_jetBTagCSV<-5)/(1+LepGood_relIso04)", &varjetPtRatio_in);
-        m->AddVariable("LepGood_sip3d", &varsip3d);
-        m->AddVariable("LepGood_dxy := log(abs(LepGood_dxy))", &vardxy);
-        m->AddVariable("LepGood_dz := log(abs(LepGood_dz))", &vardz);
-      }
-      ele_reader_->AddVariable("LepGood_mvaIdFall17noIso", &varmvaId);
-      mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
-    }else if(_dataEra==2016){
-      for (auto &m : mvas) {
-        m->AddVariable("LepGood_pt", &varpt);
-        m->AddVariable("LepGood_eta", &vareta);
-        m->AddVariable("LepGood_jetNDauChargedMVASel", &varjetNDauCharged_in);
-        m->AddVariable("LepGood_miniRelIsoCharged", &varchRelIso);
-        m->AddVariable("LepGood_miniRelIsoNeutral", &varneuRelIso);
-        m->AddVariable("LepGood_jetPtRelv2", &varjetPtRel_in);
-        m->AddVariable("LepGood_jetPtRatiov2 := min(LepGood_jetPtRatiov2,1.5)", &varjetPtRatio_in);
-        m->AddVariable("LepGood_jetBTagCSV := max(LepGood_jetBTagCSV,0)", &varjetBTagCSV_in);
-        m->AddVariable("LepGood_sip3d", &varsip3d);
-        m->AddVariable("LepGood_dxy := log(abs(LepGood_dxy))", &vardxy);
-        m->AddVariable("LepGood_dz := log(abs(LepGood_dz))", &vardz);
-      }
-      ele_reader_->AddVariable("LepGood_mvaIdSpring16HZZ", &varmvaId);
-      mu_reader_->AddVariable("LepGood_segmentCompatibility", &varSegCompat);
-    }else{
-        std::cout<< " ERROR dataEra in lepton mva reading "<<std::endl;
+    for (auto &m : mvas) {
+      m->AddVariable("LepGood_pt", &varpt);
+      m->AddVariable("LepGood_eta", &vareta);
+      m->AddVariable("LepGood_jetNDauChargedMVASel", &varjetNDauCharged_in);
+      m->AddVariable("LepGood_miniRelIsoCharged", &varchRelIso);
+      m->AddVariable("LepGood_miniRelIsoNeutral", &varneuRelIso);
+      m->AddVariable("LepGood_jetPtRelv2", &varjetPtRel_in);
+      m->AddVariable("LepGood_jetDF", &varjetBTagCSV_in);
+      m->AddVariable("LepGood_jetPtRatio", &varjetPtRatio_in);
+      m->AddVariable("LepGood_dxy", &vardxy);
+      m->AddVariable("LepGood_sip3d", &varsip3d);
+      m->AddVariable("LepGood_dz", &vardz);
     }
+    ele_reader_->AddVariable("LepGood_mvaFall17V2noIso", &varmvaId);
+    mu_reader_->AddVariable("LepGood_segmentComp", &varSegCompat);
     ele_reader_->BookMVA("BDTG method",config -> GetValue("Include.ElectronMVAFile","null")); 
     mu_reader_->BookMVA("BDTG method",config -> GetValue("Include.MuonMVAFile","null")); 
 }
@@ -782,18 +762,14 @@ double Lepton::get_LeptonMVA(int EventNumber)
     varneuRelIso = miniIsoPUsub(); // It's already setted to be miniIsoPUsub/Pt
     varjetPtRel_in = ptrel();
     varjetPtRatio_in = min(jetptratioV2(),1.5);
-    varjetBTagCSV_in = max(jetcsv(),0.); 
+    varjetBTagCSV_in = max(jetdeepflavour(),0.); 
     varjetNDauCharged_in =lepjetchtrks(); 
     varsip3d = IP3Dsig();
     vardxy = log(TMath::Abs(dxy())); 
     vardz =  log(TMath::Abs(dz())); 
     varSegCompat = segmentCompatibility(); 
-    if(_dataEra==2016){
-        varmvaId = mvaValue_HZZ();
-    }else{
-        varmvaId = mvaValue_nonIso();
-    }
-    if(EventNumber == 13579661 ){
+    varmvaId = mvaValue_nonIso();
+    if(EventNumber == 46581 ){
         std::cout << " varpt "<< varpt<< " vareta "<< vareta << " varchRelIso " << varchRelIso << " varneuRelIso " << varneuRelIso << " varjetPtRel " << varjetPtRel_in <<" varjetptRatio_in"<< varjetPtRatio_in <<" varjetBTagCSV_in " << varjetBTagCSV_in << " varjetNDauCharged_in " << varjetNDauCharged_in  <<" varsip3d "<< varsip3d << " vardxy "<< vardxy << " vardz " << vardz<<" varSegCompa "<< varSegCompat << " varmvaId "<< varmvaId << std::endl;
     }
     if( TMath::Abs(pdgId()) == 13) return mu_reader_->EvaluateMVA("BDTG method");
