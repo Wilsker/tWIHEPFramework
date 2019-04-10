@@ -177,6 +177,8 @@ ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
   _floatVars["n_presel_tau"] = 999.;
   _floatVars["n_fakeablesel_tau"] = 999.;
   _floatVars["n_presel_jet"] = 999.;
+  _floatVars["n_presel_jetFwd"] = 999.;
+  _floatVars["nLightJet"] = 999.;
   _floatVars["mu1_charge"] = 999.;
   _floatVars["mu1_jetNDauChargedMVASel"] = 999.;
   _floatVars["mu2_charge"] = 999.;
@@ -510,6 +512,7 @@ void ttHVars::Clear(){
     fakeLeptons.clear();
     tightLeptons.clear();
     Jets.clear();
+    fwdJets.clear();
     FakeLep_isFromB.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
@@ -624,6 +627,8 @@ void ttHVars::Clear(){
     n_mvasel_ele = -9999;
     n_presel_tau = -9999;
     n_presel_jet = -9999;
+    n_presel_jetFwd = -9999;
+    nLightJet = -9999;
     mu1_charge = -9999;
     mu1_jetNDauChargedMVASel = -9999;
     mu2_charge = -9999;
@@ -982,6 +987,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
 
     
     Jets.assign(evtObj -> jets.begin(), evtObj -> jets.end());
+    fwdJets.assign(evtObj -> forwardjets.begin(), evtObj -> forwardjets.end());
     
     FakeLep_isFromB.assign(evtObj -> FakeLep_isFromB.begin(), evtObj -> FakeLep_isFromB.end());
     FakeLep_isFromC.assign(evtObj -> FakeLep_isFromC.begin(), evtObj -> FakeLep_isFromC.end());
@@ -1166,6 +1172,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     n_mvasel_ele = n_tightEle;
     n_presel_tau = Taus.size();
     n_presel_jet = Jets.size();
+    n_presel_jetFwd = fwdJets.size();
     if(looseMuons.size()>=1){
         mu1_pt = FirstMuon.Pt();
         mu1_conept = FirstMuon.conept();
@@ -1436,6 +1443,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     HTT = evtObj->ResTop_BDT;
     nBJetLoose = Jet_numbLoose;
     nBJetMedium = Jet_numbMedium;
+    nLightJet = n_presel_jet - nBJetLoose + n_presel_jetFwd;
     mvaOutput_2lss_ttV = ttvBDT_2lss;
     mvaOutput_2lss_ttbar = ttbarBDT_2lss;
 
@@ -1481,6 +1489,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["n_presel_tau"] = n_presel_tau;
   _floatVars["n_fakeablesel_tau"] = evtObj-> taus.size();
   _floatVars["n_presel_jet"] = n_presel_jet;
+  _floatVars["n_presel_jetFwd"] = n_presel_jetFwd;
+  _floatVars["nLightJet"] = nLightJet;
   _floatVars["mu1_charge"] = mu1_charge;
   _floatVars["mu1_jetNDauChargedMVASel"] = mu1_jetNDauChargedMVASel;
   _floatVars["mu2_charge"] = mu2_charge;

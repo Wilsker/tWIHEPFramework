@@ -670,9 +670,10 @@ class EventContainer
   std::vector<Lepton>       looseLeptons;
   std::vector<Tau>        looseTaus;
   std::vector<Tau>        taus;
-  std::vector<Jet>        jets;
+  std::vector<Jet>        jets;// selected normal jets
+  std::vector<Jet>        forwardjets;// selected forward jets
   std::vector<Jet>        lepjets;
-  std::vector<Jet>        alljets;//no jet checks
+  std::vector<Jet>        alljets;// selected normal jets + forward jets 
   std::vector<Jet>        jetors;//overlap removal vector for electron/jets
   std::vector<Jet>        jetjetors;//overlap removal vector for jet/jets
   std::vector<Jet>        jetms;//overlap removal vector for muons

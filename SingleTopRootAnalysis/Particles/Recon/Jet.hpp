@@ -72,11 +72,14 @@ class Jet: public Particle
 
   // Set all contents to their defaults
   inline void Clear() { Particle::Clear(); _numberOfConstituents=0; _chargedMultiplicity=0;  _bDiscriminator = -999.0; _pileupId = 0.0; _mass = 0.0; _uncorrPt = 0.0; _neutralHadEnergyFraction=0.0; _neutralEmEmEnergyFraction = 0.0; _chargedHadronEnergyFraction =0.0; _chargedEmEnergyFraction=0.0; _muonEnergyFraction=0.0; _electronEnergy=0.0; _photonEnergy=0.0; _tagged = kFALSE;
+ _isNormalJet =0.0;
+ _isForwardJet =0.0;
  _isLooseBdisc =0.0;
  _isMediumBdisc =0.0;
  _isTightBdisc =0.0;
  _qg =0.0;
  _axis2 =0.0;
+ _axis1 =0.0;
  _ptD =0.0;
  _mult =0.0;
  _pfCombinedCvsLJetTags =0.0;
@@ -187,6 +190,14 @@ class Jet: public Particle
   inline Double_t GetisLooseBdisc() const {return _isLooseBdisc;};
   inline Double_t isLooseBdisc() const {return _isLooseBdisc;};
 
+  inline void SetisNormalJet(Double_t isNormalJet){_isNormalJet = isNormalJet;};
+  inline Double_t GetisNormalJet() const {return _isNormalJet;};
+  inline Double_t isNormalJet() const {return _isNormalJet;};
+
+  inline void SetisForwardJet(Double_t isForwardJet){_isForwardJet = isForwardJet;};
+  inline Double_t GetisForwardJet() const {return _isForwardJet;};
+  inline Double_t isForwardJet() const {return _isForwardJet;};
+
   inline void SetisMediumBdisc(Double_t isMediumBdisc){_isMediumBdisc = isMediumBdisc;};
   inline Double_t GetisMediumBdisc() const {return _isMediumBdisc;};
   inline Double_t isMediumBdisc() const {return _isMediumBdisc;};
@@ -206,6 +217,10 @@ class Jet: public Particle
   inline void Setaxis2(Double_t axis2){_axis2 = axis2;};
   inline Double_t Getaxis2() const {return _axis2;};
   inline Double_t axis2() const {return _axis2;};
+
+  inline void Setaxis1(Double_t axis1){_axis1 = axis1;};
+  inline Double_t Getaxis1() const {return _axis1;};
+  inline Double_t axis1() const {return _axis1;};
 
   inline void SetptD(Double_t ptD){_ptD = ptD;};
   inline Double_t GetptD() const {return _ptD;};
@@ -342,12 +357,15 @@ class Jet: public Particle
   Double_t _uncorrE; 
   Bool_t _tagged;
   Double_t _closestLep;
+  Double_t _isNormalJet;
+  Double_t _isForwardJet;
   Double_t _isLooseBdisc;
   Double_t _isMediumBdisc;
   Double_t _isTightBdisc;
   Double_t _HjDisc;
   Double_t _qg;
   Double_t _axis2;
+  Double_t _axis1;
   Double_t _ptD;
   Double_t _mult;
   Double_t _pfCombinedCvsLJetTags;
@@ -377,6 +395,10 @@ class Jet: public Particle
   // Cuts applied to the jet objects
   Double_t _maxEtaCut;
   Double_t _minPtCut;
+  Double_t _FWJetEtaCut;
+  Double_t _FWJetLowPtCut;
+  Double_t _FWJetLowPtMinEta;
+  Double_t _FWJetLowPtMaxEta;
   Double_t _bMaxEtaCut;
   Double_t _bMinPtCut;
   Double_t _LWPbTagCut;

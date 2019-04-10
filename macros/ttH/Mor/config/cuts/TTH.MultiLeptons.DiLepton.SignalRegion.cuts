@@ -38,6 +38,8 @@ Cut.Jet.Number.Min:  4
 Cut.Jet.Number.Max:  999 
 Cut.Jet.Pt.1.Min:  25
 Cut.Jet.Pt.1.Max: 999
+# ############## LightJet Cuts ##############################
+Cut.LightJet.Number.Min:  1
 # ############## B-Tagged Jet Cuts #################
 Cut.bLoose.Jet.Number.Min: 2
 Cut.bLoose.Jet.Number.Max: 999

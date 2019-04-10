@@ -241,7 +241,7 @@ void ResTopVars::Reco_resTop(EventContainer *EvtObj){
         EvtObj->var_b_pt = bjet.Pt();
         EvtObj->var_b_mass = bjet.M();
         EvtObj->var_b_ptD = Jets.at(i1).ptD();
-        EvtObj->var_b_axis1 = std::exp(-Jets.at(i1).axis2()); // training uses definition of axis1 without -log, I should use axis1 but it is not saved in Ntuple, so axis2 for the moment
+        EvtObj->var_b_axis1 = std::exp(-Jets.at(i1).axis1()); // training uses definition of axis1 without -log
         EvtObj->var_b_mult = Jets.at(i1).mult();
         EvtObj->var_b_csv = Jets.at(i1).bDiscriminator();
         EvtObj->var_b_cvsb = Jets.at(i1).pfDeepCSVCvsBJetTags();
@@ -250,7 +250,7 @@ void ResTopVars::Reco_resTop(EventContainer *EvtObj){
         EvtObj->var_wj1_pt = w1jet.Pt();
         EvtObj->var_wj1_mass = w1jet.M();
         EvtObj->var_wj1_ptD = Jets.at(i2).ptD();
-        EvtObj->var_wj1_axis1 = std::exp(-Jets.at(i2).axis2()); // training uses definition of axis1 without -log, I should use axis1 but it is not saved in Ntuple, so axis2 for the moment
+        EvtObj->var_wj1_axis1 = std::exp(-Jets.at(i2).axis1()); // training uses definition of axis1 without -log
         EvtObj->var_wj1_mult = Jets.at(i2).mult();
         EvtObj->var_wj1_csv = Jets.at(i2).bDiscriminator();
         EvtObj->var_wj1_cvsb = Jets.at(i2).pfDeepCSVCvsBJetTags();
@@ -259,7 +259,7 @@ void ResTopVars::Reco_resTop(EventContainer *EvtObj){
         EvtObj->var_wj2_pt = w2jet.Pt();
         EvtObj->var_wj2_mass = w2jet.M();
         EvtObj->var_wj2_ptD = Jets.at(i3).ptD();
-        EvtObj->var_wj2_axis1 = std::exp(-Jets.at(i3).axis2()); // training uses definition of axis1 without -log, I should use axis1 but it is not saved in Ntuple, so axis2 for the moment
+        EvtObj->var_wj2_axis1 = std::exp(-Jets.at(i3).axis1()); // training uses definition of axis1 without -log
         EvtObj->var_wj2_mult = Jets.at(i3).mult();
         EvtObj->var_wj2_csv = Jets.at(i3).bDiscriminator();
         EvtObj->var_wj2_cvsb = Jets.at(i3).pfDeepCSVCvsBJetTags();

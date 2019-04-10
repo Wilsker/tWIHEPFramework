@@ -67,11 +67,14 @@ ClassImp(Jet)
  ******************************************************************************/
   Jet::Jet() : Particle::Particle(),
   _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _pileupId ( 0.0), _mass ( 0.0), _uncorrPt ( 0.0), _neutralHadEnergyFraction(0.0), _neutralEmEmEnergyFraction ( 0.0), _chargedHadronEnergyFraction (0.0), _chargedEmEnergyFraction(0.0), _muonEnergyFraction(0.0), _electronEnergy(0.0), _photonEnergy(0.0), _jesUp(false), _jesDown(false), _jerUp(false), _jerDown(false),
+  _isNormalJet       (0.0),
+  _isForwardJet       (0.0),
   _isLooseBdisc       (0.0),
   _isMediumBdisc       (0.0),
   _isTightBdisc       (0.0),
   _qg       (0.0),
   _axis2       (0.0),
+  _axis1       (0.0),
   _ptD       (0.0),
   _mult       (0.0),
   _pfCombinedCvsLJetTags       (0.0),
@@ -137,11 +140,14 @@ _neutralEmEmEnergyFraction 	(other.GetneutralEmEmEnergyFraction()),
 _chargedEmEnergyFraction	(other.GetchargedEmEnergyFraction()), 
 _muonEnergyFraction		(other.GetmuonEnergyFraction()), 
 _electronEnergy			(other.GetelectronEnergy()), 
+  _isForwardJet(other.GetisForwardJet()),
+  _isNormalJet(other.GetisNormalJet()),
   _isLooseBdisc(other.GetisLooseBdisc()),
   _isMediumBdisc(other.GetisMediumBdisc()),
   _isTightBdisc(other.GetisTightBdisc()),
   _qg(other.Getqg()),
   _axis2(other.Getaxis2()),
+  _axis1(other.Getaxis1()),
   _ptD(other.GetptD()),
   _mult(other.Getmult()),
   _pfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags()),
@@ -181,11 +187,14 @@ _photonEnergy			(other.GetphotonEnergy())
  ******************************************************************************/
 Jet::Jet(const Particle& other): Particle(other),
 _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _pileupId ( 0.0), _mass ( 0.0), _uncorrPt ( 0.0), _neutralHadEnergyFraction(0.0), _neutralEmEmEnergyFraction ( 0.0), _chargedHadronEnergyFraction (0.0), _chargedEmEnergyFraction(0.0), _muonEnergyFraction(0.0), _electronEnergy(0.0), 
+  _isForwardJet       (0.0),
+  _isNormalJet       (0.0),
   _isLooseBdisc       (0.0),
   _isMediumBdisc       (0.0),
   _isTightBdisc       (0.0),
   _qg       (0.0),
   _axis2       (0.0),
+  _axis1       (0.0),
   _ptD       (0.0),
   _mult       (0.0),
   _pfCombinedCvsLJetTags       (0.0),
@@ -276,11 +285,14 @@ Jet& Jet::operator=(const Particle& other)
   SetchargedEmEnergyFraction(0.0); 
   SetmuonEnergyFraction(0.0); 
   SetelectronEnergy(0.0); 
+  SetisNormalJet       (0.0);
+  SetisForwardJet       (0.0);
   SetisLooseBdisc       (0.0);
   SetisMediumBdisc       (0.0);
   SetisTightBdisc       (0.0);
   Setqg       (0.0);
   Setaxis2       (0.0);
+  Setaxis1       (0.0);
   SetptD       (0.0);
   Setmult       (0.0);
   SetpfCombinedCvsLJetTags       (0.0);
@@ -337,11 +349,14 @@ Jet& Jet::operator=(const Jet& other)
   SetchargedEmEnergyFraction		(other.GetchargedEmEnergyFraction());
   SetmuonEnergyFraction			(other.GetmuonEnergyFraction());
   SetelectronEnergy			(other.GetelectronEnergy());
+  SetisNormalJet(other.GetisNormalJet());
+  SetisForwardJet(other.GetisForwardJet());
   SetisLooseBdisc(other.GetisLooseBdisc());
   SetisMediumBdisc(other.GetisMediumBdisc());
   SetisTightBdisc(other.GetisTightBdisc());
   Setqg(other.Getqg());
   Setaxis2(other.Getaxis2());
+  Setaxis1(other.Getaxis1());
   SetptD(other.GetptD());
   Setmult(other.Getmult());
   SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
@@ -396,11 +411,14 @@ Jet& Jet::operator=(Jet& other)
   SetchargedEmEnergyFraction		(other.GetchargedEmEnergyFraction());
   SetmuonEnergyFraction			(other.GetmuonEnergyFraction());
   SetelectronEnergy			(other.GetelectronEnergy());
+  SetisNormalJet(other.GetisNormalJet());
+  SetisForwardJet(other.GetisForwardJet());
   SetisLooseBdisc(other.GetisLooseBdisc());
   SetisMediumBdisc(other.GetisMediumBdisc());
   SetisTightBdisc(other.GetisTightBdisc());
   Setqg(other.Getqg());
   Setaxis2(other.Getaxis2());
+  Setaxis1(other.Getaxis1());
   SetptD(other.GetptD());
   Setmult(other.Getmult());
   SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
@@ -444,6 +462,10 @@ void Jet::SetCuts(TEnv * config)
 {
   _maxEtaCut = 		config -> GetValue("ObjectID.Jet.MaxEta",100.);
   _minPtCut = 		config -> GetValue("ObjectID.Jet.MinPt",0.);
+  _FWJetEtaCut = 		config -> GetValue("ObjectID.FWJet.EtaCut",100.);
+  _FWJetLowPtCut = 		config -> GetValue("ObjectID.FWJet.LowPtCut",0.);
+  _FWJetLowPtMinEta = 		config -> GetValue("ObjectID.FWJet.LowPt.MinEta",0.);
+  _FWJetLowPtMaxEta = 		config -> GetValue("ObjectID.FWJet.LowPt.MaxEta",10.);
   _bMaxEtaCut = 	config -> GetValue("ObjectID.BJet.MaxEta",100.);
   _bMinPtCut = 		config -> GetValue("ObjectID.BJet.MinPt",0.);
   _LWPbTagCut = 		config -> GetValue("ObjectID.BJet.LWPBTagCut",0.0);
@@ -547,6 +569,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   SetphotonEnergy			(evtr -> Jet_photonEnergy     		-> operator[](iE));
   Setqg       (evtr -> Jet_qg      -> operator[](iE));
   Setaxis2       (evtr -> Jet_axis2      -> operator[](iE));
+  Setaxis1       (evtr -> Jet_axis1      -> operator[](iE));
   SetptD       (evtr -> Jet_ptD      -> operator[](iE));
   Setmult       (evtr -> Jet_mult      -> operator[](iE));
   SetpfCombinedCvsLJetTags       (evtr -> Jet_pfCombinedCvsLJetTags      -> operator[](iE));
@@ -630,6 +653,21 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Bool_t passPt = Pt() > _minPtCut;
   Bool_t passEta = TMath::Abs(Eta()) < _maxEtaCut;
 
+  /////////////////////////////////////////////////////////
+  /////// Normal Jet Cut 
+  ////////////////////////////////////////////////////
+  Bool_t passNormalJet = TMath::Abs(Eta()) < _FWJetEtaCut;
+
+  /////////////////////////////////////////////////////////
+  /////// Forward Jet Cut 
+  ////////////////////////////////////////////////////
+  Bool_t passForwardJet = (TMath::Abs(Eta()) >= _FWJetEtaCut && (Pt() > _FWJetLowPtCut || (Pt()<= _FWJetLowPtCut && TMath::Abs(Eta()) >=_FWJetLowPtMinEta && TMath::Abs(Eta()) <= _FWJetLowPtMaxEta ))) ;
+  
+  if( eventNumber==18841459 ){
+    std::cout<< Pt() << " " << Eta() << " " << TMath::Abs(Eta())<<"  _FWJetEtaCut "<< _FWJetEtaCut << " _FWJetLowPtCut " << _FWJetLowPtCut << "  _FWJetLowPtMinEta " << _FWJetLowPtMinEta << " _FWJetLowPtMaxEta " <<  _FWJetLowPtMaxEta << std::endl;
+  }
+  
+  
   /////////////////////////////////////////////////////////////////////////
   // Jet ID
   /////////////////////////////////////////////////////////////////////////
@@ -733,6 +771,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
       std::cout<< " jet pt "<< Pt()<< " passesJetID " << passesJetID<< " passesCleaning "<< passesCleaning<<" JetID details : neutralHadEnergyFraction() " << neutralHadEnergyFraction() << " neutralEmEmEnergyFraction() " << neutralEmEmEnergyFraction() << " numberOfConstituents() " << numberOfConstituents() << " chargedHadronEnergyFraction() " << chargedHadronEnergyFraction() << " chargedMultiplicity() "<< chargedMultiplicity() << std::endl;
   } 
   */
+  SetisNormalJet(passPt && passEta && passesJetID && passesCleaning && passNormalJet);
+  SetisForwardJet(passPt && passEta && passesJetID && passesCleaning && passForwardJet);
   if (passPt && passEta && passesJetID && passesCleaning) return kTRUE;
   
   return kFALSE;

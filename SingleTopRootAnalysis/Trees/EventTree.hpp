@@ -657,7 +657,7 @@ public :
    std::vector<double>  *Jet_isPFJet;
    std::vector<double>  *Jet_isCaloJet;
    std::vector<double>  *Jet_qg;
-   //std::vector<double>  *Jet_axis1; FIXME
+   std::vector<double>  *Jet_axis1; 
    std::vector<double>  *Jet_axis2;
    std::vector<double>  *Jet_ptD;
    std::vector<double>  *Jet_mult;
@@ -1470,7 +1470,7 @@ public :
    TBranch        *b_Jet_isPFJet;   //!
    TBranch        *b_Jet_isCaloJet;   //!
    TBranch        *b_Jet_qg;   //!
-   // TBranch        *b_Jet_axis1;   //! FIXME
+   TBranch        *b_Jet_axis1;   //! 
    TBranch        *b_Jet_axis2;   //!
    TBranch        *b_Jet_ptD;   //!
    TBranch        *b_Jet_mult;   //!
@@ -2240,7 +2240,7 @@ void EventTree::Init(TTree *tree)
    Jet_isPFJet = 0;
    Jet_isCaloJet = 0;
    Jet_qg = 0;
-   // Jet_axis1 = 0; FIXME
+   Jet_axis1 = 0; 
    Jet_axis2 = 0;
    Jet_ptD = 0;
    Jet_mult = 0;
@@ -3042,7 +3042,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Jet_isPFJet", &Jet_isPFJet, &b_Jet_isPFJet);
    fChain->SetBranchAddress("Jet_isCaloJet", &Jet_isCaloJet, &b_Jet_isCaloJet);
    fChain->SetBranchAddress("Jet_qg", &Jet_qg, &b_Jet_qg);
-   //fChain->SetBranchAddress("Jet_axis1", &Jet_axis1, &b_Jet_axis1); FIXME
+   fChain->SetBranchAddress("Jet_axis1", &Jet_axis1, &b_Jet_axis1); 
    fChain->SetBranchAddress("Jet_axis2", &Jet_axis2, &b_Jet_axis2);
    fChain->SetBranchAddress("Jet_ptD", &Jet_ptD, &b_Jet_ptD);
    fChain->SetBranchAddress("Jet_mult", &Jet_mult, &b_Jet_mult);
