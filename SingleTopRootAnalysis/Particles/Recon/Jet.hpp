@@ -405,6 +405,7 @@ class Jet: public Particle
   Double_t _MWPbTagCut;
   Double_t _TWPbTagCut;
   Double_t _closestLeptonCut;
+  Int_t _dataEra;
   
   // ttH functions
   // Hj tagger mva
