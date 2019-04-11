@@ -86,6 +86,7 @@ ClassImp(Lepton)
   _jetl1corr       (0.0),
   _jetislep       (0.0),
   _jetidx       (0),
+  _index       (0),
   _pdgId       (0.0),
   _jetpt       (0.0),
   _isGlobal       (0.0),
@@ -199,6 +200,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _jetl1corr(other.Getjetl1corr()),
   _jetislep(other.Getjetislep()),
   _jetidx(other.Getjetidx()),
+  _index(other.Getindex()),
   _pdgId(other.GetpdgId()),
   _jetpt(other.Getjetpt()),
   _isGlobal(other.GetisGlobal()),
@@ -299,6 +301,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _jetl1corr       (0.0),
   _jetislep       (0.0),
   _jetidx       (0),
+  _index       (0),
   _pdgId       (0.0),
   _jetpt       (0.0),
   _isGlobal       (0.0),
@@ -430,6 +433,7 @@ Lepton& Lepton::operator=(const Particle& other)
   Setjetl1corr       (0.0);
   Setjetislep       (0.0);
   Setjetidx       (0);
+  Setindex       (0);
   SetpdgId       (0.0);
   Setjetpt       (0.0);
   SetisGlobal       (0.0);
@@ -531,6 +535,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   Setjetl1corr(other.Getjetl1corr());
   Setjetislep(other.Getjetislep());
   Setjetidx(other.Getjetidx());
+  Setindex(other.Getindex());
   SetpdgId(other.GetpdgId());
   Setjetpt(other.Getjetpt());
   SetisGlobal(other.GetisGlobal());
@@ -632,6 +637,7 @@ Lepton& Lepton::operator=(Lepton& other)
   Setjetl1corr(other.Getjetl1corr());
   Setjetislep(other.Getjetislep());
   Setjetidx(other.Getjetidx());
+  Setindex(other.Getindex());
   SetpdgId(other.GetpdgId());
   Setjetpt(other.Getjetpt());
   SetisGlobal(other.GetisGlobal());
@@ -858,6 +864,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     Setjetl1corr       (evtr -> Muon_jetl1corr      -> operator[](iE));
     Setjetislep       (evtr -> Muon_jetislep      -> operator[](iE));
     Setjetidx       (evtr -> Muon_jetidx      -> operator[](iE));
+    Setindex       (iE);
     SetpdgId       (evtr -> Muon_pdgId      -> operator[](iE));
     Setjetpt       (evtr -> Muon_jetpt      -> operator[](iE));
     SetisGlobal       (evtr -> Muon_isGlobal      -> operator[](iE));
@@ -946,6 +953,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     Setjetl1corr       (evtr -> patElectron_jetl1corr      -> operator[](iE));
     Setjetislep       (evtr -> patElectron_jetislep      -> operator[](iE));
     Setjetidx       (evtr -> patElectron_jetidx      -> operator[](iE));
+    Setindex       (iE);
     Setjetpt       (evtr -> patElectron_jetpt      -> operator[](iE));
     SetSCeta       (evtr -> patElectron_SCeta      -> operator[](iE));
     SetexpectedMissingInnerHits       (evtr -> patElectron_expectedMissingInnerHits      -> operator[](iE));

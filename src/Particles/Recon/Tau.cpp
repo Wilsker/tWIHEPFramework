@@ -53,6 +53,7 @@ Tau::Tau() : Particle::Particle(),
   _charge       (0.0),
   _dz       (0.0),
   _dxy       (0.0),
+  _index       (0.0),
   _isVLoose       (0.0),
   _isLoose       (0.0),
   _isMedium       (0.0),
@@ -91,6 +92,7 @@ Tau::Tau(const Tau& other): Particle(other),
   _charge(other.Getcharge()),
   _dz(other.Getdz()),
   _dxy(other.Getdxy()),
+  _index(other.Getindex()),
   _isVLoose(other.GetisVLoose()),
   _isLoose(other.GetisLoose()),
   _isMedium(other.GetisMedium()),
@@ -115,6 +117,7 @@ Tau::Tau(const Particle& other): Particle(other),
   _charge       (0.0),
   _dz       (0.0),
   _dxy       (0.0),
+  _index       (0.0),
   _isVLoose       (0.0),
   _isLoose       (0.0),
   _isMedium       (0.0),
@@ -180,6 +183,7 @@ Tau& Tau::operator=(const Particle& other)
   Setcharge       (0.0);
   Setdz       (0.0);
   Setdxy       (0.0);
+  Setindex       (0.0);
   SetisVLoose       (0.0);
   SetisLoose       (0.0);
   SetisMedium       (0.0);
@@ -206,6 +210,7 @@ Tau& Tau::operator=(const Tau& other)
   Setcharge(other.Getcharge());
   Setdz(other.Getdz());
   Setdxy(other.Getdxy());
+  Setindex(other.Getindex());
   SetisVLoose(other.GetisVLoose());
   SetisLoose(other.GetisLoose());
   SetisMedium(other.GetisMedium());
@@ -232,6 +237,7 @@ Tau& Tau::operator=(Tau& other)
   Setcharge(other.Getcharge());
   Setdz(other.Getdz());
   Setdxy(other.Getdxy());
+  Setindex(other.Getindex());
   SetisVLoose(other.GetisVLoose());
   SetisLoose(other.GetisLoose());
   SetisMedium(other.GetisMedium());
@@ -289,6 +295,7 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
     Double_t tauCharge = evtr -> Tau_charge   -> operator[](iE);
     Setdz       (evtr -> Tau_packedLeadTauCand_dz      -> operator[](iE));
     Setdxy       (evtr -> Tau_packedLeadTauCand_dxy      -> operator[](iE));
+    Setindex     (iE);
     SetisVLoose       (evtr -> Tau_byVLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
     SetisLoose       (evtr -> Tau_byLooseIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));
     SetisMedium       (evtr -> Tau_byMediumIsolationMVArun2017v2DBoldDMdR0p3wLT2017      -> operator[](iE));

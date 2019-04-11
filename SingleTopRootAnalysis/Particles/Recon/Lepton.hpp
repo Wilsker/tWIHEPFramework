@@ -74,6 +74,7 @@ public:
  _jetl1corr =0.0;
  _jetislep =0;
  _jetidx =0.0;
+ _index =0.0; // this is the index in Ntuple
  _pdgId =0.0;
  _jetpt =0.0;
  _isGlobal =0.0;
@@ -299,6 +300,10 @@ public:
   inline void Setjetidx(Int_t jetidx){_jetidx = jetidx;};
   inline Int_t Getjetidx() const {return _jetidx;};
   inline Int_t jetidx() const {return _jetidx;};
+
+  inline void Setindex(Int_t index){_index = index;};
+  inline Int_t Getindex() const {return _index;};
+  inline Int_t index() const {return _index;};
 
   inline void SetpdgId(Double_t pdgId){_pdgId = pdgId;};
   inline Double_t GetpdgId() const {return _pdgId;};
@@ -541,6 +546,7 @@ private:
   Double_t _jetl1corr;
   Double_t _jetislep;
   Int_t _jetidx;
+  Int_t _index;
   Double_t _pdgId;
   Double_t _jetpt;
   Double_t _isGlobal;

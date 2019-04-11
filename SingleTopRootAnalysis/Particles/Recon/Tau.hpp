@@ -65,6 +65,7 @@ public:
         _isVTight =0.0;
         _rawMVA =0.0;
         _decayModeFinding =0.0;
+        _index =0.0; // this is the index in Ntuple
       };
 
   // Fill the tau from an EventTree
@@ -132,6 +133,10 @@ public:
   inline Double_t GetdecayModeFinding() const {return _decayModeFinding;};
   inline Double_t decayModeFinding() const {return _decayModeFinding;};
 
+  inline void Setindex(Int_t index){_index = index;};
+  inline Int_t Getindex() const {return _index;};
+  inline Int_t index() const {return _index;};
+
 
 private:
   Double_t _NumTracks;   // number of tracks
@@ -145,6 +150,7 @@ private:
   Double_t _isVTight;
   Double_t _rawMVA;
   Double_t _decayModeFinding;
+  Int_t _index;
   
   /// cuts reading from config
   Double_t _closestLeptonCut;

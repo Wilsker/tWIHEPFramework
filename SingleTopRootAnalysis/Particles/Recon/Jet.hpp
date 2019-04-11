@@ -82,6 +82,9 @@ class Jet: public Particle
  _axis1 =0.0;
  _ptD =0.0;
  _mult =0.0;
+ _ele_number =0;
+ _tau_number =0;
+ _mu_number =0;
  _pfCombinedCvsLJetTags =0.0;
  _pfCombinedCvsBJetTags =0.0;
  _pfCombinedInclusiveSecondaryVertexV2BJetTags =0.0;
@@ -113,7 +116,7 @@ class Jet: public Particle
   void SetCuts(TEnv* config);
 
   // Fill the jet from an EventTree 
-  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets=false, Bool_t isSimulation=true,int whichtrig =2);
+  Bool_t Fill( double myJESCorr, double myJERCorr, int& mu_start_index , int& ele_start_index , int& tau_start_index , std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets=false, Bool_t isSimulation=true,int whichtrig =2);
   //  Bool_t Fill( double myJESCorr, double myJERCorr, std::vector<Electron>& selectedElectrons, EventTree *evtr, Int_t iE);
   // Also fill from FastSim tree:
   Bool_t FillFastSim( std::vector<MCJet>& MCBJets, std::vector<MCJet>& MCCJets, std::vector<MCTau>& MCTaus,  std::vector<Electron>& electrons, FastSimTree *tr,Int_t iE,TEnv *config,const TString& tagName="default", Double_t btagCut = 999, Double_t mistagCut = 999, Double_t eshift = 0 );
@@ -229,6 +232,18 @@ class Jet: public Particle
   inline void Setmult(Double_t mult){_mult = mult;};
   inline Double_t Getmult() const {return _mult;};
   inline Double_t mult() const {return _mult;};
+
+  inline void Setele_number(Int_t ele_number){_ele_number = ele_number;};
+  inline Int_t Getele_number() const {return _ele_number;};
+  inline Int_t ele_number() const {return _ele_number;};
+
+  inline void Settau_number(Int_t tau_number){_tau_number = tau_number;};
+  inline Int_t Gettau_number() const {return _tau_number;};
+  inline Int_t tau_number() const {return _tau_number;};
+
+  inline void Setmu_number(Int_t mu_number){_mu_number = mu_number;};
+  inline Int_t Getmu_number() const {return _mu_number;};
+  inline Int_t mu_number() const {return _mu_number;};
 
   inline void SetpfCombinedCvsLJetTags(Double_t pfCombinedCvsLJetTags){_pfCombinedCvsLJetTags = pfCombinedCvsLJetTags;};
   inline Double_t GetpfCombinedCvsLJetTags() const {return _pfCombinedCvsLJetTags;};
@@ -368,6 +383,9 @@ class Jet: public Particle
   Double_t _axis1;
   Double_t _ptD;
   Double_t _mult;
+  Int_t _ele_number;
+  Int_t _tau_number;
+  Int_t _mu_number;
   Double_t _pfCombinedCvsLJetTags;
   Double_t _pfCombinedCvsBJetTags;
   Double_t _pfCombinedInclusiveSecondaryVertexV2BJetTags;
@@ -396,9 +414,9 @@ class Jet: public Particle
   Double_t _maxEtaCut;
   Double_t _minPtCut;
   Double_t _FWJetEtaCut;
-  Double_t _FWJetLowPtCut;
-  Double_t _FWJetLowPtMinEta;
-  Double_t _FWJetLowPtMaxEta;
+  Double_t _FWJetHighPtCut;
+  Double_t _FWJetHighPtMinEta;
+  Double_t _FWJetHighPtMaxEta;
   Double_t _bMaxEtaCut;
   Double_t _bMinPtCut;
   Double_t _LWPbTagCut;

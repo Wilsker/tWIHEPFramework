@@ -77,6 +77,9 @@ ClassImp(Jet)
   _axis1       (0.0),
   _ptD       (0.0),
   _mult       (0.0),
+  _ele_number       (0),
+  _mu_number       (0),
+  _tau_number       (0),
   _pfCombinedCvsLJetTags       (0.0),
   _pfCombinedCvsBJetTags       (0.0),
   _pfCombinedInclusiveSecondaryVertexV2BJetTags       (0.0),
@@ -150,6 +153,9 @@ _electronEnergy			(other.GetelectronEnergy()),
   _axis1(other.Getaxis1()),
   _ptD(other.GetptD()),
   _mult(other.Getmult()),
+  _ele_number(other.Getele_number()),
+  _mu_number(other.Getmu_number()),
+  _tau_number(other.Gettau_number()),
   _pfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags()),
   _pfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags()),
   _pfCombinedInclusiveSecondaryVertexV2BJetTags(other.GetpfCombinedInclusiveSecondaryVertexV2BJetTags()),
@@ -197,6 +203,9 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _axis1       (0.0),
   _ptD       (0.0),
   _mult       (0.0),
+  _ele_number       (0),
+  _mu_number       (0),
+  _tau_number       (0),
   _pfCombinedCvsLJetTags       (0.0),
   _pfCombinedCvsBJetTags       (0.0),
   _pfCombinedInclusiveSecondaryVertexV2BJetTags       (0.0),
@@ -295,6 +304,9 @@ Jet& Jet::operator=(const Particle& other)
   Setaxis1       (0.0);
   SetptD       (0.0);
   Setmult       (0.0);
+  Setele_number       (0);
+  Setmu_number       (0);
+  Settau_number       (0);
   SetpfCombinedCvsLJetTags       (0.0);
   SetpfCombinedCvsBJetTags       (0.0);
   SetpfCombinedInclusiveSecondaryVertexV2BJetTags       (0.0);
@@ -359,6 +371,9 @@ Jet& Jet::operator=(const Jet& other)
   Setaxis1(other.Getaxis1());
   SetptD(other.GetptD());
   Setmult(other.Getmult());
+  Setele_number(other.Getele_number());
+  Setmu_number(other.Getmu_number());
+  Settau_number(other.Gettau_number());
   SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
   SetpfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags());
   SetpfCombinedInclusiveSecondaryVertexV2BJetTags(other.GetpfCombinedInclusiveSecondaryVertexV2BJetTags());
@@ -421,6 +436,9 @@ Jet& Jet::operator=(Jet& other)
   Setaxis1(other.Getaxis1());
   SetptD(other.GetptD());
   Setmult(other.Getmult());
+  Setele_number(other.Getele_number());
+  Setmu_number(other.Getmu_number());
+  Settau_number(other.Gettau_number());
   SetpfCombinedCvsLJetTags(other.GetpfCombinedCvsLJetTags());
   SetpfCombinedCvsBJetTags(other.GetpfCombinedCvsBJetTags());
   SetpfCombinedInclusiveSecondaryVertexV2BJetTags(other.GetpfCombinedInclusiveSecondaryVertexV2BJetTags());
@@ -464,9 +482,9 @@ void Jet::SetCuts(TEnv * config)
   _maxEtaCut = 		config -> GetValue("ObjectID.Jet.MaxEta",100.);
   _minPtCut = 		config -> GetValue("ObjectID.Jet.MinPt",0.);
   _FWJetEtaCut = 		config -> GetValue("ObjectID.FWJet.EtaCut",100.);
-  _FWJetLowPtCut = 		config -> GetValue("ObjectID.FWJet.LowPtCut",0.);
-  _FWJetLowPtMinEta = 		config -> GetValue("ObjectID.FWJet.LowPt.MinEta",0.);
-  _FWJetLowPtMaxEta = 		config -> GetValue("ObjectID.FWJet.LowPt.MaxEta",10.);
+  _FWJetHighPtCut = 		config -> GetValue("ObjectID.FWJet.HighPtCut",9999.);
+  _FWJetHighPtMinEta = 		config -> GetValue("ObjectID.FWJet.HighPt.MinEta",0.);
+  _FWJetHighPtMaxEta = 		config -> GetValue("ObjectID.FWJet.HighPt.MaxEta",10.);
   _bMaxEtaCut = 	config -> GetValue("ObjectID.BJet.MaxEta",100.);
   _bMinPtCut = 		config -> GetValue("ObjectID.BJet.MinPt",0.);
   _LWPbTagCut = 		config -> GetValue("ObjectID.BJet.LWPBTagCut",0.0);
@@ -529,7 +547,7 @@ double Jet::get_JetMVA()
  * Output: True if this jet passes jet ID cuts                                *         
  ******************************************************************************/
 
-Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets, Bool_t isSimulation, int whichtrig)
+Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int& ele_start_index, int& tau_start_index, std::vector<Lepton>& selectedLeptons, std::vector<Tau>& selectedTaus, EventTree *evtr, Int_t iE, TLorentzVector * met, Bool_t useLepAwareJets, Bool_t isSimulation, int whichtrig)
 {
 
   int eventNumber = evtr -> EVENT_event; 
@@ -573,6 +591,9 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   Setaxis1       (evtr -> Jet_axis1      -> operator[](iE));
   SetptD       (evtr -> Jet_ptD      -> operator[](iE));
   Setmult       (evtr -> Jet_mult      -> operator[](iE));
+  Setele_number       (evtr -> Jet_ele_number      -> operator[](iE));
+  Setmu_number       (evtr -> Jet_mu_number      -> operator[](iE));
+  Settau_number       (evtr -> Jet_tau_number      -> operator[](iE));
   SetpfCombinedCvsLJetTags       (evtr -> Jet_pfCombinedCvsLJetTags      -> operator[](iE));
   SetpfCombinedCvsBJetTags       (evtr -> Jet_pfCombinedCvsBJetTags      -> operator[](iE));
   SetpfCombinedInclusiveSecondaryVertexV2BJetTags       (evtr -> Jet_pfCombinedInclusiveSecondaryVertexV2BJetTags      -> operator[](iE));
@@ -662,10 +683,10 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   /////////////////////////////////////////////////////////
   /////// Forward Jet Cut 
   ////////////////////////////////////////////////////
-  Bool_t passForwardJet = (TMath::Abs(Eta()) >= _FWJetEtaCut && (Pt() > _FWJetLowPtCut || (Pt()<= _FWJetLowPtCut && TMath::Abs(Eta()) >=_FWJetLowPtMinEta && TMath::Abs(Eta()) <= _FWJetLowPtMaxEta ))) ;
+  Bool_t passForwardJet = (TMath::Abs(Eta()) >= _FWJetEtaCut && (Pt() < _FWJetHighPtCut || (Pt()>= _FWJetHighPtCut && TMath::Abs(Eta()) >=_FWJetHighPtMinEta && TMath::Abs(Eta()) <= _FWJetHighPtMaxEta ))) ;
   
   if( eventNumber==18841459 ){
-    std::cout<< Pt() << " " << Eta() << " " << TMath::Abs(Eta())<<"  _FWJetEtaCut "<< _FWJetEtaCut << " _FWJetLowPtCut " << _FWJetLowPtCut << "  _FWJetLowPtMinEta " << _FWJetLowPtMinEta << " _FWJetLowPtMaxEta " <<  _FWJetLowPtMaxEta << std::endl;
+    std::cout<< Pt() << " " << Eta() << " " << TMath::Abs(Eta())<<"  _FWJetEtaCut "<< _FWJetEtaCut << " _FWJetHighPtCut " << _FWJetHighPtCut << "  _FWJetHighPtMinEta " << _FWJetHighPtMinEta << " _FWJetHighPtMaxEta " <<  _FWJetHighPtMaxEta << std::endl;
   }
   
   
@@ -720,34 +741,9 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
     minlepdr = TMath::Min(selectedLeptons.at(0).DeltaR(*this),selectedLeptons.at(1).DeltaR(*this));
     maxlepdr = TMath::Max(selectedLeptons.at(0).DeltaR(*this),selectedLeptons.at(1).DeltaR(*this));
   }
-
-  /*
-  int clean_num =0;
-  if(whichtrig>=2 && whichtrig <= 5){//2L categories
-      clean_num = TMath::Min(2,lep_num);
-  }else if(whichtrig ==6){//3L
-      clean_num = TMath::Min(3,lep_num);
-  }
-    
-
-  for(int lep_en=0; lep_en< clean_num; lep_en++){
-    Lepton lep = selectedLeptons.at(lep_en);
-    if (lep.DeltaR(*this) < closestLepton){
-        closestLepton = lep.DeltaR(*this);
-    }
-  }
   
-  int clean_tau=0;
-  int tau_num = selectedTaus.size();
-  clean_tau= TMath::Min(1,tau_num);
-  
-  for(int tau_en=0; tau_en< clean_tau; tau_en++){
-    Tau tau = selectedTaus.at(tau_en);
-    if (tau.DeltaR(*this) < closestLepton){
-        closestLepton = tau.DeltaR(*this);
-    }
-  }
-  */
+  /* 
+  lepton and tau clean using dr
   for (auto const & lep : selectedLeptons){
     if (lep.DeltaR(*this) < closestLepton){
         closestLepton = lep.DeltaR(*this);
@@ -758,6 +754,57 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr, std::vector<Lepton>& selec
   }
 
   if (closestLepton < _closestLeptonCut) passesCleaning = kFALSE;
+  */
+ 
+  // lepton and tau clean using common daughters  
+  int ele_end_index = ele_start_index + ele_number();
+  int mu_end_index = mu_start_index + mu_number();
+  int tau_end_index = tau_start_index + tau_number();
+  if(ele_end_index > evtr->Jet_ele_indices->size()){
+      std::cout << "ERROR in Jet matching Jet_ele_indices must >= ele_start_index + ele_number() "<<std::endl;
+  }
+  if(mu_end_index > evtr->Jet_mu_indices->size()){
+      std::cout << "ERROR in Jet matching Jet_mu_indices must >= mu_start_index + mu_number() "<<std::endl;
+  }
+  if(tau_end_index> evtr->Jet_tau_indices->size()){
+      std::cout << "ERROR in Jet matching Jet_tau_indices must >= tau_start_index + tau_number() "<<std::endl;
+  }
+  for (auto const & lep : selectedLeptons){
+    if(!passesCleaning) continue;
+    if(fabs(lep.pdgId())==11){
+        for(Int_t io = ele_start_index;io < ele_end_index ; io++) {
+            if(lep.index() == evtr->Jet_ele_indices -> operator[](io)){ 
+                closestLepton = lep.DeltaR(*this);
+                passesCleaning = kFALSE;
+                continue;
+            }
+        }
+    }
+    else if(fabs(lep.pdgId())==13){
+        for(Int_t io = mu_start_index;io < mu_end_index ; io++) {
+            if(lep.index() == evtr->Jet_mu_indices -> operator[](io)){ 
+                closestLepton = lep.DeltaR(*this);
+                passesCleaning = kFALSE;
+                continue;
+            }
+        }
+    }
+  }
+  for (auto const & tau : selectedTaus){
+    if(!passesCleaning) continue;
+    for(Int_t io = tau_start_index;io < tau_end_index ; io++) {
+        if(tau.index() == evtr->Jet_tau_indices -> operator[](io)){ 
+            closestLepton = tau.DeltaR(*this);
+            passesCleaning = kFALSE;
+            continue;
+        }
+    }
+  }
+
+  // set start_index for next jet
+  ele_start_index = ele_end_index;
+  mu_start_index = mu_end_index;
+  tau_start_index = tau_end_index;
 
   SetClosestLep(closestLepton);
   Setlepdrmax       (maxlepdr);

@@ -379,6 +379,22 @@ ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
   _floatVars["jet8_DeepCSV"] = 999.;
   _floatVars["jet8_DeepJet"] = 999.;
   _floatVars["jet8_QGdiscr"] = 999.;
+  _floatVars["jetFwd1_pt"] = 999.;
+  _floatVars["jetFwd1_eta"] = 999.;
+  _floatVars["jetFwd1_phi"] = 999.;
+  _floatVars["jetFwd1_E"] = 999.;
+  _floatVars["jetFwd2_pt"] = 999.;
+  _floatVars["jetFwd2_eta"] = 999.;
+  _floatVars["jetFwd2_phi"] = 999.;
+  _floatVars["jetFwd2_E"] = 999.;
+  _floatVars["jetFwd3_pt"] = 999.;
+  _floatVars["jetFwd3_eta"] = 999.;
+  _floatVars["jetFwd3_phi"] = 999.;
+  _floatVars["jetFwd3_E"] = 999.;
+  _floatVars["jetFwd4_pt"] = 999.;
+  _floatVars["jetFwd4_eta"] = 999.;
+  _floatVars["jetFwd4_phi"] = 999.;
+  _floatVars["jetFwd4_E"] = 999.;
   _floatVars["PFMET"] = 999.;
   _floatVars["PFMETphi"] = 999.;
   _floatVars["MHT"] = 999.;
@@ -829,6 +845,22 @@ void ttHVars::Clear(){
     jet8_DeepCSV = -9999;
     jet8_DeepJet = -9999;
     jet8_QGdiscr = -9999;
+    jetFwd1_pt = -9999;
+    jetFwd1_eta = -9999;
+    jetFwd1_phi = -9999;
+    jetFwd1_E = -9999;
+    jetFwd2_pt = -9999;
+    jetFwd2_eta = -9999;
+    jetFwd2_phi = -9999;
+    jetFwd2_E = -9999;
+    jetFwd3_pt = -9999;
+    jetFwd3_eta = -9999;
+    jetFwd3_phi = -9999;
+    jetFwd3_E = -9999;
+    jetFwd4_pt = -9999;
+    jetFwd4_eta = -9999;
+    jetFwd4_phi = -9999;
+    jetFwd4_E = -9999;
     PFMET = -9999;
     PFMETphi = -9999;
     MHT = -9999;
@@ -1015,6 +1047,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
    Tau FirstTau, SecondTau; 
    Jet FirstJet, SecondJet, ThirdJet, FourthJet; 
    Jet FifthJet, SixthJet, SeventhJet, EighthJet; 
+   Jet FirstFwdJet, SecondFwdJet, ThirdFwdJet, FourthFwdJet; 
    if(looseMuons.size()>=1){
         FirstMuon = looseMuons.at(0);
         if(looseMuons.size()>=2) SecondMuon = looseMuons.at(1);
@@ -1037,7 +1070,12 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         if(Jets.size()>=7) SeventhJet = Jets.at(6);
         if(Jets.size()>=8) EighthJet = Jets.at(7);
    }
-   
+   if(fwdJets.size()>=1){
+        FirstFwdJet = fwdJets.at(0);
+        if(fwdJets.size()>=2) SecondFwdJet = fwdJets.at(1);
+        if(fwdJets.size()>=3) ThirdFwdJet = fwdJets.at(2);
+        if(fwdJets.size()>=4) FourthFwdJet = fwdJets.at(3);
+   } 
     // Fill the variables in event container
 
     // Fill the branches
@@ -1429,6 +1467,30 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         jet8_DeepJet = EighthJet.pfDeepFlavourBJetTags();
         jet8_QGdiscr = EighthJet.qg();
     }
+    if(fwdJets.size()>=1){
+        jetFwd1_pt = FirstFwdJet.Pt();
+        jetFwd1_eta = FirstFwdJet.Eta();
+        jetFwd1_phi = FirstFwdJet.Phi();
+        jetFwd1_E = FirstFwdJet.E();
+    }
+    if(fwdJets.size()>=2){
+        jetFwd2_pt = SecondFwdJet.Pt();
+        jetFwd2_eta = SecondFwdJet.Eta();
+        jetFwd2_phi = SecondFwdJet.Phi();
+        jetFwd2_E = SecondFwdJet.E();
+    }
+    if(fwdJets.size()>=3){
+        jetFwd3_pt = ThirdFwdJet.Pt();
+        jetFwd3_eta = ThirdFwdJet.Eta();
+        jetFwd3_phi = ThirdFwdJet.Phi();
+        jetFwd3_E = ThirdFwdJet.E();
+    }
+    if(fwdJets.size()>=4){
+        jetFwd4_pt = FourthFwdJet.Pt();
+        jetFwd4_eta = FourthFwdJet.Eta();
+        jetFwd4_phi = FourthFwdJet.Phi();
+        jetFwd4_E = FourthFwdJet.E();
+    }
     PFMET = evtObj->missingEt;
     PFMETphi = evtObj->missingPhi;
     MHT = evtObj->mht;
@@ -1691,6 +1753,22 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["jet8_DeepCSV"] = jet8_DeepCSV;
   _floatVars["jet8_DeepJet"] = jet8_DeepJet;
   _floatVars["jet8_QGdiscr"] = jet8_QGdiscr;
+  _floatVars["jetFwd1_pt"] = jetFwd1_pt;
+  _floatVars["jetFwd1_eta"] = jetFwd1_eta;
+  _floatVars["jetFwd1_phi"] = jetFwd1_phi;
+  _floatVars["jetFwd1_E"] = jetFwd1_E;
+  _floatVars["jetFwd2_pt"] = jetFwd2_pt;
+  _floatVars["jetFwd2_eta"] = jetFwd2_eta;
+  _floatVars["jetFwd2_phi"] = jetFwd2_phi;
+  _floatVars["jetFwd2_E"] = jetFwd2_E;
+  _floatVars["jetFwd3_pt"] = jetFwd3_pt;
+  _floatVars["jetFwd3_eta"] = jetFwd3_eta;
+  _floatVars["jetFwd3_phi"] = jetFwd3_phi;
+  _floatVars["jetFwd3_E"] = jetFwd3_E;
+  _floatVars["jetFwd4_pt"] = jetFwd4_pt;
+  _floatVars["jetFwd4_eta"] = jetFwd4_eta;
+  _floatVars["jetFwd4_phi"] = jetFwd4_phi;
+  _floatVars["jetFwd4_E"] = jetFwd4_E;
   _floatVars["PFMET"] = PFMET;
   _floatVars["PFMETphi"] = PFMETphi;
   _floatVars["MHT"] = MHT;

@@ -726,9 +726,14 @@ Int_t EventContainer::ReadEvent()
     missingEtVec_xy.SetPtEtaPhiE(missingEt_xy,0.,missingPhi_xy,missingEt_xy);
 
     // lepAwareJets collections
+    // these index are used for jet cleaning
+    // they are not used for lepAwareJets collections
+    int ele_index =0;
+    int mu_index =0;
+    int tau_index =0;
     for(Int_t io = 0;io < _eventTree -> Jet_pt->size(); io++) {
       newJet.Clear();
-      useObj = newJet.Fill(1.0,1.0, *fakeleptonsVetoPtr, *tausVetoPtr , _eventTree, io, &missingEtVec, true, isSimulation, _trigID);
+      useObj = newJet.Fill(1.0,1.0, mu_index, ele_index, tau_index, *fakeleptonsVetoPtr, *tausVetoPtr , _eventTree, io, &missingEtVec, true, isSimulation, _trigID);
       if(useObj)lepjets.push_back(newJet);
     }
     ///////////////////////////////////////////
@@ -921,7 +926,7 @@ Int_t EventContainer::ReadEvent()
       ejordr = 999;
       bestjetdr = 999;
       //      missingEt = -888; 
-      useObj = newJet.Fill(1.0,1.0, *fakeleptonsVetoPtr, *tausVetoPtr , _eventTree, io, &missingEtVec, false, isSimulation, _trigID);
+      useObj = newJet.Fill(1.0,1.0, mu_index, ele_index, tau_index, *fakeleptonsVetoPtr, *tausVetoPtr , _eventTree, io, &missingEtVec, false, isSimulation, _trigID);
       //      useObj = newJet.Fill(1.0,1.0, _eventTree, io);
       
       missingEt = TMath::Sqrt(pow(missingEx,2) + pow(missingEy,2));//so MET gets JES adjustment toogEx=top_met.MET_ExMiss();
