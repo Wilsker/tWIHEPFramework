@@ -683,7 +683,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
   /////////////////////////////////////////////////////////
   /////// Forward Jet Cut 
   ////////////////////////////////////////////////////
-  Bool_t passForwardJet = (TMath::Abs(Eta()) >= _FWJetEtaCut && (Pt() < _FWJetHighPtCut || (Pt()>= _FWJetHighPtCut && TMath::Abs(Eta()) >=_FWJetHighPtMinEta && TMath::Abs(Eta()) <= _FWJetHighPtMaxEta ))) ;
+  Bool_t passForwardJet = (TMath::Abs(Eta()) >= _FWJetEtaCut && ((TMath::Abs(Eta()) <_FWJetHighPtMinEta || TMath::Abs(Eta()) >_FWJetHighPtMaxEta) || (Pt()>= _FWJetHighPtCut && TMath::Abs(Eta()) >=_FWJetHighPtMinEta && TMath::Abs(Eta()) <= _FWJetHighPtMaxEta ))) ;
   
   if( eventNumber==18841459 ){
     std::cout<< Pt() << " " << Eta() << " " << TMath::Abs(Eta())<<"  _FWJetEtaCut "<< _FWJetEtaCut << " _FWJetHighPtCut " << _FWJetHighPtCut << "  _FWJetHighPtMinEta " << _FWJetHighPtMinEta << " _FWJetHighPtMaxEta " <<  _FWJetHighPtMaxEta << std::endl;
