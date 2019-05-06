@@ -307,7 +307,6 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
-  /*
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     if(isTriLepton || isQuaLepton){
@@ -362,7 +361,6 @@ int main(int argc, char **argv)
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutLightJetN(particlesObj));
   mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
-  */ 
   //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
   /*
   if(!isTrainMVA){
@@ -437,7 +435,7 @@ int main(int argc, char **argv)
   
   //mystudy.AddVars(new HjTagger());
   
-  //mystudy.AddVars(new DNNVars());
+  mystudy.AddVars(new DNNVars());
   
   //mystudy.AddVars(new WeightVars());
  

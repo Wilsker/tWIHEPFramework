@@ -87,6 +87,7 @@ ClassImp(Jet)
   _pfJetProbabilityBJetTags       (0.0),
   _pfDeepCSVCvsLJetTags       (0.0),
   _pfDeepCSVCvsBJetTags       (0.0),
+  _pfDeepCSVBJetTags       (0.0),
   _pfDeepFlavourBJetTags       (0.0),
   _lepdrmax       (0.0),
   _lepdrmin       (0.0),
@@ -164,6 +165,7 @@ _electronEnergy			(other.GetelectronEnergy()),
   _pfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags()),
   _pfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags()),
   _pfDeepFlavourBJetTags(other.GetpfDeepFlavourBJetTags()),
+  _pfDeepCSVBJetTags(other.GetpfDeepCSVBJetTags()),
   _lepdrmax(other.Getlepdrmax()),
   _lepdrmin(other.Getlepdrmin()),
   _partonFlavour(other.GetpartonFlavour()),
@@ -214,6 +216,7 @@ _numberOfConstituents(0), _chargedMultiplicity(0),  _bDiscriminator ( -999.0), _
   _pfDeepCSVCvsLJetTags       (0.0),
   _pfDeepCSVCvsBJetTags       (0.0),
   _pfDeepFlavourBJetTags       (0.0),
+  _pfDeepCSVBJetTags       (0.0),
   _L1corrPt  (0.0),
   _uncorrE  (0.0),
   _lepdrmax       (0.0),
@@ -315,6 +318,7 @@ Jet& Jet::operator=(const Particle& other)
   SetpfDeepCSVCvsLJetTags       (0.0);
   SetpfDeepCSVCvsBJetTags       (0.0);
   SetpfDeepFlavourBJetTags       (0.0);
+  SetpfDeepCSVBJetTags       (0.0);
   Setlepdrmax       (0.0);
   Setlepdrmin       (0.0);
   SetpartonFlavour       (0.0);
@@ -382,6 +386,7 @@ Jet& Jet::operator=(const Jet& other)
   SetpfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags());
   SetpfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags());
   SetpfDeepFlavourBJetTags(other.GetpfDeepFlavourBJetTags());
+  SetpfDeepCSVBJetTags(other.GetpfDeepCSVBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -447,6 +452,7 @@ Jet& Jet::operator=(Jet& other)
   SetpfDeepCSVCvsLJetTags(other.GetpfDeepCSVCvsLJetTags());
   SetpfDeepCSVCvsBJetTags(other.GetpfDeepCSVCvsBJetTags());
   SetpfDeepFlavourBJetTags(other.GetpfDeepFlavourBJetTags());
+  SetpfDeepCSVBJetTags(other.GetpfDeepCSVBJetTags());
   Setlepdrmax(other.Getlepdrmax());
   Setlepdrmin(other.Getlepdrmin());
   SetpartonFlavour(other.GetpartonFlavour());
@@ -760,14 +766,18 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
   int ele_end_index = ele_start_index + ele_number();
   int mu_end_index = mu_start_index + mu_number();
   int tau_end_index = tau_start_index + tau_number();
+  TLorentzVector MatchedLep = {0,0,0,0};
   if(ele_end_index > evtr->Jet_ele_indices->size()){
       std::cout << "ERROR in Jet matching Jet_ele_indices must >= ele_start_index + ele_number() "<<std::endl;
+      exit(0);
   }
   if(mu_end_index > evtr->Jet_mu_indices->size()){
       std::cout << "ERROR in Jet matching Jet_mu_indices must >= mu_start_index + mu_number() "<<std::endl;
+      exit(0);
   }
   if(tau_end_index> evtr->Jet_tau_indices->size()){
       std::cout << "ERROR in Jet matching Jet_tau_indices must >= tau_start_index + tau_number() "<<std::endl;
+      exit(0);
   }
   for (auto const & lep : selectedLeptons){
     if(!passesCleaning) continue;
@@ -776,6 +786,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
             if(lep.index() == evtr->Jet_ele_indices -> operator[](io)){ 
                 closestLepton = lep.DeltaR(*this);
                 passesCleaning = kFALSE;
+                MatchedLep.SetPtEtaPhiE(lep.Pt(),lep.Eta(),lep.Phi(),lep.E());
                 continue;
             }
         }
@@ -785,6 +796,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
             if(lep.index() == evtr->Jet_mu_indices -> operator[](io)){ 
                 closestLepton = lep.DeltaR(*this);
                 passesCleaning = kFALSE;
+                MatchedLep.SetPtEtaPhiE(lep.Pt(),lep.Eta(),lep.Phi(),lep.E());
                 continue;
             }
         }
@@ -796,6 +808,7 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
         if(tau.index() == evtr->Jet_tau_indices -> operator[](io)){ 
             closestLepton = tau.DeltaR(*this);
             passesCleaning = kFALSE;
+            MatchedLep.SetPtEtaPhiE(tau.Pt(),tau.Eta(),tau.Phi(),tau.E());
             continue;
         }
     }
@@ -827,8 +840,8 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
   if (passbPt && passbEta && passTagCut) SetTagged(kTRUE);
   else SetTagged(kFALSE);
   /*
-  if( eventNumber==18841459 ){
-      std::cout<< " jet pt "<< Pt()<< " passesJetID " << passesJetID<< " passesCleaning "<< passesCleaning<<" JetID details : neutralHadEnergyFraction() " << neutralHadEnergyFraction() << " neutralEmEmEnergyFraction() " << neutralEmEmEnergyFraction() << " numberOfConstituents() " << numberOfConstituents() << " chargedHadronEnergyFraction() " << chargedHadronEnergyFraction() << " chargedMultiplicity() "<< chargedMultiplicity() << std::endl;
+  if( eventNumber== 861319 || eventNumber == 166533 || eventNumber == 263322 || eventNumber == 62175 || eventNumber == 1665166){
+      std::cout<< eventNumber << " jet pt eta phi "<< Pt()<<" "<< Eta()<<" "<<Phi()<< " passesJetID " << passesJetID<< " passesCleaning "<< passesCleaning<< " passForwardJet "<< passForwardJet <<" passLowEta "<< LowEtaID<<" passMediumEta "<< MediumEtaID<< " passHighEta "<< HighEtaID <<" JetID details : neutralHadEnergyFraction() " << neutralHadEnergyFraction() << " neutralEmEmEnergyFraction() " << neutralEmEmEnergyFraction() << " numberOfConstituents() " << numberOfConstituents() << " chargedHadronEnergyFraction() " << chargedHadronEnergyFraction() << " chargedMultiplicity() "<< chargedMultiplicity() <<" matched lepton Pt/Eta/Phi "<< MatchedLep.Pt()<<"/"<<MatchedLep.Eta()<<"/"<<MatchedLep.Phi() <<std::endl;
   } 
   */
   SetisNormalJet(passPt && passEta && passesJetID && passesCleaning && passNormalJet);

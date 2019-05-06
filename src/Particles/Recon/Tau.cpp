@@ -318,6 +318,11 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
 
     for (auto const & lep : selectedLeptons){
         if (lep.DeltaR(*this) < closestLepton) closestLepton = lep.DeltaR(*this);
+        /*
+        if(evtr -> EVENT_event == 3038620){
+            std::cout<<" lepPt "<< lep.Pt() << " dr "<< closestLepton<< std::endl;
+        }
+        */
     }
     if (closestLepton < _closestLeptonCut) passesCleaning = kFALSE;
   
@@ -327,8 +332,11 @@ Bool_t Tau::Fill(std::vector<Lepton>& selectedLeptons, EventTree *evtr,int iE, T
         && TMath::Abs(dz())<= _maxDzCut
         && TMath::Abs(dxy())<= _maxDxyCut
         && decayModeFinding()) passeCommonCuts = kTRUE;
-
-    //std::cout <<tauPt << " > pt 20? "<<tauEta<< " < eta 2.3? " << dxy() << " < 1000?  " << dz() << " < 0.2 ? " << decayModeFinding() << " " <<isMedium() << " ispassCommonCuts?: "<< passeCommonCuts << " isLoose()?: " << isLoose()<< " isMedium()?: "<< isMedium()<< std::endl;
+    /*
+    if(evtr -> EVENT_event == 3038620){
+        std::cout << (evtr -> EVENT_event) << " "<< tauPt << " > pt 20? "<<tauEta<< " < eta 2.3? " << dxy() << " < 1000?  " << dz() << " < 0.2 ? " << decayModeFinding() << " " <<isMedium() << " ispassCommonCuts?: "<< passeCommonCuts << " isLoose()?: " << isLoose()<< " isMedium()?: "<< isMedium()<< " passesCleaning? "<< passesCleaning << std::endl;
+    }
+    */
     if(     "VLoose"      == tauType) return (passesCleaning && passeCommonCuts && isVLoose());
     else if(     "Loose"      == tauType) return (passesCleaning && passeCommonCuts && isLoose());
     else if(     "Medium"      == tauType) return (passesCleaning && passeCommonCuts && isMedium());
