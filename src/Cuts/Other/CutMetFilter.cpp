@@ -149,10 +149,16 @@ Bool_t CutMetFilter::Apply()
 
   Bool_t isMC = EventContainerObj->isSimulation;
   
+  Int_t DataEra = EventContainerObj->_DataEra;
+  
+  Bool_t CommonFilter = EvtTree->Flag_goodVertices && EvtTree-> Flag_globalSuperTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter;
+  
+  Bool_t DataFilter = isMC? true: EvtTree-> Flag_eeBadScFilter;
+  
+  Bool_t YearFilter = DataEra == 2016? true : EvtTree->Flag_ecalBadCalibFilter;
+  
   Int_t MetFilter = -1 ;
-  if(!isMC && !(EvtTree->Flag_goodVertices && EvtTree-> Flag_globalSuperTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter && EvtTree-> Flag_BadChargedCandidateFilter && EvtTree->Flag_ecalBadCalibFilter && EvtTree-> Flag_eeBadScFilter))MetFilter = 0; 
-  else MetFilter =1;
-  if(isMC && !(EvtTree->Flag_goodVertices && EvtTree-> Flag_globalSuperTightHalo2016Filter && EvtTree->Flag_HBHENoiseFilter && EvtTree-> Flag_HBHENoiseIsoFilter && EvtTree-> Flag_EcalDeadCellTriggerPrimitiveFilter && EvtTree-> Flag_BadPFMuonFilter && EvtTree-> Flag_BadChargedCandidateFilter && EvtTree->Flag_ecalBadCalibFilter))MetFilter = 0; 
+  if(!(CommonFilter && DataFilter && YearFilter))MetFilter =0;
   else MetFilter =1;
   _hMetFilterBefore->Fill(MetFilter);
 
