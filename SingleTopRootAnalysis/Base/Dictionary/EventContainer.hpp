@@ -905,19 +905,28 @@ class EventContainer
     ////// Hadronic Top Tagger
     void set_hadTopMVA();
     //MVA
-    TMVA::Reader *hadTop_reader_loose;
-    TMVA::Reader *hadTop_reader_tight;
+    TMVA::Reader *hadTop_reader;
 
-    Float_t varbjet_lepTop_csv;
-    Float_t varbjet_hadTop_csv;
-    Float_t varreco_hadTop_pt;
-    Float_t varreco_hadTop_mass;
-    Float_t varreco_WhadTop_mass;
-    Float_t varPtRatio_leptOverleph;
-    Float_t varDr_lept_bfromlTop;
-    Float_t varDr_lept_bfromhTop;
-    Float_t varDr_leph_bfromlTop;
- 
+    Float_t var_btagDisc_b ;
+    Float_t var_btagDisc_Wj1 ;
+    Float_t var_btagDisc_Wj2 ;
+    Float_t var_qg_Wj1 ;
+    Float_t var_qg_Wj2 ;
+    Float_t var_m_Wj1Wj2_div_m_bWj1Wj2 ;
+    Float_t var_pT_Wj1Wj2 ;
+    Float_t var_dR_Wj1Wj2 ;
+
+    Float_t var_m_bWj1Wj2 ;
+    Float_t var_dR_bW ;
+    Float_t var_m_bWj1 ;
+    Float_t var_m_bWj2 ;
+    Float_t var_mass_Wj1 ;
+    Float_t var_pT_Wj2 ;
+    Float_t var_mass_Wj2 ;
+    Float_t var_pT_b ;
+
+    Float_t var_mass_b ;
+    
     Double_t HadTop_BDT;
     
     /////// Resolved Top Tagger 

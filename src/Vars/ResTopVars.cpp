@@ -117,7 +117,7 @@ void ResTopVars::FillBranches(EventContainer * evtObj){
   _floatVars["resTop_BDT"] = resTop_BDT;
 
   evtObj->ResTop_BDT = resTop_BDT;
-  if(evtObj -> _sync == 51){                                                                      
+  if(evtObj -> _sync == 52){                                                                      
     std::cout << evtObj->eventNumber << " ";
     std::cout <<  evtObj->var_b_pt << " " ;
     std::cout <<  evtObj->var_b_mass << " " ;

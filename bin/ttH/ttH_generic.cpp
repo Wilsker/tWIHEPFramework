@@ -344,6 +344,7 @@ int main(int argc, char **argv)
     mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
+    /*
     mystudy.AddCut(new CutLeptonN(particlesObj, "TTHLoose"));     //require that lepton to be isolated, central, high pt
     mystudy.AddCut(new CutLeptonSameSign(particlesObj,"TTHLoose"));
     mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHLoose"));
@@ -357,6 +358,7 @@ int main(int argc, char **argv)
         mystudy.AddCut(new CutMetLD(particlesObj, (isTriLepton||isQuaLepton)));
         mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
         mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
+   */
   }
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
   mystudy.AddCut(new CutLightJetN(particlesObj));
@@ -435,7 +437,7 @@ int main(int argc, char **argv)
   
   //mystudy.AddVars(new HjTagger());
   
-  mystudy.AddVars(new DNNVars());
+  //mystudy.AddVars(new DNNVars());
   
   //mystudy.AddVars(new WeightVars());
  

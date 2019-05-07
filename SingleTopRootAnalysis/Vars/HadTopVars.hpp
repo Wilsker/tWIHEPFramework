@@ -32,69 +32,37 @@ private:
     // hadronic top tagger
     // hadTop algorithm 
     void Reco_hadTop(EventContainer * EvtObj);
-    // add null jets
-    Int_t Add_nullJet(std::vector<Jet>& selectedJets);
     // evaluate mva
-    Float_t get_hadTopMVA(int numbJet, EventContainer* EvtObj);
+    Float_t get_hadTopMVA(EventContainer* EvtObj);
 
     std::vector<double> Jet25_isToptag;
-    std::vector<double> HadTop_bjet_lepTop_csv;
-    std::vector<double> HadTop_bjet_hadTop_csv;
-    std::vector<double> HadTop_reco_hadTop_pt;
-    std::vector<double> HadTop_reco_hadTop_mass;
-    std::vector<double> HadTop_reco_WhadTop_mass;
-    std::vector<double> HadTop_PtRatio_leptOverleph;
-    std::vector<double> HadTop_Dr_lept_bfromlTop;
-    std::vector<double> HadTop_Dr_lept_bfromhTop;
-    std::vector<double> HadTop_Dr_leph_bfromlTop;
-    std::vector<Float_t> Jet_null_pt; 
-    std::vector<Float_t> Jet_null_eta; 
-    std::vector<Float_t> Jet_null_phi;
-    std::vector<Float_t> Jet_null_energy; 
-    std::vector<Float_t> Jet_null_csv;
-    Int_t Jet_numLoose ;
-    Int_t Jet_numbMedium ;
-  
-    Float_t bjet_lepTop_pt;
-    Float_t lep_Top_pt;
-    Float_t lep_H_pt;
-    Float_t bjet_lepTop_eta;
-    Float_t bjet_hadTop_eta;
-    Float_t wjet1_hadTop_eta;
-    Float_t wjet2_hadTop_eta;
-    Float_t lep_Top_eta;
-    Float_t lep_H_eta;
-    Float_t bjet_lepTop_phi;
-    Float_t bjet_hadTop_phi;
-    Float_t wjet1_hadTop_phi;
-    Float_t wjet2_hadTop_phi;
-    Float_t lep_Top_phi;
-    Float_t lep_H_phi;
-    Float_t bjet_lepTop_energy;
-    Float_t bjet_hadTop_energy;
-    Float_t wjet1_hadTop_energy;
-    Float_t wjet2_hadTop_energy;
-    Float_t lep_Top_energy;
-    Float_t lep_H_energy;
-    Int_t bjet_lepTop_index;
+    Float_t hadTop_BDT;
+    Float_t hadTop_pt;
+    
     Int_t bjet_hadTop_index;
     Int_t wjet1_hadTop_index;
     Int_t wjet2_hadTop_index;
-    Int_t lep_Top_index;
-    Int_t lep_H_index;
-    Float_t hadTop_BDT;
-    Float_t bjet_hadTop_pt;
-    Float_t wjet1_hadTop_pt;
-    Float_t wjet2_hadTop_pt;
-    Float_t bjet_hadTop_csv;
-    Float_t bjet_lepTop_csv;
-    Float_t reco_hadTop_pt;
-    Float_t reco_hadTop_mass;
-    Float_t reco_WhadTop_mass;
-    Float_t PtRatio_leptOverleph;
-    Float_t Dr_lept_bfromlTop;
-    Float_t Dr_lept_bfromhTop;
-    Float_t Dr_leph_bfromlTop;
+    
+    Float_t hadTop_btagDisc_b ;
+    Float_t hadTop_btagDisc_Wj1 ;
+    Float_t hadTop_btagDisc_Wj2 ;
+    Float_t hadTop_qg_Wj1 ;
+    Float_t hadTop_qg_Wj2 ;
+    Float_t hadTop_m_Wj1Wj2_div_m_bWj1Wj2 ;
+    Float_t hadTop_pT_Wj1Wj2 ;
+    Float_t hadTop_dR_Wj1Wj2 ;
+
+    Float_t hadTop_m_bWj1Wj2 ;
+    Float_t hadTop_dR_bW ;
+    Float_t hadTop_m_bWj1 ;
+    Float_t hadTop_m_bWj2 ;
+    Float_t hadTop_mass_Wj1 ;
+    Float_t hadTop_pT_Wj2 ;
+    Float_t hadTop_mass_Wj2 ;
+    Float_t hadTop_pT_b ;
+
+    Float_t hadTop_mass_b ;
+    
 
 };
 
