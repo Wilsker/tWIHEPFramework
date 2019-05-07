@@ -143,6 +143,7 @@ public :
    Int_t           HLT_TripleMu_10_5_5_DZ;
    Int_t           HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ;
    Int_t           HLT_DiMu9_Ele9_CaloIdL_TrackIdL;
+   Int_t           HLT_Ele27_eta2p1_WPLoose_Gsf;
    Int_t           pvertex_notempty;
    Int_t           nBestVtx;
    Int_t           npuVertices;
@@ -956,6 +957,7 @@ public :
    TBranch        *b_HLT_TripleMu_10_5_5_DZ;   //!
    TBranch        *b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ;   //!
    TBranch        *b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL;   //!
+   TBranch        *b_HLT_Ele27_eta2p1_WPLoose_Gsf;   //!
    TBranch        *b_pvertex_notempty;   //!
    TBranch        *b_nBestVtx;   //!
    TBranch        *b_npuVertices;   //!
@@ -2528,6 +2530,7 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("HLT_TripleMu_10_5_5_DZ", &HLT_TripleMu_10_5_5_DZ, &b_HLT_TripleMu_10_5_5_DZ);
    fChain->SetBranchAddress("HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ", &HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ, &b_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ);
    fChain->SetBranchAddress("HLT_DiMu9_Ele9_CaloIdL_TrackIdL", &HLT_DiMu9_Ele9_CaloIdL_TrackIdL, &b_HLT_DiMu9_Ele9_CaloIdL_TrackIdL);
+   fChain->SetBranchAddress("HLT_Ele27_eta2p1_WPLoose_Gsf", &HLT_Ele27_eta2p1_WPLoose_Gsf, &b_HLT_Ele27_eta2p1_WPLoose_Gsf);
    fChain->SetBranchAddress("pvertex_notempty", &pvertex_notempty, &b_pvertex_notempty);
    fChain->SetBranchAddress("nBestVtx", &nBestVtx, &b_nBestVtx);
    fChain->SetBranchAddress("npuVertices", &npuVertices, &b_npuVertices);

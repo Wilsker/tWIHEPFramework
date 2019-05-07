@@ -342,9 +342,11 @@ Bool_t CutTriggerSelection::Apply()
   if ( _whichtrigger == 3) passesTrigger = EEtrigger == 1;
   if ( _whichtrigger == 4) passesTrigger = EMtrigger == 1;
   if ( _whichtrigger == 5) passesTrigger = MMtrigger == 1 || EEtrigger == 1 || EMtrigger == 1;
-  */
   if ( _whichtrigger >=2 && _whichtrigger <=5) passesTrigger = DiLeptrigger ==1 && DiLeptriggerPath ;
   if ( _whichtrigger == 6 || _whichtrigger == 7) passesTrigger = TriLeptrigger == 1 && TriLeptriggerPath ;
+  */
+  if ( _whichtrigger >=2 && _whichtrigger <=5) passesTrigger = DiLeptrigger ==1  ;
+  if ( _whichtrigger == 6 || _whichtrigger == 7) passesTrigger = TriLeptrigger == 1;
   triggerBit = passesTrigger;
  
   
