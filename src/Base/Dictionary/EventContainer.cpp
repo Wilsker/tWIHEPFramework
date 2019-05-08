@@ -371,6 +371,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   _sync = _config.GetValue("SyncType",0);
   _SaveCut = _config.GetValue("SaveCuts",0);
   _DataEra = _config.GetValue("DataEra",2017);
+  _nLep = _config.GetValue("nLep",2);
   _debugEvt = _config.GetValue("DebugEvent",0);
   TTHLep_2Mu =0;
   TTHLep_2Ele =0;

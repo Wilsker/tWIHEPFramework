@@ -5,18 +5,20 @@
 ###############################################################################
 
 # ############ Trigger Cuts ###############
-Cut.Trigger.Channel:TTHLep_2L
+Cut.Trigger.Channel:TTHLep_3L
 
 ################# Lepton Cuts #########################
 # Number of Leptons
 Cut.Lepton.TTHTight.Number.Min:  0
-Cut.Lepton.TTHTight.Number.Max:  2
-Cut.Lepton.TTHFake.Number.Min:  2
+Cut.Lepton.TTHTight.Number.Max:  3
+Cut.Lepton.TTHFake.Number.Min:  3
 Cut.Lepton.TTHFake.Number.Max:  999
 Cut.Electron.TTHFake.LeadingPt:  25
 Cut.Electron.TTHFake.SubLeadingPt:  15
+Cut.Electron.TTHFake.ThirdPt:  10
 Cut.Muon.TTHFake.LeadingPt:  25
 Cut.Muon.TTHFake.SubLeadingPt:  15
+Cut.Muon.TTHFake.ThirdPt:  10
 ################# Muon Cuts #########################
 # Number of  Muons
 Cut.Muon.Veto.Number.Min:  1
@@ -26,15 +28,23 @@ Cut.Muon.Veto.Number.Max:  999
 Cut.Electron.Veto.Number.Min:  1
 Cut.Electron.Veto.Number.Max:  999
 ############## DiLep Cuts ############################
-Cut.Dilepton.TTHFake.SameSign: 0  # 1:same sign; -1: opposite sign; 0: Any
-Cut.Dilepton.TTHFake.NumTightMin: 0 
+Cut.Dilepton.TTHFake.SameSign: 1  # 1:same sign; -1: opposite sign; 0: Any
+Cut.Dilepton.TTHFake.NumTightMin: 2 
 Cut.Dilepton.TTHFake.NumTightMax: 2 
 Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 
+############## TriLep Cuts ############################
+Cut.Trilepton.TTHFake.SumCharge: 0  # 1:charge sum +1; -1: charge sum -1; 0: charge sum +1 or -1
+Cut.Trilepton.TTHFake.NumTightMin: 0 
+Cut.Trilepton.TTHFake.NumTightMax: 3 
 ################# Tau Cuts #########################
 # Number of Taus
 Cut.Tau.Loose.Number.Min:  0
 Cut.Tau.Loose.Number.Max:  0
+Cut.Tau.Medium.Number.Min:  0
+Cut.Tau.Medium.Number.Max:  0 
+Cut.Tau.VTight.Number.Min:  0
+Cut.Tau.VTight.Number.Max:  0
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
@@ -96,3 +106,6 @@ Cut.Event.MetLD.Tight:   45
 # MassL Cut
 Cut.Event.MassLveto.Min:   0
 Cut.Event.MassLveto.Max:   12
+
+############### M4L Cut ###########
+Cut.Event.TTHLoose.Mass4L.Min: 140

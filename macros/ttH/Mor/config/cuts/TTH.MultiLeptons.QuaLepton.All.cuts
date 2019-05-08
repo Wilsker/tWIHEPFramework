@@ -1,24 +1,26 @@
 ###############################################################################
 #
-#  TTH.MultiLeptons.DiLepton.SignalRegion.cuts
+#  TTH.MultiLeptons.QuaLep.SignalRegion.cuts
 #
 ###############################################################################
 
 # ############ Trigger Cuts ###############
-Cut.Trigger.Channel:TTHLep_3L
+Cut.Trigger.Channel:TTHLep_4L
 
 ################# Lepton Cuts #########################
 # Number of Leptons
 Cut.Lepton.TTHTight.Number.Min:  0
-Cut.Lepton.TTHTight.Number.Max:  3
-Cut.Lepton.TTHFake.Number.Min:  3
+Cut.Lepton.TTHTight.Number.Max:  999
+Cut.Lepton.TTHFake.Number.Min:  4
 Cut.Lepton.TTHFake.Number.Max:  999
 Cut.Electron.TTHFake.LeadingPt:  25
 Cut.Electron.TTHFake.SubLeadingPt:  15
-Cut.Electron.TTHFake.ThirdPt:  10
+Cut.Electron.TTHFake.ThirdPt:  15
+Cut.Electron.TTHFake.FourthPt:  10
 Cut.Muon.TTHFake.LeadingPt:  25
 Cut.Muon.TTHFake.SubLeadingPt:  15
-Cut.Muon.TTHFake.ThirdPt:  10
+Cut.Muon.TTHFake.ThirdPt:  15
+Cut.Muon.TTHFake.FourthPt:  10
 ################# Muon Cuts #########################
 # Number of  Muons
 Cut.Muon.Veto.Number.Min:  1
@@ -35,20 +37,25 @@ Cut.Dilepton.TTHFake.AbsPdgIdSum: 999  # 22:ee 24:em 26:mm 999: any
 
 ############## TriLep Cuts ############################
 Cut.Trilepton.TTHFake.SumCharge: 0  # 1:charge sum +1; -1: charge sum -1; 0: charge sum +1 or -1
-Cut.Trilepton.TTHFake.NumTightMin: 0 
-Cut.Trilepton.TTHFake.NumTightMax: 3 
+Cut.Trilepton.TTHFake.NumTightMin: 3 
+Cut.Trilepton.TTHFake.NumTightMax: 999 
+
+############## QuaLep Cuts ############################
+Cut.Qualepton.TTHFake.SumCharge: 0  #  0: charge sum 0
+Cut.Qualepton.TTHFake.NumTightMin: 0 
+Cut.Qualepton.TTHFake.NumTightMax: 4 
 ################# Tau Cuts #########################
 # Number of Taus
 Cut.Tau.Loose.Number.Min:  0
-Cut.Tau.Loose.Number.Max:  0
+Cut.Tau.Loose.Number.Max:  999
 Cut.Tau.Medium.Number.Min:  0
-Cut.Tau.Medium.Number.Max:  0 
+Cut.Tau.Medium.Number.Max:  999 
 Cut.Tau.VTight.Number.Min:  0
-Cut.Tau.VTight.Number.Max:  0
+Cut.Tau.VTight.Number.Max:  999
 
 # ############## Jet Cuts ##############################
 # Jet multiplicity cuts
-Cut.Jet.Number.Min:  2
+Cut.Jet.Number.Min:  1
 Cut.Jet.Number.Max:  999 
 Cut.Jet.Pt.1.Min:  25
 Cut.Jet.Pt.1.Max: 999

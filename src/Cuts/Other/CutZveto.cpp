@@ -165,8 +165,8 @@ Bool_t CutZveto::Apply()
   Float_t massZ = 0.;
   
   if(_LeptonPairType =="presel_ele") massZ=EventContainerObj->mass_diele;
-  else if(_LeptonPairType =="fake_dilep") massZ=EventContainerObj->mass_dilep;
-  else if(_LeptonPairType =="presel_SFOSlep") massZ=EventContainerObj->massL_SFOS;
+  else if(_LeptonPairType =="fake_dilep") massZ=EventContainerObj->mass_dilep; // 2L
+  else if(_LeptonPairType =="presel_SFOSlep") massZ=EventContainerObj->massL_SFOS; //3L/4L
 
   _hZvetoBefore->Fill(massZ);
 

@@ -976,6 +976,7 @@ class EventContainer
     Int_t _debugEvt;
     Int_t _SaveCut;
     Int_t _DataEra;
+    Int_t _nLep;
     void readSyncFile();
     TTree* syncTree;
     std::vector<Float_t> sync_runs;

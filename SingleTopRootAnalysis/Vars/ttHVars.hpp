@@ -42,6 +42,29 @@ private:
     double getMTlepmet(double phi1, double phi2, double pt1, double pt2);
     double get_Dilep_ttbarMVA(EventContainer* EvtObj);
     double get_Dilep_ttvMVA(EventContainer* EvtObj);
+    bool IsDiLepSR(EventContainer* EvtObj);
+    bool IsDiLepOS(EventContainer* EvtObj);
+    bool IsDiLepFake(EventContainer* EvtObj);
+    bool IsttWctrlSR(EventContainer* EvtObj);
+    bool IsttWctrlOS(EventContainer* EvtObj);
+    bool IsttWctrlFake(EventContainer* EvtObj);
+    bool IsTriLepSR(EventContainer* EvtObj);
+    bool IsTriLepFake(EventContainer* EvtObj);
+    bool IsWZctrlSR(EventContainer* EvtObj);
+    bool IsWZctrlFake(EventContainer* EvtObj);
+    bool IsttZctrlSR(EventContainer* EvtObj);
+    bool IsttZctrlFake(EventContainer* EvtObj);
+    bool IsQuaLepSR(EventContainer* EvtObj);
+    bool IsQuaLepFake(EventContainer* EvtObj);
+    bool IsZZctrlSR(EventContainer* EvtObj);
+    bool IsZZctrlFake(EventContainer* EvtObj);
+    bool IstHlikeDiLepSR(EventContainer* EvtObj);
+    bool IstHlikeDiLepOS(EventContainer* EvtObj);
+    bool IstHlikeDiLepFake(EventContainer* EvtObj);
+    bool IstHlikeTriLepSR(EventContainer* EvtObj);
+    bool IstHlikeTriLepFake(EventContainer* EvtObj);
+    bool IstHlikeQuaLepSR(EventContainer* EvtObj);
+    bool IstHlikeQuaLepFake(EventContainer* EvtObj);
     
     //utils
     double deltaPhi(double phi1, double phi2);
@@ -78,6 +101,8 @@ private:
     std::vector<double> Jet25_eta;
     std::vector<double> Jet25_phi;
     std::vector<double> Jet25_energy;
+    
+    Int_t nLep_Cat;
 
     Int_t Jet_numbLoose;
     Int_t Jet_numbMedium;
@@ -135,6 +160,14 @@ private:
     Double_t secondLep_isFromC;
     Double_t secondLep_mcPromptGamma;
     Double_t secondLep_mcPromptFS;
+    Double_t fourthLep_isMatchRightCharge;
+    Double_t fourthLep_mcMatchId;
+    Double_t fourthLep_isFromTop;
+    Double_t fourthLep_isFromH;
+    Double_t fourthLep_isFromB;
+    Double_t fourthLep_isFromC;
+    Double_t fourthLep_mcPromptGamma;
+    Double_t fourthLep_mcPromptFS;
 
   long nEvent;
   int mu1_mediumID;
@@ -433,6 +466,33 @@ private:
   float ele2_deltaEta;
   float ele2_deltaPhi;
   float ele2_OoEminusOoP;
+
+  // add some event selection flags
+  int isSFOS_metLD;
+  int isDiLepSR;
+  int isDiLepOS;
+  int isDiLepFake;
+  int isttWctrlSR;
+  int isttWctrlOS;
+  int isttWctrlFake;
+  int isTriLepSR;
+  int isTriLepFake;
+  int isWZctrlSR;
+  int isWZctrlFake;
+  int isttZctrlSR;
+  int isttZctrlFake;
+  int isQuaLepSR;
+  int isQuaLepFake;
+  int isZZctrlSR;
+  int isZZctrlFake;
+  int istHlikeDiLepSR;
+  int istHlikeDiLepOS;
+  int istHlikeDiLepFake;
+  int istHlikeTriLepSR;
+  int istHlikeTriLepFake;
+  int istHlikeQuaLepSR;
+  int istHlikeQuaLepFake;
+
 
   // variables for plots
   float Dilep_worseIso;
