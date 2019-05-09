@@ -2407,7 +2407,7 @@ bool ttHVars::IsDiLepSR(EventContainer* EvtObj){
 bool ttHVars::IsDiLepOS(EventContainer* EvtObj){
     if(nLep_Cat !=2 || nLepFO <2) return false;
     if(!( fakeLeptons.at(0).isMVASel() ==1 && fakeLeptons.at(1).isMVASel() ==1))return false; // selected leptons are tights
-    if(!( fakeLeptons.at(0).charge() * fakeLeptons.at(1).charge() <0))return false; // opposite sign leptons
+    if(!( (fabs(fakeLeptons.at(0).pdgId())==11 || fabs(fakeLeptons.at(1).pdgId())==11)  && fakeLeptons.at(0).charge() * fakeLeptons.at(1).charge() <0))return false; // opposite sign leptons and at least one electron
     if(!(EvtObj->mass_dilep > 101.2 || EvtObj->mass_dilep < 81.2)) return false; // cut Z veto
     if(EvtObj->metLD <= 30 && fabs(fakeLeptons.at(0).pdgId())==11 && fabs(fakeLeptons.at(1).pdgId())==11 ) return false; // metLD if isEE, then metLD > 30GeV
     if(!(n_presel_jet>=4)) return false; //nJet cut
@@ -2437,7 +2437,7 @@ bool ttHVars::IsttWctrlSR(EventContainer* EvtObj){
 bool ttHVars::IsttWctrlOS(EventContainer* EvtObj){
     if(nLep_Cat !=2 || nLepFO <2) return false;
     if(!( fakeLeptons.at(0).isMVASel() ==1 && fakeLeptons.at(1).isMVASel() ==1))return false; // selected leptons are tights
-    if(!( fakeLeptons.at(0).charge() * fakeLeptons.at(1).charge() <0))return false; // opposite sign leptons
+    if(!( (fabs(fakeLeptons.at(0).pdgId())==11 || fabs(fakeLeptons.at(1).pdgId())==11)  && fakeLeptons.at(0).charge() * fakeLeptons.at(1).charge() <0))return false; // opposite sign leptons and at least one electron
     if(!(EvtObj->mass_dilep > 101.2 || EvtObj->mass_dilep < 81.2)) return false; // cut Z veto
     if(EvtObj->metLD <= 30 && fabs(fakeLeptons.at(0).pdgId())==11 && fabs(fakeLeptons.at(1).pdgId())==11 ) return false; // metLD if isEE, then metLD > 30GeV
     if(!(n_presel_jet==3)) return false; //nJet cut
@@ -2557,7 +2557,7 @@ bool ttHVars::IstHlikeDiLepSR(EventContainer* EvtObj){
 bool ttHVars::IstHlikeDiLepOS(EventContainer* EvtObj){
     if(nLep_Cat !=2 || nLepFO <2) return false;
     if(!( fakeLeptons.at(0).isMVASel() ==1 && fakeLeptons.at(1).isMVASel() ==1))return false; // selected leptons are tights
-    if(!( fakeLeptons.at(0).charge() * fakeLeptons.at(1).charge() <0))return false; // opposite sign leptons
+    if(!( (fabs(fakeLeptons.at(0).pdgId())==11 || fabs(fakeLeptons.at(1).pdgId())==11)  && fakeLeptons.at(0).charge() * fakeLeptons.at(1).charge() <0))return false; // opposite sign leptons and at least one electron
     if(!(EvtObj->mass_dilep > 101.2 || EvtObj->mass_dilep < 81.2)) return false; // cut Z veto
     if(EvtObj->metLD <= 30 && fabs(fakeLeptons.at(0).pdgId())==11 && fabs(fakeLeptons.at(1).pdgId())==11 ) return false; // metLD if isEE, then metLD > 30GeV
     if(!(nLightJet >=1)) return false; //nLightJet cut
