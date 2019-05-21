@@ -839,11 +839,10 @@ Bool_t Jet::Fill( double myJESCorr, double myJERCorr,  int& mu_start_index, int&
 
   if (passbPt && passbEta && passTagCut) SetTagged(kTRUE);
   else SetTagged(kFALSE);
-  /*
-  if( eventNumber== 861319 || eventNumber == 166533 || eventNumber == 263322 || eventNumber == 62175 || eventNumber == 1665166){
+  //if( eventNumber== 861319 || eventNumber == 166533 || eventNumber == 263322 || eventNumber == 62175 || eventNumber == 1665166){
+  if( eventNumber == 262316 || eventNumber == 173674){
       std::cout<< eventNumber << " jet pt eta phi "<< Pt()<<" "<< Eta()<<" "<<Phi()<< " passesJetID " << passesJetID<< " passesCleaning "<< passesCleaning<< " passForwardJet "<< passForwardJet <<" passLowEta "<< LowEtaID<<" passMediumEta "<< MediumEtaID<< " passHighEta "<< HighEtaID <<" JetID details : neutralHadEnergyFraction() " << neutralHadEnergyFraction() << " neutralEmEmEnergyFraction() " << neutralEmEmEnergyFraction() << " numberOfConstituents() " << numberOfConstituents() << " chargedHadronEnergyFraction() " << chargedHadronEnergyFraction() << " chargedMultiplicity() "<< chargedMultiplicity() <<" matched lepton Pt/Eta/Phi "<< MatchedLep.Pt()<<"/"<<MatchedLep.Eta()<<"/"<<MatchedLep.Phi() <<std::endl;
   } 
-  */
   SetisNormalJet(passPt && passEta && passesJetID && passesCleaning && passNormalJet);
   SetisForwardJet(passPt && passEta && passesJetID && passesCleaning && passForwardJet);
   if (passPt && passEta && passesJetID && passesCleaning) return kTRUE;

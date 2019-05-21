@@ -72,6 +72,8 @@ public:
  _BmotherIndex =0;
  _Index =0;
  _motherpdg_id =0;
+ _isPromptFinalState =0;
+ _isDirectPromptTauDecayProductFinalState =0;
  _BmotherIndices.clear();
  _BdaughtIndices.clear();
   };
@@ -148,6 +150,14 @@ public:
   inline Int_t Getmotherpdg_id() const {return _motherpdg_id;};
   inline Int_t motherpdg_id() const {return _motherpdg_id;};
 
+  inline void SetisPromptFinalState(Int_t isPromptFinalState){_isPromptFinalState = isPromptFinalState;};
+  inline Int_t GetisPromptFinalState() const {return _isPromptFinalState;};
+  inline Int_t isPromptFinalState() const {return _isPromptFinalState;};
+
+  inline void SetisDirectPromptTauDecayProductFinalState(Int_t isDirectPromptTauDecayProductFinalState){_isDirectPromptTauDecayProductFinalState = isDirectPromptTauDecayProductFinalState;};
+  inline Int_t GetisDirectPromptTauDecayProductFinalState() const {return _isDirectPromptTauDecayProductFinalState;};
+  inline Int_t isDirectPromptTauDecayProductFinalState() const {return _isDirectPromptTauDecayProductFinalState;};
+
   inline void SetBmotherIndices(std::vector<Int_t> BmotherIndices){_BmotherIndices = BmotherIndices;};
   inline std::vector<Int_t> GetBmotherIndices() const {return _BmotherIndices;};
   inline std::vector<Int_t> BmotherIndices() const {return _BmotherIndices;};
@@ -177,6 +187,8 @@ protected:
   Int_t _BmotherIndex;
   Int_t _Index;
   Int_t _motherpdg_id;
+  Int_t _isPromptFinalState;
+  Int_t _isDirectPromptTauDecayProductFinalState;
   std::vector<Int_t> _BmotherIndices;
   std::vector<Int_t> _BdaughtIndices;
  

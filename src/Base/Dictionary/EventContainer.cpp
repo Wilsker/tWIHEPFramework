@@ -2027,6 +2027,8 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
     double matchIndex = -999.;
     double matchMother_Index = -999;
     double matchGrandMother_Index = -999;
+    int Gen_isPrompt = 0;
+    int Gen_isPromptTau = 0;
     Bool_t ismatch = false;
     for(auto MCEle: MCElectrons){
         if(MCEle.Status()!=1 || fabs(MCEle.PdgId())!= fabs(reco.pdgId()) || MCEle.Pt()<1.0)continue;
@@ -2074,6 +2076,8 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
     if(ismatch){
         matchId = gen.PdgId();
         matchIndex = gen.Index();
+        Gen_isPrompt = gen.isPromptFinalState();
+        Gen_isPromptTau = gen.isDirectPromptTauDecayProductFinalState();
         MCParticle genMother = gen.GetGenMotherNoFsr(gen, *mcParticlesPtr);
         MCParticle genGMother = genMother.GetGenMotherNoFsr(genMother, *mcParticlesPtr);
         MCParticle genGGMother = genGMother.GetGenMotherNoFsr(genGMother, *mcParticlesPtr);
@@ -2107,6 +2111,8 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
     reco.SetmatchIndex(matchIndex);
     reco.SetmatchMother_Index(matchMother_Index);
     reco.SetmatchGrandMother_Index(matchGrandMother_Index);
+    reco.Setgen_isPrompt(Gen_isPrompt);
+    reco.Setgen_isPromptTau(Gen_isPromptTau);
     if(isFake){
         FakeLep_isFromB.push_back(isFromB); 
         FakeLep_isFromC.push_back(isFromC); 

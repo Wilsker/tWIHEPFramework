@@ -39,6 +39,8 @@ public :
    std::vector<int>     *Gen_BmotherIndex;
    std::vector<int>     *Gen_BmotherIndices;
    std::vector<int>     *Gen_BdaughtIndices;
+   std::vector<int>     *Gen_isPromptFinalState;
+   std::vector<int>     *Gen_isDirectPromptTauDecayProductFinalState;
    Int_t           HiggsDecay;
    ULong64_t       EVENT_event;
    Int_t           EVENT_run;
@@ -853,6 +855,8 @@ public :
    TBranch        *b_Gen_BmotherIndex;   //!
    TBranch        *b_Gen_BmotherIndices;   //!
    TBranch        *b_Gen_BdaughtIndices;   //!
+   TBranch        *b_Gen_isPromptFinalState;   //!
+   TBranch        *b_Gen_isDirectPromptTauDecayProductFinalState;   //!
    TBranch        *b_HiggsDecay;   //!
    TBranch        *b_EVENT_event;   //!
    TBranch        *b_EVENT_run;   //!
@@ -1732,6 +1736,8 @@ void EventTree::Init(TTree *tree)
    Gen_BmotherIndex = 0;
    Gen_BmotherIndices = 0;
    Gen_BdaughtIndices = 0;
+   Gen_isPromptFinalState = 0;
+   Gen_isDirectPromptTauDecayProductFinalState = 0;
    EVENT_genWeights = 0;
    EVENT_psWeights = 0;
    EVENT_rWeights = 0;
@@ -2426,6 +2432,8 @@ void EventTree::Init(TTree *tree)
    fChain->SetBranchAddress("Gen_BmotherIndex", &Gen_BmotherIndex, &b_Gen_BmotherIndex);
    fChain->SetBranchAddress("Gen_BmotherIndices", &Gen_BmotherIndices, &b_Gen_BmotherIndices);
    fChain->SetBranchAddress("Gen_BdaughtIndices", &Gen_BdaughtIndices, &b_Gen_BdaughtIndices);
+   fChain->SetBranchAddress("Gen_isPromptFinalState", &Gen_isPromptFinalState, &b_Gen_isPromptFinalState);
+   fChain->SetBranchAddress("Gen_isDirectPromptTauDecayProductFinalState", &Gen_isDirectPromptTauDecayProductFinalState, &b_Gen_isDirectPromptTauDecayProductFinalState);
    fChain->SetBranchAddress("HiggsDecay", &HiggsDecay, &b_HiggsDecay);
    fChain->SetBranchAddress("EVENT_event", &EVENT_event, &b_EVENT_event);
    fChain->SetBranchAddress("EVENT_run", &EVENT_run, &b_EVENT_run);

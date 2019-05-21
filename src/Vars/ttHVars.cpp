@@ -1300,7 +1300,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu1_jetCSV = FirstMuon.jetcsv();
         mu1_jetDeepCSV = FirstMuon.jetdeepcsv();
         mu1_jetDeepJet = FirstMuon.jetdeepflavour();
-        mu1_isGenMatched = FirstMuon.matchId()==FirstMuon.pdgId()? 1:0 ;
+        mu1_isGenMatched = FirstMuon.matchId()==FirstMuon.pdgId() && (FirstMuon.gen_isPromptTau() || FirstMuon.gen_isPrompt())? 1:0 ;
         mu1_dxy =FirstMuon.dxy();
         mu1_sip3D = FirstMuon.IP3Dsig();
         mu1_dxyAbs = TMath::Abs(FirstMuon.dxy());
@@ -1329,7 +1329,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu2_jetCSV = SecondMuon.jetcsv();
         mu2_jetDeepCSV = SecondMuon.jetdeepcsv();
         mu2_jetDeepJet = SecondMuon.jetdeepflavour();
-        mu2_isGenMatched = SecondMuon.matchId()==SecondMuon.pdgId()? 1:0 ;
+        mu2_isGenMatched = SecondMuon.matchId()==SecondMuon.pdgId() && (SecondMuon.gen_isPromptTau() || SecondMuon.gen_isPrompt())? 1:0 ;
         mu2_dxy =SecondMuon.dxy();
         mu2_sip3D = SecondMuon.IP3Dsig();
         mu2_dxyAbs = TMath::Abs(SecondMuon.dxy());
@@ -1357,7 +1357,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         ele1_jetCSV = FirstElectron.jetcsv();
         ele1_jetDeepCSV = FirstElectron.jetdeepcsv();
         ele1_jetDeepJet = FirstElectron.jetdeepflavour();
-        ele1_isGenMatched = FirstElectron.matchId()==FirstElectron.pdgId()? 1:0 ;
+        ele1_isGenMatched = FirstElectron.matchId()==FirstElectron.pdgId() && (FirstElectron.gen_isPromptTau() || FirstElectron.gen_isPrompt())? 1:0 ;
         ele1_dxy =FirstElectron.dxy();
         ele1_sip3D = FirstElectron.IP3Dsig();
         ele1_dxyAbs = TMath::Abs(FirstElectron.dxy());
@@ -1392,7 +1392,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         ele2_jetCSV = SecondElectron.jetcsv();
         ele2_jetDeepCSV = SecondElectron.jetdeepcsv();
         ele2_jetDeepJet = SecondElectron.jetdeepflavour();
-        ele2_isGenMatched = SecondElectron.matchId()==SecondElectron.pdgId()? 1:0 ;
+        ele2_isGenMatched = SecondElectron.matchId()==SecondElectron.pdgId() && (SecondElectron.gen_isPromptTau() || SecondElectron.gen_isPrompt())? 1:0 ;
         ele2_dxy =SecondElectron.dxy();
         ele2_sip3D = SecondElectron.IP3Dsig();
         ele2_dxyAbs = TMath::Abs(SecondElectron.dxy());
@@ -2562,6 +2562,7 @@ bool ttHVars::IstHlikeDiLepOS(EventContainer* EvtObj){
     if(EvtObj->metLD <= 30 && fabs(fakeLeptons.at(0).pdgId())==11 && fabs(fakeLeptons.at(1).pdgId())==11 ) return false; // metLD if isEE, then metLD > 30GeV
     if(!(nLightJet >=1)) return false; //nLightJet cut
     if(!(nBJetMedium>=1)) return false; //BJet cut
+    return true;
 };
 bool ttHVars::IstHlikeDiLepFake(EventContainer* EvtObj){
     if(nLep_Cat !=2 || nLepFO <2) return false;

@@ -33,6 +33,8 @@ ClassImp(MCParticle)
   _BmotherIndex       (0),
   _Index       (0),
   _motherpdg_id       (0),
+  _isPromptFinalState       (0),
+  _isDirectPromptTauDecayProductFinalState       (0),
   _BmotherIndices       (0,0),
   _BdaughtIndices       (0,0),
                            _BarCode(0)
@@ -57,6 +59,8 @@ MCParticle::MCParticle(const MCParticle& other): Particle(other),
   _BmotherIndex(other.BmotherIndex()),
   _Index(other.Index()),
   _motherpdg_id(other.motherpdg_id()),
+  _isPromptFinalState(other.isPromptFinalState()),
+  _isDirectPromptTauDecayProductFinalState(other.isDirectPromptTauDecayProductFinalState()),
                          _BarCode(other.BarCode()),
   _BmotherIndices(other.BmotherIndices()),
   _BdaughtIndices(other.BdaughtIndices()),
@@ -74,6 +78,8 @@ MCParticle::MCParticle(const Particle& other): Particle(other),_PdgId(0),
   _BmotherIndex       (0),
   _Index       (0),
   _motherpdg_id       (0),
+  _isPromptFinalState       (0),
+  _isDirectPromptTauDecayProductFinalState       (0),
   _BmotherIndices       (0,0),
   _BdaughtIndices       (0,0),
                            _BarCode(0)
@@ -112,6 +118,8 @@ MCParticle MCParticle::operator+(const MCParticle& other)
   ptemp.SetnumDaught(_numDaught);
   ptemp.SetBmotherIndex(_BmotherIndex);
   ptemp.Setmotherpdg_id(_motherpdg_id);
+  ptemp.SetisPromptFinalState(_isPromptFinalState);
+  ptemp.SetisDirectPromptTauDecayProductFinalState(_isDirectPromptTauDecayProductFinalState);
   ptemp.SetBmotherIndices(other.BmotherIndices());
   ptemp.SetBdaughtIndices(other.BdaughtIndices());
 
@@ -135,6 +143,8 @@ MCParticle& MCParticle::operator=(const Particle& other)
   SetnumDaught       (0);
   SetBmotherIndex       (0);
   Setmotherpdg_id       (0);
+  SetisPromptFinalState       (0);
+  SetisDirectPromptTauDecayProductFinalState       (0);
   SetBarCode(0);
   SetBmotherIndices       (std::vector<Int_t>(0));
   SetBdaughtIndices       (std::vector<Int_t>(0));
@@ -156,6 +166,8 @@ MCParticle& MCParticle::operator=(const MCParticle& other)
   SetnumDaught(other.numDaught());
   SetBmotherIndex(other.BmotherIndex());
   Setmotherpdg_id(other.motherpdg_id());
+  SetisPromptFinalState(other.isPromptFinalState());
+  SetisDirectPromptTauDecayProductFinalState(other.isDirectPromptTauDecayProductFinalState());
   SetBmotherIndices(other.BmotherIndices());
   SetBdaughtIndices(other.BdaughtIndices());
   return *this;
@@ -176,6 +188,8 @@ MCParticle& MCParticle::operator=(MCParticle& other)
   SetnumDaught(other.numDaught());
   SetBmotherIndex(other.BmotherIndex());
   Setmotherpdg_id(other.motherpdg_id());
+  SetisPromptFinalState(other.isPromptFinalState());
+  SetisDirectPromptTauDecayProductFinalState(other.isDirectPromptTauDecayProductFinalState());
   SetBmotherIndices(other.BmotherIndices());
   SetBdaughtIndices(other.BdaughtIndices());
   return *this;
@@ -227,6 +241,8 @@ void MCParticle::Fill(EventTree*evtr,int iE, int& motherIndex, int& daughtIndex)
   SetnumDaught       (evtr -> Gen_numDaught      -> operator[](iE));
   SetBmotherIndex       (evtr -> Gen_BmotherIndex      -> operator[](iE));
   Setmotherpdg_id       (evtr -> Gen_motherpdg_id      -> operator[](iE));
+  SetisPromptFinalState       (evtr -> Gen_isPromptFinalState      -> operator[](iE));
+  SetisDirectPromptTauDecayProductFinalState       (evtr -> Gen_isDirectPromptTauDecayProductFinalState      -> operator[](iE));
   SetCharge         (evtr->Gen_charge -> operator[](iE));
   
   SetPdgId          (evtr -> Gen_pdg_id      -> operator[](iE));
