@@ -193,15 +193,15 @@ Bool_t CutM4L::Apply()
     exit(8);
   } //else                                                                                                          
 
-  for(uint lep1_en; lep1_en< leptonVector.size(); lep1_en++){
+  for(uint lep1_en=0; lep1_en< leptonVector.size(); lep1_en++){
     Double_t lep1_pdg = leptonVector.at(lep1_en).pdgId();
-    for(uint lep2_en; lep2_en< leptonVector.size(); lep2_en++){
+    for(uint lep2_en=lep1_en+1; lep2_en< leptonVector.size(); lep2_en++){
         if(lep2_en == lep1_en)continue;
         Double_t lep2_pdg = leptonVector.at(lep2_en).pdgId();
-        for(uint lep3_en; lep3_en< leptonVector.size(); lep3_en++){
+        for(uint lep3_en=lep2_en+1; lep3_en< leptonVector.size(); lep3_en++){
             if(lep3_en == lep1_en || lep3_en == lep2_en)continue;
             Double_t lep3_pdg = leptonVector.at(lep3_en).pdgId();
-            for(uint lep4_en; lep4_en< leptonVector.size(); lep4_en++){
+            for(uint lep4_en=lep3_en+1; lep4_en< leptonVector.size(); lep4_en++){
                 if(lep4_en == lep1_en || lep4_en == lep2_en || lep4_en == lep3_en)continue;
                 Double_t lep4_pdg = leptonVector.at(lep4_en).pdgId();
                 if((lep1_pdg + lep2_pdg + lep3_pdg + lep4_pdg)==0){

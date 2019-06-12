@@ -1635,31 +1635,31 @@ void EventContainer::set_TTHFlags(){
     //set HLT
     if(_DataEra==2016){
         Trig_1Ele = _eventTree -> HLT_Ele27_WPTight_Gsf==1 || _eventTree -> HLT_Ele27_eta2p1_WPLoose_Gsf ==1 || _eventTree -> HLT_Ele25_eta2p1_WPTight_Gsf == 1? 1:0;
-        Trig_2Ele = _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 || _eventTree -> HLT_Ele17_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1: 0 ;
+        Trig_2Ele = _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1  ? 1: 0 ;
         Trig_3Ele = _eventTree -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ? 1:0;
-        Trig_1Mu =  _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoTkMu24==1  ? 1:0;
-        Trig_1Mu1Ele = _eventTree -> HLT_Mu8_TrkIsoVVL_Ele17_CaloIdL_TrackIdL_IsoVL==1 ||  _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL==1? 1:0 ;
+        Trig_1Mu =  _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoTkMu24==1 || _eventTree -> HLT_IsoMu22 ==1 || _eventTree -> HLT_IsoTkMu22==1 || _eventTree -> HLT_IsoMu22_eta2p1 ==1 || _eventTree -> HLT_IsoTkMu22_eta2p1==1? 1:0;
+        Trig_1Mu1Ele = _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_DZ==1 ||  _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL==1? 1:0 ;
         Trig_1Mu2Ele = _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ? 1:0;
-        Trig_2Mu = _eventTree-> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL==1 || _eventTree -> HLT_TkMu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1 ? 1:0;
-        Trig_2Mu1Ele = _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 ? 1:0 ;
+        Trig_2Mu = _eventTree-> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ==1 ? 1:0;
+        Trig_2Mu1Ele = _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL==1 ? 1:0 ;
         Trig_3Mu = _eventTree->HLT_TripleMu_12_10_5==1 ? 1:0 ;
     }else if(_DataEra==2017){
-        Trig_1Ele = _eventTree -> HLT_Ele35_WPTight_Gsf ==1 ? 1:0;
+        Trig_1Ele = _eventTree -> HLT_Ele35_WPTight_Gsf ==1 || _eventTree -> HLT_Ele32_WPTight_Gsf ==1 ? 1:0;
         Trig_2Ele = _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 ? 1: 0 ;
         Trig_3Ele = _eventTree -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ? 1:0;
         Trig_1Mu =  _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoMu27==1 ? 1:0;
-        Trig_1Mu1Ele = _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL ==1  || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1:0 ;
-        Trig_1Mu2Ele = _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || _eventTree -> HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ==1 ? 1:0;
+        Trig_1Mu1Ele = _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1:0 ;
+        Trig_1Mu2Ele = _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ? 1:0;
         Trig_2Mu = _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 ==1 || _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 ==1 ? 1:0;
         Trig_2Mu1Ele = _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 ? 1:0 ;
         Trig_3Mu = _eventTree->HLT_TripleMu_12_10_5==1 ? 1:0 ;
     }else if(_DataEra==2018){
-        Trig_1Ele = _eventTree -> HLT_Ele32_WPTight_Gsf ==1 || _eventTree -> HLT_Ele35_WPTight_Gsf ==1 ? 1:0;
+        Trig_1Ele = _eventTree -> HLT_Ele32_WPTight_Gsf ==1 ? 1:0;
         Trig_2Ele = _eventTree -> HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL==1 ? 1: 0 ;
         Trig_3Ele = _eventTree -> HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL==1 ? 1:0;
         Trig_1Mu =  _eventTree -> HLT_IsoMu24 ==1 || _eventTree -> HLT_IsoMu27==1 ? 1:0;
-        Trig_1Mu1Ele = _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ ==1  || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1:0 ;
-        Trig_1Mu2Ele = _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 || _eventTree -> HLT_Mu8_DiEle12_CaloIdL_TrackIdL_DZ==1 ? 1:0;
+        Trig_1Mu1Ele = _eventTree -> HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL ==1 || _eventTree -> HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 || _eventTree -> HLT_Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ ==1 ? 1:0 ;
+        Trig_1Mu2Ele = _eventTree ->HLT_Mu8_DiEle12_CaloIdL_TrackIdL==1 ? 1:0;
         Trig_2Mu = _eventTree -> HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 ==1 ? 1:0;
         Trig_2Mu1Ele = _eventTree -> HLT_DiMu9_Ele9_CaloIdL_TrackIdL_DZ==1 ? 1:0 ;
         Trig_3Mu = _eventTree->HLT_TripleMu_12_10_5==1 ? 1:0 ;

@@ -304,9 +304,9 @@ int main(int argc, char **argv)
   //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
   //mystudy.AddCut(new CutEventList(particlesObj));
   //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
-  mystudy.AddCut(new CutMetFilter(particlesObj));
   //mystudy.AddCut(new HistogrammingMET(particlesObj));
   //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
+  mystudy.AddCut(new CutMetFilter(particlesObj));
   if(!isTrainMVA){
     mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     if(isTriLepton || isQuaLepton){
@@ -330,7 +330,7 @@ int main(int argc, char **argv)
     /*
     if(!isTriLepton && !isQuaLepton){
         //mystudy.AddCut(new CutZveto(particlesObj, "presel_ele"));// presel_ele;presel_SFOSlep
-        mystudy.AddCut(new CutZveto(particlesObj, "fake_dilep"));//fake_dilep ;presel_ele;presel_SFOSlep
+        mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));//fake_dilep ;presel_ele;presel_SFOSlep
     }else{
         mystudy.AddCut(new CutZveto(particlesObj, "presel_SFOSlep"));//fake_dilep ;presel_ele;presel_SFOSlep
     }
@@ -363,6 +363,7 @@ int main(int argc, char **argv)
    */
   }
   mystudy.AddCut(new CutJetN(particlesObj,nJets));
+
   //mystudy.AddCut(new CutLightJetN(particlesObj));
   //mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
   
@@ -438,7 +439,7 @@ int main(int argc, char **argv)
   mystudy.AddVars(new ResTopVars());
   mystudy.AddVars(new ttHVars(false, false)); // fill histo, use TTHLoose
   
-  //mystudy.AddVars(new HjTagger());
+  mystudy.AddVars(new HjTagger());
   
   //mystudy.AddVars(new DNNVars());
   
