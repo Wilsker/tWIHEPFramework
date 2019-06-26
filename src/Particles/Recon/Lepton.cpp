@@ -1272,7 +1272,6 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   
   // definition of ttH Tgiht lepton
     if( conept() > _ConePtCuts[leptonType] 
-      && jetdeepcsv() < _jetcsvHCuts[leptonType]
       && BDT() > _BDTCuts[leptonType]
       && isMedium
       )passTight = kTRUE;
@@ -1301,7 +1300,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
   SetisFake(PassFake);
   SetisMVASel(PassTight);
   //  if(     "Tight"      == leptonType) return( passMinPt && passMaxEta  && IsTight() && Isolation() && !GetOverlapWithJet() && IsCombinedMuon());
-  if(     "MuTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passTight);
+  if(     "MuTight"      == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && PassTight);
   else if("MuLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && passLooseId());
   else if("MuFake" == leptonType) return (passMinPt && passMaxEta  && passCustomVeto && passLooseId() && passFake); 
   else if("EleLoose"       == leptonType) return (passMinPt && passMaxEta && passCustomVeto && isPassMvanonIsowpLoose() );
