@@ -63,6 +63,7 @@ ClassImp(Lepton)
   _chi2			(0.0),
   _dxy			(0.0),
   _dz			(0.0),
+  _unCorrPt			(0.0),
   _validHits		(0.0),
   _validHitsInner	(0.0),
   _matchedStat		(0.0),
@@ -74,6 +75,7 @@ ClassImp(Lepton)
   _miniIsoRel			(0.0),
   _jetptratio       (0.0),
   _jetptratioV2       (0.0),
+  _jetrelIso       (0.0),
   _jetcsv       (0.0),
   _jetdeepcsv       (0.0),
   _jetdeepflavour       (0.0),
@@ -177,6 +179,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _chi2(other.Getchi2()),
   _dxy(other.Getdxy()),
   _dz(other.Getdz()),
+  _unCorrPt(other.GetunCorrPt()),
   _validHits(other.GetvalidHits()),
   _validHitsInner(other.GetvalidHitsInner()),
   _matchedStat(other.GetmatchedStat()),
@@ -188,6 +191,7 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _miniIsoRel(other.GetminiIsoRel()),
   _jetptratio(other.Getjetptratio()),
   _jetptratioV2(other.GetjetptratioV2()),
+  _jetrelIso(other.GetjetrelIso()),
   _jetcsv(other.Getjetcsv()),
   _jetdeepcsv(other.Getjetdeepcsv()),
   _jetdeepflavour(other.Getjetdeepflavour()),
@@ -278,6 +282,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _chi2			(0.0),
   _dxy			(0.0),
   _dz			(0.0),
+  _unCorrPt			(0.0),
   _validHits		(0.0),
   _validHitsInner	(0.0),
   _matchedStat		(0.0),
@@ -289,6 +294,7 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _miniIsoRel			(0.0),
   _jetptratio       (0.0),
   _jetptratioV2       (0.0),
+  _jetrelIso       (0.0),
   _jetcsv       (0.0),
   _jetdeepcsv       (0.0),
   _jetdeepflavour       (0.0),
@@ -410,6 +416,7 @@ Lepton& Lepton::operator=(const Particle& other)
   Setchi2		(0.0);
   Setdxy		(0.0);
   Setdz			(0.0);
+  SetunCorrPt			(0.0);
   SetvalidHits		(0.0);
   SetvalidHitsInner	(0.0);
   SetmatchedStat	(0.0);
@@ -421,6 +428,7 @@ Lepton& Lepton::operator=(const Particle& other)
   SetminiIsoRel		(0.0);
   Setjetptratio       (0.0);
   SetjetptratioV2       (0.0);
+  SetjetrelIso       (0.0);
   Setjetcsv       (0.0);
   Setjetdeepcsv       (0.0);
   Setjetdeepflavour       (0.0);
@@ -512,6 +520,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   Setchi2(other.Getchi2());
   Setdxy(other.Getdxy());
   Setdz(other.Getdz());
+  SetunCorrPt(other.GetunCorrPt());
   SetvalidHits(other.GetvalidHits());
   SetvalidHitsInner(other.GetvalidHitsInner());
   SetmatchedStat(other.GetmatchedStat());
@@ -523,6 +532,7 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetminiIsoRel(other.GetminiIsoRel());
   Setjetptratio(other.Getjetptratio());
   SetjetptratioV2(other.GetjetptratioV2());
+  SetjetrelIso(other.GetjetrelIso());
   Setjetcsv(other.Getjetcsv());
   Setjetdeepcsv(other.Getjetdeepcsv());
   Setjetdeepflavour(other.Getjetdeepflavour());
@@ -614,6 +624,7 @@ Lepton& Lepton::operator=(Lepton& other)
   Setchi2(other.Getchi2());
   Setdxy(other.Getdxy());
   Setdz(other.Getdz());
+  SetunCorrPt(other.GetunCorrPt());
   SetvalidHits(other.GetvalidHits());
   SetvalidHitsInner(other.GetvalidHitsInner());
   SetmatchedStat(other.GetmatchedStat());
@@ -625,6 +636,7 @@ Lepton& Lepton::operator=(Lepton& other)
   SetminiIsoRel(other.GetminiIsoRel());
   Setjetptratio(other.Getjetptratio());
   SetjetptratioV2(other.GetjetptratioV2());
+  SetjetrelIso(other.GetjetrelIso());
   Setjetcsv(other.Getjetcsv());
   Setjetdeepcsv(other.Getjetdeepcsv());
   Setjetdeepflavour(other.Getjetdeepflavour());
@@ -702,6 +714,7 @@ void Lepton::SetCuts(TEnv* config, TString leptonType)
 {
   _dataEra = config -> GetValue("DataEra",2017);
   _closestMuonCut = config -> GetValue("ObjectID.Electron.MuonCleanR",0.);
+  _MWPBTagCut = config -> GetValue("ObjectID.BJet.MWPBTagCut",0.);
   _minPtCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MinPt", 100.0);
   _maxEtaCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxEta", 0.0);
   _maxRelIsoCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".MaxRelIso", 100.0);
@@ -715,6 +728,7 @@ void Lepton::SetCuts(TEnv* config, TString leptonType)
   _SegmentCompCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".SegmentCompCut", 100.0);
   _jetcsvLCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".jetcsvLCut", 0.0);
   _jetcsvHCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".jetcsvHCut", 0.0);
+  _jetrelIsoCuts[leptonType] = config -> GetValue("ObjectID.Lepton."+leptonType+".jetrelIsoCut", 0.0);
 
 }
 
@@ -752,6 +766,22 @@ void Lepton::set_lepMVAreader(TEnv* config)
 }
 
 /***************************************************************
+  float Lepton::smoothBFlav(float jetpt, float ptmin, float ptmax, int year);
+ *                                                              * 
+ * Return the muon smoothBFlav upper cut           *
+ *                                                              *
+ * Input: jetpt = 0.9*muon_pt*(1+muon_jetrelIso)                *        ptmin,ptmax = 20,45
+ * Output: lepton MVA value                                     *
+ * **************************************************************/
+ 
+float Lepton::smoothBFlav(float jetpt, float ptmin, float ptmax, int year)
+{
+    float wploose[3] = {0.0614, 0.0521, 0.0494};
+    float wpmedium[3] = {0.3093, 0.3033, 0.2770};
+    float x = std::min(std::max(0.f,jetpt-ptmin)/(ptmax-ptmin),1.f);
+    return x*wploose[year-2016]+(1-x)*wpmedium[year-2016];
+};
+/***************************************************************
  * double Lepton Lepton::get_LeptonMVA()                *
  *                                                              * 
  * Read the lepton MVA value                                      *
@@ -775,7 +805,7 @@ double Lepton::get_LeptonMVA(int EventNumber)
     vardz =  log(TMath::Abs(dz())); 
     varSegCompat = segmentCompatibility(); 
     varmvaId = mvaValue_nonIso();
-    if(EventNumber == 2132145 ){
+    if(EventNumber == 11501592 ){
         std::cout << " varpt "<< varpt<< " vareta "<< vareta << " varchRelIso " << varchRelIso << " varneuRelIso " << varneuRelIso << " varjetPtRel " << varjetPtRel_in <<" varjetptRatio_in"<< varjetPtRatio_in <<" varjetBTagCSV_in " << varjetBTagCSV_in << " varjetNDauCharged_in " << varjetNDauCharged_in  <<" varsip3d "<< varsip3d << " vardxy "<< vardxy << " vardz " << vardz<<" varSegCompa "<< varSegCompat << " varmvaId "<< varmvaId << std::endl;
     }
     if( TMath::Abs(pdgId()) == 13) return mu_reader_->EvaluateMVA("BDTG method");
@@ -966,7 +996,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     // This is Fall17V2 IDs 
     SetisPassMvanonIsowpLoose		(evtr -> patElectron_isPassMvanonIsowpLoose   		-> operator[](iE));
     SetmvaValue_nonIso       (evtr -> patElectron_mvaValue_nonIso      -> operator[](iE));
-    SetntMVAeleID		(evtr -> patElectron_mvaValue_nonIso   		-> operator[](iE));
+    SetntMVAeleID		(evtr -> patElectron_isPassMvanonIsowp80    -> operator[](iE));
     // This is Fall17V1 IDs 
     /*
     SetisPassMvanonIsowpLoose		(evtr -> patElectron_isPassOldMvanonIsowpLoose   		-> operator[](iE));
@@ -1096,9 +1126,11 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetjetptratioV2(1);
     Setptrel(0);
     Setlepjetchtrks(0);
-  }else if(jetidx()>=0){ // recalculate ptratio and ptrel for JesSF && ele Scale & Smear purpose and only for the case where jet is found
+  }else if(jetidx()>=0 && jetdr()< 0.4){ // recalculate ptratio and ptrel for JesSF && ele Scale & Smear purpose and only for the case where jet is found
     SetjetptratioV2(jetptratio());
   }
+  
+  SetjetrelIso((1./jetptratioV2())-1.);
 
   // **************************************************************
   // Pt and Eta Cuts
@@ -1201,22 +1233,23 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
         */
     }
     else passCuts = kTRUE;
+  
 
   if(
      pdgid==13 && conept() > _ConePtCuts[leptonType]
      && (
-      (BDT() > _BDTCuts[leptonType] && jetdeepcsv() < _jetcsvHCuts[leptonType]) ||
-      (BDT() < _BDTCuts[leptonType] && jetdeepcsv() < _jetcsvLCuts[leptonType] 
-       && jetptratioV2() > _jetptratioCuts[leptonType] && segmentCompatibility() > _SegmentCompCuts[leptonType] )
+      (BDT() > _BDTCuts[leptonType] && jetdeepflavour() < _MWPBTagCut) ||
+      (BDT() < _BDTCuts[leptonType] && jetdeepflavour() < smoothBFlav(0.9*lepPt*(1+jetrelIso()), 20., 45., _dataEra) 
+       && jetrelIso() < _jetrelIsoCuts[leptonType] )
       )
      )passFake = kTRUE;
    
   if(
      pdgid==11 && conept() > _ConePtCuts[leptonType]
      && passCuts && (
-      (BDT() > _BDTCuts[leptonType] && jetdeepcsv() < _jetcsvHCuts[leptonType] ) ||
-      (BDT() < _BDTCuts[leptonType] && jetdeepcsv() < _jetcsvLCuts[leptonType] 
-       && jetptratioV2() > _jetptratioCuts[leptonType] && mvaValue_nonIso() > 0.5 )
+      (BDT() > _BDTCuts[leptonType] && jetdeepflavour() < _MWPBTagCut ) ||
+      (BDT() < _BDTCuts[leptonType] 
+       && jetrelIso() < _jetrelIsoCuts[leptonType] && ntMVAeleID() > 0.5 )
        && expectedMissingInnerHits() == 0
       )
      )passFake = kTRUE;
@@ -1228,7 +1261,7 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
       && isMedium
       )passTight = kTRUE;
   /*
-  if(eventNumber == 2139411){
+  if(eventNumber == 11501592 ){
      std::cout << eventNumber << " " << lepPt << " "<< lepEta <<" " <<passMinPt << " " << passMaxEta << " " << passCustomVeto<< " "<< passLooseId() << " "<< passTight << std::endl;
      //std::cout << eventNumber << " conept " << conept() << " >? "<< _ConePtCuts[leptonType] <<" BDT " << BDT() << " >? " << _BDTCuts[leptonType] << " jetscsv " << jetdeepcsv() << " <? "<< _jetcsvHCuts[leptonType] << " isMedium? "<< isMedium << std::endl;
      //std::cout << eventNumber << " sNumber " << sNumber << " <21000? ishipsave? "<< ishipsave <<" pasLooseId()? " << passLooseId() << " validFraction " << validFraction() << " segmentCompat " << segmentCompatibility() << " GoodGlobal? " << GoodGlobal << std::endl;

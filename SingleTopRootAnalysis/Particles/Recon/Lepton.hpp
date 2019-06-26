@@ -62,6 +62,7 @@ public:
  _passMediumId = kFALSE;
  _jetptratio =0.0;
  _jetptratioV2 =0.0;
+ _jetrelIso =0.0;
  _jetcsv =0.0;
  _jetdeepcsv =0.0;
  _jetdeepflavour =0.0;
@@ -252,6 +253,10 @@ public:
   inline void SetjetptratioV2(Double_t jetptratioV2){_jetptratioV2 = jetptratioV2;};
   inline Double_t GetjetptratioV2() const {return _jetptratioV2;};
   inline Double_t jetptratioV2() const {return _jetptratioV2;};
+
+  inline void SetjetrelIso(Double_t jetrelIso){_jetrelIso = jetrelIso;};
+  inline Double_t GetjetrelIso() const {return _jetrelIso;};
+  inline Double_t jetrelIso() const {return _jetrelIso;};
 
   inline void Setjetcsv(Double_t jetcsv){_jetcsv = jetcsv;};
   inline Double_t Getjetcsv() const {return _jetcsv;};
@@ -534,6 +539,7 @@ private:
   Double_t _IP3Dsig;
   Double_t _jetptratio;
   Double_t _jetptratioV2;
+  Double_t _jetrelIso;
   Double_t _jetcsv;
   Double_t _jetdeepcsv;
   Double_t _jetdeepflavour;
@@ -599,6 +605,7 @@ private:
 
   /// cuts reading from config
   Double_t _closestMuonCut;
+  Double_t _MWPBTagCut;
   Int_t _dataEra;
   
   //////////////////////////////////
@@ -616,6 +623,7 @@ private:
   map<TString,Double_t> _SegmentCompCuts;
   map<TString,Double_t> _jetcsvLCuts;
   map<TString,Double_t> _jetcsvHCuts;
+  map<TString,Double_t> _jetrelIsoCuts;
 
     // ttH functions
     // lepton mva
@@ -635,6 +643,10 @@ private:
     Float_t vardz;
     Float_t varSegCompat;
     double get_LeptonMVA(int EventNumber); 
+
+  // Muon Smooth B-tag veto
+  float smoothBFlav(float jetpt, float ptmin, float ptmax, int year);
+
 
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system
