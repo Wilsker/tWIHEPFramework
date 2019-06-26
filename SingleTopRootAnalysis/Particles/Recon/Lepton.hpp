@@ -116,6 +116,8 @@ public:
  _genGrandMother_pdgId =0.0;
  _isFromTop =0.0;
  _isFromH =0.0;
+ _isFromW =0.0;
+ _isFromZ =0.0;
  _matchId =0.0;
  _matchMother_Id =0.0;
  _matchGrandMother_Id =0.0;
@@ -442,6 +444,14 @@ public:
   inline Double_t GetisFromH() const {return _isFromH;};
   inline Double_t isFromH() const {return _isFromH;};
 
+  inline void SetisFromZ(Double_t isFromZ){_isFromZ = isFromZ;};
+  inline Double_t GetisFromZ() const {return _isFromZ;};
+  inline Double_t isFromZ() const {return _isFromZ;};
+
+  inline void SetisFromW(Double_t isFromW){_isFromW = isFromW;};
+  inline Double_t GetisFromW() const {return _isFromW;};
+  inline Double_t isFromW() const {return _isFromW;};
+
   inline void SetmatchMother_Id(Double_t matchMother_Id){_matchMother_Id = matchMother_Id;};
   inline Double_t GetmatchMother_Id() const {return _matchMother_Id;};
   inline Double_t matchMother_Id() const {return _matchMother_Id;};
@@ -595,6 +605,8 @@ private:
   Double_t _matchIndex;
   Double_t _isFromTop;
   Double_t _isFromH;
+  Double_t _isFromZ;
+  Double_t _isFromW;
   Double_t _matchMother_Id;
   Double_t _matchGrandMother_Id;
   Double_t _matchMother_Index;

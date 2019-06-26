@@ -84,6 +84,8 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["FakeLep_isFromB"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_isFromC"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_isFromH"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_isFromZ"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_isFromW"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_isFromTop"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_matchId"] = {-25., 25. }; 
   _doubleVecs["FakeLep_PdgId"] = {-25., 25. }; 
@@ -125,6 +127,8 @@ void HjTagger::Clear(){
     FakeLep_isFromB.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
+    FakeLep_isFromZ.clear();
+    FakeLep_isFromW.clear();
     FakeLep_isFromTop.clear();
     FakeLep_PdgId.clear();
     FakeLep_matchId.clear();
@@ -378,6 +382,8 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     FakeLep_isFromB.assign(evtObj -> FakeLep_isFromB.begin(), evtObj -> FakeLep_isFromB.end());
     FakeLep_isFromC.assign(evtObj -> FakeLep_isFromC.begin(), evtObj -> FakeLep_isFromC.end());
     FakeLep_isFromH.assign(evtObj -> FakeLep_isFromH.begin(), evtObj -> FakeLep_isFromH.end());
+    FakeLep_isFromZ.assign(evtObj -> FakeLep_isFromZ.begin(), evtObj -> FakeLep_isFromZ.end());
+    FakeLep_isFromW.assign(evtObj -> FakeLep_isFromW.begin(), evtObj -> FakeLep_isFromW.end());
     FakeLep_isFromTop.assign(evtObj -> FakeLep_isFromTop.begin(), evtObj -> FakeLep_isFromTop.end());
     FakeLep_matchId.assign(evtObj -> FakeLep_matchId.begin(), evtObj -> FakeLep_matchId.end());
     FakeLep_matchIndex.assign(evtObj -> FakeLep_matchIndex.begin(), evtObj -> FakeLep_matchIndex.end());
@@ -418,6 +424,8 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     _doubleVecs["FakeLep_isFromB"] = FakeLep_isFromB; 
     _doubleVecs["FakeLep_isFromC"] = FakeLep_isFromC; 
     _doubleVecs["FakeLep_isFromH"] = FakeLep_isFromH; 
+    _doubleVecs["FakeLep_isFromZ"] = FakeLep_isFromZ; 
+    _doubleVecs["FakeLep_isFromW"] = FakeLep_isFromW; 
     _doubleVecs["FakeLep_isFromTop"] = FakeLep_isFromTop; 
     _doubleVecs["FakeLep_PdgId"] = FakeLep_PdgId; 
     _doubleVecs["FakeLep_matchId"] = FakeLep_matchId; 

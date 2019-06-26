@@ -129,6 +129,8 @@ ClassImp(Lepton)
   _matchIndex       (0.0),
   _isFromTop       (0.0),
   _isFromH       (0.0),
+  _isFromZ       (0.0),
+  _isFromW       (0.0),
   _matchMother_Id       (0.0),
   _matchGrandMother_Id       (0.0),
   _matchMother_Index       (0.0),
@@ -246,6 +248,8 @@ Lepton::Lepton(const Lepton& other): Particle(other),
   _matchIndex(other.GetmatchIndex()),
   _isFromTop(other.GetisFromTop()),
   _isFromH(other.GetisFromH()),
+  _isFromZ(other.GetisFromZ()),
+  _isFromW(other.GetisFromW()),
   _matchMother_Id(other.GetmatchMother_Id()),
   _matchGrandMother_Id(other.GetmatchGrandMother_Id()),
   _matchMother_Index(other.GetmatchMother_Index()),
@@ -349,6 +353,8 @@ Lepton::Lepton(const Particle& other): Particle(other),
   _matchIndex       (0.0),
   _isFromTop       (0.0),
   _isFromH       (0.0),
+  _isFromZ       (0.0),
+  _isFromW       (0.0),
   _matchMother_Id       (0.0),
   _matchGrandMother_Id       (0.0),
   _matchMother_Index       (0.0),
@@ -482,6 +488,8 @@ Lepton& Lepton::operator=(const Particle& other)
   SetmatchIndex       (0.0);
   SetisFromTop       (0.0);
   SetisFromH       (0.0);
+  SetisFromZ       (0.0);
+  SetisFromW       (0.0);
   SetmatchMother_Id       (0.0);
   SetmatchGrandMother_Id       (0.0);
   SetmatchMother_Index       (0.0);
@@ -586,6 +594,8 @@ Lepton& Lepton::operator=(const Lepton& other)
   SetmatchIndex(other.GetmatchIndex());
   SetisFromTop(other.GetisFromTop());
   SetisFromH(other.GetisFromH());
+  SetisFromZ(other.GetisFromZ());
+  SetisFromW(other.GetisFromW());
   SetmatchMother_Id(other.GetmatchMother_Id());
   SetmatchGrandMother_Id(other.GetmatchGrandMother_Id());
   SetmatchMother_Index(other.GetmatchMother_Index());
@@ -690,6 +700,8 @@ Lepton& Lepton::operator=(Lepton& other)
   SetmatchIndex(other.GetmatchIndex());
   SetisFromTop(other.GetisFromTop());
   SetisFromH(other.GetisFromH());
+  SetisFromZ(other.GetisFromZ());
+  SetisFromW(other.GetisFromW());
   SetmatchMother_Id(other.GetmatchMother_Id());
   SetmatchGrandMother_Id(other.GetmatchGrandMother_Id());
   SetmatchMother_Index(other.GetmatchMother_Index());
@@ -929,6 +941,8 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetmatchIndex       (-999.);
     SetisFromTop       (-999.);
     SetisFromH       (-999.);
+    SetisFromZ       (-999.);
+    SetisFromW       (-999.);
     SetmatchMother_Id       (-999.);
     SetmatchGrandMother_Id       (-999.);
     SetmatchMother_Index       (-999.);
@@ -1031,6 +1045,8 @@ Bool_t Lepton::Fill(std::vector<Muon>& selectedMuons,  std::vector<Jet>& lepAwar
     SetmatchIndex       (-999.);
     SetisFromTop       (-999.);
     SetisFromH       (-999.);
+    SetisFromZ       (-999.);
+    SetisFromW       (-999.);
     SetmatchMother_Id       (-999.);
     SetmatchGrandMother_Id       (-999.);
     SetmatchMother_Index       (-999.);

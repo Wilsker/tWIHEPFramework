@@ -84,6 +84,8 @@ private:
     std::vector<double> FakeLep_isFromB;
     std::vector<double> FakeLep_isFromC;
     std::vector<double> FakeLep_isFromH;
+    std::vector<double> FakeLep_isFromW;
+    std::vector<double> FakeLep_isFromZ;
     std::vector<double> FakeLep_isFromTop;
     std::vector<double> FakeLep_matchId;
     std::vector<double> FakeLep_PdgId;
@@ -148,6 +150,7 @@ private:
     Double_t leadLep_mcMatchId;
     Double_t leadLep_isFromTop;
     Double_t leadLep_isFromH;
+    Double_t leadLep_isFromZWH;
     Double_t leadLep_isFromB;
     Double_t leadLep_isFromC;
     Double_t leadLep_mcPromptGamma;
@@ -155,15 +158,18 @@ private:
     Double_t secondLep_isMatchRightCharge;
     Double_t secondLep_mcMatchId;
     Double_t secondLep_isFromTop;
+    Double_t secondLep_isFromZWH;
     Double_t secondLep_isFromH;
     Double_t secondLep_isFromB;
     Double_t secondLep_isFromC;
     Double_t secondLep_mcPromptGamma;
     Double_t secondLep_mcPromptFS;
+    Double_t thirdLep_isFromZWH;
     Double_t fourthLep_isMatchRightCharge;
     Double_t fourthLep_mcMatchId;
     Double_t fourthLep_isFromTop;
     Double_t fourthLep_isFromH;
+    Double_t fourthLep_isFromZWH;
     Double_t fourthLep_isFromB;
     Double_t fourthLep_isFromC;
     Double_t fourthLep_mcPromptGamma;

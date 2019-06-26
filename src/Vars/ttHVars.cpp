@@ -107,6 +107,7 @@ ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
   _floatVars["leadLep_mcMatchId"] = 100.;
   _floatVars["leadLep_isFromTop"] = 2.;
   _floatVars["leadLep_isFromH"] = 2.;
+  _floatVars["leadLep_isFromZWH"] = 2.;
   _floatVars["leadLep_isFromB"] = 2.;
   _floatVars["leadLep_isFromC"] = 2.;
   _floatVars["leadLep_mcPromptGamma"] = 2.;
@@ -115,6 +116,7 @@ ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
   _floatVars["secondLep_mcMatchId"] = 100.;
   _floatVars["secondLep_isFromTop"] = 2.;
   _floatVars["secondLep_isFromH"] = 2.;
+  _floatVars["secondLep_isFromZWH"] = 2.;
   _floatVars["secondLep_isFromB"] = 2.;
   _floatVars["secondLep_isFromC"] = 2.;
   _floatVars["secondLep_mcPromptGamma"] = 2.;
@@ -124,6 +126,7 @@ ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
   _floatVars["fourthLep_mcMatchId"] = 100.;
   _floatVars["fourthLep_isFromTop"] = 2.;
   _floatVars["fourthLep_isFromH"] = 2.;
+  _floatVars["fourthLep_isFromZWH"] = 2.;
   _floatVars["fourthLep_isFromB"] = 2.;
   _floatVars["fourthLep_isFromC"] = 2.;
   _floatVars["fourthLep_mcPromptGamma"] = 2.;
@@ -445,6 +448,7 @@ ttHVars::ttHVars(bool makeHistos, bool useTTHLoose){
   _floatVars["thirdLep_isMatchRightCharge"] = 999;
   _floatVars["thirdLep_mcMatchId"] = 999;
   _floatVars["thirdLep_isFromTop"] = 999;
+  _floatVars["thirdLep_isFromZWH"] = 2.;
   _floatVars["thirdLep_isFromH"] = 999;
   _floatVars["thirdLep_isFromB"] = 999;
   _floatVars["thirdLep_isFromC"] = 999;
@@ -566,6 +570,8 @@ void ttHVars::Clear(){
     FakeLep_isFromB.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
+    FakeLep_isFromZ.clear();
+    FakeLep_isFromW.clear();
     FakeLep_isFromTop.clear();
     FakeLep_PdgId.clear();
     FakeLep_matchId.clear();
@@ -625,6 +631,7 @@ void ttHVars::Clear(){
     leadLep_mcMatchId = -9999;
     leadLep_isFromTop = -9999;
     leadLep_isFromH = -9999;
+    leadLep_isFromZWH = -9999;
     leadLep_isFromB = -9999;
     leadLep_isFromC = -9999;
     leadLep_mcPromptGamma = -9999;
@@ -633,6 +640,7 @@ void ttHVars::Clear(){
     secondLep_mcMatchId = -9999;
     secondLep_isFromTop = -9999;
     secondLep_isFromH = -9999;
+    secondLep_isFromZWH = -9999;
     secondLep_isFromB = -9999;
     secondLep_isFromC = -9999;
     secondLep_mcPromptGamma = -9999;
@@ -641,6 +649,7 @@ void ttHVars::Clear(){
     fourthLep_mcMatchId = -9999;
     fourthLep_isFromTop = -9999;
     fourthLep_isFromH = -9999;
+    fourthLep_isFromZWH = -9999;
     fourthLep_isFromB = -9999;
     fourthLep_isFromC = -9999;
     fourthLep_mcPromptGamma = -9999;
@@ -944,6 +953,7 @@ void ttHVars::Clear(){
     thirdLep_isMatchRightCharge = -999;
     thirdLep_mcMatchId = -999;
     thirdLep_isFromTop = -999;
+    thirdLep_isFromZWH = -9999;
     thirdLep_isFromH = -999;
     thirdLep_isFromB = -999;
     thirdLep_isFromC = -999;
@@ -1091,6 +1101,8 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     FakeLep_isFromB.assign(evtObj -> FakeLep_isFromB.begin(), evtObj -> FakeLep_isFromB.end());
     FakeLep_isFromC.assign(evtObj -> FakeLep_isFromC.begin(), evtObj -> FakeLep_isFromC.end());
     FakeLep_isFromH.assign(evtObj -> FakeLep_isFromH.begin(), evtObj -> FakeLep_isFromH.end());
+    FakeLep_isFromZ.assign(evtObj -> FakeLep_isFromZ.begin(), evtObj -> FakeLep_isFromZ.end());
+    FakeLep_isFromW.assign(evtObj -> FakeLep_isFromW.begin(), evtObj -> FakeLep_isFromW.end());
     FakeLep_isFromTop.assign(evtObj -> FakeLep_isFromTop.begin(), evtObj -> FakeLep_isFromTop.end());
     FakeLep_matchId.assign(evtObj -> FakeLep_matchId.begin(), evtObj -> FakeLep_matchId.end());
     FakeLep_matchIndex.assign(evtObj -> FakeLep_matchIndex.begin(), evtObj -> FakeLep_matchIndex.end());
@@ -1238,6 +1250,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["leadLep_mcMatchId"] = leadLep_mcMatchId;
     _floatVars["leadLep_isFromTop"] = leadLep_isFromTop;
     _floatVars["leadLep_isFromH"] = leadLep_isFromH;
+    _floatVars["leadLep_isFromZWH"] = leadLep_isFromZWH;
     _floatVars["leadLep_isFromB"] = leadLep_isFromB;
     _floatVars["leadLep_isFromC"] = leadLep_isFromC;
     _floatVars["leadLep_mcPromptGamma"] = leadLep_mcPromptGamma;
@@ -1246,6 +1259,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["secondLep_mcMatchId"] = secondLep_mcMatchId;
     _floatVars["secondLep_isFromTop"] = secondLep_isFromTop;
     _floatVars["secondLep_isFromH"] = secondLep_isFromH;
+    _floatVars["secondLep_isFromZWH"] = secondLep_isFromZWH;
     _floatVars["secondLep_isFromB"] = secondLep_isFromB;
     _floatVars["secondLep_isFromC"] = secondLep_isFromC;
     _floatVars["secondLep_mcPromptGamma"] = secondLep_mcPromptGamma;
@@ -1254,6 +1268,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
     _floatVars["fourthLep_mcMatchId"] = fourthLep_mcMatchId;
     _floatVars["fourthLep_isFromTop"] = fourthLep_isFromTop;
     _floatVars["fourthLep_isFromH"] = fourthLep_isFromH;
+    _floatVars["fourthLep_isFromZWH"] = fourthLep_isFromZWH;
     _floatVars["fourthLep_isFromB"] = fourthLep_isFromB;
     _floatVars["fourthLep_isFromC"] = fourthLep_isFromC;
     _floatVars["fourthLep_mcPromptGamma"] = fourthLep_mcPromptGamma;
@@ -1301,7 +1316,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu1_jetCSV = FirstMuon.jetcsv();
         mu1_jetDeepCSV = FirstMuon.jetdeepcsv();
         mu1_jetDeepJet = FirstMuon.jetdeepflavour();
-        mu1_isGenMatched = FirstMuon.matchId()==FirstMuon.pdgId() && (FirstMuon.gen_isPromptTau() || FirstMuon.gen_isPrompt())? 1:0 ;
+        mu1_isGenMatched = FirstMuon.matchId()==FirstMuon.pdgId() && (FirstMuon.isFromH() || FirstMuon.isFromW() || FirstMuon.isFromZ()) && (FirstMuon.gen_isPromptTau() || FirstMuon.gen_isPrompt())? 1:0 ;
         mu1_dxy =FirstMuon.dxy();
         mu1_sip3D = FirstMuon.IP3Dsig();
         mu1_dxyAbs = TMath::Abs(FirstMuon.dxy());
@@ -1330,7 +1345,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         mu2_jetCSV = SecondMuon.jetcsv();
         mu2_jetDeepCSV = SecondMuon.jetdeepcsv();
         mu2_jetDeepJet = SecondMuon.jetdeepflavour();
-        mu2_isGenMatched = SecondMuon.matchId()==SecondMuon.pdgId() && (SecondMuon.gen_isPromptTau() || SecondMuon.gen_isPrompt())? 1:0 ;
+        mu2_isGenMatched = SecondMuon.matchId()==SecondMuon.pdgId() && (SecondMuon.isFromH() || SecondMuon.isFromW() || SecondMuon.isFromZ()) && (SecondMuon.gen_isPromptTau() || SecondMuon.gen_isPrompt())? 1:0 ;
         mu2_dxy =SecondMuon.dxy();
         mu2_sip3D = SecondMuon.IP3Dsig();
         mu2_dxyAbs = TMath::Abs(SecondMuon.dxy());
@@ -1358,12 +1373,12 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         ele1_jetCSV = FirstElectron.jetcsv();
         ele1_jetDeepCSV = FirstElectron.jetdeepcsv();
         ele1_jetDeepJet = FirstElectron.jetdeepflavour();
-        ele1_isGenMatched = FirstElectron.matchId()==FirstElectron.pdgId() && (FirstElectron.gen_isPromptTau() || FirstElectron.gen_isPrompt())? 1:0 ;
+        ele1_isGenMatched = FirstElectron.matchId()==FirstElectron.pdgId() && (FirstElectron.isFromH() || FirstElectron.isFromW() || FirstElectron.isFromZ()) && (FirstElectron.gen_isPromptTau() || FirstElectron.gen_isPrompt())? 1:0 ;
         ele1_dxy =FirstElectron.dxy();
         ele1_sip3D = FirstElectron.IP3Dsig();
         ele1_dxyAbs = TMath::Abs(FirstElectron.dxy());
         ele1_dz = FirstElectron.dz();
-        ele1_ntMVAeleID = FirstElectron.ntMVAeleID();
+        ele1_ntMVAeleID = FirstElectron.mvaValue_nonIso();
         ele1_leptonMVA = FirstElectron.BDT();
         ele1_charge = FirstElectron.charge();
         ele1_jetNDauChargedMVASel = FirstElectron.lepjetchtrks();
@@ -1393,12 +1408,12 @@ void ttHVars::FillBranches(EventContainer * evtObj){
         ele2_jetCSV = SecondElectron.jetcsv();
         ele2_jetDeepCSV = SecondElectron.jetdeepcsv();
         ele2_jetDeepJet = SecondElectron.jetdeepflavour();
-        ele2_isGenMatched = SecondElectron.matchId()==SecondElectron.pdgId() && (SecondElectron.gen_isPromptTau() || SecondElectron.gen_isPrompt())? 1:0 ;
+        ele2_isGenMatched = SecondElectron.matchId()==SecondElectron.pdgId() && (SecondElectron.isFromH() || SecondElectron.isFromW() || SecondElectron.isFromZ()) && (SecondElectron.gen_isPromptTau() || SecondElectron.gen_isPrompt())? 1:0 ;
         ele2_dxy =SecondElectron.dxy();
         ele2_sip3D = SecondElectron.IP3Dsig();
         ele2_dxyAbs = TMath::Abs(SecondElectron.dxy());
         ele2_dz = SecondElectron.dz();
-        ele2_ntMVAeleID = SecondElectron.ntMVAeleID();
+        ele2_ntMVAeleID = SecondElectron.mvaValue_nonIso();
         ele2_leptonMVA = SecondElectron.BDT();
         ele2_charge = SecondElectron.charge();
         ele2_jetNDauChargedMVASel = SecondElectron.lepjetchtrks();
@@ -1886,6 +1901,7 @@ void ttHVars::FillBranches(EventContainer * evtObj){
   _floatVars["thirdLep_mcMatchId"] = thirdLep_mcMatchId;
   _floatVars["thirdLep_isFromTop"] = thirdLep_isFromTop;
   _floatVars["thirdLep_isFromH"] = thirdLep_isFromH;
+  _floatVars["thirdLep_isFromZWH"] = thirdLep_isFromZWH;
   _floatVars["thirdLep_isFromB"] = thirdLep_isFromB;
   _floatVars["thirdLep_isFromC"] = thirdLep_isFromC;
   _floatVars["thirdLep_mcPromptGamma"] = thirdLep_mcPromptGamma;
@@ -2164,6 +2180,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
             leadLep_mcMatchId = FakeLep_matchId.at(0);
             leadLep_isFromTop = FakeLep_isFromTop.at(0);
             leadLep_isFromH = FakeLep_isFromH.at(0);
+            leadLep_isFromZWH = FakeLep_isFromH.at(0) || FakeLep_isFromW.at(0) || FakeLep_isFromZ.at(0) ;
             leadLep_isFromB = FakeLep_isFromB.at(0);
             leadLep_isFromC = FakeLep_isFromC.at(0);
             leadLep_mcPromptGamma = FakeLep_matchId.at(0) == 22 ? 1 : 0;
@@ -2172,6 +2189,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
             secondLep_mcMatchId = FakeLep_matchId.at(1);
             secondLep_isFromTop = FakeLep_isFromTop.at(1);
             secondLep_isFromH = FakeLep_isFromH.at(1);
+            secondLep_isFromZWH = FakeLep_isFromH.at(1) || FakeLep_isFromW.at(1) || FakeLep_isFromZ.at(1) ;
             secondLep_isFromB = FakeLep_isFromB.at(1);
             secondLep_isFromC = FakeLep_isFromC.at(1);
             secondLep_mcPromptGamma = FakeLep_matchId.at(1) == 22 ? 1 : 0;
@@ -2181,6 +2199,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
                 thirdLep_mcMatchId = FakeLep_matchId.at(2);
                 thirdLep_isFromTop = FakeLep_isFromTop.at(2);
                 thirdLep_isFromH = FakeLep_isFromH.at(2);
+                thirdLep_isFromZWH = FakeLep_isFromH.at(2) || FakeLep_isFromW.at(2) || FakeLep_isFromZ.at(2) ;
                 thirdLep_isFromB = FakeLep_isFromB.at(2);
                 thirdLep_isFromC = FakeLep_isFromC.at(2);
                 thirdLep_mcPromptGamma = FakeLep_matchId.at(2) == 22 ? 1 : 0;
@@ -2190,6 +2209,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
                     fourthLep_mcMatchId = FakeLep_matchId.at(3);
                     fourthLep_isFromTop = FakeLep_isFromTop.at(3);
                     fourthLep_isFromH = FakeLep_isFromH.at(3);
+                    fourthLep_isFromZWH = FakeLep_isFromH.at(3) || FakeLep_isFromW.at(3) || FakeLep_isFromZ.at(3) ;
                     fourthLep_isFromB = FakeLep_isFromB.at(3);
                     fourthLep_isFromC = FakeLep_isFromC.at(3);
                     fourthLep_mcPromptGamma = FakeLep_matchId.at(3) == 22 ? 1 : 0;
@@ -2200,8 +2220,10 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         if(EvtObj->isSimulation && _useTTHLoose){
             leadLep_mcPromptFS = (firstLepton.gen_isPrompt() ==1 || firstLepton.gen_isPromptTau()==1)? 1 : 0;
             leadLep_isMatchRightCharge = firstLepton.matchId() == firstLepton.pdgId()? 1 : 0;
+            leadLep_isFromZWH = (firstLepton.isFromH() || firstLepton.isFromW() || firstLepton.isFromZ()) ? 1:0;
             secondLep_mcPromptFS = (secondLepton.gen_isPrompt() ==1 || secondLepton.gen_isPromptTau()==1)? 1 : 0;
             secondLep_isMatchRightCharge = secondLepton.matchId() == secondLepton.pdgId()? 1 : 0;
+            secondLep_isFromZWH = (secondLepton.isFromH() || secondLepton.isFromW() || secondLepton.isFromZ()) ? 1:0;
         }
         leadLep_jetdr= leadLep_closedr; 
         secondLep_jetdr= secondLep_closedr;
@@ -2234,7 +2256,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         lep1_charge = firstLepton.charge()  ;
         lep1_dxy = firstLepton.dxy()  ;
         lep1_dz = firstLepton.dz()  ;
-        lep1_mvaId = firstLepton.ntMVAeleID()  ;
+        lep1_mvaId = firstLepton.mvaValue_nonIso()  ;
         lep1_eta = firstLepton.Eta()  ;
         lep1_minIso = firstLepton.miniIsoRel()  ;
         lep1_minIsoCh = firstLepton.miniIsoCh()  ;
@@ -2257,7 +2279,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
         lep2_charge = secondLepton.charge()  ;
         lep2_dxy = secondLepton.dxy()  ;
         lep2_dz = secondLepton.dz()  ;
-        lep2_mvaId = secondLepton.ntMVAeleID()  ;
+        lep2_mvaId = secondLepton.mvaValue_nonIso()  ;
         lep2_eta = secondLepton.Eta()  ;
         lep2_minIso = secondLepton.miniIsoRel()  ;
         lep2_minIsoCh = secondLepton.miniIsoCh()  ;
@@ -2284,7 +2306,7 @@ void ttHVars::Cal_event_variables(EventContainer* EvtObj){
             lep3_charge = thirdLepton.charge()  ;
             lep3_dxy = thirdLepton.dxy()  ;
             lep3_dz = thirdLepton.dz()  ;
-            lep3_mvaId = thirdLepton.ntMVAeleID()  ;
+            lep3_mvaId = thirdLepton.mvaValue_nonIso()  ;
             lep3_eta = thirdLepton.Eta()  ;
             lep3_minIso = thirdLepton.miniIsoRel()  ;
             lep3_minIsoCh = thirdLepton.miniIsoCh()  ;

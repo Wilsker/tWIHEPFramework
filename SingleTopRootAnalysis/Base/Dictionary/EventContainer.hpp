@@ -860,6 +860,8 @@ class EventContainer
     std::vector<double> FakeLep_isFromB;
     std::vector<double> FakeLep_isFromC;
     std::vector<double> FakeLep_isFromH;
+    std::vector<double> FakeLep_isFromZ;
+    std::vector<double> FakeLep_isFromW;
     std::vector<double> FakeLep_isFromTop;
     std::vector<double> FakeLep_matchId;
     std::vector<double> FakeLep_PdgId;
