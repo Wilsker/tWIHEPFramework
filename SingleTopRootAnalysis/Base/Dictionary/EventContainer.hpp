@@ -857,6 +857,7 @@ class EventContainer
     //Lepton matching
     void Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons, Bool_t isFake);
     
+    std::vector<double> FakeLep_isPromptFS;
     std::vector<double> FakeLep_isFromB;
     std::vector<double> FakeLep_isFromC;
     std::vector<double> FakeLep_isFromH;

@@ -44,6 +44,7 @@ private:
     std::vector<Jet> Jets;
     
     std::vector<double> FakeLep_isFromB;
+    std::vector<double> FakeLep_isPromptFS;
     std::vector<double> FakeLep_isFromC;
     std::vector<double> FakeLep_isFromH;
     std::vector<double> FakeLep_isFromZ;

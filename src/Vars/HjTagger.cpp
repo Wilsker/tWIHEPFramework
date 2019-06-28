@@ -82,6 +82,7 @@ HjTagger::HjTagger(bool makeHistos){
   _doubleVecs["Jet25_bjptratio"] = {-0.1,100};
 
   _doubleVecs["FakeLep_isFromB"] = {-0.1, 1.9 }; 
+  _doubleVecs["FakeLep_isPromptFS"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_isFromC"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_isFromH"] = {-0.1, 1.9 }; 
   _doubleVecs["FakeLep_isFromZ"] = {-0.1, 1.9 }; 
@@ -125,6 +126,7 @@ void HjTagger::Clear(){
     fakeLeptons.clear();
     Jets.clear();
     FakeLep_isFromB.clear();
+    FakeLep_isPromptFS.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
     FakeLep_isFromZ.clear();
@@ -380,6 +382,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     
     
     FakeLep_isFromB.assign(evtObj -> FakeLep_isFromB.begin(), evtObj -> FakeLep_isFromB.end());
+    FakeLep_isPromptFS.assign(evtObj -> FakeLep_isPromptFS.begin(), evtObj -> FakeLep_isPromptFS.end());
     FakeLep_isFromC.assign(evtObj -> FakeLep_isFromC.begin(), evtObj -> FakeLep_isFromC.end());
     FakeLep_isFromH.assign(evtObj -> FakeLep_isFromH.begin(), evtObj -> FakeLep_isFromH.end());
     FakeLep_isFromZ.assign(evtObj -> FakeLep_isFromZ.begin(), evtObj -> FakeLep_isFromZ.end());
@@ -422,6 +425,7 @@ void HjTagger::FillBranches(EventContainer * evtObj){
     // Fill the branches
     
     _doubleVecs["FakeLep_isFromB"] = FakeLep_isFromB; 
+    _doubleVecs["FakeLep_isPromptFS"] = FakeLep_isPromptFS; 
     _doubleVecs["FakeLep_isFromC"] = FakeLep_isFromC; 
     _doubleVecs["FakeLep_isFromH"] = FakeLep_isFromH; 
     _doubleVecs["FakeLep_isFromZ"] = FakeLep_isFromZ; 

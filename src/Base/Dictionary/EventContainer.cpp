@@ -319,6 +319,7 @@ void EventContainer::Initialize( EventTree* eventTree, TruthTree* truthTree)
   MCPhotons.clear();
   MCNeutrinos.clear();
     FakeLep_isFromB.clear();
+    FakeLep_isPromptFS.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
     FakeLep_isFromW.clear();
@@ -590,6 +591,7 @@ Int_t EventContainer::ReadEvent()
   MCPhotons.clear();
   MCNeutrinos.clear();
     FakeLep_isFromB.clear();
+    FakeLep_isPromptFS.clear();
     FakeLep_isFromC.clear();
     FakeLep_isFromH.clear();
     FakeLep_isFromZ.clear();
@@ -2127,6 +2129,7 @@ void EventContainer::Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCE
     reco.Setgen_isPromptTau(Gen_isPromptTau);
     if(isFake){
         FakeLep_isFromB.push_back(isFromB); 
+        FakeLep_isPromptFS.push_back((Gen_isPrompt==1 || Gen_isPromptTau==1)? 1:0); 
         FakeLep_isFromC.push_back(isFromC); 
         FakeLep_isFromH.push_back(isFromH); 
         FakeLep_isFromW.push_back(isFromW); 
