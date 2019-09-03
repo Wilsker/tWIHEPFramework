@@ -41,7 +41,7 @@
  *    Int_t ReadEvent()                 -- Create TLorentz Vectors            *
  *    Bool_t CreateFinalState()         -- Create final state particles       *
  *    void set_hadTopMVA();             -- Set Hadronic Top MVA               *
- *      
+ *
  *    Int_t runNumber                   -- Run number from the root tree      *
  *    Int_t eventNumber                 -- Event number from the root tree    *
  *    vector<Electron> electrons        -- Electron Vector                    *
@@ -62,7 +62,7 @@
  *    vector<MCJet>   MCCJets           -- MC CJet Vector                     *
  *    vector<MCJet>   MCLightQuarkJets  -- MC LightJetJet Vector              *
  *    vector<MCTop>   MCTops            -- MC Top Vector                      *
- *    vector<MCW>     MCWs              -- MC W Vector                        * 
+ *    vector<MCW>     MCWs              -- MC W Vector                        *
  *    vector<MCAllParticle> MCAllParticles -- MCAllParticle Vector            *
  *    vector<MCAllMuon> MCAllMuons      -- MCAllMuon Vector                   *
  *    vector<MCAllElectron> MCAllElectrons -- MCAll Electron Vector           *
@@ -175,9 +175,9 @@ class EventContainer
   inline void SetTargetTopMass(const Double_t& mass) { _targetTopMass = mass; };
   inline Double_t GetTargetTopMass() const { return _targetTopMass; };
 
-  // Initialize this class 
+  // Initialize this class
   void Initialize(EventTree* eventTree, TruthTree* truthTree);
- 
+
   //Set up the object definitions
   void SetupObjectDefinitions();
 
@@ -247,7 +247,7 @@ class EventContainer
   // Get the jet energy scale error
   inline Double_t GetJESError(void) const { return _jesError; };
   inline Double_t JESError(void) const { return GetJESError(); };
-  // 
+  //
   // set by how much we should shift the jet energy on this run.
   // this is either +1 or -1 or 0 (no shift)
   inline void SetJESShift(Int_t is) { _jesShift=is; };
@@ -321,24 +321,24 @@ class EventContainer
 
   //pileup weight per event
   inline void SetEventPileupWeight(const Double_t& pileupweight) {_EventPileupWeight = pileupweight;}; //tagging prob per event
-  inline Double_t GetEventPileupWeight() const {return _EventPileupWeight;}; 
-  inline Double_t EventPileupWeight() const {return GetEventPileupWeight();}; 
+  inline Double_t GetEventPileupWeight() const {return _EventPileupWeight;};
+  inline Double_t EventPileupWeight() const {return GetEventPileupWeight();};
 
   //pileup weight per event with min bias x-sec pushed up
-  inline void SetEventPileupMinBiasUpWeight(const Double_t& pileupweight) {_EventPileupMinBiasUpWeight = pileupweight;}; 
-  inline Double_t GetEventPileupMinBiasUpWeight() const {return _EventPileupMinBiasUpWeight;}; 
-  inline Double_t EventPileupMinBiasUpWeight() const {return GetEventPileupMinBiasUpWeight();}; 
+  inline void SetEventPileupMinBiasUpWeight(const Double_t& pileupweight) {_EventPileupMinBiasUpWeight = pileupweight;};
+  inline Double_t GetEventPileupMinBiasUpWeight() const {return _EventPileupMinBiasUpWeight;};
+  inline Double_t EventPileupMinBiasUpWeight() const {return GetEventPileupMinBiasUpWeight();};
 
   //pileup weight per event with min bias x-sec pushed down
-  inline void SetEventPileupMinBiasDownWeight(const Double_t& pileupweight) {_EventPileupMinBiasDownWeight = pileupweight;}; 
-  inline Double_t GetEventPileupMinBiasDownWeight() const {return _EventPileupMinBiasDownWeight;}; 
-  inline Double_t EventPileupMinBiasDownWeight() const {return GetEventPileupMinBiasDownWeight();}; 
+  inline void SetEventPileupMinBiasDownWeight(const Double_t& pileupweight) {_EventPileupMinBiasDownWeight = pileupweight;};
+  inline Double_t GetEventPileupMinBiasDownWeight() const {return _EventPileupMinBiasDownWeight;};
+  inline Double_t EventPileupMinBiasDownWeight() const {return GetEventPileupMinBiasDownWeight();};
 
  //b weight per event
   inline void SetEventbWeight(const Double_t& bweight) {_EventbWeight = bweight;}; //tagging prob per event
-  inline Double_t GetEventbWeight() const {return _EventbWeight;}; 
-  inline Double_t EventbWeight() const {return GetEventbWeight();}; 
-  
+  inline Double_t GetEventbWeight() const {return _EventbWeight;};
+  inline Double_t EventbWeight() const {return GetEventbWeight();};
+
   //lepton SF weight per event
   inline void SetEventLepSFWeight(const Double_t& lepSFweight) {_EventLepSFWeight = lepSFweight;};
   inline Double_t GetEventLepSFWeight() const {return _EventLepSFWeight;};
@@ -413,7 +413,7 @@ class EventContainer
   inline void SetEventmutightSFWeightDown(const Double_t& lepSFweight) {_EventmutightSFWeightDown = lepSFweight;};
   inline Double_t GetEventmutightSFWeightDown() const {return _EventmutightSFWeightDown;};
   inline Double_t EventmutightSFWeightDown() const {return GetEventmutightSFWeightDown();};
-  
+
   //chargeMis weight per event
   inline void SetEventChargeMisWeight(const Double_t& ChargeMisweight) {_EventChargeMisWeight = ChargeMisweight;};
   inline Double_t GetEventChargeMisWeight() const {return _EventChargeMisWeight;};
@@ -488,12 +488,12 @@ class EventContainer
   inline void SetEventmfrReweight(const Double_t& mfrReweight, std::string systName = "central" ) {_EventmfrReweight[systName] = mfrReweight;};
   inline Double_t GetEventmfrReweight(std::string systName = "central") {return _EventmfrReweight[systName];};
   inline Double_t EventmfrReweight() {return GetEventmfrReweight();};
-  
+
   //set and get fr weights for central and systematics
   inline void SetEventefrReweight(const Double_t& efrReweight, std::string systName = "central" ) {_EventefrReweight[systName] = efrReweight;};
   inline Double_t GetEventefrReweight(std::string systName = "central") {return _EventefrReweight[systName];};
   inline Double_t EventefrReweight() {return GetEventefrReweight();};
-  
+
   //Gen weight for event (actually just up or down)
   inline void SetGenWeight(const Double_t& genWeight) {_EventGenWeight = genWeight;};
   inline Double_t GetGenWeight() const {return _EventGenWeight;};
@@ -501,28 +501,28 @@ class EventContainer
 
  //Tagging probabiliy weight per event
   inline void SetEventTagWeight(const Double_t& taggingweight) {_EventTagWeight = taggingweight;}; //tagging prob per event
-  inline Double_t GetEventTagWeight() const {return _EventTagWeight;}; 
-  inline Double_t EventTagWeight() const {return GetEventTagWeight();}; 
+  inline Double_t GetEventTagWeight() const {return _EventTagWeight;};
+  inline Double_t EventTagWeight() const {return GetEventTagWeight();};
 
   //EventTagging probabiliy weight per event with a shift up on b SF
   inline void SetEventTagWeight_Bup(const Double_t& taggingweight_Bup) {_EventTagWeight_Bup = taggingweight_Bup;}; //tagging prob per event
-  inline Double_t GetEventTagWeight_Bup() const {return _EventTagWeight_Bup;}; 
-  inline Double_t EventTagWeight_Bup() const {return GetEventTagWeight_Bup();}; 
+  inline Double_t GetEventTagWeight_Bup() const {return _EventTagWeight_Bup;};
+  inline Double_t EventTagWeight_Bup() const {return GetEventTagWeight_Bup();};
 
   //EventTagging probabiliy weight per event with a shift up on b SF
   inline void SetEventTagWeight_Bdown(const Double_t& taggingweight_Bdown) {_EventTagWeight_Bdown = taggingweight_Bdown;}; //tagging prob per event
-  inline Double_t GetEventTagWeight_Bdown() const {return _EventTagWeight_Bdown;}; 
-  inline Double_t EventTagWeight_Bdown() const {return GetEventTagWeight_Bdown();}; 
+  inline Double_t GetEventTagWeight_Bdown() const {return _EventTagWeight_Bdown;};
+  inline Double_t EventTagWeight_Bdown() const {return GetEventTagWeight_Bdown();};
 
   //EventTagging probabiliy weight per event with a shift up on b SF
   inline void SetEventTagWeight_Lqup(const Double_t& taggingweight_Lqup) {_EventTagWeight_Lqup = taggingweight_Lqup;}; //tagging prob per event
-  inline Double_t GetEventTagWeight_Lqup() const {return _EventTagWeight_Lqup;}; 
-  inline Double_t EventTagWeight_Lqup() const {return GetEventTagWeight_Lqup();}; 
+  inline Double_t GetEventTagWeight_Lqup() const {return _EventTagWeight_Lqup;};
+  inline Double_t EventTagWeight_Lqup() const {return GetEventTagWeight_Lqup();};
 
   //EventTagging probabiliy weight per event with a shift up on b SF
   inline void SetEventTagWeight_Lqdown(const Double_t& taggingweight_Lqdown) {_EventTagWeight_Lqdown = taggingweight_Lqdown;}; //tagging prob per event
-  inline Double_t GetEventTagWeight_Lqdown() const {return _EventTagWeight_Lqdown;}; 
-  inline Double_t EventTagWeight_Lqdown() const {return GetEventTagWeight_Lqdown();}; 
+  inline Double_t GetEventTagWeight_Lqdown() const {return _EventTagWeight_Lqdown;};
+  inline Double_t EventTagWeight_Lqdown() const {return GetEventTagWeight_Lqdown();};
 
     // Get and set heavy flavor tool flag
   inline Int_t GetHFOR() const { return _HFOR; };
@@ -538,10 +538,10 @@ class EventContainer
   inline void SetnPvt(const int& nPvt) { nPvtx = nPvt; };
   inline Int_t GetnPvt() const { return nPvtx; };
   inline Int_t nPvt() const {return nPvtx;};
-  
+
   inline TString GetChannelName() const {return _channelName;};
 
-   // Get the configuration 
+   // Get the configuration
   TEnv * GetConfig() {return &_config; };
 
   ////////////////////////////////////
@@ -608,7 +608,7 @@ class EventContainer
   //MultijetJESUncertaintyProvider myJES;
   // CalibrationDataVariables CalibVar;
   std::string taggername;
-  
+
   Top_MET top_met;
   MET_Cleaning_Utils MET_Util;
   //CalibrationDataInterfaceROOT CalibROOT("SV0", "config/btag/BTagCalibration.env");
@@ -618,10 +618,10 @@ class EventContainer
   Int_t runNumber;              // run number from the root tree
   Int_t lumiBlock;              // run number from the root tree
   Int_t eventNumber;            // event number from the root tree
-  Double_t HiggsDecay;            
-  Double_t Gen_type1PF_Met;            
-  Double_t Gen_type1PF_px;            
-  Double_t Gen_type1PF_py;            
+  Double_t HiggsDecay;
+  Double_t Gen_type1PF_Met;
+  Double_t Gen_type1PF_px;
+  Double_t Gen_type1PF_py;
   Bool_t larError;
   Float_t actualIntPerXing;
   Float_t averageIntPerXing;
@@ -673,7 +673,7 @@ class EventContainer
   std::vector<Jet>        jets;// selected normal jets
   std::vector<Jet>        forwardjets;// selected forward jets
   std::vector<Jet>        lepjets;
-  std::vector<Jet>        alljets;// selected normal jets + forward jets 
+  std::vector<Jet>        alljets;// selected normal jets + forward jets
   std::vector<Jet>        jetors;//overlap removal vector for electron/jets
   std::vector<Jet>        jetjetors;//overlap removal vector for jet/jets
   std::vector<Jet>        jetms;//overlap removal vector for muons
@@ -689,7 +689,7 @@ class EventContainer
   std::vector<Electron> * electronsToUsePtr;
   std::vector<Muon>     * muonsToUsePtr;
   std::vector<Lepton>     * leptonsToUsePtr;
-  
+
   std::vector<Electron> * electronsVetoPtr; // used in object cleaning
   std::vector<Muon>     * muonsVetoPtr;  // used in object cleaning
   std::vector<Lepton>     * looseleptonsVetoPtr; // used in object cleaning
@@ -701,8 +701,8 @@ class EventContainer
   std::vector<TLorentzVector>      jetmsSpecial;//MET tool
 
   // store cuts
-  std::vector<Double_t> Flag_cuts; 
-  
+  std::vector<Double_t> Flag_cuts;
+
   // also store MET
   Double_t missingEt;
   Double_t missingEx;
@@ -786,7 +786,7 @@ class EventContainer
   std::vector<MCBQuark>::iterator MCBQuarkIterator;
   std::vector<MCBQuark>::iterator MCBQuarkNewEnd;
 
-  std::string jesInputFile; 
+  std::string jesInputFile;
   // Final State Variables
   int finalLeptonPDGID;            //Leptons pdgId for HistogrammingTV_float
   std::vector<Jet> finalJetVector;  // Jets
@@ -807,19 +807,19 @@ class EventContainer
   Jet finalTop_taggedJetTopC;
 
   // Variables for making top quarks
-  Jet *bestJet12Ptr;   
+  Jet *bestJet12Ptr;
   Jet *nonBestJet12Ptr;
-  Jet *bestJetPtr;     
-  Jet *bgJetbJetPtr;   
-  Jet *nonBgJetPtr;    
-  Jet *bgJetGluonPtr;  
-  Jet *taggedJetPtr;   
-  Jet *untaggedPtJetPtr; 
+  Jet *bestJetPtr;
+  Jet *bgJetbJetPtr;
+  Jet *nonBgJetPtr;
+  Jet *bgJetGluonPtr;
+  Jet *taggedJetPtr;
+  Jet *untaggedPtJetPtr;
   Jet *untaggedEtaJetPtr;
-  Jet *forwardJetPtr;  
+  Jet *forwardJetPtr;
   Jet *leadingJetPtr;
 
-  Int_t iBestJet; 
+  Int_t iBestJet;
   int useElecEnergyScale;
   int useElecEnergySmear;
   bool useMCWithConstantTerm;
@@ -856,7 +856,7 @@ class EventContainer
     void Do_Jet_Match(Jet & reco, std::vector<MCJet>& BJets, std::vector<MCJet>& CJets, std::vector<MCJet>& LightJets);
     //Lepton matching
     void Do_Lepton_Match(Lepton & reco, std::vector<MCElectron>& MCElectrons, std::vector<MCMuon>& MCMuons, std::vector<MCPhoton>& MCPhotons, Bool_t isFake);
-    
+
     std::vector<double> FakeLep_isPromptFS;
     std::vector<double> FakeLep_isFromB;
     std::vector<double> FakeLep_isFromC;
@@ -880,7 +880,7 @@ class EventContainer
     std::vector<double> Jet25_eta;
     std::vector<double> Jet25_phi;
     std::vector<double> Jet25_energy;
-    
+
     ///// ttH event BDT
     void set_ttHDiLepMVA();
     // event mva
@@ -903,7 +903,7 @@ class EventContainer
     Float_t Dilepttv_ptlep1;
     Float_t Dilepttv_ptlep2;
     Float_t Dilepttv_Hj1BDT;
-    
+
     TH2F*  hBinning2l;
     ////// Hadronic Top Tagger
     void set_hadTopMVA();
@@ -929,10 +929,10 @@ class EventContainer
     Float_t var_pT_b ;
 
     Float_t var_mass_b ;
-    
+
     Double_t HadTop_BDT;
-    
-    /////// Resolved Top Tagger 
+
+    /////// Resolved Top Tagger
     void set_resTopMVA();
     //MVA
     TMVA::Reader *resTop_reader;
@@ -972,9 +972,18 @@ class EventContainer
     Float_t var_wcand_mass ;
     Float_t var_b_wcand_deltaR ;
     Float_t var_topcand_mass ;
-  
-    Double_t ResTop_BDT; 
-    // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet 
+
+    Float_t _minPtGenMuon;
+    Float_t _maxEtaGenMuon;
+    Float_t _minPtGenEle;
+    Float_t _maxEtaGenEle;
+    Float_t _minPtGenTau;
+    Float_t _maxEtaGenTau;
+    Float_t _minPtGenJet;
+    Float_t _maxEtaGenJet;
+
+    Double_t ResTop_BDT;
+    // Syncronization selection: 1 Muon, 2 Electron, 3 Tau, 4 Jet
     Int_t _sync;
     Int_t _debugEvt;
     Int_t _SaveCut;
@@ -987,7 +996,7 @@ class EventContainer
     std::vector<Long_t> sync_nEvts;
 
 protected:
-  
+
   // Debugging level
   Int_t _debugLevel;
 
@@ -999,8 +1008,8 @@ private:
 
   //The name of the channel being used. this is currently used for synch, but might be used for trigger or something.
   TString _channelName;
-  
-  
+
+
   // Target top mass used in the best jet algorithm
   Double_t _targetTopMass;
 
@@ -1052,8 +1061,8 @@ private:
   Double_t _globalEventWeight;         // Global event weight, unchanging event to event
   Double_t _treeEventWeight;           // Event weight read in from the tree
   Double_t _outputEventWeight;         // Output event weight passed to the histograms
- 
-  // Event objects. By putting these here we can define them once along with their cuts instead of creating them 
+
+  // Event objects. By putting these here we can define them once along with their cuts instead of creating them
   // once for each event and accessing the config for each particle.
   Muon newMuon;
   Electron newElectron;
@@ -1092,6 +1101,6 @@ inline Bool_t RemoveDuplicate(const MCParticle& one, const MCParticle& two)
   return (TMath::Abs(one.Pt() - two.Pt()) <= 0.001);
 } //RemoveEntry
 
-inline Bool_t RemoveEntry(const Particle& particle) {return (particle.Pt() == 0);} 
+inline Bool_t RemoveEntry(const Particle& particle) {return (particle.Pt() == 0);}
 
 #endif

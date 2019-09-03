@@ -18,7 +18,7 @@ public:
 
   // set name
   virtual void SetName(const char *name);
-  
+
   //Standard set event container method
   inline void SetEventContainer(EventContainer * obj){ _eventContainerObj = obj;};
 
@@ -41,7 +41,7 @@ _histos.Add(h);
 
   //Reset the branches
   void ResetBranches();
-  
+
   //Do we want to make histograms for these variables?
   void SetDoHists(bool doHists){_makeHists = doHists;};
   bool DoHists(){return _makeHists;};
@@ -49,13 +49,13 @@ _histos.Add(h);
   //Fill the variables. There are two methods for this - the first is called from the AdditionalVarsProcessor which calls the individual VarBase classes filling routines before filling the branches themselves.
   virtual void FillBranches(EventContainer * evtObj) = 0;
 
-  
+
   //Touch the variables.
   void TouchBranches();
 
   //Output the value of the branches
   void OutputBranches();
-  
+
 private:
   EventContainer *_eventContainerObj;
 
@@ -64,7 +64,7 @@ protected:
   std::map<string,float> _floatVars;
   //std::map<string,Bool_t> _boolVars;
   std::map<string,Long_t> _LongVars;
-  std::map<string,std::vector<double>> _doubleVecs;
+  std::map<string,std::vector<double> > _doubleVecs;
   std::map<string,TBranch*> _branchVec;
 
   //Fill the histograms if we're doinng that
@@ -78,8 +78,8 @@ protected:
   TObjArray _histos;
 
   ////////////////////////////////////////////////////////////////////////////////
-  // Integrate classes into the Root system                                       
-  // Must come at end of class definition                                         
+  // Integrate classes into the Root system
+  // Must come at end of class definition
   ClassDef (VarBase,1);
   ////////////////////// Do Not Put Anything Below this Line /////////////////////
 

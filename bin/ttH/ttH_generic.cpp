@@ -1,18 +1,18 @@
 /******************************************************************************
- * Wt.cpp                                                                     *
- *                                                                            *
- * Top Level file in analysis package                                         *
- * Drives the package                                                         *
- *                                                                            *
- * This file is the main file which will loop over all of the events, make    *
- * cuts and generate histograms.                                              *
- *                                                                            *
- * For general information on the analysis package as a whole, see            *
- * https://hep.pa.msu.edu/twiki/bin/view/AtlasSingleTop/HowToUseTheAnalysisFramework *
- *                                                                            *
- * Modifications:                                                             *
- *   23 Nov 2010 - H. ZHANG, modify first version from SandB analysis         *
- *****************************************************************************/
+* Wt.cpp                                                                     *
+*                                                                            *
+* Top Level file in analysis package                                         *
+* Drives the package                                                         *
+*                                                                            *
+* This file is the main file which will loop over all of the events, make    *
+* cuts and generate histograms.                                              *
+*                                                                            *
+* For general information on the analysis package as a whole, see            *
+* https://hep.pa.msu.edu/twiki/bin/view/AtlasSingleTop/HowToUseTheAnalysisFramework *
+*                                                                            *
+* Modifications:                                                             *
+*   23 Nov 2010 - H. ZHANG, modify first version from SandB analysis         *
+*****************************************************************************/
 #define Glodfsdbal_cxx
 #include "SingleTopRootAnalysis/Base/Dictionary/AnalysisMain.hpp"
 #include <iostream>
@@ -40,18 +40,24 @@
 #include "SingleTopRootAnalysis/Cuts/Other/CutHiggsDecay.hpp"
 #include "SingleTopRootAnalysis/Cuts/Other/CutEventList.hpp"
 #include "SingleTopRootAnalysis/Cuts/Jet/CutJetN.hpp"
+#include "SingleTopRootAnalysis/Cuts/Jet/CutGenJetN.hpp"
 #include "SingleTopRootAnalysis/Cuts/TaggedJet/CutLightJetN.hpp"
+#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutGenBJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/TaggedJet/CutTaggedJetN.hpp"
 #include "SingleTopRootAnalysis/Cuts/TaggedJet/CutBTaggedJetN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Jet/CutJetPt1.hpp"
 
 //#include "SingleTopRootAnalysis/Cuts/Other/CutMissingEt.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonN.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutGenLeptonN.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutGenLeptonPt1.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutGenLeptonPt2.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt1.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt2.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt3.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonPt4.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonCharge.hpp"
+#include "SingleTopRootAnalysis/Cuts/Lepton/CutGenLeptonCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonSameSign.hpp"
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonSumCharge.hpp"
 #include "SingleTopRootAnalysis/Cuts/Tau/CutTauCharge.hpp"
@@ -66,6 +72,7 @@
 #include "SingleTopRootAnalysis/Cuts/Lepton/CutLeptonMCPromptGamma.hpp"
 #include "SingleTopRootAnalysis/Cuts/Muon/CutMuonN.hpp"
 #include "SingleTopRootAnalysis/Cuts/Tau/CutTauN.hpp"
+#include "SingleTopRootAnalysis/Cuts/Tau/CutGenTauN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Muon/CutMuonTighterPt.hpp"
 #include "SingleTopRootAnalysis/Cuts/Electron/CutElectronN.hpp"
 //#include "SingleTopRootAnalysis/Cuts/Electron/CutElectronTighterPt.hpp"
@@ -88,21 +95,22 @@
 #include "SingleTopRootAnalysis/Vars/HjTagger.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
 #include "SingleTopRootAnalysis/Vars/DNNVars.hpp"
+#include "SingleTopRootAnalysis/Vars/ttVModellingVars.hpp"
 
 using std::cout;
 using std::endl;
 
 /******************************************************************************
- * int main(int argc, char **argv)                                            *
- *                                                                            *
- * Main Routine                                                               *
- *                                                                            *
- * Input:  Command line arguements                                            *
- * Output: Returns 0 of successful                                            *
- ******************************************************************************/
+* int main(int argc, char **argv)                                            *
+*                                                                            *
+* Main Routine                                                               *
+*                                                                            *
+* Input:  Command line arguements                                            *
+* Output: Returns 0 of successful                                            *
+******************************************************************************/
 // Only declare main if not in CINT (not interactive?)
 #ifndef __CINT__
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 #endif
 {
   cout << "<driver> Starting parton_analysis" << endl;
@@ -121,8 +129,8 @@ int main(int argc, char **argv)
   TChain *chainDecision   = new TChain("DecisionTree");
   TChain *chainFastSim    = new TChain("FastSimTree");
 
- 
- // Check command line for Fast Running
+
+  // Check command line for Fast Running
   // In Fast Running only a few cuts are made and histograms filled
   Bool_t doFast = kFALSE;
   string mcStr="";
@@ -145,7 +153,7 @@ int main(int argc, char **argv)
   TString leptonTypeToSelect = "Tight"; //This variable is altered to unisolated when running QCD estimation.
   string evtListFileName="";
   int whichtrig = -1;
-  // A couple of jet selection overrides to limit the number of config faces.  
+  // A couple of jet selection overrides to limit the number of config faces.
   // -1 means use the value from the config file
   Int_t nJets = -1;
   Int_t nbJets = -1;
@@ -155,10 +163,10 @@ int main(int argc, char **argv)
   for (int i = 1; i < argc; ++i) {
     cout<<"Command line parameter "<<i<<" is "<<argv[i]<<endl;
     if (!strcmp(argv[i], "-inlist")) {
-	string ListName = (string)(argv[i+1]);
-	int b = ListName.find("SingleTop.");
-	//	evtListFileName="WtDiElectron_"+ListName.substr(b)+".lst.root";
-	//cout << "evtListFileName : " << evtListFileName << endl;
+      string ListName = (string)(argv[i+1]);
+      int b = ListName.find("SingleTop.");
+      //	evtListFileName="WtDiElectron_"+ListName.substr(b)+".lst.root";
+      //cout << "evtListFileName : " << evtListFileName << endl;
     }
     if (!strcmp(argv[i], "-lepSFs")){
       useLeptonSFs = kTRUE;
@@ -235,10 +243,10 @@ int main(int argc, char **argv)
     }
     if(!strcmp(argv[i],"-SelectTrigger")) {
       if (argc < i+1) {
-	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Missing Value for SelectTrigger - must choose either Electron or Muon" << endl;
-	return 1;
+        cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Missing Value for SelectTrigger - must choose either Electron or Muon" << endl;
+        return 1;
       }
- 
+
       if(!strcmp(argv[i+1],"Electron")) whichtrig = 0;
       if(!strcmp(argv[i+1],"Muon")) whichtrig = 1;
       if(!strcmp(argv[i+1],"TTHLep_2Mu")) whichtrig = 2;
@@ -248,16 +256,16 @@ int main(int argc, char **argv)
       if(!strcmp(argv[i+1],"TTHLep_3L")){ whichtrig = 6; isTriLepton = kTRUE;}
       if(!strcmp(argv[i+1],"TTHLep_4L")){ whichtrig = 7; isQuaLepton = kTRUE;}
       if( whichtrig == -1){
-	cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose Electron, Muon, TTHLep_2Mu, TTHLep_2Ele, TTHLep_MuEle, TTHLep_2L, TTHLep_3L" << endl;
-	return 1;
+        cout << "<AnalysisMain::ParseCmdLine> " << "ERROR: Incorrect Value for SelectTrigger - must choose Electron, Muon, TTHLep_2Mu, TTHLep_2Ele, TTHLep_MuEle, TTHLep_2L, TTHLep_3L" << endl;
+        return 1;
       }
     }
 
     if (!strcmp(argv[i],"-BkgdTreeName")){
-      // Check if BkgdTree is specified.  
+      // Check if BkgdTree is specified.
       if (argc < i+1) {
-	cout << " <AnalysisMain::ParseCmdLine> " << "ERROR: Missing Value for tree name for multivariate variables -BkgdTree!" << endl;
-	return 1;
+        cout << " <AnalysisMain::ParseCmdLine> " << "ERROR: Missing Value for tree name for multivariate variables -BkgdTree!" << endl;
+        return 1;
       } //if
       mystudy.SetBkgdTreeName(argv[i+1]);
     }// if BkgdTreeName
@@ -297,172 +305,56 @@ int main(int argc, char **argv)
   /////////////////////////////////////////////////////////////////////////////////
   // ******** Cuts and Histograms applied to all studies ********
 
-  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, dobWeight, useLeptonSFs, usebTagReweight));
-  //mystudy.AddCut(new HistogrammingMuon(particlesObj,"All"));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Veto"));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new HistogrammingMuon(particlesObj,"UnIsolated"));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new CutEventList(particlesObj));
-  //mystudy.AddCut(new CutPrimaryVertex(particlesObj));
-  //mystudy.AddCut(new HistogrammingMET(particlesObj));
-  //mystudy.AddCut(new CutElectronTighterPt(particlesObj, "Tight")); 
-  
-  /*
-  mystudy.AddCut(new CutMetFilter(particlesObj));
-  if(!isTrainMVA){
-    mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-    if(isTriLepton || isQuaLepton){
-        mystudy.AddCut(new CutLeptonPt3(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-        mystudy.AddCut(new CutLeptonSumCharge(particlesObj,"TTHFake", whichtrig));// Sum Charge for ttH 3 and 4 Leptons 
-        mystudy.AddCut(new CutM4L(particlesObj, "TTHLoose"));     //require that lepton to be isolated, central, high pt
-        if(isQuaLepton){
-            mystudy.AddCut(new CutLeptonPt4(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-        }
-    }else{
-        mystudy.AddCut(new CutLeptonSameSign(particlesObj,"TTHFake"));
-        mystudy.AddCut(new CutLeptonAbsPdgIdSum(particlesObj,"TTHFake"));
-    }
-    mystudy.AddCut(new CutTriggerSelection(particlesObj, whichtrig));
-    mystudy.AddCut(new CutMassL(particlesObj));
-    mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-    mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-    mystudy.AddCut(new CutLeptonTight(particlesObj,"TTHFake"));
-    mystudy.AddCut(new CutLeptonN(particlesObj, "TTHTight"));     //require that lepton to be isolated, central, high pt
-    if(!isTriLepton && !isQuaLepton)mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
-    if(!isTriLepton && !isQuaLepton){
-        mystudy.AddCut(new CutLeptonTightCharge(particlesObj,"TTHFake"));
-    }
-    mystudy.AddCut(new CutTauN(particlesObj, "Loose"));
-  }else{
+/*
     mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     mystudy.AddCut(new CutLeptonSameSign(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
     mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
     mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
- 
-  }
-  mystudy.AddCut(new CutJetN(particlesObj,nJets));
-  */
-  /*
-  mystudy.AddCut(new CutLightJetN(particlesObj));
-  mystudy.AddCut(new CutBTaggedJetN(particlesObj,nbJets, nbMediumJets));
-  */
- 
-  
-  //mystudy.AddCut(new CutLeptonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
-  
-  /*
-  if(!isTrainMVA){
-    mystudy.AddCut(new CutLeptonConversion(particlesObj,"TTHFake"));
-    mystudy.AddCut(new CutLeptonMissHit(particlesObj,"TTHFake"));
-  }
-  //mystudy.AddCut(new CutMuonN(particlesObj, leptonTypeToSelect));     //require that lepton to be isolated, central, high pt
-  mystudy.AddCut(new CutMuonN(particlesObj, "Veto"));     //require that lepton to be isolated, central, high pt
-  */
+    mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
+    mystudy.AddCut(new CutJetN(particlesObj,nJets));
+*/
+
+mystudy.AddCut(new CutGenLeptonPt1(particlesObj, "Gen")); // Require a leading lepton above a given pt
+mystudy.AddCut(new CutGenLeptonPt2(particlesObj, "Gen")); // Require a subleading lepton above a given pt
+mystudy.AddCut(new CutGenLeptonN(particlesObj, "Gen")); // Requirement on # Gen leptons
+mystudy.AddCut(new CutGenLeptonCharge(particlesObj, "Gen")); // 2LSS charge Gen leptons
+mystudy.AddCut(new CutGenJetN(particlesObj)); // Require 3 Gen jets above given pt and eta
+mystudy.AddCut(new CutGenTauN(particlesObj, "Gen")); // Reject events with hadronic tau in final state
+mystudy.AddCut(new CutGenBJetN(particlesObj)); // Require ≥1 Gen b-jets above given pt and eta
 
 
-  //mystudy.AddCut(new CutElectronN(particlesObj, leptonTypeToSelect)); //require that lepton to be isolated, central, high pt
-  //mystudy.AddCut(new CutElectronN(particlesObj, "Veto")); //require that lepton to be isolated, central, high pt
+mystudy.AddVars(new ttVModellingVars(false)); // fill histo, use TTHLoose
 
-  //mystudy.AddCut(new HistogrammingElectron(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
-  //mystudy.AddCut(new HistogrammingElectron(particlesObj,"Veto"));  // make the muon plots, hopefully.
+TFile *_skimBDTFile;
+TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
+_skimBDTFile = new TFile(NNname,"RECREATE");
 
-  //mystudy.AddCut(new HistogrammingMET(particlesObj));
-  //mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
+cout << "<driver> Starting Loop over events in chain" << endl << endl;
+// Loop over events in chain
+// Here is where the events are actually looped and the cuts and histograms above are made
+mystudy.Loop();
+cout << "<driver> Finished Loop over events in chain" << endl;
 
-  //mystudy.AddCut(new HistogrammingMuon(particlesObj,leptonTypeToSelect));  // make the muon plots, hopefully.
+// Write output to files
+cout << "<driver> " << "Writing histograms to file: " << mystudy.GetHistogramFileName() << endl;
 
-  //mystudy.AddCut(new CutMuonTighterPt(particlesObj, "Tight")); //require that new Pt cut for leading and subleading muon  
-  //if (isemu){
-  //  mystudy.AddCut(new CutEMuOverlap(particlesObj));
-  //}
-  //mystudy.AddCut(new CutJetPt1(particlesObj));
-  //mystudy.AddCut(new CutTauN(particlesObj, "Medium"));
-  //mystudy.AddCut(new CutTauCharge(particlesObj,"Loose", isTriLepton));
-  //mystudy.AddCut(new CutTaggedJetN(particlesObj,nbJets));
-  //mystudy.AddCut(new CutHiggsDecay(particlesObj));
-  
-  
-  //mystudy.AddCut(new CutLeptonMCMatchId(particlesObj));
-  //mystudy.AddCut(new CutLeptonMCPromptGamma(particlesObj, useMCPromptGamma)); // only for Gamma Conversions
-  
-  //mystudy.AddCut(new CutLeptonMCPromptFS(particlesObj, useMCPromptFS, isTriLepton, isQuaLepton)); // do not add this cut for conversions 
-  //mystudy.AddCut(new CutLeptonMCRightCharge(particlesObj, useMCRightCharge));// do not add this cut for MCPromptGamma
-  
+_skimBDTFile->Write();
+_skimBDTFile->Close();
 
-  //mystudy.AddCut(new HistogrammingMuon(particlesObj,"Tight"));  // make the muon plots, hopefully.
-  /*
-  mystudy.AddCut(new HistogrammingMET(particlesObj));
-  mystudy.AddCut(new HistogrammingMtW(particlesObj,useInvertedIsolation));
-  mystudy.AddCut(new HistogrammingJetAngular(particlesObj,useInvertedIsolation));
-  mystudy.AddCut(new HistogrammingJet(particlesObj));
-  mystudy.AddCut(new HistogrammingNPvtx(particlesObj));
-  
-  */
-  //mystudy.AddCut(new CutTriangularSumDeltaPhiLepMET(particlesObj));  
-  //if (isemu){
-  //  mystudy.AddCut(new CutHTJET1(particlesObj));
-  //}
-  //mystudy.AddCut(new CutMissingEt(particlesObj));
-  //mystudy.AddCut(new CutLeptonOppositeCharge(particlesObj));
-  //if (isee || ismumu){
-  //  mystudy.AddCut(new CutZveto(particlesObj, "Tight"));
-  //}
+mystudy.Finish();
 
-  //mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
-  
-  //Add in any variables to the skim tree that you want here
-  
-  //mystudy.AddVars(new TestVar());
-  
-  //if (whichtrig) mystudy.AddVars(new BDTVars(true));
-  //mystudy.AddVars(new BDTVars(true));
+// Delete chains and set pointers to NULL
+cout << "<driver> Deleting chains" << endl;
 
-  //mystudy.AddVars(new HadTopVars());
- 
-  
-  //mystudy.AddVars(new ResTopVars());
-  mystudy.AddVars(new ttHVars(false, false)); // fill histo, use TTHLoose
-  
-  mystudy.AddVars(new HjTagger());
-  
-  //mystudy.AddVars(new DNNVars());
-  
-  //mystudy.AddVars(new WeightVars());
- 
-  TFile *_skimBDTFile;
-  TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
-  _skimBDTFile = new TFile(NNname,"RECREATE"); 
-  //     mystudy.AddCut(new HistogrammingWtDiLepTopology(particlesObj, _skimBDTFile));
-  //mystudy.AddCut(new HistogrammingWtDiLepTopology(particlesObj, _skimBDTFile));  // used to select a Zee candidate sample
-  
-  cout << "<driver> Starting Loop over events in chain" << endl << endl;
-  // Loop over events in chain
-  //Here is where the events are actually looped and the cuts and histograms above are made
-  mystudy.Loop();
-  cout << "<driver> Finished Loop over events in chain" << endl;
+if(chainReco)       delete chainReco;
+if(chainTruth)      delete chainTruth;
+if(chainFastSim)    delete chainFastSim;
 
-  // Write output to files
-  cout << "<driver> " << "Writing histograms to file: " << mystudy.GetHistogramFileName() << endl;
-  
-  _skimBDTFile->Write(); 
-  _skimBDTFile->Close(); 
+chainReco       = NULL;
+chainTruth      = NULL;
+chainFastSim    = NULL;
 
-  mystudy.Finish();
-  
-  // Delete chains and set pointers to NULL
-  cout << "<driver> Deleting chains" << endl;
-
-  if(chainReco)       delete chainReco;
-  if(chainTruth)      delete chainTruth;
-  if(chainFastSim)    delete chainFastSim;
-
-  //if(chainCollection) delete chainCollection;
-
-  chainReco       = NULL;
-  chainTruth      = NULL;
-  chainFastSim    = NULL;
-  
-  cout << "<driver> Sucessful Completion." << endl;
-  return 0;
+cout << "<driver> Sucessful Completion." << endl;
+return 0;
 }

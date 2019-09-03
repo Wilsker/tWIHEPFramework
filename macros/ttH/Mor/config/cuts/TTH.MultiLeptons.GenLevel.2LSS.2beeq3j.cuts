@@ -1,0 +1,40 @@
+###############################################################################
+#
+#  TTH.MultiLeptons.DiLepton.SignalRegion.cuts
+#
+###############################################################################
+
+# ############ Trigger Cuts ###############
+Cut.Trigger.Channel:TTHLep_2L
+
+############## Generator Level Cuts ###############
+# Loop of gen particles. Use e.g. 'isMuon()' method to define gen level muons.
+# 2 leptons (e,mu)
+# lep pT > 25(20)GeV
+# lep abs(eta) < 2.5
+# lep same sign
+# no hadronic tau (only in 2LSS, remove cut for other channels)
+# jet pt > 25 GeV
+# jet abs(eta) < 2.5
+# >= 3 jets
+# >= 1 b-jet
+# Region 1: 1 b-jet, >=4 jets
+# Region 2: 2 b-jets, >=4 jets
+# Region 3: 1 b-jet, 3 jets
+# Region 4: 2 b-jets, 3 jets
+
+Cut.Muon.Gen.LeadingPt.Min: 25
+Cut.Electron.Gen.LeadingPt.Min: 25
+Cut.Muon.Gen.SubLeadingPt.Min: 20
+Cut.Electron.Gen.SubLeadingPt.Min: 20
+Cut.Lepton.Gen.Number.Min: 2
+Cut.Lepton.Gen.Number.Max: 3
+Cut.Dilepton.Gen.SameSign: 1
+Cut.Tau.Gen.Number.Max: 0
+
+Cut.Jet.Gen.Pt.Min:  25
+Cut.Jet.Gen.Eta.Max: 2.5
+Cut.Jet.Gen.Number.Min: 3
+Cut.Jet.Gen.Number.Max: 3
+Cut.BJet.Gen.Number.Min: 1
+Cut.BJet.Gen.Number.Max: 999

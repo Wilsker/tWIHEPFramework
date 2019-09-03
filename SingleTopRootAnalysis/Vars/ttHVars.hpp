@@ -2,7 +2,7 @@
  * ttHVars.hpp                                                                *
  *                                                                            *
  * Add the variables we will use in the BDT to the skim tree                  *
- * 
+ *
  * History
  *      12 Dec 2017 - Created by B. Li
  ******************************************************************************/
@@ -11,7 +11,7 @@
 #define ttHVars_h
 
 #include "SingleTopRootAnalysis/Base/Dictionary/VarBase.hpp"
-#include "SingleTopRootAnalysis/Base/Dictionary/EventContainer.hpp" 
+#include "SingleTopRootAnalysis/Base/Dictionary/EventContainer.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Lepton.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Tau.hpp"
 #include "SingleTopRootAnalysis/Particles/Recon/Jet.hpp"
@@ -27,13 +27,13 @@
 #include "TH2F.h"
 
 class ttHVars: public VarBase {
-  
+
 public:
   ttHVars(bool makeHistos = false, bool useTTHLoose = false);
-  
+
   //void BookBranches(TTree * skimTree);
   void FillBranches(EventContainer * evtObj);
-  
+
 private:
     bool _useTTHLoose;
     void Clear();
@@ -65,11 +65,11 @@ private:
     bool IstHlikeTriLepFake(EventContainer* EvtObj);
     bool IstHlikeQuaLepSR(EventContainer* EvtObj);
     bool IstHlikeQuaLepFake(EventContainer* EvtObj);
-    
+
     //utils
     double deltaPhi(double phi1, double phi2);
 
-    //2D BDT binning 
+    //2D BDT binning
     Int_t get_2DBDTBin(double BDT_ttbar, double BDT_ttV, EventContainer* EvtObj);
 
     std::vector<Lepton> looseLeptons;
@@ -80,7 +80,7 @@ private:
     std::vector<Jet> Jets;
     std::vector<Jet> fwdJets;
     std::vector<Tau> Taus;
-    
+
     std::vector<double> FakeLep_isFromB;
     std::vector<double> FakeLep_isFromC;
     std::vector<double> FakeLep_isFromH;
@@ -103,7 +103,7 @@ private:
     std::vector<double> Jet25_eta;
     std::vector<double> Jet25_phi;
     std::vector<double> Jet25_energy;
-    
+
     Int_t nLep_Cat;
 
     Int_t Jet_numbLoose;

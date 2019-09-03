@@ -82,7 +82,7 @@ public:
   void Fill(TruthTree *trtr, Int_t iE);
   void Fill(EventTree *evtr, Int_t iE, Int_t& motherIndex, Int_t& daughtIndex);
 
- 
+
   // Setters PDG ID
   inline void SetPdgId(Double_t pdgId)  { _PdgId   = pdgId;   };
   inline void SetStatus(Int_t status)   { _Status  = status;  };
@@ -95,7 +95,7 @@ public:
   inline Double_t PdgId() const { return GetPdgId(); };
   inline Double_t GetAbsPdgId() const { return(_PdgId>0 ? _PdgId : -_PdgId) ; };
   inline Double_t AbsPdgId() const { return GetAbsPdgId(); };
-  
+
 
 
   // Particles ID check functions
@@ -120,7 +120,7 @@ public:
   // Status flag
   inline Int_t GetStatus() const { return _Status; };
   inline Int_t Status() const { return GetStatus(); };
- 
+
   // numMother flag
   inline Int_t GetnumMother() const { return _numMother; };
   inline Int_t numMother() const { return GetnumMother(); };
@@ -191,7 +191,7 @@ protected:
   Int_t _isDirectPromptTauDecayProductFinalState;
   std::vector<Int_t> _BmotherIndices;
   std::vector<Int_t> _BdaughtIndices;
- 
+
   ////////////////////////////////////////////////////////////////////////////////
   // Integrate classes into the Root system
   // Must come at end of class definition
