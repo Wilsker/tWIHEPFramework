@@ -94,7 +94,7 @@
 #include "SingleTopRootAnalysis/Vars/ttHVars.hpp"
 #include "SingleTopRootAnalysis/Vars/HjTagger.hpp"
 #include "SingleTopRootAnalysis/Vars/WeightVars.hpp"
-#include "SingleTopRootAnalysis/Vars/DNNVars.hpp"
+//#include "SingleTopRootAnalysis/Vars/DNNVars.hpp"
 #include "SingleTopRootAnalysis/Vars/ttVModellingVars.hpp"
 
 using std::cout;
