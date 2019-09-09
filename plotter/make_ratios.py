@@ -23,7 +23,8 @@ features={
 systematics=["nominal","genWeight"]
 #upDown=["_SysUp","_SysDown"]
 upDown=["_muF2","_muF0p5"]
-Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
+#Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
+Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
 #sampleName = ["TTW"]
