@@ -36,12 +36,8 @@ for sample in sampleName:
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
-                #print (input01,CUT)
-                print "Draw command: tree0.Draw(%s)" % (input01)
-                #tree0.Draw(input01,CUT)
-                tree0.ls()
-                tree0.Print()
-                tree0.Draw(input01)
+                print "Draw command: tree0.Draw(%s,%s)" % (input01,CUT)
+                tree0.Draw(input01,CUT)
 
                 h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
