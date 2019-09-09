@@ -42,7 +42,8 @@ for sample in sampleName:
                 #tree0.Draw(input01,CUT)
 
                 tree0.ls()
-                
+                tree0.Print()
+
                 tree0.Draw(input01)
 
                 h_tmp = draw_underflow_overflow(h01)
