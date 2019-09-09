@@ -138,6 +138,7 @@ def plotSysts():
                 #legend.SetHeader("CMS preliminary")
                 #legend.SetNColumns(3)
                 legend.SetBorderSize(0)
+                hist_nickname = ''
                 hist_nickname = sampleTitle[sample] + ' ' + syst
                 legend.AddEntry(hist_nom,hist_nickname,"l")
 
@@ -156,7 +157,7 @@ def plotSysts():
                     hist_vars.append(hist_var)
                     h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_var)
-                    legend.AddEntry(h_ratio_var,hist_name,"l")
+                    legend.AddEntry(h_ratio_var,hist_nickname,"l")
 
                 # draw everything
 
@@ -207,9 +208,9 @@ def plotSysts():
 
                 legend.Draw("same")
                 label = ROOT.TLatex()
-                label.SetTextSize(0.025)
+                label.SetTextSize(0.03)
                 label.SetTextAlign(13)
-                label.DrawLatex(.2,.4,"CMS preliminary")
+                label.DrawLatex(.8,.4,"CMS preliminary")
 
 
                 pad2.cd()
