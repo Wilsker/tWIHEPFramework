@@ -6,7 +6,7 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 #### start  user defined variables
 
 #inputDirectories = "/home/binghuan/Work/TMP/DiLepRegion/";
-inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"
+inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/hists/2LSS/1bgeq4j/"
 treename = "syncTree";
 
 features={
