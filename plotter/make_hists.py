@@ -25,7 +25,6 @@ for sample in sampleName:
     print 'Reading file: %s , tree: %s' % (inputDirectories+sample+postfix,treename)
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
-    tree0.SetBranchStatus('*',1)
     for feature, values in features.items():
         print 'feature: ', feature
         print 'values: ', values
