@@ -15,10 +15,14 @@ features={
 #"lep2_conePt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=3)","xlabel":"lep2_conePt"},
 #"tau1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=3)","xlabel":"tau1_pt"},
 }
-
+#genWeight_muF0p5
+#genWeight_muF2
+#genWeight_muR0p5
+#genWeight_muR2
 #systematics=["nominal","puWeight"]
-systematics=["nominal","psWeights"]
-upDown=["_SysUp","_SysDown"]
+systematics=["nominal","genWeight"]
+#upDown=["_SysUp","_SysDown"]
+upDown=["_muF2","_muF0p5"]
 Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
