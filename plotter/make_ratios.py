@@ -209,9 +209,9 @@ def plotSysts():
 
                 legend.Draw("same")
                 label = ROOT.TLatex()
-                label.SetTextSize(0.03)
+                label.SetTextSize(0.05)
                 label.SetTextAlign(13)
-                label.DrawLatexNDC(.8,.4,"CMS preliminary")
+                label.DrawLatexNDC(.2,.8,"CMS preliminary")
 
 
                 pad2.cd()
