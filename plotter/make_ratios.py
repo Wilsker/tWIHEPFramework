@@ -43,7 +43,7 @@ Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
 sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
 
 sampleTitle = {
-"TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTWJetsToLNu MG+Pyth8"
+"TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTW MG+Pyth8"
 }
 
 #postfix = "_DiLepRegion.root"
@@ -165,7 +165,8 @@ def plotSysts():
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
-                    hist_nickname = hist_nickname + ' ' + var
+                    hist_nickname_plus_syst = ''
+                    hist_nickname_plus_syst = hist_nickname + ' ' + var
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
                     hist_var.SetLineColor(Color[var])
@@ -173,7 +174,7 @@ def plotSysts():
                     hist_vars.append(hist_var)
                     h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_var)
-                    legend.AddEntry(h_ratio_var,hist_nickname,"l")
+                    legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
                 # draw everything
 
