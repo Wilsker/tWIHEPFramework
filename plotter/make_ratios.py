@@ -6,7 +6,7 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 #### start  user defined variables
 
 #inputDirectories = "/home/binghuan/Work/TMP/DiLepRegion/";
-inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/hists/2LSS/1bgeq4j/"
+inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"
 treename = "syncTree";
 
 features={
@@ -21,7 +21,7 @@ Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
 #sampleName = ["TTW"]
-sampleName = ["ttV-modelling-TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8"]
+sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
 
 #postfix = "_DiLepRegion.root"
 postfix = ".root"
