@@ -1,6 +1,6 @@
 import sys
 import os
-from ROOT import TCanvas, TColor, TGaxis, TH1F, TPad, TString, TFile, TH1, THStack, gROOT, TStyle, TAttFill, TLegend, TGraphAsymmErrors, TLine
+from ROOT import TCanvas, TColor, TGaxis, TH1F, TPad, TString, TFile, TH1, THStack, gROOT, TStyle, TAttFill, TLegend, TGraphAsymmErrors, TLine, TLatex
 from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kPink, kTRUE
 
 #### start  user defined variables
@@ -129,9 +129,13 @@ def plotSysts():
             for syst in systematics:
                 if syst=="nominal": continue
 
+                TLatex latex;
+                latex.SetTextSize(0.025);
+                latex.SetTextAlign(13);  //align at top
+                latex.DrawLatex(.2,.4,"CMS preliminary");
                 # set up legend
-                legend = TLegend(0.2,0.6,0.7,0.88)
-                legend.SetHeader("CMS preliminary")
+                legend = TLegend(0.6,0.6,0.9,0.9)
+                #legend.SetHeader("CMS preliminary")
                 #legend.SetNColumns(3)
                 legend.SetBorderSize(0)
 
