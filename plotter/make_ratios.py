@@ -10,7 +10,7 @@ inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/hi
 treename = "syncTree";
 
 features={
-"lep1_conePt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=4)","xlabel":"lep1_conePt"},
+"gen_lepton1_pt/F":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=4)","xlabel":"lep1_conePt"},
 #"lep2_conePt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=3)","xlabel":"lep2_conePt"},
 #"tau1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=3)","xlabel":"tau1_pt"},
 }
