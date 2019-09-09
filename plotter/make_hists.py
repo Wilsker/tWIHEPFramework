@@ -33,7 +33,7 @@ for sample in sampleName:
                 hist_name = sample+"_"+feature
                 h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
-                input01 = "%s>>%s"%(feature,hist_name)
+                input01 = "\"%s>>%s\""%(feature,hist_name)
                 CUT = "%s"%values["cut"]
                 #print (input01,CUT)
                 print "Draw command: tree0.Draw(\"%s\")" % (input01)
