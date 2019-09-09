@@ -48,8 +48,8 @@ for sample in sampleName:
                     h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
-                    #CUT = "%s*%s%s/%s"%(values["cut"],syst,var,syst)
-                    CUT = "%s*%s%s"%(values["cut"],syst,var)
+                    CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
+                    #CUT = "%s*%s%s"%(values["cut"],syst,var)
                     print 'CUT: ', CUT
                     tree0.Draw(input01,CUT)
                     h_tmp = draw_underflow_overflow(h01)
