@@ -25,13 +25,11 @@ for sample in sampleName:
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
-        print 'feature: ', feature
-        print 'values: ', values
         for syst in systematics:
             print 'syst: ', syst
             if syst == "nominal":
                 hist_name = sample+"_"+feature
-                h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
+                h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
@@ -43,14 +41,11 @@ for sample in sampleName:
                 h_tmp.Write()
             else:
                 for var in upDown:
-                    print 'variation: ', var
                     hist_name = sample+"_"+feature+"_"+syst+var
                     h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
-                    #CUT = "%s*%s%s"%(values["cut"],syst,var)
-                    print 'CUT: ', CUT
                     tree0.Draw(input01,CUT)
                     h_tmp = draw_underflow_overflow(h01)
                     f_out.cd()
