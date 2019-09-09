@@ -150,7 +150,7 @@ def plotSysts():
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
-                    hist_nickname = hist_nickname + ' ' var
+                    hist_nickname = hist_nickname + ' ' + var
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
                     hist_var.SetLineColor(Color[var])
