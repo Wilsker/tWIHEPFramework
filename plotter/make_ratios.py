@@ -6,7 +6,7 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 #### start  user defined variables
 
 #inputDirectories = "/home/binghuan/Work/TMP/DiLepRegion/";
-inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/skims/2LSS/1bgeq4j/"
+inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"
 treename = "syncTree";
 
 features={
@@ -20,8 +20,11 @@ upDown=["_SysUp","_SysDown"]
 Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
-sampleName = ["TTW"]
-postfix = "_DiLepRegion.root"
+#sampleName = ["TTW"]
+sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
+
+#postfix = "_DiLepRegion.root"
+postfix = ".root"
 
 
 # the root file saving the histograms
