@@ -21,7 +21,7 @@ Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
 #sampleName = ["TTW"]
-sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
+sampleName = ["ttV-modelling-TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8"]
 
 #postfix = "_DiLepRegion.root"
 postfix = ".root"
