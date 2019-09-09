@@ -12,7 +12,6 @@ gStyle.SetTitleY(0.96) # title Y location
 gStyle.SetPaintTextFormat(".2f")
 
 def draw_underflow_overflow(h1):
-    print 'draw_underflow_overflow'
     h1.GetXaxis().SetRange(0, h1.GetNbinsX() + 1)
     h1.Draw()
     return h1
@@ -48,7 +47,8 @@ for sample in sampleName:
                     h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
-                    CUT = "%s*%s%s/%s"%(values["cut"],syst,var,syst)
+                    #CUT = "%s*%s%s/%s"%(values["cut"],syst,var,syst)
+                    CUT = "%s*%s%s"%(values["cut"],syst,var)
                     tree0.Draw(input01,CUT)
                     h_tmp = draw_underflow_overflow(h01)
                     f_out.cd()
