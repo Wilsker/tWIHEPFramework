@@ -139,7 +139,7 @@ def plotSysts():
                 #legend.SetNColumns(3)
                 legend.SetBorderSize(0)
                 hist_nickname = ''
-                hist_nickname = sampleTitle[sample] + ' ' + syst
+                hist_nickname = sampleTitle[sample]
                 legend.AddEntry(hist_nom,hist_nickname,"l")
 
                 c, pad1, pad2 = createCanvasPads()
@@ -150,6 +150,7 @@ def plotSysts():
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
+                    hist_nickname = hist_nickname + ' ' var
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
                     hist_var.SetLineColor(Color[var])
@@ -210,7 +211,7 @@ def plotSysts():
                 label = ROOT.TLatex()
                 label.SetTextSize(0.03)
                 label.SetTextAlign(13)
-                label.DrawLatex(.8,.4,"CMS preliminary")
+                label.DrawLatexNDC(.8,.4,"CMS preliminary")
 
 
                 pad2.cd()
