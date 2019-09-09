@@ -12,6 +12,7 @@ gStyle.SetTitleY(0.96) # title Y location
 gStyle.SetPaintTextFormat(".2f")
 
 def draw_underflow_overflow(h1):
+    print 'draw_underflow_overflow'
     h1.GetXaxis().SetRange(0, h1.GetNbinsX() + 1)
     h1.Draw()
     return h1
@@ -24,6 +25,7 @@ for sample in sampleName:
     print 'Reading file: %s , tree: %s' % (inputDirectories+sample+postfix,treename)
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
+    tree0.SetBranchStatus('*',1)
     for feature, values in features.items():
         print 'feature: ', feature
         print 'values: ', values
@@ -39,6 +41,7 @@ for sample in sampleName:
                 print "Draw command: tree0.Draw(%s)" % (input01)
                 #tree0.Draw(input01,CUT)
                 tree0.Draw(input01)
+
                 h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
                 h_tmp.Write()
