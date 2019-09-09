@@ -26,6 +26,7 @@ for sample in sampleName:
     tree0 = file0.Get(treename)
     for feature, values in features.items():
         print 'feature: ', feature
+        print 'values: ', values
         for syst in systematics:
             print 'syst: ', syst
             if syst == "nominal":
@@ -34,7 +35,9 @@ for sample in sampleName:
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
-                print (input01,CUT)
+                #print (input01,CUT)
+                print (input01)
+                #tree0.Draw(input01,CUT)
                 tree0.Draw(input01,CUT)
                 h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
