@@ -8,7 +8,7 @@ gStyle.SetCanvasColor(0)
 gStyle.SetFrameBorderMode(0)
 gStyle.SetOptStat(0)
 gStyle.SetTitleX(0.5) # title X location
-gStyle.SetTitleY(0.96) # title Y location 
+gStyle.SetTitleY(0.96) # title Y location
 gStyle.SetPaintTextFormat(".2f")
 
 def draw_underflow_overflow(h1):
@@ -21,11 +21,14 @@ Canv = TCanvas("c1","c1",0,0,800,600)
 f_out = TFile(filename,"recreate")
 
 for sample in sampleName:
+    print 'Reading file: %s , tree: %s' % (inputDirectories+sample+postfix,treename)
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
+        print 'feature: ', feature
         for syst in systematics:
-            if syst == "nominal": 
+            print 'syst: ', syst
+            if syst == "nominal":
                 hist_name = sample+"_"+feature
                 h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
@@ -35,7 +38,7 @@ for sample in sampleName:
                 tree0.Draw(input01,CUT)
                 h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
-                h_tmp.Write() 
+                h_tmp.Write()
             else:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
@@ -46,7 +49,6 @@ for sample in sampleName:
                     tree0.Draw(input01,CUT)
                     h_tmp = draw_underflow_overflow(h01)
                     f_out.cd()
-                    h_tmp.Write() 
+                    h_tmp.Write()
 
 f_out.Close()
-    
