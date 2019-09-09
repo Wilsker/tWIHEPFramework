@@ -32,9 +32,9 @@ features={
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 #systematics=["nominal","puWeight"]
-systematics=["nominal","genWeight_"]
+systematics=["nominal","genWeight"]
 #upDown=["_SysUp","_SysDown"]
-upDown=["muF2","muF0p5"]
+upDown=["_muF2","_muF0p5"]
 #Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
 Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
 
@@ -166,7 +166,7 @@ def plotSysts():
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
                     hist_nickname_plus_syst = ''
-                    hist_nickname_plus_syst = hist_nickname + ' ' + var
+                    hist_nickname_plus_syst = hist_nickname + ' ' + var[1:]
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
                     hist_var.SetLineColor(Color[var])
