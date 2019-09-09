@@ -7,7 +7,8 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 
 #inputDirectories = "/home/binghuan/Work/TMP/DiLepRegion/";
 inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"
-treename = "syncTree";
+#treename = "syncTree";
+treename = "TNT/BOOM";
 
 features={
 "gen_lepton1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
