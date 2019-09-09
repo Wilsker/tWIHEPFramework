@@ -11,7 +11,7 @@ inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/sk
 treename = "TNT/BOOM";
 
 features={
-"gen_lepton1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
+"gen_lepton1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
 #"lep2_conePt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=3)","xlabel":"lep2_conePt"},
 #"tau1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_presel_jet>=3)","xlabel":"tau1_pt"},
 }
