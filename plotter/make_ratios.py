@@ -129,10 +129,10 @@ def plotSysts():
             for syst in systematics:
                 if syst=="nominal": continue
 
-                TLatex latex;
-                latex.SetTextSize(0.025);
-                latex.SetTextAlign(13);  //align at top
-                latex.DrawLatex(.2,.4,"CMS preliminary");
+                label = ROOT.TLatex()
+                label.SetTextSize(0.025);
+                label.SetTextAlign(13);  //align at top
+                label.DrawLatex(.2,.4,"CMS preliminary");
                 # set up legend
                 legend = TLegend(0.6,0.6,0.9,0.9)
                 #legend.SetHeader("CMS preliminary")
