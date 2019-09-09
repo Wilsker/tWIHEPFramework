@@ -32,9 +32,9 @@ features={
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 #systematics=["nominal","puWeight"]
-systematics=["nominal","genWeight"]
+systematics=["nominal","genWeight_"]
 #upDown=["_SysUp","_SysDown"]
-upDown=["_muF2","_muF0p5"]
+upDown=["muF2","muF0p5"]
 #Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
 Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
 
