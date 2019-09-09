@@ -38,7 +38,7 @@ for sample in sampleName:
                 #print (input01,CUT)
                 print (input01)
                 #tree0.Draw(input01,CUT)
-                tree0.Draw(input01,CUT)
+                tree0.Draw(input01)
                 h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
                 h_tmp.Write()
