@@ -27,6 +27,10 @@ Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
 #sampleName = ["TTW"]
 sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
 
+sampleTitle = {
+"TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTWJetsToLNu MG+Pyth8"
+}
+
 #postfix = "_DiLepRegion.root"
 postfix = ".root"
 
@@ -129,17 +133,13 @@ def plotSysts():
             for syst in systematics:
                 if syst=="nominal": continue
 
-                label = ROOT.TLatex()
-                label.SetTextSize(0.025)
-                label.SetTextAlign(13)
-                label.DrawLatex(.2,.4,"CMS preliminary")
                 # set up legend
-                legend = TLegend(0.6,0.6,0.9,0.9)
+                legend = TLegend(0.6,0.6,0.88,0.88)
                 #legend.SetHeader("CMS preliminary")
                 #legend.SetNColumns(3)
                 legend.SetBorderSize(0)
-
-                legend.AddEntry(hist_nom,hist_nom_name,"l")
+                hist_nickname = sampleTitle[sample] + ' ' + syst
+                legend.AddEntry(hist_nom,hist_nickname,"l")
 
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
@@ -206,6 +206,10 @@ def plotSysts():
                     hist.Draw("HISTsame")
 
                 legend.Draw("same")
+                label = ROOT.TLatex()
+                label.SetTextSize(0.025)
+                label.SetTextAlign(13)
+                label.DrawLatex(.2,.4,"CMS preliminary")
 
 
                 pad2.cd()
