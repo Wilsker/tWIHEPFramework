@@ -75,9 +75,11 @@ for sample in sampleName:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     print 'Histogram name: ', hist_name
                     #h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
+                    Nbins = 0
                     if 'MCGenHTall' in feature:
                         Nbins = len(binning['MCGenHTall'])+1
                         binning = array('f',binning['MCGenHTall'])
+                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenHThad' in feature:
                         Nbins = len(binning['MCGenHThad'])+1
@@ -87,14 +89,17 @@ for sample in sampleName:
                     elif 'MCGenHTlep' in feature:
                         Nbins = len(binning['MCGenHTlep'])+1
                         binning = array('f',binning['MCGenHTlep'])
+                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenMET' in feature:
                         Nbins = len(binning['MCGenMET'])+1
                         binning = array('f',binning['MCGenMET'])
+                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif '_lepton_' in feature:
                         Nbins = len(binning['_lepton_'])+1
                         binning = array('f',binning['_lepton_'])
+                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     else:
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
