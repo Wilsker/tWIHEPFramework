@@ -229,8 +229,8 @@ def plotSysts():
                 for i in range(len(hist_ratio_vars)):
                     if i==0:
                         hist_ratio_vars[i].Draw("hist")
-                        #hist_ratio_vars[i].SetMinimum(0.5)
-                        #hist_ratio_vars[i].SetMaximum(1.5)
+                        hist_ratio_vars[i].SetMinimum(0.5)
+                        hist_ratio_vars[i].SetMaximum(1.5)
                     else:
                         hist_ratio_vars[i].Draw("histsame")
                 line.Draw("same")
