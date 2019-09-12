@@ -28,7 +28,7 @@ for sample in sampleName:
     for feature, values in features.items():
         if 'MCGenHThad' in feature:
             Nbins = len(binning['MCGenHThad'])+1
-            binning = array('i',binning['MCGenHThad'])
+            binning = array('d',binning['MCGenHThad'])
         for syst in systematics:
             if syst == "nominal":
                 print 'Feature: ', feature
