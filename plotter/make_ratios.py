@@ -231,7 +231,9 @@ def plotSysts():
                 pad2.SetGridy()
                 bins = h_ratio.GetNbinsX()
                 LowEdge = h_ratio.GetBinLowEdge(0)
+                print 'LowEdge: ', LowEdge
                 HighEdge = h_ratio.GetBinLowEdge(bins+1)
+                print 'HighEdge: ', HighEdge
                 line = TLine(LowEdge,1,HighEdge,1)
                 line.SetLineColor(kBlack)
                 for i in range(len(hist_ratio_vars)):
