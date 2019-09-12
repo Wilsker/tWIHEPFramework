@@ -34,10 +34,11 @@ for sample in sampleName:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
                 if 'MCGenHThad' in feature:
-                    h01 = TH1F(hist_name, feature, Nbins, binning)
+                    print 'creating new h01'
+                    h01 = TH1F(hist_name, feature, Nbins-1, binning)
                 else:
+                    print 'creating new h01'
                     h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
-
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
@@ -51,8 +52,10 @@ for sample in sampleName:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     if 'MCGenHThad' in feature:
-                        h01 = TH1F(hist_name, feature, Nbins, binning)
+                        print 'creating new h01'
+                        h01 = TH1F(hist_name, feature, Nbins-1, binning)
                     else:
+                        print 'creating new h01'
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
