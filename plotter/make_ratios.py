@@ -175,8 +175,8 @@ def plotSysts():
                     if normalization:
                         hist.Scale(1./hist.Integral())
                     if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
-                #upperbound = 1.8*maximum
-                #lowerbound = -maximum/40.
+                upperbound = 1.8*maximum
+                lowerbound = -maximum/40.
 
                 Y_name = "Events"
                 if normalization:
@@ -185,8 +185,8 @@ def plotSysts():
                 if showStats:
                     hist_nom.SetStats(1)
 
-                #hist_nom.SetMaximum(upperbound)
-                #hist_nom.SetMinimum(lowerbound)
+                hist_nom.SetMaximum(upperbound)
+                hist_nom.SetMinimum(lowerbound)
                 # Adjust y-axis settings
                 y = hist_nom.GetYaxis()
                 y.SetTitleSize(25)
