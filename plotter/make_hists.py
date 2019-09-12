@@ -54,7 +54,6 @@ for sample in sampleName:
                 for var in upDown:
                     print 'Systematic variation: ', var
                     hist_name = sample+"_"+feature+"_"+syst+var
-                    Nbins = 0
                     if 'MCGenHThad' in feature:
                         print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
