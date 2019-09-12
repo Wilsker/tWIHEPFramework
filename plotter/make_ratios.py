@@ -220,7 +220,7 @@ def plotSysts():
                 pad2.SetGridx()
                 pad2.SetGridy()
                 bins = h_ratio.GetNbinsX()
-                LowEdge = h_ratio.GetBinLowEdge(0)
+                LowEdge = h_ratio.GetBinLowEdge(1)
                 print 'LowEdge: ', LowEdge
                 HighEdge = h_ratio.GetBinLowEdge(bins+1)
                 print 'HighEdge: ', HighEdge
