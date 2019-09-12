@@ -71,6 +71,8 @@ for sample in sampleName:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     #h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     if 'MCGenHTall' in feature:
+                        print 'type binning[MCGenHThad]: ', type(binning['MCGenHThad'])
+                        print 'type binning[MCGenHThad][0]: ', type(binning['MCGenHThad'][0])
                         Nbins = len(binning['MCGenHThad'])+1
                         binning = binning['MCGenHThad']
                         h01 = TH1F(hist_name, feature, Nbins, binning)
