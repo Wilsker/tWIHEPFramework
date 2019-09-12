@@ -30,21 +30,13 @@ for sample in sampleName:
         Nbins = 0
         Nbins = len(binning[feature])
         bins_ = array('d',binning[feature])
-        #if 'MCGenHThad' in feature:
-            #Nbins = len(binning[feature])
-            #bins_ = array('d',binning[feature])
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
                 h01 = TH1F(hist_name, feature, Nbins-1, bins_)
-                #if 'MCGenHThad' in feature:
-                #    h01 = TH1F(hist_name, feature, Nbins-1, bins_)
-                #else:
-                #    h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
-                #print "Draw command: tree0.Draw(%s,%s)" % (input01,CUT)
                 tree0.Draw(input01,CUT)
                 #h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
@@ -54,10 +46,6 @@ for sample in sampleName:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     h01 = TH1F(hist_name, feature, Nbins-1, bins_)
-                    #if 'MCGenHThad' in feature:
-                    #    h01 = TH1F(hist_name, feature, Nbins-1, bins_)
-                    #else:
-                    #    h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
