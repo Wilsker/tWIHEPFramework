@@ -72,28 +72,28 @@ for sample in sampleName:
                     print 'Histogram name: ', hist_name
                     #h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     if 'MCGenHTall' in feature:
-                        Nbins = len(binning['MCGenHTall'])+1
-                        binning = binning['MCGenHTall']
-                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
+                        #Nbins = len(binning['MCGenHTall'])+1
+                        #binning = binning['MCGenHTall']
+                        h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenHThad' in feature:
-                        Nbins = len(binning['MCGenHThad'])+1
-                        binning = binning['MCGenHThad']
+                        #Nbins = len(binning['MCGenHThad'])+1
+                        #binning = binning['MCGenHThad']
                         print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
-                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
+                        h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenHTlep' in feature:
-                        Nbins = len(binning['MCGenHTlep'])+1
-                        binning = binning['MCGenHTlep']
-                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
+                        #Nbins = len(binning['MCGenHTlep'])+1
+                        #binning = binning['MCGenHTlep']
+                        h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenMET' in feature:
-                        Nbins = len(binning['MCGenMET'])+1
-                        binning = binning['MCGenMET']
-                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
+                        #Nbins = len(binning['MCGenMET'])+1
+                        #binning = binning['MCGenMET']
+                        h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif '_lepton_' in feature:
-                        Nbins = len(binning['_lepton_'])+1
-                        binning = binning['_lepton_']
-                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
+                        #Nbins = len(binning['_lepton_'])+1
+                        #binning = binning['_lepton_']
+                        h01 = TH1F(hist_name, feature, Nbins, binning)
                     else:
-                        h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
+                        h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
