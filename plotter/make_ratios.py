@@ -35,7 +35,21 @@ binning["MCGenHTall"]=[0,120,180,240,300,360,440,540,680,900,1500]
 binning["MCGenHThad"]=[0,90,140,180,240,300,380,460,540,650,850,1500]
 binning["MCGenHTlep"]=[0,20,50,80,110,150,200,300,400,550,800]
 binning["MCGenMET"]=[0,20,50,80,120,180,300,500,1200]
-binning["_lepton_"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_lepton1_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_lepton2_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_bjet1_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_bjet2_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_jet1_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_jet2_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_jet3_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_jet4_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["n_gen_jets"]=[0,1,2,3,4,5,6,7,8,9,10]
+binning["n_gen_bjets"]=[0,1,2,3,4,5,6,7,8,9,10]
+binning["n_gen_lepton"]=[0,1,2,3,4,5,6,7,8,9,10]
+binning["MinDRMCGenLep1Jet"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
+binning["MinDrMCGenLep2Jet"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
+binning["MinDRMCGenLeps"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
+
 
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}

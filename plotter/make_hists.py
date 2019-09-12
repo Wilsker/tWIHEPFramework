@@ -26,10 +26,9 @@ for sample in sampleName:
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
-        if 'MCGenHThad' in feature:
-            Nbins = len(binning['MCGenHThad'])
-            binning = array('d',binning['MCGenHThad'])
-            print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
+        #if 'MCGenHThad' in feature:
+        Nbins = len(binning[feature])
+        binning = array('d',binning[feature])
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
