@@ -36,7 +36,7 @@ for sample in sampleName:
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
-                h01 = TH1F(hist_name, feature, Nbins-1, binning)
+                h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                 #if 'MCGenHThad' in feature:
                 #    h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                 #else:
@@ -53,7 +53,7 @@ for sample in sampleName:
             else:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
-                    h01 = TH1F(hist_name, feature, Nbins-1, binning)
+                    h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     #if 'MCGenHThad' in feature:
                     #    h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     #else:
