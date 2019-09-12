@@ -38,7 +38,8 @@ for sample in sampleName:
 
                 #h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
-                h_tmp.Write()
+                #h_tmp.Write()
+                h01.Write()
             else:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
