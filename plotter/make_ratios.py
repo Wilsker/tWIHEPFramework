@@ -1,5 +1,6 @@
 import sys, ROOT
 import os
+import numpy as np
 from ROOT import TCanvas, TColor, TGaxis, TH1F, TPad, TString, TFile, TH1, THStack, gROOT, TStyle, TAttFill, TLegend, TGraphAsymmErrors, TLine, TLatex
 from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kPink, kTRUE
 
@@ -30,11 +31,11 @@ features={
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"}
 }
 binning={
-"MCGenHTall":{"bin_list":[0,120,180,240,300,360,440,540,680,900,1500]},
-"MCGenHThad":{"bin_list":[0,90,140,180,240,300,380,460,540,650,850,1500]},
-"MCGenHTlep":{"bin_list":[0,20,50,80,110,150,200,300,400,550,800]},
-"MCGenMET":{"bin_list":[0,20,50,80,120,180,300,500,1200]},
-"_lepton_":{"bin_list":[0,20,25,33,45,60,80,110,160,500]}
+"MCGenHTall":{"bin_list":np.array([0,120,180,240,300,360,440,540,680,900,1500])},
+"MCGenHThad":{"bin_list":np.array([0,90,140,180,240,300,380,460,540,650,850,1500])},
+"MCGenHTlep":{"bin_list":np.array([0,20,50,80,110,150,200,300,400,550,800])},
+"MCGenMET":{"bin_list":np.array([0,20,50,80,120,180,300,500,1200])},
+"_lepton_":{"bin_list":np.array([0,20,25,33,45,60,80,110,160,500])}
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
