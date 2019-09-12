@@ -32,7 +32,7 @@ features={
 
 binning={}
 binning["MCGenHTall"]=[0,120,180,240,300,360,440,540,680,900,1500]
-binning["MCGenHThad"]=[0,90,140,180,240,300,380,460,540,650,850,1500]
+binning["MCGenHThad"]=[0.,90.,140.,180.,240.,300.,380.,460.,540.,650.,850.,1500.]
 binning["MCGenHTlep"]=[0,20,50,80,110,150,200,300,400,550,800]
 binning["MCGenMET"]=[0,20,50,80,120,180,300,500,1200]
 binning["_lepton_"]=[0,20,25,33,45,60,80,110,160,500]
@@ -79,6 +79,7 @@ if createROOTfile:
     exec(open("make_hists.py").read())
 
 def createRatio(h1, h2, POI):
+    print 'createRatio'
     h3 = h1.Clone("h3")
     h3.SetMarkerStyle(1)
     h3.SetTitle("")
@@ -195,6 +196,7 @@ def plotSysts():
 
                 hist_nom.SetMaximum(upperbound)
                 hist_nom.SetMinimum(lowerbound)
+                print 'Adjust y-axis settings'
                 # Adjust y-axis settings
                 y = hist_nom.GetYaxis()
                 y.SetTitleSize(25)
@@ -204,6 +206,7 @@ def plotSysts():
                 y.SetLabelSize(20)
                 y.SetTitle(Y_name)
 
+                print 'Adjust x-axis settings'
                 # Adjust x-axis settings
                 x = hist_nom.GetXaxis()
                 x.SetTitleSize(25)
