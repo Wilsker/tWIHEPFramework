@@ -226,7 +226,6 @@ def plotSysts():
                 label.SetTextAlign(13)
                 label.DrawLatexNDC(.2,.8,"CMS preliminary")
 
-
                 pad2.cd()
                 pad2.SetGridx()
                 pad2.SetGridy()
