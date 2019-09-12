@@ -32,7 +32,7 @@ features={
 
 binning={}
 binning["MCGenHTall"]=[0,120,180,240,300,360,440,540,680,900,1500]
-binning["MCGenHThad"]=[0.,90.,140.,180.,240.,300.,380.,460.,540.,650.,850.,1500.]
+binning["MCGenHThad"]=[0,90,140,180,240,300,380,460,540,650,850,1500]
 binning["MCGenHTlep"]=[0,20,50,80,110,150,200,300,400,550,800]
 binning["MCGenMET"]=[0,20,50,80,120,180,300,500,1200]
 binning["_lepton_"]=[0,20,25,33,45,60,80,110,160,500]
@@ -231,10 +231,9 @@ def plotSysts():
                 pad2.SetGridx()
                 pad2.SetGridy()
                 bins = h_ratio.GetNbinsX()
+                print 'bins: ', bins
                 LowEdge = h_ratio.GetBinLowEdge(1)
-                print 'LowEdge: ', LowEdge
                 HighEdge = h_ratio.GetBinLowEdge(bins+1)
-                print 'HighEdge: ', HighEdge
                 line = TLine(LowEdge,1,HighEdge,1)
                 line.SetLineColor(kBlack)
                 for i in range(len(hist_ratio_vars)):

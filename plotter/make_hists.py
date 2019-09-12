@@ -29,14 +29,11 @@ for sample in sampleName:
         if 'MCGenHThad' in feature:
             Nbins = len(binning['MCGenHThad'])+1
             binning = array('d',binning['MCGenHThad'])
+            print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
         for syst in systematics:
             if syst == "nominal":
-                print 'Feature: ', feature
-                print 'Nominal'
                 hist_name = sample+"_"+feature
-                print 'Histogram name: ', hist_name
                 if 'MCGenHThad' in feature:
-                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 else:
                     h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
@@ -52,10 +49,8 @@ for sample in sampleName:
                 h01.Write()
             else:
                 for var in upDown:
-                    print 'Systematic variation: ', var
                     hist_name = sample+"_"+feature+"_"+syst+var
                     if 'MCGenHThad' in feature:
-                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     else:
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
