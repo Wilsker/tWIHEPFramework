@@ -47,7 +47,7 @@ for sample in sampleName:
                     print 'Nbins: %s , binning: %s ' % (Nbins,binning)
                 elif 'MCGenMET' in feature:
                     Nbins = len(binning['MCGenMET'])+1
-                    binning = binning['MCGenMET'][
+                    binning = binning['MCGenMET']
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                     print 'Nbins: %s , binning: %s ' % (Nbins,binning)
                 elif '_lepton_' in feature:
