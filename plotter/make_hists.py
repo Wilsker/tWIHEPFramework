@@ -59,7 +59,7 @@ for sample in sampleName:
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
-                print "Draw command: tree0.Draw(%s,%s)" % (input01,CUT)
+                #print "Draw command: tree0.Draw(%s,%s)" % (input01,CUT)
                 tree0.Draw(input01,CUT)
                 #h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
@@ -74,26 +74,26 @@ for sample in sampleName:
                     if 'MCGenHTall' in feature:
                         Nbins = len(binning['MCGenHTall'])+1
                         binning = binning['MCGenHTall']
-                        h01 = TH1F(hist_name, feature, Nbins, binning)
+                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
                     elif 'MCGenHThad' in feature:
                         Nbins = len(binning['MCGenHThad'])+1
                         binning = binning['MCGenHThad']
-                        print 'Nbins: %s , binning: %s ' % (Nbins,binning)
-                        h01 = TH1F(hist_name, feature, Nbins, binning)
+                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
+                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
                     elif 'MCGenHTlep' in feature:
                         Nbins = len(binning['MCGenHTlep'])+1
                         binning = binning['MCGenHTlep']
-                        h01 = TH1F(hist_name, feature, Nbins, binning)
+                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
                     elif 'MCGenMET' in feature:
                         Nbins = len(binning['MCGenMET'])+1
                         binning = binning['MCGenMET']
-                        h01 = TH1F(hist_name, feature, Nbins, binning)
+                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
                     elif '_lepton_' in feature:
                         Nbins = len(binning['_lepton_'])+1
                         binning = binning['_lepton_']
-                        h01 = TH1F(hist_name, feature, Nbins, binning)
+                        h01 = TH1F(hist_name, hist_name, Nbins, binning)
                     else:
-                        h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
+                        h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
