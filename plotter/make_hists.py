@@ -31,13 +31,13 @@ for sample in sampleName:
         Nbins = len(binning[feature])
         if 'MCGenHThad' in feature:
             #Nbins = len(binning[feature])
-            binning = array('d',binning[feature])
+            bins_ = array('d',binning[feature])
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
                 #h01 = TH1F(hist_name, feature, Nbins-1, binning)
                 if 'MCGenHThad' in feature:
-                    h01 = TH1F(hist_name, feature, Nbins-1, binning)
+                    h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                 else:
                     h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
@@ -54,7 +54,7 @@ for sample in sampleName:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     #h01 = TH1F(hist_name, feature, Nbins-1, binning)
                     if 'MCGenHThad' in feature:
-                        h01 = TH1F(hist_name, feature, Nbins-1, binning)
+                        h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     else:
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
