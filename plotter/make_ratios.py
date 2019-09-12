@@ -74,13 +74,10 @@ def createRatio(h1, h2, POI):
     h3 = h1.Clone("h3")
     h3.SetMarkerStyle(1)
     h3.SetTitle("")
-    #h3.SetMinimum(0.8)
-    #h3.SetMaximum(1.35)
     # Set up plot for markers and errors
     h3.Sumw2()
     h3.SetStats(0)
     h3.Divide(h2)
-
     # Adjust y-axis settings
     y = h3.GetYaxis()
     y.SetTitle("var/nominal")
@@ -91,7 +88,6 @@ def createRatio(h1, h2, POI):
     y.SetTitleOffset(1.55)
     y.SetLabelFont(43)
     y.SetLabelSize(20)
-
     # Adjust x-axis settings
     x = h3.GetXaxis()
     x.SetTitle(POI)
@@ -100,8 +96,6 @@ def createRatio(h1, h2, POI):
     x.SetTitleOffset(3.0)
     x.SetLabelFont(43)
     x.SetLabelSize(20)
-
-
     return h3
 
 def createCanvasPads():
@@ -147,8 +141,6 @@ def plotSysts():
 
                 # set up legend
                 legend = TLegend(0.6,0.6,0.88,0.88)
-                #legend.SetHeader("CMS preliminary")
-                #legend.SetNColumns(3)
                 legend.SetBorderSize(0)
                 hist_nickname = ''
                 hist_nickname = sampleTitle[sample]
@@ -174,19 +166,17 @@ def plotSysts():
                     legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
                 # draw everything
-
                 pad1.cd()
                 pad1.SetGridx()
                 pad1.SetGridy()
-
                 # set bounds
                 maximum=0
                 for hist in hist_vars:
                     if normalization:
                         hist.Scale(1./hist.Integral())
                     if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
-                upperbound = 1.8*maximum
-                lowerbound = -maximum/40.
+                #upperbound = 1.8*maximum
+                #lowerbound = -maximum/40.
 
                 Y_name = "Events"
                 if normalization:
@@ -195,8 +185,8 @@ def plotSysts():
                 if showStats:
                     hist_nom.SetStats(1)
 
-                hist_nom.SetMaximum(upperbound)
-                hist_nom.SetMinimum(lowerbound)
+                #hist_nom.SetMaximum(upperbound)
+                #hist_nom.SetMinimum(lowerbound)
                 # Adjust y-axis settings
                 y = hist_nom.GetYaxis()
                 y.SetTitleSize(25)
@@ -239,8 +229,8 @@ def plotSysts():
                 for i in range(len(hist_ratio_vars)):
                     if i==0:
                         hist_ratio_vars[i].Draw("hist")
-                        hist_ratio_vars[i].SetMinimum(0.5)
-                        hist_ratio_vars[i].SetMaximum(1.5)
+                        #hist_ratio_vars[i].SetMinimum(0.5)
+                        #hist_ratio_vars[i].SetMaximum(1.5)
                     else:
                         hist_ratio_vars[i].Draw("histsame")
                 line.Draw("same")
