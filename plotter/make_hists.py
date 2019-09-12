@@ -26,16 +26,18 @@ for sample in sampleName:
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
+        print 'Feature = ', feature
         #if 'MCGenHThad' in feature:
         Nbins = len(binning[feature])
         binning = array('d',binning[feature])
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
-                if 'MCGenHThad' in feature:
+                h01 = TH1F(hist_name, feature, Nbins-1, binning)
+                '''if 'MCGenHThad' in feature:
                     h01 = TH1F(hist_name, feature, Nbins-1, binning)
                 else:
-                    h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
+                    h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])'''
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
@@ -48,10 +50,11 @@ for sample in sampleName:
             else:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
-                    if 'MCGenHThad' in feature:
+                    h01 = TH1F(hist_name, feature, Nbins-1, binning)
+                    '''if 'MCGenHThad' in feature:
                         h01 = TH1F(hist_name, feature, Nbins-1, binning)
                     else:
-                        h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
+                        h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])'''
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
