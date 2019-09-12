@@ -31,11 +31,9 @@ features={
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
-#systematics=["nominal","puWeight"]
 systematics=["nominal","genWeight"]
-#upDown=["_SysUp","_SysDown"]
 upDown=["_muF2","_muF0p5"]
-#Color={"nominal":kBlack,"_SysUp":kRed,"_SysDown":kBlue}
+upDown=["_muR2","_muR0p5"]
 Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
@@ -119,7 +117,6 @@ def createCanvasPads():
     pad2.SetTopMargin(0)  # joins upper and lower plot
     pad2.SetBottomMargin(0.25)
     pad2.SetTicks(0,1)
-    #pad2.SetGridx()
     pad2.Draw()
 
     return c, pad1, pad2
@@ -234,7 +231,7 @@ def plotSysts():
                 pad2.SetGridx()
                 pad2.SetGridy()
                 bins = h_ratio.GetNbinsX()
-                LowEdge = h_ratio.GetBinLowEdge(1)
+                LowEdge = h_ratio.GetBinLowEdge(0)
                 HighEdge = h_ratio.GetBinLowEdge(bins+1)
                 line = TLine(LowEdge,1,HighEdge,1)
                 line.SetLineColor(kBlack)
