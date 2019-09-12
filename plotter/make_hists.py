@@ -27,8 +27,9 @@ for sample in sampleName:
     tree0 = file0.Get(treename)
     for feature, values in features.items():
         print 'Feature = ', feature
+        Nbins = len(binning[feature])
         if 'MCGenHThad' in feature:
-            Nbins = len(binning[feature])
+            #Nbins = len(binning[feature])
             binning = array('d',binning[feature])
         for syst in systematics:
             if syst == "nominal":
