@@ -29,7 +29,7 @@ for sample in sampleName:
             print 'syst: ', syst
             if syst == "nominal":
                 hist_name = sample+"_"+feature
-                print 'binning[MCGenHThad]: ', binning['MCGenHThad']
+                print 'NBins: ', len(binning['MCGenHThad']['bin_list'])+1
                 print 'binning[MCGenHThad][bin_list]: ', binning['MCGenHThad']['bin_list']
                 if 'MCGenHTall' in feature:
                     h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']['bin_list'])+1, binning['MCGenHThad']['bin_list'])
