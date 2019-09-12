@@ -25,17 +25,28 @@ for sample in sampleName:
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
+        print 'feature: %s , value: %s' % (feature,value)
         for syst in systematics:
             print 'syst: ', syst
             if syst == "nominal":
                 hist_name = sample+"_"+feature
-                h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
+                if 'MCGenHTall' in feature:
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']), binning['MCGenHThad'])
+                elif 'MCGenHThad' in feature:
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']), binning['MCGenHThad'])
+                elif 'MCGenHTlep' in feature:
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenHTlep']), binning['MCGenHTlep'])
+                elif 'MCGenMET' in feature:
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenMET']), binning['MCGenMET'])
+                elif '_lepton_' in feature:
+                    h01 = TH1F(hist_name, feature, len(binning['_lepton_']), binning['_lepton_'])
+                else:
+                    h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
                 print "Draw command: tree0.Draw(%s,%s)" % (input01,CUT)
                 tree0.Draw(input01,CUT)
-
                 #h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
                 #h_tmp.Write()
