@@ -55,7 +55,19 @@ for sample in sampleName:
             else:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
-                    h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
+                    #h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
+                    if 'MCGenHTall' in feature:
+                        h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']['bin_list'])+1, binning['MCGenHThad']['bin_list'])
+                    elif 'MCGenHThad' in feature:
+                        h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']['bin_list'])+1, binning['MCGenHThad']['bin_list'])
+                    elif 'MCGenHTlep' in feature:
+                        h01 = TH1F(hist_name, feature, len(binning['MCGenHTlep']['bin_list'])+1, binning['MCGenHTlep']['bin_list'])
+                    elif 'MCGenMET' in feature:
+                        h01 = TH1F(hist_name, feature, len(binning['MCGenMET']['bin_list'])+1, binning['MCGenMET']['bin_list'])
+                    elif '_lepton_' in feature:
+                        h01 = TH1F(hist_name, feature, len(binning['_lepton_']['bin_list'])+1, binning['_lepton_']['bin_list'])
+                    else:
+                        h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
