@@ -26,6 +26,9 @@ for sample in sampleName:
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
+        if 'MCGenHThad' in feature:
+            Nbins = len(binning['MCGenHThad'])+1
+            binning = array('i',binning['MCGenHThad'])
         for syst in systematics:
             if syst == "nominal":
                 print 'Feature: ', feature
@@ -33,8 +36,6 @@ for sample in sampleName:
                 hist_name = sample+"_"+feature
                 print 'Histogram name: ', hist_name
                 if 'MCGenHThad' in feature:
-                    Nbins = len(binning['MCGenHThad'])+1
-                    binning = array('i',binning['MCGenHThad'])
                     print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 else:
@@ -55,10 +56,7 @@ for sample in sampleName:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     Nbins = 0
                     if 'MCGenHThad' in feature:
-                        print 'binning[MCGenHThad] ', binning['MCGenHThad']
-                        Nbins = len(binning['MCGenHThad'])+1
-                        binning = array('i',binning['MCGenHThad'])
-                        print 'binning: %s ' % (binning)
+                        print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     else:
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
