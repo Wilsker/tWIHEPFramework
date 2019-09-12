@@ -1,6 +1,7 @@
 from ROOT import TH1F, TH2F, TFile, TTree
 from ROOT import gROOT, gStyle
 from ROOT import TCanvas
+from ROOT import *
 
 gROOT.SetBatch(1)
 gROOT.Reset()
