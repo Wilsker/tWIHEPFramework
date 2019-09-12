@@ -27,17 +27,15 @@ for sample in sampleName:
     tree0 = file0.Get(treename)
     for feature, values in features.items():
         if 'MCGenHThad' in feature:
-            Nbins = len(binning['MCGenHThad'])+1
+            Nbins = len(binning['MCGenHThad'])
             binning = array('d',binning['MCGenHThad'])
             print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
                 if 'MCGenHThad' in feature:
-                    print 'creating new h01'
                     h01 = TH1F(hist_name, feature, Nbins-1, binning)
                 else:
-                    print 'creating new h01'
                     h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
@@ -52,10 +50,8 @@ for sample in sampleName:
                 for var in upDown:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     if 'MCGenHThad' in feature:
-                        print 'creating new h01'
                         h01 = TH1F(hist_name, feature, Nbins-1, binning)
                     else:
-                        print 'creating new h01'
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
