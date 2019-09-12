@@ -33,9 +33,9 @@ for sample in sampleName:
                 hist_name = sample+"_"+feature
                 print 'Histogram name: ', hist_name
                 if 'MCGenHTall' in feature:
+                    print 'Nbins: %s %s, binning: %s ' % (len(binning['MCGenHTall'])+1,type(len(binning['MCGenHTall'])+1),binning['MCGenHTall'])
                     Nbins = len(binning['MCGenHTall'])+1
                     binning = binning['MCGenHTall']
-                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 elif 'MCGenHThad' in feature:
                     Nbins = len(binning['MCGenHThad'])+1
