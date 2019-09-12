@@ -48,8 +48,9 @@ for sample in sampleName:
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
                     tree0.Draw(input01,CUT)
-                    h_tmp = draw_underflow_overflow(h01)
+                    #h_tmp = draw_underflow_overflow(h01)
                     f_out.cd()
-                    h_tmp.Write()
+                    #h_tmp.Write()
+                    h01.Write()
 
 f_out.Close()
