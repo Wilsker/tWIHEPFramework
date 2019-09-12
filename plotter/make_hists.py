@@ -34,7 +34,7 @@ for sample in sampleName:
                 print 'Histogram name: ', hist_name
                 if 'MCGenHThad' in feature:
                     Nbins = len(binning['MCGenHThad'])+1
-                    binning = array('f',binning['MCGenHThad'])
+                    binning = array('i',binning['MCGenHThad'])
                     print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 else:
@@ -57,7 +57,7 @@ for sample in sampleName:
                     if 'MCGenHThad' in feature:
                         print 'binning[MCGenHThad] ', binning['MCGenHThad']
                         Nbins = len(binning['MCGenHThad'])+1
-                        binning = array('f',binning['MCGenHThad'])
+                        binning = array('i',binning['MCGenHThad'])
                         print 'binning: %s ' % (binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     else:
