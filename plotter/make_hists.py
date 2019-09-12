@@ -58,7 +58,7 @@ for sample in sampleName:
                     Nbins = 0
                     if 'MCGenHThad' in feature:
                         print 'Feature: ', feature
-                        print 'binning[MCGenHThad] %i , type: %s' % binning['MCGenHThad'],type(binning['MCGenHThad'])
+                        print 'binning[MCGenHThad] %i , type: %s' % (binning['MCGenHThad'],type(binning['MCGenHThad']))
                         Nbins = len(binning['MCGenHThad'])+1
                         binning = array('f',binning['MCGenHThad'])
                         print 'binning: %s ' % (binning)
