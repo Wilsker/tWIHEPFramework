@@ -31,15 +31,15 @@ for sample in sampleName:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
                 if 'MCGenHTall' in feature:
-                    h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']), binning['MCGenHThad'])
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']['bin_list']), binning['MCGenHThad']['bin_list'])
                 elif 'MCGenHThad' in feature:
-                    h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']), binning['MCGenHThad'])
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenHThad']['bin_list']), binning['MCGenHThad']['bin_list'])
                 elif 'MCGenHTlep' in feature:
-                    h01 = TH1F(hist_name, feature, len(binning['MCGenHTlep']), binning['MCGenHTlep'])
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenHTlep']['bin_list']), binning['MCGenHTlep']['bin_list'])
                 elif 'MCGenMET' in feature:
-                    h01 = TH1F(hist_name, feature, len(binning['MCGenMET']), binning['MCGenMET'])
+                    h01 = TH1F(hist_name, feature, len(binning['MCGenMET']['bin_list']), binning['MCGenMET']['bin_list'])
                 elif '_lepton_' in feature:
-                    h01 = TH1F(hist_name, feature, len(binning['_lepton_']), binning['_lepton_'])
+                    h01 = TH1F(hist_name, feature, len(binning['_lepton_']['bin_list']), binning['_lepton_']['bin_list'])
                 else:
                     h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
                 h01.Sumw2()
