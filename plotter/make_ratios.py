@@ -93,7 +93,6 @@ if createROOTfile:
     exec(open("make_hists.py").read())
 
 def createRatio(h1, h2, POI):
-    print 'createRatio'
     h3 = h1.Clone("h3")
     h3.SetMarkerStyle(1)
     h3.SetTitle("")
@@ -230,6 +229,7 @@ def plotSysts():
                 hist_nom.Draw("HIST")
 
                 for hist in hist_vars:
+                    hist.SetMarkerStyle(20)
                     hist.Draw("HISTsame")
 
                 legend.Draw("same")
