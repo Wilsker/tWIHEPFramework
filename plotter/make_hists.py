@@ -29,9 +29,10 @@ for sample in sampleName:
         print 'Feature = ', feature
         Nbins = 0
         Nbins = len(binning[feature])
-        if 'MCGenHThad' in feature:
+        bins_ = array('d',binning[feature])
+        #if 'MCGenHThad' in feature:
             #Nbins = len(binning[feature])
-            bins_ = array('d',binning[feature])
+            #bins_ = array('d',binning[feature])
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
