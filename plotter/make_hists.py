@@ -1,7 +1,7 @@
 from ROOT import TH1F, TH2F, TFile, TTree
 from ROOT import gROOT, gStyle
 from ROOT import TCanvas
-from ROOT import *
+from array import array
 
 gROOT.SetBatch(1)
 gROOT.Reset()
@@ -33,26 +33,29 @@ for sample in sampleName:
                 hist_name = sample+"_"+feature
                 print 'Histogram name: ', hist_name
                 if 'MCGenHTall' in feature:
-                    print 'Nbins: %s %s, binning: %s ' % (len(binning['MCGenHTall'])+1,type(len(binning['MCGenHTall'])+1),binning['MCGenHTall'])
                     Nbins = len(binning['MCGenHTall'])+1
-                    binning = binning['MCGenHTall']
+                    binning = array('f',binning['MCGenHTall'])
+                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 elif 'MCGenHThad' in feature:
                     Nbins = len(binning['MCGenHThad'])+1
-                    binning = binning['MCGenHThad']
+                    binning = array('f',binning['MCGenHThad'])
                     print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 elif 'MCGenHTlep' in feature:
                     Nbins = len(binning['MCGenHTlep'])+1
-                    binning = binning['MCGenHTlep']
+                    binning = array('f',binning['MCGenHTlep'])
+                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 elif 'MCGenMET' in feature:
                     Nbins = len(binning['MCGenMET'])+1
-                    binning = binning['MCGenMET']
+                    binning = array('f',binning['MCGenMET'])
+                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 elif '_lepton_' in feature:
                     Nbins = len(binning['_lepton_'])+1
-                    binning = binning['_lepton_']
+                    binning = array('f',binning['_lepton_'])
+                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 else:
                     h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
@@ -73,25 +76,25 @@ for sample in sampleName:
                     print 'Histogram name: ', hist_name
                     #h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     if 'MCGenHTall' in feature:
-                        #Nbins = len(binning['MCGenHTall'])+1
-                        #binning = binning['MCGenHTall']
+                        Nbins = len(binning['MCGenHTall'])+1
+                        binning = array('f',binning['MCGenHTall'])
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenHThad' in feature:
-                        #Nbins = len(binning['MCGenHThad'])+1
-                        #binning = binning['MCGenHThad']
+                        Nbins = len(binning['MCGenHThad'])+1
+                        binning = array('f',binning['MCGenHThad'])
                         print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenHTlep' in feature:
-                        #Nbins = len(binning['MCGenHTlep'])+1
-                        #binning = binning['MCGenHTlep']
+                        Nbins = len(binning['MCGenHTlep'])+1
+                        binning = array('f',binning['MCGenHTlep'])
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif 'MCGenMET' in feature:
-                        #Nbins = len(binning['MCGenMET'])+1
-                        #binning = binning['MCGenMET']
+                        Nbins = len(binning['MCGenMET'])+1
+                        binning = array('f',binning['MCGenMET'])
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     elif '_lepton_' in feature:
-                        #Nbins = len(binning['_lepton_'])+1
-                        #binning = binning['_lepton_']
+                        Nbins = len(binning['_lepton_'])+1
+                        binning = array('f',binning['_lepton_'])
                         h01 = TH1F(hist_name, feature, Nbins, binning)
                     else:
                         h01 = TH1F(hist_name, feature, values["nbin"], values["min"], values["max"])
