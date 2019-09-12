@@ -53,12 +53,10 @@ for sample in sampleName:
                 for var in upDown:
                     print 'Systematic variation: ', var
                     hist_name = sample+"_"+feature+"_"+syst+var
-                    print 'Histogram name: ', hist_name
-                    #h01 = TH1F(hist_name, hist_name, values["nbin"], values["min"], values["max"])
                     Nbins = 0
                     if 'MCGenHThad' in feature:
                         print 'Feature: ', feature
-                        print 'binning[MCGenHThad] %i , type: %s' % (binning['MCGenHThad'],type(binning['MCGenHThad']))
+                        print 'binning[MCGenHThad] %d ' % (binning['MCGenHThad'])
                         Nbins = len(binning['MCGenHThad'])+1
                         binning = array('f',binning['MCGenHThad'])
                         print 'binning: %s ' % (binning)
