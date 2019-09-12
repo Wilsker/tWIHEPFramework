@@ -55,8 +55,7 @@ for sample in sampleName:
                     hist_name = sample+"_"+feature+"_"+syst+var
                     Nbins = 0
                     if 'MCGenHThad' in feature:
-                        print 'Feature: ', feature
-                        print 'binning[MCGenHThad] %d ' % (binning['MCGenHThad'])
+                        print 'binning[MCGenHThad] ', binning['MCGenHThad']
                         Nbins = len(binning['MCGenHThad'])+1
                         binning = array('f',binning['MCGenHThad'])
                         print 'binning: %s ' % (binning)
