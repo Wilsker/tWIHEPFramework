@@ -25,7 +25,7 @@ for sample in sampleName:
     file0 = TFile(inputDirectories+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
-        print 'feature: %s , value: %s' % (feature,value)
+        print 'feature: %s , value: %s' % (feature,values)
         for syst in systematics:
             print 'syst: ', syst
             if syst == "nominal":
