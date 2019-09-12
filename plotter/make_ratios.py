@@ -16,7 +16,7 @@ features={
 "n_gen_lepton":{"nbin":5,"min":0.5,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"n_gen_lepton"},
 "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenHTall"},
 "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenHThad"},
-#"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenMET"},
+"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenMET"},
 "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MinDRMCGenLep1Jet"},
 "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MinDrMCGenLep2Jet"},
 "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MinDRMCGenLeps"},
@@ -29,12 +29,13 @@ features={
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"}
 }
+
 binning={
-"MCGenHTall":[0,120,180,240,300,360,440,540,680,900,1500],
-"MCGenHThad":[0,90,140,180,240,300,380,460,540,650,850,1500],
-"MCGenHTlep":[0,20,50,80,110,150,200,300,400,550,800],
-"MCGenMET":[0,20,50,80,120,180,300,500,1200],
-"_lepton_":[0,20,25,33,45,60,80,110,160,500]
+"MCGenHTall":{[0,120,180,240,300,360,440,540,680,900,1500]},
+"MCGenHThad":{[0,90,140,180,240,300,380,460,540,650,850,1500]},
+"MCGenHTlep":{[0,20,50,80,110,150,200,300,400,550,800]},
+"MCGenMET":{[0,20,50,80,120,180,300,500,1200]},
+"_lepton_":{[0,20,25,33,45,60,80,110,160,500]}
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
