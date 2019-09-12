@@ -227,10 +227,10 @@ def plotSysts():
                 x.SetTitle(values["xlabel"])
 
                 hist_nom.SetMarkerStyle(20)
-                hist_nom.Draw("HISTp")
+                hist_nom.Draw("HIST")
 
                 for hist in hist_vars:
-                    #hist.SetMarkerStyle(20)
+                    hist.SetMarkerStyle(20)
                     hist.Draw("HIST SAME")
 
                 legend.Draw("same")
