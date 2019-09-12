@@ -27,6 +27,7 @@ for sample in sampleName:
     tree0 = file0.Get(treename)
     for feature, values in features.items():
         print 'Feature = ', feature
+        Nbins = 0
         Nbins = len(binning[feature])
         if 'MCGenHThad' in feature:
             #Nbins = len(binning[feature])
