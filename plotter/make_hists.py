@@ -39,7 +39,7 @@ for sample in sampleName:
                 elif 'MCGenHThad' in feature:
                     Nbins = len(binning['MCGenHThad'])+1
                     binning = binning['MCGenHThad']
-                    print 'Nbins: %s , binning: %s ' % (Nbins,binning)
+                    print 'Nbins: %s %s, binning: %s ' % (Nbins,type(Nbins),binning)
                     h01 = TH1F(hist_name, feature, Nbins, binning)
                 elif 'MCGenHTlep' in feature:
                     Nbins = len(binning['MCGenHTlep'])+1
