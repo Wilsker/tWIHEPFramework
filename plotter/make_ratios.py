@@ -210,7 +210,6 @@ def plotSysts():
 
                 hist_nom.SetMaximum(upperbound)
                 hist_nom.SetMinimum(lowerbound)
-                print 'Adjust y-axis settings'
                 # Adjust y-axis settings
                 y = hist_nom.GetYaxis()
                 y.SetTitleSize(25)
@@ -219,8 +218,6 @@ def plotSysts():
                 y.SetLabelFont(43)
                 y.SetLabelSize(20)
                 y.SetTitle(Y_name)
-
-                print 'Adjust x-axis settings'
                 # Adjust x-axis settings
                 x = hist_nom.GetXaxis()
                 x.SetTitleSize(25)
@@ -245,7 +242,6 @@ def plotSysts():
                 pad2.SetGridx()
                 pad2.SetGridy()
                 bins = h_ratio.GetNbinsX()
-                print 'bins: ', bins
                 LowEdge = h_ratio.GetBinLowEdge(1)
                 HighEdge = h_ratio.GetBinLowEdge(bins+1)
                 line = TLine(LowEdge,1,HighEdge,1)
