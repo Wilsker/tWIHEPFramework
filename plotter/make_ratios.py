@@ -176,7 +176,7 @@ def plotSysts():
                 hist_ratio_vars = []
                 #for var in upDown:
                 #"muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"
-                for sixpoint_index in sixpoint_variations
+                for sixpoint_index in sixpoint_variations:
                     #hist_name = sample+"_"+feature+"_"+syst+var
                     hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
