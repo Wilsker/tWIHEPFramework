@@ -36,6 +36,7 @@ for sample in sampleName:
                 h01.Sumw2()
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
+                print 'Draw command: tree0.Draw(%s,%s)' % (input01,CUT)
                 tree0.Draw(input01,CUT)
                 f_out.cd()
                 h01.Write()
