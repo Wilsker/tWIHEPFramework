@@ -41,30 +41,25 @@ for sample in sampleName:
                 f_out.cd()
                 h01.Write()
             else:
-                #for var in upDown:
-                #["muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"]
-                #muF_vars=["_muF2","_muF0p5"]
-                #muR_vars=["_muR2","_muR0p5"]
                 for sixpoint_index in sixpoint_variations:
                     hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
                     if sixpoint_index == "muR2":
-                        syst_weight = "%s%s" % (syst,muR_vars[0])
+                        syst_weight = "%s%s/%s" % (syst,muR_vars[0],nominal_weights[syst])
                     elif sixpoint_index == "muR0p5":
-                        syst_weight = "%s%s" % (syst,muR_vars[1])
+                        syst_weight = "%s%s/%s" % (syst,muR_vars[1],nominal_weights[syst])
                     elif sixpoint_index == "muR2muF2":
-                        syst_weight = "%s%s*%s%s" % (syst,muR_vars[0],syst,muF_vars[0])
+                        syst_weight = "(%s%s/%s)*(%s%s/%s)" % (syst,muR_vars[0],nominal_weights[syst],syst,muF_vars[0],nominal_weights[syst])
                     elif sixpoint_index == "muF2":
-                        syst_weight = "%s%s" % (syst,muF_vars[0])
+                        syst_weight = "%s%s/%s" % (syst,muF_vars[0],nominal_weights[syst])
                     elif sixpoint_index == "muR0p5muF0p5":
-                        syst_weight = "%s%s*%s%s" % (syst,muR_vars[1],syst,muF_vars[1])
+                        syst_weight = "(%s%s/%s)*(%s%s/%s)" % (syst,muR_vars[1],nominal_weights[syst],syst,muF_vars[1],nominal_weights[syst])
                     elif sixpoint_index == "muF0p5":
-                        syst_weight = "%s%s" % (syst,muF_vars[1])
+                        syst_weight = "%s%s/%s" % (syst,muF_vars[1],nominal_weights[syst])
 
                     h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
-                    #CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
-                    CUT = "%s*%s/%s"%(values["cut"],syst_weight,nominal_weights[syst])
+                    CUT = "%s*%s"%(values["cut"],syst_weight)
                     print 'Draw command: tree0.Draw(%s,%s)' % (input01,CUT)
                     tree0.Draw(input01,CUT)
                     f_out.cd()

@@ -59,7 +59,7 @@ sixpoint_variations=["muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"]
 muF_vars=["_muF2","_muF0p5"]
 muR_vars=["_muR2","_muR0p5"]
 #Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
-Color={"nominal":kBlack,"muR2":kRed,"muR0p5":kBlue,"muR2muF2":kGreen,"muF2":kCyan,"muR0p5muF0p5":kPink,"muF0p5":kViolet}
+Color={"nominal":kBlack,"muR2":kRed,"muR0p5":kBlue,"muR2muF2":kGreen,"muF2":kCyan,"muR0p5muF0p5":kOrange,"muF0p5":kViolet}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
 #sampleName = ["TTW"]
@@ -174,10 +174,8 @@ def plotSysts():
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
                 hist_ratio_vars = []
-                #for var in upDown:
-                #"muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"
+
                 for sixpoint_index in sixpoint_variations:
-                    #hist_name = sample+"_"+feature+"_"+syst+var
                     hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
