@@ -17,7 +17,6 @@ def draw_underflow_overflow(h1):
     h1.Draw()
     return h1
 
-
 Canv = TCanvas("c1","c1",0,0,800,600)
 f_out = TFile(filename,"recreate")
 
@@ -38,21 +37,36 @@ for sample in sampleName:
                 input01 = "%s>>%s"%(feature,hist_name)
                 CUT = "%s"%values["cut"]
                 tree0.Draw(input01,CUT)
-                #h_tmp = draw_underflow_overflow(h01)
                 f_out.cd()
-                #h_tmp.Write()
                 h01.Write()
             else:
-                for var in upDown:
-                    hist_name = sample+"_"+feature+"_"+syst+var
+                #for var in upDown:
+                #["muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"]
+                #muF_vars=["_muF2","_muF0p5"]
+                #muR_vars=["_muR2","_muR0p5"]
+                for sixpoint_index in sixpoint_variations:
+                    hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
+                    if sixpoint_index == "muR2":
+                        syst_weight = "%s%s" % (syst,muR_vars[0])
+                    elif sixpoint_index == "muR0p5":
+                        syst_weight = "%s%s" % (syst,muR_vars[1])
+                    elif sixpoint_index == "muR2muF2":
+                        syst_weight = "%s%s*%s%s" % (syst,muR_vars[0],syst,muF_vars[0])
+                    elif sixpoint_index == "muF2":
+                        syst_weight = "%s%s" % (syst,muF_vars[0])
+                    elif sixpoint_index == "muR0p5muF0p5":
+                        syst_weight = "%s%s*%s%s" % (syst,muR_vars[1],syst,muF_vars[1])
+                    elif sixpoint_index == "muF0p5":
+                        syst_weight = "%s%s" % (syst,muF_vars[1])
+
                     h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
-                    CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
+                    #CUT = "%s*%s%s/%s"%(values["cut"],syst,var,nominal_weights[syst])
+                    CUT = "%s*%s/%s"%(values["cut"],syst_weight,nominal_weights[syst])
+                    print 'Draw command: tree0.Draw(%s,%s)' % (input01,CUT)
                     tree0.Draw(input01,CUT)
-                    #h_tmp = draw_underflow_overflow(h01)
                     f_out.cd()
-                    #h_tmp.Write()
                     h01.Write()
 
 f_out.Close()

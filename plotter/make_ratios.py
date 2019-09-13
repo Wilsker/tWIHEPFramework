@@ -54,9 +54,12 @@ binning["MinDRMCGenLeps"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-upDown=["_muF2","_muF0p5"]
-#upDown=["_muR2","_muR0p5"]
-Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
+sixpoint_variations=["muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"]
+#upDown=["_muF2","_muF0p5"]
+muF_vars=["_muF2","_muF0p5"]
+muR_vars=["_muR2","_muR0p5"]
+#Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
+Color={"nominal":kBlack,"muR2":kRed,"muR0p5":kBlue,"muR2muF2":kGreen,"muF2":kCyan,"muR0p5muF0p5":kPink,"muF0p5":kViolet}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
 #sampleName = ["TTW"]
@@ -171,17 +174,20 @@ def plotSysts():
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
                 hist_ratio_vars = []
-                for var in upDown:
-                    hist_name = sample+"_"+feature+"_"+syst+var
+                #for var in upDown:
+                #"muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"
+                for sixpoint_index in sixpoint_variations
+                    #hist_name = sample+"_"+feature+"_"+syst+var
+                    hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
                     hist_nickname_plus_syst = ''
-                    hist_nickname_plus_syst = hist_nickname + ' ' + var[1:]
+                    hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
-                    hist_var.SetLineColor(Color[var])
-                    hist_var.SetMarkerColor(Color[var])
+                    hist_var.SetLineColor(Color[sixpoint_index])
+                    hist_var.SetMarkerColor(Color[sixpoint_index])
                     hist_vars.append(hist_var)
                     h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_var)
