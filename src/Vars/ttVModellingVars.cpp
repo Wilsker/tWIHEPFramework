@@ -15,10 +15,15 @@ ttVModellingVars::ttVModellingVars(bool makeHistos){
 
   SetName("ttVModelling");
 
-  _floatVars["genWeight_muF2"] = 999;
-  _floatVars["genWeight_muF0p5"] = 999;
-  _floatVars["genWeight_muR2"] = 999;
-  _floatVars["genWeight_muR0p5"] = 999;
+  _floatVars["genWeight_muR1muF1"] = 999;
+  _floatVars["genWeight_muR1muF2"] = 999;
+  _floatVars["genWeight_muR1muF0p5"] = 999;
+  _floatVars["genWeight_muR2muF1"] = 999;
+  _floatVars["genWeight_muR2muF2"] = 999;
+  _floatVars["genWeight_muR2muF0p5"] = 999;
+  _floatVars["genWeight_muR0p5muF1"] = 999;
+  _floatVars["genWeight_muR0p5muF2"] = 999;
+  _floatVars["genWeight_muR0p5muF0p5"] = 999;
   _floatVars["n_gen_ele"] = 999;
   _floatVars["n_gen_mu"] = 999;
   _floatVars["n_gen_lepton"] = 999;
@@ -136,18 +141,37 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
 
    // calculate variables
    nEvent = evtObj->eventNumber;
-
+   /*
+   <weight id="1001"> muR=1 muF=1 </weight>
+    <weight id="1002"> muR=1 muF=2 </weight>
+    <weight id="1003"> muR=1 muF=0.5 </weight>
+    <weight id="1004"> muR=2 muF=1 </weight>
+    <weight id="1005"> muR=2 muF=2 </weight>
+    <weight id="1006"> muR=2 muF=0.5 </weight>
+    <weight id="1007"> muR=0.5 muF=1 </weight>
+    <weight id="1008"> muR=0.5 muF=2 </weight>
+    <weight id="1009"> muR=0.5 muF=0.5 </weight>*/
    EventTree* tree = evtObj->GetEventTree();
-   if(tree->EVENT_genWeights->size()>6){
-       genWeight_muF2 = tree->EVENT_genWeights -> operator[](1);
-       genWeight_muF0p5 = tree->EVENT_genWeights -> operator[](2);
-       genWeight_muR2 = tree->EVENT_genWeights -> operator[](3);
-       genWeight_muR0p5 = tree->EVENT_genWeights -> operator[](6);
+   if(tree->EVENT_genWeights->size()>8){
+       genWeight_muR1muF1 = tree->EVENT_genWeights -> operator[](0);
+     genWeight_muR1muF2 = tree->EVENT_genWeights -> operator[](1);
+     genWeight_muR1muF0p5 = tree->EVENT_genWeights -> operator[](2);
+     genWeight_muR2muF1 = tree->EVENT_genWeights -> operator[](3);
+     genWeight_muR2muF2 = tree->EVENT_genWeights -> operator[](4);
+     genWeight_muR2muF0p5 = tree->EVENT_genWeights -> operator[](5);
+     genWeight_muR0p5muF1 = tree->EVENT_genWeights -> operator[](6);
+     genWeight_muR0p5muF2 = tree->EVENT_genWeights -> operator[](7);
+     genWeight_muR0p5muF0p5 = tree->EVENT_genWeights -> operator[](8);
    }else{
-       genWeight_muF2 = tree->EVENT_genWeight;
-       genWeight_muF0p5 = tree->EVENT_genWeight;
-       genWeight_muR2 = tree->EVENT_genWeight;
-       genWeight_muR0p5 = tree->EVENT_genWeight;
+      genWeight_muR1muF1 = tree->EVENT_genWeight;
+      genWeight_muR1muF2 = tree->EVENT_genWeight;
+      genWeight_muR1muF0p5 = tree->EVENT_genWeight;
+      genWeight_muR2muF1 = tree->EVENT_genWeight;
+      genWeight_muR2muF2 = tree->EVENT_genWeight;
+      genWeight_muR2muF0p5 = tree->EVENT_genWeight;
+      genWeight_muR0p5muF1 = tree->EVENT_genWeight;
+      genWeight_muR0p5muF2 = tree->EVENT_genWeight;
+      genWeight_muR0p5muF0p5 = tree->EVENT_genWeight;
    }
    ls = evtObj-> lumiBlock;
    run = evtObj->runNumber;
@@ -303,11 +327,15 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
   _floatVars["MCGenHTall"] = MCGenHTall;
   _floatVars["MCGenHThad"] = MCGenHThad;
 
-  _floatVars["genWeight_muF2"] = genWeight_muF2;
-  _floatVars["genWeight_muF0p5"] = genWeight_muF0p5;
-  _floatVars["genWeight_muR2"] = genWeight_muR2;
-  _floatVars["genWeight_muR0p5"] = genWeight_muR0p5;
-  _floatVars["genWeight_muR0p5"] = genWeight_muR0p5;
+  _floatVars["genWeight_muR1muF1"] = genWeight_muR1muF1;
+  _floatVars["genWeight_muR1muF2"] = genWeight_muR1muF2;
+  _floatVars["genWeight_muR1muF0p5"] = genWeight_muR1muF0p5;
+  _floatVars["genWeight_muR2muF1"] = genWeight_muR2muF1;
+  _floatVars["genWeight_muR2muF2"] = genWeight_muR2muF2;
+  _floatVars["genWeight_muR2muF0p5"] = genWeight_muR2muF0p5;
+  _floatVars["genWeight_muR0p5muF1"] = genWeight_muR0p5muF1;
+  _floatVars["genWeight_muR0p5muF2"] = genWeight_muR0p5muF2;
+  _floatVars["genWeight_muR0p5muF0p5"] = genWeight_muR0p5muF0p5;
 
   if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
