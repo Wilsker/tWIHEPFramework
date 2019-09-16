@@ -174,16 +174,14 @@ def plotSysts():
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
-                    hist_nickname_plus_syst = ''
-                    hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
-                    hist_var.SetLineColor(Color[sixpoint_index])
-                    hist_var.SetMarkerColor(Color[sixpoint_index])
+                    hist_var.SetLineColor(0)
+                    hist_var.SetMarkerColor(0)
                     hist_vars.append(hist_var)
-                    h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                    h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_var)
-                    legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
+                    #legend.AddEntry(h_ratio_var,hist_nickname,"l")
                 else:
                     for sixpoint_index in sixpoint_variations:
                         hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
@@ -268,7 +266,8 @@ def plotSysts():
                         hist_ratio_vars[i].SetMaximum(1.5)
                     else:
                         hist_ratio_vars[i].Draw("histsame")
-                line.Draw("same")
+                if 'genWeight_' not in feature:
+                    line.Draw("same")
 
                 c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
 
