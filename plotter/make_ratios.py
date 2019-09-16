@@ -27,7 +27,8 @@ features={
 "gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet3_pt"},
 "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet4_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
-"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"}
+"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"},
+"muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"muR1muF2"}
 }
 
 binning={}
@@ -49,7 +50,7 @@ binning["n_gen_lepton"]=[0,1,2,3,4,5,6,7,8,9,10]
 binning["MinDRMCGenLep1Jet"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 binning["MinDrMCGenLep2Jet"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 binning["MinDRMCGenLeps"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
-
+binning["genWeight_muR1muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
@@ -151,8 +152,11 @@ def plotSysts():
             hist_nom.SetLineColor(Color["nominal"])
             hist_nom.SetMarkerColor(Color["nominal"])
             h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
+
             # loop over variations
             for syst in systematics:
+                if 'genWeight_' in feature:
+                    continue
                 if syst=="nominal": continue
 
                 # set up legend
@@ -165,7 +169,6 @@ def plotSysts():
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
                 hist_ratio_vars = []
-
                 for sixpoint_index in sixpoint_variations:
                     hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
