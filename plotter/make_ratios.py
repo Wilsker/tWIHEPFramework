@@ -170,7 +170,7 @@ def plotSysts():
 
                 syst_counter = syst_counter + 1
                 if 'genWeight_' in feature:
-                    hist_name = sample+"_"+feature+"_"+syst
+                    hist_name = sample+"_"+feature
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
