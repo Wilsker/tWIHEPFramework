@@ -154,8 +154,9 @@ def plotSysts():
             h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
 
             # loop over variations
+            syst_counter = 0
             for syst in systematics:
-                if syst=="nominal": continue
+                #if syst=="nominal": continue
                 # set up legend
                 legend = TLegend(0.6,0.6,0.88,0.88)
                 legend.SetBorderSize(0)
@@ -166,8 +167,10 @@ def plotSysts():
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
                 hist_ratio_vars = []
+
                 for sixpoint_index in sixpoint_variations:
-                    if 'genWeight_' in feature:
+                    syst_counter = syst_counter + 1
+                    if 'genWeight_' in feature and syst_counter>1:
                         continue
                     hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
