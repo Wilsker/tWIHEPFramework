@@ -170,7 +170,7 @@ def plotSysts():
 
                 syst_counter = syst_counter + 1
                 if 'genWeight_' in feature:
-                    hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                    hist_name = sample+"_"+feature+"_"+syst
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
@@ -184,22 +184,22 @@ def plotSysts():
                     h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_var)
                     legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
-                    continue
-                for sixpoint_index in sixpoint_variations:
-                    hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
-                    if not inputfile.GetListOfKeys().Contains(hist_name):
-                        print ( "%s doesn't have histogram %s"%(filename, hist_name))
-                        continue
-                    hist_nickname_plus_syst = ''
-                    hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
-                    hist_var = inputfile.Get(hist_name)
-                    hist_var.SetFillColor(0)
-                    hist_var.SetLineColor(Color[sixpoint_index])
-                    hist_var.SetMarkerColor(Color[sixpoint_index])
-                    hist_vars.append(hist_var)
-                    h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
-                    hist_ratio_vars.append(h_ratio_var)
-                    legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
+                else:
+                    for sixpoint_index in sixpoint_variations:
+                        hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                        if not inputfile.GetListOfKeys().Contains(hist_name):
+                            print ( "%s doesn't have histogram %s"%(filename, hist_name))
+                            continue
+                        hist_nickname_plus_syst = ''
+                        hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
+                        hist_var = inputfile.Get(hist_name)
+                        hist_var.SetFillColor(0)
+                        hist_var.SetLineColor(Color[sixpoint_index])
+                        hist_var.SetMarkerColor(Color[sixpoint_index])
+                        hist_vars.append(hist_var)
+                        h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                        hist_ratio_vars.append(h_ratio_var)
+                        legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
                 # draw everything
                 pad1.cd()
