@@ -156,7 +156,7 @@ def plotSysts():
             # loop over variations
             syst_counter = 0
             for syst in systematics:
-                #if syst=="nominal": continue
+                if syst=="nominal": continue
                 # set up legend
                 legend = TLegend(0.6,0.6,0.88,0.88)
                 legend.SetBorderSize(0)
