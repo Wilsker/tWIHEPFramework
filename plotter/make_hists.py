@@ -42,7 +42,7 @@ for sample in sampleName:
                 h01.Write()
             else:
                 for sixpoint_index in sixpoint_variations:
-                    hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
+                    hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     syst_weight = "%s_%s/%s" % (syst,sixpoint_index,nominal_weights[syst])
                     '''if sixpoint_index == "muR2":
                         syst_weight = "%s%s/%s" % (syst,muR_vars[0],nominal_weights[syst])
@@ -61,7 +61,7 @@ for sample in sampleName:
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s"%(values["cut"],syst_weight)
-                    print 'Draw command: tree0.Draw(%s,%s)' % (input01,CUT)
+                    #print 'Draw command: tree0.Draw(%s,%s)' % (input01,CUT)
                     tree0.Draw(input01,CUT)
                     f_out.cd()
                     h01.Write()
