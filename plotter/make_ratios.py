@@ -28,7 +28,7 @@ features={
 "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet4_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"},
-"muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"muR1muF2"}
+"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"muR1muF2"}
 }
 
 binning={}
