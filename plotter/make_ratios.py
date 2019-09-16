@@ -176,8 +176,8 @@ def plotSysts():
                         continue
                     hist_var = inputfile.Get(hist_name)
                     hist_var.SetFillColor(0)
-                    hist_var.SetLineColor(0)
-                    hist_var.SetMarkerColor(0)
+                    hist_var.SetLineColor(1)
+                    hist_var.SetMarkerColor(1)
                     hist_vars.append(hist_var)
                     h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_var)
