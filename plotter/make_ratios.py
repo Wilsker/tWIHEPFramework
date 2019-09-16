@@ -155,10 +155,7 @@ def plotSysts():
 
             # loop over variations
             for syst in systematics:
-                if 'genWeight_' in feature:
-                    continue
                 if syst=="nominal": continue
-
                 # set up legend
                 legend = TLegend(0.6,0.6,0.88,0.88)
                 legend.SetBorderSize(0)
@@ -170,6 +167,8 @@ def plotSysts():
                 hist_vars = []
                 hist_ratio_vars = []
                 for sixpoint_index in sixpoint_variations:
+                    if 'genWeight_' in feature:
+                        continue
                     hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
