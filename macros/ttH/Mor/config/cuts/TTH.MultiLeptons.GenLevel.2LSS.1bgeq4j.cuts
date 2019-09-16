@@ -28,7 +28,7 @@ Cut.Electron.Gen.LeadingPt.Min: 25
 Cut.Muon.Gen.SubLeadingPt.Min: 20
 Cut.Electron.Gen.SubLeadingPt.Min: 20
 Cut.Lepton.Gen.Number.Min: 2
-Cut.Lepton.Gen.Number.Max: 3
+Cut.Lepton.Gen.Number.Max: 2
 Cut.Dilepton.Gen.SameSign: 1
 Cut.Tau.Gen.Number.Max: 0
 
