@@ -54,24 +54,19 @@ binning["MinDRMCGenLeps"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-sixpoint_variations=["muR2","muR0p5","muR2muF2","muF2","muR0p5muF0p5","muF0p5"]
-#upDown=["_muF2","_muF0p5"]
-muF_vars=["_muF2","_muF0p5"]
-muR_vars=["_muR2","_muR0p5"]
-#Color={"nominal":kBlack,"_muF2":kRed,"_muF0p5":kBlue}
-Color={"nominal":kBlack,"muR2":kRed,"muR0p5":kBlue,"muR2muF2":kGreen,"muF2":kCyan,"muR0p5muF0p5":kOrange,"muF0p5":kViolet}
+sixpoint_variations=["muR1muF1","muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+#muF_vars=["_muF2","_muF0p5"]
+#muR_vars=["_muR2","_muR0p5"]
+Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":15}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
-#sampleName = ["TTW"]
 sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
 
 sampleTitle = {
 "TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTW MG+Pyth8"
 }
 
-#postfix = "_DiLepRegion.root"
 postfix = ".root"
-
 
 # the root file saving the histograms
 createROOTfile = True  # Set to Truth for the first time
@@ -83,7 +78,6 @@ showStats = False
 
 # directory of output
 outputdir = "plots/"
-
 
 ##### end user defined variables
 # check outputdir
@@ -137,7 +131,6 @@ def createCanvasPads():
     pad2.SetBottomMargin(0.25)
     pad2.SetTicks(0,1)
     pad2.Draw()
-
     return c, pad1, pad2
 
 
@@ -176,7 +169,7 @@ def plotSysts():
                 hist_ratio_vars = []
 
                 for sixpoint_index in sixpoint_variations:
-                    hist_name = sample+"_"+feature+"_"+syst+sixpoint_index
+                    hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
