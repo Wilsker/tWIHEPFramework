@@ -325,7 +325,7 @@ mystudy.AddCut(new CutGenBJetN(particlesObj)); // Require ≥1 Gen b-jets above 
 
 
 mystudy.AddVars(new ttVModellingVars(false)); // fill histo
-mystudy.AddVars(new WeightVars(false));
+mystudy.AddVars(new WeightVars());
 
 TFile *_skimBDTFile;
 TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
