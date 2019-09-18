@@ -324,7 +324,8 @@ mystudy.AddCut(new CutGenTauN(particlesObj, "Gen")); // Reject events with hadro
 mystudy.AddCut(new CutGenBJetN(particlesObj)); // Require ≥1 Gen b-jets above given pt and eta
 
 
-mystudy.AddVars(new ttVModellingVars(false)); // fill histo, use TTHLoose
+mystudy.AddVars(new ttVModellingVars(false)); // fill histo
+mystudy.AddVars(new WeightVars(false));
 
 TFile *_skimBDTFile;
 TString NNname = mystudy.GetHistogramFileName() + "skimBDT.root" ;
