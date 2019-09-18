@@ -21,8 +21,8 @@ Canv = TCanvas("c1","c1",0,0,800,600)
 f_out = TFile(filename,"recreate")
 
 for sample in sampleName:
-    print 'Reading file: %s , tree: %s' % (inputDirectories+sample+postfix,treename)
-    file0 = TFile(inputDirectories+sample+postfix,"read")
+    print 'Reading file: %s , tree: %s' % (region_+sample+postfix,treename)
+    file0 = TFile(region_+sample+postfix,"read")
     tree0 = file0.Get(treename)
     for feature, values in features.items():
         print 'Feature = ', feature

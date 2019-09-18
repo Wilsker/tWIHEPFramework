@@ -5,30 +5,29 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 
 #### start  user defined variables
 
-#inputDirectories = "/home/binghuan/Work/TMP/DiLepRegion/";
-inputDirectories = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"
-#treename = "syncTree";
+inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"]
+region_ = ""
 treename = "TNT/BOOM";
 
 features={
-"n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"n_gen_jets"},
-"n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"n_gen_bjets"},
-"n_gen_lepton":{"nbin":5,"min":0.5,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"n_gen_lepton"},
-"MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenHTall"},
-"MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenHThad"},
-"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MCGenMET"},
-"MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MinDRMCGenLep1Jet"},
-"MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MinDrMCGenLep2Jet"},
-"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"MinDRMCGenLeps"},
-"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_bjet1_pt"},
-"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_bjet2_pt"},
-"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet1_pt"},
-"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet2_pt"},
-"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet3_pt"},
-"gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_jet4_pt"},
-"gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
-"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"},
-"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EVENT_event*(n_gen_jets>=4)","xlabel":"muR1muF2"}
+"n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"n_gen_jets"},
+"n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"n_gen_bjets"},
+"n_gen_lepton":{"nbin":5,"min":0.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"n_gen_lepton"},
+"MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MCGenHTall"},
+"MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MCGenHThad"},
+"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MCGenMET"},
+"MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MinDRMCGenLep1Jet"},
+"MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MinDrMCGenLep2Jet"},
+"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MinDRMCGenLeps"},
+"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_bjet1_pt"},
+"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_bjet2_pt"},
+"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet1_pt"},
+"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet2_pt"},
+"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet3_pt"},
+"gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet4_pt"},
+"gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
+"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"},
+"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"muR1muF2"}
 }
 
 binning={}
@@ -139,137 +138,139 @@ def plotSysts():
         print("inputfile is Zombie")
         sys.exit()
     # loop over samples
-    for sample in sampleName:
-        # loop over features
-        for feature, values in features.items():
-            # get nominal histograms
-            hist_nom_name = sample+"_"+feature
-            if not inputfile.GetListOfKeys().Contains(hist_nom_name):
-                print ( "%s doesn't have histogram %s"%(filename, hist_nom_name))
-                continue
-            hist_nom = inputfile.Get(hist_nom_name)
-            hist_nom.SetFillColor(0)
-            hist_nom.SetLineColor(Color["nominal"])
-            hist_nom.SetMarkerColor(Color["nominal"])
-            h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
+    for region in inputDirectories:
+        region_ = region
+        for sample in sampleName:
+            # loop over features
+            for feature, values in features.items():
+                # get nominal histograms
+                hist_nom_name = sample+"_"+feature
+                if not inputfile.GetListOfKeys().Contains(hist_nom_name):
+                    print ( "%s doesn't have histogram %s"%(filename, hist_nom_name))
+                    continue
+                hist_nom = inputfile.Get(hist_nom_name)
+                hist_nom.SetFillColor(0)
+                hist_nom.SetLineColor(Color["nominal"])
+                hist_nom.SetMarkerColor(Color["nominal"])
+                h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
 
-            # loop over variations
-            syst_counter = 0
-            for syst in systematics:
-                if syst=="nominal": continue
-                # set up legend
-                legend = TLegend(0.6,0.6,0.88,0.88)
-                legend.SetBorderSize(0)
-                hist_nickname = ''
-                hist_nickname = sampleTitle[sample]
-                legend.AddEntry(hist_nom,hist_nickname,"l")
+                # loop over variations
+                syst_counter = 0
+                for syst in systematics:
+                    if syst=="nominal": continue
+                    # set up legend
+                    legend = TLegend(0.6,0.6,0.88,0.88)
+                    legend.SetBorderSize(0)
+                    hist_nickname = ''
+                    hist_nickname = sampleTitle[sample]
+                    legend.AddEntry(hist_nom,hist_nickname,"l")
 
-                c, pad1, pad2 = createCanvasPads()
-                hist_vars = []
-                hist_ratio_vars = []
+                    c, pad1, pad2 = createCanvasPads()
+                    hist_vars = []
+                    hist_ratio_vars = []
 
-                syst_counter = syst_counter + 1
-                if 'genWeight_' in feature:
-                    hist_name = sample+"_"+feature
-                    if not inputfile.GetListOfKeys().Contains(hist_name):
-                        print ( "%s doesn't have histogram %s"%(filename, hist_name))
-                        continue
-                    hist_var = inputfile.Get(hist_name)
-                    hist_var.SetFillColor(0)
-                    hist_var.SetLineColor(1)
-                    hist_var.SetMarkerColor(1)
-                    hist_vars.append(hist_var)
-                    h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
-                    hist_ratio_vars.append(h_ratio_var)
-                    #legend.AddEntry(h_ratio_var,hist_nickname,"l")
-                else:
-                    for sixpoint_index in sixpoint_variations:
-                        hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                    syst_counter = syst_counter + 1
+                    if 'genWeight_' in feature:
+                        hist_name = sample+"_"+feature
                         if not inputfile.GetListOfKeys().Contains(hist_name):
                             print ( "%s doesn't have histogram %s"%(filename, hist_name))
                             continue
-                        hist_nickname_plus_syst = ''
-                        hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
                         hist_var = inputfile.Get(hist_name)
                         hist_var.SetFillColor(0)
-                        hist_var.SetLineColor(Color[sixpoint_index])
-                        hist_var.SetMarkerColor(Color[sixpoint_index])
+                        hist_var.SetLineColor(1)
+                        hist_var.SetMarkerColor(1)
                         hist_vars.append(hist_var)
-                        h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                        h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
-                        legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
-
-                # draw everything
-                pad1.cd()
-                pad1.SetGridx()
-                pad1.SetGridy()
-                # set bounds
-                maximum=0
-                for hist in hist_vars:
-                    if normalization:
-                        hist.Scale(1./hist.Integral())
-                    if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
-                upperbound = 1.8*maximum
-                lowerbound = -maximum/40.
-
-                Y_name = "Events"
-                if normalization:
-                    hist_nom.Scale(1./hist_nom.Integral())
-                    Y_name = " Unit "
-                if showStats:
-                    hist_nom.SetStats(1)
-
-                hist_nom.SetMaximum(upperbound)
-                hist_nom.SetMinimum(lowerbound)
-                # Adjust y-axis settings
-                y = hist_nom.GetYaxis()
-                y.SetTitleSize(25)
-                y.SetTitleFont(43)
-                y.SetTitleOffset(1.55)
-                y.SetLabelFont(43)
-                y.SetLabelSize(20)
-                y.SetTitle(Y_name)
-                # Adjust x-axis settings
-                x = hist_nom.GetXaxis()
-                x.SetTitleSize(25)
-                x.SetTitleFont(43)
-                x.SetTitleOffset(1.55)
-                x.SetLabelFont(43)
-                x.SetLabelSize(20)
-                x.SetTitle(values["xlabel"])
-
-                hist_nom.SetMarkerStyle(20)
-                hist_nom.Draw("HIST")
-
-                for hist in hist_vars:
-                    hist.SetMarkerStyle(20)
-                    hist.Draw("HIST SAME")
-
-                legend.Draw("same")
-                label = ROOT.TLatex()
-                label.SetTextSize(0.05)
-                label.SetTextAlign(13)
-                label.DrawLatexNDC(.2,.8,"CMS preliminary")
-
-                pad2.cd()
-                pad2.SetGridx()
-                pad2.SetGridy()
-                bins = h_ratio.GetNbinsX()
-                LowEdge = h_ratio.GetBinLowEdge(1)
-                HighEdge = h_ratio.GetBinLowEdge(bins+1)
-                line = TLine(LowEdge,1,HighEdge,1)
-                line.SetLineColor(kBlack)
-                for i in range(len(hist_ratio_vars)):
-                    if i==0:
-                        hist_ratio_vars[i].Draw("hist")
-                        hist_ratio_vars[i].SetMinimum(0.5)
-                        hist_ratio_vars[i].SetMaximum(1.5)
+                        #legend.AddEntry(h_ratio_var,hist_nickname,"l")
                     else:
-                        hist_ratio_vars[i].Draw("histsame")
-                if 'genWeight_' not in feature:
-                    line.Draw("same")
+                        for sixpoint_index in sixpoint_variations:
+                            hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                            if not inputfile.GetListOfKeys().Contains(hist_name):
+                                print ( "%s doesn't have histogram %s"%(filename, hist_name))
+                                continue
+                            hist_nickname_plus_syst = ''
+                            hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
+                            hist_var = inputfile.Get(hist_name)
+                            hist_var.SetFillColor(0)
+                            hist_var.SetLineColor(Color[sixpoint_index])
+                            hist_var.SetMarkerColor(Color[sixpoint_index])
+                            hist_vars.append(hist_var)
+                            h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                            hist_ratio_vars.append(h_ratio_var)
+                            legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
-                c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
+                    # draw everything
+                    pad1.cd()
+                    pad1.SetGridx()
+                    pad1.SetGridy()
+                    # set bounds
+                    maximum=0
+                    for hist in hist_vars:
+                        if normalization:
+                            hist.Scale(1./hist.Integral())
+                        if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
+                    upperbound = 1.8*maximum
+                    lowerbound = -maximum/40.
+
+                    Y_name = "Events"
+                    if normalization:
+                        hist_nom.Scale(1./hist_nom.Integral())
+                        Y_name = " Unit "
+                    if showStats:
+                        hist_nom.SetStats(1)
+
+                    hist_nom.SetMaximum(upperbound)
+                    hist_nom.SetMinimum(lowerbound)
+                    # Adjust y-axis settings
+                    y = hist_nom.GetYaxis()
+                    y.SetTitleSize(25)
+                    y.SetTitleFont(43)
+                    y.SetTitleOffset(1.55)
+                    y.SetLabelFont(43)
+                    y.SetLabelSize(20)
+                    y.SetTitle(Y_name)
+                    # Adjust x-axis settings
+                    x = hist_nom.GetXaxis()
+                    x.SetTitleSize(25)
+                    x.SetTitleFont(43)
+                    x.SetTitleOffset(1.55)
+                    x.SetLabelFont(43)
+                    x.SetLabelSize(20)
+                    x.SetTitle(values["xlabel"])
+
+                    hist_nom.SetMarkerStyle(20)
+                    hist_nom.Draw("HIST")
+
+                    for hist in hist_vars:
+                        hist.SetMarkerStyle(20)
+                        hist.Draw("HIST SAME")
+
+                    legend.Draw("same")
+                    label = ROOT.TLatex()
+                    label.SetTextSize(0.05)
+                    label.SetTextAlign(13)
+                    label.DrawLatexNDC(.2,.8,"CMS preliminary")
+
+                    pad2.cd()
+                    pad2.SetGridx()
+                    pad2.SetGridy()
+                    bins = h_ratio.GetNbinsX()
+                    LowEdge = h_ratio.GetBinLowEdge(1)
+                    HighEdge = h_ratio.GetBinLowEdge(bins+1)
+                    line = TLine(LowEdge,1,HighEdge,1)
+                    line.SetLineColor(kBlack)
+                    for i in range(len(hist_ratio_vars)):
+                        if i==0:
+                            hist_ratio_vars[i].Draw("hist")
+                            hist_ratio_vars[i].SetMinimum(0.5)
+                            hist_ratio_vars[i].SetMaximum(1.5)
+                        else:
+                            hist_ratio_vars[i].Draw("histsame")
+                    if 'genWeight_' not in feature:
+                        line.Draw("same")
+
+                    c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
 
 # Draw all canvases
 if __name__ == "__main__":
