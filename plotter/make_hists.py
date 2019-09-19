@@ -40,7 +40,7 @@ for sample in sampleName:
                 f_out.cd()
                 h01.Write()
             else:
-                systindex=0
+                systindex=1
                 for sixpoint_index in sixpoint_variations:
                     hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     #syst_weight = "%s_%s/%s" % (syst,sixpoint_index,nominal_weights[syst])
