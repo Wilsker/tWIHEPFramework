@@ -28,7 +28,9 @@ features={
 "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet4_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"gen_lepton1_pt"},
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"gen_lepton2_pt"},
-"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight","xlabel":"muR1muF2"}
+"Bin2l":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"Bin2l"},
+"genWeight_muR1muF1":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight","xlabel":"muR1muF1"},
+"genWeight_muR2muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight","xlabel":"muR2muF2"}
 }
 
 binning={}
@@ -47,10 +49,12 @@ binning["gen_jet4_pt"]=[0,20,25,33,45,60,80,110,160,500]
 binning["n_gen_jets"]=[0,1,2,3,4,5,6,7,8,9,10]
 binning["n_gen_bjets"]=[0,1,2,3,4,5,6,7,8,9,10]
 binning["n_gen_lepton"]=[0,1,2,3,4,5,6,7,8,9,10]
+binning["Bin2l"]=[0,1,2,3,4,5,6,7,8,9,10,11]
 binning["MinDRMCGenLep1Jet"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 binning["MinDrMCGenLep2Jet"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 binning["MinDRMCGenLeps"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
-binning["genWeight_muR1muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
+binning["genWeight_muR1muF1"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
+binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
