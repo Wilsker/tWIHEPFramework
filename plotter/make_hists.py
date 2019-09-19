@@ -41,7 +41,6 @@ for sample in sampleName:
                 h01.Write()
             else:
                 systindex=0
-                print 'len(tree0.EVENT_genWeights) = ', len(tree0.Get("EVENT_genWeights"))
                 for sixpoint_index in sixpoint_variations:
                     hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     #syst_weight = "%s_%s/%s" % (syst,sixpoint_index,nominal_weights[syst])
