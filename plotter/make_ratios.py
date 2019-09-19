@@ -9,25 +9,26 @@ inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/s
 region_ = ""
 treename = "TNT/BOOM";
 
+#"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"muR1muF2"}
 features={
-"n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"n_gen_jets"},
-"n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"n_gen_bjets"},
-"n_gen_lepton":{"nbin":5,"min":0.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"n_gen_lepton"},
-"MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MCGenHTall"},
-"MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MCGenHThad"},
-"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MCGenMET"},
-"MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MinDRMCGenLep1Jet"},
-"MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MinDrMCGenLep2Jet"},
-"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"MinDRMCGenLeps"},
-"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_bjet1_pt"},
-"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_bjet2_pt"},
-"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet1_pt"},
-"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet2_pt"},
-"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet3_pt"},
-"gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_jet4_pt"},
-"gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_lepton1_pt"},
-"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"gen_lepton2_pt"},
-"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4)","xlabel":"muR1muF2"}
+"n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight","xlabel":"n_gen_jets"},
+"n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight","xlabel":"n_gen_bjets"},
+"n_gen_lepton":{"nbin":5,"min":0.5,"max":5.5,"cut":"EventWeight","xlabel":"n_gen_lepton"},
+"MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight","xlabel":"MCGenHTall"},
+"MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight","xlabel":"MCGenHThad"},
+"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EventWeight","xlabel":"MCGenMET"},
+"MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight","xlabel":"MinDRMCGenLep1Jet"},
+"MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight","xlabel":"MinDrMCGenLep2Jet"},
+"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight","xlabel":"MinDRMCGenLeps"},
+"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_bjet1_pt"},
+"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_bjet2_pt"},
+"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet1_pt"},
+"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet2_pt"},
+"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet3_pt"},
+"gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet4_pt"},
+"gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"gen_lepton1_pt"},
+"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"gen_lepton2_pt"},
+"genWeight_muR1muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight","xlabel":"muR1muF2"}
 }
 
 binning={}

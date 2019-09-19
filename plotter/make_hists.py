@@ -40,15 +40,20 @@ for sample in sampleName:
                 f_out.cd()
                 h01.Write()
             else:
+                systindex=0
+                print 'len(tree0.EVENT_genWeights) = ', len(tree0.EVENT_genWeights)
                 for sixpoint_index in sixpoint_variations:
                     hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
-                    syst_weight = "%s_%s/%s" % (syst,sixpoint_index,nominal_weights[syst])
+                    #syst_weight = "%s_%s/%s" % (syst,sixpoint_index,nominal_weights[syst])
+                    syst_weight = "EVENT_genWeights[%i]/%s" % (systindex,nominal_weights[syst])
                     h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s"%(values["cut"],syst_weight)
+                    EVENT_genWeights
                     tree0.Draw(input01,CUT)
                     f_out.cd()
                     h01.Write()
+                    systindex = systindex+1
 
 f_out.Close()
