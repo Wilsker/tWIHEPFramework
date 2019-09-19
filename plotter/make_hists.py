@@ -49,7 +49,6 @@ for sample in sampleName:
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s*%s"%(values["cut"],syst_weight)
-                    EVENT_genWeights
                     tree0.Draw(input01,CUT)
                     f_out.cd()
                     h01.Write()
