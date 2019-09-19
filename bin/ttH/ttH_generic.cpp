@@ -322,7 +322,7 @@ mystudy.AddCut(new CutGenLeptonCharge(particlesObj, "Gen")); // 2LSS charge Gen 
 mystudy.AddCut(new CutGenJetN(particlesObj)); // Require 3 Gen jets above given pt and eta
 mystudy.AddCut(new CutGenTauN(particlesObj, "Gen")); // Reject events with hadronic tau in final state
 mystudy.AddCut(new CutGenBJetN(particlesObj)); // Require ≥1 Gen b-jets above given pt and eta
-
+mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
 
 mystudy.AddVars(new ttVModellingVars(false)); // fill histo
 mystudy.AddVars(new WeightVars());

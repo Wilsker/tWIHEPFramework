@@ -1,0 +1,387 @@
+#################
+### Legacy 16 MC Informations ####
+###################
+# do not merge PS samples for the purpose of PS systematics study
+
+#The luminosity of the Sample to be processed
+Weight.Lumi: 35920
+
+# 100000 - Legacy16V1_TTHnobb MVA sample
+Weight.Source.100000: 0.2118
+Events.Source.100000: 3905798
+PileUp.Source.100000: Legacy16V1_TTHnobb
+
+# 100001 - Legacy16V1_ttHnobb
+Weight.Source.100001: 0.2118
+Events.Source.100001: 2985155
+PileUp.Source.100001: Legacy16V1_ttHnobb
+
+# 100002 - Legacy16V1_THQ_TuneCP5_ctcvcp
+Weight.Source.100002: 0.02313
+Events.Source.100002: 851.5929841
+PileUp.Source.100002: Legacy16V1_THQ_TuneCP5_ctcvcp
+
+# 100003 - Legacy16V1_THQ_Tune8M1_ctcvcp MVA sample
+Weight.Source.100003: 0.07096
+Events.Source.100003: 1501.619729
+PileUp.Source.100003: Legacy16V1_THQ_Tune8M1_ctcvcp
+
+# 100004 - Legacy16V1_THQ MVA sample
+Weight.Source.100004: 0.02313
+Events.Source.100004: 3495799
+PileUp.Source.100004: Legacy16V1_THQ
+
+# 100005 - Legacy16V1_THW_TuneCP5_ctcvcp
+Weight.Source.100005: 0.005087
+Events.Source.100005: 162.224309
+PileUp.Source.100005: Legacy16V1_THW_TuneCP5_ctcvcp
+
+# 100006 - Legacy16V1_THW_Tune8M1_ctcvcp MVA sample
+Weight.Source.100006: 0.01561
+Events.Source.100006: 152.9786793
+PileUp.Source.100006: Legacy16V1_THW_Tune8M1_ctcvcp
+
+# 100007 - Legacy16V1_THW MVA sample
+Weight.Source.100007: 0.005087
+Events.Source.100007: 1209200
+PileUp.Source.100007: Legacy16V1_THW
+
+# 100008 - Legacy16V1_TTWJets
+Weight.Source.100008: 0.196
+Events.Source.100008: 1603527
+PileUp.Source.100008: Legacy16V1_TTWJets
+
+# 100009 - Legacy16V1_TTWW
+Weight.Source.100009: 0.00698174
+Events.Source.100009: 98300
+PileUp.Source.100009: Legacy16V1_TTWW
+
+# 100010 - Legacy16V1_TTZ_M1to10
+Weight.Source.100010: 0.04537
+Events.Source.100010: 246792
+PileUp.Source.100010: Legacy16V1_TTZ_M1to10
+
+# 100011 - Legacy16V1_TTZ_M10_ext1
+Weight.Source.100011: 0.2072
+Events.Source.100011: 5425506
+PileUp.Source.100011: Legacy16V1_TTZ_M10_ext1
+
+# 100012 - Legacy16V1_TTZ_M10_ext2
+Weight.Source.100012: 0.2072
+Events.Source.100012: 5425506
+PileUp.Source.100012: Legacy16V1_TTZ_M10_ext2
+
+# 100013 - Legacy16V1_ST_sCh_lepDecay
+Weight.Source.100013: 3.364
+Events.Source.100013: 622990
+PileUp.Source.100013: Legacy16V1_ST_sCh_lepDecay
+
+# 100014 - Legacy16V1_ST_sCh_lepDecay_PS
+Weight.Source.100014: 3.364
+Events.Source.100014: 6208292
+PileUp.Source.100014: Legacy16V1_ST_sCh_lepDecay_PS
+
+# 100015 - Legacy16V1_ST_tCh_top
+Weight.Source.100015: 136.02
+Events.Source.100015: 67105876
+PileUp.Source.100015: Legacy16V1_ST_tCh_top
+
+# 100016 - Legacy16V1_ST_tCh_antitop
+Weight.Source.100016: 80.95
+Events.Source.100016: 38811017
+PileUp.Source.100016: Legacy16V1_ST_tCh_antitop
+
+# 100017 - Legacy16V1_ST_tCh_antitop_PS
+Weight.Source.100017: 80.95
+Events.Source.100017: 39675800
+PileUp.Source.100017: Legacy16V1_ST_tCh_antitop_PS
+
+# 100018 - Legacy16V1_ST_tW_top
+Weight.Source.100018: 35.85
+Events.Source.100018: 6807750
+PileUp.Source.100018: Legacy16V1_ST_tW_top
+
+# 100019 - Legacy16V1_ST_tW_antitop
+Weight.Source.100019: 35.85
+Events.Source.100019: 6933094
+PileUp.Source.100019: Legacy16V1_ST_tW_antitop
+
+# 100020 - Legacy16V1_tWll
+Weight.Source.100020: 0.011016
+Events.Source.100020: 50000
+PileUp.Source.100020: Legacy16V1_tWll
+
+# 100021 - Legacy16V1_TTTo2L_PS MVA sample
+Weight.Source.100021: 88.4
+Events.Source.100021: 67378052
+PileUp.Source.100021: Legacy16V1_TTTo2L_PS
+
+# 100022 - Legacy16V1_TTToSemiLep_PS MVA sample
+Weight.Source.100022: 365.52
+Events.Source.100022: 101008126
+PileUp.Source.100022: Legacy16V1_TTToSemiLep_PS
+
+# 100023 - Legacy16V1_TTToHad_PS MVA sample
+Weight.Source.100023: 377.85
+Events.Source.100023: 66669770
+PileUp.Source.100023: Legacy16V1_TTToHad_PS
+
+# 100024 - Legacy16V1_TTGJets_v1
+Weight.Source.100024: 4.09
+Events.Source.100024: 4774447
+PileUp.Source.100024: Legacy16V1_TTGJets_v1
+
+# 100025 - Legacy16V1_TTGJets_ext
+Weight.Source.100025: 4.09
+Events.Source.100025: 4774447
+PileUp.Source.100025: Legacy16V1_TTGJets_ext
+
+# 100026 - Legacy16V1_TGJetsLep
+Weight.Source.100026: 1.018
+Events.Source.100026: 62952
+PileUp.Source.100026: Legacy16V1_TGJetsLep
+
+# 100027 - Legacy16V1_WGToLNuG_ext1
+Weight.Source.100027: 585.8
+Events.Source.100027: 17643995
+PileUp.Source.100027: Legacy16V1_WGToLNuG_ext1
+
+# 100028 - Legacy16V1_WGToLNuG_ext2
+Weight.Source.100028: 585.8
+Events.Source.100028: 17643995
+PileUp.Source.100028: Legacy16V1_WGToLNuG_ext2
+
+# 100029 - Legacy16V1_WGToLNuG_ext3
+Weight.Source.100029: 585.8
+Events.Source.100029: 17643995
+PileUp.Source.100029: Legacy16V1_WGToLNuG_ext3
+
+# 100030 - Legacy16V1_ZGToLLG
+Weight.Source.100030: 131.3
+Events.Source.100030: 9640310
+PileUp.Source.100030: Legacy16V1_ZGToLLG
+
+# 100031 - Legacy16V1_DYJets_M10to50
+Weight.Source.100031: 18610
+Events.Source.100031: 35114961
+PileUp.Source.100031: Legacy16V1_DYJets_M10to50
+
+# 100032 - Legacy16V1_DYJets_M50
+Weight.Source.100032: 6225.42
+Events.Source.100032: 80924255
+PileUp.Source.100032: Legacy16V1_DYJets_M50
+
+# 100033 - Legacy16V1_WZG
+Weight.Source.100033: 0.04345
+Events.Source.100033: 844854
+PileUp.Source.100033: Legacy16V1_WZG
+
+# 100034 - Legacy16V1_WWTo2LNu
+Weight.Source.100034: 12.2
+Events.Source.100034: 1999000
+PileUp.Source.100034: Legacy16V1_WWTo2LNu
+
+# 100035 - Legacy16V1_WZTo3LNu
+Weight.Source.100035: 4.43
+Events.Source.100035: 18000000
+PileUp.Source.100035: Legacy16V1_WZTo3LNu
+
+# 100036 - Legacy16V1_ZZTo4L
+Weight.Source.100036: 1.256
+Events.Source.100036: 6669988
+PileUp.Source.100036: Legacy16V1_ZZTo4L
+
+# 100037 - Legacy16V1_WJets_v1
+Weight.Source.100037: 61526.7
+Events.Source.100037: 29514020
+PileUp.Source.100037: Legacy16V1_WJets_v1
+
+# 100039 - Legacy16V1_WW_DS
+Weight.Source.100039: 0.1743
+Events.Source.100039: 999367
+PileUp.Source.100039: Legacy16V1_WW_DS
+
+# 100040 - Legacy16V1_WWW
+Weight.Source.100040: 0.2086
+Events.Source.100040: 210538
+PileUp.Source.100040: Legacy16V1_WWW
+
+# 100041 - Legacy16V1_WWZ
+Weight.Source.100041: 0.1651
+Events.Source.100041: 221468
+PileUp.Source.100041: Legacy16V1_WWZ
+
+# 100042 - Legacy16V1_WZZ
+Weight.Source.100042: 0.05565
+Events.Source.100042: 216366
+PileUp.Source.100042: Legacy16V1_WZZ
+
+# 100043 - Legacy16V1_ZZZ
+Weight.Source.100043: 0.01398
+Events.Source.100043: 213197
+PileUp.Source.100043: Legacy16V1_ZZZ
+
+# 100044 - Legacy16V1_TTTT
+Weight.Source.100044: 0.009103
+Events.Source.100044: 104640
+PileUp.Source.100044: Legacy16V1_TTTT
+
+# 100045 - Legacy16V1_tZq_ext
+Weight.Source.100045: 0.07358
+Events.Source.100045: 3618998
+PileUp.Source.100045: Legacy16V1_tZq_ext
+
+# 100046 - Legacy16V1_tZq_PS
+Weight.Source.100046: 0.07358
+Events.Source.100046: 2852652
+PileUp.Source.100046: Legacy16V1_tZq_PS
+
+# 100047 - Legacy16V1_WpWpJJ
+Weight.Source.100047: 0.03711
+Events.Source.100047: 149681
+PileUp.Source.100047: Legacy16V1_WpWpJJ
+
+# 100050 - Legacy16V1_VHToNonbb
+Weight.Source.100050: 0.9425
+Events.Source.100050: 461452
+PileUp.Source.100050: Legacy16V1_VHToNonbb
+
+# 100051 - Legacy16V1_ZHTobb
+Weight.Source.100051: 0.05198
+Events.Source.100051: 2793892
+PileUp.Source.100051: Legacy16V1_ZHTobb
+
+# 100052 - Legacy16V1_ZHToTauTau
+Weight.Source.100052: 0.05544
+Events.Source.100052: 563177
+PileUp.Source.100052: Legacy16V1_ZHToTauTau
+
+# 100053 - Legacy16V1_ttZ MVA samples
+Weight.Source.100053: 0.8393
+Events.Source.100053: 9240668
+PileUp.Source.100053: Legacy16V1_ttZ
+
+# 100054 - Legacy16V1_ttW MVA samples
+Weight.Source.100054: 0.6008
+Events.Source.100054: 6555844
+PileUp.Source.100054: Legacy16V1_ttW
+
+# 100055 - Legacy16V1_TTJets_DiLep_v1
+Weight.Source.100055: 88.4
+Events.Source.100055: 30691083
+PileUp.Source.100055: Legacy16V1_TTJets_DiLep_v1
+
+# 100056 - Legacy16V1_TTJets_DiLep_ext
+Weight.Source.100056: 88.4
+Events.Source.100056: 30691083
+PileUp.Source.100056: Legacy16V1_TTJets_DiLep_ext
+
+# 100057 - Legacy16V1_TTJets_TToSingleLep_v1
+Weight.Source.100057: 182.76
+Events.Source.100057: 61621218
+PileUp.Source.100057: Legacy16V1_TTJets_TToSingleLep_v1
+
+# 100058 - Legacy16V1_TTJets_TToSingleLep_ext
+Weight.Source.100058: 182.76
+Events.Source.100058: 61621218
+PileUp.Source.100058: Legacy16V1_TTJets_TToSingleLep_ext
+
+# 100059 - Legacy16V1_TTJets_TbarToSingleLep_v1
+Weight.Source.100059: 182.76
+Events.Source.100059: 61621218
+PileUp.Source.100059: Legacy16V1_TTJets_TbarToSingleLep_v1
+
+# 100060 - Legacy16V1_TTJets_TbarToSingleLep_ext
+Weight.Source.100060: 182.76
+Events.Source.100060: 61621218
+PileUp.Source.100060: Legacy16V1_TTJets_TbarToSingleLep_ext
+
+# 100061 - Legacy16V1_TTH_ctcvcp
+Weight.Source.100061: 0.5071
+Events.Source.100061: 6233.089172
+PileUp.Source.100061: Legacy16V1_TTH_ctcvcp
+
+# 100062 - Legacy16V1_ggHToTauTau_v3
+Weight.Source.100062: 3.0469
+Events.Source.100062: 9673200
+PileUp.Source.100062: Legacy16V1_ggHToTauTau_v3
+
+# 100063 - Legacy16V1_ggHToZZTo4L
+Weight.Source.100063: 0.01297
+Events.Source.100063: 999800
+PileUp.Source.100063: Legacy16V1_ggHToZZTo4L
+
+# 100064 - Legacy16V1_ggHToWWToLNuQQ
+Weight.Source.100064: 4.5621
+Events.Source.100064: 198000
+PileUp.Source.100064: Legacy16V1_ggHToWWToLNuQQ
+
+# 100065 - Legacy16V1_ggHToWWTo2L2Nu
+Weight.Source.100065: 1.1033
+Events.Source.100065: 492200
+PileUp.Source.100065: Legacy16V1_ggHToWWTo2L2Nu
+
+# 100066 - Legacy16V1_ggHToMuMu
+Weight.Source.100066: 0.010571
+Events.Source.100066: 1991200
+PileUp.Source.100066: Legacy16V1_ggHToMuMu
+
+# 100067 - Legacy16V1_ggHToBB_v2
+Weight.Source.100067: 28.293
+Events.Source.100067: 2629798
+PileUp.Source.100067: Legacy16V1_ggHToBB_v2
+
+# 100068 - Legacy16V1_ggHToBB_ext1
+Weight.Source.100068: 28.293
+Events.Source.100068: 2629798
+PileUp.Source.100068: Legacy16V1_ggHToBB_ext1
+
+# 100069 - Legacy16V1_ggHToGG
+Weight.Source.100069: 0.11028
+Events.Source.100069: 447376
+PileUp.Source.100069: Legacy16V1_ggHToGG
+
+# 100049 - Legacy16V1_VBFHToTauTau
+Weight.Source.100049: 0.2372
+Events.Source.100049: 1497048
+PileUp.Source.100049: Legacy16V1_VBFHToTauTau
+
+# 100070 - Legacy16V1_VBFHToZZTo4L
+Weight.Source.100070: 0.0010099
+Events.Source.100070: 499312
+PileUp.Source.100070: Legacy16V1_VBFHToZZTo4L
+
+# 100071 - Legacy16V1_VBFHToWWToLNuQQ
+Weight.Source.100071: 0.35517
+Events.Source.100071: 199732
+PileUp.Source.100071: Legacy16V1_VBFHToWWToLNuQQ
+
+# 100072 - Legacy16V1_VBFHToWWTo2L2Nu
+Weight.Source.100072: 0.085894
+Events.Source.100072: 99862
+PileUp.Source.100072: Legacy16V1_VBFHToWWTo2L2Nu
+
+# 100073 - Legacy16V1_VBFHToMuMu
+Weight.Source.100073: 0.00082296
+Events.Source.100073: 996070
+PileUp.Source.100073: Legacy16V1_VBFHToMuMu
+
+# 100074 - Legacy16V1_VBFHToBB_v1
+Weight.Source.100074: 2.2026
+Events.Source.100074: 4764516
+PileUp.Source.100074: Legacy16V1_VBFHToBB_v1
+
+# 100075 - Legacy16V1_VBFHToBB_ext1
+Weight.Source.100075: 2.2026
+Events.Source.100075: 4764516
+PileUp.Source.100075: Legacy16V1_VBFHToBB_ext1
+
+# 100076 - Legacy16V1_VBFHToGG_ext1
+Weight.Source.100076: 0.0085851
+Events.Source.100076: 978564
+PileUp.Source.100076: Legacy16V1_VBFHToGG_ext1
+
+# 100077 - Legacy16V1_VBFHToGG_ext2
+Weight.Source.100077: 0.0085851
+Events.Source.100077: 978564
+PileUp.Source.100077: Legacy16V1_VBFHToGG_ext2

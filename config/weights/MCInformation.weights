@@ -1,10 +1,10 @@
-################# 
-### Fall 17 MC Informations #### 
+#################
+### Fall 17 MC Informations ####
 ###################
- 
+
 #The luminosity of the Sample to be processed
 Weight.Lumi: 41298
- 
+
 # 100000 - TTHnobb
 Weight.Source.100000: 0.2119678
 Events.Source.100000: 3303585
@@ -337,7 +337,7 @@ PileUp.Source.100065: DYJetsToLL_M4to50_HT600toInf
 
 # 100100 - ttHnobb
 Weight.Source.100100: 0.2119678
-Events.Source.100100: 7477387 
+Events.Source.100100: 7477387
 PileUp.Source.100100: ttHnobb
 
 # 100101 - ttW_ext_Jets
@@ -359,4 +359,3 @@ PileUp.Source.100103: ttZ_ext_Jets
 Weight.Source.100104: 0.8393
 Events.Source.100104: 9678691
 PileUp.Source.100104: ttZ_Jets
-
