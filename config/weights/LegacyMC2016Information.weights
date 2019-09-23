@@ -49,7 +49,7 @@ PileUp.Source.100007: Legacy16V1_THW
 # 100008 - Legacy16V1_TTWJets
 Weight.Source.100008: 0.196
 Events.Source.100008: 1603527
-PileUp.Source.100008: Legacy16V1_TTWJets
+PileUp.Source.100008: TTWJetsToLNu
 
 # 100009 - Legacy16V1_TTWW
 Weight.Source.100009: 0.00698174
