@@ -109,30 +109,57 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
   setPileUpSyst(false);
   if(pileup){
     setPileUpWgt(true);
+    TFile* dataPVFile = TFile::Open(conf -> GetValue("Include.dataPVFile","null"),"READ");
+    _dataPV = (TH1D*)dataPVFile->Get("pileup");
+    _dataPV->SetDirectory(0);
+    _dataPV->Scale(1./_dataPV->Integral());
+
     setPileUpSyst(true);
-    if(_reCalPU){
-      TFile* dataPVFile = TFile::Open(conf -> GetValue("Include.dataPVFile","null"),"READ");
-      _dataPV = (TH1D*)dataPVFile->Get("pileup");
-      _dataPV->SetDirectory(0);
-      _dataPV->Scale(1./_dataPV->Integral());
-      _minBiasUpPV = (TH1D*)dataPVFile->Get("pileup_plus");
+    _minBiasUpPV = (TH1D*)dataPVFile->Get("pileup_plus");
+    _minBiasUpPV->SetDirectory(0);
+    _minBiasUpPV->Scale(1./_minBiasUpPV->Integral());
+
+    _minBiasDownPV = (TH1D*)dataPVFile->Get("pileup_minus");
+    _minBiasDownPV->SetDirectory(0);
+    _minBiasDownPV->Scale(1./_minBiasDownPV->Integral());
+    dataPVFile->Close();
+    delete dataPVFile;
+
+
+    TFile* mcPVFile = TFile::Open(conf -> GetValue("Include.mcPVFile","null"),"READ");
+    std::cout << "pileupHistName is " << pileupHistName << std::endl;
+    _mcPV = (TH1D*)mcPVFile->Get(pileupHistName);
+    _mcPV->SetDirectory(0);
+    _mcPV->Scale(1./_mcPV->Integral());
+    mcPVFile->Close();
+    delete mcPVFile;
+
+    //Load in the pileup distributions with the min bias x-section altered for systematic studies
+    /*
+    string minBiasFileName = conf -> GetValue("Include.minBiasUp","null");
+    if (minBiasFileName != "null"){
+      TFile* minBiasUpFile = TFile::Open(minBiasFileName.c_str(),"READ");
+      setPileUpSyst(true);
+      _minBiasUpPV = (TH1F*)minBiasUpFile->Get("pileup");
       _minBiasUpPV->SetDirectory(0);
       _minBiasUpPV->Scale(1./_minBiasUpPV->Integral());
-      _minBiasDownPV = (TH1D*)dataPVFile->Get("pileup_minus");
+      minBiasUpFile->Close();
+      delete minBiasUpFile;
+    }
+
+    string minBiasDownFileName = conf -> GetValue("Include.minBiasDown","null");
+    if (minBiasDownFileName != "null"){
+      TFile* minBiasDownFile = TFile::Open(minBiasDownFileName.c_str(),"READ");
+      _minBiasDownPV = (TH1F*)minBiasDownFile->Get("pileup");
       _minBiasDownPV->SetDirectory(0);
       _minBiasDownPV->Scale(1./_minBiasDownPV->Integral());
-      dataPVFile->Close();
-      delete dataPVFile;
-
-      TFile* mcPVFile = TFile::Open(conf -> GetValue("Include.mcPVFile","null"),"READ");
-      std::cout << "pileupHistName is " << pileupHistName << std::endl;
-      _mcPV = (TH1D*)mcPVFile->Get(pileupHistName);
-      _mcPV->SetDirectory(0);
-      _mcPV->Scale(1./_mcPV->Integral());
-      mcPVFile->Close();
-      delete mcPVFile;
+      minBiasDownFile->Close();
+      delete minBiasDownFile;
     }
-    else setPileUpWgt(false);
+    */
+
+  }
+  else setPileUpWgt(false);
 
   if (bWeight) setbWeight(true);
   else setbWeight(false);
@@ -462,23 +489,33 @@ Bool_t EventWeight::Apply()
 
  //only apply pileup weight if specified
  if(isPileUpWgt()) {
-   if(_reCalPU){
-    int PVbin  = std::max(1, std::min(_mcPV->GetNbinsX(), _mcPV->GetXaxis()->FindBin(tree->trueInteractions)));
-    if ( _mcPV->GetBinContent(PVbin) > 0){
-      pileupEventWeight = _dataPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
-      if (pileupEventWeight==0){
-           std::cout<<" trueInteractions: "<< tree->trueInteractions << " dataPV "<< _dataPV->GetBinContent(tree->trueInteractions) << " mcPV "<< _mcPV->GetBinContent(tree->trueInteractions)<< " pileupEventWeight " << pileupEventWeight;
-      }
-      if (isPileupSysts()){
-        pileupMinBiasUpWeight = _minBiasUpPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
-        pileupMinBiasDownWeight = _minBiasDownPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
-      }
-    }
+   int PVbin  = std::max(1, std::min(_mcPV->GetNbinsX(), _mcPV->GetXaxis()->FindBin(tree->trueInteractions)));
+   if (_reCalPU && _mcPV->GetBinContent(PVbin) > 0){
+     pileupEventWeight = _dataPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
+     if (pileupEventWeight==0){
+          std::cout<<" trueInteractions: "<< tree->trueInteractions << " dataPV "<< _dataPV->GetBinContent(tree->trueInteractions) << " mcPV "<< _mcPV->GetBinContent(tree->trueInteractions)<< " pileupEventWeight " << pileupEventWeight;
+     }
+     if (isPileupSysts()){
+       pileupMinBiasUpWeight = _minBiasUpPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
+       pileupMinBiasDownWeight = _minBiasDownPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
+     }
    }
+   /*
+   if (_reCalPU && _mcPV->GetBinContent(tree->trueInteractions) > 0){
+     pileupEventWeight = _dataPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
+     if (pileupEventWeight==0){
+          std::cout<<" trueInteractions: "<< tree->trueInteractions << " dataPV "<< _dataPV->GetBinContent(tree->trueInteractions) << " mcPV "<< _mcPV->GetBinContent(tree->trueInteractions)<< " pileupEventWeight " << pileupEventWeight;
+     }
+     if (isPileupSysts()){
+       pileupMinBiasUpWeight = _minBiasUpPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
+       pileupMinBiasDownWeight = _minBiasDownPV->GetBinContent(tree->trueInteractions) / _mcPV->GetBinContent(tree->trueInteractions);
+     }
+   }
+   */
    else {
      pileupEventWeight = tree->PUWeight;
-     pileupMinBiasUpWeight = tree->MinBiasUpWeight;
-     pileupMinBiasDownWeight = tree->MinBiasDownWeight;
+     pileupMinBiasUpWeight = tree->PUWeight;
+     pileupMinBiasDownWeight = tree->PUWeight;
    }
    wgt *= pileupEventWeight;
  }
