@@ -111,31 +111,28 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
     setPileUpWgt(true);
     setPileUpSyst(true);
     if(_reCalPU){
-    TFile* dataPVFile = TFile::Open(conf -> GetValue("Include.dataPVFile","null"),"READ");
-    _dataPV = (TH1D*)dataPVFile->Get("pileup");
-    _dataPV->SetDirectory(0);
-    _dataPV->Scale(1./_dataPV->Integral());
+      TFile* dataPVFile = TFile::Open(conf -> GetValue("Include.dataPVFile","null"),"READ");
+      _dataPV = (TH1D*)dataPVFile->Get("pileup");
+      _dataPV->SetDirectory(0);
+      _dataPV->Scale(1./_dataPV->Integral());
+      _minBiasUpPV = (TH1D*)dataPVFile->Get("pileup_plus");
+      _minBiasUpPV->SetDirectory(0);
+      _minBiasUpPV->Scale(1./_minBiasUpPV->Integral());
+      _minBiasDownPV = (TH1D*)dataPVFile->Get("pileup_minus");
+      _minBiasDownPV->SetDirectory(0);
+      _minBiasDownPV->Scale(1./_minBiasDownPV->Integral());
+      dataPVFile->Close();
+      delete dataPVFile;
 
-    _minBiasUpPV = (TH1D*)dataPVFile->Get("pileup_plus");
-    _minBiasUpPV->SetDirectory(0);
-    _minBiasUpPV->Scale(1./_minBiasUpPV->Integral());
-
-    _minBiasDownPV = (TH1D*)dataPVFile->Get("pileup_minus");
-    _minBiasDownPV->SetDirectory(0);
-    _minBiasDownPV->Scale(1./_minBiasDownPV->Integral());
-    dataPVFile->Close();
-    delete dataPVFile;
-
-    TFile* mcPVFile = TFile::Open(conf -> GetValue("Include.mcPVFile","null"),"READ");
-    std::cout << "pileupHistName is " << pileupHistName << std::endl;
-    _mcPV = (TH1D*)mcPVFile->Get(pileupHistName);
-    _mcPV->SetDirectory(0);
-    _mcPV->Scale(1./_mcPV->Integral());
-    mcPVFile->Close();
-    delete mcPVFile;
-
-  }
-  else setPileUpWgt(false);
+      TFile* mcPVFile = TFile::Open(conf -> GetValue("Include.mcPVFile","null"),"READ");
+      std::cout << "pileupHistName is " << pileupHistName << std::endl;
+      _mcPV = (TH1D*)mcPVFile->Get(pileupHistName);
+      _mcPV->SetDirectory(0);
+      _mcPV->Scale(1./_mcPV->Integral());
+      mcPVFile->Close();
+      delete mcPVFile;
+    }
+    else setPileUpWgt(false);
 
   if (bWeight) setbWeight(true);
   else setbWeight(false);
@@ -477,6 +474,7 @@ Bool_t EventWeight::Apply()
         pileupMinBiasDownWeight = _minBiasDownPV->GetBinContent(PVbin) / _mcPV->GetBinContent(PVbin);
       }
     }
+   }
    else {
      pileupEventWeight = tree->PUWeight;
      pileupMinBiasUpWeight = tree->MinBiasUpWeight;
