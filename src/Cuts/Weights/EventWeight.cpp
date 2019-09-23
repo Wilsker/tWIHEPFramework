@@ -96,8 +96,12 @@ EventWeight::EventWeight(EventContainer *EventContainerObj,Double_t TotalMCatNLO
     stringstream strNumber, puName;
     strNumber<<"Events.Source."<<sNumber;
     puName <<"PileUp.Source."<<sNumber;
+    cout << "EventWeight::sNumber = " << sNumber << endl;
+    cout << "EventWeight::strNumber = " << strNumber.str() << endl;
+    cout << "EventWeight::puName = " << puName.str() << endl;
     Double_t totMCnloEvt = conf -> GetValue(strNumber.str().c_str(), -1.);
     pileupHistName=conf -> GetValue(puName.str().c_str(),"null");
+    cout << "EventWeight::pileupHistName = " << pileupHistName << endl;
     SetTotalMCatNLOEvents(totMCnloEvt);
   } else {
     SetTotalMCatNLOEvents(TotalMCatNLOEvents);
