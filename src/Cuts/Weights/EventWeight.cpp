@@ -326,7 +326,7 @@ void EventWeight::BookHistogram()
   stringstream strNumber;
 
   strNumber<<"Weight.Source."<<sNumber;
-  cout << "strNumber: " << std::str(strNumber) << endl;
+  cout << "strNumber: " << strNumber.str() << endl;
   //string wq = "Weight.Source."+strNumber.str();
   //wq += strNumber.str();
   //  cout << EventContainerObj->GetEventTree()->GetEntries() << endl;
