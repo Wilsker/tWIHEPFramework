@@ -321,12 +321,12 @@ void EventWeight::BookHistogram()
   // Use configuration parameters to set weights
   TString sName = EventContainerObj -> GetSourceName();
   cout << "sName: " << sName << endl;
-  
+
   Int_t sNumber = EventContainerObj -> GetSourceNumber();
   stringstream strNumber;
 
   strNumber<<"Weight.Source."<<sNumber;
-  cout << "strNumber: " << strNumber << endl;
+  cout << "strNumber: " << str(strNumber) << endl;
   //string wq = "Weight.Source."+strNumber.str();
   //wq += strNumber.str();
   //  cout << EventContainerObj->GetEventTree()->GetEntries() << endl;
