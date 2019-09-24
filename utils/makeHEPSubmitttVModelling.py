@@ -324,8 +324,9 @@ for k in sample:
         print >> allJobFile, "hep_sub "+ shFileName + " -o "+logFileName+ " -e "+errorFileName
 
     else:
+        print 'sampleName: ', sampleName
+        print 'f[:f.rfind(_): ', f[:f.rfind('_')]
         inputFiles  = [f for f in os.listdir(frameworkDir+fileListDirectory) if sampleName==f[:f.rfind('_')]]
-        print 'inputFiles:', inputFiles
         for j in range(len(inputFiles)):
 #           submitFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".submit"
             shFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".sh"
