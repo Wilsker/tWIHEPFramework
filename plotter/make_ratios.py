@@ -185,8 +185,8 @@ def plotSysts():
                 hist_nom.SetMarkerColor(Color["nominal"])
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
 
-                print 'ATLAS_feature_map.Get(feature): ', ATLAS_feature_map.Get(feature)
-                hist_atlas = ATLASfile.Get(ATLAS_feature_map.Get(feature))
+                print 'ATLAS_feature_map.get(feature): ', ATLAS_feature_map.get(feature)
+                hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                 hist_atlas.SetFillColor(0)
                 hist_atlas.SetLineColor(46)
                 hist_atlas.SetMarkerColor(46)
