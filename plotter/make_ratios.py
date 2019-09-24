@@ -23,9 +23,9 @@ features={
 #"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight","xlabel":"MinDRMCGenLeps"},
 "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_bjet1_pt"},
 "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_bjet2_pt"},
-"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet1_pt"},
-"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet2_pt"},
-"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet3_pt"},
+#"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet1_pt"},
+#"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet2_pt"},
+#"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet3_pt"},
 "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight","xlabel":"gen_jet4_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"gen_lepton1_pt"},
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight","xlabel":"gen_lepton2_pt"}
@@ -46,10 +46,10 @@ ATLAS_feature_map={
 "MinDRMCGenLeps":"DRll01_0",
 "gen_bjet1_pt":"Bjet_Pt_0_0",
 "gen_bjet2_pt":"Bjet_Pt_1_0",
-#"gen_jet1_pt":"jet_Pt_0_0",
-#"gen_jet2_pt":"jet_Pt_1_0",
-#"gen_jet3_pt":"jet_Pt_2_0",
-"gen_jet4_pt":"jet_Pt_4_0",
+"gen_jet1_pt":"jet_Pt_0_0",
+"gen_jet2_pt":"jet_Pt_1_0",
+"gen_jet3_pt":"jet_Pt_2_0",
+"gen_jet4_pt":"jet_Pt_3_0",
 "gen_lepton1_pt":"lep_Pt_0_0",
 "gen_lepton2_pt":"lep_Pt_1_0"
 }
