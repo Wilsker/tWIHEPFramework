@@ -107,8 +107,8 @@ nlep = opt.nlep
 
 SamplesAll = {
 "2016":{"isDNN":samples2016MVA,"isHjtagger":samples2016MVA,"isSigExt":samples2016MC,"isData":samples2016Data,"1bgeq4j":samples2016MC},
-"2017":{"isDNN":samples2017MVA,"isHjtagger":samples2017MVA,"isSigExt":samples2017MC,"isData":samples2017Data,"1bgeq4j":samples2017Data},
-"2018":{"isDNN":samples2018MVA,"isHjtagger":samples2018MVA,"isSigExt":samples2018MC,"isData":samples2018Data,"1bgeq4j":samples2018Data},
+"2017":{"isDNN":samples2017MVA,"isHjtagger":samples2017MVA,"isSigExt":samples2017MC,"isData":samples2017Data,"1bgeq4j":samples2017MC},
+"2018":{"isDNN":samples2018MVA,"isHjtagger":samples2018MVA,"isSigExt":samples2018MC,"isData":samples2018Data,"1bgeq4j":samples2018MC},
 }
 
 def SetPars(YEAR, JEC, SampleType, NLEP):
@@ -167,22 +167,22 @@ def SetPars(YEAR, JEC, SampleType, NLEP):
             else:
                 print (" SampleType isSigExt, skip JEC type %s with NLEP %i"%(JEC,NLEP))
                 sys.exit()
-        elif SampleType == "1bgeq4j":
-            Analysis += "All"
-            Sample = SamplesAll[sYear][SampleType]
-            if NLEP==2:
-                Analysis +=  "2L"
-                TriggerName = "TTHLep_2L"
-                ConfigFile = "config/overall/ttHRunII/"+sYear+"/ttH.Multilepton.2lss_"+SampleType+".gencuts.config"
-            elif NLEP==3:
-                Analysis +=  "3L"
-                TriggerName = "TTHLep_3L"
-                ConfigFile = "config/overall/ttHRunII/"+sYear+"/ttH.MultiLeptons.3l_"+SampleType+".gencuts.config"
-            else:
-                print (" SampleType isSigExt, skip JEC type %s with NLEP %i"%(JEC,NLEP))
-                sys.exit()
         else:
             print (" SampleType isSigExt, skip JEC type %s with NLEP %i"%(JEC,NLEP))
+            sys.exit()
+    elif SampleType == "1bgeq4j":
+        Analysis += "All"
+        Sample = SamplesAll[sYear][SampleType]
+        if NLEP==2:
+            Analysis +=  "2L"
+            TriggerName = "TTHLep_2L"
+            ConfigFile = "config/overall/ttHRunII/"+sYear+"/ttH.Multilepton.2lss_"+SampleType+".gencuts.config"
+        elif NLEP==3:
+            Analysis +=  "3L"
+            TriggerName = "TTHLep_3L"
+            ConfigFile = "config/overall/ttHRunII/"+sYear+"/ttH.MultiLeptons.3l_"+SampleType+".gencuts.config"
+        else:
+            print (" SampleType 1bgeq4j, skip with NLEP %i"%(NLEP))
             sys.exit()
     elif SampleType == "isData":
         InvPostfix = " -FakeRate -chargeMis"
