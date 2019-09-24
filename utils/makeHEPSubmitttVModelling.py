@@ -176,11 +176,11 @@ def SetPars(YEAR, JEC, SampleType, NLEP):
         if NLEP==2:
             Analysis +=  "2L"
             TriggerName = "TTHLep_2L"
-            ConfigFile = "config/overall/ttHRunII/"+sYear+"/ttH.Multilepton.2lss_"+SampleType+".gencuts.config"
+            ConfigFile = "config/overall/ttV-modelling/"+sYear+"/ttH.Multilepton.2lss_"+SampleType+".gencuts.config"
         elif NLEP==3:
             Analysis +=  "3L"
             TriggerName = "TTHLep_3L"
-            ConfigFile = "config/overall/ttHRunII/"+sYear+"/ttH.MultiLeptons.3l_"+SampleType+".gencuts.config"
+            ConfigFile = "config/overall/ttV-modelling/"+sYear+"/ttH.MultiLepton.3l_"+SampleType+".gencuts.config"
         else:
             print (" SampleType 1bgeq4j, skip with NLEP %i"%(NLEP))
             sys.exit()
@@ -325,6 +325,7 @@ for k in sample:
 
     else:
         inputFiles  = [f for f in os.listdir(frameworkDir+fileListDirectory) if sampleName==f[:f.rfind('_')]]
+        print 'inputFiles:', inputFiles
         for j in range(len(inputFiles)):
 #           submitFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".submit"
             shFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".sh"
