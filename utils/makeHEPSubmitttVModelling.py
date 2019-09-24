@@ -325,7 +325,8 @@ for k in sample:
 
     else:
         print 'sampleName: ', sampleName
-        print 'f[:f.rfind(_): ', f[:f.rfind('_')]
+        for f in os.listdir(frameworkDir+fileListDirectory):
+            print f[:f.rfind('_')]
         inputFiles  = [f for f in os.listdir(frameworkDir+fileListDirectory) if sampleName==f[:f.rfind('_')]]
         for j in range(len(inputFiles)):
 #           submitFileName = workpath + sampleName + "/scripts/" + sampleName + str(j) + ".submit"
