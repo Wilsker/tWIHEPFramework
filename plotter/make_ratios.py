@@ -46,10 +46,10 @@ ATLAS_feature_map={
 "MinDRMCGenLeps":"DRll01_0",
 "gen_bjet1_pt":"Bjet_Pt_0_0",
 "gen_bjet2_pt":"Bjet_Pt_1_0",
-"gen_jet1_pt":"jet_Pt_0_0",
-"gen_jet2_pt":"jet_Pt_1_0",
-"gen_jet3_pt":"jet_Pt_2_0",
-"gen_jet4_pt":"jet_Pt_3_0",
+#"gen_jet1_pt":"jet_Pt_0_0",
+#"gen_jet2_pt":"jet_Pt_2_0",
+#"gen_jet3_pt":"jet_Pt_3_0",
+"gen_jet4_pt":"jet_Pt_4_0",
 "gen_lepton1_pt":"lep_Pt_0_0",
 "gen_lepton2_pt":"lep_Pt_1_0"
 }
