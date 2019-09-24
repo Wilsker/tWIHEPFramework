@@ -5,7 +5,8 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 
 #### start  user defined variables
 
-inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"]
+#inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"]
+inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All2L/Legacy16V1_TTWJets/skims/"]
 region_ = ""
 treename = "TNT/BOOM";
 
@@ -63,10 +64,12 @@ sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5",
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":15}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
-sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
+#sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
+sampleName = ["mergedLegacy16V1_TTWJets"]
 
 sampleTitle = {
-"TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTW MG+Pyth8"
+#"TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTW MG+Pyth8"
+"mergedLegacy16V1_TTWJets":"TTW MG+Pyth8"
 }
 
 postfix = ".root"
