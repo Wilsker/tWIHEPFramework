@@ -27,7 +27,7 @@ configFile = "config/overall/ttV-modelling/ttH.Multilepton.2lss_1bgeq4j.gencuts.
 invPostfix = " -MCatNLO -mc -PileUpWgt"
 mcPostfix = " "
 triggerName = "TTHLep_2L "
-fileListDirectory = "config/files/ttH_Legacy/SmallJobs/mc/"
+fileListDirectory = "config/files/ttVmodelling_studies/"
 makeSkims = True
 
 samples2016Data = [
