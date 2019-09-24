@@ -19,7 +19,7 @@ parser.add_option('-n', '--nlep',        dest='nlep'  ,      help='number of sel
 #analysis and task
 analysis = "ttH"
 taskname = "EvtSel"
-frameworkDir = "/publicfs/cms/data/TopQuark/cms13TeV/Binghuan/tWIHEPFramework/"
+frameworkDir = "/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/"
 executable = "bin/ttH/ttH_generic.x"
 configFile = "config/overall/ttV-modelling/ttH.Multilepton.2lss_1bgeq4j.gencuts.config"
 #invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs -lepSFs -FakeRate -chargeMis"
