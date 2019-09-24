@@ -34,6 +34,26 @@ features={
 "genWeight_muR2muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight","xlabel":"muR2muF2"}
 }
 
+ATLAS_feature_map={
+"n_gen_jets":{"nJets_0"},
+"n_gen_bjets":{"nBtagJets_0"},
+"n_gen_lepton":{""},
+"MCGenHTall":{"HT_0"},
+"MCGenHThad":{"HT_jets_0"},
+"MCGenMET":{"MET"},
+"MinDRMCGenLep1Jet":{"min_DRl0j_0"},
+"MinDrMCGenLep2Jet":{"min_DRl1j_0"},
+"MinDRMCGenLeps":{"DRll01_0"},
+"gen_bjet1_pt":{"Bjet_Pt_0_0"},
+"gen_bjet2_pt":{"Bjet_Pt_1_0"},
+"gen_jet1_pt":{"jet_Pt_0_0"},
+"gen_jet2_pt":{"jet_Pt_1_0"},
+"gen_jet3_pt":{"jet_Pt_2_0"},
+"gen_jet4_pt":{"jet_Pt_3_0"},
+"gen_lepton1_pt":{"lep_Pt_0_0"},
+"gen_lepton2_pt":{"lep_Pt_1_0"}
+}
+
 binning={}
 binning["MCGenHTall"]=[0,120,180,240,300,360,440,540,680,900,1500]
 binning["MCGenHThad"]=[0,90,140,180,240,300,380,460,540,650,850,1500]
@@ -57,7 +77,6 @@ binning["MinDRMCGenLeps"]=[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 binning["genWeight_muR1muF1"]=[-2.,-1.8,-1.6,-1.4,-1.2,-0.8,-0.6,-0.4,-0.2,0.0,0.2,0.4,0.6,0.8,1.,1.2,1.4,1.6,1.8,2.]
 binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
-
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
 sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
@@ -77,6 +96,9 @@ postfix = ".root"
 # the root file saving the histograms
 createROOTfile = True  # Set to Truth for the first time
 filename = "myhist.root"
+
+# ATLAS ROOT file
+ATLAS_filename = 'ATLAS_TTW_Sherpa_1809.root'
 
 # options
 normalization = False # Normalize to unit
@@ -142,6 +164,7 @@ def createCanvasPads():
 
 def plotSysts():
     inputfile = TFile(filename,"read")
+    ATLASfile = TFile(ATLAS_filename,"read")
     if inputfile.IsZombie():
         print("inputfile is Zombie")
         sys.exit()
@@ -161,6 +184,13 @@ def plotSysts():
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetMarkerColor(Color["nominal"])
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
+
+                print 'ATLAS_feature_map.Get(feature): ', ATLAS_feature_map.Get(feature)
+                hist_atlas = ATLASfile.Get(ATLAS_feature_map.Get(feature))
+                hist_atlas.SetFillColor(0)
+                hist_atlas.SetLineColor(46)
+                hist_atlas.SetMarkerColor(46)
+                #legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
 
                 # loop over variations
                 syst_counter = 0
@@ -190,7 +220,6 @@ def plotSysts():
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
-                        #legend.AddEntry(h_ratio_var,hist_nickname,"l")
                     else:
                         for sixpoint_index in sixpoint_variations:
                             hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
@@ -249,6 +278,8 @@ def plotSysts():
 
                     hist_nom.SetMarkerStyle(20)
                     hist_nom.Draw("HIST")
+                    hist_atlas.SetMarkerStyle(20)
+                    hist_atlas.Draw("HIST SAME")
 
                     for hist in hist_vars:
                         hist.SetMarkerStyle(20)
