@@ -106,9 +106,9 @@ nlep = opt.nlep
 
 
 SamplesAll = {
-"2016":{"isDNN":samples2016MVA,"isHjtagger":samples2016MVA,"isSigExt":samples2016MC,"isData":samples2016Data},
-"2017":{"isDNN":samples2017MVA,"isHjtagger":samples2017MVA,"isSigExt":samples2017MC,"isData":samples2017Data},
-"2018":{"isDNN":samples2018MVA,"isHjtagger":samples2018MVA,"isSigExt":samples2018MC,"isData":samples2018Data},
+"2016":{"isDNN":samples2016MVA,"isHjtagger":samples2016MVA,"isSigExt":samples2016MC,"isData":samples2016Data,"1bgeq4j":samples2016MC},
+"2017":{"isDNN":samples2017MVA,"isHjtagger":samples2017MVA,"isSigExt":samples2017MC,"isData":samples2017Data"1bgeq4j":samples2017Data},
+"2018":{"isDNN":samples2018MVA,"isHjtagger":samples2018MVA,"isSigExt":samples2018MC,"isData":samples2018Data"1bgeq4j":samples2018Data},
 }
 
 def SetPars(YEAR, JEC, SampleType, NLEP):
@@ -297,7 +297,7 @@ def prepareCshJob(sample,shFile,frameworkDir,workpath,samplePost=""):
 
 #for iroot in range(nroot):
 for k in sample:
-    print k
+    print 'makeHEPSubmitttVModelling::sample= ', k
     sampleName = k
 
     #First, let's get rid of any
