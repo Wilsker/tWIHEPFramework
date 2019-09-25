@@ -314,7 +314,7 @@ def plotSysts():
                             hist_ratio_vars[i].SetMinimum(0.4)
                             hist_ratio_vars[i].SetMaximum(1.6)
                         else:
-                            hist_ratio_vars[i].Draw("histsame")
+                            hist_ratio_vars[i].Draw("hist")
                     if 'genWeight_' not in feature:
                         line.Draw("same")
 
