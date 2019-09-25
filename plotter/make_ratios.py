@@ -196,20 +196,10 @@ def plotSysts():
                 # set up legend
                 legend = TLegend(0.6,0.6,0.88,0.88)
                 legend.SetBorderSize(0)
-                h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
-                hist_ratio_vars.append(h_ratio_atlas)
-                legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
 
                 # loop over variations
                 syst_counter = 0
                 for syst in systematics:
-                    
-                    '''c, pad1, pad2 = createCanvasPads()
-                    hist_vars = []
-                    hist_ratio_vars = []
-                    # set up legend
-                    legend = TLegend(0.6,0.6,0.88,0.88)
-                    legend.SetBorderSize(0)'''
 
                     hist_nickname = ''
                     hist_nickname = sampleTitle[sample]
@@ -245,10 +235,14 @@ def plotSysts():
                             hist_var.SetMarkerColor(Color[sixpoint_index])
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                            print 'apprend %s hist to hist_ratio_vars' % (sixpoint_index)
                             hist_ratio_vars.append(h_ratio_var)
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
 
+                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
+                    hist_ratio_vars.append(h_ratio_atlas)
+                    legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
                     hist_vars.append(hist_atlas)
 
                     # draw everything
