@@ -78,8 +78,7 @@ binning["genWeight_muR1muF1"]=[-2.,-1.8,-1.6,-1.4,-1.2,-0.8,-0.6,-0.4,-0.2,0.0,0
 binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
-#systematics=["nominal","genWeight"]
-systematics=["genWeight"]
+systematics=["nominal","genWeight"]
 sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":15}
 
@@ -184,7 +183,11 @@ def plotSysts():
                 hist_nom.SetFillColor(0)
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetMarkerColor(Color["nominal"])
+                if normalization:
+                    hist_nom.Scale(1./hist_nom.Integral())
+
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
+
 
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
@@ -198,7 +201,7 @@ def plotSysts():
 
                 # loop over variations
                 syst_counter = 0
-                '''for syst in systematics:
+                for syst in systematics:
                     print 'syst = ', syst
                     if syst=="nominal":
                         continue
@@ -212,117 +215,120 @@ def plotSysts():
                         hist_var.SetFillColor(0)
                         hist_var.SetLineColor(1)
                         hist_var.SetMarkerColor(1)
+                        if normalization:
+                            hist_var.Scale(1./hist_var.Integral())
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
                     else:
-                        '''
-                for sixpoint_index in sixpoint_variations:
-                    #hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
-                    hist_name = sample+"_"+feature+"_genWeight_"+sixpoint_index
-                    print 'hist_name: ', hist_name
-                    if not inputfile.GetListOfKeys().Contains(hist_name):
-                        print ( "%s doesn't have histogram %s"%(filename, hist_name))
-                        continue
-                    hist_nickname_plus_syst = ''
-                    hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
-                    hist_var = inputfile.Get(hist_name)
-                    hist_var.SetFillColor(0)
-                    hist_var.SetLineColor(Color[sixpoint_index])
-                    hist_var.SetMarkerColor(Color[sixpoint_index])
-                    hist_vars.append(hist_var)
-                    h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
-                    print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
-                    hist_ratio_vars.append(h_ratio_var)
-                    legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
+                        for sixpoint_index in sixpoint_variations:
+                            hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                            if not inputfile.GetListOfKeys().Contains(hist_name):
+                                print ( "%s doesn't have histogram %s"%(filename, hist_name))
+                                continue
+                            hist_nickname_plus_syst = ''
+                            hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
+                            hist_var = inputfile.Get(hist_name)
+                            hist_var.SetFillColor(0)
+                            hist_var.SetLineColor(Color[sixpoint_index])
+                            hist_var.SetMarkerColor(Color[sixpoint_index])
+                            if normalization:
+                                hist_var.Scale(1./hist_var.Integral())
+                            hist_vars.append(hist_var)
+                            h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                            print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
+                            hist_ratio_vars.append(h_ratio_var)
+                            legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
 
-                print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
-                hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
-                hist_atlas.SetFillColor(0)
-                hist_atlas.SetLineColor(46)
-                hist_atlas.SetMarkerColor(46)
-                legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
-                hist_vars.append(hist_atlas)
-                h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
-                hist_ratio_vars.append(h_ratio_atlas)
-
-                # draw everything
-                pad1.cd()
-                pad1.SetGridx()
-                pad1.SetGridy()
-                # set bounds
-                maximum=0
-                for hist in hist_vars:
+                    print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
+                    hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas.SetFillColor(0)
+                    hist_atlas.SetLineColor(46)
+                    hist_atlas.SetMarkerColor(46)
+                    legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     if normalization:
-                        hist.Scale(1./hist.Integral())
-                    if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
-                upperbound = 1.8*maximum
-                lowerbound = -maximum/40.
+                        hist_atlas.Scale(1./hist_atlas.Integral())
+                    hist_vars.append(hist_atlas)
+                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
+                    hist_ratio_vars.append(h_ratio_atlas)
 
-                Y_name = "Events"
-                if normalization:
-                    hist_nom.Scale(1./hist_nom.Integral())
-                    Y_name = " Unit "
-                if showStats:
-                    hist_nom.SetStats(1)
+                    # draw everything
+                    pad1.cd()
+                    pad1.SetGridx()
+                    pad1.SetGridy()
+                    # set bounds
+                    maximum=0
+                    for hist in hist_vars:
+                        if normalization:
+                            hist.Scale(1./hist.Integral())
+                        if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
+                    upperbound = 1.8*maximum
+                    lowerbound = -maximum/40.
 
-                hist_nom.SetMaximum(upperbound)
-                hist_nom.SetMinimum(lowerbound)
-                # Adjust y-axis settings
-                y = hist_nom.GetYaxis()
-                y.SetTitleSize(25)
-                y.SetTitleFont(43)
-                y.SetTitleOffset(1.55)
-                y.SetLabelFont(43)
-                y.SetLabelSize(20)
-                y.SetTitle(Y_name)
-                # Adjust x-axis settings
-                x = hist_nom.GetXaxis()
-                x.SetTitleSize(25)
-                x.SetTitleFont(43)
-                x.SetTitleOffset(1.55)
-                x.SetLabelFont(43)
-                x.SetLabelSize(20)
-                x.SetTitle(values["xlabel"])
+                    Y_name = "Events"
+                    if normalization:
+                        hist_nom.Scale(1./hist_nom.Integral())
+                        Y_name = " Unit "
+                    if showStats:
+                        hist_nom.SetStats(1)
 
-                hist_nom.SetMarkerStyle(20)
-                hist_nom.Draw("HIST")
-                hist_atlas.SetMarkerStyle(20)
-                hist_atlas.Draw("HIST SAME")
+                    hist_nom.SetMaximum(upperbound)
+                    hist_nom.SetMinimum(lowerbound)
+                    # Adjust y-axis settings
+                    y = hist_nom.GetYaxis()
+                    y.SetTitleSize(25)
+                    y.SetTitleFont(43)
+                    y.SetTitleOffset(1.55)
+                    y.SetLabelFont(43)
+                    y.SetLabelSize(20)
+                    y.SetTitle(Y_name)
+                    # Adjust x-axis settings
+                    x = hist_nom.GetXaxis()
+                    x.SetTitleSize(25)
+                    x.SetTitleFont(43)
+                    x.SetTitleOffset(1.55)
+                    x.SetLabelFont(43)
+                    x.SetLabelSize(20)
+                    x.SetTitle(values["xlabel"])
 
-                for hist in hist_vars:
-                    hist.SetMarkerStyle(20)
-                    hist.Draw("HIST SAME")
+                    hist_nom.SetMarkerStyle(20)
+                    hist_nom.Draw("HIST")
+                    hist_atlas.SetMarkerStyle(20)
+                    hist_atlas.Draw("HIST SAME")
 
-                legend.Draw("same")
-                label = ROOT.TLatex()
-                label.SetTextSize(0.05)
-                label.SetTextAlign(13)
-                label.DrawLatexNDC(.2,.8,"CMS preliminary")
+                    for hist in hist_vars:
+                        hist.SetMarkerStyle(20)
+                        hist.Draw("HIST SAME")
 
-                pad2.cd()
-                pad2.SetGridx()
-                pad2.SetGridy()
-                bins = h_ratio.GetNbinsX()
-                LowEdge = h_ratio.GetBinLowEdge(1)
-                HighEdge = h_ratio.GetBinLowEdge(bins+1)
-                line = TLine(LowEdge,1,HighEdge,1)
-                line.SetLineColor(kBlack)
+                    legend.Draw("same")
+                    label = ROOT.TLatex()
+                    label.SetTextSize(0.05)
+                    label.SetTextAlign(13)
+                    label.DrawLatexNDC(.2,.8,"CMS preliminary")
 
-                print "Number of variations: ", len(hist_ratio_vars)
-                for i in range(len(hist_ratio_vars)):
-                    print 'i: ', i
-                    if i==0:
-                        hist_ratio_vars[i].Draw("hist")
-                        hist_ratio_vars[i].SetMinimum(0.4)
-                        hist_ratio_vars[i].SetMaximum(1.6)
-                    else:
-                        hist_ratio_vars[i].Draw("hist")
-                if 'genWeight_' not in feature:
-                    line.Draw("same")
+                    pad2.cd()
+                    pad2.SetGridx()
+                    pad2.SetGridy()
+                    bins = h_ratio.GetNbinsX()
+                    LowEdge = h_ratio.GetBinLowEdge(1)
+                    HighEdge = h_ratio.GetBinLowEdge(bins+1)
+                    line = TLine(LowEdge,1,HighEdge,1)
+                    line.SetLineColor(kBlack)
 
-                c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
+                    print "Number of variations: ", len(hist_ratio_vars)
+                    for i in range(len(hist_ratio_vars)):
+                        print 'i: ', i
+                        if i==0:
+                            hist_ratio_vars[i].Draw("hist")
+                            hist_ratio_vars[i].SetMinimum(0.4)
+                            hist_ratio_vars[i].SetMaximum(1.6)
+                        else:
+                            hist_ratio_vars[i].Draw("histsame")
+                    if 'genWeight_' not in feature:
+                        line.Draw("same")
+
+                    c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
 
 # Draw all canvases
 if __name__ == "__main__":
