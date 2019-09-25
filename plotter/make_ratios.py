@@ -78,7 +78,8 @@ binning["genWeight_muR1muF1"]=[-2.,-1.8,-1.6,-1.4,-1.2,-0.8,-0.6,-0.4,-0.2,0.0,0
 binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
-systematics=["nominal","genWeight"]
+#systematics=["nominal","genWeight"]
+systematics=["genWeight"]
 sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":15}
 
@@ -197,7 +198,7 @@ def plotSysts():
 
                 # loop over variations
                 syst_counter = 0
-                for syst in systematics:
+                '''for syst in systematics:
                     print 'syst = ', syst
                     if syst=="nominal":
                         continue
@@ -215,22 +216,23 @@ def plotSysts():
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
                     else:
-                        for sixpoint_index in sixpoint_variations:
-                            hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
-                            if not inputfile.GetListOfKeys().Contains(hist_name):
-                                print ( "%s doesn't have histogram %s"%(filename, hist_name))
-                                continue
-                            hist_nickname_plus_syst = ''
-                            hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
-                            hist_var = inputfile.Get(hist_name)
-                            hist_var.SetFillColor(0)
-                            hist_var.SetLineColor(Color[sixpoint_index])
-                            hist_var.SetMarkerColor(Color[sixpoint_index])
-                            hist_vars.append(hist_var)
-                            h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
-                            print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
-                            hist_ratio_vars.append(h_ratio_var)
-                            legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
+                        '''
+                    for sixpoint_index in sixpoint_variations:
+                        hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                        if not inputfile.GetListOfKeys().Contains(hist_name):
+                            print ( "%s doesn't have histogram %s"%(filename, hist_name))
+                            continue
+                        hist_nickname_plus_syst = ''
+                        hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
+                        hist_var = inputfile.Get(hist_name)
+                        hist_var.SetFillColor(0)
+                        hist_var.SetLineColor(Color[sixpoint_index])
+                        hist_var.SetMarkerColor(Color[sixpoint_index])
+                        hist_vars.append(hist_var)
+                        h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                        print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
+                        hist_ratio_vars.append(h_ratio_var)
+                        legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
 
                     print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
