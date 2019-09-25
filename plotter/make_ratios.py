@@ -220,6 +220,7 @@ def plotSysts():
                 for sixpoint_index in sixpoint_variations:
                     #hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                     hist_name = sample+"_"+feature+"_genWeight_"+sixpoint_index
+                    print 'hist_name: ', hist_name
                     if not inputfile.GetListOfKeys().Contains(hist_name):
                         print ( "%s doesn't have histogram %s"%(filename, hist_name))
                         continue
