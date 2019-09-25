@@ -184,28 +184,36 @@ def plotSysts():
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetMarkerColor(Color["nominal"])
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
-
                 print 'ATLAS_feature_map.get(feature): ', ATLAS_feature_map.get(feature)
                 hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                 hist_atlas.SetFillColor(0)
                 hist_atlas.SetLineColor(46)
                 hist_atlas.SetMarkerColor(46)
 
+                c, pad1, pad2 = createCanvasPads()
+                hist_vars = []
+                hist_ratio_vars = []
+                # set up legend
+                legend = TLegend(0.6,0.6,0.88,0.88)
+                legend.SetBorderSize(0)
+                h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
+                hist_ratio_vars.append(h_ratio_atlas)
+                legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
+
                 # loop over variations
                 syst_counter = 0
                 for syst in systematics:
-                    c, pad1, pad2 = createCanvasPads()
+                    
+                    '''c, pad1, pad2 = createCanvasPads()
                     hist_vars = []
                     hist_ratio_vars = []
                     # set up legend
                     legend = TLegend(0.6,0.6,0.88,0.88)
-                    legend.SetBorderSize(0)
+                    legend.SetBorderSize(0)'''
+
                     hist_nickname = ''
                     hist_nickname = sampleTitle[sample]
                     if syst=="nominal":
-                        h_ratio_atlas = createRatio(hist_atlas, hist_nom,values["xlabel"])
-                        hist_ratio_vars.append(h_ratio_atlas)
-                        legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
                         continue
 
                     legend.AddEntry(hist_nom,hist_nickname,"l")
@@ -239,6 +247,7 @@ def plotSysts():
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
+
 
                     hist_vars.append(hist_atlas)
 
@@ -307,8 +316,8 @@ def plotSysts():
                     for i in range(len(hist_ratio_vars)):
                         if i==0:
                             hist_ratio_vars[i].Draw("hist")
-                            hist_ratio_vars[i].SetMinimum(0.5)
-                            hist_ratio_vars[i].SetMaximum(1.5)
+                            hist_ratio_vars[i].SetMinimum(0.4)
+                            hist_ratio_vars[i].SetMaximum(1.6)
                         else:
                             hist_ratio_vars[i].Draw("histsame")
                     if 'genWeight_' not in feature:
