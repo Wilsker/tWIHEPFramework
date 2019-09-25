@@ -191,18 +191,16 @@ def plotSysts():
                 # set up legend
                 legend = TLegend(0.6,0.6,0.88,0.88)
                 legend.SetBorderSize(0)
+                hist_nickname = ''
+                hist_nickname = sampleTitle[sample]
+                legend.AddEntry(hist_nom,hist_nickname,"l")
 
                 # loop over variations
                 syst_counter = 0
                 for syst in systematics:
-
-                    hist_nickname = ''
-                    hist_nickname = sampleTitle[sample]
+                    print 'syst = ', syst
                     if syst=="nominal":
                         continue
-
-                    legend.AddEntry(hist_nom,hist_nickname,"l")
-
                     syst_counter = syst_counter + 1
                     if 'genWeight_' in feature:
                         hist_name = sample+"_"+feature
