@@ -190,22 +190,25 @@ def plotSysts():
                 hist_atlas.SetFillColor(0)
                 hist_atlas.SetLineColor(46)
                 hist_atlas.SetMarkerColor(46)
-                #legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
 
                 # loop over variations
                 syst_counter = 0
                 for syst in systematics:
-                    if syst=="nominal": continue
+                    c, pad1, pad2 = createCanvasPads()
+                    hist_vars = []
+                    hist_ratio_vars = []
                     # set up legend
                     legend = TLegend(0.6,0.6,0.88,0.88)
                     legend.SetBorderSize(0)
                     hist_nickname = ''
                     hist_nickname = sampleTitle[sample]
-                    legend.AddEntry(hist_nom,hist_nickname,"l")
+                    if syst=="nominal":
+                        h_ratio_atlas = createRatio(hist_atlas, hist_nom,values["xlabel"])
+                        hist_ratio_vars.append(h_ratio_atlas)
+                        legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
+                        continue
 
-                    c, pad1, pad2 = createCanvasPads()
-                    hist_vars = []
-                    hist_ratio_vars = []
+                    legend.AddEntry(hist_nom,hist_nickname,"l")
 
                     syst_counter = syst_counter + 1
                     if 'genWeight_' in feature:
@@ -238,9 +241,6 @@ def plotSysts():
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
                     hist_vars.append(hist_atlas)
-                    h_ratio_atlas = createRatio(hist_atlas, hist_nom,values["xlabel"])
-                    hist_ratio_vars.append(h_ratio_atlas)
-                    legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
 
                     # draw everything
                     pad1.cd()
