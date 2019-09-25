@@ -122,7 +122,7 @@ def createRatio(h1, h2, POI):
     h3.SetMarkerStyle(1)
     h3.SetTitle("")
     # Set up plot for markers and errors
-    h3.Sumw2()
+    #h3.Sumw2()
     h3.SetStats(0)
     h3.Divide(h2)
     # Adjust y-axis settings
@@ -228,7 +228,7 @@ def plotSysts():
                             hist_var.SetMarkerColor(Color[sixpoint_index])
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
-                            print 'apprend %s hist to hist_ratio_vars' % (sixpoint_index)
+                            print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
                             hist_ratio_vars.append(h_ratio_var)
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
