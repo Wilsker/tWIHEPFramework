@@ -233,17 +233,16 @@ def plotSysts():
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
 
-                    print 'ATLAS_feature_map.get(feature): ', ATLAS_feature_map.get(feature)
+                    print '%s: ATLAS feature equivalent = %s ', (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
-                    print "len(hist_ratio_vars): ", len(hist_ratio_vars)
-                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
-                    hist_ratio_vars.append(h_ratio_atlas)
                     legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
                     hist_vars.append(hist_atlas)
-                    print "len(hist_ratio_vars): ", len(hist_ratio_vars)
+                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
+                    h_ratio_atlas.Draw()
+                    hist_ratio_vars.append(h_ratio_atlas)
 
                     # draw everything
                     pad1.cd()
@@ -307,6 +306,8 @@ def plotSysts():
                     HighEdge = h_ratio.GetBinLowEdge(bins+1)
                     line = TLine(LowEdge,1,HighEdge,1)
                     line.SetLineColor(kBlack)
+
+                    print "Number of variations: ", len(hist_ratio_vars)
                     for i in range(len(hist_ratio_vars)):
                         if i==0:
                             hist_ratio_vars[i].Draw("hist")
