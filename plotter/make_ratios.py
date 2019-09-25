@@ -241,7 +241,6 @@ def plotSysts():
                     legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     hist_vars.append(hist_atlas)
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
-                    h_ratio_atlas.Draw()
                     hist_ratio_vars.append(h_ratio_atlas)
 
                     # draw everything
