@@ -61,19 +61,19 @@ binning["MCGenHTlep"]=[0,20,50,80,110,150,200,300,400,550,800]
 binning["MCGenMET"]=[0,20,50,80,120,180,300,500,1200]
 binning["gen_lepton1_pt"]=[0,20,25,33,45,60,80,110,160,500]
 binning["gen_lepton2_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_bjet1_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_bjet2_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_jet1_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_jet2_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_jet3_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_jet4_pt"]=[0,20,25,33,45,60,80,110,160,500]
+binning["gen_bjet1_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_bjet2_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_jet1_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_jet2_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_jet3_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_jet4_pt"]=[0,20,25,33,45,60,80,110,200]
 binning["n_gen_jets"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 binning["n_gen_bjets"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 binning["n_gen_lepton"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 binning["Bin2l"]=[0,1,2,3,4,5,6,7,8,9,10,11]
-binning["MinDRMCGenLep1Jet"]=[0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
-binning["MinDrMCGenLep2Jet"]=[0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
-binning["MinDRMCGenLeps"]=[0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
+binning["MinDRMCGenLep1Jet"]=[0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
+binning["MinDrMCGenLep2Jet"]=[0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
+binning["MinDRMCGenLeps"]=[0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
 binning["genWeight_muR1muF1"]=[-2.,-1.8,-1.6,-1.4,-1.2,-0.8,-0.6,-0.4,-0.2,0.0,0.2,0.4,0.6,0.8,1.,1.2,1.4,1.6,1.8,2.]
 binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
@@ -316,9 +316,7 @@ def plotSysts():
                     line = TLine(LowEdge,1,HighEdge,1)
                     line.SetLineColor(kBlack)
 
-                    print "Number of variations: ", len(hist_ratio_vars)
                     for i in range(len(hist_ratio_vars)):
-                        print 'i: ', i
                         if i==0:
                             hist_ratio_vars[i].Draw("hist")
                             hist_ratio_vars[i].SetMinimum(0.4)
