@@ -238,7 +238,7 @@ def plotSysts():
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
-                    legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
+                    legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     hist_vars.append(hist_atlas)
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
                     h_ratio_atlas.Draw()
