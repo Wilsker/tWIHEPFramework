@@ -27,6 +27,8 @@ features={
 #"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet2_pt"},
 #"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet3_pt"},
 "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet4_pt"},
+"gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet5_pt"},
+"gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet6_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton1_pt"},
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton2_pt"}
 #"Bin2l":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"Bin2l"},
@@ -46,10 +48,12 @@ ATLAS_feature_map={
 "MinDRMCGenLeps":"DRll01_0",
 "gen_bjet1_pt":"Bjet_Pt_0_0",
 "gen_bjet2_pt":"Bjet_Pt_1_0",
-#"gen_jet1_pt":"jet_Pt_0_0",
+#"gen_jet1_pt":"jet_Pt_1_0",
 #"gen_jet2_pt":"jet_Pt_2_0",
 #"gen_jet3_pt":"jet_Pt_3_0",
 "gen_jet4_pt":"jet_Pt_4_0",
+"gen_jet5_pt":"jet_Pt_5_0",
+"gen_jet6_pt":"jet_Pt_6_0",
 "gen_lepton1_pt":"lep_Pt_0_0",
 "gen_lepton2_pt":"lep_Pt_1_0"
 }
@@ -67,6 +71,8 @@ binning["gen_jet1_pt"]=[0,20,25,33,45,60,80,110,200]
 binning["gen_jet2_pt"]=[0,20,25,33,45,60,80,110,200]
 binning["gen_jet3_pt"]=[0,20,25,33,45,60,80,110,200]
 binning["gen_jet4_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_jet5_pt"]=[0,20,25,33,45,60,80,110,200]
+binning["gen_jet6_pt"]=[0,20,25,33,45,60,80,110,200]
 binning["n_gen_jets"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 binning["n_gen_bjets"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 binning["n_gen_lepton"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
@@ -101,7 +107,7 @@ filename = "myhist.root"
 ATLAS_filename = 'ATLAS_TTW_Sherpa_2509.root'
 
 # options
-normalization = True # Normalize to unit
+normalization = False # Normalize to unit
 showStats = False
 
 # directory of output
