@@ -237,6 +237,11 @@ def plotSysts():
                             hist_ratio_vars.append(h_ratio_var)
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
+                    hist_vars.append(hist_atlas)
+                    h_ratio_atlas = createRatio(hist_atlas, hist_nom,values["xlabel"])
+                    hist_ratio_vars.append(h_ratio_atlas)
+                    legend.AddEntry(h_ratio_atlas,"ATLAS Sherpa","l")
+
                     # draw everything
                     pad1.cd()
                     pad1.SetGridx()
