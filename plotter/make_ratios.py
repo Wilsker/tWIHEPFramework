@@ -233,7 +233,7 @@ def plotSysts():
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
 
-                    print '%s: ATLAS feature equivalent = %s ', (feature,ATLAS_feature_map.get(feature))
+                    print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
@@ -308,6 +308,7 @@ def plotSysts():
 
                     print "Number of variations: ", len(hist_ratio_vars)
                     for i in range(len(hist_ratio_vars)):
+                        print 'i: ', i
                         if i==0:
                             hist_ratio_vars[i].Draw("hist")
                             hist_ratio_vars[i].SetMinimum(0.4)
