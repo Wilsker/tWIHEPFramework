@@ -249,6 +249,8 @@ def plotSysts():
 
                     print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
+                    # Need to scale ATLAS plot by XS = 600.8 fb
+                    hist_atlas.Scale(600.8)
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
