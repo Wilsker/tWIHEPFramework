@@ -121,12 +121,12 @@ void CutGenLeptonPt1::BookHistogram(){
 
   // Make name in configuration file depending upon muon type
   std::ostringstream configMinMuonStream;
-  configMinMuonStream << "Cut.Muon." << _leptonType.Data() << ".LeadingPt.Min";
+  configMinMuonStream << "Cut.Lepton." << _leptonType.Data() << ".LeadingPt.Min";
   TString configMinMuon = configMinMuonStream.str().c_str();
 
   // Make name in configuration file depending upon electron type
   std::ostringstream configMinEleStream;
-  configMinEleStream << "Cut.Electron." << _leptonType.Data() << ".LeadingPt.Min";
+  configMinEleStream << "Cut.Lepton." << _leptonType.Data() << ".LeadingPt.Min";
   TString configMinEle = configMinEleStream.str().c_str();
 
   // Use configuration to set min/max pt of leptons to cut on
@@ -194,10 +194,9 @@ Bool_t CutGenLeptonPt1::Apply()
 
   // Now go through and see if there's a lepton passing this cut
   for (auto const muon : muonVector){
+    cout << "muon.Pt()= " << muon.Pt(); << endl;
     if (muon.Pt() > LeadingLeptonPt) LeadingLeptonPt = muon.Pt();
-    if (muon.Pt() > _LeadingMuonPtCut){
-      PassesLeadingLetonPt = kTRUE;
-    }
+    if (muon.Pt() > _LeadingMuonPtCut) PassesLeadingLetonPt = kTRUE;
   }
 
   for (auto const electron : electronVector){
@@ -207,14 +206,13 @@ Bool_t CutGenLeptonPt1::Apply()
     }
   }
 
-  _hLeadingLeptonPtBefore->Fill(LeadingLeptonPt);
-
   ostringstream cutFlowNameStream;
   TString cutFlowName;
 
   cutFlowNameStream << _leptonType.Data() << "Lepton.LeadingPt";
   cutFlowName = cutFlowNameStream.str().c_str();
 
+  _hLeadingLeptonPtBefore->Fill(LeadingLeptonPt);
   if (PassesLeadingLetonPt) {
     _hLeadingLeptonPtAfter->Fill(LeadingLeptonPt);
     GetCutFlowTable()->PassCut(cutFlowName.Data());

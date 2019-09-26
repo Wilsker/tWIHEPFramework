@@ -122,17 +122,12 @@ void CutGenLeptonPt2::BookHistogram(){
   TEnv *config = EventContainerObj -> GetConfig();
 
   // Make name in configuration file depending upon muon type (all, veto, tight, unIsolated)
-  std::ostringstream configMinMuonStream;
-  configMinMuonStream << "Cut.Muon." << _leptonType.Data() << ".SubLeadingPt.Min";
-  TString configMinMuon = configMinMuonStream.str().c_str();
-
-  std::ostringstream configMinEleStream;
-  configMinEleStream << "Cut.Electron." << _leptonType.Data() << ".SubLeadingPt.Min";
-  TString configMinEle = configMinEleStream.str().c_str();
+  std::ostringstream configMinLeptonStream;
+  configMinLeptonStream << "Cut.Lepton." << _leptonType.Data() << ".SubLeadingPt.Min";
+  TString configMinLepton = configMinLeptonStream.str().c_str();
 
   // Use configuration to set min and max number of jets to cut on
-  _SubLeadingMuonPtCut  = config -> GetValue(configMinMuon.Data(), 999);
-  _SubLeadingElectronPtCut  = config -> GetValue(configMinEle.Data(), 999);
+  _SubLeadingLeptonPtCut  = config -> GetValue(configMinLepton.Data(), 999);
 
   // ***********************************************
   // Add these cuts to the cut flow table
@@ -142,7 +137,7 @@ void CutGenLeptonPt2::BookHistogram(){
   TString cutFlowTitle;
   TString cutFlowName;
 
-  cutFlowTitleStream << _leptonType.Data() << " SubLeading lepton : P_{T,#mu} > " << _SubLeadingMuonPtCut << " p_{T,e} > " << _SubLeadingElectronPtCut;
+  cutFlowTitleStream << _leptonType.Data() << " SubLeading lepton : P_{T,l} > " << _SubLeadingLeptonPtCut;
   cutFlowTitle = cutFlowTitleStream.str().c_str();
 
   cutFlowNameStream << _leptonType.Data() << "Lepton.SubLeadingPt";
@@ -194,10 +189,11 @@ Bool_t CutGenLeptonPt2::Apply()
   } //else
 
   // Now go through and see if there's a lepton passing this cut
+  // Note: for the subleading leptons we start from index 1.
   for (uint mu_en =1; mu_en < muonVector.size(); mu_en++){
     Muon muon = muonVector.at(mu_en);
     if (muon.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = muon.Pt();
-    if (muon.Pt() > _SubLeadingMuonPtCut){
+    if (muon.Pt() > _SubLeadingLeptonPtCut){
       PassesSubLeadingLetonPt = kTRUE;
     }
   }
@@ -205,7 +201,7 @@ Bool_t CutGenLeptonPt2::Apply()
   for (uint el_en =1; el_en < electronVector.size(); el_en++){
     Electron electron = electronVector.at(el_en);
     if (electron.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = electron.Pt();
-    if (electron.Pt() > _SubLeadingElectronPtCut){
+    if (electron.Pt() > _SubLeadingLeptonPtCut){
       PassesSubLeadingLetonPt = kTRUE;
     }
   }
