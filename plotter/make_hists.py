@@ -29,7 +29,7 @@ for sample in sampleName:
     input00 = "%s>>%s"%("EventNBeforePresel",hist_eventWeights_name)
     tree0.Draw(input00,"EventWeight")
     f_out.cd()
-    h01.Write()
+    hist_eventWeights.Write()
 
     for feature, values in features.items():
         print 'Feature = ', feature
