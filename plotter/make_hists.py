@@ -24,11 +24,17 @@ for sample in sampleName:
     print 'Reading file: %s , tree: %s' % (inputDirectories[0]+region_+sample+postfix,treename)
     file0 = TFile(inputDirectories[0]+region_+sample+postfix,"read")
     tree0 = file0.Get(treename)
+    hist_eventWeights_name = "hist_eventWeights"
+    hist_eventWeights = TH1F(hist_eventWeights_name, "EventNBeforePresel", 1,0,1)
+    input00 = "%s>>%s"%("SumEventWeightsBeforePresel",hist_eventWeights_name)
+    tree0.Draw(input00,"EventWeight")
+
     for feature, values in features.items():
         print 'Feature = ', feature
         Nbins = 0
         Nbins = len(binning[feature])
         bins_ = array('d',binning[feature])
+
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
