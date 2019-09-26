@@ -26,7 +26,7 @@ for sample in sampleName:
     tree0 = file0.Get(treename)
     hist_eventWeights_name = "hist_eventWeights"
     hist_eventWeights = TH1F(hist_eventWeights_name, "EventNBeforePresel", 1,0,1)
-    input00 = "%s>>%s"%("SumEventWeightsBeforePresel",hist_eventWeights_name)
+    input00 = "%s>>%s"%("EventNBeforePresel",hist_eventWeights_name)
     tree0.Draw(input00,"EventWeight")
 
     for feature, values in features.items():
