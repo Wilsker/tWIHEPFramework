@@ -79,9 +79,7 @@ private:
   myTH1F* _hSubLeadingLeptonPtAfter;   // Histogram of leading pt after cut
 
   // Cut parameters
-  Double_t _SubLeadingMuonPtCut;
-  Double_t _SubLeadingElectronPtCut;
-
+  Double_t _SubLeadingLeptonPtCut;
 };
 
 
