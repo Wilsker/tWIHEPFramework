@@ -24,7 +24,7 @@ executable = "bin/ttH/ttH_generic.x"
 configFile = "config/overall/ttV-modelling/ttH.Multilepton.2lss_1bgeq4j.gencuts.config"
 #invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt -ReCalPU -TriggerSFs -lepSFs -FakeRate -chargeMis"
 #invPostfix = " -MCatNLO -mc -bTagReshape -PileUpWgt"
-invPostfix = " -MCatNLO -mc -PileUpWgt"
+invPostfix = " -MCatNLO -mc"
 mcPostfix = " "
 triggerName = "TTHLep_2L "
 fileListDirectory = "config/files/ttVmodelling_studies/"
@@ -235,6 +235,7 @@ if os.path.exists(AnalyzerDir):
 #os.popen('mkdir -p '+logFilePath)
 allSubmit = 0
 allMerge = 0
+# Don't forget to check old versions of these files. Lines are appended to them, the new file is not created afresh.
 if os.path.exists(os.getcwd()+"/all.sh"):
     allSubmit = open(os.getcwd()+"/all.sh","a")
     allMerge = open(os.getcwd()+"/mergeAll.sh","a")
@@ -291,7 +292,7 @@ def prepareCshJob(sample,shFile,frameworkDir,workpath,samplePost=""):
         skimString =""
         if makeSkims: skimString = " -skimfile "+workpath+"/"+sample+"/skims/"+sample+samplePost+"Skim.root "
     #print >> subFile, frameworkDir+executable+" -config "+frameworkDir+configFile+" -inlist "+frameworkDir+fileListDirectory+sample+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -BkgdTreeName DiElectronPreTagTree  -UseTotalEvtFromFile -SelectTrigger " + triggerName + invPostfix + mcPostfix + skimString + " -nJets {0} -nbJets {1}".format(nJets,nbJets)
-        print >> subFile, frameworkDir+executable+" -config "+frameworkDir+configFile+" -inlist "+frameworkDir+fileListDirectory+sample+"_"+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -BkgdTreeName DiElectronPreTagTree  -UseTotalEvtFromFile -SelectTrigger " + triggerName + invPostfix + mcPostfix + skimString
+        print >> subFile, frameworkDir+executable+" -config "+frameworkDir+configFile+" -inlist "+frameworkDir+fileListDirectory+sample+"_"+samplePost+".list -hfile "+workpath+"/"+sample+"/hists/"+sample+samplePost+"hists.root -UseTotalEvtFromFile -SelectTrigger " + triggerName + invPostfix + mcPostfix + skimString
         #print >> subFile, "root -b -q -l "+rootplizer+"'(\""+input+"\",\""+output+"\")'"
         subprocess.call("chmod 777 "+shFile, shell=True)
 
