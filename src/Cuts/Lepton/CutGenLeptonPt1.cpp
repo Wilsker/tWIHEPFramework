@@ -194,7 +194,7 @@ Bool_t CutGenLeptonPt1::Apply()
 
   // Now go through and see if there's a lepton passing this cut
   for (auto const muon : muonVector){
-    cout << "muon.Pt()= " << muon.Pt(); << endl;
+    cout << "muon.Pt()= " << muon.Pt() << endl;
     if (muon.Pt() > LeadingLeptonPt) LeadingLeptonPt = muon.Pt();
     if (muon.Pt() > _LeadingMuonPtCut) PassesLeadingLetonPt = kTRUE;
   }
