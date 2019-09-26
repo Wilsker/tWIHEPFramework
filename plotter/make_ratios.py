@@ -103,7 +103,7 @@ createROOTfile = True  # Set to Truth for the first time
 filename = "myhist.root"
 
 # ATLAS ROOT file
-ATLAS_filename = 'ATLAS_TTW_Sherpa_2509.root'
+ATLAS_filename = 'ATLAS_TTW_Sherpa_2609.root'
 
 # options
 normalization = False # Normalize to unit
