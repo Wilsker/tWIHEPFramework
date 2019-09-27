@@ -6,25 +6,16 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 #### start  user defined variables
 
 inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All2L/Legacy16V1_TTWJets/skims/"]
-region_ = ""
+
 treename = "TNT/BOOM";
 
-features={
-"n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"n_gen_jets"},
-"n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"n_gen_bjets"},
-"MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MCGenHTall"},
-"MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MCGenHThad"},
-"MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDRMCGenLep1Jet"},
-"MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDrMCGenLep2Jet"},
-"gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet4_pt"},
-"gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet5_pt"},
-"gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet6_pt"},
-"gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton1_pt"},
-"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton2_pt"},
-"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_bjet1_pt"},
-"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_bjet2_pt"},
-"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDRMCGenLeps"}
+region_ = {
+"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
+"2lss_1bee3j":"(n_gen_jets==3 && n_gen_bjets==1)",
+"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
+"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
 }
+
 
 ATLAS_feature_map={
 "n_gen_jets":"nJets_0",
@@ -162,9 +153,28 @@ def plotSysts():
     if inputfile.IsZombie():
         print("inputfile is Zombie")
         sys.exit()
+    if ATLASfile.IsZombie():
+        print("ATLASfile is Zombie")
+        sys.exit()
     # loop over samples
-    for region in inputDirectories:
-        region_ = region
+    for region, cuts_values in regions:
+        features={
+        "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_jets"},
+        "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_bjets"},
+        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MCGenHTall"},
+        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MCGenHThad"},
+        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDRMCGenLep1Jet"},
+        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDrMCGenLep2Jet"},
+        "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet4_pt"},
+        "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet5_pt"},
+        "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet6_pt"},
+        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_lepton1_pt"},
+        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_lepton2_pt"},
+        "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_bjet1_pt"},
+        "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_bjet2_pt"},
+        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDRMCGenLeps"}
+        }
+
         for sample in sampleName:
             # loop over features
             for feature, values in features.items():
@@ -330,7 +340,6 @@ def plotSysts():
                             hist_ratio_vars[i].Draw("histsame")
                     if 'genWeight_' not in feature:
                         line.Draw("same")
-
                     c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
 
 # Draw all canvases

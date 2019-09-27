@@ -31,6 +31,13 @@ ATLAS_feature_map={
 "gen_lepton2_pt":"lep_Pt_1_0"
 }
 
+region_ = {
+"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
+"2lss_1bee3j":"(n_gen_jets==3 && n_gen_bjets==1)",
+"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
+"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
+}
+
 # ATLAS ROOT file
 ATLAS_filename = 'ATLAS_TTW_Sherpa_2609.root'
 
@@ -56,44 +63,60 @@ for sample in sampleName:
     if ATLASfile.IsZombie():
         print("ATLASfile is Zombie")
         sys.exit()
-    for feature, values in features.items():
-        print 'make_hists:: Feature = ', feature
-        hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
-        atlas_binning = []
-        for bin_index in xrange(1,hist_atlas.GetNbinsX()+1):
-            atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index))
-            if bin_index == hist_atlas.GetNbinsX():
-                atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index))
-        print 'atlas_binning: ', atlas_binning
 
-        Nbins = 0
-        #Nbins = len(binning[feature])
-        #bins_ = array('d',binning[feature])
-        Nbins = len(atlas_binning)
-        bins_ = array('d',atlas_binning)
+    for region, cuts_values in regions:
+        features={
+        "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_jets"},
+        "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_bjets"},
+        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MCGenHTall"},
+        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MCGenHThad"},
+        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDRMCGenLep1Jet"},
+        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDrMCGenLep2Jet"},
+        "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet4_pt"},
+        "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet5_pt"},
+        "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet6_pt"},
+        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_lepton1_pt"},
+        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_lepton2_pt"},
+        "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_bjet1_pt"},
+        "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_bjet2_pt"},
+        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDRMCGenLeps"}
+        }
 
-        for syst in systematics:
-            if syst == "nominal":
-                hist_name = sample+"_"+feature
-                h01 = TH1F(hist_name, feature, Nbins-1, bins_)
-                h01.Sumw2()
-                input01 = "%s>>%s"%(feature,hist_name)
-                CUT = "%s"%values["cut"]
-                tree0.Draw(input01,CUT)
-                f_out.cd()
-                h01.Write()
-            else:
-                systindex=1
-                for sixpoint_index in sixpoint_variations:
-                    hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
-                    syst_weight = "EVENT_genWeights[%i]/%s" % (systindex,nominal_weights[syst])
+        for feature, values in features.items():
+            print 'make_hists:: Feature = ', feature
+            hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
+            atlas_binning = []
+            for bin_index in xrange(1,hist_atlas.GetNbinsX()+1):
+                atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index))
+                if bin_index == hist_atlas.GetNbinsX():
+                    atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index))
+
+            Nbins = 0
+            Nbins = len(atlas_binning)
+            bins_ = array('d',atlas_binning)
+
+            for syst in systematics:
+                if syst == "nominal":
+                    hist_name = sample+"_"+feature
                     h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     h01.Sumw2()
                     input01 = "%s>>%s"%(feature,hist_name)
-                    CUT = "%s*%s"%(values["cut"],syst_weight)
+                    CUT = "%s"%values["cut"]
                     tree0.Draw(input01,CUT)
                     f_out.cd()
                     h01.Write()
-                    systindex = systindex+1
+                else:
+                    systindex=1
+                    for sixpoint_index in sixpoint_variations:
+                        hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                        syst_weight = "EVENT_genWeights[%i]/%s" % (systindex,nominal_weights[syst])
+                        h01 = TH1F(hist_name, feature, Nbins-1, bins_)
+                        h01.Sumw2()
+                        input01 = "%s>>%s"%(feature,hist_name)
+                        CUT = "%s*%s"%(values["cut"],syst_weight)
+                        tree0.Draw(input01,CUT)
+                        f_out.cd()
+                        h01.Write()
+                        systindex = systindex+1
 
 f_out.Close()
