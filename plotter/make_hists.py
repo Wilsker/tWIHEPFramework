@@ -49,22 +49,18 @@ def draw_underflow_overflow(h1):
 Canv = TCanvas("c1","c1",0,0,800,600)
 f_out = TFile(filename,"recreate")
 
-for sample in sampleName:
-    print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+region_+sample+postfix,treename)
-    file0 = TFile(inputDirectories[0]+region_+sample+postfix,"read")
-    tree0 = file0.Get(treename)
-    hist_eventWeights_name = "hist_eventWeights"
-    hist_eventWeights = TH1F(hist_eventWeights_name, "EventNBeforePresel", 1,0,1)
-    input00 = "%s>>%s"%("EventNBeforePresel",hist_eventWeights_name)
-    tree0.Draw(input00,"EventWeight")
-    f_out.cd()
-    hist_eventWeights.Write()
-    ATLASfile = TFile(ATLAS_filename,"read")
-    if ATLASfile.IsZombie():
-        print("ATLASfile is Zombie")
-        sys.exit()
+ATLASfile = TFile(ATLAS_filename,"read")
+if ATLASfile.IsZombie():
+    print("ATLASfile is Zombie")
+    sys.exit()
 
+for sample in sampleName:
     for region, cuts_values in regions:
+        print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+region_+sample+postfix,treename)
+        file0 = TFile(inputDirectories[0]+region_+sample+postfix,"read")
+        tree0 = file0.Get(treename)
+        f_out.cd()
+        
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_bjets"},
