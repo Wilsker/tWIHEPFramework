@@ -193,7 +193,7 @@ def plotSysts():
                 hist_nom.SetMarkerColor(Color["nominal"])
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
-                hist_nom.Scale(600.8/sumOweights)
+                hist_nom.Scale(1./sumOweights)
 
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
 
@@ -226,7 +226,7 @@ def plotSysts():
                         hist_var.SetMarkerColor(1)
                         if normalization:
                             hist_var.Scale(1./hist_var.Integral())
-                        hist_var.Scale(600.8/sumOweights)
+                        hist_var.Scale(1./sumOweights)
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
@@ -244,7 +244,7 @@ def plotSysts():
                             hist_var.SetMarkerColor(Color[sixpoint_index])
                             if normalization:
                                 hist_var.Scale(1./hist_var.Integral())
-                            hist_var.Scale(600.8/sumOweights)
+                            hist_var.Scale(1./sumOweights)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
