@@ -33,9 +33,9 @@ ATLAS_feature_map={
 
 region_ = {
 "2lss_1bgeq4j":"(n_gen_jets>=4&&n_gen_bjets==1)",
-"2lss_1beeq3j":"(n_gen_jets==3&&n_gen_bjets==1)",
-"2lss_2bgeq4j":"(n_gen_jets>=4&&n_gen_bjets>=2)",
-"2lss_2beeq3j":"(n_gen_jets==3&&n_gen_bjets>=2)"
+"2lss_1beeq3j":"(n_gen_jets==3&&n_gen_bjets==1)"
+#"2lss_2bgeq4j":"(n_gen_jets>=4&&n_gen_bjets>=2)",
+#"2lss_2beeq3j":"(n_gen_jets==3&&n_gen_bjets>=2)"
 }
 
 # ATLAS ROOT file
