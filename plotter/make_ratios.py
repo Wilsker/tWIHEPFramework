@@ -129,7 +129,7 @@ def plotSysts():
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
         }
 
-        ATLAS_region_index=0
+        ATLAS_region_index='0'
         if "1bgeq4j" in region:
             ATLAS_region_index = '0'
         if "2bgeq4j" in region:
