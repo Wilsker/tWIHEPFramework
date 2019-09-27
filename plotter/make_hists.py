@@ -32,10 +32,10 @@ ATLAS_feature_map={
 }
 
 region_ = {
-"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
-"2lss_1bee3j":"(n_gen_jets==3 && n_gen_bjets==1)",
-"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
-"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
+"2lss_1bgeq4j":"(n_gen_jets>=4&&n_gen_bjets==1)",
+"2lss_1bee3j":"(n_gen_jets==3&&n_gen_bjets==1)",
+"2lss_2bgeq4j":"(n_gen_jets>=4&&n_gen_bjets>=2)",
+"2lss_2beeq3j":"(n_gen_jets==3&&n_gen_bjets>=2)"
 }
 
 # ATLAS ROOT file
@@ -62,6 +62,7 @@ for sample in sampleName:
         f_out.cd()
         print 'Region: %s , cut: %s' % (region,cuts_values)
         cut_string = "EventWeight*"+cuts_values
+        print 'cut_string: ', cut_string
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
