@@ -56,7 +56,7 @@ if ATLASfile.IsZombie():
 
 for sample in sampleName:
     for region, cuts_values in region_.items():
-        print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+region_+sample+postfix,treename)
+        print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+region+sample+postfix,treename)
         file0 = TFile(inputDirectories[0]+region_+sample+postfix,"read")
         tree0 = file0.Get(treename)
         f_out.cd()
