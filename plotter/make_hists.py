@@ -52,10 +52,12 @@ for sample in sampleName:
     tree0.Draw(input00,"EventWeight")
     f_out.cd()
     hist_eventWeights.Write()
-
+    ATLASfile = TFile(ATLAS_filename,"read")
+    if ATLASfile.IsZombie():
+        print("ATLASfile is Zombie")
+        sys.exit()
     for feature, values in features.items():
         print 'make_hists:: Feature = ', feature
-
         hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
         atlas_binning = []
         for bin_index in xrange(1,hist_atlas.GetNbinsX()+1):
