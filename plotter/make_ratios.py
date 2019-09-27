@@ -173,7 +173,7 @@ def plotSysts():
                 hist_nom = inputfile.Get(hist_nom_name)
                 hist_nom.SetFillColor(0)
                 hist_nom.SetLineColor(Color["nominal"])
-                hist_nom.SetLineWidth(5)
+                hist_nom.SetLineWidth(3)
                 hist_nom.SetMarkerColor(Color["nominal"])
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
@@ -207,7 +207,7 @@ def plotSysts():
                         hist_var.SetFillColor(0)
                         hist_var.SetLineColor(1)
                         hist_var.SetMarkerColor(1)
-                        hist_var.SetLineWidth(5)
+                        hist_var.SetLineWidth(3)
                         if normalization:
                             hist_var.Scale(1./hist_var.Integral())
                         hist_var.Scale(600.8/7040.32)
@@ -226,7 +226,7 @@ def plotSysts():
                             hist_var.SetFillColor(0)
                             hist_var.SetLineColor(Color[sixpoint_index])
                             hist_var.SetMarkerColor(Color[sixpoint_index])
-                            hist_var.SetLineWidth(5)
+                            hist_var.SetLineWidth(3)
                             if normalization:
                                 hist_var.Scale(1./hist_var.Integral())
                             hist_var.Scale(600.8/7040.32)
@@ -243,7 +243,7 @@ def plotSysts():
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
-                    hist_atlas.SetLineWidth(5)
+                    hist_atlas.SetLineWidth(3)
                     legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
