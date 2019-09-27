@@ -11,56 +11,10 @@ treename = "TNT/BOOM";
 
 region_ = {
 "2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
-"2lss_1bee3j":"(n_gen_jets==3 && n_gen_bjets==1)",
-"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
-"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
+"2lss_1bee3j":"(n_gen_jets==3 && n_gen_bjets==1)"
+#"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
+#"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
 }
-
-
-ATLAS_feature_map={
-"n_gen_jets":"nJets_0",
-"n_gen_bjets":"nBtagJets_0",
-"n_gen_lepton":"",
-"MCGenHTall":"HT_0",
-"MCGenHThad":"HT_jets_0",
-"MCGenMET":"MET",
-"MinDRMCGenLep1Jet":"min_DRl0j_0",
-"MinDrMCGenLep2Jet":"min_DRl1j_0",
-"MinDRMCGenLeps":"DRll01_0",
-"gen_bjet1_pt":"Bjet_Pt_0_0",
-"gen_bjet2_pt":"Bjet_Pt_1_0",
-"gen_jet4_pt":"jet_Pt_4_0",
-"gen_jet5_pt":"jet_Pt_5_0",
-"gen_jet6_pt":"jet_Pt_6_0",
-"gen_lepton1_pt":"lep_Pt_0_0",
-"gen_lepton2_pt":"lep_Pt_1_0"
-}
-
-binning={}
-binning["MCGenHTall"]=[0,120,180,240,300,360,440,540,680,900,1500]
-binning["MCGenHThad"]=[0,90,140,180,240,300,380,460,540,650,850,1500]
-binning["MCGenHTlep"]=[0,20,50,80,110,150,200,300,400,550,800]
-binning["MCGenMET"]=[0,20,50,80,120,180,300,500,1200]
-binning["gen_lepton1_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_lepton2_pt"]=[0,20,25,33,45,60,80,110,160,500]
-binning["gen_bjet1_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_bjet2_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_jet1_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_jet2_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_jet3_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_jet4_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_jet5_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["gen_jet6_pt"]=[0,20,25,33,45,60,80,110,200]
-binning["n_gen_jets"]=[2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5]
-binning["n_gen_bjets"]=[0.5,1.5,2.5,3.5]
-binning["n_gen_lepton"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
-binning["Bin2l"]=[0,1,2,3,4,5,6,7,8,9,10,11]
-binning["MinDRMCGenLep1Jet"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.0,4.8]
-binning["MinDrMCGenLep2Jet"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.0,4.8]
-binning["MinDRMCGenLeps"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.0,4.8]
-#binning["MinDRMCGenLeps"]=[0.369,0.738,1.108,1.477,1.846,2.215,2.585,2.954,3.323,3.692,4.062,4.431,4.8]
-binning["genWeight_muR1muF1"]=[-2.,-1.8,-1.6,-1.4,-1.2,-0.8,-0.6,-0.4,-0.2,0.0,0.2,0.4,0.6,0.8,1.,1.2,1.4,1.6,1.8,2.]
-binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
@@ -68,11 +22,9 @@ sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5",
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":15}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
-#sampleName = ["TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016"]
 sampleName = ["mergedLegacy16V1_TTWJets"]
 
 sampleTitle = {
-#"TTWJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8_2016":"TTW MG+Pyth8"
 "mergedLegacy16V1_TTWJets":"TTW MG+Pyth8"
 }
 
@@ -175,6 +127,35 @@ def plotSysts():
         "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet1_pt"},
         "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet2_pt"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
+        }
+
+        ATLAS_region_index=0
+        if "1bgeq4j" in region:
+            ATLAS_region_index = '0'
+        if "2bgeq4j" in region:
+            ATLAS_region_index = '1'
+        if "1beeq3j" in region:
+            ATLAS_region_index = '2'
+        if "2beeq3j" in region:
+            ATLAS_region_index = '3'
+
+        ATLAS_feature_map={
+        "n_gen_jets":"nJets_"+ATLAS_region_index,
+        "n_gen_bjets":"nBtagJets_"+ATLAS_region_index,
+        "n_gen_lepton":"",
+        "MCGenHTall":"HT_"+ATLAS_region_index,
+        "MCGenHThad":"HT_jets_"+ATLAS_region_index,
+        "MCGenMET":"MET_"+ATLAS_region_index,
+        "MinDRMCGenLep1Jet":"min_DRl0j_"+ATLAS_region_index,
+        "MinDrMCGenLep2Jet":"min_DRl1j_"+ATLAS_region_index,
+        "MinDRMCGenLeps":"DRll01_"+ATLAS_region_index,
+        "gen_bjet1_pt":"Bjet_Pt_0_"+ATLAS_region_index,
+        "gen_bjet2_pt":"Bjet_Pt_1_"+ATLAS_region_index,
+        "gen_jet4_pt":"jet_Pt_4_"+ATLAS_region_index,
+        "gen_jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
+        "gen_jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
+        "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
+        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index
         }
 
         for sample in sampleName:
