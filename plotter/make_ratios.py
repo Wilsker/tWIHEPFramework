@@ -78,10 +78,6 @@ sampleTitle = {
 
 postfix = ".root"
 
-# the root file saving the histograms
-createROOTfile = True  # Set to Truth for the first time
-filename = "myhist.root"
-
 # ATLAS ROOT file
 ATLAS_filename = 'ATLAS_TTW_Sherpa_2609.root'
 
@@ -148,16 +144,20 @@ def createCanvasPads():
 
 
 def plotSysts():
-    inputfile = TFile(filename,"read")
+
     ATLASfile = TFile(ATLAS_filename,"read")
-    if inputfile.IsZombie():
-        print("inputfile is Zombie")
-        sys.exit()
     if ATLASfile.IsZombie():
         print("ATLASfile is Zombie")
         sys.exit()
     # loop over samples
     for region, cuts_values in region_.items():
+        # the root file saving the histograms
+        createROOTfile = True  # Set to Truth for the first time
+        filename = "myhist_%s.root" % region
+        inputfile = TFile(filename,"read")
+        if inputfile.IsZombie():
+            print("inputfile is Zombie")
+            sys.exit()
         cut_string = "EventWeight*"+cuts_values
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
@@ -253,7 +253,6 @@ def plotSysts():
 
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
-                    print 'ATLAS NBins = ', hist_atlas.GetNbinsX()
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.Scale(600.8)
                     hist_atlas.SetFillColor(0)
@@ -265,7 +264,6 @@ def plotSysts():
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
                     hist_vars.append(hist_atlas)
-                    print 'Nominal N Bins= ', hist_nom.GetNbinsX()
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
                     hist_ratio_vars.append(h_ratio_atlas)
 
