@@ -64,7 +64,7 @@ for sample in sampleName:
             atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index))
             if bin_index == hist_atlas.GetNbinsX():
                 print 'Last bin upper edge: ', hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index)
-                atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index)
+                atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index))
 
         Nbins = 0
         Nbins = len(binning[feature])
