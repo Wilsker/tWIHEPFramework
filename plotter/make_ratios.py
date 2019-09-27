@@ -106,7 +106,7 @@ filename = "myhist.root"
 ATLAS_filename = 'ATLAS_TTW_Sherpa_2609.root'
 
 # options
-normalization = True # Normalize to unit
+normalization = False # Normalize to unit
 showStats = False
 
 # directory of output
