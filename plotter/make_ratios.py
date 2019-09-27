@@ -20,7 +20,10 @@ features={
 "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet5_pt"},
 "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet6_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton1_pt"},
-"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton2_pt"}
+"gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton2_pt"},
+"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_bjet1_pt"},
+"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_bjet2_pt"},
+"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDRMCGenLeps"}
 }
 
 ATLAS_feature_map={
@@ -61,9 +64,9 @@ binning["n_gen_jets"]=[2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5]
 binning["n_gen_bjets"]=[0.5,1.5,2.5,3.5]
 binning["n_gen_lepton"]=[0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5,8.5,9.5,10.5]
 binning["Bin2l"]=[0,1,2,3,4,5,6,7,8,9,10,11]
-binning["MinDRMCGenLep1Jet"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
-binning["MinDrMCGenLep2Jet"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
-binning["MinDRMCGenLeps"]=[0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.,4.0,4.8]
+binning["MinDRMCGenLep1Jet"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.0,4.8]
+binning["MinDrMCGenLep2Jet"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.0,4.8]
+binning["MinDRMCGenLeps"]=[0.0,0.4,0.8,1.2,1.6,2.,2.4,2.8,3.2,3.6,4.0,4.8]
 binning["genWeight_muR1muF1"]=[-2.,-1.8,-1.6,-1.4,-1.2,-0.8,-0.6,-0.4,-0.2,0.0,0.2,0.4,0.6,0.8,1.,1.2,1.4,1.6,1.8,2.]
 binning["genWeight_muR2muF2"]=[-5.5,-4.5,-3.5,-2.5,-1.5,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5]
 
