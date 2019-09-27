@@ -93,6 +93,8 @@ for sample in sampleName:
             Nbins = len(atlas_binning)
             bins_ = array('d',atlas_binning)
 
+            f_out.cd()
+
             for syst in systematics:
                 if syst == "nominal":
                     hist_name = sample+"_"+feature
