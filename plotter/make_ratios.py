@@ -340,7 +340,7 @@ def plotSysts():
                             hist_ratio_vars[i].Draw("histsame")
                     if 'genWeight_' not in feature:
                         line.Draw("same")
-                    c.SaveAs("%s%s_%s_isNorm%s_wtStat%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats))
+                    c.SaveAs("%s%s_%s_isNorm%s_wtStat%s_%s.png"%(outputdir,hist_nom_name,syst,normalization,showStats,region))
 
 # Draw all canvases
 if __name__ == "__main__":
