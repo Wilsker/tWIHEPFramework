@@ -249,11 +249,6 @@ def plotSysts():
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
                     hist_atlas.SetLineWidth(3)
-                    for bin_index in xrange(1,hist_atlas.GetNbinsX()+1):
-                        print 'bin: ', bin_index
-                        print 'bin low edge = ', hist_atlas.GetBinLowEdge(bin_index)
-                        if bin_index == hist_atlas.GetNbinsX():
-                            print 'Last bin upper edge: ', hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index)
 
                     legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     if normalization:
