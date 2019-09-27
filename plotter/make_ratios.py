@@ -193,7 +193,7 @@ def plotSysts():
                 hist_nom.SetMarkerColor(Color["nominal"])
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
-                hist_nom.Scale(1./sumOweights)
+                hist_nom.Scale(1./7040.32)
 
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
 
@@ -226,7 +226,7 @@ def plotSysts():
                         hist_var.SetMarkerColor(1)
                         if normalization:
                             hist_var.Scale(1./hist_var.Integral())
-                        hist_var.Scale(1./sumOweights)
+                        hist_var.Scale(1./7040.32)
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
@@ -244,7 +244,7 @@ def plotSysts():
                             hist_var.SetMarkerColor(Color[sixpoint_index])
                             if normalization:
                                 hist_var.Scale(1./hist_var.Integral())
-                            hist_var.Scale(1./sumOweights)
+                            hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
@@ -255,7 +255,7 @@ def plotSysts():
                     print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    hist_atlas.Scale(600.8)
+                    #hist_atlas.Scale(600.8)
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
