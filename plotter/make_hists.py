@@ -58,10 +58,6 @@ for sample in sampleName:
     for region, cuts_values in region_.items():
         filename = "myhist_%s.root" % region
         f_out = TFile(filename,"recreate")
-        if inputfile.IsZombie():
-            print("inputfile is Zombie")
-            sys.exit()
-        f_out = TFile(filename,"recreate")
         print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+sample+postfix,treename)
         file0 = TFile(inputDirectories[0]+sample+postfix,"read")
         tree0 = file0.Get(treename)
