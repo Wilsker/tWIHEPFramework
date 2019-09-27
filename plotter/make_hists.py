@@ -61,16 +61,17 @@ for sample in sampleName:
         hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
         atlas_binning = []
         for bin_index in xrange(1,hist_atlas.GetNbinsX()+1):
-            print 'bin: ', bin_index
-            print 'bin low edge = ', hist_atlas.GetBinLowEdge(bin_index)
             atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index))
             if bin_index == hist_atlas.GetNbinsX():
-                print 'Last bin upper edge: ', hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index)
                 atlas_binning.append(hist_atlas.GetBinLowEdge(bin_index)+hist_atlas.GetBinWidth(bin_index))
+        print 'atlas_binning: ', atlas_binning
 
         Nbins = 0
-        Nbins = len(binning[feature])
-        bins_ = array('d',binning[feature])
+        #Nbins = len(binning[feature])
+        #bins_ = array('d',binning[feature])
+        Nbins = len(atlas_binning)
+        bins_ = array('d',atlas_binning)
+
         for syst in systematics:
             if syst == "nominal":
                 hist_name = sample+"_"+feature
