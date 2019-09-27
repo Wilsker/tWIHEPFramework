@@ -61,7 +61,7 @@ for sample in sampleName:
         tree0 = file0.Get(treename)
         f_out.cd()
         print 'Region: %s , cut: %s' % (region,cuts_values)
-        cut_string = "EventWeight*"+cuts_values
+        cut_string = str("EventWeight*"+cuts_values)
         print 'cut_string: ', cut_string
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
