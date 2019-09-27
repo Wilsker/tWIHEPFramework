@@ -5,7 +5,6 @@ from ROOT import kBlack, kBlue, kRed, kCyan, kViolet, kGreen, kOrange, kGray, kP
 
 #### start  user defined variables
 
-#inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/tWIHEPFramework/skims/2LSS/1bgeq4j/"]
 inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All2L/Legacy16V1_TTWJets/skims/"]
 region_ = ""
 treename = "TNT/BOOM";
@@ -13,26 +12,15 @@ treename = "TNT/BOOM";
 features={
 "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"n_gen_jets"},
 "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"n_gen_bjets"},
-#"n_gen_lepton":{"nbin":5,"min":0.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"n_gen_lepton"},
 "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MCGenHTall"},
 "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MCGenHThad"},
-#"MCGenMET":{"nbin":10,"min":-200.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MCGenMET"},
 "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDRMCGenLep1Jet"},
 "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDrMCGenLep2Jet"},
-#"MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"MinDRMCGenLeps"},
-#"gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_bjet1_pt"},
-#"gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_bjet2_pt"},
-#"gen_jet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet1_pt"},
-#"gen_jet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet2_pt"},
-#"gen_jet3_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet3_pt"},
 "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet4_pt"},
 "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet5_pt"},
 "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_jet6_pt"},
 "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton1_pt"},
 "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"gen_lepton2_pt"}
-#"Bin2l":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"Bin2l"},
-#"genWeight_muR1muF1":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"muR1muF1"},
-#"genWeight_muR2muF2":{"nbin":20,"min":-5.5,"max":5.5,"cut":"EventWeight*(n_gen_jets>=4 && n_gen_bjets==1)","xlabel":"muR2muF2"}
 }
 
 ATLAS_feature_map={
@@ -47,9 +35,6 @@ ATLAS_feature_map={
 "MinDRMCGenLeps":"DRll01_0",
 "gen_bjet1_pt":"Bjet_Pt_0_0",
 "gen_bjet2_pt":"Bjet_Pt_1_0",
-#"gen_jet1_pt":"jet_Pt_1_0",
-#"gen_jet2_pt":"jet_Pt_2_0",
-#"gen_jet3_pt":"jet_Pt_3_0",
 "gen_jet4_pt":"jet_Pt_4_0",
 "gen_jet5_pt":"jet_Pt_5_0",
 "gen_jet6_pt":"jet_Pt_6_0",
@@ -178,26 +163,24 @@ def plotSysts():
         region_ = region
         for sample in sampleName:
             # loop over features
-            hist_sumweights = inputfile.Get("hist_eventWeights")
-            sumOweights = hist_eventWeights.Integral()
-            print 'sumOweights= ', sumOweights
             for feature, values in features.items():
+                print 'make_ratios:: feature: %s , values: %s' % (feature, values)
                 # get nominal histograms
                 hist_nom_name = sample+"_"+feature
                 if not inputfile.GetListOfKeys().Contains(hist_nom_name):
-                    print ( "%s doesn't have histogram %s"%(filename, hist_nom_name))
+                    print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_nom_name))
                     continue
                 hist_nom = inputfile.Get(hist_nom_name)
                 hist_nom.SetFillColor(0)
                 hist_nom.SetLineColor(Color["nominal"])
+                hist_nom.SetLineWidth(5)
                 hist_nom.SetMarkerColor(Color["nominal"])
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
+                # Need to scale down to 1/XS*BR*Lumi = 7040.32 to match ATLAS fiducial normalisation
+                # Scale up to correct ttW inclusive XS = 600.8
                 hist_nom.Scale(600.8/7040.32)
-
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
-
-
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
                 hist_ratio_vars = []
@@ -211,19 +194,20 @@ def plotSysts():
                 # loop over variations
                 syst_counter = 0
                 for syst in systematics:
-                    print 'syst = ', syst
+                    print 'make_ratios:: syst = ', syst
                     if syst=="nominal":
                         continue
                     syst_counter = syst_counter + 1
                     if 'genWeight_' in feature:
                         hist_name = sample+"_"+feature
                         if not inputfile.GetListOfKeys().Contains(hist_name):
-                            print ( "%s doesn't have histogram %s"%(filename, hist_name))
+                            print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_name))
                             continue
                         hist_var = inputfile.Get(hist_name)
                         hist_var.SetFillColor(0)
                         hist_var.SetLineColor(1)
                         hist_var.SetMarkerColor(1)
+                        hist_var.SetLineWidth(5)
                         if normalization:
                             hist_var.Scale(1./hist_var.Integral())
                         hist_var.Scale(600.8/7040.32)
@@ -234,7 +218,7 @@ def plotSysts():
                         for sixpoint_index in sixpoint_variations:
                             hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                             if not inputfile.GetListOfKeys().Contains(hist_name):
-                                print ( "%s doesn't have histogram %s"%(filename, hist_name))
+                                print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_name))
                                 continue
                             hist_nickname_plus_syst = ''
                             hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
@@ -242,23 +226,24 @@ def plotSysts():
                             hist_var.SetFillColor(0)
                             hist_var.SetLineColor(Color[sixpoint_index])
                             hist_var.SetMarkerColor(Color[sixpoint_index])
+                            hist_var.SetLineWidth(5)
                             if normalization:
                                 hist_var.Scale(1./hist_var.Integral())
                             hist_var.Scale(600.8/7040.32)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
-                            print 'append %s hist to hist_ratio_vars' % (sixpoint_index)
                             hist_ratio_vars.append(h_ratio_var)
                             legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
 
-                    print '%s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
+                    print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.Scale(600.8)
                     hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(46)
                     hist_atlas.SetMarkerColor(46)
+                    hist_atlas.SetLineWidth(5)
                     legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
