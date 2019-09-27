@@ -157,7 +157,7 @@ def plotSysts():
         print("ATLASfile is Zombie")
         sys.exit()
     # loop over samples
-    for region, cuts_values in regions:
+    for region, cuts_values in region_:
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_bjets"},

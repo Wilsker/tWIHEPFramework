@@ -55,12 +55,12 @@ if ATLASfile.IsZombie():
     sys.exit()
 
 for sample in sampleName:
-    for region, cuts_values in regions:
+    for region, cuts_values in region_:
         print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+region_+sample+postfix,treename)
         file0 = TFile(inputDirectories[0]+region_+sample+postfix,"read")
         tree0 = file0.Get(treename)
         f_out.cd()
-        
+
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_bjets"},
