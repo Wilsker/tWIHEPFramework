@@ -78,6 +78,8 @@ sampleTitle = {
 
 postfix = ".root"
 
+createROOTfile = True  # Set to Truth for the first time
+
 # ATLAS ROOT file
 ATLAS_filename = 'ATLAS_TTW_Sherpa_2609.root'
 
@@ -152,7 +154,6 @@ def plotSysts():
     # loop over samples
     for region, cuts_values in region_.items():
         # the root file saving the histograms
-        createROOTfile = True  # Set to Truth for the first time
         filename = "myhist_%s.root" % region
         inputfile = TFile(filename,"read")
         if inputfile.IsZombie():
