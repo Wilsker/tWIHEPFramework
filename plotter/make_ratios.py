@@ -157,22 +157,23 @@ def plotSysts():
         print("ATLASfile is Zombie")
         sys.exit()
     # loop over samples
-    for region, cuts_values in region_:
+    for region, cuts_values in region_.items():
+        cut_string = "EventWeight*"+cuts_values
         features={
-        "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_jets"},
-        "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":"EventWeight*"+cuts_values,"xlabel":"n_gen_bjets"},
-        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MCGenHTall"},
-        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MCGenHThad"},
-        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDRMCGenLep1Jet"},
-        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDrMCGenLep2Jet"},
-        "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet4_pt"},
-        "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet5_pt"},
-        "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_jet6_pt"},
-        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_lepton1_pt"},
-        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_lepton2_pt"},
-        "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_bjet1_pt"},
-        "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":"EventWeight*"+cuts_values,"xlabel":"gen_bjet2_pt"},
-        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":"EventWeight*"+cuts_values,"xlabel":"MinDRMCGenLeps"}
+        "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
+        "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
+        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHTall"},
+        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHThad"},
+        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLep1Jet"},
+        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDrMCGenLep2Jet"},
+        "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_jet4_pt"},
+        "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_jet5_pt"},
+        "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_jet6_pt"},
+        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton1_pt"},
+        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton2_pt"},
+        "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet1_pt"},
+        "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet2_pt"},
+        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
         }
 
         for sample in sampleName:
