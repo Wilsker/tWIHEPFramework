@@ -118,13 +118,13 @@ def plotSysts():
     # loop over samples
     for region, cuts_values in region_.items():
         # the root file saving the histograms
-        print 'region: %s, cuts_values: %s' % (region,cuts_values)
         filename = "myhist_%s.root" % region
         inputfile = TFile(filename,"read")
         if inputfile.IsZombie():
             print("inputfile is Zombie")
             sys.exit()
         cut_string = "EventWeight*"+cuts_values
+        print 'region: %s, cuts_values: %s' % (region,cuts_string)
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
