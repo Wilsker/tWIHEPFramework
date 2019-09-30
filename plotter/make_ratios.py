@@ -10,10 +10,10 @@ inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All
 treename = "TNT/BOOM";
 
 region_ = {
-"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
-#"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1)"
+"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=1)",
+"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets>=1)",
 "2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
-#"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
+"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
@@ -117,6 +117,7 @@ def plotSysts():
     # loop over samples
     for region, cuts_values in region_.items():
         # the root file saving the histograms
+        print 'region: %s, cuts_values: %s' % (region,cuts_values)
         filename = "myhist_%s.root" % region
         inputfile = TFile(filename,"read")
         if inputfile.IsZombie():
@@ -170,6 +171,7 @@ def plotSysts():
         }
 
         for sample in sampleName:
+            print 'sample: ', sample
             # loop over features
             for feature, values in features.items():
                 print 'make_ratios:: feature: %s , values: %s' % (feature, values)
