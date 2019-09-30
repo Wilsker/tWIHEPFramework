@@ -192,7 +192,7 @@ def plotSysts():
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
                 else:
-                    hist_nom.Scale(600.8/3343070)
+                    hist_nom.Scale(1./3343070)
 
                 # Need to scale down to 1/XS*BR*Lumi = 1/3343070 to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
@@ -227,7 +227,7 @@ def plotSysts():
                         if normalization:
                             hist_var.Scale(1./hist_nom.Integral())
                         else:
-                            hist_var.Scale(600.8/3343070)
+                            hist_var.Scale(1./3343070)
 
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
@@ -248,7 +248,7 @@ def plotSysts():
                             if normalization:
                                 hist_var.Scale(1./hist_nom.Integral())
                             else:
-                                hist_var.Scale(600.8/3343070)
+                                hist_var.Scale(1./3343070)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
@@ -284,10 +284,10 @@ def plotSysts():
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
-                    else:
+                    '''else:
                         hist_atlas.Scale(600.8)
                         hist_atlas_scaleUp.Scale(600.8)
-                        hist_atlas_scaleDown.Scale(600.8)
+                        hist_atlas_scaleDown.Scale(600.8)'''
 
                     hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
