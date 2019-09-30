@@ -251,9 +251,9 @@ def plotSysts():
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
                     hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
-                    hist_atlas.SetName(feature+"_scaleUp")
+                    hist_atlas_scaleUp.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
-                    hist_atlas.SetName(feature+"_scaleDown")
+                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.Scale(600.8)
                     hist_atlas_scaleUp.Scale(600.8)
