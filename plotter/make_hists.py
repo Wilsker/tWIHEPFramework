@@ -12,25 +12,6 @@ gStyle.SetTitleX(0.5) # title X location
 gStyle.SetTitleY(0.96) # title Y location
 gStyle.SetPaintTextFormat(".2f")
 
-ATLAS_feature_map={
-"n_gen_jets":"nJets_0",
-"n_gen_bjets":"nBtagJets_0",
-"n_gen_lepton":"",
-"MCGenHTall":"HT_0",
-"MCGenHThad":"HT_jets_0",
-"MCGenMET":"MET",
-"MinDRMCGenLep1Jet":"min_DRl0j_0",
-"MinDrMCGenLep2Jet":"min_DRl1j_0",
-"MinDRMCGenLeps":"DRll01_0",
-"gen_bjet1_pt":"Bjet_Pt_0_0",
-"gen_bjet2_pt":"Bjet_Pt_1_0",
-"gen_jet4_pt":"jet_Pt_4_0",
-"gen_jet5_pt":"jet_Pt_5_0",
-"gen_jet6_pt":"jet_Pt_6_0",
-"gen_lepton1_pt":"lep_Pt_0_0",
-"gen_lepton2_pt":"lep_Pt_1_0"
-}
-
 region_ = {
 "2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=1)",
 "2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets>=1)",
@@ -56,6 +37,34 @@ if ATLASfile.IsZombie():
 
 for sample in sampleName:
     for region, cuts_values in region_.items():
+        ATLAS_region_index='0'
+        if "1bgeq4j" in region:
+            ATLAS_region_index = '0'
+        if "2bgeq4j" in region:
+            ATLAS_region_index = '1'
+        if "1beeq3j" in region:
+            ATLAS_region_index = '2'
+        if "2beeq3j" in region:
+            ATLAS_region_index = '3'
+        ATLAS_feature_map={
+        "n_gen_jets":"nJets_"+ATLAS_region_index,
+        "n_gen_bjets":"nBtagJets_"+ATLAS_region_index,
+        "n_gen_lepton":"",
+        "MCGenHTall":"HT_"+ATLAS_region_index,
+        "MCGenHThad":"HT_jets_"+ATLAS_region_index,
+        "MCGenMET":"MET_"+ATLAS_region_index,
+        "MinDRMCGenLep1Jet":"min_DRl0j_"+ATLAS_region_index,
+        "MinDrMCGenLep2Jet":"min_DRl1j_"+ATLAS_region_index,
+        "MinDRMCGenLeps":"DRll01_"+ATLAS_region_index,
+        "gen_bjet1_pt":"Bjet_Pt_0_"+ATLAS_region_index,
+        "gen_bjet2_pt":"Bjet_Pt_1_"+ATLAS_region_index,
+        "gen_jet4_pt":"jet_Pt_4_"+ATLAS_region_index,
+        "gen_jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
+        "gen_jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
+        "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
+        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index
+        }
+
         filename = "myhist_%s.root" % region
         f_out = TFile(filename,"recreate")
         print 'make_hists:: Reading file: %s , tree: %s' % (inputDirectories[0]+sample+postfix,treename)
