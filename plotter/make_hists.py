@@ -90,16 +90,16 @@ for sample in sampleName:
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
         }
 
-        hEventWeight = TH1F("EventWeight", "EventWeights", 10, -100,100)
-        hEventWeight.Sumw2()
-        inputEventWeight = "%s>>%s"%("EventWeight","EventWeight")
-        CUT = "%s"%values["cut"]
-        print 'CUT: ', CUT
-        tree0.Draw(inputEventWeight,CUT)
-        f_out.cd()
-        hEventWeight.Write()
-
         for feature, values in features.items():
+            hEventWeight = TH1F("EventWeight", "EventWeights", 10, -100,100)
+            hEventWeight.Sumw2()
+            inputEventWeight = "%s>>%s"%("EventWeight","EventWeight")
+            CUT = "%s"%values["cut"]
+            print 'CUT: ', CUT
+            tree0.Draw(inputEventWeight,CUT)
+            f_out.cd()
+            hEventWeight.Write()
+            
             print 'make_hists:: Feature = ', feature
             hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
             atlas_binning = []
