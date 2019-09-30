@@ -191,7 +191,7 @@ def plotSysts():
                 # Need to scale down to 1/XS*BR*Lumi = 7040.32 to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
                 #hist_nom.Scale(600.8/7040.32)
-                hist_var.Scale(600.8/3.34307E06)
+                hist_nom.Scale(600.8/3.34307E06)
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
