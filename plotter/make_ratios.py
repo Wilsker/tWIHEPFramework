@@ -18,8 +18,8 @@ region_ = {
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-#sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
-sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
+sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+#sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":7}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
@@ -186,7 +186,7 @@ def plotSysts():
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetLineWidth(3)
                 hist_nom.SetMarkerColor(Color["nominal"])
-                hist_eventweights = inputfile.Get("EventWeight")
+                #hist_eventweights = inputfile.Get("EventWeight")
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
                 # Need to scale down to 1/XS*BR*Lumi = 7040.32 to match ATLAS fiducial normalisation
