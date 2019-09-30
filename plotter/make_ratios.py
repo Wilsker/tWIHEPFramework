@@ -186,12 +186,15 @@ def plotSysts():
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetLineWidth(3)
                 hist_nom.SetMarkerColor(Color["nominal"])
+                hist_eventweights = inputfile.Get("EventWeight")
+                hist_nom.Scale(1./hist_eventweights.Integral())
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
                 # Need to scale down to 1/XS*BR*Lumi = 7040.32 to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
                 #hist_nom.Scale(600.8/7040.32)
-                hist_nom.Scale(600.8/3.89119E06)
+                #hist_nom.Scale(600.8/3.89119E06)
+                hist_nom.Scale(600.8/hist_eventweights.Integral())
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
@@ -223,7 +226,8 @@ def plotSysts():
                         if normalization:
                             hist_var.Scale(1./hist_var.Integral())
                         #hist_var.Scale(600.8/7040.32)
-                        hist_var.Scale(600.8/3.89119E06)
+                        #hist_var.Scale(600.8/3.89119E06)
+                        hist_var.Scale(600.8/hist_eventweights.Integral())
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
@@ -243,7 +247,8 @@ def plotSysts():
                             if normalization:
                                 hist_var.Scale(1./hist_var.Integral())
                             #hist_var.Scale(600.8/7040.32)
-                            hist_var.Scale(600.8/3.89119E06)
+                            #hist_var.Scale(600.8/3.89119E06)
+                            hist_var.Scale(600.8/hist_eventweights.Integral())
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
