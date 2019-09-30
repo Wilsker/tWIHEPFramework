@@ -71,9 +71,8 @@ for sample in sampleName:
         file0 = TFile(inputDirectories[0]+sample+postfix,"read")
         tree0 = file0.Get(treename)
         f_out.cd()
-        print 'Region: %s , cut: %s' % (region,cuts_values)
         cut_string = "EventWeight*"+cuts_values
-        #cut_string="EventWeight*(n_gen_jets>=4&&n_gen_bjets==1)"
+        print 'Region: %s , cut: %s' % (region,cuts_string)
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
