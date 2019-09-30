@@ -187,6 +187,7 @@ def plotSysts():
                 hist_nom.SetLineWidth(3)
                 hist_nom.SetMarkerColor(Color["nominal"])
                 hist_eventweights = inputfile.Get("EventWeight")
+                print 'scaling to: ', hist_eventweights.Integral()
                 hist_nom.Scale(1./hist_eventweights.Integral())
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
