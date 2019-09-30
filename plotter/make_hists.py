@@ -99,7 +99,7 @@ for sample in sampleName:
             tree0.Draw(inputEventWeight,CUT)
             f_out.cd()
             hEventWeight.Write()
-            
+
             print 'make_hists:: Feature = ', feature
             hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
             atlas_binning = []
@@ -139,4 +139,4 @@ for sample in sampleName:
                         h01.Write()
                         systindex = systindex+1
 
-f_out.Close()
+        f_out.Close()
