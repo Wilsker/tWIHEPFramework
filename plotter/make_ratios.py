@@ -334,14 +334,16 @@ def plotSysts():
                     hist_atlas_scaleUp.SetMarkerStyle(20)
                     hist_atlas_scaleDown.SetMarkerStyle(20)
                     hist_nom.Draw("HIST")
-                    hist_atlas.Draw("HIST SAME")
-                    hist_atlas_scaleUp.Draw("HIST SAME")
-                    hist_atlas_scaleDown.Draw("HIST SAME")
+                    #hist_atlas.Draw("HISTSAME")
+                    #hist_atlas_scaleUp.Draw("HISTSAME")
+                    #hist_atlas_scaleDown.Draw("HISTSAME")
 
+                    print '# histograms to draw: ', len(hist_vars)
                     for hist in hist_vars:
-                        print 'Drawing: ', hist.GetTitle()
+                        print 'Hist Name: ', hist.GetName()
+                        print 'Hist Title: ', hist.GetTitle()
                         hist.SetMarkerStyle(20)
-                        hist.Draw("HIST SAME")
+                        hist.Draw("HISTSAME")
 
                     legend.Draw("same")
                     label = ROOT.TLatex()
