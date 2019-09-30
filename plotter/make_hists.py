@@ -13,8 +13,8 @@ gStyle.SetTitleY(0.96) # title Y location
 gStyle.SetPaintTextFormat(".2f")
 
 region_ = {
-"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=1)",
-"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets>=1)",
+"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
+"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1)",
 "2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
 "2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
 }
@@ -89,6 +89,15 @@ for sample in sampleName:
         "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet2_pt"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
         }
+
+        hEventWeight = TH1F("EventWeight", "EventWeights", Nbins-1, bins_)
+        hEventWeight.Sumw2()
+        inputEventWeight = "%s>>%s"%("EventWeight","EventWeight")
+        CUT = "%s"%values["cut"]
+        print 'CUT: ', CUT
+        tree0.Draw(inputEventWeight,CUT)
+        f_out.cd()
+        hEventWeight.Write()
 
         for feature, values in features.items():
             print 'make_hists:: Feature = ', feature
