@@ -10,10 +10,10 @@ inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All
 treename = "TNT/BOOM";
 
 region_ = {
-"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)"
-#"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1)",
-#"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
-#"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
+"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
+"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1)",
+"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
+"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
@@ -39,7 +39,7 @@ ATLAS_scaleUp_filename = 'ATLAS_TTW_Sherpa_ScaleUp_2609.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_Sherpa_ScaleDown_2609.root'
 
 # options
-normalization = True # Normalize to unit
+normalization = False # Normalize to unit
 showStats = False
 
 # directory of output
@@ -65,7 +65,7 @@ def createRatio(h1, h2, POI):
     h3.Divide(h2)
     # Adjust y-axis settings
     y = h3.GetYaxis()
-    y.SetTitle("var/nominal")
+    y.SetTitle("ratio w. Madgraph")
     y.CenterTitle()
     y.SetNdivisions(505)
     y.SetTitleSize(25)
@@ -192,10 +192,10 @@ def plotSysts():
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
                 else:
-                    hist_nom.Scale(600.8/3891190)
-                # Need to scale down to 1/XS*BR*Lumi = 1/3891190 to match ATLAS fiducial normalisation
-                # Scale up to correct ttW inclusive XS = 600.8
+                    hist_nom.Scale(600.8/3343070)
 
+                # Need to scale down to 1/XS*BR*Lumi = 1/3343070 to match ATLAS fiducial normalisation
+                # Scale up to correct ttW inclusive XS = 600.8
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
@@ -227,7 +227,7 @@ def plotSysts():
                         if normalization:
                             hist_var.Scale(1./hist_nom.Integral())
                         else:
-                            hist_var.Scale(600.8/3891190)
+                            hist_var.Scale(600.8/3343070)
 
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
@@ -248,7 +248,7 @@ def plotSysts():
                             if normalization:
                                 hist_var.Scale(1./hist_nom.Integral())
                             else:
-                                hist_var.Scale(600.8/3891190)
+                                hist_var.Scale(600.8/3343070)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
@@ -282,8 +282,8 @@ def plotSysts():
 
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
-                        hist_atlas_scaleUp.Scale(1./hist_atlas.Integral())
-                        hist_atlas_scaleDown.Scale(1./hist_atlas.Integral())
+                        hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
+                        hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
                     else:
                         hist_atlas.Scale(600.8)
                         hist_atlas_scaleUp.Scale(600.8)
