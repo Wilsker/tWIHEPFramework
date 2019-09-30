@@ -325,11 +325,16 @@ def plotSysts():
                     x.SetTitle(values["xlabel"])
 
                     hist_nom.SetMarkerStyle(20)
-                    hist_nom.Draw("HIST")
                     hist_atlas.SetMarkerStyle(20)
-                    hist_atlas.Draw("HIST SAME")
+                    hist_atlas_scaleUp.SetMarkerStyle(20)
+                    hist_atlas_scaleDown.SetMarkerStyle(20)
+                    hist_nom.Draw("HIST")
+                    #hist_atlas.Draw("HIST SAME")
+                    #hist_atlas_scaleUp.Draw("HIST SAME")
+                    #hist_atlas_scaleDown.Draw("HIST SAME")
 
                     for hist in hist_vars:
+                        print 'Drawing: ', hist.GetName()
                         hist.SetMarkerStyle(20)
                         hist.Draw("HIST SAME")
 
