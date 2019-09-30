@@ -275,6 +275,7 @@ def plotSysts():
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
+
                     hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
                     hist_vars.append(hist_atlas_scaleDown)
@@ -329,12 +330,12 @@ def plotSysts():
                     hist_atlas_scaleUp.SetMarkerStyle(20)
                     hist_atlas_scaleDown.SetMarkerStyle(20)
                     hist_nom.Draw("HIST")
-                    #hist_atlas.Draw("HIST SAME")
-                    #hist_atlas_scaleUp.Draw("HIST SAME")
-                    #hist_atlas_scaleDown.Draw("HIST SAME")
+                    hist_atlas.Draw("HIST SAME")
+                    hist_atlas_scaleUp.Draw("HIST SAME")
+                    hist_atlas_scaleDown.Draw("HIST SAME")
 
                     for hist in hist_vars:
-                        print 'Drawing: ', hist.GetName()
+                        print 'Drawing: ', hist.GetTitle()
                         hist.SetMarkerStyle(20)
                         hist.Draw("HIST SAME")
 
