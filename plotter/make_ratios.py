@@ -18,7 +18,8 @@ region_ = {
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+#sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":15}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
@@ -248,8 +249,11 @@ def plotSysts():
 
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas.SetName(feature+"_nominal")
                     hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas.SetName(feature+"_scaleDown")
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.Scale(600.8)
                     hist_atlas_scaleUp.Scale(600.8)
