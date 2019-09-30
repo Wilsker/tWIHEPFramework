@@ -39,7 +39,7 @@ ATLAS_scaleUp_filename = 'ATLAS_TTW_Sherpa_ScaleUp_2609.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_Sherpa_ScaleDown_2609.root'
 
 # options
-normalization = False # Normalize to unit
+normalization = True # Normalize to unit
 showStats = False
 
 # directory of output
@@ -189,9 +189,11 @@ def plotSysts():
                 #hist_eventweights = inputfile.Get("EventWeight")
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
+                else:
+                    hist_nom.Scale(600.8/3891190)
                 # Need to scale down to 1/XS*BR*Lumi = 1/3891190 to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
-                hist_nom.Scale(600.8/3891190)
+
                 h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
@@ -222,7 +224,9 @@ def plotSysts():
                         hist_var.SetLineWidth(3)
                         if normalization:
                             hist_var.Scale(1./hist_var.Integral())
-                        hist_var.Scale(600.8/3891190)
+                        else:
+                            hist_var.Scale(600.8/3891190)
+
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
                         hist_ratio_vars.append(h_ratio_var)
@@ -241,7 +245,8 @@ def plotSysts():
                             hist_var.SetLineWidth(3)
                             if normalization:
                                 hist_var.Scale(1./hist_var.Integral())
-                            hist_var.Scale(600.8/3891190)
+                            else:
+                                hist_var.Scale(600.8/3891190)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
@@ -255,9 +260,7 @@ def plotSysts():
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    hist_atlas.Scale(600.8)
-                    hist_atlas_scaleUp.Scale(600.8)
-                    hist_atlas_scaleDown.Scale(600.8)
+
                     hist_atlas.SetFillColor(0)
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
@@ -279,6 +282,10 @@ def plotSysts():
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
+                    else:
+                        hist_atlas.Scale(600.8)
+                        hist_atlas_scaleUp.Scale(600.8)
+                        hist_atlas_scaleDown.Scale(600.8)
 
                     hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
@@ -305,7 +312,7 @@ def plotSysts():
 
                     Y_name = "Events"
                     if normalization:
-                        hist_nom.Scale(1./hist_nom.Integral())
+                        #hist_nom.Scale(1./hist_nom.Integral())
                         Y_name = " Unit "
                     if showStats:
                         hist_nom.SetStats(1)
