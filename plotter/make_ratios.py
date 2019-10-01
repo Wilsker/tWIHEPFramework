@@ -10,12 +10,7 @@ inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All
 treename = "TNT/BOOM";
 
 # Taus?
-'''region_ = {
-"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1 && n_gen_tau==0)",
-"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1 && n_gen_tau==0)",
-"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2 && n_gen_tau==0)",
-"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2 && n_gen_tau==0)"
-}'''
+
 region_ = {
 "2lss_1bgeq4j":"(NJets>=4 && NBJets==1 && n_gen_tau==0)",
 "2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
@@ -25,8 +20,8 @@ region_ = {
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
-#sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
+#sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":7}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
@@ -133,23 +128,7 @@ def plotSysts():
         cut_string = "EventWeight*"+cuts_values
         print 'region: %s, cuts_values: %s' % (region,cut_string)
 
-        '''features={
-        "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
-        "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
-        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHTall"},
-        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHThad"},
-        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLep1Jet"},
-        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDrMCGenLep2Jet"},
-        "gen_jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_jet4_pt"},
-        "gen_jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_jet5_pt"},
-        "gen_jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_jet6_pt"},
-        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton1_pt"},
-        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton2_pt"},
-        "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet1_pt"},
-        "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet2_pt"},
-        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"},
-        "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour"}
-        }'''
+
         features={
         "NJets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"NJets"},
         "NBJets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"NBJets"},
@@ -178,25 +157,7 @@ def plotSysts():
         if "2beeq3j" in region:
             ATLAS_region_index = '3'
 
-        '''ATLAS_feature_map={
-        "n_gen_jets":"nJets_"+ATLAS_region_index,
-        "n_gen_bjets":"nBtagJets_"+ATLAS_region_index,
-        "n_gen_lepton":"",
-        "MCGenHTall":"HT_"+ATLAS_region_index,
-        "MCGenHThad":"HT_jets_"+ATLAS_region_index,
-        "MCGenMET":"MET_"+ATLAS_region_index,
-        "MinDRMCGenLep1Jet":"min_DRl0j_"+ATLAS_region_index,
-        "MinDrMCGenLep2Jet":"min_DRl1j_"+ATLAS_region_index,
-        "MinDRMCGenLeps":"DRll01_"+ATLAS_region_index,
-        "gen_bjet1_pt":"Bjet_Pt_0_"+ATLAS_region_index,
-        "gen_bjet2_pt":"Bjet_Pt_1_"+ATLAS_region_index,
-        "gen_jet4_pt":"jet_Pt_4_"+ATLAS_region_index,
-        "gen_jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
-        "gen_jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
-        "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
-        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index,
-        "Jet_hadronFlavour":"nBtagJets_"+ATLAS_region_index
-        }'''
+
         ATLAS_feature_map={
         "NJets":"nJets_"+ATLAS_region_index,
         "NBJets":"nBtagJets_"+ATLAS_region_index,
@@ -335,10 +296,6 @@ def plotSysts():
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
-                    '''else:
-                        hist_atlas.Scale(600.8)
-                        hist_atlas_scaleUp.Scale(600.8)
-                        hist_atlas_scaleDown.Scale(600.8)'''
 
                     hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
