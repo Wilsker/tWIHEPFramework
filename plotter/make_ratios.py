@@ -247,7 +247,7 @@ def plotSysts():
                     else:
                         for sixpoint_index in sixpoint_variations:
                             hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
-                            print 'Getting variation: ', hist_name
+                            print 'Getting sixpoint_index: ', sixpoint_index
                             if not inputfile.GetListOfKeys().Contains(hist_name):
                                 print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_name))
                                 continue
@@ -263,9 +263,9 @@ def plotSysts():
                             else:
                                 hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
-                            h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
+                            legend.AddEntry(hist_var,hist_nickname_plus_syst,"l")
+                            h_ratio_var = createRatio(hist_var, hist_nom, values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
-                            legend.AddEntry(h_ratio_var,hist_nickname_plus_syst,"l")
 
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
@@ -289,14 +289,14 @@ def plotSysts():
                     hist_atlas_scaleUp.SetLineWidth(3)
                     hist_atlas_scaleDown.SetLineWidth(3)
 
-                    #legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
-                    #legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
-                    #legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
-
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
+
+                    #legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
+                    #legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
+                    #legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
 
                     #hist_vars.append(hist_atlas)
                     #hist_vars.append(hist_atlas_scaleUp)
