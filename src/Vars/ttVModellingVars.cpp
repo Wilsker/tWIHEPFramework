@@ -390,14 +390,14 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    }
    MinDRMCGenLeps = MinDeltaR_MCGenLeps;
 
-   for (int i = 0; i<MCGenJets.size()-1; i++){
-     MCGen_HTall = MCGen_HTall+MCGenJets.at(i).Pt();
-     MCGen_HThad = MCGen_HThad+MCGenJets.at(i).Pt();
-    if (leading_MCLepton.DeltaR(MCGenJets.at(i)) < MinDeltaR_MCGenLep1Jet){
-       MinDeltaR_MCGenLep1Jet = leading_MCLepton.DeltaR(MCGenJets.at(i));
+   for (int i = 0; i<all_jets.size()-1; i++){
+     MCGen_HTall = MCGen_HTall+all_jets.at(i).Pt();
+     MCGen_HThad = MCGen_HThad+all_jets.at(i).Pt();
+    if (leading_MCLepton.DeltaR(all_jets.at(i)) < MinDeltaR_MCGenLep1Jet){
+       MinDeltaR_MCGenLep1Jet = leading_MCLepton.DeltaR(all_jets.at(i));
      }
-     if (subleading_MCLepton.DeltaR(MCGenJets.at(i)) < MinDeltaR_MCGenLep2Jet){
-        MinDeltaR_MCGenLep2Jet = subleading_MCLepton.DeltaR(MCGenJets.at(i));
+     if (subleading_MCLepton.DeltaR(all_jets.at(i)) < MinDeltaR_MCGenLep2Jet){
+        MinDeltaR_MCGenLep2Jet = subleading_MCLepton.DeltaR(all_jets.at(i));
       }
    }
    MinDRMCGenLep1Jet = MinDeltaR_MCGenLep1Jet;
