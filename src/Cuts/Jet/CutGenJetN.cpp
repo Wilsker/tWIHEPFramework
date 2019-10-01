@@ -139,8 +139,10 @@ Bool_t CutGenJetN::Apply()
   Bool_t JetDeltaRPass    = kTRUE;
 
   // Cut on Min Pt of Jet
-  std::vector<MCJet> jetVector;
-  jetVector.assign(evObj -> MCJets.begin(), evObj -> MCJets.end());
+  //std::vector<MCJet> jetVector;
+  std::vector<Jet> jetVector;
+  //jetVector.assign(evObj -> MCJets.begin(), evObj -> MCJets.end());
+  jetVector.assign(evObj -> jets.begin(), evObj -> jets.end());
   std::vector<MCElectron> EleVector;
   EleVector.assign(evObj -> MCElectrons.begin(), evObj -> MCElectrons.end());
   std::vector<MCMuon> MuVector;
