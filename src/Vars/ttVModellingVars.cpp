@@ -74,6 +74,9 @@ void ttVModellingVars::Clear(){
     genTau.clear();
     genParticles.clear();
     Jets.clear();
+    all_jets.clear();
+    light_jets.clear();
+    b_jets.clear();
     n_gen_ele = -9999;
     n_gen_mu = -9999;
     n_gen_lepton = -9999;
@@ -307,19 +310,9 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
 
 
 
-
-
-
-
-
-
-
-
-
-
    for(uint jet_in=0;jet_in<Jets.size();jet_in++){
-     cout << "Jets.at(jet_in).hadronFlavour(): " << Jets.at(jet_in).hadronFlavour() << endl;
      if(Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+       cout << "hadronFlavour: " << Jets.at(jet_in).hadronFlavour() << " , Pt: " << Jets.at(jet_in).Pt() << " , Eta: " << abs(Jets.at(jet_in).Eta() << endl;
        all_jets.push_back(Jets.at(jet_in));
      }
    }
@@ -335,36 +328,36 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    }
 
 
-   for (auto const jet : all_jets){
-     if (jet.Pt() > reco_jet1pt) {reco_jet1pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() > reco_jet1pt) {reco_jet1pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet1pt && jet.Pt() > reco_jet2pt) {reco_jet2pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet1pt && all_jets.at(jet_in).Pt() > reco_jet2pt) {reco_jet2pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet2pt && jet.Pt() > reco_jet3pt) {reco_jet3pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet2pt && all_jets.at(jet_in).Pt() > reco_jet3pt) {reco_jet3pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet3pt && jet.Pt() > reco_jet4pt) {reco_jet4pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet3pt && all_jets.at(jet_in).Pt() > reco_jet4pt) {reco_jet4pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet4pt && jet.Pt() > reco_jet5pt) {reco_jet5pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet4pt && all_jets.at(jet_in).Pt() > reco_jet5pt) {reco_jet5pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet5pt && jet.Pt() > reco_jet6pt) {reco_jet6pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet5pt && all_jets.at(jet_in).Pt() > reco_jet6pt) {reco_jet6pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet6pt && jet.Pt() > reco_jet7pt) {reco_jet7pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet6pt && all_jets.at(jet_in).Pt() > reco_jet7pt) {reco_jet7pt = all_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_jet7pt && jet.Pt() > reco_jet8pt) {reco_jet8pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<all_jets.size();jet_in++){
+     if (all_jets.at(jet_in).Pt() < reco_jet7pt && all_jets.at(jet_in).Pt() > reco_jet8pt) {reco_jet8pt = all_jets.at(jet_in).Pt();}
    }
 
-   for (auto const jet : b_jets){
-     if (jet.Pt() > reco_bjet1pt) {reco_bjet1pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<b_jets.size();jet_in++){
+     if (b_jets.at(jet_in).Pt() > reco_bjet1pt) {reco_bjet1pt = b_jets.at(jet_in).Pt();}
    }
-   for (auto const jet : genJets){
-     if (jet.Pt() < reco_bjet1pt && jet.Pt() > reco_bjet2pt) {reco_bjet2pt = jet.Pt();}
+   for (uint jet_in=0;jet_in<b_jets.size();jet_in++){
+     if (b_jets.at(jet_in).Pt() < reco_bjet1pt && b_jets.at(jet_in).Pt() > reco_bjet2pt) {reco_bjet2pt = b_jets.at(jet_in).Pt();}
    }
 
    nRecoJets=all_jets.size();
