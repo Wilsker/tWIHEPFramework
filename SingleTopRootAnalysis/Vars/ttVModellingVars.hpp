@@ -45,6 +45,12 @@ private:
     std::vector<MCJet> genBJets;
     std::vector<MCTau> genTau;
     std::vector<MCParticle> genParticles;
+    std::vector<Jet> Jets;
+    std::vector<Jet> all_jets;
+    std::vector<Jets> light_jets;
+    std::vector<Jets> b_jets;
+    Int_t NBJets;
+    Int_t NJets;
     long nEvent;
     int ls;
     int run;
@@ -83,6 +89,19 @@ private:
     Int_t SourceNumber;
     Int_t count_leps_from_bmeson;
     Int_t count_leps_from_bmeson_gt005;
+
+    double jet1_pt;
+    double jet2_pt;
+    double jet3_pt;
+    double jet4_pt;
+    double jet5_pt;
+    double jet6_pt;
+    double jet7_pt;
+    double jet8_pt;
+    double Bjet1_pt;
+    double Bjet2_pt;
+    int NJets;
+    int NBJets;
 
 
 };

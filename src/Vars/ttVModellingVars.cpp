@@ -48,6 +48,19 @@ ttVModellingVars::ttVModellingVars(bool makeHistos){
   _floatVars["MCGenHTall"] = 999;
   _floatVars["MCGenHThad"] = 999;
 
+  _floatVars["NBJets"] = 10;
+  _floatVars["NJets"] = 10;
+  _floatVars["jet1_pt"] = 999.;
+  _floatVars["jet2_pt"] = 999.;
+  _floatVars["jet3_pt"] = 999.;
+  _floatVars["jet4_pt"] = 999.;
+  _floatVars["jet5_pt"] = 999.;
+  _floatVars["jet6_pt"] = 999.;
+  _floatVars["jet7_pt"] = 999.;
+  _floatVars["jet8_pt"] = 999.;
+  _floatVars["Bjet1_pt"] = 999.;
+  _floatVars["Bjet2_pt"] = 999.;
+
   SetDoHists(makeHistos);
 }
 
@@ -60,6 +73,7 @@ void ttVModellingVars::Clear(){
     genBJets.clear();
     genTau.clear();
     genParticles.clear();
+    Jets.clear();
     n_gen_ele = -9999;
     n_gen_mu = -9999;
     n_gen_lepton = -9999;
@@ -82,6 +96,18 @@ void ttVModellingVars::Clear(){
     MCGen_MET = 0;
     MCGen_HTall = 0;
     MCGen_HThad = 0;
+    NBJets=-9999;
+    NJets=-9999;
+    jet1_pt=-9999;
+    jet2_pt=-9999;
+    jet3_pt=-9999;
+    jet4_pt=-9999;
+    jet5_pt=-9999;
+    jet6_pt=-9999;
+    jet7_pt=-9999;
+    jet8_pt=-9999;
+    Bjet1_pt=-9999;
+    Bjet2_pt=-9999;
 }
 
 void ttVModellingVars::FillBranches(EventContainer * evtObj){
@@ -95,6 +121,7 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
     genTau.assign(evtObj -> MCTaus.begin(), evtObj -> MCTaus.end());
     genBJets.assign(evtObj -> MCBJets.begin(), evtObj -> MCBJets.end() );
     genParticles.assign(evtObj -> MCParticles.begin(), evtObj -> MCParticles.end() );
+    Jets.assign(evtObj -> jets.begin(), evtObj -> jets.end());
 
    int n_genEle =-9;
    int n_genMu =-9;
@@ -122,6 +149,20 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    double genjet4_pt =-9;
    double genjet5_pt =-9;
    double genjet6_pt =-9;
+
+   int nRecoJets=-9;
+   int nRecoBJets=-9;
+   double reco_jet1pt =-9;
+   double reco_jet2pt =-9;
+   double reco_jet3pt =-9;
+   double reco_jet4pt =-9;
+   double reco_jet5pt =-9;
+   double reco_jet6pt =-9;
+   double reco_jet7pt =-9;
+   double reco_jet8pt =-9;
+   reco_bjet1pt=-9;
+   reco_bjet2pt=-9;
+
 
    double MinDRMCGenLeps =-9;
    double MinDRMCGenLep1Jet =-9;
@@ -261,6 +302,93 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    gen_jet6_pt = genjet6_pt;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   for(uint jet_in=0;jet_in<Jets.size();jet_in++){
+     cout << "Jets.at(jet_in).hadronFlavour(): " << Jets.at(jet_in).hadronFlavour() << endl;
+     if(Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+       all_jets.push_back(Jets.at(jet_in));
+     }
+   }
+   for(uint jet_in=0;jet_in<Jets.size();jet_in++){
+     if(Jets.at(jet_in).hadronFlavour() != 5 && Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+       light_jets.push_back(Jets.at(jet_in));
+     }
+   }
+   for(uint jet_in=0;jet_in<Jets.size();jet_in++){
+     if(Jets.at(jet_in).hadronFlavour() == 5 && Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+       b_jets.push_back(Jets.at(jet_in));
+     }
+   }
+
+
+   for (auto const jet : all_jets){
+     if (jet.Pt() > reco_jet1pt) {reco_jet1pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet1pt && jet.Pt() > reco_jet2pt) {reco_jet2pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet2pt && jet.Pt() > reco_jet3pt) {reco_jet3pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet3pt && jet.Pt() > reco_jet4pt) {reco_jet4pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet4pt && jet.Pt() > reco_jet5pt) {reco_jet5pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet5pt && jet.Pt() > reco_jet6pt) {reco_jet6pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet6pt && jet.Pt() > reco_jet7pt) {reco_jet7pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_jet7pt && jet.Pt() > reco_jet8pt) {reco_jet8pt = jet.Pt();}
+   }
+
+   for (auto const jet : b_jets){
+     if (jet.Pt() > reco_bjet1pt) {reco_bjet1pt = jet.Pt();}
+   }
+   for (auto const jet : genJets){
+     if (jet.Pt() < reco_bjet1pt && jet.Pt() > reco_bjet2pt) {reco_bjet2pt = jet.Pt();}
+   }
+
+   nRecoJets=all_jets.size();
+   nRecoBJets=b_jets.size();
+
+   NJets = nRecoJets;
+   jet1_pt = reco_jet1pt;
+   jet2_pt= reco_jet2pt;
+   jet3_pt= reco_jet3pt;
+   jet4_pt= reco_jet4pt;
+   jet5_pt= reco_jet5pt;
+   jet6_pt= reco_jet6pt;
+   jet7_pt= reco_jet7pt;
+   jet8_pt= reco_jet8pt;
+   NBJets = nRecoBJets;
+   Bjet1_pt=reco_bjet1pt;
+   Bjet2_pt=reco_bjet2pt;
+
+
+
+
+
+
+
    for (int i = 0; i<MCGenLeptons.size()-1; i++){
      MCGen_HTall = MCGen_HTall+MCGenLeptons.at(i).Pt();
      if ( MCGenLeptons.at(i).DeltaR(MCGenLeptons.at(i+1)) < MinDeltaR_MCGenLeps ){
@@ -336,6 +464,21 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
   _floatVars["genWeight_muR0p5muF1"] = genWeight_muR0p5muF1;
   _floatVars["genWeight_muR0p5muF2"] = genWeight_muR0p5muF2;
   _floatVars["genWeight_muR0p5muF0p5"] = genWeight_muR0p5muF0p5;
+
+  _floatVars["NBJets"]=NBJets;
+  _floatVars["NJets"]=NJets;
+  _floatVars["jet1_pt"]=jet1_pt;
+  _floatVars["jet2_pt"]=jet2_pt;
+  _floatVars["jet3_pt"]=jet3_pt;
+  _floatVars["jet4_pt"]=jet4_pt;
+  _floatVars["jet5_pt"]=jet5_pt;
+  _floatVars["jet6_pt"]=jet6_pt;
+  _floatVars["jet7_pt"]=jet7_pt;
+  _floatVars["jet8_pt"]=jet8_pt;
+  _floatVars["Bjet1_pt"]=Bjet1_pt;
+  _floatVars["Bjet2_pt"]=Bjet2_pt;
+
+
 
   if (DoHists()) FillHistograms(evtObj->GetEventWeight());
 
