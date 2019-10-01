@@ -188,7 +188,10 @@ def plotSysts():
                 hist_nom.SetMarkerColor(Color["nominal"])
                 if hist_nom.Integral() == 0:
                     continue
-                #hist_eventweights = inputfile.Get("EventWeight")
+
+                hist_eventweights = inputfile.Get("EventWeight")
+                print 'SUM hist_eventweights: ', hist_eventweights.Integral()
+
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
                 else:
