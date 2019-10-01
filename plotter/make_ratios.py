@@ -11,10 +11,10 @@ treename = "TNT/BOOM";
 
 # Taus?
 region_ = {
-"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
-"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1)",
-"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2)",
-"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2)"
+"2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1 && n_gen_tau==0)",
+"2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1 && n_gen_tau==0)",
+"2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2 && n_gen_tau==0)",
+"2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2 && n_gen_tau==0)"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
@@ -36,8 +36,8 @@ createROOTfile = True  # Set to Truth for the first time
 
 # ATLAS ROOT file
 ATLAS_filename = 'ATLAS_TTW_Sherpa_0110.root'
-ATLAS_scaleUp_filename = 'ATLAS_TTW_Sherpa_ScaleUp_2609.root'
-ATLAS_scaleDown_filename = 'ATLAS_TTW_Sherpa_ScaleDown_2609.root'
+ATLAS_scaleUp_filename = 'ATLAS_TTW_SherpaScaleDown_0110.root'
+ATLAS_scaleDown_filename = 'ATLAS_TTW_SherpaScaleUp_0110.root'
 
 # options
 normalization = False # Normalize to unit
