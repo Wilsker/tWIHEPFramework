@@ -9,6 +9,7 @@ inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All
 
 treename = "TNT/BOOM";
 
+# Taus?
 region_ = {
 "2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1)",
 "2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1)",
@@ -194,8 +195,8 @@ def plotSysts():
 
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
-                #else:
-                #    hist_nom.Scale(1./3343070)
+                else:
+                    hist_nom.Scale(1./7040.32)
 
                 # Need to scale down to 1/XS*BR*Lumi = 1/3343070 to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
@@ -229,8 +230,9 @@ def plotSysts():
                         hist_var.SetLineWidth(3)
                         if normalization:
                             hist_var.Scale(1./hist_nom.Integral())
-                        #else:
-                        #    hist_var.Scale(1./3343070)
+                        else:
+                            #hist_var.Scale(1./3343070)
+                            hist_var.Scale(1./7040.32)
 
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
@@ -250,8 +252,9 @@ def plotSysts():
                             hist_var.SetLineWidth(3)
                             if normalization:
                                 hist_var.Scale(1./hist_nom.Integral())
-                            #else:
-                            #    hist_var.Scale(1./3343070)
+                            else:
+                                #hist_var.Scale(1./3343070)
+                                hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
                             hist_ratio_vars.append(h_ratio_var)
@@ -265,9 +268,6 @@ def plotSysts():
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    hist_atlas.Scale(600.8)
-                    hist_atlas_scaleUp.Scale(600.8)
-                    hist_atlas_scaleDown.Scale(600.8)
 
                     hist_atlas.SetFillColor(0)
                     hist_atlas_scaleUp.SetFillColor(0)
