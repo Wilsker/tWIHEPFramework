@@ -160,8 +160,8 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    double reco_jet6pt =-9;
    double reco_jet7pt =-9;
    double reco_jet8pt =-9;
-   reco_bjet1pt=-9;
-   reco_bjet2pt=-9;
+   double reco_bjet1pt=-9;
+   double reco_bjet2pt=-9;
 
 
    double MinDRMCGenLeps =-9;

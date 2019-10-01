@@ -47,10 +47,9 @@ private:
     std::vector<MCParticle> genParticles;
     std::vector<Jet> Jets;
     std::vector<Jet> all_jets;
-    std::vector<Jets> light_jets;
-    std::vector<Jets> b_jets;
-    Int_t NBJets;
-    Int_t NJets;
+    std::vector<Jet> light_jets;
+    std::vector<Jet> b_jets;
+    
     long nEvent;
     int ls;
     int run;
