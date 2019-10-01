@@ -10,11 +10,17 @@ inputDirectories = ["/publicfs/cms/data/TopQuark/ttV-modelling/condor/ttH2016All
 treename = "TNT/BOOM";
 
 # Taus?
-region_ = {
+'''region_ = {
 "2lss_1bgeq4j":"(n_gen_jets>=4 && n_gen_bjets==1 && n_gen_tau==0)",
 "2lss_1beeq3j":"(n_gen_jets==3 && n_gen_bjets==1 && n_gen_tau==0)",
 "2lss_2bgeq4j":"(n_gen_jets>=4 && n_gen_bjets>=2 && n_gen_tau==0)",
 "2lss_2beeq3j":"(n_gen_jets==3 && n_gen_bjets>=2 && n_gen_tau==0)"
+}'''
+region_ = {
+"2lss_1bgeq4j":"(NJets>=4 && NBJets==1 && n_gen_tau==0)",
+"2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
+"2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
+"2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
@@ -126,6 +132,7 @@ def plotSysts():
             sys.exit()
         cut_string = "EventWeight*"+cuts_values
         print 'region: %s, cuts_values: %s' % (region,cut_string)
+
         features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
@@ -140,7 +147,8 @@ def plotSysts():
         "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton2_pt"},
         "gen_bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet1_pt"},
         "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet2_pt"},
-        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
+        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"},
+        "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour"}
         }
 
         ATLAS_region_index='0'
@@ -169,7 +177,8 @@ def plotSysts():
         "gen_jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
         "gen_jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
         "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
-        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index
+        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index,
+        "Jet_hadronFlavour":"nBtagJets_"+ATLAS_region_index
         }
 
         for sample in sampleName:
@@ -233,7 +242,6 @@ def plotSysts():
                         if normalization:
                             hist_var.Scale(1./hist_nom.Integral())
                         else:
-                            #hist_var.Scale(1./3343070)
                             hist_var.Scale(1./7040.32)
 
                         hist_vars.append(hist_var)
@@ -255,7 +263,6 @@ def plotSysts():
                             if normalization:
                                 hist_var.Scale(1./hist_nom.Integral())
                             else:
-                                #hist_var.Scale(1./3343070)
                                 hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
                             h_ratio_var = createRatio(hist_var, hist_nom,values["xlabel"])
@@ -322,7 +329,6 @@ def plotSysts():
 
                     Y_name = "Events"
                     if normalization:
-                        #hist_nom.Scale(1./hist_nom.Integral())
                         Y_name = " Unit "
                     if showStats:
                         hist_nom.SetStats(1)
@@ -351,9 +357,6 @@ def plotSysts():
                     hist_atlas_scaleUp.SetMarkerStyle(20)
                     hist_atlas_scaleDown.SetMarkerStyle(20)
                     hist_nom.Draw("HIST")
-                    #hist_atlas.Draw("HISTSAME")
-                    #hist_atlas_scaleUp.Draw("HISTSAME")
-                    #hist_atlas_scaleDown.Draw("HISTSAME")
 
                     print '# histograms to draw: ', len(hist_vars)
                     for hist in hist_vars:
