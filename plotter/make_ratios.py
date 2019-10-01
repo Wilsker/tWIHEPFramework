@@ -21,6 +21,7 @@ region_ = {
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
 #sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+variation_weight_index={"muR1muF2":0,"muR1muF0p5":1,"muR2muF1":2,"muR2muF2":3,"muR2muF0p5":4,"muR0p5muF1":5,"muR0p5muF2":6,"muR0p5muF0p5":7}
 sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":28,"muR0p5muF0p5":34}
 
@@ -251,6 +252,8 @@ def plotSysts():
                             if not inputfile.GetListOfKeys().Contains(hist_name):
                                 print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_name))
                                 continue
+                            else:
+                                print 'hist_name: %s exists!' % (hist_name)
                             hist_nickname_plus_syst = ''
                             hist_nickname_plus_syst = hist_nickname + ' ' + sixpoint_index
                             hist_var = inputfile.Get(hist_name)

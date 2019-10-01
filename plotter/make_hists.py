@@ -128,9 +128,10 @@ for sample in sampleName:
                     f_out.cd()
                     h01.Write()
                 else:
-                    systindex=1
+                    #systindex=1
                     for sixpoint_index in sixpoint_variations:
                         hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                        systindex = variation_weight_index[sixpoint_index]
                         syst_weight = "EVENT_genWeights[%i]/%s" % (systindex,nominal_weights[syst])
                         h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                         h01.Sumw2()
@@ -139,6 +140,6 @@ for sample in sampleName:
                         tree0.Draw(input01,CUT)
                         f_out.cd()
                         h01.Write()
-                        systindex = systindex+1
+                        #systindex = systindex+1
 
         f_out.Close()
