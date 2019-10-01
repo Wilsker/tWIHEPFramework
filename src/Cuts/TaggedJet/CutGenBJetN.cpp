@@ -133,7 +133,7 @@ Bool_t CutGenBJetN::Apply()
   //bjetVector.assign(evObj -> MCBJets.begin(), evObj -> MCBJets.end() );
   //for ( auto const jet : bjetVector) {
   for ( auto const jet : evObj->jets) {
-    if ( jet.Pt() > 25 && std::abs(jet.Eta()) < 2.5 && jet.hadronFlavour()==5){
+    if ( jet.Pt() > 25. && std::abs(jet.Eta()) < 2.5 && jet.hadronFlavour()==5){
       bJetNumber++;
     }
   }

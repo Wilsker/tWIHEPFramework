@@ -311,18 +311,18 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
 
 
    for(uint jet_in=0;jet_in<Jets.size();jet_in++){
-     if(Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+     if(Jets.at(jet_in).Pt() >= 25 && std::abs(Jets.at(jet_in).Eta()) < 2.5){
        //cout << "hadronFlavour: " << Jets.at(jet_in).hadronFlavour() << " , Pt: " << Jets.at(jet_in).Pt() << " , Eta: " << abs(Jets.at(jet_in).Eta()) << endl;
        all_jets.push_back(Jets.at(jet_in));
      }
    }
    for(uint jet_in=0;jet_in<Jets.size();jet_in++){
-     if(Jets.at(jet_in).hadronFlavour() != 5 && Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+     if(Jets.at(jet_in).hadronFlavour() != 5 && Jets.at(jet_in).Pt() >= 25 && std::abs(Jets.at(jet_in).Eta()) < 2.5){
        light_jets.push_back(Jets.at(jet_in));
      }
    }
    for(uint jet_in=0;jet_in<Jets.size();jet_in++){
-     if(Jets.at(jet_in).hadronFlavour() == 5 && Jets.at(jet_in).Pt() >= 25 && abs(Jets.at(jet_in).Eta()) < 2.5){
+     if(Jets.at(jet_in).hadronFlavour() == 5 && Jets.at(jet_in).Pt() >= 25 && std::abs(Jets.at(jet_in).Eta()) < 2.5){
        b_jets.push_back(Jets.at(jet_in));
      }
    }
