@@ -187,6 +187,8 @@ def plotSysts():
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetLineWidth(3)
                 hist_nom.SetMarkerColor(Color["nominal"])
+                hist_title = sample+' '+region
+                hist_nom.SetTitle(hist_title)
                 if hist_nom.Integral() == 0:
                     continue
 
