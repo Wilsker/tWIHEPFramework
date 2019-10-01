@@ -20,9 +20,9 @@ region_ = {
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-#sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
-sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
-Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":7}
+sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
+#sixpoint_variations=["muR2muF2","muR0p5muF0p5"]
+Color={"nominal":1,"muR1muF1":2,"muR1muF2":3,"muR1muF0p5":4,"muR2muF1":5,"muR2muF2":6,"muR2muF0p5":7,"muR0p5muF1":8,"muR0p5muF2":9,"muR0p5muF0p5":10}
 
 # sample name is sampleName+postfix: ex, TTW_DiLepRegion.root
 sampleName = ["mergedLegacy16V1_TTWJets"]
@@ -247,6 +247,7 @@ def plotSysts():
                     else:
                         for sixpoint_index in sixpoint_variations:
                             hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
+                            print 'Getting variation: ', hist_name
                             if not inputfile.GetListOfKeys().Contains(hist_name):
                                 print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_name))
                                 continue
@@ -256,7 +257,7 @@ def plotSysts():
                             hist_var.SetFillColor(0)
                             hist_var.SetLineColor(Color[sixpoint_index])
                             hist_var.SetMarkerColor(Color[sixpoint_index])
-                            hist_var.SetLineWidth(3)
+                            hist_var.SetLineWidth(2)
                             if normalization:
                                 hist_var.Scale(1./hist_nom.Integral())
                             else:
