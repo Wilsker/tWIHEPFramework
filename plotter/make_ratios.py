@@ -133,7 +133,7 @@ def plotSysts():
         cut_string = "EventWeight*"+cuts_values
         print 'region: %s, cuts_values: %s' % (region,cut_string)
 
-        features={
+        '''features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
         "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHTall"},
@@ -149,6 +149,23 @@ def plotSysts():
         "gen_bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"gen_bjet2_pt"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"},
         "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour"}
+        }'''
+        features={
+        "NJets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"NJets"},
+        "NBJets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"NBJets"},
+        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHTall"},
+        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHThad"},
+        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLep1Jet"},
+        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDrMCGenLep2Jet"},
+        "jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet4_pt"},
+        "jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet5_pt"},
+        "jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet6_pt"},
+        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton1_pt"},
+        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton2_pt"},
+        "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt"},
+        "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt"},
+        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"},
+        "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour"}
         }
 
         ATLAS_region_index='0'
@@ -161,7 +178,7 @@ def plotSysts():
         if "2beeq3j" in region:
             ATLAS_region_index = '3'
 
-        ATLAS_feature_map={
+        '''ATLAS_feature_map={
         "n_gen_jets":"nJets_"+ATLAS_region_index,
         "n_gen_bjets":"nBtagJets_"+ATLAS_region_index,
         "n_gen_lepton":"",
@@ -176,6 +193,25 @@ def plotSysts():
         "gen_jet4_pt":"jet_Pt_4_"+ATLAS_region_index,
         "gen_jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
         "gen_jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
+        "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
+        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index,
+        "Jet_hadronFlavour":"nBtagJets_"+ATLAS_region_index
+        }'''
+        ATLAS_feature_map={
+        "NJets":"nJets_"+ATLAS_region_index,
+        "NBJets":"nBtagJets_"+ATLAS_region_index,
+        "n_gen_lepton":"",
+        "MCGenHTall":"HT_"+ATLAS_region_index,
+        "MCGenHThad":"HT_jets_"+ATLAS_region_index,
+        "MCGenMET":"MET_"+ATLAS_region_index,
+        "MinDRMCGenLep1Jet":"min_DRl0j_"+ATLAS_region_index,
+        "MinDrMCGenLep2Jet":"min_DRl1j_"+ATLAS_region_index,
+        "MinDRMCGenLeps":"DRll01_"+ATLAS_region_index,
+        "Bjet1_pt":"Bjet_Pt_0_"+ATLAS_region_index,
+        "Bjet2_pt":"Bjet_Pt_1_"+ATLAS_region_index,
+        "jet4_pt":"jet_Pt_4_"+ATLAS_region_index,
+        "jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
+        "jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
         "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
         "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index,
         "Jet_hadronFlavour":"nBtagJets_"+ATLAS_region_index
