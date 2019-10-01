@@ -129,17 +129,15 @@ Bool_t CutGenBJetN::Apply()
   Bool_t bJetNumberMinPass    = kTRUE;   // Event passes min cut
   Bool_t bJetNumberMaxPass    = kTRUE;   // Event passes max cut
 
-  //std::vector<Jet> bjetVector;
-  std::vector<MCJet> bjetVector;
-  bjetVector.assign(evObj -> MCBJets.begin(), evObj -> MCBJets.end() );
+  //std::vector<MCJet> bjetVector;
+  //bjetVector.assign(evObj -> MCBJets.begin(), evObj -> MCBJets.end() );
   //for ( auto const jet : bjetVector) {
-  for ( auto const jet : bjetVector) {
-    if ( jet.Pt() > 25 && std::abs(jet.Eta()) < 2.5){
+  for ( auto const jet : evObj->jets) {
+    if ( jet.Pt() > 25 && std::abs(jet.Eta()) < 2.5 && jet.hadronFlavour()==5){
       bJetNumber++;
     }
   }
 
-  // Cut on bLoose Min
   // Negative cut value for Min means there is no Min cut
   if( (_bJetNumberMin != 999) && (bJetNumber < _bJetNumberMin) ){
      bJetNumberMinPass = kFALSE;
