@@ -35,7 +35,7 @@ postfix = ".root"
 createROOTfile = True  # Set to Truth for the first time
 
 # ATLAS ROOT file
-ATLAS_filename = 'ATLAS_TTW_Sherpa_2609.root'
+ATLAS_filename = 'ATLAS_TTW_Sherpa_0110.root'
 ATLAS_scaleUp_filename = 'ATLAS_TTW_Sherpa_ScaleUp_2609.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_Sherpa_ScaleDown_2609.root'
 
