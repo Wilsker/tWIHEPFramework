@@ -98,8 +98,6 @@ for sample in sampleName:
         f_out.cd()
         cut_string = "EventWeight*"+cuts_values
         print 'Region: %s , cut: %s' % (region,cut_string)
-        NJets
-        NBJets
         '''features={
         "n_gen_jets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_jets"},
         "n_gen_bjets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"n_gen_bjets"},
