@@ -121,6 +121,7 @@ for sample in sampleName:
                     hist_name = sample+"_"+feature
                     h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                     h01.Sumw2()
+                    h01.GetXaxis().SetTitle(values["xtitle"])
                     input01 = "%s>>%s"%(feature,hist_name)
                     CUT = "%s"%values["cut"]
                     print 'CUT: ', CUT
@@ -135,6 +136,7 @@ for sample in sampleName:
                         syst_weight = "EVENT_genWeights[%i]/%s" % (systindex,nominal_weights[syst])
                         h01 = TH1F(hist_name, feature, Nbins-1, bins_)
                         h01.Sumw2()
+                        h01.GetXaxis().SetTitle(values["xtitle"])
                         input01 = "%s>>%s"%(feature,hist_name)
                         CUT = "%s*%s"%(values["cut"],syst_weight)
                         tree0.Draw(input01,CUT)
