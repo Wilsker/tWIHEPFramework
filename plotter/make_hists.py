@@ -76,20 +76,21 @@ for sample in sampleName:
         print 'Region: %s , cut: %s' % (region,cut_string)
 
         features={
-        "NJets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"NJets"},
-        "NBJets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"NBJets"},
-        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHTall"},
-        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHThad"},
-        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLep1Jet"},
-        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDrMCGenLep2Jet"},
-        "jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet4_pt"},
-        "jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet5_pt"},
-        "jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet6_pt"},
-        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton1_pt"},
-        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton2_pt"},
-        "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt"},
-        "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt"},
-        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps"}
+        "NJets":{"nbin":8,"min":2.5,"max":10.5,"cut":cut_string,"xlabel":"NJets","xtitle":"# jets"},
+        "NBJets":{"nbin":10,"min":0.5,"max":10.5,"cut":cut_string,"xlabel":"NBJets","xtitle":"# b-jets"},
+        "MCGenHTall":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHTall","xtitle":"HT(all)"},
+        "MCGenHThad":{"nbin":10,"min":0.5,"max":1500.5,"cut":cut_string,"xlabel":"MCGenHThad","xtitle":"HT(had)"},
+        "MinDRMCGenLep1Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLep1Jet","xtitle":"Min. dR(lep1,j)"},
+        "MinDrMCGenLep2Jet":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDrMCGenLep2Jet","xtitle":"Min. dR(lep2,j)"},
+        "jet4_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet4_pt","xtitle":"4th jet pT"},
+        "jet5_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet5_pt","xtitle":"5th jet pT"},
+        "jet6_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"jet6_pt","xtitle":"6th jet pT"},
+        "gen_lepton1_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton1_pt","xtitle":"leading lepton pT"},
+        "gen_lepton2_pt":{"nbin":20,"min":0.5,"max":500.5,"cut":cut_string,"xlabel":"gen_lepton2_pt","xtitle":"subleading lepton pT"},
+        "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt","xtitle":"leading b-jet pT"},
+        "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt","xtitle":"subleading b-jet pT"},
+        "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps","xtitle":"Min. dR(lep1,lep2)"},
+        "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour","xtitle":"hadron flavour"}
         }
 
         for feature, values in features.items():
