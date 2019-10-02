@@ -90,7 +90,6 @@ for sample in sampleName:
         "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt","xtitle":"leading b-jet pT"},
         "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt","xtitle":"subleading b-jet pT"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps","xtitle":"Min. dR(lep1,lep2)"},
-        "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour","xtitle":"hadron flavour"}
         }
 
         for feature, values in features.items():
