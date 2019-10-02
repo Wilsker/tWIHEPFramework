@@ -154,7 +154,6 @@ def plotSysts():
         "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt","xtitle":"leading b-jet pT"},
         "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt","xtitle":"subleading b-jet pT"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps","xtitle":"Min. dR(lep1,lep2)"},
-        "Jet_hadronFlavour":{"nbin":12,"min":0.0,"max":10.5,"cut":cut_string,"xlabel":"Jet_hadronFlavour","xtitle":"hadron flavour"}
         }
 
         ATLAS_region_index='0'
@@ -218,7 +217,7 @@ def plotSysts():
 
                 # Need to scale down to 1/XS*BR*Lumi = 1/3343070 to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
-                h_ratio = createRatio(hist_nom, hist_nom, values["xlabel"])
+                h_ratio = createRatio(hist_nom, hist_nom, values["xtitle"])
                 c, pad1, pad2 = createCanvasPads()
                 hist_vars = []
                 hist_ratio_vars = []
@@ -252,7 +251,7 @@ def plotSysts():
                             hist_var.Scale(1./7040.32)
 
                         hist_vars.append(hist_var)
-                        h_ratio_var = createRatio(hist_var, hist_nom ,values["xlabel"])
+                        h_ratio_var = createRatio(hist_var, hist_nom ,values["xtitle"])
                         hist_ratio_vars.append(h_ratio_var)
                     else:
                         for sixpoint_index in sixpoint_variations:
@@ -276,7 +275,7 @@ def plotSysts():
                                 hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
                             legend.AddEntry(hist_var,hist_nickname_plus_syst,"l")
-                            h_ratio_var = createRatio(hist_var, hist_nom, values["xlabel"])
+                            h_ratio_var = createRatio(hist_var, hist_nom, values["xtitle"])
                             hist_ratio_vars.append(h_ratio_var)
 
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
@@ -312,9 +311,9 @@ def plotSysts():
                     hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
                     hist_vars.append(hist_atlas_scaleDown)
-                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xlabel"])
-                    h_ratio_atlas_scaleUp = createRatio(hist_atlas_scaleUp,hist_nom,values["xlabel"])
-                    h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xlabel"])
+                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
+                    h_ratio_atlas_scaleUp = createRatio(hist_atlas_scaleUp,hist_nom,values["xtitle"])
+                    h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
                     hist_ratio_vars.append(h_ratio_atlas_scaleDown)
