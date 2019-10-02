@@ -75,7 +75,7 @@ def createRatio(h1, h2, POI):
     h3.Divide(h2)
     # Adjust y-axis settings
     y = h3.GetYaxis()
-    y.SetTitle("ratio w. Madgraph")
+    y.SetTitle("ratio w. MG")
     y.CenterTitle()
     y.SetNdivisions(505)
     y.SetTitleSize(25)
@@ -98,6 +98,7 @@ def createCanvasPads():
     # Upper histogram plot is pad1
     pad1 = TPad("pad1", "pad1", 0, 0.3, 1, 1.0)
     pad1.SetBottomMargin(0)  # joins upper and lower plot
+    pad1.SetLeftMargin(0.1)
     pad1.SetTicks(0,1)
     pad1.Draw()
     # Lower ratio plot is pad2
@@ -323,8 +324,8 @@ def plotSysts():
 
                     # draw everything
                     pad1.cd()
-                    pad1.SetGridx()
-                    pad1.SetGridy()
+                    #pad1.SetGridx()
+                    #pad1.SetGridy()
                     # set bounds
                     maximum=0
                     for hist in hist_vars:
@@ -344,7 +345,7 @@ def plotSysts():
                     y = hist_nom.GetYaxis()
                     y.SetTitleSize(25)
                     y.SetTitleFont(43)
-                    y.SetTitleOffset(1.55)
+                    y.SetTitleOffset(2.55)
                     y.SetLabelFont(43)
                     y.SetLabelSize(20)
                     y.SetTitle(Y_name)
@@ -369,9 +370,9 @@ def plotSysts():
 
                     legend.Draw("same")
                     label = ROOT.TLatex()
-                    label.SetTextSize(0.05)
+                    label.SetTextSize(0.04)
                     label.SetTextAlign(13)
-                    label.DrawLatexNDC(.2,.8,"CMS simulation (private work)")
+                    label.DrawLatexNDC(.1,.8,"CMS simulation (private work)")
 
                     pad2.cd()
                     #pad2.SetGridx()
