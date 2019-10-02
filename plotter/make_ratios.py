@@ -18,6 +18,13 @@ region_ = {
 "2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)"
 }
 
+region_title = {
+"2lss_1bgeq4j":"2lss, >= 4, jets ==1 b",
+"2lss_1beeq3j":"2lss, == 3, jets ==1 b",
+"2lss_2bgeq4j":"2lss, >= 4, jets ==2 b",
+"2lss_2beeq3j":"2lss, == 3, jets ==2 b"
+}
+
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
 #sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
@@ -194,7 +201,7 @@ def plotSysts():
                 hist_nom.SetLineColor(Color["nominal"])
                 hist_nom.SetLineWidth(3)
                 hist_nom.SetMarkerColor(Color["nominal"])
-                hist_title = region
+                hist_title = region_title[region]
                 hist_nom.SetTitle(hist_title)
                 if hist_nom.Integral() == 0:
                     continue
@@ -214,7 +221,7 @@ def plotSysts():
                 hist_vars = []
                 hist_ratio_vars = []
                 # set up legend
-                legend = TLegend(0.6,0.6,0.88,0.88)
+                legend = TLegend(0.5,0.5,0.88,0.88)
                 legend.SetBorderSize(0)
                 hist_nickname = ''
                 hist_nickname = sampleTitle[sample]
@@ -297,10 +304,9 @@ def plotSysts():
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
-                    legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
+                    '''legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
-
                     hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
                     hist_vars.append(hist_atlas_scaleDown)
@@ -310,6 +316,10 @@ def plotSysts():
                     hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
                     hist_ratio_vars.append(h_ratio_atlas_scaleDown)
+                    hist_atlas.SetMarkerStyle(20)
+                    hist_atlas_scaleUp.SetMarkerStyle(20)
+                    hist_atlas_scaleDown.SetMarkerStyle(20)
+                    '''
 
                     # draw everything
                     pad1.cd()
@@ -324,15 +334,13 @@ def plotSysts():
                     upperbound = 1.8*maximum
                     lowerbound = -maximum/40.
 
-                    Y_name = "Events"
-                    if normalization:
-                        Y_name = " Unit "
                     if showStats:
                         hist_nom.SetStats(1)
 
                     hist_nom.SetMaximum(upperbound)
                     hist_nom.SetMinimum(lowerbound)
                     # Adjust y-axis settings
+                    Y_name = "Arbitrary Units"
                     y = hist_nom.GetYaxis()
                     y.SetTitleSize(25)
                     y.SetTitleFont(43)
@@ -350,9 +358,6 @@ def plotSysts():
                     x.SetTitle(values["xlabel"])
 
                     hist_nom.SetMarkerStyle(20)
-                    hist_atlas.SetMarkerStyle(20)
-                    hist_atlas_scaleUp.SetMarkerStyle(20)
-                    hist_atlas_scaleDown.SetMarkerStyle(20)
                     hist_nom.Draw("HIST")
 
                     print '# histograms to draw: ', len(hist_vars)
@@ -366,11 +371,11 @@ def plotSysts():
                     label = ROOT.TLatex()
                     label.SetTextSize(0.05)
                     label.SetTextAlign(13)
-                    label.DrawLatexNDC(.2,.8,"CMS preliminary")
+                    label.DrawLatexNDC(.2,.8,"CMS simulation (private work)")
 
                     pad2.cd()
-                    pad2.SetGridx()
-                    pad2.SetGridy()
+                    #pad2.SetGridx()
+                    #pad2.SetGridy()
                     bins = h_ratio.GetNbinsX()
                     LowEdge = h_ratio.GetBinLowEdge(1)
                     HighEdge = h_ratio.GetBinLowEdge(bins+1)
