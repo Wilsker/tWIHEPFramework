@@ -21,8 +21,8 @@ region_ = {
 region_title = {
 "2lss_1bgeq4j":"2lss, >= 4, jets ==1 b",
 "2lss_1beeq3j":"2lss, == 3, jets ==1 b",
-"2lss_2bgeq4j":"2lss, >= 4, jets ==2 b",
-"2lss_2beeq3j":"2lss, == 3, jets ==2 b"
+"2lss_2bgeq4j":"2lss, >= 4, jets >=2 b",
+"2lss_2beeq3j":"2lss, == 3, jets >=2 b"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
