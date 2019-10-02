@@ -324,7 +324,6 @@ def plotSysts():
                     hist_atlas_scaleUp.SetMarkerStyle(20)
                     hist_atlas_scaleDown.SetMarkerStyle(20)
 
-
                     # draw everything
                     pad1.cd()
                     #pad1.SetGridx()
@@ -376,9 +375,8 @@ def plotSysts():
                     label = ROOT.TLatex()
                     label.SetTextSize(0.04)
                     label.SetTextAlign(13)
-                    label.DrawLatexNDC(.19,.8,"CMS simulation")
-                    label.DrawLatexNDC(.19,.75,"(private work)")
-
+                    label.DrawLatexNDC(.19,.8,"CMS Simulation")
+                    label.DrawLatexNDC(.19,.75,"(Work In Progress)")
 
                     pad2.cd()
                     bins = h_ratio.GetNbinsX()
