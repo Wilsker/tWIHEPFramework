@@ -344,19 +344,19 @@ def plotSysts():
                     # Adjust y-axis settings
                     Y_name = "Arbitrary Units"
                     y = hist_nom.GetYaxis()
-                    y.SetTitleSize(25)
+                    y.SetTitleSize(20)
                     y.SetTitleFont(43)
-                    y.SetTitleOffset(2.4)
+                    y.SetTitleOffset(2.3)
                     y.SetLabelFont(43)
-                    y.SetLabelSize(20)
+                    y.SetLabelSize(17)
                     y.SetTitle(Y_name)
                     # Adjust x-axis settings
                     x = hist_nom.GetXaxis()
-                    x.SetTitleSize(25)
+                    x.SetTitleSize(20)
                     x.SetTitleFont(43)
-                    x.SetTitleOffset(1.55)
+                    x.SetTitleOffset(1.57)
                     x.SetLabelFont(43)
-                    x.SetLabelSize(20)
+                    x.SetLabelSize(17)
                     #x.SetTitle(values["xlabel"])
                     x.SetTitle(values["xtitle"])
 
@@ -374,13 +374,11 @@ def plotSysts():
                     label = ROOT.TLatex()
                     label.SetTextSize(0.04)
                     label.SetTextAlign(13)
-                    label.DrawLatexNDC(.17,.8,"CMS simulation")
-                    label.DrawLatexNDC(.17,.75,"(private work)")
+                    label.DrawLatexNDC(.19,.8,"CMS simulation")
+                    label.DrawLatexNDC(.19,.75,"(private work)")
 
 
                     pad2.cd()
-                    #pad2.SetGridx()
-                    #pad2.SetGridy()
                     bins = h_ratio.GetNbinsX()
                     LowEdge = h_ratio.GetBinLowEdge(1)
                     HighEdge = h_ratio.GetBinLowEdge(bins+1)
