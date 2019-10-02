@@ -293,6 +293,9 @@ def plotSysts():
                     hist_atlas.SetLineColor(2)
                     hist_atlas_scaleUp.SetLineColor(3)
                     hist_atlas_scaleDown.SetLineColor(4)
+                    hist_atlas.SetLineStyle(10)
+                    hist_atlas_scaleUp.SetLineStyle(10)
+                    hist_atlas_scaleDown.SetLineStyle(10)
                     hist_atlas.SetMarkerColor(2)
                     hist_atlas_scaleUp.SetMarkerColor(3)
                     hist_atlas_scaleDown.SetMarkerColor(4)
@@ -305,7 +308,7 @@ def plotSysts():
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
-                    '''legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
+                    legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas)
@@ -320,7 +323,7 @@ def plotSysts():
                     hist_atlas.SetMarkerStyle(20)
                     hist_atlas_scaleUp.SetMarkerStyle(20)
                     hist_atlas_scaleDown.SetMarkerStyle(20)
-                    '''
+
 
                     # draw everything
                     pad1.cd()
