@@ -98,7 +98,7 @@ def createCanvasPads():
     # Upper histogram plot is pad1
     pad1 = TPad("pad1", "pad1", 0, 0.3, 1, 1.0)
     pad1.SetBottomMargin(0)  # joins upper and lower plot
-    pad1.SetLeftMargin(0.2)
+    pad1.SetLeftMargin(0.15)
     pad1.SetTicks(0,1)
     pad1.Draw()
     # Lower ratio plot is pad2
@@ -106,7 +106,7 @@ def createCanvasPads():
     pad2 = TPad("pad2", "pad2", 0, 0.05, 1, 0.3)
     pad2.SetTopMargin(0)  # joins upper and lower plot
     pad2.SetBottomMargin(0.25)
-    pad2.SetLeftMargin(0.2)
+    pad2.SetLeftMargin(0.15)
     pad2.SetTicks(0,1)
     pad2.Draw()
     return c, pad1, pad2
@@ -373,7 +373,9 @@ def plotSysts():
                     label = ROOT.TLatex()
                     label.SetTextSize(0.04)
                     label.SetTextAlign(13)
-                    label.DrawLatexNDC(.12,.8,"CMS simulation (private work)")
+                    label.DrawLatexNDC(.14,.8,"CMS simulation")
+                    label.DrawLatexNDC(.14,.7,"(private work)")
+
 
                     pad2.cd()
                     #pad2.SetGridx()
