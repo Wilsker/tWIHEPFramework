@@ -346,7 +346,7 @@ def plotSysts():
                     y = hist_nom.GetYaxis()
                     y.SetTitleSize(25)
                     y.SetTitleFont(43)
-                    y.SetTitleOffset(2.46)
+                    y.SetTitleOffset(2.4)
                     y.SetLabelFont(43)
                     y.SetLabelSize(20)
                     y.SetTitle(Y_name)
