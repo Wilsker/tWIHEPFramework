@@ -293,9 +293,9 @@ def plotSysts():
                     hist_atlas.SetLineColor(2)
                     hist_atlas_scaleUp.SetLineColor(3)
                     hist_atlas_scaleDown.SetLineColor(4)
-                    hist_atlas.SetLineStyle(10)
-                    hist_atlas_scaleUp.SetLineStyle(10)
-                    hist_atlas_scaleDown.SetLineStyle(10)
+                    hist_atlas.SetLineStyle(7)
+                    hist_atlas_scaleUp.SetLineStyle(7)
+                    hist_atlas_scaleDown.SetLineStyle(7)
                     hist_atlas.SetMarkerColor(2)
                     hist_atlas_scaleUp.SetMarkerColor(3)
                     hist_atlas_scaleDown.SetMarkerColor(4)
@@ -320,9 +320,6 @@ def plotSysts():
                     hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
                     hist_ratio_vars.append(h_ratio_atlas_scaleDown)
-                    hist_atlas.SetLineStyle(9)
-                    hist_atlas_scaleUp.SetLineStyle(9)
-                    hist_atlas_scaleDown.SetLineStyle(9)
 
                     # draw everything
                     pad1.cd()
