@@ -999,18 +999,24 @@ Int_t EventContainer::ReadEvent()
         newMCParticle.Clear();
         newMCParticle.Fill(_eventTree, io, motherIndex, daughtIndex);
         MCParticles.push_back(newMCParticle);
-        if(newMCParticle.isMuon() && newMCParticle.Status()==1 && newMCParticle.Pt()>_minPtGenMuon && newMCParticle.Eta()<_maxEtaGenMuon){
-          MCMuons.push_back(newMCParticle);
-          if(_sync == 61){
-            std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+        std::vector<Jet> jetVector;
+
+        jetVector.assign(evObj -> jets.begin(), evObj -> jets.end());
+        for (auto const jet : jetVector){
+          if(newMCParticle.isMuon() && newMCParticle.Status()==1 && newMCParticle.Pt()>_minPtGenMuon && newMCParticle.Eta()<_maxEtaGenMuon && newMCParticle.DeltaR(jet) > 0.4){
+            MCMuons.push_back(newMCParticle);
+            if(_sync == 61){
+              std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+            }
+          }
+          if(newMCParticle.isElectron() && newMCParticle.Status()==1 && newMCParticle.Pt() > _minPtGenEle && newMCParticle.Eta() < _maxEtaGenEle && newMCParticle.DeltaR(jet) > 0.4){
+            MCElectrons.push_back(newMCParticle);
+            if(_sync == 62){
+              std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
+            }
           }
         }
-        if(newMCParticle.isElectron() && newMCParticle.Status()==1 && newMCParticle.Pt() > _minPtGenEle && newMCParticle.Eta() < _maxEtaGenEle){
-          MCElectrons.push_back(newMCParticle);
-          if(_sync == 62){
-            std::cout << eventNumber << " " << newMCParticle.Index() << " "<< newMCParticle.Pt() << " " << newMCParticle.Eta() << " "<< newMCParticle.Phi() << " "<< newMCParticle.E() << " " << newMCParticle.PdgId() << " " <<newMCParticle.BmotherIndex() <<" " << newMCParticle.motherpdg_id() << " " << newMCParticle.numMother() << " "<< newMCParticle.numDaught() << std::endl;
-          }
-        }
+
         if(newMCParticle.isTau() && newMCParticle.Status()==1 && newMCParticle.Pt() > _minPtGenTau && newMCParticle.Eta() < _maxEtaGenTau){
           MCTaus.push_back(newMCParticle);
           if(_sync == 63){
