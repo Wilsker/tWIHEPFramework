@@ -28,7 +28,7 @@ region_title = {
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
 #sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
-variation_weight_index={"muR1muF2":0,"muR1muF0p5":1,"muR2muF1":2,"muR2muF2":3,"muR2muF0p5":4,"muR0p5muF1":5,"muR0p5muF2":6,"muR0p5muF0p5":7}
+variation_weight_index={"muR1muF1":0,"muR1muF2":1,"muR1muF0p5":2,"muR2muF1":3,"muR2muF2":4,"muR2muF0p5":5,"muR0p5muF1":6,"muR0p5muF2":7,"muR0p5muF0p5":8}
 sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR0p5muF1","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":1,"muR1muF2":2,"muR1muF0p5":3,"muR2muF1":4,"muR2muF2":42,"muR2muF0p5":46,"muR0p5muF1":6,"muR0p5muF2":28,"muR0p5muF0p5":7}
 
@@ -208,7 +208,6 @@ def plotSysts():
                     continue
 
                 hist_eventweights = inputfile.Get("EventWeight")
-                print 'SUM hist_eventweights: ', hist_eventweights.Integral()
 
                 if normalization:
                     hist_nom.Scale(1./hist_nom.Integral())
@@ -242,7 +241,7 @@ def plotSysts():
                             continue
                         hist_var = inputfile.Get(hist_name)
                         hist_var.SetFillColor(0)
-                        hist_var.SetLineColor(1)
+                        hist_var.SetLineColor(Color[""])
                         hist_var.SetMarkerColor(1)
                         hist_var.SetLineWidth(3)
                         if normalization:
