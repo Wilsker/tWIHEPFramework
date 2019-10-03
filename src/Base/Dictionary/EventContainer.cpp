@@ -1001,7 +1001,7 @@ Int_t EventContainer::ReadEvent()
         MCParticles.push_back(newMCParticle);
         std::vector<Jet> jetVector;
 
-        jetVector.assign(evObj -> jets.begin(), evObj -> jets.end());
+        jetVector.assign(jets.begin(), jets.end());
         for (auto const jet : jetVector){
           if(newMCParticle.isMuon() && newMCParticle.Status()==1 && newMCParticle.Pt()>_minPtGenMuon && newMCParticle.Eta()<_maxEtaGenMuon && newMCParticle.DeltaR(jet) > 0.4){
             MCMuons.push_back(newMCParticle);
