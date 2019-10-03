@@ -320,9 +320,9 @@ def plotSysts():
                     hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
                     hist_ratio_vars.append(h_ratio_atlas_scaleDown)
-                    hist_atlas.SetMarkerStyle(20)
-                    hist_atlas_scaleUp.SetMarkerStyle(20)
-                    hist_atlas_scaleDown.SetMarkerStyle(20)
+                    hist_atlas.SetLineStyle(9)
+                    hist_atlas_scaleUp.SetLineStyle(9)
+                    hist_atlas_scaleDown.SetLineStyle(9)
 
                     # draw everything
                     pad1.cd()
