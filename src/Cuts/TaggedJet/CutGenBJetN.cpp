@@ -38,9 +38,11 @@ using namespace std;
  * Input:  Event Object class                                                 *
  * Output: None                                                               *
  ******************************************************************************/
-CutGenBJetN::CutGenBJetN(EventContainer *EventContainerObj)
+CutGenBJetN::CutGenBJetN(EventContainer *EventContainerObj, Int_t nBJetsDefault)
 {
   SetEventContainer(EventContainerObj);
+  _bJetNumberMin = nBJetsDefault;
+  _bJetNumberMax = nBJetsDefault;
 }
 
 /******************************************************************************
@@ -79,6 +81,10 @@ void CutGenBJetN::BookHistogram(){
   // Get configuration
   EventContainer *EventContainerObj = GetEventContainer();
   TEnv *config = EventContainerObj -> GetConfig();
+
+  _JetPtCutMin  = config -> GetValue("Cut.Jet.Gen.Pt.Min", 999);
+  _JetPtCutMax  = config -> GetValue("Cut.Jet.Gen.Pt.Min", 999);
+  _JetEtaCutMax  = config -> GetValue("Cut.Jet.Gen.Eta.Max", 999);
 
   // Use configuration to set min and max number of jets to cut on if default value used
   if (_bJetNumberMax < 0.){
@@ -129,12 +135,19 @@ Bool_t CutGenBJetN::Apply()
   Bool_t bJetNumberMinPass    = kTRUE;   // Event passes min cut
   Bool_t bJetNumberMaxPass    = kTRUE;   // Event passes max cut
 
+  std::vector<MCElectron> EleVector;
+  EleVector.assign(evObj -> MCElectrons.begin(), evObj -> MCElectrons.end());
+  std::vector<MCMuon> MuVector;
+  MuVector.assign(evObj -> MCMuons.begin(), evObj -> MCMuons.end());
+
   //std::vector<MCJet> bjetVector;
   //bjetVector.assign(evObj -> MCBJets.begin(), evObj -> MCBJets.end() );
   //for ( auto const jet : bjetVector) {
   for ( auto const jet : evObj->jets) {
-    if ( jet.Pt() > 25. && std::abs(jet.Eta()) < 2.5 && jet.hadronFlavour()==5){
-      bJetNumber++;
+    if ( jet.Pt() > _JetPtCutMin && std::abs(jet.Eta()) < _JetEtaCutMax && jet.hadronFlavour()==5){
+      for (auto const lep : EleVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
+      for (auto const lep : MuVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
+      if (JetDeltaRPass == kTRUE){bJetNumber++;}
     }
   }
 

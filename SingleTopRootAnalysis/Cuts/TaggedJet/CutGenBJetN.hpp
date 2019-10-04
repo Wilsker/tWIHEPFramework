@@ -35,7 +35,7 @@ class CutGenBJetN : public HistoCut
 public:
 
   // Parameterized Constructor
-  CutGenBJetN(EventContainer *EventContainerObj);
+  CutGenBJetN(EventContainer *EventContainerObj, Int_t nJetsDefault = -1);
 
   // Destructor
   ~CutGenBJetN();
