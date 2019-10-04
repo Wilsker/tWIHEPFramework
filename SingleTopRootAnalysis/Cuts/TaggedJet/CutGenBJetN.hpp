@@ -59,6 +59,10 @@ private:
   // Cut parameters
   Int_t _bJetNumberMin;           // Minimum number of b-jets to require
   Int_t _bJetNumberMax;           // Maximum number of b-jets allowed
+  double _JetPtCutMin;           // Minimum jet pt required
+  double _JetPtCutMax;           // Maximum jet pt required
+  double _JetEtaCutMin;          // Maximum jet eta required
+  double _JetEtaCutMax;          // Maximum jet eta required
 };
 
 
