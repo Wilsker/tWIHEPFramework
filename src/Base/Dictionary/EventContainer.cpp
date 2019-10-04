@@ -1005,7 +1005,7 @@ Int_t EventContainer::ReadEvent()
         bool isMCMuClose2Jet = false;
         if(newMCParticle.isMuon() && newMCParticle.Status()==1 && newMCParticle.Pt()>_minPtGenMuon && newMCParticle.Eta()<_maxEtaGenMuon && newMCParticle.DeltaR(jet) > 0.4){
           for (auto const jet : jetVector){
-            if (newMCParticle.DeltaR(jet) < 0.4){isMCMuClose2Jet=true}
+            if (newMCParticle.DeltaR(jet) < 0.4){isMCMuClose2Jet=true;}
           }
           if(isMCMuClose2Jet==false){
             MCMuons.push_back(newMCParticle);
@@ -1017,7 +1017,7 @@ Int_t EventContainer::ReadEvent()
         bool isMCElClose2Jet = false;
         if(newMCParticle.isElectron() && newMCParticle.Status()==1 && newMCParticle.Pt() > _minPtGenEle && newMCParticle.Eta() < _maxEtaGenEle && newMCParticle.DeltaR(jet) > 0.4){
           for (auto const jet : jetVector){
-            if (newMCParticle.DeltaR(jet) < 0.4){isMCElClose2Jet=true}
+            if (newMCParticle.DeltaR(jet) < 0.4){isMCElClose2Jet=true;}
           }
           if(isMCElClose2Jet==false){
             MCElectrons.push_back(newMCParticle);
