@@ -134,6 +134,7 @@ Bool_t CutGenBJetN::Apply()
   // Flags
   Bool_t bJetNumberMinPass    = kTRUE;   // Event passes min cut
   Bool_t bJetNumberMaxPass    = kTRUE;   // Event passes max cut
+  Bool_t JetDeltaRPass    = kTRUE;
 
   std::vector<MCElectron> EleVector;
   EleVector.assign(evObj -> MCElectrons.begin(), evObj -> MCElectrons.end());
