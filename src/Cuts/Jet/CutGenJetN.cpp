@@ -149,10 +149,11 @@ Bool_t CutGenJetN::Apply()
   MuVector.assign(evObj -> MCMuons.begin(), evObj -> MCMuons.end());
 
   for (auto const jet : jetVector){
+    cout << "CutGenJetN: jet.Pt(): " << jet.Pt() << "jet.Eta(): " << std::abs(jet.Eta()) << endl;
     if (jet.Pt() > LeadingJetPt) LeadingJetPt = jet.Pt();
     if (jet.Pt() > _JetPtCutMin && std::abs(jet.Eta()) < 2.5 ){
-      for (auto const lep : EleVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
-      for (auto const lep : MuVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
+      for (auto const lep : EleVector){ if (jet.DeltaR(lep)<0.4){ cout << "jet.DeltaR(el) = " << jet.DeltaR(lep) << endl; JetDeltaRPass = kFALSE; } }
+      for (auto const lep : MuVector){ if (jet.DeltaR(lep)<0.4){ cout << "jet.DeltaR(mu) = " << jet.DeltaR(lep) << endl; JetDeltaRPass = kFALSE; } }
       if (JetDeltaRPass == kTRUE){JetNumber++;}
       else {continue;}
     }

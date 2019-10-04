@@ -23,13 +23,13 @@ Cut.Trigger.Channel:TTHLep_2L
 # Region 3: 1 b-jet, 3 jets
 # Region 4: 2 b-jets, 3 jets
 
-Cut.Lepton.Gen.LeadingPt.Min: 25
-Cut.Lepton.Gen.SubLeadingPt.Min: 20
+Cut.Lepton.Gen.LeadingPt.Min: 25.
+Cut.Lepton.Gen.SubLeadingPt.Min: 20.
 Cut.Lepton.Gen.Number.Min: 2
 Cut.Lepton.Gen.Number.Max: 2
 Cut.Dilepton.Gen.SameSign: 1
 Cut.Tau.Gen.Number.Min: 0
-Cut.Jet.Gen.Pt.Min:  25
+Cut.Jet.Gen.Pt.Min:  25.
 Cut.Jet.Gen.Eta.Max: 2.5
 Cut.Jet.Gen.Number.Min: 3
 Cut.BJet.Gen.Number.Min: 1

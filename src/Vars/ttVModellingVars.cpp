@@ -379,9 +379,6 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
 
 
 
-
-
-
    for (int i = 0; i<MCGenLeptons.size()-1; i++){
      MCGen_HTall = MCGen_HTall+MCGenLeptons.at(i).Pt();
      if ( MCGenLeptons.at(i).DeltaR(MCGenLeptons.at(i+1)) < MinDeltaR_MCGenLeps ){
