@@ -120,18 +120,18 @@ def createCanvasPads():
 def plotSysts():
 
     ATLASfile = TFile(ATLAS_filename,"read")
-    #ATLASfile_scaleUp = TFile(ATLAS_scaleUp_filename,"read")
-    #ATLASfile_scaleDown = TFile(ATLAS_scaleDown_filename,"read")
+    ATLASfile_scaleUp = TFile(ATLAS_scaleUp_filename,"read")
+    ATLASfile_scaleDown = TFile(ATLAS_scaleDown_filename,"read")
 
     if ATLASfile.IsZombie():
         print("ATLASfile is Zombie")
         sys.exit()
-    '''if ATLASfile_scaleUp.IsZombie():
+    if ATLASfile_scaleUp.IsZombie():
         print("ATLASfile_scaleUp is Zombie")
         sys.exit()
     if ATLASfile_scaleDown.IsZombie():
         print("ATLASfile_scaleDown is Zombie")
-        sys.exit()'''
+        sys.exit()
     # loop over samples
     for region, cuts_values in region_.items():
         # the root file saving the histograms
@@ -210,6 +210,7 @@ def plotSysts():
                 if not inputfile.GetListOfKeys().Contains(hist_nom_name):
                     print ( "make_ratios:: %s doesn't have histogram %s"%(filename, hist_nom_name))
                     continue
+                print "hist_nom_name: ", hist_nom_name
                 hist_nom = inputfile.Get(hist_nom_name)
                 hist_nom.SetFillColor(0)
                 hist_nom.SetLineColor(Color["nominal"])
@@ -227,7 +228,7 @@ def plotSysts():
                 else:
                     hist_nom.Scale(1./7040.32)
 
-                # Need to scale down to 1/XS*BR*Lumi = 1/3343070 to match ATLAS fiducial normalisation
+                # Need to scale down to 1/XS*BR*Lumi to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
                 h_ratio = createRatio(hist_nom, hist_nom, values["xtitle"])
                 c, pad1, pad2 = createCanvasPads()
@@ -293,10 +294,10 @@ def plotSysts():
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
-                    '''hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleUp.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
-                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
+                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")
 
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
@@ -314,7 +315,7 @@ def plotSysts():
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
 
-                    '''hist_atlas_scaleUp.SetFillColor(0)
+                    hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
                     hist_atlas_scaleDown.SetLineColor(4)
@@ -332,7 +333,7 @@ def plotSysts():
                     h_ratio_atlas_scaleUp = createRatio(hist_atlas_scaleUp,hist_nom,values["xtitle"])
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
 
                     # draw everything
                     pad1.cd()
