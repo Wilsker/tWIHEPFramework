@@ -307,7 +307,7 @@ def plotSysts():
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
-                    '''legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
+                    legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas)
@@ -318,7 +318,7 @@ def plotSysts():
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
 
                     # draw everything
                     pad1.cd()

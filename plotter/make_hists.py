@@ -129,7 +129,6 @@ for sample in sampleName:
                     f_out.cd()
                     h01.Write()
                 else:
-                    #systindex=1
                     for sixpoint_index in sixpoint_variations:
                         hist_name = sample+"_"+feature+"_"+syst+"_"+sixpoint_index
                         systindex = variation_weight_index[sixpoint_index]
@@ -142,6 +141,5 @@ for sample in sampleName:
                         tree0.Draw(input01,CUT)
                         f_out.cd()
                         h01.Write()
-                        #systindex = systindex+1
 
         f_out.Close()
