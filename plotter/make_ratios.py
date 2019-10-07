@@ -294,10 +294,10 @@ def plotSysts():
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
-                    hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
+                    '''hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleUp.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
-                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")
+                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
@@ -315,7 +315,7 @@ def plotSysts():
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
 
-                    hist_atlas_scaleUp.SetFillColor(0)
+                    '''hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
                     hist_atlas_scaleDown.SetLineColor(4)
@@ -325,7 +325,6 @@ def plotSysts():
                     hist_atlas_scaleDown.SetMarkerColor(4)
                     hist_atlas_scaleUp.SetLineWidth(3)
                     hist_atlas_scaleDown.SetLineWidth(3)
-
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas_scaleUp)
@@ -333,7 +332,7 @@ def plotSysts():
                     h_ratio_atlas_scaleUp = createRatio(hist_atlas_scaleUp,hist_nom,values["xtitle"])
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
 
                     # draw everything
                     pad1.cd()
