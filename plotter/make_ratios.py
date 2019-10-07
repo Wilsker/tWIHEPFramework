@@ -43,7 +43,7 @@ postfix = ".root"
 createROOTfile = True  # Set to Truth for the first time
 
 # ATLAS ROOT file
-ATLAS_filename = 'ATLAS_TTW_Sherpa_0110.root'
+ATLAS_filename = 'ATLAS_TTW_Sherpa_0710_2.root'
 ATLAS_scaleUp_filename = 'ATLAS_TTW_SherpaScaleDown_0110.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_SherpaScaleUp_0110.root'
 
@@ -114,18 +114,18 @@ def createCanvasPads():
 def plotSysts():
 
     ATLASfile = TFile(ATLAS_filename,"read")
-    ATLASfile_scaleUp = TFile(ATLAS_scaleUp_filename,"read")
-    ATLASfile_scaleDown = TFile(ATLAS_scaleDown_filename,"read")
+    #ATLASfile_scaleUp = TFile(ATLAS_scaleUp_filename,"read")
+    #ATLASfile_scaleDown = TFile(ATLAS_scaleDown_filename,"read")
 
     if ATLASfile.IsZombie():
         print("ATLASfile is Zombie")
         sys.exit()
-    if ATLASfile_scaleUp.IsZombie():
+    '''if ATLASfile_scaleUp.IsZombie():
         print("ATLASfile_scaleUp is Zombie")
         sys.exit()
     if ATLASfile_scaleDown.IsZombie():
         print("ATLASfile_scaleDown is Zombie")
-        sys.exit()
+        sys.exit()'''
     # loop over samples
     for region, cuts_values in region_.items():
         # the root file saving the histograms
@@ -279,45 +279,46 @@ def plotSysts():
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
-                    hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
+                    '''hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleUp.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
-                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")
-                    # Need to scale ATLAS plot by XS = 600.8 fb
-
-                    hist_atlas.SetFillColor(0)
-                    hist_atlas_scaleUp.SetFillColor(0)
-                    hist_atlas_scaleDown.SetFillColor(0)
-                    hist_atlas.SetLineColor(2)
-                    hist_atlas_scaleUp.SetLineColor(3)
-                    hist_atlas_scaleDown.SetLineColor(4)
-                    hist_atlas.SetLineStyle(7)
-                    hist_atlas_scaleUp.SetLineStyle(7)
-                    hist_atlas_scaleDown.SetLineStyle(7)
-                    hist_atlas.SetMarkerColor(2)
-                    hist_atlas_scaleUp.SetMarkerColor(3)
-                    hist_atlas_scaleDown.SetMarkerColor(4)
-                    hist_atlas.SetLineWidth(3)
-                    hist_atlas_scaleUp.SetLineWidth(3)
-                    hist_atlas_scaleDown.SetLineWidth(3)
+                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
+                    # Need to scale ATLAS plot by XS = 600.8 fb
+                    hist_atlas.SetFillColor(0)
+                    hist_atlas.SetLineColor(2)
+                    hist_atlas.SetLineStyle(7)
+                    hist_atlas.SetMarkerColor(2)
+                    hist_atlas.SetLineWidth(3)
                     legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
+                    hist_vars.append(hist_atlas)
+                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
+                    hist_ratio_vars.append(h_ratio_atlas)
+
+                    '''hist_atlas_scaleUp.SetFillColor(0)
+                    hist_atlas_scaleDown.SetFillColor(0)
+                    hist_atlas_scaleUp.SetLineColor(3)
+                    hist_atlas_scaleDown.SetLineColor(4)
+                    hist_atlas_scaleUp.SetLineStyle(7)
+                    hist_atlas_scaleDown.SetLineStyle(7)
+                    hist_atlas_scaleUp.SetMarkerColor(3)
+                    hist_atlas_scaleDown.SetMarkerColor(4)
+                    hist_atlas_scaleUp.SetLineWidth(3)
+                    hist_atlas_scaleDown.SetLineWidth(3)
+
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
-                    hist_vars.append(hist_atlas)
                     hist_vars.append(hist_atlas_scaleUp)
                     hist_vars.append(hist_atlas_scaleDown)
-                    h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     h_ratio_atlas_scaleUp = createRatio(hist_atlas_scaleUp,hist_nom,values["xtitle"])
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
-                    hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
 
                     # draw everything
                     pad1.cd()

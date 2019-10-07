@@ -13,10 +13,13 @@ gStyle.SetTitleY(0.96) # title Y location
 gStyle.SetPaintTextFormat(".2f")
 
 region_ = {
-"2lss_1bgeq4j":"(NJets>=4 && NBJets==1 && n_gen_tau==0)",
-"2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
-"2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
-"2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)"
+#"2lss_1bgeq4j":"(NJets>=4 && NBJets==1 && n_gen_tau==0)",
+#"2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
+#"2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
+#"2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)",
+"2lss_0bgeq3j":"(NJets>=3 && n_gen_tau==0)",
+"2lss_0beeq3j":"(NJets==3 && n_gen_tau==0)",
+"2lss_0bgeq4j":"(NJets>=4 && n_gen_tau==0)"
 }
 
 # ATLAS ROOT file
@@ -46,6 +49,14 @@ for sample in sampleName:
             ATLAS_region_index = '2'
         if "2beeq3j" in region:
             ATLAS_region_index = '3'
+        if "1tau1beeq3j" in region:
+            ATLAS_region_index = '4'
+        if "0beeq3j" in region:
+            ATLAS_region_index = '5'
+        if "0bgeq4j" in region:
+            ATLAS_region_index = '6'
+        if "0bgeq3j" in region:
+            ATLAS_region_index = '7'
 
         ATLAS_feature_map={
         "NJets":"nJets_"+ATLAS_region_index,
