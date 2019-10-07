@@ -12,17 +12,23 @@ treename = "TNT/BOOM";
 # Taus?
 
 region_ = {
-"2lss_1bgeq4j":"(NJets>=4 && NBJets==1 && n_gen_tau==0)",
-"2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
-"2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
-"2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)"
+#"2lss_1bgeq4j":"(NJets>=4 && NBJets==1 && n_gen_tau==0)",
+#"2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
+#"2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
+#"2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)"
+"2lss_0bgeq3j":"(NJets>=3 && n_gen_tau==0)",
+"2lss_0beeq3j":"(NJets==3 && n_gen_tau==0)",
+"2lss_0bgeq4j":"(NJets>=4 && n_gen_tau==0)"
 }
 
 region_title = {
 "2lss_1bgeq4j":"2lss, >= 4 jets, ==1 b",
 "2lss_1beeq3j":"2lss, == 3 jets, ==1 b",
 "2lss_2bgeq4j":"2lss, >= 4 jets, >=2 b",
-"2lss_2beeq3j":"2lss, == 3 jets, >=2 b"
+"2lss_2beeq3j":"2lss, == 3 jets, >=2 b",
+"2lss_0bgeq3j":"2lss, >= 3 jets, >=0 b",
+"2lss_0beeq3j":"2lss, == 3 jets, >=0 b",
+"2lss_0bgeq4j":"2lss, >= 4 jets, >=0 b"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
@@ -164,6 +170,14 @@ def plotSysts():
             ATLAS_region_index = '2'
         if "2beeq3j" in region:
             ATLAS_region_index = '3'
+        if "1tau1beeq3j" in region:
+            ATLAS_region_index = '4'
+        if "0beeq3j" in region:
+            ATLAS_region_index = '5'
+        if "0bgeq4j" in region:
+            ATLAS_region_index = '6'
+        if "0bgeq3j" in region:
+            ATLAS_region_index = '7'
 
 
         ATLAS_feature_map={
