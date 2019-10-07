@@ -36,7 +36,7 @@ Color={"nominal":1,"muR1muF1":1,"muR1muF2":2,"muR1muF0p5":3,"muR2muF1":4,"muR2mu
 sampleName = ["mergedLegacy16V1_TTWJets"]
 
 sampleTitle = {
-"mergedLegacy16V1_TTWJets":"TTW MG+Pyth8"
+"mergedLegacy16V1_TTWJets":"Madgraph"
 }
 
 postfix = ".root"
@@ -221,7 +221,7 @@ def plotSysts():
                 hist_vars = []
                 hist_ratio_vars = []
                 # set up legend
-                legend = TLegend(0.5,0.5,0.88,0.88)
+                legend = TLegend(0.45,0.5,0.88,0.88)
                 legend.SetBorderSize(0)
                 hist_nickname = ''
                 hist_nickname = sampleTitle[sample]
@@ -307,7 +307,7 @@ def plotSysts():
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
-                    legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
+                    '''legend.AddEntry(hist_atlas,"ATLAS Sherpa","l")
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas)
@@ -318,7 +318,7 @@ def plotSysts():
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
 
                     # draw everything
                     pad1.cd()
