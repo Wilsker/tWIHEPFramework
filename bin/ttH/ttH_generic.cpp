@@ -305,15 +305,6 @@ int main(int argc, char **argv)
   /////////////////////////////////////////////////////////////////////////////////
   // ******** Cuts and Histograms applied to all studies ********
 
-/*
-    mystudy.AddCut(new CutLeptonN(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-    mystudy.AddCut(new CutLeptonSameSign(particlesObj,"TTHFake"));
-    mystudy.AddCut(new CutLeptonCharge(particlesObj,"TTHFake"));
-    mystudy.AddCut(new CutLeptonPt1(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-    mystudy.AddCut(new CutLeptonPt2(particlesObj, "TTHFake"));     //require that lepton to be isolated, central, high pt
-    mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
-    mystudy.AddCut(new CutJetN(particlesObj,nJets));
-*/
 
 mystudy.AddCut(new CutGenLeptonN(particlesObj, "Gen")); // Requirement on # Gen leptons
 mystudy.AddCut(new CutGenLeptonPt1(particlesObj, "Gen")); // Require a leading lepton above a given pt
@@ -321,10 +312,11 @@ mystudy.AddCut(new CutGenLeptonPt2(particlesObj, "Gen")); // Require a subleadin
 mystudy.AddCut(new CutGenLeptonCharge(particlesObj, "Gen")); // 2LSS charge Gen leptons
 mystudy.AddCut(new CutGenTauN(particlesObj, "Gen")); // Reject events with hadronic tau in final state
 mystudy.AddCut(new CutGenJetN(particlesObj)); // Require 3 Gen jets above given pt and eta
-mystudy.AddCut(new CutGenBJetN(particlesObj)); // Require ≥1 Gen b-jets above given pt and eta
+//mystudy.AddCut(new CutGenBJetN(particlesObj)); // Require ≥1 Gen b-jets above given pt and eta
 mystudy.AddCut(new EventWeight(particlesObj,mystudy.GetTotalMCatNLOEvents(), mcStr, doPileup, reCalPileup, dobWeight, useLeptonSFs, usebTagReweight, useChargeMis, useFakeRate, useTriggerSFs, whichtrig));
 
-mystudy.AddVars(new ttVModellingVars(false)); // fill histo
+
+mystudy.AddVars(new ttVModellingVars(false));
 mystudy.AddVars(new WeightVars());
 
 TFile *_skimBDTFile;
