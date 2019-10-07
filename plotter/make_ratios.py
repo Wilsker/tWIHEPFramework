@@ -19,15 +19,14 @@ region_ = {
 }
 
 region_title = {
-"2lss_1bgeq4j":"2lss, >= 4, jets ==1 b",
-"2lss_1beeq3j":"2lss, == 3, jets ==1 b",
-"2lss_2bgeq4j":"2lss, >= 4, jets >=2 b",
-"2lss_2beeq3j":"2lss, == 3, jets >=2 b"
+"2lss_1bgeq4j":"2lss, >= 4 jets, ==1 b",
+"2lss_1beeq3j":"2lss, == 3 jets, ==1 b",
+"2lss_2bgeq4j":"2lss, >= 4 jets, >=2 b",
+"2lss_2beeq3j":"2lss, == 3 jets, >=2 b"
 }
 
 nominal_weights = {'genWeight':'EVENT_genWeight'}
 systematics=["nominal","genWeight"]
-#sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR2muF0p5","muR0p5muF1","muR0p5muF2","muR0p5muF0p5"]
 variation_weight_index={"muR1muF1":0,"muR1muF2":1,"muR1muF0p5":2,"muR2muF1":3,"muR2muF2":4,"muR2muF0p5":5,"muR0p5muF1":6,"muR0p5muF2":7,"muR0p5muF0p5":8}
 sixpoint_variations=["muR1muF2","muR1muF0p5","muR2muF1","muR2muF2","muR0p5muF1","muR0p5muF0p5"]
 Color={"nominal":1,"muR1muF1":1,"muR1muF2":2,"muR1muF0p5":3,"muR2muF1":4,"muR2muF2":42,"muR2muF0p5":46,"muR0p5muF1":6,"muR0p5muF2":28,"muR0p5muF0p5":7}
