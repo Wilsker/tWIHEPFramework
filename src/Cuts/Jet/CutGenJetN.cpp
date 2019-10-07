@@ -150,7 +150,7 @@ Bool_t CutGenJetN::Apply()
 
   for (auto const jet : jetVector){
     if (jet.Pt() > LeadingJetPt) LeadingJetPt = jet.Pt();
-    if (jet.Pt() > _JetPtCutMin && std::abs(jet.Eta()) < _JetEtaCutMax ){
+    if (jet.Pt() >= _JetPtCutMin && std::abs(jet.Eta()) < _JetEtaCutMax ){
       for (auto const lep : EleVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
       for (auto const lep : MuVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
       if (JetDeltaRPass == kTRUE){JetNumber++;}

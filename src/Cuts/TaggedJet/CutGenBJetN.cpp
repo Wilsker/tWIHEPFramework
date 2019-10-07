@@ -145,7 +145,7 @@ Bool_t CutGenBJetN::Apply()
   //bjetVector.assign(evObj -> MCBJets.begin(), evObj -> MCBJets.end() );
   //for ( auto const jet : bjetVector) {
   for ( auto const jet : evObj->jets) {
-    if ( jet.Pt() > _JetPtCutMin && std::abs(jet.Eta()) < _JetEtaCutMax && jet.hadronFlavour()==5){
+    if ( jet.Pt() >= _JetPtCutMin && std::abs(jet.Eta()) < _JetEtaCutMax && std::abs(jet.hadronFlavour())==5){
       for (auto const lep : EleVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
       for (auto const lep : MuVector){ if (jet.DeltaR(lep)<0.4){ JetDeltaRPass = kFALSE; } }
       if (JetDeltaRPass == kTRUE){bJetNumber++;}

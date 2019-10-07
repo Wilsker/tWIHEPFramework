@@ -166,7 +166,6 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    double reco_bjet1pt=-9;
    double reco_bjet2pt=-9;
 
-
    double MinDRMCGenLeps =-9;
    double MinDRMCGenLep1Jet =-9;
    double MinDrMCGenLep2Jet=-9;
@@ -305,25 +304,15 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    gen_jet6_pt = genjet6_pt;
 
 
-
-
-
-
-
    for(uint jet_in=0;jet_in<Jets.size();jet_in++){
      if(Jets.at(jet_in).Pt() >= 25 && std::abs(Jets.at(jet_in).Eta()) < 2.5){
-       //cout << "hadronFlavour: " << Jets.at(jet_in).hadronFlavour() << " , Pt: " << Jets.at(jet_in).Pt() << " , Eta: " << abs(Jets.at(jet_in).Eta()) << endl;
        all_jets.push_back(Jets.at(jet_in));
-     }
-   }
-   for(uint jet_in=0;jet_in<Jets.size();jet_in++){
-     if(Jets.at(jet_in).hadronFlavour() != 5 && Jets.at(jet_in).Pt() >= 25 && std::abs(Jets.at(jet_in).Eta()) < 2.5){
-       light_jets.push_back(Jets.at(jet_in));
-     }
-   }
-   for(uint jet_in=0;jet_in<Jets.size();jet_in++){
-     if(Jets.at(jet_in).hadronFlavour() == 5 && Jets.at(jet_in).Pt() >= 25 && std::abs(Jets.at(jet_in).Eta()) < 2.5){
-       b_jets.push_back(Jets.at(jet_in));
+       if(std::abs(Jets.at(jet_in).hadronFlavour()) != 5 && Jets.at(jet_in).Pt() >= 25. && std::abs(Jets.at(jet_in).Eta()) < 2.5){
+         light_jets.push_back(Jets.at(jet_in));
+       }
+       if(std::abs(Jets.at(jet_in).hadronFlavour()) == 5 && Jets.at(jet_in).Pt() >= 25. && std::abs(Jets.at(jet_in).Eta()) < 2.5){
+         b_jets.push_back(Jets.at(jet_in));
+       }
      }
    }
 
@@ -353,6 +342,7 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
      if (all_jets.at(jet_in).Pt() < reco_jet7pt && all_jets.at(jet_in).Pt() > reco_jet8pt) {reco_jet8pt = all_jets.at(jet_in).Pt();}
    }
 
+   
    for (uint jet_in=0;jet_in<b_jets.size();jet_in++){
      if (b_jets.at(jet_in).Pt() > reco_bjet1pt) {reco_bjet1pt = b_jets.at(jet_in).Pt();}
    }
