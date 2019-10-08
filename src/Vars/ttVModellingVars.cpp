@@ -374,14 +374,17 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
 
 
    for (int i = 0; i<MCGenLeptons.size()-1; i++){
-     MCGen_HTall = MCGen_HTall+MCGenLeptons.at(i).Pt();
      if ( MCGenLeptons.at(i).DeltaR(MCGenLeptons.at(i+1)) < MinDeltaR_MCGenLeps ){
        MinDeltaR_MCGenLeps = MCGenLeptons.at(i).DeltaR(MCGenLeptons.at(i+1));
      }
    }
    MinDRMCGenLeps = MinDeltaR_MCGenLeps;
 
-   for (int i = 0; i<all_jets.size()-1; i++){
+   for (int i = 0; i<MCGenLeptons.size(); i++){
+     MCGen_HTall = MCGen_HTall+MCGenLeptons.at(i).Pt();
+   }
+
+   for (int i = 0; i<all_jets.size(); i++){
      MCGen_HTall = MCGen_HTall+all_jets.at(i).Pt();
      MCGen_HThad = MCGen_HThad+all_jets.at(i).Pt();
     if (leading_MCLepton.DeltaR(all_jets.at(i)) < MinDeltaR_MCGenLep1Jet){
