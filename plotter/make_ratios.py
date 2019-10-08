@@ -228,13 +228,14 @@ def plotSysts():
                     continue
 
                 hist_eventweights = inputfile.Get("EventWeight")
-                #hist_nom.Scale(1./7040.32)
+
                 normalisation_factor = 1/hist_nom.Integral()
                 print 'hist_nom.Integral(): ', hist_nom.Integral()
                 if normalization:
-                    hist_nom.Scale(1./normalisation_factor)
-                #else:
-                #    hist_nom.Scale(1./7040.32)
+                    hist_nom.Scale(normalisation_factor)
+                    #hist_nom.Scale(1./hist_nom.Integral())
+                else:
+                    hist_nom.Scale(1./7040.32)
 
                 # Need to scale down to 1/XS*BR*Lumi to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
@@ -266,11 +267,12 @@ def plotSysts():
                         hist_var.SetLineColor(Color[""])
                         hist_var.SetMarkerColor(1)
                         hist_var.SetLineWidth(3)
-                        #hist_var.Scale(1./7040.32)
+
                         if normalization:
-                            hist_var.Scale(1./normalisation_factor)
-                        #else:
-                            #hist_var.Scale(1./7040.32)
+                            hist_var.Scale(normalisation_factor)
+                            #hist_var.Scale(1./hist_var.Integral())
+                        else:
+                            hist_var.Scale(1./7040.32)
 
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xtitle"])
@@ -291,11 +293,12 @@ def plotSysts():
                             hist_var.SetLineColor(Color[sixpoint_index])
                             hist_var.SetMarkerColor(Color[sixpoint_index])
                             hist_var.SetLineWidth(2)
-                            #hist_var.Scale(1./7040.32)
+
                             if normalization:
-                                hist_var.Scale(1./normalisation_factor)
-                            #else:
-                            #    hist_var.Scale(1./7040.32)
+                                hist_var.Scale(normalisation_factor)
+                                #hist_var.Scale(1./hist_var.Integral())
+                            else:
+                                hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
                             legend.AddEntry(hist_var,hist_nickname_plus_syst,"l")
                             h_ratio_var = createRatio(hist_var, hist_nom, values["xtitle"])
@@ -310,7 +313,7 @@ def plotSysts():
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
-                        hist_atlas.Scale(1./normalisation_factor)
+                        hist_atlas.Scale(normalisation_factor)
                         #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
@@ -350,8 +353,8 @@ def plotSysts():
                     # set bounds
                     maximum=0
                     for hist in hist_vars:
-                        if normalization:
-                            hist.Scale(1./hist.Integral())
+                        #if normalization:
+                        #    hist.Scale(1./hist.Integral())
                         if hist.GetMaximum()>maximum:
                             maximum = hist.GetMaximum()
 
