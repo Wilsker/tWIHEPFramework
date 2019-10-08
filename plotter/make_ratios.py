@@ -350,7 +350,7 @@ def plotSysts():
                         if normalization:
                             hist.Scale(1./hist.Integral())
                         if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
-                    upperbound = 1.8*maximum
+                    upperbound = 2.5*maximum
                     lowerbound = -maximum/40.
 
                     if showStats:
