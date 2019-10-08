@@ -303,7 +303,7 @@ def plotSysts():
 
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
 
-                    '''hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
                     hist_atlas_MG = ATLASfile_MG.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_MG.SetName(feature+"_MG")
@@ -359,7 +359,7 @@ def plotSysts():
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas_scaleDown)
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
 
                     # draw everything
                     pad1.cd()
