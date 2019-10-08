@@ -400,7 +400,9 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    cout << "# leptons : " << MCGenLeptons.size()-1  << endl;
    for(int i = 0; i < MCGenLeptons.size()-1; i++){
      cout << "lepton index : " << i  << endl;
-     if(MCGenLeptons.at(i).Eta() > maxEta){maxEta=MCGenLeptons.at(i).Eta()}
+     if(MCGenLeptons.at(i).Eta() > maxEta){
+       maxEta=MCGenLeptons.at(i).Eta();
+     }
      cout << "maxEta : " << maxEta  << endl;
      if(i<MCGenLeptons.size()-2){
        for(int j = 0; j < MCGenLeptons.size()-1; j++){
