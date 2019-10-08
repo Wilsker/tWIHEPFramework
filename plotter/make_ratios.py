@@ -312,8 +312,10 @@ def plotSysts():
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
-                        hist_atlas.Scale(7040.32*normalisation_factor)
-                        hist_atlas_MG.Scale(7040.32*normalisation_factor)
+                        #hist_atlas.Scale(7040.32*normalisation_factor)
+                        #hist_atlas_MG.Scale(7040.32*normalisation_factor)
+                        hist_atlas.Scale(1./hist_atlas.Integral())
+                        hist_atlas_MG.Scale(1./hist_atlas_MG.Integral())
                         #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
@@ -335,8 +337,8 @@ def plotSysts():
                     hist_atlas_MG.SetLineWidth(3)
                     legend.AddEntry(hist_atlas_MG,"ATLAS MG","l")
                     hist_vars.append(hist_atlas_MG)
-                    h_ratio_atlas = createRatio(hist_atlas_MG,hist_nom,values["xtitle"])
-                    hist_ratio_vars.append(hist_atlas_MG)
+                    h_ratio_atlas_MG = createRatio(hist_atlas_MG,hist_nom,values["xtitle"])
+                    hist_ratio_vars.append(h_ratio_atlas_MG)
                     '''
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
