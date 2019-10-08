@@ -397,13 +397,10 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    MCGenHTall = MCGen_HTall;
    MCGenHThad = MCGen_HThad;
 
-   cout << "# leptons : " << MCGenLeptons.size()  << endl;
    for(int i = 0; i < MCGenLeptons.size(); i++){
-     cout << "lepton index : " << i  << " ,  eta:" << std::abs(MCGenLeptons.at(i).Eta()) << endl;
      if(std::abs(MCGenLeptons.at(i).Eta()) > maxEta){
        maxEta=std::abs(MCGenLeptons.at(i).Eta());
      }
-     cout << "maxEta : " << maxEta  << endl;
      if(i<MCGenLeptons.size()){
        for(int j = 0; j < MCGenLeptons.size(); j++){
          if (j != i){

@@ -167,6 +167,7 @@ Bool_t CutGenLeptonPt2::Apply()
 
   // SubLeading lepton pt
   Float_t SubLeadingLeptonPt = 0.;
+  Float_t LeadingLeptonPt = 0.;
 
   //Flag
   Bool_t PassesSubLeadingLetonPt = kFALSE;
@@ -190,21 +191,31 @@ Bool_t CutGenLeptonPt2::Apply()
 
   std::sort(muonVector.begin(),muonVector.end());
   std::sort(electronVector.begin(),electronVector.end());
+
+  // Now go through and see if there's a lepton passing this cut
+  for (auto const muon : muonVector){
+    if (muon.Pt() > LeadingLeptonPt) LeadingLeptonPt = muon.Pt();
+  }
+
+  for (auto const electron : electronVector){
+    if (electron.Pt() > LeadingLeptonPt) LeadingLeptonPt = electron.Pt();
+  }
+
   // Now go through and see if there's a lepton passing this cut
   // Note: for the subleading leptons we start from index 1.
   cout << "Total # muons : " << muonVector.size() << endl;
-  for (uint mu_en =1; mu_en < muonVector.size(); mu_en++){
+  for (auto const muon : muonVector){
     Muon muon = muonVector.at(mu_en);
     cout << "muon.Pt()= " << muon.Pt() << endl;
-    if (muon.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = muon.Pt();
+    if (muon.Pt() > SubLeadingLeptonPt && muon.Pt()!=LeadingLeptonPt) SubLeadingLeptonPt = muon.Pt();
     if (muon.Pt() > _SubLeadingLeptonPtCut){
       PassesSubLeadingLetonPt = kTRUE;
     }
   }
 
-  for (uint el_en =1; el_en < electronVector.size(); el_en++){
+  for (auto const electron : electronVector){
     Electron electron = electronVector.at(el_en);
-    if (electron.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = electron.Pt();
+    if (electron.Pt() > SubLeadingLeptonPt && electron.Pt()!=LeadingLeptonPt) SubLeadingLeptonPt = electron.Pt();
     if (electron.Pt() > _SubLeadingLeptonPtCut){
       PassesSubLeadingLetonPt = kTRUE;
     }
