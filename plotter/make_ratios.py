@@ -317,8 +317,8 @@ def plotSysts():
                         #hist_atlas_MG.Scale(7040.32*normalisation_factor)
                         hist_atlas.Scale(1./hist_atlas.Integral())
                         hist_atlas_MG.Scale(1./hist_atlas_MG.Integral())
-                        #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
-                        #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
+                        hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
+                        hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.SetFillColor(0)
@@ -368,8 +368,6 @@ def plotSysts():
                     # set bounds
                     maximum=0
                     for hist in hist_vars:
-                        #if normalization:
-                        #    hist.Scale(1./hist.Integral())
                         if hist.GetMaximum()>maximum:
                             maximum = hist.GetMaximum()
 
