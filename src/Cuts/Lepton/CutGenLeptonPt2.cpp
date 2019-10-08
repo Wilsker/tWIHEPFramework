@@ -188,10 +188,14 @@ Bool_t CutGenLeptonPt2::Apply()
     exit(8);
   } //else
 
+  std::sort(muonVector.begin(),muonVector.end());
+  std::sort(electronVector.begin(),electronVector.end());
   // Now go through and see if there's a lepton passing this cut
   // Note: for the subleading leptons we start from index 1.
+  cout << "Total # muons : " << muonVector.size() << endl;
   for (uint mu_en =1; mu_en < muonVector.size(); mu_en++){
     Muon muon = muonVector.at(mu_en);
+    cout << "muon.Pt()= " << muon.Pt() << endl;
     if (muon.Pt() > SubLeadingLeptonPt) SubLeadingLeptonPt = muon.Pt();
     if (muon.Pt() > _SubLeadingLeptonPtCut){
       PassesSubLeadingLetonPt = kTRUE;

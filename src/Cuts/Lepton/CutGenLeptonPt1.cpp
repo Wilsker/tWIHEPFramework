@@ -191,10 +191,9 @@ Bool_t CutGenLeptonPt1::Apply()
     << "muonType must be Gen" << std::endl;
     exit(8);
   } //else
-  cout << "Total # muons : " << muonVector.size() << endl;
+
   // Now go through and see if there's a lepton passing this cut
   for (auto const muon : muonVector){
-    cout << "muon.Pt()= " << muon.Pt() << endl;
     if (muon.Pt() > LeadingLeptonPt) LeadingLeptonPt = muon.Pt();
     if (muon.Pt() > _LeadingMuonPtCut) PassesLeadingLetonPt = kTRUE;
   }
