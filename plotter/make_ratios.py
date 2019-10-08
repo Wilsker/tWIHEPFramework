@@ -320,7 +320,7 @@ def plotSysts():
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    hist_atlas.SetFillColor(0)
+                    '''hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(2)
                     hist_atlas.SetLineStyle(7)
                     hist_atlas.SetMarkerColor(2)
@@ -339,7 +339,7 @@ def plotSysts():
                     hist_vars.append(hist_atlas_MG)
                     h_ratio_atlas_MG = createRatio(hist_atlas_MG,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas_MG)
-                    '''
+
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
