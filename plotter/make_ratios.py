@@ -313,7 +313,7 @@ def plotSysts():
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
-                        hist_atlas.Scale(7040.32/normalisation_factor)
+                        hist_atlas.Scale(7040.32*normalisation_factor)
                         #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
