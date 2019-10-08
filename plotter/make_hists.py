@@ -110,6 +110,8 @@ for sample in sampleName:
         "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt","xtitle":"leading b-jet pT"},
         "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt","xtitle":"subleading b-jet pT"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps","xtitle":"Min. dR(lep1,lep2)"},
+        "maxEta":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"maxEta","xtitle":"Max. Lepton Eta"},
+        "dPhill":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"dPhill","xtitle":"dPhi(leptons)"},
         }
 
         for feature, values in features.items():
