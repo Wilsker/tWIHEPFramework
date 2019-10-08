@@ -49,7 +49,7 @@ private:
     std::vector<Jet> all_jets;
     std::vector<Jet> light_jets;
     std::vector<Jet> b_jets;
-    
+
     long nEvent;
     int ls;
     int run;
@@ -76,19 +76,6 @@ private:
     double MCGen_MET;
     double MCGen_HTall;
     double MCGen_HThad;
-    float genWeight_muR1muF1;
-    float genWeight_muR1muF2;
-    float genWeight_muR1muF0p5;
-    float genWeight_muR2muF1;
-    float genWeight_muR2muF2;
-    float genWeight_muR2muF0p5;
-    float genWeight_muR0p5muF1;
-    float genWeight_muR0p5muF2;
-    float genWeight_muR0p5muF0p5;
-    Int_t SourceNumber;
-    Int_t count_leps_from_bmeson;
-    Int_t count_leps_from_bmeson_gt005;
-
     double jet1_pt;
     double jet2_pt;
     double jet3_pt;
@@ -101,6 +88,22 @@ private:
     double Bjet2_pt;
     int NJets;
     int NBJets;
+    double maxEta;
+    double dPhill;
+
+
+    float genWeight_muR1muF1;
+    float genWeight_muR1muF2;
+    float genWeight_muR1muF0p5;
+    float genWeight_muR2muF1;
+    float genWeight_muR2muF2;
+    float genWeight_muR2muF0p5;
+    float genWeight_muR0p5muF1;
+    float genWeight_muR0p5muF2;
+    float genWeight_muR0p5muF0p5;
+    Int_t SourceNumber;
+    Int_t count_leps_from_bmeson;
+    Int_t count_leps_from_bmeson_gt005;
 
 
 };

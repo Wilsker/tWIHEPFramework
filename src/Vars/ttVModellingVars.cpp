@@ -47,6 +47,8 @@ ttVModellingVars::ttVModellingVars(bool makeHistos){
   _floatVars["MCGenMET"] = 999;
   _floatVars["MCGenHTall"] = 999;
   _floatVars["MCGenHThad"] = 999;
+  _floatVars["maxEta"] = 999;
+  _floatVars["dPhill"] = 999;
 
   _floatVars["NBJets"] = 10;
   _floatVars["NJets"] = 10;
@@ -172,6 +174,8 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    double MCGenMET =-9;
    double MCGenHTall =-9;
    double MCGenHThad =-9;
+   double maxEta = -9;
+   double dPhill = -9;
 
    SourceNumber = evtObj->GetSourceNumber();
 
@@ -342,7 +346,7 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
      if (all_jets.at(jet_in).Pt() < reco_jet7pt && all_jets.at(jet_in).Pt() > reco_jet8pt) {reco_jet8pt = all_jets.at(jet_in).Pt();}
    }
 
-   
+
    for (uint jet_in=0;jet_in<b_jets.size();jet_in++){
      if (b_jets.at(jet_in).Pt() > reco_bjet1pt) {reco_bjet1pt = b_jets.at(jet_in).Pt();}
    }
@@ -393,6 +397,22 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    MCGenHTall = MCGen_HTall;
    MCGenHThad = MCGen_HThad;
 
+   cout << "# leptons : " << MCGenLeptons.size()-1  << endl;
+   for(int i = 0; i < MCGenLeptons.size()-1; i++){
+     cout << "lepton index : " << i  << endl;
+     if(MCGenLeptons.at(i).Eta() > maxEta){maxEta=MCGenLeptons.at(i).Eta()}
+     cout << "maxEta : " << maxEta  << endl;
+     if(i<MCGenLeptons.size()-2){
+       for(int j = 0; j < MCGenLeptons.size()-1; j++){
+         if (j != i){
+           dPhill = MCGenLeptons.at(i).DeltaPhi(MCGenLeptons.at(j));
+           cout << "i: " << i << ", j: " << j << endl;
+           cout << "dPhill: " << dPhill << endl;
+         }
+       }
+     }
+   }
+
    /*MCParticle temp = leading_MCLepton.GetGenMotherNoFsr(leading_MCLepton,genParticles);
    if (MinDeltaR_MCGenLep1Jet<0.04 && temp.PdgId() > 500 && temp.PdgId() < 540){
      cout << "MinDeltaR_MCGenLep1Jet less than 0.05. Mothers PdgId(): " << temp.PdgId() << endl;
@@ -434,6 +454,8 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
   _floatVars["MCGenMET"] = MCGenMET;
   _floatVars["MCGenHTall"] = MCGenHTall;
   _floatVars["MCGenHThad"] = MCGenHThad;
+  _floatVars["maxEta"] = maxEta;
+  _floatVars["dPhill"] = dPhill;
 
   _floatVars["genWeight_muR1muF1"] = genWeight_muR1muF1;
   _floatVars["genWeight_muR1muF2"] = genWeight_muR1muF2;
