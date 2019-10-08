@@ -78,7 +78,9 @@ for sample in sampleName:
         "jet5_pt":"jet_Pt_5_"+ATLAS_region_index,
         "jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
         "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
-        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index
+        "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index,
+        "maxEta":"maxEta_ll_"+ATLAS_region_index,
+        "dPhill":"lep_dPhi_"+ATLAS_region_index
         }
 
         filename = "myhist_%s.root" % region

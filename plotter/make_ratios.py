@@ -54,7 +54,7 @@ ATLAS_scaleUp_filename = 'ATLAS_TTW_SherpaScaleDown_0110.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_SherpaScaleUp_0110.root'
 ATLAS_MG_filename = 'ATLAS_TTW_MG_0810.root'
 # options
-normalization = False # Normalize to unit
+normalization = True # Normalize to unit
 showStats = False
 
 # directory of output
@@ -167,6 +167,8 @@ def plotSysts():
         "Bjet1_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet1_pt","xtitle":"leading b-jet pT"},
         "Bjet2_pt":{"nbin":10,"min":0.5,"max":200.5,"cut":cut_string,"xlabel":"Bjet2_pt","xtitle":"subleading b-jet pT"},
         "MinDRMCGenLeps":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"MinDRMCGenLeps","xtitle":"Min. dR(lep1,lep2)"},
+        "maxEta":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"maxEta","xtitle":"Max. Lepton Eta"},
+        "dPhill":{"nbin":12,"min":0.0,"max":5.5,"cut":cut_string,"xlabel":"dPhill","xtitle":"dPhi(leptons)"},
         }
 
         ATLAS_region_index='0'
@@ -208,7 +210,9 @@ def plotSysts():
         "jet6_pt":"jet_Pt_6_"+ATLAS_region_index,
         "gen_lepton1_pt":"lep_Pt_0_"+ATLAS_region_index,
         "gen_lepton2_pt":"lep_Pt_1_"+ATLAS_region_index,
-        "Jet_hadronFlavour":"nBtagJets_"+ATLAS_region_index
+        "Jet_hadronFlavour":"nBtagJets_"+ATLAS_region_index,
+        "maxEta":"maxEta_ll_"+ATLAS_region_index,
+        "dPhill":"lep_dPhi_"+ATLAS_region_index
         }
 
         for sample in sampleName:
