@@ -228,9 +228,11 @@ def plotSysts():
                     continue
 
                 hist_eventweights = inputfile.Get("EventWeight")
-                hist_nom.Scale(1./7040.32)
+                #hist_nom.Scale(1./7040.32)
+                normalisation_factor = 1/hist_nom.Integral()
+                print 'hist_nom.Integral(): ', hist_nom.Integral()
                 if normalization:
-                    hist_nom.Scale(1./hist_nom.Integral())
+                    hist_nom.Scale(1./normalisation_factor)
                 #else:
                 #    hist_nom.Scale(1./7040.32)
 
@@ -264,9 +266,9 @@ def plotSysts():
                         hist_var.SetLineColor(Color[""])
                         hist_var.SetMarkerColor(1)
                         hist_var.SetLineWidth(3)
-                        hist_var.Scale(1./7040.32)
+                        #hist_var.Scale(1./7040.32)
                         if normalization:
-                            hist_var.Scale(1./hist_nom.Integral())
+                            hist_var.Scale(1./normalisation_factor)
                         #else:
                             #hist_var.Scale(1./7040.32)
 
@@ -289,9 +291,9 @@ def plotSysts():
                             hist_var.SetLineColor(Color[sixpoint_index])
                             hist_var.SetMarkerColor(Color[sixpoint_index])
                             hist_var.SetLineWidth(2)
-                            hist_var.Scale(1./7040.32)
+                            #hist_var.Scale(1./7040.32)
                             if normalization:
-                                hist_var.Scale(1./hist_nom.Integral())
+                                hist_var.Scale(1./normalisation_factor)
                             #else:
                             #    hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
@@ -308,12 +310,12 @@ def plotSysts():
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
-                        hist_atlas.Scale(1./hist_nom.Integral())
+                        hist_atlas.Scale(1./normalisation_factor)
                         #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    hist_atlas.SetFillColor(0)
+                    '''hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(2)
                     hist_atlas.SetLineStyle(7)
                     hist_atlas.SetMarkerColor(2)
@@ -322,7 +324,6 @@ def plotSysts():
                     hist_vars.append(hist_atlas)
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
-                    '''
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
@@ -354,13 +355,12 @@ def plotSysts():
                         if hist.GetMaximum()>maximum:
                             maximum = hist.GetMaximum()
 
-                    upperbound = 3.0*maximum
+                    upperbound = 2.6*maximum
                     lowerbound = -maximum/40.
 
                     if showStats:
                         hist_nom.SetStats(1)
 
-                    print 'upperbound: ', upperbound
                     hist_nom.SetMaximum(upperbound)
                     hist_nom.SetMinimum(lowerbound)
                     # Adjust y-axis settings
