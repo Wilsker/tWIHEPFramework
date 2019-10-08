@@ -349,13 +349,16 @@ def plotSysts():
                     for hist in hist_vars:
                         if normalization:
                             hist.Scale(1./hist.Integral())
-                        if hist.GetMaximum()>maximum: maximum = hist.GetMaximum()
-                    upperbound = 2.5*maximum
+                        if hist.GetMaximum()>maximum:
+                            maximum = hist.GetMaximum()
+
+                    upperbound = 3.0*maximum
                     lowerbound = -maximum/40.
 
                     if showStats:
                         hist_nom.SetStats(1)
 
+                    print 'upperbound: ', upperbound
                     hist_nom.SetMaximum(upperbound)
                     hist_nom.SetMinimum(lowerbound)
                     # Adjust y-axis settings
