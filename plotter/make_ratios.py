@@ -54,7 +54,7 @@ ATLAS_scaleUp_filename = 'ATLAS_TTW_SherpaScaleDown_0110.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_SherpaScaleUp_0110.root'
 
 # options
-normalization = False # Normalize to unit
+normalization = True # Normalize to unit
 showStats = False
 
 # directory of output
