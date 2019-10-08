@@ -23,7 +23,9 @@ region_ = {
 }
 
 # ATLAS ROOT file
-ATLAS_filename = 'ATLAS_TTW_Sherpa_0710_2.root'
+#ATLAS_filename = 'ATLAS_TTW_Sherpa_0710_2.root'
+ATLAS_filename = 'ATLAS_TTW_MG_0810.root'
+ATLAS_MG_filename = 'ATLAS_TTW_MG_0810.root'
 
 def draw_underflow_overflow(h1):
     h1.GetXaxis().SetRange(0, h1.GetNbinsX() + 1)

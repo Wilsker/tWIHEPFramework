@@ -53,7 +53,7 @@ createROOTfile = True  # Set to Truth for the first time
 ATLAS_filename = 'ATLAS_TTW_MG_0810.root'
 ATLAS_scaleUp_filename = 'ATLAS_TTW_SherpaScaleDown_0110.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_SherpaScaleUp_0110.root'
-
+ATLAS_MG_filename = 'ATLAS_TTW_MG_0810.root'
 # options
 normalization = True # Normalize to unit
 showStats = False
@@ -121,11 +121,16 @@ def createCanvasPads():
 def plotSysts():
 
     ATLASfile = TFile(ATLAS_filename,"read")
+    ATLASfile_MG = TFile(ATLAS_MG_filename,"read")
+
     ATLASfile_scaleUp = TFile(ATLAS_scaleUp_filename,"read")
     ATLASfile_scaleDown = TFile(ATLAS_scaleDown_filename,"read")
 
     if ATLASfile.IsZombie():
         print("ATLASfile is Zombie")
+        sys.exit()
+    if ATLASfile_MG.IsZombie():
+        print("ATLASfile MG is Zombie")
         sys.exit()
     if ATLASfile_scaleUp.IsZombie():
         print("ATLASfile_scaleUp is Zombie")
@@ -234,9 +239,6 @@ def plotSysts():
                 print 'hist_nom.Integral(): ', hist_nom.Integral()
                 if normalization:
                     hist_nom.Scale(normalisation_factor)
-                    #hist_nom.Scale(1./hist_nom.Integral())
-                else:
-                    hist_nom.Scale(1./7040.32)
 
                 # Need to scale down to 1/XS*BR*Lumi to match ATLAS fiducial normalisation
                 # Scale up to correct ttW inclusive XS = 600.8
@@ -271,9 +273,6 @@ def plotSysts():
 
                         if normalization:
                             hist_var.Scale(normalisation_factor)
-                            #hist_var.Scale(1./hist_var.Integral())
-                        else:
-                            hist_var.Scale(1./7040.32)
 
                         hist_vars.append(hist_var)
                         h_ratio_var = createRatio(hist_var, hist_nom ,values["xtitle"])
@@ -297,9 +296,7 @@ def plotSysts():
 
                             if normalization:
                                 hist_var.Scale(normalisation_factor)
-                                #hist_var.Scale(1./hist_var.Integral())
-                            else:
-                                hist_var.Scale(1./7040.32)
+
                             hist_vars.append(hist_var)
                             legend.AddEntry(hist_var,hist_nickname_plus_syst,"l")
                             h_ratio_var = createRatio(hist_var, hist_nom, values["xtitle"])
@@ -308,6 +305,8 @@ def plotSysts():
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
                     hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
+                    hist_atlas_MG = ATLASfile_MG.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas_MG.SetName(feature+"_MG")
                     '''hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleUp.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
@@ -315,6 +314,7 @@ def plotSysts():
 
                     if normalization:
                         hist_atlas.Scale(7040.32*normalisation_factor)
+                        hist_atlas_MG.Scale(7040.32*normalisation_factor)
                         #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
@@ -328,6 +328,16 @@ def plotSysts():
                     hist_vars.append(hist_atlas)
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
+
+                    hist_atlas_MG.SetFillColor(0)
+                    hist_atlas_MG.SetLineColor(4)
+                    hist_atlas_MG.SetLineStyle(7)
+                    hist_atlas_MG.SetMarkerColor(4)
+                    hist_atlas_MG.SetLineWidth(3)
+                    legend.AddEntry(hist_atlas_MG,"ATLAS MG","l")
+                    hist_vars.append(hist_atlas_MG)
+                    h_ratio_atlas = createRatio(hist_atlas_MG,hist_nom,values["xtitle"])
+                    hist_ratio_vars.append(hist_atlas_MG)
                     '''
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleDown.SetFillColor(0)
