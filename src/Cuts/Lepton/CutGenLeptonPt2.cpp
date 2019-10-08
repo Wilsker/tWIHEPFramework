@@ -205,7 +205,6 @@ Bool_t CutGenLeptonPt2::Apply()
   // Note: for the subleading leptons we start from index 1.
   cout << "Total # muons : " << muonVector.size() << endl;
   for (auto const muon : muonVector){
-    Muon muon = muonVector.at(mu_en);
     cout << "muon.Pt()= " << muon.Pt() << endl;
     if (muon.Pt() > SubLeadingLeptonPt && muon.Pt()!=LeadingLeptonPt) SubLeadingLeptonPt = muon.Pt();
     if (muon.Pt() > _SubLeadingLeptonPtCut){
@@ -214,7 +213,6 @@ Bool_t CutGenLeptonPt2::Apply()
   }
 
   for (auto const electron : electronVector){
-    Electron electron = electronVector.at(el_en);
     if (electron.Pt() > SubLeadingLeptonPt && electron.Pt()!=LeadingLeptonPt) SubLeadingLeptonPt = electron.Pt();
     if (electron.Pt() > _SubLeadingLeptonPtCut){
       PassesSubLeadingLetonPt = kTRUE;
