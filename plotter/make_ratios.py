@@ -352,9 +352,9 @@ def plotSysts():
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
 
                     hist_atlas_scaleDown.SetFillColor(0)
-                    hist_atlas_scaleDown.SetLineColor(4)
+                    hist_atlas_scaleDown.SetLineColor(6)
                     hist_atlas_scaleDown.SetLineStyle(7)
-                    hist_atlas_scaleDown.SetMarkerColor(4)
+                    hist_atlas_scaleDown.SetMarkerColor(6)
                     hist_atlas_scaleDown.SetLineWidth(3)
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas_scaleDown)
