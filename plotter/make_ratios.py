@@ -266,7 +266,7 @@ def plotSysts():
                         hist_var.SetLineWidth(3)
                         hist_var.Scale(1./7040.32)
                         if normalization:
-                            hist_var.Scale(1./hist_var.Integral())
+                            hist_var.Scale(1./hist_nom.Integral())
                         #else:
                             #hist_var.Scale(1./7040.32)
 
@@ -291,7 +291,7 @@ def plotSysts():
                             hist_var.SetLineWidth(2)
                             hist_var.Scale(1./7040.32)
                             if normalization:
-                                hist_var.Scale(1./hist_var.Integral())
+                                hist_var.Scale(1./hist_nom.Integral())
                             #else:
                             #    hist_var.Scale(1./7040.32)
                             hist_vars.append(hist_var)
@@ -308,7 +308,7 @@ def plotSysts():
                     hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
 
                     if normalization:
-                        hist_atlas.Scale(1./hist_atlas.Integral())
+                        hist_atlas.Scale(1./hist_nom.Integral())
                         #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
