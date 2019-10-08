@@ -17,9 +17,9 @@ region_ = {
 "2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
 "2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
 "2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)",
-"2lss_0bgeq3j":"(NJets>=3 && n_gen_tau==0)",
-"2lss_0beeq3j":"(NJets==3 && n_gen_tau==0)",
-"2lss_0bgeq4j":"(NJets>=4 && n_gen_tau==0)"
+#"2lss_0bgeq3j":"(NJets>=3 && n_gen_tau==0)",
+#"2lss_0beeq3j":"(NJets==3 && n_gen_tau==0)",
+#"2lss_0bgeq4j":"(NJets>=4 && n_gen_tau==0)"
 }
 
 # ATLAS ROOT file

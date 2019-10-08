@@ -16,9 +16,9 @@ region_ = {
 "2lss_1beeq3j":"(NJets==3 && NBJets==1 && n_gen_tau==0)",
 "2lss_2bgeq4j":"(NJets>=4 && NBJets>=2 && n_gen_tau==0)",
 "2lss_2beeq3j":"(NJets==3 && NBJets>=2 && n_gen_tau==0)",
-"2lss_0bgeq3j":"(NJets>=3 && n_gen_tau==0)",
-"2lss_0beeq3j":"(NJets==3 && n_gen_tau==0)",
-"2lss_0bgeq4j":"(NJets>=4 && n_gen_tau==0)"
+#"2lss_0bgeq3j":"(NJets>=3 && n_gen_tau==0)",
+#"2lss_0beeq3j":"(NJets==3 && n_gen_tau==0)",
+#"2lss_0bgeq4j":"(NJets>=4 && n_gen_tau==0)"
 }
 
 region_title = {
@@ -302,14 +302,15 @@ def plotSysts():
                             hist_ratio_vars.append(h_ratio_var)
 
                     print 'make_ratios:: %s: ATLAS feature equivalent = %s ' % (feature,ATLAS_feature_map.get(feature))
-                    hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
+
+                    '''hist_atlas = ATLASfile.Get(ATLAS_feature_map.get(feature))
                     hist_atlas.SetName(feature+"_nominal")
                     hist_atlas_MG = ATLASfile_MG.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_MG.SetName(feature+"_MG")
-                    '''hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
+                    hist_atlas_scaleUp = ATLASfile_scaleUp.Get(ATLAS_feature_map.get(feature))
                     hist_atlas_scaleUp.SetName(feature+"_scaleUp")
                     hist_atlas_scaleDown = ATLASfile_scaleDown.Get(ATLAS_feature_map.get(feature))
-                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")'''
+                    hist_atlas_scaleDown.SetName(feature+"_scaleDown")
 
                     if normalization:
                         #hist_atlas.Scale(7040.32*normalisation_factor)
@@ -320,7 +321,7 @@ def plotSysts():
                         #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    '''hist_atlas.SetFillColor(0)
+                    hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(2)
                     hist_atlas.SetLineStyle(7)
                     hist_atlas.SetMarkerColor(2)
@@ -341,22 +342,23 @@ def plotSysts():
                     hist_ratio_vars.append(h_ratio_atlas_MG)
 
                     hist_atlas_scaleUp.SetFillColor(0)
-                    hist_atlas_scaleDown.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
-                    hist_atlas_scaleDown.SetLineColor(4)
                     hist_atlas_scaleUp.SetLineStyle(7)
-                    hist_atlas_scaleDown.SetLineStyle(7)
                     hist_atlas_scaleUp.SetMarkerColor(3)
-                    hist_atlas_scaleDown.SetMarkerColor(4)
                     hist_atlas_scaleUp.SetLineWidth(3)
-                    hist_atlas_scaleDown.SetLineWidth(3)
                     legend.AddEntry(hist_atlas_scaleUp,"ATLAS Sherpa Scale Up","l")
-                    legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas_scaleUp)
-                    hist_vars.append(hist_atlas_scaleDown)
                     h_ratio_atlas_scaleUp = createRatio(hist_atlas_scaleUp,hist_nom,values["xtitle"])
-                    h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas_scaleUp)
+
+                    hist_atlas_scaleDown.SetFillColor(0)
+                    hist_atlas_scaleDown.SetLineColor(4)
+                    hist_atlas_scaleDown.SetLineStyle(7)
+                    hist_atlas_scaleDown.SetMarkerColor(4)
+                    hist_atlas_scaleDown.SetLineWidth(3)
+                    legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
+                    hist_vars.append(hist_atlas_scaleDown)
+                    h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
 
                     # draw everything
