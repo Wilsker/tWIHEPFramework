@@ -54,7 +54,7 @@ ATLAS_scaleUp_filename = 'ATLAS_TTW_SherpaScaleDown_0110.root'
 ATLAS_scaleDown_filename = 'ATLAS_TTW_SherpaScaleUp_0110.root'
 ATLAS_MG_filename = 'ATLAS_TTW_MG_0810.root'
 # options
-normalization = True # Normalize to unit
+normalization = False # Normalize to unit
 showStats = False
 
 # directory of output
@@ -319,6 +319,11 @@ def plotSysts():
                         hist_atlas_MG.Scale(1./hist_atlas_MG.Integral())
                         hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
                         hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
+                    else:
+                        hist_atlas.Scale(7040.32)
+                        hist_atlas_MG.Scale(7040.32)
+                        hist_atlas_scaleUp.Scale(7040.32)
+                        hist_atlas_scaleDown.Scale(7040.32)
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.SetFillColor(0)
