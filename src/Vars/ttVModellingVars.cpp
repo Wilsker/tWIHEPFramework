@@ -370,9 +370,6 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
    Bjet1_pt=reco_bjet1pt;
    Bjet2_pt=reco_bjet2pt;
 
-
-
-
    for (int i = 0; i<MCGenLeptons.size()-1; i++){
      if ( MCGenLeptons.at(i).DeltaR(MCGenLeptons.at(i+1)) < MinDeltaR_MCGenLeps ){
        MinDeltaR_MCGenLeps = MCGenLeptons.at(i).DeltaR(MCGenLeptons.at(i+1));
@@ -402,17 +399,15 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
 
    cout << "# leptons : " << MCGenLeptons.size()  << endl;
    for(int i = 0; i < MCGenLeptons.size(); i++){
-     cout << "lepton index : " << i  << endl;
-     if(MCGenLeptons.at(i).Eta() > maxEta){
-       maxEta=MCGenLeptons.at(i).Eta();
+     cout << "lepton index : " << i  << " ,  eta:" << std::abs(MCGenLeptons.at(i).Eta()) << endl;
+     if(std::abs(MCGenLeptons.at(i).Eta()) > maxEta){
+       maxEta=std::abs(MCGenLeptons.at(i).Eta());
      }
      cout << "maxEta : " << maxEta  << endl;
      if(i<MCGenLeptons.size()){
        for(int j = 0; j < MCGenLeptons.size(); j++){
          if (j != i){
            dPhill = MCGenLeptons.at(i).DeltaPhi(MCGenLeptons.at(j));
-           cout << "i: " << i << ", j: " << j << endl;
-           cout << "dPhill: " << dPhill << endl;
          }
        }
      }
