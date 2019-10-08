@@ -309,8 +309,8 @@ def plotSysts():
 
                     if normalization:
                         hist_atlas.Scale(1./hist_atlas.Integral())
-                        hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
-                        hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
+                        #hist_atlas_scaleUp.Scale(1./hist_atlas_scaleUp.Integral())
+                        #hist_atlas_scaleDown.Scale(1./hist_atlas_scaleDown.Integral())
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
                     hist_atlas.SetFillColor(0)
