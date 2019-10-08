@@ -404,8 +404,8 @@ void ttVModellingVars::FillBranches(EventContainer * evtObj){
        maxEta=MCGenLeptons.at(i).Eta();
      }
      cout << "maxEta : " << maxEta  << endl;
-     if(i<MCGenLeptons.size()-2){
-       for(int j = 0; j < MCGenLeptons.size()-1; j++){
+     if(i<MCGenLeptons.size()){
+       for(int j = 0; j < MCGenLeptons.size(); j++){
          if (j != i){
            dPhill = MCGenLeptons.at(i).DeltaPhi(MCGenLeptons.at(j));
            cout << "i: " << i << ", j: " << j << endl;
