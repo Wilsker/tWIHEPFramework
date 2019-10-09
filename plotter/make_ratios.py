@@ -328,7 +328,7 @@ def plotSysts():
                         hist_atlas_scaleDown.Scale(7040.32)
 
                     # Need to scale ATLAS plot by XS = 600.8 fb
-                    '''hist_atlas.SetFillColor(0)
+                    hist_atlas.SetFillColor(0)
                     hist_atlas.SetLineColor(2)
                     hist_atlas.SetLineStyle(7)
                     hist_atlas.SetMarkerColor(2)
@@ -338,7 +338,7 @@ def plotSysts():
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
 
-                    hist_atlas_MG.SetFillColor(0)
+                    '''hist_atlas_MG.SetFillColor(0)
                     hist_atlas_MG.SetLineColor(4)
                     hist_atlas_MG.SetLineStyle(7)
                     hist_atlas_MG.SetMarkerColor(4)
@@ -346,7 +346,7 @@ def plotSysts():
                     legend.AddEntry(hist_atlas_MG,"ATLAS MG","l")
                     hist_vars.append(hist_atlas_MG)
                     h_ratio_atlas_MG = createRatio(hist_atlas_MG,hist_nom,values["xtitle"])
-                    hist_ratio_vars.append(h_ratio_atlas_MG)
+                    hist_ratio_vars.append(h_ratio_atlas_MG)'''
 
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
@@ -366,7 +366,7 @@ def plotSysts():
                     legend.AddEntry(hist_atlas_scaleDown,"ATLAS Sherpa Scale Down","l")
                     hist_vars.append(hist_atlas_scaleDown)
                     h_ratio_atlas_scaleDown = createRatio(hist_atlas_scaleDown,hist_nom,values["xtitle"])
-                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)'''
+                    hist_ratio_vars.append(h_ratio_atlas_scaleDown)
 
                     # draw everything
                     pad1.cd()
