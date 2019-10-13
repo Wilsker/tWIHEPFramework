@@ -338,7 +338,7 @@ def plotSysts():
                     h_ratio_atlas = createRatio(hist_atlas,hist_nom,values["xtitle"])
                     hist_ratio_vars.append(h_ratio_atlas)
 
-                    '''hist_atlas_MG.SetFillColor(0)
+                    hist_atlas_MG.SetFillColor(0)
                     hist_atlas_MG.SetLineColor(4)
                     hist_atlas_MG.SetLineStyle(7)
                     hist_atlas_MG.SetMarkerColor(4)
@@ -346,7 +346,7 @@ def plotSysts():
                     legend.AddEntry(hist_atlas_MG,"ATLAS MG","l")
                     hist_vars.append(hist_atlas_MG)
                     h_ratio_atlas_MG = createRatio(hist_atlas_MG,hist_nom,values["xtitle"])
-                    hist_ratio_vars.append(h_ratio_atlas_MG)'''
+                    hist_ratio_vars.append(h_ratio_atlas_MG)
 
                     hist_atlas_scaleUp.SetFillColor(0)
                     hist_atlas_scaleUp.SetLineColor(3)
@@ -418,7 +418,7 @@ def plotSysts():
                     label = ROOT.TLatex()
                     label.SetTextSize(0.04)
                     label.SetTextAlign(13)
-                    label.DrawLatexNDC(.19,.8,"CMS Simulation")
+                    label.DrawLatexNDC(.19,.8,"ATLAS & CMS Simulation")
                     label.DrawLatexNDC(.19,.75,"(for LHC HXSWG)")
 
                     pad2.cd()
@@ -431,8 +431,8 @@ def plotSysts():
                     for i in range(len(hist_ratio_vars)):
                         if i==0:
                             hist_ratio_vars[i].Draw("hist")
-                            hist_ratio_vars[i].SetMinimum(0.4)
-                            hist_ratio_vars[i].SetMaximum(1.6)
+                            hist_ratio_vars[i].SetMinimum(0.6)
+                            hist_ratio_vars[i].SetMaximum(1.4)
                         else:
                             hist_ratio_vars[i].Draw("histsame")
                     if 'genWeight_' not in feature:
