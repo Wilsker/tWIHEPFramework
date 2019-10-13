@@ -416,7 +416,7 @@ def plotSysts():
 
                     legend.Draw("same")
                     label = ROOT.TLatex()
-                    label.SetTextSize(0.04)
+                    label.SetTextSize(0.03)
                     label.SetTextAlign(13)
                     label.DrawLatexNDC(.19,.8,"ATLAS & CMS Simulation")
                     label.DrawLatexNDC(.19,.75,"(for LHC HXSWG)")
