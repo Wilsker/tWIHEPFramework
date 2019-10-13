@@ -419,7 +419,7 @@ def plotSysts():
                     label.SetTextSize(0.04)
                     label.SetTextAlign(13)
                     label.DrawLatexNDC(.19,.8,"CMS Simulation")
-                    label.DrawLatexNDC(.19,.75,"(Work In Progress)")
+                    label.DrawLatexNDC(.19,.75,"(for LHC HXSWG)")
 
                     pad2.cd()
                     bins = h_ratio.GetNbinsX()
